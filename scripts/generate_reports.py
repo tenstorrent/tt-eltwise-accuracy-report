@@ -129,10 +129,13 @@ def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
                 df = df[df["x"] <= d_hi]
         if df.empty:
             return None
+        max_ulp_val = df["max_ulp_error"].replace([float("inf"), float("-inf")], float("nan")).max()
+        n_clipped = int((df["max_ulp_error"] > 1000).sum())
         return {
-            "max_ulp": f"{df['max_ulp_error'].max():.3g}",
-            "mean_ulp": f"{df['mean_ulp_error'].mean():.3g}",
+            "max_ulp": f"{max_ulp_val:.3g}" if max_ulp_val == max_ulp_val else "—",  # nan check
+            "mean_ulp": f"{df['mean_ulp_error'].replace([float('inf'), float('-inf')], float('nan')).mean():.3g}",
             "max_abs": f"{df['max_abs_error'].max():.3g}",
+            "ulp_clipped": n_clipped,
         }
     except Exception:
         return None
@@ -196,11 +199,13 @@ def op_detail_page(arch: str, dtype: str, op: str, variants: list[str], data: di
 
         summary = load_summary(arch, dtype, op, variant)
         if summary:
+            clipped_note = (f" ⚠ ({summary['ulp_clipped']} groups > 1000 ULP, "
+                            f"see max abs error)" if summary.get("ulp_clipped") else "")
             lines.extend([
                 "| Metric | Value |\n",
                 "|--------|-------|\n",
-                f"| Max ULP error | {summary['max_ulp']} |\n",
-                f"| Mean ULP error | {summary['mean_ulp']} |\n",
+                f"| Max ULP error (display range) | {summary['max_ulp']}{clipped_note} |\n",
+                f"| Mean ULP error (display range) | {summary['mean_ulp']} |\n",
                 f"| Max absolute error | {summary['max_abs']} |\n",
                 "\n",
             ])

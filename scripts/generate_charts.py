@@ -74,11 +74,14 @@ def plot_ulp_chart(
         print(f"  Skipping empty data for {op_name}/{variant}")
         return
 
+    ULP_CLIP = 1000.0  # cap y-axis; values above are clipped to keep scale useful
+
     fig, ax = plt.subplots(figsize=(10, 5))
 
     x = df["x"].values
-    max_ulp = df["max_ulp_error"].values
-    mean_ulp = df["mean_ulp_error"].values
+    max_ulp = np.clip(df["max_ulp_error"].values, 0, ULP_CLIP)
+    mean_ulp = np.clip(df["mean_ulp_error"].values, 0, ULP_CLIP)
+    n_clipped = int((df["max_ulp_error"].values > ULP_CLIP).sum())
 
     # Plot mean and max ULP error lines
     ax.plot(x, max_ulp,  color="#3498db", linewidth=0.8, label="max ULP error",  zorder=3)
@@ -90,12 +93,15 @@ def plot_ulp_chart(
     # Axis formatting
     ax.set_xscale("symlog", linthresh=1e-3)
     ax.set_yscale("asinh", linear_width=0.01)
-    ax.set_ylim(bottom=0)
+    ax.set_ylim(bottom=0, top=ULP_CLIP * 1.1)
 
     ax.set_xlabel("Input x", fontsize=11)
-    ax.set_ylabel("ULP Error", fontsize=11)
+    ax.set_ylabel(f"ULP Error (clipped at {ULP_CLIP:.0f})", fontsize=11)
     variant_str = f" [{variant}]" if variant != "default" else ""
-    ax.set_title(f"ttnn.{op_name}{variant_str} — ULP error vs input  [{arch.upper()}, {dtype}]", fontsize=12)
+    title = f"ttnn.{op_name}{variant_str} — ULP error vs input  [{arch.upper()}, {dtype}]"
+    if n_clipped:
+        title += f"\n({n_clipped} groups clipped at {ULP_CLIP:.0f} ULP — see summary for abs error)"
+    ax.set_title(title, fontsize=11)
 
     ax.legend(loc="upper right", fontsize=9, framealpha=0.8)
     ax.grid(True, alpha=0.3, which="both")
