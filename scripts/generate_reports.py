@@ -77,7 +77,14 @@ def chart_rel_path(arch: str, dtype: str, op: str, variant: str, from_dir: Path)
     """Return relative path to SVG chart from a given directory."""
     chart = CHARTS_DIR / arch / dtype / f"{op}_{variant}_ulp.svg"
     if chart.exists():
-        return str(chart.relative_to(from_dir))
+        # Calculate relative path from from_dir to chart
+        # Both paths are under REPORTS_DIR, so we can construct the relative path manually
+        from_rel = from_dir.relative_to(REPORTS_DIR) if REPORTS_DIR in from_dir.parents else from_dir
+        chart_rel = chart.relative_to(REPORTS_DIR)
+        # Count how many levels up we need to go from from_dir
+        up_levels = len(from_rel.parts)
+        rel_path = Path("/".join([".."] * up_levels)) / chart_rel
+        return str(rel_path)
     return ""
 
 

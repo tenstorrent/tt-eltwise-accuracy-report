@@ -154,10 +154,15 @@ def measure_bf16(
     if hi != float("inf"):
         mask &= x_flat <= hi
 
-    x_valid = x_bf16.flatten()[mask].reshape(-1, TENSOR_WIDTH)
-    if x_valid.numel() == 0:
+    x_flat_valid = x_bf16.flatten()[mask]
+    if x_flat_valid.numel() == 0:
         print(f"  {TERM_RED}No valid bf16 inputs for {op_name}/{variant_name}{TERM_RESET}")
         return
+    # Pad to multiple of TENSOR_WIDTH so tiling works even for narrow domains
+    pad = (-x_flat_valid.numel()) % TENSOR_WIDTH
+    if pad > 0:
+        x_flat_valid = torch.cat([x_flat_valid, x_flat_valid[:pad]])
+    x_valid = x_flat_valid.reshape(-1, TENSOR_WIDTH)
 
     actual_h = x_valid.shape[0]
 
@@ -167,8 +172,7 @@ def measure_bf16(
         golden_f64 = golden_fn(x_f64, out=golden_f64)
 
     ttnn_in = ttnn.from_torch(x_valid, device=device, dtype=ttnn.bfloat16, layout=ttnn.TILE_LAYOUT)
-    ttnn_out = ttnn.zeros_like(ttnn_in)
-    ttnn_result = ttnn_fn(ttnn_in, ttnn_out)
+    ttnn_result = ttnn_fn(ttnn_in)
 
     calc = ttnn.to_torch(ttnn_result)
 
@@ -241,8 +245,7 @@ def measure_fp32(
             golden_f64 = golden_fn(x_f64, out=golden_f64)
 
         ttnn_in = ttnn.from_torch(x_2d, device=device, dtype=ttnn.float32, layout=ttnn.TILE_LAYOUT)
-        ttnn_out = ttnn.zeros_like(ttnn_in)
-        ttnn_result = ttnn_fn(ttnn_in, ttnn_out)
+        ttnn_result = ttnn_fn(ttnn_in)
         calc = ttnn.to_torch(ttnn_result)
 
         gs = min(GROUP_SIZE, x_2d.shape[-1])
