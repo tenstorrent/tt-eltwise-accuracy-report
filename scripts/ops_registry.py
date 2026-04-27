@@ -543,67 +543,71 @@ def _build_registry() -> dict[str, OpEntry]:
     # UNARY BACKWARD OPERATIONS
     # -----------------------------------------------------------------------
 
-    add(OpEntry(
-        name="abs_bw", category="unary_bw",
-        variants=[OpVariant(ttnn_fn=bw_fn(ttnn.abs_bw), golden_fn=bw_golden(ttnn.abs_bw))],
-        input_range=InputRange(display_lo=-10, display_hi=10),
-    ))
-
-    add(OpEntry(
-        name="floor_bw", category="unary_bw",
-        variants=[OpVariant(ttnn_fn=bw_fn(ttnn.floor_bw), golden_fn=bw_golden(ttnn.floor_bw))],
-        input_range=InputRange(display_lo=-10, display_hi=10),
-    ))
-
-    for bw_name, bw_op, d_lo, d_hi in [
-        ("exp_bw",        ttnn.exp_bw,        -10,          88           ),
-        ("exp2_bw",       ttnn.exp2_bw,        -20,         127          ),
-        ("expm1_bw",      ttnn.expm1_bw,       -10,          88          ),
-        ("log_bw",        ttnn.log_bw,          1e-7,        1e7         ),
-        ("log10_bw",      ttnn.log10_bw,        1e-7,        1e7         ),
-        ("log2_bw",       ttnn.log2_bw,         1e-7,        1e7         ),
-        ("log1p_bw",      ttnn.log1p_bw,        -1,          100         ),
-        ("sqrt_bw",       ttnn.sqrt_bw,         0,           1e6         ),
-        ("rsqrt_bw",      ttnn.rsqrt_bw,        1e-7,        1e6         ),
-        ("sin_bw",        ttnn.sin_bw,          -math.pi*4,  math.pi*4   ),
-        ("cos_bw",        ttnn.cos_bw,          -math.pi*4,  math.pi*4   ),
-        ("tan_bw",        ttnn.tan_bw,          -math.pi/2*.99, math.pi/2*.99),
-        ("asin_bw",       ttnn.asin_bw,         -1,           1          ),
-        ("acos_bw",       ttnn.acos_bw,         -1,           1          ),
-        ("atan_bw",       ttnn.atan_bw,         -100,         100        ),
-        ("sinh_bw",       ttnn.sinh_bw,         -10,          10         ),
-        ("cosh_bw",       ttnn.cosh_bw,         -10,          10         ),
-        ("tanh_bw",       ttnn.tanh_bw,         -10,          10         ),
-        ("asinh_bw",      ttnn.asinh_bw,        -10,          10         ),
-        ("atanh_bw",      ttnn.atanh_bw,        -1,           1          ),
-        ("tanhshrink_bw", ttnn.tanhshrink_bw,   -10,          10         ),
-        ("hardtanh_bw",   ttnn.hardtanh_bw,     -5,           5          ),
-        ("digamma_bw",    ttnn.digamma_bw,       1e-6,        10         ),
-        ("lgamma_bw",     ttnn.lgamma_bw,        1e-6,        20         ),
-        ("erfinv_bw",     ttnn.erfinv_bw,        -1,           1         ),
-        ("sigmoid_bw",    ttnn.sigmoid_bw,       -10,          10        ),
-        ("silu_bw",       ttnn.silu_bw,          -10,          10        ),
-        ("gelu_bw",       ttnn.gelu_bw,          -5,           5         ),
-        ("celu_bw",       ttnn.celu_bw,          -5,           5         ),
-        ("elu_bw",        ttnn.elu_bw,           -5,           5         ),
-        ("selu_bw",       ttnn.selu_bw,          -5,           5         ),
-        ("softplus_bw",   ttnn.softplus_bw,      -5,           5         ),
-        ("softsign_bw",   ttnn.softsign_bw,      -10,          10        ),
-    ]:
-        _op = bw_op
+    if hasattr(ttnn, 'abs_bw'):
         add(OpEntry(
-            name=bw_name, category="unary_bw",
-            variants=[OpVariant(ttnn_fn=bw_fn(_op), golden_fn=bw_golden(_op))],
-            input_range=InputRange(display_lo=d_lo, display_hi=d_hi),
+            name="abs_bw", category="unary_bw",
+            variants=[OpVariant(ttnn_fn=bw_fn(ttnn.abs_bw), golden_fn=bw_golden(ttnn.abs_bw))],
+            input_range=InputRange(display_lo=-10, display_hi=10),
         ))
 
+    if hasattr(ttnn, 'floor_bw'):
+        add(OpEntry(
+            name="floor_bw", category="unary_bw",
+            variants=[OpVariant(ttnn_fn=bw_fn(ttnn.floor_bw), golden_fn=bw_golden(ttnn.floor_bw))],
+            input_range=InputRange(display_lo=-10, display_hi=10),
+        ))
+
+    for bw_name, bw_op_name, d_lo, d_hi in [
+        ("exp_bw",        "exp_bw",        -10,          88           ),
+        ("exp2_bw",       "exp2_bw",        -20,         127          ),
+        ("expm1_bw",      "expm1_bw",       -10,          88          ),
+        ("log_bw",        "log_bw",          1e-7,        1e7         ),
+        ("log10_bw",      "log10_bw",        1e-7,        1e7         ),
+        ("log2_bw",       "log2_bw",         1e-7,        1e7         ),
+        ("log1p_bw",      "log1p_bw",        -1,          100         ),
+        ("sqrt_bw",       "sqrt_bw",         0,           1e6         ),
+        ("rsqrt_bw",      "rsqrt_bw",        1e-7,        1e6         ),
+        ("sin_bw",        "sin_bw",          -math.pi*4,  math.pi*4   ),
+        ("cos_bw",        "cos_bw",          -math.pi*4,  math.pi*4   ),
+        ("tan_bw",        "tan_bw",          -math.pi/2*.99, math.pi/2*.99),
+        ("asin_bw",       "asin_bw",         -1,           1          ),
+        ("acos_bw",       "acos_bw",         -1,           1          ),
+        ("atan_bw",       "atan_bw",         -100,         100        ),
+        ("sinh_bw",       "sinh_bw",         -10,          10         ),
+        ("cosh_bw",       "cosh_bw",         -10,          10         ),
+        ("tanh_bw",       "tanh_bw",         -10,          10         ),
+        ("asinh_bw",      "asinh_bw",        -10,          10         ),
+        ("atanh_bw",      "atanh_bw",        -1,           1          ),
+        ("tanhshrink_bw", "tanhshrink_bw",   -10,          10         ),
+        ("hardtanh_bw",   "hardtanh_bw",     -5,           5          ),
+        ("digamma_bw",    "digamma_bw",       1e-6,        10         ),
+        ("lgamma_bw",     "lgamma_bw",        1e-6,        20         ),
+        ("erfinv_bw",     "erfinv_bw",        -1,           1         ),
+        ("sigmoid_bw",    "sigmoid_bw",       -10,          10        ),
+        ("silu_bw",       "silu_bw",          -10,          10        ),
+        ("gelu_bw",       "gelu_bw",          -5,           5         ),
+        ("celu_bw",       "celu_bw",          -5,           5         ),
+        ("elu_bw",        "elu_bw",           -5,           5         ),
+        ("selu_bw",       "selu_bw",          -5,           5         ),
+        ("softplus_bw",   "softplus_bw",      -5,           5         ),
+        ("softsign_bw",   "softsign_bw",      -10,          10        ),
+    ]:
+        if hasattr(ttnn, bw_op_name):
+            _op = getattr(ttnn, bw_op_name)
+            add(OpEntry(
+                name=bw_name, category="unary_bw",
+                variants=[OpVariant(ttnn_fn=bw_fn(_op), golden_fn=bw_golden(_op))],
+                input_range=InputRange(display_lo=d_lo, display_hi=d_hi),
+            ))
+
     # acosh_bw: ttnn golden needs device kwargs → use torch autograd instead
-    add(OpEntry(
-        name="acosh_bw", category="unary_bw",
-        variants=[OpVariant(ttnn_fn=bw_fn(ttnn.acosh_bw),
-                            golden_fn=bw_golden_torch(torch.acosh))],
-        input_range=InputRange(lo=1.0, display_lo=1, display_hi=100, note="x ≥ 1"),
-    ))
+    if hasattr(ttnn, 'acosh_bw'):
+        add(OpEntry(
+            name="acosh_bw", category="unary_bw",
+            variants=[OpVariant(ttnn_fn=bw_fn(ttnn.acosh_bw),
+                                golden_fn=bw_golden_torch(torch.acosh))],
+            input_range=InputRange(lo=1.0, display_lo=1, display_hi=100, note="x ≥ 1"),
+        ))
 
     return entries
 
