@@ -85,7 +85,11 @@ def compare_with_golden(
         sup.filter(RuntimeWarning, "")
 
         compute_dtype = calculated.dtype  # bf16 or fp32 — must be saved before converting
-        calc = calculated.to(torch.float32)
+        # Flush subnormals in both hardware output and golden, using hardware precision.
+        # Hardware flushes subnormals to zero; applying the same flush to the golden prevents
+        # artificially large ULP errors where one side is subnormal and the other is exactly 0.
+        calc_flushed = flush_subnormals(calculated.to(compute_dtype)).to(torch.float32)
+        calc = calc_flushed
         gold_downcast = flush_subnormals(golden.to(compute_dtype))  # ULP in hardware precision
         gold = flush_subnormals(golden.to(torch.float32))
 

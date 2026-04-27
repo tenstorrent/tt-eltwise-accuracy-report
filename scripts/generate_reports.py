@@ -113,12 +113,22 @@ def chart_rel_path(arch: str, dtype: str, op: str, variant: str, from_dir: Path)
 
 
 def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
-    """Load summary stats from CSV for one variant."""
+    """Load summary stats from CSV, restricted to the op's display range."""
     csv_path = DATA_DIR / arch / dtype / op / f"{variant}.csv"
     if not csv_path.exists():
         return None
     try:
         df = pd.read_csv(csv_path, index_col="index")
+        # Filter to display range so out-of-domain rows don't inflate stats
+        reg = _get_registry()
+        if op in reg:
+            d_lo, d_hi = reg[op].input_range.display_bounds()
+            if d_lo not in (None, float("-inf")):
+                df = df[df["x"] >= d_lo]
+            if d_hi not in (None, float("inf")):
+                df = df[df["x"] <= d_hi]
+        if df.empty:
+            return None
         return {
             "max_ulp": f"{df['max_ulp_error'].max():.3g}",
             "mean_ulp": f"{df['mean_ulp_error'].mean():.3g}",

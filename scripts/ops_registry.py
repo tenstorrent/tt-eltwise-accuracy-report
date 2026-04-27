@@ -234,20 +234,24 @@ def _build_registry() -> dict[str, OpEntry]:
     add(OpEntry(
         name="sin", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.sin(x), golden_fn=torch.sin)],
-        input_range=InputRange(display_lo=-math.pi * 4, display_hi=math.pi * 4),
+        # BF16 has only 7 mantissa bits; argument reduction loses all precision for |x| >> 2π.
+        # ULP_bf16(x) >= 1 for |x| >= 128, making sin(x) effectively random beyond ~±128.
+        input_range=InputRange(display_lo=-128, display_hi=128,
+                               note="BF16 argument reduction loses precision for |x| > ~128"),
     ))
 
     add(OpEntry(
         name="cos", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.cos(x), golden_fn=torch.cos)],
-        input_range=InputRange(display_lo=-math.pi * 4, display_hi=math.pi * 4),
+        input_range=InputRange(display_lo=-128, display_hi=128,
+                               note="BF16 argument reduction loses precision for |x| > ~128"),
     ))
 
     add(OpEntry(
         name="tan", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.tan(x), golden_fn=torch.tan)],
         input_range=InputRange(display_lo=-math.pi / 2 * 0.99, display_hi=math.pi / 2 * 0.99,
-                               note="avoid poles at (n+0.5)π"),
+                               note="avoid poles at (n+0.5)π; BF16 precision lost for |x| > ~128"),
     ))
 
     add(OpEntry(
