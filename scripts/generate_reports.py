@@ -48,8 +48,30 @@ GENERATED_NOTE = (
 # Discovery helpers
 # ---------------------------------------------------------------------------
 
-def discover_data() -> dict:
-    """Return nested dict: arch -> dtype -> op_name -> [variant_names]"""
+_registry_cache: dict | None = None
+
+def _get_registry() -> dict:
+    global _registry_cache
+    if _registry_cache is None:
+        sys.path.insert(0, str(Path(__file__).parent))
+        try:
+            from ops_registry import get_registry
+            _registry_cache = get_registry()
+        except Exception:
+            _registry_cache = {}
+    return _registry_cache
+
+
+def get_op_category(op_name: str) -> str:
+    reg = _get_registry()
+    return reg[op_name].category if op_name in reg else "unknown"
+
+
+def discover_data(categories: list[str] | None = None) -> dict:
+    """Return nested dict: arch -> dtype -> op_name -> [variant_names].
+
+    categories: if given, only include ops whose registry category is in the list.
+    """
     result: dict = {}
     if not DATA_DIR.exists():
         return result
@@ -67,6 +89,8 @@ def discover_data() -> dict:
                 if not op_dir.is_dir():
                     continue
                 op = op_dir.name
+                if categories and get_op_category(op) not in categories:
+                    continue
                 variants = [f.stem for f in sorted(op_dir.glob("*.csv"))]
                 if variants:
                     result[arch][dtype][op] = variants
@@ -105,39 +129,18 @@ def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
 
 
 def get_op_display_name(op_name: str) -> str:
-    try:
-        sys.path.insert(0, str(Path(__file__).parent))
-        from ops_registry import get_registry
-        reg = get_registry()
-        if op_name in reg:
-            return reg[op_name].display_name
-    except Exception:
-        pass
-    return op_name
+    reg = _get_registry()
+    return reg[op_name].display_name if op_name in reg else op_name
 
 
 def get_op_note(op_name: str) -> str:
-    try:
-        sys.path.insert(0, str(Path(__file__).parent))
-        from ops_registry import get_registry
-        reg = get_registry()
-        if op_name in reg:
-            return reg[op_name].input_range.note
-    except Exception:
-        pass
-    return ""
+    reg = _get_registry()
+    return reg[op_name].input_range.note if op_name in reg else ""
 
 
 def get_op_description(op_name: str) -> str:
-    try:
-        sys.path.insert(0, str(Path(__file__).parent))
-        from ops_registry import get_registry
-        reg = get_registry()
-        if op_name in reg:
-            return reg[op_name].description
-    except Exception:
-        pass
-    return ""
+    reg = _get_registry()
+    return reg[op_name].description if op_name in reg else ""
 
 
 # ---------------------------------------------------------------------------
@@ -372,16 +375,9 @@ def op_list_index(data: dict) -> str:
         "|----|----------|---------|---------|---------|----------|\n",
     ]
 
-    sys.path.insert(0, str(Path(__file__).parent))
-    try:
-        from ops_registry import get_registry
-        reg = get_registry()
-    except Exception:
-        reg = {}
-
     for op in all_ops:
         display = get_op_display_name(op)
-        category = reg[op].category if op in reg else "—"
+        category = get_op_category(op)
         cells = []
         for arch in ARCHS:
             for dtype in DTYPES:
@@ -516,10 +512,12 @@ def top_readme(data: dict) -> str:
 # Main
 # ---------------------------------------------------------------------------
 
-def generate_reports(arch_filter=None, dtype_filter=None):
+def generate_reports(arch_filter=None, dtype_filter=None, categories=None):
     sys.path.insert(0, str(Path(__file__).parent))
+    if categories is None:
+        categories = ["unary"]  # default: forward unary only
 
-    data = discover_data()
+    data = discover_data(categories=categories)
 
     if not data:
         print("No data found in data/. Run measure_accuracy.py first.")
@@ -565,12 +563,16 @@ def parse_args():
     p = argparse.ArgumentParser(description="Generate markdown report tree")
     p.add_argument("--arch", help="Filter by architecture")
     p.add_argument("--dtype", help="Filter by dtype")
+    p.add_argument("--categories", default="unary",
+                   help="Comma-separated op categories to include "
+                        "(default: unary; options: unary,binary,unary_bw)")
     return p.parse_args()
 
 
 def main():
     args = parse_args()
-    generate_reports(arch_filter=args.arch, dtype_filter=args.dtype)
+    cats = [c.strip() for c in args.categories.split(",")]
+    generate_reports(arch_filter=args.arch, dtype_filter=args.dtype, categories=cats)
 
 
 if __name__ == "__main__":
