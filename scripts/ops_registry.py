@@ -201,7 +201,10 @@ def _build_registry() -> dict[str, OpEntry]:
         name="cbrt", category="unary",
         variants=[OpVariant(
             ttnn_fn=lambda x: ttnn.cbrt(x),
-            golden_fn=lambda x, out=None: torch.pow(x.to(torch.float64), 1/3).to(x.dtype),
+            # torch.pow(negative, 1/3) returns NaN; use sign * |x|^(1/3) for real cbrt
+            golden_fn=lambda x, out=None: (
+                x.sign() * x.abs().to(torch.float64).pow(1/3)
+            ).to(x.dtype),
         )],
         input_range=InputRange(display_lo=-1e6, display_hi=1e6),
     ))
@@ -231,27 +234,28 @@ def _build_registry() -> dict[str, OpEntry]:
         input_range=InputRange(display_lo=-10, display_hi=10),
     ))
 
+    # BF16 argument reduction: ULP_bf16(128) = 1, so sin/cos become meaningless for |x| > ~128.
+    # Both lo/hi (collection) and display_lo/hi are restricted to avoid storing junk data.
     add(OpEntry(
         name="sin", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.sin(x), golden_fn=torch.sin)],
-        # BF16 has only 7 mantissa bits; argument reduction loses all precision for |x| >> 2π.
-        # ULP_bf16(x) >= 1 for |x| >= 128, making sin(x) effectively random beyond ~±128.
-        input_range=InputRange(display_lo=-128, display_hi=128,
-                               note="BF16 argument reduction loses precision for |x| > ~128"),
+        input_range=InputRange(lo=-128.0, hi=128.0, display_lo=-128, display_hi=128,
+                               note="BF16 argument reduction is undefined for |x| > ~128"),
     ))
 
     add(OpEntry(
         name="cos", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.cos(x), golden_fn=torch.cos)],
-        input_range=InputRange(display_lo=-128, display_hi=128,
-                               note="BF16 argument reduction loses precision for |x| > ~128"),
+        input_range=InputRange(lo=-128.0, hi=128.0, display_lo=-128, display_hi=128,
+                               note="BF16 argument reduction is undefined for |x| > ~128"),
     ))
 
     add(OpEntry(
         name="tan", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.tan(x), golden_fn=torch.tan)],
-        input_range=InputRange(display_lo=-math.pi / 2 * 0.99, display_hi=math.pi / 2 * 0.99,
-                               note="avoid poles at (n+0.5)π; BF16 precision lost for |x| > ~128"),
+        input_range=InputRange(lo=-math.pi / 2 * 0.99, hi=math.pi / 2 * 0.99,
+                               display_lo=-math.pi / 2 * 0.99, display_hi=math.pi / 2 * 0.99,
+                               note="avoid poles at (n+0.5)π; BF16 argument reduction undefined for |x| > ~128"),
     ))
 
     add(OpEntry(
