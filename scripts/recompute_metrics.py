@@ -29,7 +29,7 @@ REPO_ROOT = Path(__file__).parent.parent
 DATA_DIR = REPO_ROOT / "data"
 
 BF16_ULP_CORRECTION = 2 ** 16   # = 65536
-ULP_COLUMNS = ["max_ulp_error", "mean_ulp_error"]
+ULP_COLUMNS = ["ulp_error"]
 
 
 def fix_csv(csv_path: Path, dry_run: bool) -> bool:
@@ -37,9 +37,9 @@ def fix_csv(csv_path: Path, dry_run: bool) -> bool:
     if not all(c in df.columns for c in ULP_COLUMNS):
         return False
 
-    old_max = df["max_ulp_error"].max()
+    old_max = df["ulp_error"].max()
     df[ULP_COLUMNS] = df[ULP_COLUMNS] / BF16_ULP_CORRECTION
-    new_max = df["max_ulp_error"].max()
+    new_max = df["ulp_error"].max()
 
     print(f"  {csv_path.relative_to(REPO_ROOT)}: max_ulp {old_max:.3g} → {new_max:.3g}")
 

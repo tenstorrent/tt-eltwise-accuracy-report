@@ -112,15 +112,12 @@ def compare_with_golden(
         yr_repr = yr_np[:, 0]
 
         return pd.DataFrame({
-            "x":              x_repr,
-            "y":              y_repr,
-            "y_ref":          yr_repr,
-            "max_ulp_error":  np.nanmax(ulp_err, axis=-1),
-            "mean_ulp_error": np.nanmean(ulp_err, axis=-1),
-            "max_abs_error":  np.nanmax(abs_err, axis=-1),
-            "mean_abs_error": np.nanmean(abs_err, axis=-1),
-            "max_rel_error":  np.nanmax(rel_err, axis=-1),
-            "mean_rel_error": np.nanmean(rel_err, axis=-1),
+            "x":             x_repr,
+            "y":             y_repr,
+            "y_ref":         yr_repr,
+            "ulp_error":     np.nanmax(ulp_err, axis=-1),   # per-input for bf16; worst-case per batch for fp32
+            "abs_error":     np.nanmax(abs_err, axis=-1),
+            "rel_error":     np.nanmax(rel_err, axis=-1),
         })
 
 

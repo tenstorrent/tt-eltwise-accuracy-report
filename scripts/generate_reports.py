@@ -129,17 +129,14 @@ def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
                 df = df[df["x"] <= d_hi]
         if df.empty:
             return None
-        ulp_col = df["max_ulp_error"].replace([float("inf"), float("-inf")], float("nan"))
+        ulp_col = df["ulp_error"].replace([float("inf"), float("-inf")], float("nan"))
         max_ulp_val = ulp_col.max()
         n_clipped = int((ulp_col > 1000).sum())
         individual = len(df) > 5000  # bf16 individual-point format
         return {
             "max_ulp": f"{max_ulp_val:.3g}" if max_ulp_val == max_ulp_val else "—",
-            "mean_ulp": f"{ulp_col.mean():.3g}",
-            "max_abs": f"{df['max_abs_error'].max():.3g}",
+            "max_abs": f"{df['abs_error'].max():.3g}",
             "ulp_clipped": n_clipped,
-            "n_inputs": len(df),
-            "individual": individual,
         }
     except Exception:
         return None
@@ -203,13 +200,12 @@ def op_detail_page(arch: str, dtype: str, op: str, variants: list[str], data: di
 
         summary = load_summary(arch, dtype, op, variant)
         if summary:
-            clipped_note = (f" ⚠ ({summary['ulp_clipped']} groups &gt; 1000 ULP, "
-                            f"see max abs error)" if summary.get("ulp_clipped") else "")
+            clipped_note = (f" ⚠ ({summary['ulp_clipped']} inputs &gt; 1000 ULP, "
+                            f"see abs error)" if summary.get("ulp_clipped") else "")
             lines.extend([
                 "| Metric | Value |\n",
                 "|--------|-------|\n",
-                f"| Max ULP error (display range) | {summary['max_ulp']}{clipped_note} |\n",
-                f"| Mean ULP error (display range) | {summary['mean_ulp']} |\n",
+                f"| Max ULP error | {summary['max_ulp']}{clipped_note} |\n",
                 f"| Max absolute error | {summary['max_abs']} |\n",
                 "\n",
             ])

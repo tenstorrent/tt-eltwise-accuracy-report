@@ -79,21 +79,18 @@ def plot_ulp_chart(
     fig, ax = plt.subplots(figsize=(10, 5))
 
     x = df["x"].values
-    ulp_vals = np.clip(df["max_ulp_error"].values, 0, ULP_CLIP)
-    n_clipped = int((df["max_ulp_error"].values > ULP_CLIP).sum())
+    ulp_vals = np.clip(df["ulp_error"].values, 0, ULP_CLIP)
+    n_clipped = int((df["ulp_error"].values > ULP_CLIP).sum())
 
-    # Individual data points (bf16 exhaustive): scatter plot — one dot per input value.
-    # Grouped data (fp32): line plot — each point is a max over a batch of inputs.
+    # Individual data points (bf16 exhaustive, group_size=1): scatter — one dot per input.
+    # Grouped data (fp32): line — one point per batch of inputs (worst-case ULP shown).
     individual = len(df) > 5000
     if individual:
         ax.scatter(x, ulp_vals, s=1.5, alpha=0.4, color="#3498db",
-                   label="ULP error (per input)", zorder=3, linewidths=0)
+                   label="ULP error", zorder=3, linewidths=0)
     else:
         ax.plot(x, ulp_vals, color="#3498db", linewidth=0.8,
-                label="max ULP error (per batch)", zorder=3)
-        mean_ulp = np.clip(df["mean_ulp_error"].values, 0, ULP_CLIP)
-        ax.plot(x, mean_ulp, color="#9b59b6", linewidth=0.8,
-                label="mean ULP error (per batch)", zorder=3, linestyle="--")
+                label="ULP error (worst case per batch)", zorder=3)
 
     for level, label, color in ULP_LINES:
         ax.axhline(y=level, color=color, linewidth=1.2, linestyle=":", alpha=0.9, label=label, zorder=2)
