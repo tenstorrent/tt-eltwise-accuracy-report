@@ -526,6 +526,60 @@
           "ulp_clipped": 0
         }
       }
+    },
+    "fp32": {
+      "abs": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "0",
+          "n_inputs": 17506306,
+          "ulp_clipped": 0
+        }
+      },
+      "exp": {
+        "default": {
+          "max_abs": "1.01e+31",
+          "max_ulp": "1",
+          "mean_ulp": "0.0802",
+          "n_inputs": 17145858,
+          "ulp_clipped": 0
+        },
+        "fast_approx": {
+          "max_abs": "3.77e+36",
+          "max_ulp": "3.79e+05",
+          "mean_ulp": "1.95e+05",
+          "n_inputs": 17145858,
+          "ulp_clipped": 17143583
+        }
+      },
+      "exp2": {
+        "default": {
+          "max_abs": "6.9e+32",
+          "max_ulp": "68",
+          "mean_ulp": "0.38",
+          "n_inputs": 17251330,
+          "ulp_clipped": 0
+        }
+      },
+      "identity": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "0",
+          "n_inputs": 17506306,
+          "ulp_clipped": 0
+        }
+      },
+      "logit": {
+        "default": {
+          "max_abs": "9.54e-07",
+          "max_ulp": "4.19e+06",
+          "mean_ulp": "5.07",
+          "n_inputs": 1307537,
+          "ulp_clipped": 106
+        }
+      }
     }
   }
 }
