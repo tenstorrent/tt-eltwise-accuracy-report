@@ -84,6 +84,23 @@ def _fmt(v) -> str:
     return f"{float(v):.3g}"
 
 
+def _aggregate(df: pd.DataFrame, group_size: int = 128) -> tuple:
+    """Aggregate per-input rows into exponent groups for lightweight SVG line plots.
+
+    bf16 has 128 mantissa values per exponent, so grouping by 128 consecutive
+    sorted values naturally aligns with exponent boundaries. Reduces 65k scatter
+    dots to ~500 line segments (~100× smaller SVG).
+    """
+    df_s = df.sort_values("x").reset_index(drop=True)
+    if len(df_s) <= group_size:
+        return df_s["x"].values, df_s["ulp_error"].values
+    group_idx = np.arange(len(df_s)) // group_size
+    agg = df_s.groupby(group_idx, sort=False).agg(
+        x=("x", "first"), ulp=("ulp_error", "max")
+    )
+    return agg["x"].values, agg["ulp"].values
+
+
 def plot_ulp_chart(
     df: pd.DataFrame,
     op_name: str,
@@ -104,17 +121,14 @@ def plot_ulp_chart(
         return
 
     ULP_CLIP = 1000.0
-    x = df["x"].values
-    ulp_vals = np.clip(df["ulp_error"].values, 0, ULP_CLIP)
     n_clipped = int((df["ulp_error"].values > ULP_CLIP).sum())
 
-    fig, ax = plt.subplots(figsize=(10, 5))
+    # Aggregate individual per-input rows into exponent groups → lightweight line plot
+    x, ulp_raw = _aggregate(df)
+    ulp_vals = np.clip(ulp_raw, 0, ULP_CLIP)
 
-    # bf16 individual points: scatter. fp32 batched: line.
-    if len(df) > 5000:
-        ax.scatter(x, ulp_vals, s=3, alpha=0.5, color="#e67e22", zorder=3, linewidths=0)
-    else:
-        ax.plot(x, ulp_vals, color="#e67e22", linewidth=1.5, zorder=3)
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(x, ulp_vals, color="#e67e22", linewidth=1.5, zorder=3)
 
     ax.set_xscale("symlog", linthresh=1e-3)
     ax.set_yscale("asinh", linear_width=0.01)
