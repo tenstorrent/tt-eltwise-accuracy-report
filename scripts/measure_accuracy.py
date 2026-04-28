@@ -144,7 +144,6 @@ def measure_bf16(
     TENSOR_HEIGHT = 2**9
     TENSOR_WIDTH = 2**7
     size = [TENSOR_HEIGHT, TENSOR_WIDTH]
-    GROUP_SIZE = 2**9
 
     # All 65536 bf16 values
     input_np = np.arange(0, 2**16, dtype=np.uint32).astype(np.uint16)
@@ -181,8 +180,8 @@ def measure_bf16(
 
     calc = ttnn.to_torch(ttnn_result)
 
-    gs = min(GROUP_SIZE, x_valid.shape[-1])
-    df = compare_with_golden(x_valid, golden_f64, calc, group_size=gs)
+    # group_size=1: store one row per individual bf16 input value for accurate per-point data
+    df = compare_with_golden(x_valid, golden_f64, calc, group_size=1)
     df["op"] = op_name
     df["variant"] = variant_name
     df["dtype"] = "bf16"

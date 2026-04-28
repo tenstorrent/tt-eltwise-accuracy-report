@@ -74,33 +74,40 @@ def plot_ulp_chart(
         print(f"  Skipping empty data for {op_name}/{variant}")
         return
 
-    ULP_CLIP = 1000.0  # cap y-axis; values above are clipped to keep scale useful
+    ULP_CLIP = 1000.0
 
     fig, ax = plt.subplots(figsize=(10, 5))
 
     x = df["x"].values
-    max_ulp = np.clip(df["max_ulp_error"].values, 0, ULP_CLIP)
-    mean_ulp = np.clip(df["mean_ulp_error"].values, 0, ULP_CLIP)
+    ulp_vals = np.clip(df["max_ulp_error"].values, 0, ULP_CLIP)
     n_clipped = int((df["max_ulp_error"].values > ULP_CLIP).sum())
 
-    # Plot mean and max ULP error lines
-    ax.plot(x, max_ulp,  color="#3498db", linewidth=0.8, label="max ULP error",  zorder=3)
-    ax.plot(x, mean_ulp, color="#9b59b6", linewidth=0.8, label="mean ULP error", zorder=3, linestyle="--")
+    # Individual data points (bf16 exhaustive): scatter plot — one dot per input value.
+    # Grouped data (fp32): line plot — each point is a max over a batch of inputs.
+    individual = len(df) > 5000
+    if individual:
+        ax.scatter(x, ulp_vals, s=1.5, alpha=0.4, color="#3498db",
+                   label="ULP error (per input)", zorder=3, linewidths=0)
+    else:
+        ax.plot(x, ulp_vals, color="#3498db", linewidth=0.8,
+                label="max ULP error (per batch)", zorder=3)
+        mean_ulp = np.clip(df["mean_ulp_error"].values, 0, ULP_CLIP)
+        ax.plot(x, mean_ulp, color="#9b59b6", linewidth=0.8,
+                label="mean ULP error (per batch)", zorder=3, linestyle="--")
 
     for level, label, color in ULP_LINES:
-        ax.axhline(y=level, color=color, linewidth=1.2, linestyle=":", alpha=0.8, label=label, zorder=2)
+        ax.axhline(y=level, color=color, linewidth=1.2, linestyle=":", alpha=0.9, label=label, zorder=2)
 
-    # Axis formatting
     ax.set_xscale("symlog", linthresh=1e-3)
     ax.set_yscale("asinh", linear_width=0.01)
     ax.set_ylim(bottom=0, top=ULP_CLIP * 1.1)
 
     ax.set_xlabel("Input x", fontsize=11)
-    ax.set_ylabel(f"ULP Error (clipped at {ULP_CLIP:.0f})", fontsize=11)
+    ax.set_ylabel("ULP Error", fontsize=11)
     variant_str = f" [{variant}]" if variant != "default" else ""
-    title = f"ttnn.{op_name}{variant_str} — ULP error vs input  [{arch.upper()}, {dtype}]"
+    title = f"ttnn.{op_name}{variant_str} — ULP error  [{arch.upper()}, {dtype}]"
     if n_clipped:
-        title += f"\n({n_clipped} groups clipped at {ULP_CLIP:.0f} ULP — see summary for abs error)"
+        title += f"\n({n_clipped} inputs clipped at {ULP_CLIP:.0f} ULP — real hardware behaviour, see abs error)"
     ax.set_title(title, fontsize=11)
 
     ax.legend(loc="upper right", fontsize=9, framealpha=0.8)

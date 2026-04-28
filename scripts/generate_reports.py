@@ -129,13 +129,17 @@ def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
                 df = df[df["x"] <= d_hi]
         if df.empty:
             return None
-        max_ulp_val = df["max_ulp_error"].replace([float("inf"), float("-inf")], float("nan")).max()
-        n_clipped = int((df["max_ulp_error"] > 1000).sum())
+        ulp_col = df["max_ulp_error"].replace([float("inf"), float("-inf")], float("nan"))
+        max_ulp_val = ulp_col.max()
+        n_clipped = int((ulp_col > 1000).sum())
+        individual = len(df) > 5000  # bf16 individual-point format
         return {
-            "max_ulp": f"{max_ulp_val:.3g}" if max_ulp_val == max_ulp_val else "—",  # nan check
-            "mean_ulp": f"{df['mean_ulp_error'].replace([float('inf'), float('-inf')], float('nan')).mean():.3g}",
+            "max_ulp": f"{max_ulp_val:.3g}" if max_ulp_val == max_ulp_val else "—",
+            "mean_ulp": f"{ulp_col.mean():.3g}",
             "max_abs": f"{df['max_abs_error'].max():.3g}",
             "ulp_clipped": n_clipped,
+            "n_inputs": len(df),
+            "individual": individual,
         }
     except Exception:
         return None
