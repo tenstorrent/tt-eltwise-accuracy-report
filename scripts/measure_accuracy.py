@@ -163,7 +163,9 @@ def measure_bf16(
     # Pad to multiple of TENSOR_WIDTH so tiling works even for narrow domains
     pad = (-x_flat_valid.numel()) % TENSOR_WIDTH
     if pad > 0:
-        x_flat_valid = torch.cat([x_flat_valid, x_flat_valid[:pad]])
+        # Repeat data as needed to fill the padding
+        pad_data = x_flat_valid.repeat((pad // max(x_flat_valid.numel(), 1)) + 1)[:pad]
+        x_flat_valid = torch.cat([x_flat_valid, pad_data])
     x_valid = x_flat_valid.reshape(-1, TENSOR_WIDTH)
 
     actual_h = x_valid.shape[0]
@@ -240,7 +242,9 @@ def measure_fp32(
         # Pad to multiple of WIDTH for tiling
         pad = (-x_valid.numel()) % WIDTH
         if pad > 0:
-            x_valid = torch.cat([x_valid, x_valid[:pad]])
+            # Repeat data as needed to fill the padding
+            pad_data = x_valid.repeat((pad // max(x_valid.numel(), 1)) + 1)[:pad]
+            x_valid = torch.cat([x_valid, pad_data])
         x_2d = x_valid.reshape(-1, WIDTH)
 
         x_f64 = x_2d.to(torch.float64)
