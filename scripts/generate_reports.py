@@ -133,9 +133,11 @@ def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
         max_ulp_val = ulp_col.max()
         n_clipped = int((ulp_col > 1000).sum())
         individual = len(df) > 5000  # bf16 individual-point format
+        mean_ulp_val = ulp_col.mean()
         return {
-            "max_ulp": f"{max_ulp_val:.3g}" if max_ulp_val == max_ulp_val else "—",
-            "max_abs": f"{df['abs_error'].max():.3g}",
+            "max_ulp":  f"{max_ulp_val:.3g}" if max_ulp_val == max_ulp_val else "—",
+            "mean_ulp": f"{mean_ulp_val:.3g}" if mean_ulp_val == mean_ulp_val else "—",
+            "max_abs":  f"{df['abs_error'].max():.3g}",
             "ulp_clipped": n_clipped,
         }
     except Exception:
@@ -206,6 +208,7 @@ def op_detail_page(arch: str, dtype: str, op: str, variants: list[str], data: di
                 "| Metric | Value |\n",
                 "|--------|-------|\n",
                 f"| Max ULP error | {summary['max_ulp']}{clipped_note} |\n",
+                f"| Mean ULP error | {summary['mean_ulp']} |\n",
                 f"| Max absolute error | {summary['max_abs']} |\n",
                 "\n",
             ])
