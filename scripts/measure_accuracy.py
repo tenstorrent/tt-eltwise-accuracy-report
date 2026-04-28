@@ -43,26 +43,23 @@ EPSILON = 2**-9  # small positive floor for relative-error denominator
 # ---------------------------------------------------------------------------
 
 def ulp_torch(x: torch.Tensor) -> torch.Tensor:
-    """Return the ULP (unit in last place) for each element of x."""
-    # Cast to fp32 or bf16 as appropriate
-    dtype = x.dtype
-    if dtype == torch.float32:
-        info = torch.finfo(torch.float32)
-        exponent_bits = 8
-        mantissa_bits = 23
-    elif dtype == torch.bfloat16:
-        info = torch.finfo(torch.bfloat16)
-        exponent_bits = 8
-        mantissa_bits = 7
-    else:
-        # fall back: upcast to float32
-        return ulp_torch(x.to(torch.float32)).to(dtype)
+    """Return the ULP (unit in last place) for each element of x, always as float32.
 
-    # ULP(x) = 2^(exponent(x) - mantissa_bits)
+    Keeping the result as float32 (not converting back to the input dtype) prevents
+    bf16 underflow: ULP of bf16 min-normal is 2^-133 which is a valid fp32 subnormal
+    but would flush to 0 if stored as bf16.
+    """
+    if x.dtype == torch.bfloat16:
+        mantissa_bits = 7
+    elif x.dtype == torch.float32:
+        mantissa_bits = 23
+    else:
+        return ulp_torch(x.to(torch.float32))
+
     x_f32 = x.to(torch.float32).abs()
     x_f32 = torch.clamp(x_f32, min=torch.finfo(torch.float32).tiny)
-    exp = torch.floor(torch.log2(x_f32)).to(torch.float32)
-    return torch.pow(2.0, exp - mantissa_bits).to(dtype)
+    exp = torch.floor(torch.log2(x_f32))
+    return torch.pow(2.0, exp - mantissa_bits)  # float32, never .to(dtype)
 
 
 def flush_subnormals(t: torch.Tensor) -> torch.Tensor:
@@ -106,7 +103,9 @@ def compare_with_golden(
 
         abs_err = np.abs(yr_np - y_np)
         rel_err = abs_err / np.maximum(np.abs(yr_np), EPSILON)
-        ulp_err = abs_err / np.maximum(ulp_np, 1e-38)
+        # Use a very small floor (fp32 min subnormal ≈ 1e-45) so bf16 ULPs like 2^-133
+        # are not clamped away, while still protecting against true zero division.
+        ulp_err = abs_err / np.maximum(ulp_np, 1e-45)
 
         x_repr = x_np[:, 0]
         y_repr = y_np[:, 0]

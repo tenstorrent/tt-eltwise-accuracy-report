@@ -203,7 +203,7 @@ def op_detail_page(arch: str, dtype: str, op: str, variants: list[str], data: di
 
         summary = load_summary(arch, dtype, op, variant)
         if summary:
-            clipped_note = (f" ⚠ ({summary['ulp_clipped']} groups > 1000 ULP, "
+            clipped_note = (f" ⚠ ({summary['ulp_clipped']} groups &gt; 1000 ULP, "
                             f"see max abs error)" if summary.get("ulp_clipped") else "")
             lines.extend([
                 "| Metric | Value |\n",
@@ -429,7 +429,7 @@ def dtype_index(dtype: str, data: dict) -> str:
         GENERATED_NOTE,
         "[← Dtypes](../README.md) | [Top](../../README.md)\n\n",
         "| Op | " + " | ".join(ARCH_DISPLAY.get(a, a) for a in available_archs) + " |\n",
-        "|----|" + "|------" * len(available_archs) + "|\n",
+        "|----" + "|------" * len(available_archs) + "|\n",
     ]
 
     for op in all_ops:
