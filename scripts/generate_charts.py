@@ -31,11 +31,6 @@ CHARTS_DIR = REPO_ROOT / "reports" / "charts"
 plt.rcParams["svg.fonttype"] = "none"  # keep text as text, not paths
 plt.rcParams["figure.dpi"] = 100
 
-ULP_LINES = [
-    (1, "1 ULP", "#2ecc71"),
-    (3, "3 ULP", "#f39c12"),
-    (10, "10 ULP", "#e74c3c"),
-]
 
 MIN_NORMAL_F32 = 2**-126
 MIN_NORMAL_BF16 = 2**-126
@@ -82,18 +77,14 @@ def plot_ulp_chart(
     ulp_vals = np.clip(df["ulp_error"].values, 0, ULP_CLIP)
     n_clipped = int((df["ulp_error"].values > ULP_CLIP).sum())
 
-    # Individual data points (bf16 exhaustive, group_size=1): scatter — one dot per input.
-    # Grouped data (fp32): line — one point per batch of inputs (worst-case ULP shown).
+    # bf16 exhaustive (group_size=1): scatter — one dot per input value.
+    # fp32 batched: line — one point per batch (worst-case ULP per batch).
     individual = len(df) > 5000
     if individual:
-        ax.scatter(x, ulp_vals, s=1.5, alpha=0.4, color="#3498db",
-                   label="ULP error", zorder=3, linewidths=0)
+        ax.scatter(x, ulp_vals, s=3, alpha=0.5, color="#e67e22",
+                   zorder=3, linewidths=0)
     else:
-        ax.plot(x, ulp_vals, color="#3498db", linewidth=0.8,
-                label="ULP error (worst case per batch)", zorder=3)
-
-    for level, label, color in ULP_LINES:
-        ax.axhline(y=level, color=color, linewidth=1.2, linestyle=":", alpha=0.9, label=label, zorder=2)
+        ax.plot(x, ulp_vals, color="#e67e22", linewidth=1.5, zorder=3)
 
     ax.set_xscale("symlog", linthresh=1e-3)
     ax.set_yscale("asinh", linear_width=0.01)
@@ -104,10 +95,9 @@ def plot_ulp_chart(
     variant_str = f" [{variant}]" if variant != "default" else ""
     title = f"ttnn.{op_name}{variant_str} — ULP error  [{arch.upper()}, {dtype}]"
     if n_clipped:
-        title += f"\n({n_clipped} inputs clipped at {ULP_CLIP:.0f} ULP — real hardware behaviour, see abs error)"
+        title += f"\n({n_clipped} inputs clipped at {ULP_CLIP:.0f} — see abs error in report)"
     ax.set_title(title, fontsize=11)
 
-    ax.legend(loc="upper right", fontsize=9, framealpha=0.8)
     ax.grid(True, alpha=0.3, which="both")
 
     fig.tight_layout()
