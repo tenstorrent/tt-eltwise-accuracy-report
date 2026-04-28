@@ -1,35 +1,32 @@
 #!/usr/bin/env python3
 """
-Generate the full reports/ markdown tree from data/ and charts/.
+Generate the full reports/ markdown tree from report_index.json and reports/charts/.
 
-Scans data/ and reports/charts/ to discover what has been measured,
-then produces:
-  reports/README.md                     - top-level navigation
-  reports/by_arch/{arch}/README.md      - per-arch overview
-  reports/by_arch/{arch}/{dtype}/README.md  - per-arch+dtype all ops
-  reports/by_arch/{arch}/{dtype}/{op}.md    - single op detail page
-  reports/by_op/{op}/README.md          - op across all arch/dtype
-  reports/by_dtype/{dtype}/README.md    - dtype across all ops/arch
+Source of truth for what pages exist: reports/charts/{arch}/{dtype}/*.svg
+Source of truth for summary stats:    report_index.json  (committed, updated by generate_charts.py)
+
+This means generate_reports.py works correctly on any machine even without
+local data/ files — it only needs the committed charts and index.
 
 Usage:
     python generate_reports.py
     python generate_reports.py --arch wh --dtype bf16
+    python generate_reports.py --categories unary,binary
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-import pandas as pd
-
 REPO_ROOT = Path(__file__).parent.parent
-DATA_DIR = REPO_ROOT / "data"
 CHARTS_DIR = REPO_ROOT / "reports" / "charts"
 REPORTS_DIR = REPO_ROOT / "reports"
+INDEX_FILE = REPO_ROOT / "report_index.json"
 
 ARCHS = ["wh", "bh"]
 DTYPES = ["bf16", "fp32"]
@@ -49,6 +46,8 @@ GENERATED_NOTE = (
 # ---------------------------------------------------------------------------
 
 _registry_cache: dict | None = None
+_index_cache: dict | None = None
+
 
 def _get_registry() -> dict:
     global _registry_cache
@@ -62,20 +61,29 @@ def _get_registry() -> dict:
     return _registry_cache
 
 
+def _get_index() -> dict:
+    global _index_cache
+    if _index_cache is None:
+        _index_cache = json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
+    return _index_cache
+
+
 def get_op_category(op_name: str) -> str:
     reg = _get_registry()
     return reg[op_name].category if op_name in reg else "unknown"
 
 
-def discover_data(categories: list[str] | None = None) -> dict:
+def discover_ops(categories: list[str] | None = None) -> dict:
     """Return nested dict: arch -> dtype -> op_name -> [variant_names].
 
-    categories: if given, only include ops whose registry category is in the list.
+    Discovers ops from reports/charts/ (committed SVG files) so this works
+    on any machine without local data/.
+    Categories filter applied via ops_registry.
     """
     result: dict = {}
-    if not DATA_DIR.exists():
+    if not CHARTS_DIR.exists():
         return result
-    for arch_dir in sorted(DATA_DIR.iterdir()):
+    for arch_dir in sorted(CHARTS_DIR.iterdir()):
         if not arch_dir.is_dir():
             continue
         arch = arch_dir.name
@@ -85,15 +93,18 @@ def discover_data(categories: list[str] | None = None) -> dict:
                 continue
             dtype = dtype_dir.name
             result[arch][dtype] = {}
-            for op_dir in sorted(dtype_dir.iterdir()):
-                if not op_dir.is_dir():
+            # SVG names: {op}_{variant}_ulp.svg
+            # Reconstruct op/variant from the index (authoritative) or chart filenames
+            for op_name, variants_dict in sorted(_get_index().get(arch, {}).get(dtype, {}).items()):
+                if categories and get_op_category(op_name) not in categories:
                     continue
-                op = op_dir.name
-                if categories and get_op_category(op) not in categories:
-                    continue
-                variants = [f.stem for f in sorted(op_dir.glob("*.csv"))]
-                if variants:
-                    result[arch][dtype][op] = variants
+                # Only include if at least one chart file exists
+                existing_variants = [
+                    v for v in sorted(variants_dict.keys())
+                    if (dtype_dir / f"{op_name}_{v}_ulp.svg").exists()
+                ]
+                if existing_variants:
+                    result[arch][dtype][op_name] = existing_variants
     return result
 
 
@@ -113,35 +124,9 @@ def chart_rel_path(arch: str, dtype: str, op: str, variant: str, from_dir: Path)
 
 
 def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
-    """Load summary stats from CSV, restricted to the op's display range."""
-    csv_path = DATA_DIR / arch / dtype / op / f"{variant}.csv"
-    if not csv_path.exists():
-        return None
-    try:
-        df = pd.read_csv(csv_path, index_col="index")
-        # Filter to display range so out-of-domain rows don't inflate stats
-        reg = _get_registry()
-        if op in reg:
-            d_lo, d_hi = reg[op].input_range.display_bounds()
-            if d_lo not in (None, float("-inf")):
-                df = df[df["x"] >= d_lo]
-            if d_hi not in (None, float("inf")):
-                df = df[df["x"] <= d_hi]
-        if df.empty:
-            return None
-        ulp_col = df["ulp_error"].replace([float("inf"), float("-inf")], float("nan"))
-        max_ulp_val = ulp_col.max()
-        n_clipped = int((ulp_col > 1000).sum())
-        individual = len(df) > 5000  # bf16 individual-point format
-        mean_ulp_val = ulp_col.mean()
-        return {
-            "max_ulp":  f"{max_ulp_val:.3g}" if max_ulp_val == max_ulp_val else "—",
-            "mean_ulp": f"{mean_ulp_val:.3g}" if mean_ulp_val == mean_ulp_val else "—",
-            "max_abs":  f"{df['abs_error'].max():.3g}",
-            "ulp_clipped": n_clipped,
-        }
-    except Exception:
-        return None
+    """Load summary stats from report_index.json (no local data/ needed)."""
+    stats = _get_index().get(arch, {}).get(dtype, {}).get(op, {}).get(variant)
+    return stats if stats else None
 
 
 def get_op_display_name(op_name: str) -> str:
@@ -535,7 +520,7 @@ def generate_reports(arch_filter=None, dtype_filter=None, categories=None):
     if categories is None:
         categories = ["unary"]  # default: forward unary only
 
-    data = discover_data(categories=categories)
+    data = discover_ops(categories=categories)
 
     if not data:
         print("No data found in data/. Run measure_accuracy.py first.")
