@@ -5,8 +5,8 @@ Generate the full reports/ markdown tree from report_index.json and reports/char
 Source of truth for what pages exist: reports/charts/{arch}/{dtype}/*.svg
 Source of truth for summary stats:    report_index.json  (committed, updated by generate_charts.py)
 
-This means generate_reports.py works correctly on any machine even without
-local data/ files — it only needs the committed charts and index.
+Ops that share a display_name (e.g. celu_alpha0p5/1p0/2p0 all display as "celu")
+are grouped onto a single page with one section per parameter set.
 
 Usage:
     python generate_reports.py
@@ -19,9 +19,9 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 REPO_ROOT = Path(__file__).parent.parent
 CHARTS_DIR = REPO_ROOT / "reports" / "charts"
@@ -42,7 +42,7 @@ GENERATED_NOTE = (
 
 
 # ---------------------------------------------------------------------------
-# Discovery helpers
+# Registry / index helpers
 # ---------------------------------------------------------------------------
 
 _registry_cache: dict | None = None
@@ -68,17 +68,52 @@ def _get_index() -> dict:
     return _index_cache
 
 
-def get_op_category(op_name: str) -> str:
+def get_op_category(op_key: str) -> str:
     reg = _get_registry()
-    return reg[op_name].category if op_name in reg else "unknown"
+    return reg[op_key].category if op_key in reg else "unknown"
 
+
+def get_display_name(op_key: str) -> str:
+    reg = _get_registry()
+    return reg[op_key].display_name if op_key in reg else op_key
+
+
+def get_op_note(op_key: str) -> str:
+    reg = _get_registry()
+    return reg[op_key].input_range.note if op_key in reg else ""
+
+
+def get_op_description(op_key: str) -> str:
+    reg = _get_registry()
+    return reg[op_key].description if op_key in reg else ""
+
+
+def get_params_desc(op_key: str, variant_key: str) -> str:
+    """Return the human-readable params_desc for a variant (inverse of the filename sanitisation)."""
+    reg = _get_registry()
+    if op_key not in reg:
+        return variant_key
+    for v in reg[op_key].variants:
+        sanitized = v.params_desc.replace(" ", "_").replace(",", "_").replace("=", "")
+        if sanitized == variant_key:
+            return v.params_desc
+    return variant_key
+
+
+def load_summary(arch: str, dtype: str, op_key: str, variant: str) -> dict | None:
+    stats = _get_index().get(arch, {}).get(dtype, {}).get(op_key, {}).get(variant)
+    return stats if stats else None
+
+
+# ---------------------------------------------------------------------------
+# Discovery: raw op_key → variants, grouped by display_name
+# ---------------------------------------------------------------------------
 
 def discover_ops(categories: list[str] | None = None) -> dict:
-    """Return nested dict: arch -> dtype -> op_name -> [variant_names].
+    """Return nested dict: arch -> dtype -> op_key -> [variant_names].
 
-    Discovers ops from reports/charts/ (committed SVG files) so this works
-    on any machine without local data/.
-    Categories filter applied via ops_registry.
+    Uses reports/charts/ as inventory so works without local data/.
+    Categories filter is applied via ops_registry.
     """
     result: dict = {}
     if not CHARTS_DIR.exists():
@@ -93,55 +128,44 @@ def discover_ops(categories: list[str] | None = None) -> dict:
                 continue
             dtype = dtype_dir.name
             result[arch][dtype] = {}
-            # SVG names: {op}_{variant}_ulp.svg
-            # Reconstruct op/variant from the index (authoritative) or chart filenames
-            for op_name, variants_dict in sorted(_get_index().get(arch, {}).get(dtype, {}).items()):
-                if categories and get_op_category(op_name) not in categories:
+            for op_key, variants_dict in sorted(_get_index().get(arch, {}).get(dtype, {}).items()):
+                if categories and get_op_category(op_key) not in categories:
                     continue
-                # Only include if at least one chart file exists
-                existing_variants = [
+                existing = [
                     v for v in sorted(variants_dict.keys())
-                    if (dtype_dir / f"{op_name}_{v}_ulp.svg").exists()
+                    if (dtype_dir / f"{op_key}_{v}_ulp.svg").exists()
                 ]
-                if existing_variants:
-                    result[arch][dtype][op_name] = existing_variants
+                if existing:
+                    result[arch][dtype][op_key] = existing
     return result
 
 
-def chart_rel_path(arch: str, dtype: str, op: str, variant: str, from_dir: Path) -> str:
-    """Return relative path to SVG chart from a given directory."""
-    chart = CHARTS_DIR / arch / dtype / f"{op}_{variant}_ulp.svg"
-    if chart.exists():
-        # Calculate relative path from from_dir to chart
-        # Both paths are under REPORTS_DIR, so we can construct the relative path manually
-        from_rel = from_dir.relative_to(REPORTS_DIR) if REPORTS_DIR in from_dir.parents else from_dir
-        chart_rel = chart.relative_to(REPORTS_DIR)
-        # Count how many levels up we need to go from from_dir
-        up_levels = len(from_rel.parts)
-        rel_path = Path("/".join([".."] * up_levels)) / chart_rel
-        return str(rel_path)
-    return ""
+def group_by_display(ops: dict[str, list[str]]) -> dict[str, list[tuple[str, str]]]:
+    """Group {op_key: [variants]} by display_name.
+    Returns {display_name: [(op_key, variant), ...]} sorted by params_desc.
+    """
+    groups: dict[str, list[tuple[str, str]]] = defaultdict(list)
+    for op_key, variants in ops.items():
+        display = get_display_name(op_key)
+        for v in variants:
+            groups[display].append((op_key, v))
+    # Sort within each group by the human-readable params_desc
+    return {d: sorted(entries, key=lambda e: get_params_desc(e[0], e[1]))
+            for d, entries in sorted(groups.items())}
 
 
-def load_summary(arch: str, dtype: str, op: str, variant: str) -> dict | None:
-    """Load summary stats from report_index.json (no local data/ needed)."""
-    stats = _get_index().get(arch, {}).get(dtype, {}).get(op, {}).get(variant)
-    return stats if stats else None
+# ---------------------------------------------------------------------------
+# Chart path
+# ---------------------------------------------------------------------------
 
-
-def get_op_display_name(op_name: str) -> str:
-    reg = _get_registry()
-    return reg[op_name].display_name if op_name in reg else op_name
-
-
-def get_op_note(op_name: str) -> str:
-    reg = _get_registry()
-    return reg[op_name].input_range.note if op_name in reg else ""
-
-
-def get_op_description(op_name: str) -> str:
-    reg = _get_registry()
-    return reg[op_name].description if op_name in reg else ""
+def chart_rel_path(arch: str, dtype: str, op_key: str, variant: str, from_dir: Path) -> str:
+    chart = CHARTS_DIR / arch / dtype / f"{op_key}_{variant}_ulp.svg"
+    if not chart.exists():
+        return ""
+    from_rel = from_dir.relative_to(REPORTS_DIR) if REPORTS_DIR in from_dir.parents else from_dir
+    chart_rel = chart.relative_to(REPORTS_DIR)
+    up_levels = len(from_rel.parts)
+    return str(Path("/".join([".."] * up_levels)) / chart_rel)
 
 
 # ---------------------------------------------------------------------------
@@ -154,97 +178,109 @@ def write(path: Path, content: str):
     print(f"  Wrote {path.relative_to(REPO_ROOT)}")
 
 
-def op_detail_page(arch: str, dtype: str, op: str, variants: list[str], data: dict) -> str:
-    """Single op detail page: reports/by_arch/{arch}/{dtype}/{op}.md"""
-    page_path = REPORTS_DIR / "by_arch" / arch / dtype / f"{op}.md"
-    display = get_op_display_name(op)
-    note = get_op_note(op)
-    desc = get_op_description(op)
+def op_detail_page(arch: str, dtype: str, display_name: str,
+                   entries: list[tuple[str, str]]) -> str:
+    """reports/by_arch/{arch}/{dtype}/{display_name}.md
+    entries = [(op_key, variant), ...] — all parameter sets for this op.
+    """
+    page_path = REPORTS_DIR / "by_arch" / arch / dtype / f"{display_name}.md"
+
+    # For grouped pages, only show notes/descs that are shared across all entries
+    # (per-variant descriptions are already visible in the params table)
+    all_notes = [get_op_note(k) for k, _ in entries]
+    all_descs = [get_op_description(k) for k, _ in entries]
+    notes = [all_notes[0]] if all_notes and all(n == all_notes[0] for n in all_notes) and all_notes[0] else []
+    descs = [all_descs[0]] if all_descs and all(d == all_descs[0] for d in all_descs) and all_descs[0] else []
 
     lines = [
-        f"# {display} — {ARCH_DISPLAY.get(arch, arch)}, {DTYPE_DISPLAY.get(dtype, dtype)}\n",
+        f"# {display_name} — {ARCH_DISPLAY.get(arch, arch)}, {DTYPE_DISPLAY.get(dtype, dtype)}\n",
         GENERATED_NOTE,
-        f"**Operation:** `{op}`  \n",
         f"**Architecture:** {ARCH_DISPLAY.get(arch, arch)}  \n",
         f"**Data type:** {DTYPE_DISPLAY.get(dtype, dtype)}  \n",
     ]
-    if note:
+    for note in notes:
         lines.append(f"**Valid domain:** {note}  \n")
-    if desc:
+    for desc in descs:
         lines.append(f"**Notes:** {desc}  \n")
     lines.append("\n---\n\n")
-
-    # Navigation breadcrumb
     lines.append(
         f"[← {ARCH_DISPLAY.get(arch, arch)} {DTYPE_DISPLAY.get(dtype, dtype)} ops](README.md) | "
-        f"[All archs for {display}](../../../by_op/{op}/README.md) | "
+        f"[All archs for {display_name}](../../../by_op/{display_name}/README.md) | "
         f"[Top](../../../README.md)\n\n"
     )
 
-    for variant in variants:
-        variant_display = variant.replace("_", " ")
-        lines.append(f"## Variant: `{variant_display}`\n\n")
-
-        summary = load_summary(arch, dtype, op, variant)
+    # Summary table (all params in one table)
+    lines.extend([
+        "| Parameters | Max ULP | Mean ULP | Max abs error |\n",
+        "|------------|---------|----------|---------------|\n",
+    ])
+    for op_key, variant in entries:
+        params = get_params_desc(op_key, variant)
+        summary = load_summary(arch, dtype, op_key, variant)
         if summary:
-            clipped_note = (f" ⚠ ({summary['ulp_clipped']} inputs &gt; 1000 ULP, "
-                            f"see abs error)" if summary.get("ulp_clipped") else "")
-            lines.extend([
-                "| Metric | Value |\n",
-                "|--------|-------|\n",
-                f"| Max ULP error | {summary['max_ulp']}{clipped_note} |\n",
-                f"| Mean ULP error | {summary['mean_ulp']} |\n",
-                f"| Max absolute error | {summary['max_abs']} |\n",
-                "\n",
-            ])
-
-        chart = chart_rel_path(arch, dtype, op, variant, page_path.parent)
-        if chart:
-            lines.append(f"![ULP error chart for {op} {variant}]({chart})\n\n")
+            clipped = (f" ⚠" if summary.get("ulp_clipped") else "")
+            lines.append(
+                f"| `{params}` | {summary['max_ulp']}{clipped} "
+                f"| {summary['mean_ulp']} | {summary['max_abs']} |\n"
+            )
         else:
-            lines.append(f"_Chart not yet generated. Run `scripts/generate_charts.py`._\n\n")
+            lines.append(f"| `{params}` | — | — | — |\n")
+
+    lines.append("\n")
+
+    # One chart per parameter set
+    multi = len(entries) > 1
+    for op_key, variant in entries:
+        params = get_params_desc(op_key, variant)
+        if multi:
+            lines.append(f"### `{params}`\n\n")
+        chart = chart_rel_path(arch, dtype, op_key, variant, page_path.parent)
+        if chart:
+            lines.append(f"![ULP error — {display_name} {params}]({chart})\n\n")
+        else:
+            lines.append("_Chart not yet generated._\n\n")
 
     return "".join(lines)
 
 
 def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
-    """Index page: reports/by_arch/{arch}/{dtype}/README.md"""
+    """reports/by_arch/{arch}/{dtype}/README.md"""
     page_path = REPORTS_DIR / "by_arch" / arch / dtype / "README.md"
+    groups = group_by_display(ops)
 
     lines = [
         f"# {ARCH_DISPLAY.get(arch, arch)} — {DTYPE_DISPLAY.get(dtype, dtype)}\n",
         GENERATED_NOTE,
         f"[← {ARCH_DISPLAY.get(arch, arch)}](../README.md) | [Top](../../../README.md)\n\n",
         "## Operations Summary\n\n",
-        "| Op | Variant | Max ULP | Mean ULP | Details |\n",
-        "|----|---------|---------|----------|---------|\n",
+        "| Op | Parameters | Max ULP | Mean ULP | Max abs error |\n",
+        "|----|------------|---------|----------|---------------|\n",
     ]
 
-    for op, variants in sorted(ops.items()):
-        display = get_op_display_name(op)
-        for i, variant in enumerate(variants):
-            summary = load_summary(arch, dtype, op, variant)
-            max_ulp = summary["max_ulp"] if summary else "—"
+    for display_name, entries in groups.items():
+        for i, (op_key, variant) in enumerate(entries):
+            params = get_params_desc(op_key, variant)
+            summary = load_summary(arch, dtype, op_key, variant)
+            max_ulp  = (summary["max_ulp"]  if summary else "—") + (" ⚠" if summary and summary.get("ulp_clipped") else "")
             mean_ulp = summary["mean_ulp"] if summary else "—"
-            op_cell = f"`{display}`" if i == 0 else ""
-            detail_link = f"[{op}.md]({op}.md)" if i == 0 else ""
-            lines.append(f"| {op_cell} | {variant} | {max_ulp} | {mean_ulp} | {detail_link} |\n")
+            max_abs  = summary["max_abs"]  if summary else "—"
+            op_cell  = f"[{display_name}]({display_name}.md)" if i == 0 else ""
+            lines.append(f"| {op_cell} | `{params}` | {max_ulp} | {mean_ulp} | {max_abs} |\n")
 
     lines.append("\n---\n\n## Charts Preview\n\n")
-
-    for op, variants in sorted(ops.items()):
-        display = get_op_display_name(op)
-        lines.append(f"### [{display}]({op}.md)\n\n")
-        for variant in variants:
-            chart = chart_rel_path(arch, dtype, op, variant, page_path.parent)
+    for display_name, entries in groups.items():
+        lines.append(f"### [{display_name}]({display_name}.md)\n\n")
+        for op_key, variant in entries:
+            chart = chart_rel_path(arch, dtype, op_key, variant, page_path.parent)
             if chart:
-                lines.append(f"![{op} {variant}]({chart})\n\n")
+                params = get_params_desc(op_key, variant)
+                lines.append(f"![{display_name} {params}]({chart})\n\n")
 
     return "".join(lines)
 
 
 def arch_index(arch: str, data_for_arch: dict) -> str:
-    """Per-arch overview: reports/by_arch/{arch}/README.md"""
+    """reports/by_arch/{arch}/README.md"""
     lines = [
         f"# {ARCH_DISPLAY.get(arch, arch)}\n",
         GENERATED_NOTE,
@@ -253,36 +289,38 @@ def arch_index(arch: str, data_for_arch: dict) -> str:
     ]
     for dtype in DTYPES:
         if dtype in data_for_arch:
-            n_ops = len(data_for_arch[dtype])
-            lines.append(f"- [{DTYPE_DISPLAY.get(dtype, dtype)}]({dtype}/README.md) — {n_ops} ops\n")
+            groups = group_by_display(data_for_arch[dtype])
+            lines.append(f"- [{DTYPE_DISPLAY.get(dtype, dtype)}]({dtype}/README.md) — {len(groups)} ops\n")
 
     lines.append("\n## Quick Summary\n\n")
+    available_dtypes = [d for d in DTYPES if d in data_for_arch]
     lines.append("| Op | " + " | ".join(
-        f"[{DTYPE_DISPLAY.get(d, d)}]({d}/README.md)" for d in DTYPES if d in data_for_arch
+        f"[{DTYPE_DISPLAY.get(d, d)}]({d}/README.md)" for d in available_dtypes
     ) + " |\n")
-    lines.append("|----" + "|------" * sum(1 for d in DTYPES if d in data_for_arch) + "|\n")
+    lines.append("|----" + "|------" * len(available_dtypes) + "|\n")
 
-    all_ops = sorted(set().union(*(data_for_arch.get(d, {}).keys() for d in DTYPES)))
-    for op in all_ops:
-        display = get_op_display_name(op)
+    all_display = sorted(set().union(*(
+        group_by_display(data_for_arch.get(d, {})).keys() for d in DTYPES
+    )))
+    for display_name in all_display:
         cells = []
-        for dtype in DTYPES:
-            if dtype not in data_for_arch or op not in data_for_arch[dtype]:
-                cells.append("—")
-            else:
-                variants = data_for_arch[dtype][op]
-                summary = load_summary(arch, dtype, op, variants[0])
+        for dtype in available_dtypes:
+            group = group_by_display(data_for_arch.get(dtype, {})).get(display_name)
+            if group:
+                op_key, variant = group[0]
+                summary = load_summary(arch, dtype, op_key, variant)
                 if summary:
-                    cells.append(f"[{summary['max_ulp']} ULP]({dtype}/{op}.md)")
+                    cells.append(f"[{summary['max_ulp']} ULP]({dtype}/{display_name}.md)")
                 else:
-                    cells.append(f"[data]({dtype}/{op}.md)")
-        lines.append(f"| `{display}` | " + " | ".join(cells) + " |\n")
+                    cells.append(f"[data]({dtype}/{display_name}.md)")
+            else:
+                cells.append("—")
+        lines.append(f"| `{display_name}` | " + " | ".join(cells) + " |\n")
 
     return "".join(lines)
 
 
 def arch_list_index(data: dict) -> str:
-    """reports/by_arch/README.md"""
     lines = [
         "# By Architecture\n",
         GENERATED_NOTE,
@@ -291,21 +329,32 @@ def arch_list_index(data: dict) -> str:
         "|-------------|---------|----------|\n",
     ]
     for arch in sorted(data.keys()):
-        bf16_n = len(data[arch].get("bf16", {}))
-        fp32_n = len(data[arch].get("fp32", {}))
+        bf16_n = len(group_by_display(data[arch].get("bf16", {})))
+        fp32_n = len(group_by_display(data[arch].get("fp32", {})))
         lines.append(f"| [{ARCH_DISPLAY.get(arch, arch)}]({arch}/README.md) | {bf16_n} | {fp32_n} |\n")
     return "".join(lines)
 
 
-def op_cross_arch_page(op: str, data: dict) -> str:
-    """reports/by_op/{op}/README.md - op across all arch/dtype"""
-    display = get_op_display_name(op)
-    note = get_op_note(op)
-    desc = get_op_description(op)
-    page_path = REPORTS_DIR / "by_op" / op / "README.md"
+def op_cross_arch_page(display_name: str, data: dict) -> str:
+    """reports/by_op/{display_name}/README.md — op across all arch/dtype"""
+    page_path = REPORTS_DIR / "by_op" / display_name / "README.md"
+
+    # Collect notes/descs from any op_key that maps to this display_name
+    all_entries: list[tuple[str, str, str, str]] = []  # (arch, dtype, op_key, variant)
+    reg = _get_registry()
+    for arch in ARCHS:
+        for dtype in DTYPES:
+            group = group_by_display(data.get(arch, {}).get(dtype, {})).get(display_name, [])
+            for op_key, variant in group:
+                all_entries.append((arch, dtype, op_key, variant))
+
+    # Pick a representative op_key for notes/description
+    sample_key = all_entries[0][2] if all_entries else display_name
+    note = get_op_note(sample_key)
+    desc = get_op_description(sample_key)
 
     lines = [
-        f"# `{display}` — All Architectures & Dtypes\n",
+        f"# `{display_name}` — All Architectures & Data Types\n",
         GENERATED_NOTE,
         "[← All ops](../README.md) | [Top](../../README.md)\n\n",
     ]
@@ -315,56 +364,58 @@ def op_cross_arch_page(op: str, data: dict) -> str:
         lines.append(f"**Notes:** {desc}  \n")
     lines.append("\n")
 
-    # Summary table: arch x dtype, max ULP
-    available_archs = sorted(arch for arch in data if any(op in data[arch].get(d, {}) for d in DTYPES))
-    if not available_archs:
+    if not all_entries:
         lines.append("_No data available yet._\n")
         return "".join(lines)
 
-    header = "| Variant | Arch | " + " | ".join(DTYPE_DISPLAY.get(d, d) for d in DTYPES) + " |\n"
-    sep = "|---------|------|" + "|------" * len(DTYPES) + "|\n"
+    # All unique parameter sets across all archs/dtypes
+    all_params = sorted(dict.fromkeys(
+        get_params_desc(op_key, variant)
+        for _, _, op_key, variant in all_entries
+    ))
+
+    available_archs  = sorted(dict.fromkeys(a for a, _, _, _ in all_entries))
+    available_dtypes = sorted(dict.fromkeys(d for _, d, _, _ in all_entries))
+
+    header = "| Parameters | Arch | " + " | ".join(DTYPE_DISPLAY.get(d, d) for d in available_dtypes) + " |\n"
+    sep    = "|------------|------" + "|------" * len(available_dtypes) + "|\n"  # no trailing | before repeat
     lines.extend([header, sep])
 
-    all_variants = sorted(set().union(*(
-        data.get(arch, {}).get(dtype, {}).get(op, [])
-        for arch in available_archs
-        for dtype in DTYPES
-    )))
-
-    for variant in all_variants:
+    for params in all_params:
         for arch in available_archs:
             cells = []
-            for dtype in DTYPES:
-                if op in data.get(arch, {}).get(dtype, {}):
-                    summary = load_summary(arch, dtype, op, variant)
-                    link = f"../../by_arch/{arch}/{dtype}/{op}.md"
-                    if summary:
-                        cells.append(f"[{summary['max_ulp']} ULP]({link})")
-                    else:
-                        cells.append(f"[data]({link})")
+            for dtype in available_dtypes:
+                group = group_by_display(data.get(arch, {}).get(dtype, {})).get(display_name, [])
+                entry = next(((k, v) for k, v in group if get_params_desc(k, v) == params), None)
+                if entry:
+                    op_key, variant = entry
+                    summary = load_summary(arch, dtype, op_key, variant)
+                    link = f"../../by_arch/{arch}/{dtype}/{display_name}.md"
+                    cells.append(f"[{summary['max_ulp']} ULP]({link})" if summary else f"[data]({link})")
                 else:
                     cells.append("—")
-            lines.append(f"| {variant} | {ARCH_DISPLAY.get(arch, arch)} | " + " | ".join(cells) + " |\n")
+            arch_label = ARCH_DISPLAY.get(arch, arch)
+            lines.append(f"| `{params}` | {arch_label} | " + " | ".join(cells) + " |\n")
 
     lines.append("\n---\n\n## Charts\n\n")
     for arch in available_archs:
-        for dtype in DTYPES:
-            if op not in data.get(arch, {}).get(dtype, {}):
+        for dtype in available_dtypes:
+            group = group_by_display(data.get(arch, {}).get(dtype, {})).get(display_name, [])
+            if not group:
                 continue
-            variants = data[arch][dtype][op]
             lines.append(f"### {ARCH_DISPLAY.get(arch, arch)}, {DTYPE_DISPLAY.get(dtype, dtype)}\n\n")
-            for variant in variants:
-                chart = chart_rel_path(arch, dtype, op, variant, page_path.parent)
+            for op_key, variant in group:
+                params = get_params_desc(op_key, variant)
+                chart = chart_rel_path(arch, dtype, op_key, variant, page_path.parent)
                 if chart:
-                    lines.append(f"![{op} {variant} {arch} {dtype}]({chart})\n\n")
+                    lines.append(f"**`{params}`**\n\n![{display_name} {params} {arch} {dtype}]({chart})\n\n")
 
     return "".join(lines)
 
 
 def op_list_index(data: dict) -> str:
-    """reports/by_op/README.md"""
-    all_ops = sorted(set().union(*(
-        data.get(arch, {}).get(dtype, {}).keys()
+    all_display = sorted(set().union(*(
+        group_by_display(data.get(arch, {}).get(dtype, {})).keys()
         for arch in data
         for dtype in DTYPES
     )))
@@ -373,40 +424,37 @@ def op_list_index(data: dict) -> str:
         "# By Operation\n",
         GENERATED_NOTE,
         "[← Top](../README.md)\n\n",
-        f"Total: {len(all_ops)} ops measured\n\n",
+        f"Total: {len(all_display)} ops measured\n\n",
         "| Op | Category | WH bf16 | WH fp32 | BH bf16 | BH fp32 |\n",
         "|----|----------|---------|---------|---------|----------|\n",
     ]
 
-    for op in all_ops:
-        display = get_op_display_name(op)
-        category = get_op_category(op)
+    for display_name in all_display:
+        category = "—"
         cells = []
         for arch in ARCHS:
             for dtype in DTYPES:
-                if op in data.get(arch, {}).get(dtype, {}):
-                    variants = data[arch][dtype][op]
-                    summary = load_summary(arch, dtype, op, variants[0])
-                    link = f"{op}/README.md"
-                    if summary:
-                        cells.append(f"[{summary['max_ulp']}]({link})")
-                    else:
-                        cells.append(f"[✓]({link})")
+                group = group_by_display(data.get(arch, {}).get(dtype, {})).get(display_name, [])
+                if group:
+                    op_key, variant = group[0]
+                    if category == "—":
+                        category = get_op_category(op_key)
+                    summary = load_summary(arch, dtype, op_key, variant)
+                    link = f"{display_name}/README.md"
+                    cells.append(f"[{summary['max_ulp']}]({link})" if summary else f"[✓]({link})")
                 else:
                     cells.append("—")
-        lines.append(f"| [{display}]({op}/README.md) | {category} | " + " | ".join(cells) + " |\n")
+        lines.append(f"| [{display_name}]({display_name}/README.md) | {category} | " + " | ".join(cells) + " |\n")
 
     return "".join(lines)
 
 
 def dtype_index(dtype: str, data: dict) -> str:
-    """reports/by_dtype/{dtype}/README.md"""
-    all_ops = sorted(set().union(*(
-        data.get(arch, {}).get(dtype, {}).keys()
-        for arch in data
-    )))
-
     available_archs = sorted(arch for arch in data if dtype in data[arch])
+    all_display = sorted(set().union(*(
+        group_by_display(data.get(arch, {}).get(dtype, {})).keys()
+        for arch in available_archs
+    )))
 
     lines = [
         f"# {DTYPE_DISPLAY.get(dtype, dtype)}\n",
@@ -416,35 +464,31 @@ def dtype_index(dtype: str, data: dict) -> str:
         "|----" + "|------" * len(available_archs) + "|\n",
     ]
 
-    for op in all_ops:
-        display = get_op_display_name(op)
+    for display_name in all_display:
         cells = []
         for arch in available_archs:
-            if op in data.get(arch, {}).get(dtype, {}):
-                variants = data[arch][dtype][op]
-                summary = load_summary(arch, dtype, op, variants[0])
-                link = f"../../by_arch/{arch}/{dtype}/{op}.md"
-                if summary:
-                    cells.append(f"[{summary['max_ulp']} ULP]({link})")
-                else:
-                    cells.append(f"[✓]({link})")
+            group = group_by_display(data.get(arch, {}).get(dtype, {})).get(display_name, [])
+            if group:
+                op_key, variant = group[0]
+                summary = load_summary(arch, dtype, op_key, variant)
+                link = f"../../by_arch/{arch}/{dtype}/{display_name}.md"
+                cells.append(f"[{summary['max_ulp']} ULP]({link})" if summary else f"[✓]({link})")
             else:
                 cells.append("—")
-        lines.append(f"| `{display}` | " + " | ".join(cells) + " |\n")
+        lines.append(f"| `{display_name}` | " + " | ".join(cells) + " |\n")
 
     return "".join(lines)
 
 
 def dtype_list_index(data: dict) -> str:
-    """reports/by_dtype/README.md"""
     lines = [
         "# By Data Type\n",
         GENERATED_NOTE,
         "[← Top](../README.md)\n\n",
     ]
     for dtype in DTYPES:
-        n_wh = len(data.get("wh", {}).get(dtype, {}))
-        n_bh = len(data.get("bh", {}).get(dtype, {}))
+        n_wh = len(group_by_display(data.get("wh", {}).get(dtype, {})))
+        n_bh = len(group_by_display(data.get("bh", {}).get(dtype, {})))
         lines.append(
             f"- [{DTYPE_DISPLAY.get(dtype, dtype)}]({dtype}/README.md)"
             f" — WH: {n_wh} ops, BH: {n_bh} ops\n"
@@ -453,10 +497,9 @@ def dtype_list_index(data: dict) -> str:
 
 
 def top_readme(data: dict) -> str:
-    """reports/README.md — main navigation page."""
     total_archs = len(data)
     total_ops = len(set().union(*(
-        data.get(arch, {}).get(dtype, {}).keys()
+        group_by_display(data.get(arch, {}).get(dtype, {})).keys()
         for arch in data
         for dtype in DTYPES
     )))
@@ -466,29 +509,23 @@ def top_readme(data: dict) -> str:
         GENERATED_NOTE,
         "Accuracy measurements for TT-Metal elementwise operations vs PyTorch golden reference.\n",
         "Charts show ULP (units in last place) error across the full input range.\n\n",
-        "**ULP thresholds:**  \n",
-        "- ≤ 1 ULP — excellent (bit-accurate)  \n",
-        "- ≤ 3 ULP — accurate  \n",
-        "- ≤ 10 ULP — approximate  \n",
-        "- > 10 ULP — poor  \n\n",
         "---\n\n",
         "## Browse Reports\n\n",
         "| View | Description |\n",
         "|------|-------------|\n",
-        "| [By Architecture](by_arch/README.md) | Start from hardware platform (WH, BH), then choose dtype and op |\n",
+        "| [By Architecture](by_arch/README.md) | Start from hardware platform (WH, BH), then dtype, then op |\n",
         "| [By Operation](by_op/README.md) | Start from op name, compare across architectures and dtypes |\n",
         "| [By Data Type](by_dtype/README.md) | Start from bf16 or fp32, see all ops on all archs |\n",
         "\n---\n\n",
         "## Quick Stats\n\n",
-        f"| Metric | Count |\n",
-        f"|--------|-------|\n",
+        "| Metric | Count |\n",
+        "|--------|-------|\n",
         f"| Architectures measured | {total_archs} |\n",
         f"| Unique ops measured | {total_ops} |\n",
     ]
-
     for arch in sorted(data.keys()):
         for dtype in DTYPES:
-            n = len(data.get(arch, {}).get(dtype, {}))
+            n = len(group_by_display(data.get(arch, {}).get(dtype, {})))
             if n:
                 lines.append(f"| {ARCH_DISPLAY.get(arch, arch)} {DTYPE_DISPLAY.get(dtype, dtype)} ops | {n} |\n")
 
@@ -497,17 +534,15 @@ def top_readme(data: dict) -> str:
         "## Data Collection\n\n",
         "```bash\n",
         "# Collect measurements (run on target hardware)\n",
-        "python scripts/measure_accuracy.py --arch wh --ops all --dtype both\n",
-        "python scripts/measure_accuracy.py --arch bh --ops all --dtype both\n",
+        "python scripts/measure_accuracy.py --arch wh --category unary --dtype both\n",
         "\n",
-        "# Generate SVG charts\n",
+        "# Generate SVG charts and update report_index.json\n",
         "python scripts/generate_charts.py\n",
         "\n",
         "# Regenerate this report tree\n",
         "python scripts/generate_reports.py\n",
         "```\n",
     ])
-
     return "".join(lines)
 
 
@@ -518,18 +553,15 @@ def top_readme(data: dict) -> str:
 def generate_reports(arch_filter=None, dtype_filter=None, categories=None):
     sys.path.insert(0, str(Path(__file__).parent))
     if categories is None:
-        categories = ["unary"]  # default: forward unary only
+        categories = ["unary"]
 
     data = discover_ops(categories=categories)
 
     if not data:
-        print("No data found in data/. Run measure_accuracy.py first.")
-        print("Generating skeleton navigation pages...")
+        print("No charts found. Run generate_charts.py first.")
 
-    # Top-level README
     write(REPORTS_DIR / "README.md", top_readme(data))
 
-    # by_arch
     write(REPORTS_DIR / "by_arch" / "README.md", arch_list_index(data))
     for arch in (([arch_filter] if arch_filter else sorted(data.keys())) or ARCHS):
         arch_data = data.get(arch, {})
@@ -538,37 +570,60 @@ def generate_reports(arch_filter=None, dtype_filter=None, categories=None):
             dtype_ops = arch_data.get(dtype, {})
             write(REPORTS_DIR / "by_arch" / arch / dtype / "README.md",
                   arch_dtype_index(arch, dtype, dtype_ops))
-            for op, variants in dtype_ops.items():
-                write(
-                    REPORTS_DIR / "by_arch" / arch / dtype / f"{op}.md",
-                    op_detail_page(arch, dtype, op, variants, data),
-                )
+            # One page per display_name (groups multiple op_keys)
+            for display_name, entries in group_by_display(dtype_ops).items():
+                write(REPORTS_DIR / "by_arch" / arch / dtype / f"{display_name}.md",
+                      op_detail_page(arch, dtype, display_name, entries))
 
-    # by_op
-    write(REPORTS_DIR / "by_op" / "README.md", op_list_index(data))
-    all_ops = sorted(set().union(*(
-        data.get(arch, {}).get(dtype, {}).keys()
-        for arch in data
-        for dtype in DTYPES
+    all_display = sorted(set().union(*(
+        group_by_display(data.get(arch, {}).get(dtype, {})).keys()
+        for arch in data for dtype in DTYPES
     )))
-    for op in all_ops:
-        write(REPORTS_DIR / "by_op" / op / "README.md", op_cross_arch_page(op, data))
+    write(REPORTS_DIR / "by_op" / "README.md", op_list_index(data))
+    for display_name in all_display:
+        write(REPORTS_DIR / "by_op" / display_name / "README.md",
+              op_cross_arch_page(display_name, data))
 
-    # by_dtype
     write(REPORTS_DIR / "by_dtype" / "README.md", dtype_list_index(data))
     for dtype in ([dtype_filter] if dtype_filter else DTYPES):
         write(REPORTS_DIR / "by_dtype" / dtype / "README.md", dtype_index(dtype, data))
+
+    # Remove stale per-op-key pages that have been merged into display_name pages.
+    # A page is stale if its stem is a registry op_key but there's now a separate
+    # display_name page for that op's display_name.
+    reg = _get_registry()
+    for arch in (([arch_filter] if arch_filter else sorted(data.keys())) or ARCHS):
+        for dtype in ([dtype_filter] if dtype_filter else DTYPES):
+            dtype_dir = REPORTS_DIR / "by_arch" / arch / dtype
+            for md in sorted(dtype_dir.glob("*.md")):
+                stem = md.stem
+                if stem == "README":
+                    continue
+                if stem in reg and get_display_name(stem) != stem:
+                    # This is an old op_key page; the display_name page now covers it
+                    md.unlink()
+                    print(f"  Removed stale {md.relative_to(REPO_ROOT)}")
+
+    # Remove stale by_op directories for old op_key names
+    by_op_dir = REPORTS_DIR / "by_op"
+    for op_dir in sorted(by_op_dir.iterdir()):
+        if not op_dir.is_dir():
+            continue
+        stem = op_dir.name
+        if stem in reg and get_display_name(stem) != stem:
+            import shutil
+            shutil.rmtree(op_dir)
+            print(f"  Removed stale {op_dir.relative_to(REPO_ROOT)}/")
 
     print("\nDone.")
 
 
 def parse_args():
     p = argparse.ArgumentParser(description="Generate markdown report tree")
-    p.add_argument("--arch", help="Filter by architecture")
-    p.add_argument("--dtype", help="Filter by dtype")
+    p.add_argument("--arch")
+    p.add_argument("--dtype")
     p.add_argument("--categories", default="unary",
-                   help="Comma-separated op categories to include "
-                        "(default: unary; options: unary,binary,unary_bw)")
+                   help="Comma-separated categories (default: unary)")
     return p.parse_args()
 
 
