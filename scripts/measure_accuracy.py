@@ -150,9 +150,11 @@ def measure_bf16(
     torch_val = torch.from_numpy(input_np.view(np.int16)).reshape(size)
     x_bf16 = torch_val.view(torch.bfloat16)
 
-    # Mask to valid domain
+    # Mask to valid domain, excluding subnormals (TT hardware flushes them to 0)
+    MIN_NORMAL_BF16 = 2**-126
     mask = torch.ones(TENSOR_HEIGHT * TENSOR_WIDTH, dtype=torch.bool)
     x_flat = x_bf16.flatten().to(torch.float32)
+    mask &= (x_flat == 0.0) | (x_flat.abs() >= MIN_NORMAL_BF16)
     if lo != float("-inf"):
         mask &= x_flat >= lo
     if hi != float("inf"):
@@ -224,9 +226,11 @@ def measure_fp32(
     for i in range(num_tensors):
         x_f32 = tensor.to(torch.int32).view(torch.float32)
 
-        # Filter to valid range
+        # Filter to valid range, excluding subnormals
+        MIN_NORMAL_F32 = 2**-126
         mask = torch.ones(x_f32.numel(), dtype=torch.bool)
         x_flat = x_f32.flatten()
+        mask &= (x_flat == 0.0) | (x_flat.abs() >= MIN_NORMAL_F32)
         if lo != float("-inf"):
             mask &= x_flat >= lo
         if hi != float("inf"):
