@@ -221,7 +221,12 @@ def measure_fp32(
     tensor = torch.arange(0, num_elements, dtype=torch.int64).reshape(shape)
     increment = num_elements
 
+    print(f"    DEBUG: Starting fp32 measurement, num_tensors={num_tensors}", flush=True)
+
     for i in range(num_tensors):
+        if i % 10 == 0:
+            print(f"    DEBUG: Tensor {i}/{num_tensors}", flush=True)
+
         x_f32 = tensor.to(torch.int32).view(torch.float32)
 
         # Filter to valid range, excluding subnormals
@@ -247,18 +252,22 @@ def measure_fp32(
             x_valid = torch.cat([x_valid, pad_data])
         x_2d = x_valid.reshape(-1, WIDTH)
 
+        print(f"      DEBUG: Golden computation for tensor {i}...", flush=True)
         x_f64 = x_2d.to(torch.float64)
         with torch.no_grad():
             golden_f64 = torch.zeros_like(x_f64)
             golden_f64 = golden_fn(x_f64, out=golden_f64)
+        print(f"      DEBUG: Golden done, ttnn compute...", flush=True)
 
         ttnn_in = ttnn.from_torch(x_2d, device=device, dtype=ttnn.float32, layout=ttnn.TILE_LAYOUT)
         ttnn_result = ttnn_fn(ttnn_in)
         calc = ttnn.to_torch(ttnn_result)
+        print(f"      DEBUG: TTNN done, comparing...", flush=True)
 
         gs = min(GROUP_SIZE, x_2d.shape[-1])
         df = compare_with_golden(x_2d, golden_f64, calc, group_size=gs)
         all_dfs.append(df)
+        print(f"      DEBUG: Tensor {i} complete, {len(df)} rows", flush=True)
 
         tensor += increment
 

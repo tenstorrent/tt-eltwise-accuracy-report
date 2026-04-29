@@ -101,8 +101,37 @@ def get_params_desc(op_key: str, variant_key: str) -> str:
 
 
 def load_summary(arch: str, dtype: str, op_key: str, variant: str) -> dict | None:
+    """Load summary stats from report_index.json."""
     stats = _get_index().get(arch, {}).get(dtype, {}).get(op_key, {}).get(variant)
-    return stats if stats else None
+    return dict(stats) if stats else None
+
+
+def _input_range_text(op_key: str) -> str:
+    """Human-readable description of the measured input range."""
+    reg = _get_registry()
+    if op_key not in reg:
+        return "all normal values"
+    r = reg[op_key].input_range
+    lo, hi = r.lo, r.hi
+    MIN_NORMAL = 2**-126
+    MAX_NORMAL = 3.4e38
+
+    def _s(v):
+        if abs(v) == float("inf"):
+            return None
+        if abs(v) <= MIN_NORMAL * 2:
+            return "0" if v == 0 else ("min\_normal" if v > 0 else "\-min\_normal")
+        return f"{v:.4g}"
+
+    if lo == float("-inf") and hi == float("inf"):
+        return "all normal values"
+    if lo == float("-inf"):
+        s_hi = _s(hi)
+        return f"x ≤ {s_hi}" if s_hi else "all normal values"
+    if hi == float("inf"):
+        s_lo = _s(lo)
+        return f"x ≥ {s_lo}" if s_lo else "all normal values"
+    return f"x ∈ [{_s(lo)}, {_s(hi)}]"
 
 
 # ---------------------------------------------------------------------------
@@ -210,6 +239,10 @@ def op_detail_page(arch: str, dtype: str, display_name: str,
     )
 
     # Summary table (all params in one table)
+    # Input range (same for all entries sharing a display_name)
+    range_text = _input_range_text(entries[0][0])
+    lines.append(f"**Measured input range:** {range_text}  \n\n")
+
     lines.extend([
         "| Parameters | Max ULP | Mean ULP | Max abs error |\n",
         "|------------|---------|----------|---------------|\n",
@@ -218,7 +251,7 @@ def op_detail_page(arch: str, dtype: str, display_name: str,
         params = get_params_desc(op_key, variant)
         summary = load_summary(arch, dtype, op_key, variant)
         if summary:
-            clipped = (f" ⚠" if summary.get("ulp_clipped") else "")
+            clipped = " ⚠" if summary.get("ulp_clipped") else ""
             lines.append(
                 f"| `{params}` | {summary['max_ulp']}{clipped} "
                 f"| {summary['mean_ulp']} | {summary['max_abs']} |\n"
@@ -227,6 +260,21 @@ def op_detail_page(arch: str, dtype: str, display_name: str,
             lines.append(f"| `{params}` | — | — | — |\n")
 
     lines.append("\n")
+
+    # Near-zero atol notes (one per entry if present)
+    for op_key, variant in entries:
+        params = get_params_desc(op_key, variant)
+        summary = load_summary(arch, dtype, op_key, variant)
+        nz = summary.get("near_zero_atol") if summary else None
+        if nz:
+            pstr = f" (`{params}`)" if len(entries) > 1 else ""
+            lines.append(
+                f"> **Note{pstr}:** ULP is not a useful metric near x ≈ 0 because the "
+                f"output itself is near zero. "
+                f"In x ∈ [{nz['x_lo']}, {nz['x_hi']}] "
+                f"({nz['n']} inputs): max absolute error = **{nz['max_abs']}**.\n\n"
+            )
+
 
     # One chart per parameter set
     multi = len(entries) > 1

@@ -58,23 +58,49 @@ def save_index(index: dict):
     INDEX_FILE.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
 
 
-def compute_stats(df: pd.DataFrame, display_lo, display_hi) -> dict:
-    """Compute summary stats restricted to the display range."""
-    d = df.copy()
-    d = remove_subnormals(d)
-    if display_lo is not None and display_lo not in (None, float("-inf")):
-        d = d[d["x"] >= display_lo]
-    if display_hi is not None and display_hi not in (None, float("inf")):
-        d = d[d["x"] <= display_hi]
+def compute_stats(df: pd.DataFrame) -> dict:
+    """Compute summary stats over the full measured range (subnormals excluded)."""
+    d = remove_subnormals(df)
     if d.empty:
         return {}
     ulp = d["ulp_error"].replace([float("inf"), float("-inf")], float("nan"))
+    stats = {
+        "max_ulp":     _fmt(ulp.max()),
+        "mean_ulp":    _fmt(ulp.mean()),
+        "max_abs":     _fmt(d["abs_error"].replace([float("inf"), float("-inf")], float("nan")).max()),
+        "ulp_clipped": int((ulp > 1000).sum()),
+        "n_inputs":    len(d),
+    }
+    nz = _near_zero_atol(d)
+    if nz:
+        stats["near_zero_atol"] = nz
+    return stats
+
+
+def _near_zero_atol(df: pd.DataFrame) -> dict | None:
+    """Detect near-zero ULP inflation and compute absolute tolerance for that region.
+
+    Some ops (silu, elu, gelu_fast_approx, etc.) produce near-zero outputs for
+    inputs close to x=0. ULP is ill-defined there; absolute error is more useful.
+
+    Returns a dict with x range and max abs error if such a region is found, else None.
+    """
+    # Look at inputs |x| < 0.01 with ULP > 1000
+    near0 = df[(df["x"].abs() < 0.01) & (df["ulp_error"] > 1000)]
+    if len(near0) == 0:
+        return None
+    abs_errs = near0["abs_error"].replace([float("inf"), float("-inf")], float("nan")).dropna()
+    if abs_errs.empty:
+        return None
+    max_abs = abs_errs.max()
+    # Only report when abs error is small — confirms it's ULP inflation, not a real bug
+    if max_abs > 0.5:
+        return None
     return {
-        "max_ulp":      _fmt(ulp.max()),
-        "mean_ulp":     _fmt(ulp.mean()),
-        "max_abs":      _fmt(d["abs_error"].max()),
-        "ulp_clipped":  int((ulp > 1000).sum()),
-        "n_inputs":     len(d),
+        "x_lo":    _fmt(near0["x"].min()),
+        "x_hi":    _fmt(near0["x"].max()),
+        "max_abs": _fmt(max_abs),
+        "n":       len(near0),
     }
 
 
@@ -108,14 +134,9 @@ def plot_ulp_chart(
     arch: str,
     dtype: str,
     out_path: Path,
-    display_lo=None,
-    display_hi=None,
 ):
+    # Show the full measured range — data was already collected within the valid domain
     df = remove_subnormals(df)
-    if display_lo is not None:
-        df = df[df["x"] >= display_lo]
-    if display_hi is not None:
-        df = df[df["x"] <= display_hi]
     if df.empty:
         print(f"  Skipping empty data for {op_name}/{variant}")
         return
@@ -158,13 +179,6 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None):
     except ImportError:
         registry = {}
 
-    def get_display_bounds(op_name):
-        if op_name in registry:
-            lo, hi = registry[op_name].input_range.display_bounds()
-            return (lo if lo != float("-inf") else None,
-                    hi if hi != float("inf") else None)
-        return None, None
-
     if not DATA_DIR.exists():
         print("No data/ directory found. Run measure_accuracy.py first.")
         return
@@ -186,7 +200,6 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None):
                 op_dir = dtype_dir / op_name
                 if not op_dir.is_dir():
                     continue
-                display_lo, display_hi = get_display_bounds(op_name)
                 for csv_path in sorted(op_dir.glob("*.csv")):
                     variant = csv_path.stem
                     df = load_csv(csv_path)
@@ -194,10 +207,8 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None):
                         continue
                     print(f"Plotting {arch}/{dtype}/{op_name}/{variant}")
                     out_svg = CHARTS_DIR / arch / dtype / f"{op_name}_{variant}_ulp.svg"
-                    plot_ulp_chart(df, op_name, variant, arch, dtype, out_svg,
-                                   display_lo=display_lo, display_hi=display_hi)
-                    # Update persistent stats index
-                    stats = compute_stats(df, display_lo, display_hi)
+                    plot_ulp_chart(df, op_name, variant, arch, dtype, out_svg)
+                    stats = compute_stats(df)
                     if stats:
                         index.setdefault(arch, {}).setdefault(dtype, {}).setdefault(op_name, {})[variant] = stats
 
