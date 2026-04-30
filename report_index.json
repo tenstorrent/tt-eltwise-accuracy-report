@@ -927,6 +927,46 @@
           "ulp_clipped": 0
         }
       },
+      "exp": {
+        "default": {
+          "max_abs": "1.01e+31",
+          "max_ulp": "1",
+          "mean_ulp": "0.0618",
+          "n_inputs": 25321474,
+          "ulp_clipped": 0
+        },
+        "fast_approx": {
+          "max_abs": "3.77e+36",
+          "max_ulp": "8.63e+06",
+          "mean_ulp": "1.34e+05",
+          "n_inputs": 25321474,
+          "near_zero_atol": {
+            "max_abs": "0.0256",
+            "n": 15634270,
+            "x_hi": "0.01",
+            "x_lo": "-0.01"
+          },
+          "ulp_clipped": 17347682
+        }
+      },
+      "exp2": {
+        "default": {
+          "max_abs": "1.38e+33",
+          "max_ulp": "8.39e+06",
+          "mean_ulp": "0.755",
+          "n_inputs": 33292290,
+          "ulp_clipped": 1
+        }
+      },
+      "expm1": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "0",
+          "n_inputs": 3182377,
+          "ulp_clipped": 0
+        }
+      },
       "identity": {
         "default": {
           "max_abs": "0",
