@@ -1099,54 +1099,36 @@
       },
       "celu_alpha0p5": {
         "alpha0.5": {
-          "max_abs": "0.00119",
-          "max_ulp": "9.39e+36",
-          "mean_ulp": "3.69e+34",
+          "max_abs": "0.000976",
+          "max_ulp": "0.5",
+          "mean_ulp": "0.00659",
           "n_inputs": 65149,
-          "near_zero_atol": {
-            "max_abs": "0.000865",
-            "n": 14464,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.000122"
-          },
-          "ulp_clipped": 14464
+          "ulp_clipped": 0
         }
       },
       "celu_alpha1p0": {
         "alpha1.0": {
-          "max_abs": "0.00239",
-          "max_ulp": "1.88e+37",
-          "mean_ulp": "7.38e+34",
+          "max_abs": "0.00195",
+          "max_ulp": "0.5",
+          "mean_ulp": "0.00659",
           "n_inputs": 65149,
-          "near_zero_atol": {
-            "max_abs": "0.00173",
-            "n": 14592,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.000243"
-          },
-          "ulp_clipped": 14592
+          "ulp_clipped": 0
         }
       },
       "celu_alpha2p0": {
         "alpha2.0": {
-          "max_abs": "0.00478",
-          "max_ulp": "3.76e+37",
-          "mean_ulp": "1.48e+35",
+          "max_abs": "0.0039",
+          "max_ulp": "255",
+          "mean_ulp": "0.383",
           "n_inputs": 65149,
-          "near_zero_atol": {
-            "max_abs": "0.00346",
-            "n": 14720,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.000486"
-          },
-          "ulp_clipped": 14720
+          "ulp_clipped": 0
         }
       },
       "celu_bw": {
         "default": {
-          "max_abs": "0.00367",
-          "max_ulp": "0.894",
-          "mean_ulp": "0.0118",
+          "max_abs": "0.00355",
+          "max_ulp": "0.892",
+          "mean_ulp": "0.0113",
           "n_inputs": 65149,
           "ulp_clipped": 0
         }
@@ -1213,54 +1195,36 @@
       },
       "elu_alpha0p5": {
         "alpha0.5": {
-          "max_abs": "0.00119",
-          "max_ulp": "9.39e+36",
-          "mean_ulp": "5.53e+34",
+          "max_abs": "0.000976",
+          "max_ulp": "0.5",
+          "mean_ulp": "0.00659",
           "n_inputs": 65149,
-          "near_zero_atol": {
-            "max_abs": "0.000865",
-            "n": 14592,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.000243"
-          },
-          "ulp_clipped": 14592
+          "ulp_clipped": 0
         }
       },
       "elu_alpha1p0": {
         "alpha1.0": {
-          "max_abs": "0.00239",
-          "max_ulp": "1.88e+37",
-          "mean_ulp": "7.38e+34",
+          "max_abs": "0.00195",
+          "max_ulp": "0.5",
+          "mean_ulp": "0.00659",
           "n_inputs": 65149,
-          "near_zero_atol": {
-            "max_abs": "0.00173",
-            "n": 14592,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.000243"
-          },
-          "ulp_clipped": 14592
+          "ulp_clipped": 0
         }
       },
       "elu_alpha2p0": {
         "alpha2.0": {
-          "max_abs": "0.00478",
-          "max_ulp": "1.88e+37",
-          "mean_ulp": "7.38e+34",
+          "max_abs": "0.0039",
+          "max_ulp": "0.5",
+          "mean_ulp": "0.00659",
           "n_inputs": 65149,
-          "near_zero_atol": {
-            "max_abs": "0.00346",
-            "n": 14592,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.000243"
-          },
-          "ulp_clipped": 14592
+          "ulp_clipped": 0
         }
       },
       "elu_bw": {
         "default": {
-          "max_abs": "0.00367",
-          "max_ulp": "0.894",
-          "mean_ulp": "0.0118",
+          "max_abs": "0.00355",
+          "max_ulp": "0.892",
+          "mean_ulp": "0.0113",
           "n_inputs": 65149,
           "ulp_clipped": 0
         }
@@ -1278,7 +1242,7 @@
         "default": {
           "max_abs": "0.0092",
           "max_ulp": "255",
-          "mean_ulp": "175",
+          "mean_ulp": "170",
           "n_inputs": 32381,
           "ulp_clipped": 0
         }
@@ -1287,7 +1251,7 @@
         "default": {
           "max_abs": "2.48",
           "max_ulp": "9.91",
-          "mean_ulp": "0.884",
+          "mean_ulp": "0.882",
           "n_inputs": 65149,
           "ulp_clipped": 0
         }
@@ -1295,8 +1259,8 @@
       "exp": {
         "default": {
           "max_abs": "4.85e+35",
-          "max_ulp": "0.894",
-          "mean_ulp": "0.0286",
+          "max_ulp": "0.892",
+          "mean_ulp": "0.0281",
           "n_inputs": 49533,
           "ulp_clipped": 0
         },
@@ -1329,8 +1293,8 @@
       "exp_bw": {
         "default": {
           "max_abs": "4.85e+35",
-          "max_ulp": "0.894",
-          "mean_ulp": "0.0286",
+          "max_ulp": "0.892",
+          "mean_ulp": "0.0281",
           "n_inputs": 65149,
           "ulp_clipped": 0
         }
@@ -1466,7 +1430,7 @@
       "log": {
         "default": {
           "max_abs": "0.25",
-          "max_ulp": "0.751",
+          "max_ulp": "0.78",
           "mean_ulp": "0.25",
           "n_inputs": 32512,
           "ulp_clipped": 0
@@ -1475,7 +1439,7 @@
       "log10": {
         "default": {
           "max_abs": "0.125",
-          "max_ulp": "1.79",
+          "max_ulp": "0.785",
           "mean_ulp": "0.25",
           "n_inputs": 32512,
           "ulp_clipped": 0
@@ -1511,7 +1475,7 @@
       "log2": {
         "default": {
           "max_abs": "0.248",
-          "max_ulp": "1.03",
+          "max_ulp": "0.766",
           "mean_ulp": "0.249",
           "n_inputs": 32512,
           "ulp_clipped": 0
@@ -1546,8 +1510,8 @@
       },
       "logit": {
         "default": {
-          "max_abs": "0.0377",
-          "max_ulp": "64.3",
+          "max_abs": "0.0378",
+          "max_ulp": "64",
           "mean_ulp": "0.387",
           "n_inputs": 2560,
           "ulp_clipped": 0
@@ -1663,24 +1627,18 @@
       },
       "selu": {
         "default": {
-          "max_abs": "1.32e+36",
-          "max_ulp": "3.31e+37",
-          "mean_ulp": "7.41e+34",
+          "max_abs": "6.6e+35",
+          "max_ulp": "0.5",
+          "mean_ulp": "0.195",
           "n_inputs": 65149,
-          "near_zero_atol": {
-            "max_abs": "0.00304",
-            "n": 14610,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.000277"
-          },
-          "ulp_clipped": 14610
+          "ulp_clipped": 0
         }
       },
       "selu_bw": {
         "default": {
-          "max_abs": "0.0175",
+          "max_abs": "0.0173",
           "max_ulp": "191",
-          "mean_ulp": "0.521",
+          "mean_ulp": "0.519",
           "n_inputs": 65149,
           "ulp_clipped": 0
         }
@@ -1793,8 +1751,8 @@
       "softplus_bw": {
         "default": {
           "max_abs": "0.00576",
-          "max_ulp": "1.92",
-          "mean_ulp": "0.0281",
+          "max_ulp": "1.91",
+          "mean_ulp": "0.0274",
           "n_inputs": 65149,
           "ulp_clipped": 0
         }
@@ -2016,47 +1974,35 @@
       },
       "celu_alpha0p5": {
         "alpha0.5": {
-          "max_abs": "0.000864",
-          "max_ulp": "3.01e+38",
-          "mean_ulp": "1.21e+36",
+          "max_abs": "2.98e-08",
+          "max_ulp": "1",
+          "mean_ulp": "0.0264",
           "n_inputs": 33292290,
-          "near_zero_atol": {
-            "max_abs": "0.000864",
-            "n": 7817135,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.01"
-          },
-          "ulp_clipped": 7553080
+          "ulp_clipped": 0
         }
       },
       "celu_alpha1p0": {
         "alpha1.0": {
-          "max_abs": "0.00173",
-          "max_ulp": "3.01e+38",
-          "mean_ulp": "1.21e+36",
+          "max_abs": "5.96e-08",
+          "max_ulp": "1",
+          "mean_ulp": "0.0264",
           "n_inputs": 33292290,
-          "near_zero_atol": {
-            "max_abs": "0.00173",
-            "n": 7817135,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.01"
-          },
-          "ulp_clipped": 7553080
+          "ulp_clipped": 0
         }
       },
       "celu_alpha2p0": {
         "alpha2.0": {
-          "max_abs": "0.00345",
-          "max_ulp": "3.01e+38",
-          "mean_ulp": "1.21e+36",
+          "max_abs": "1.19e-07",
+          "max_ulp": "1.68e+07",
+          "mean_ulp": "2.48e+04",
           "n_inputs": 33292290,
           "near_zero_atol": {
-            "max_abs": "0.00345",
-            "n": 7817135,
+            "max_abs": "2.35e-38",
+            "n": 65536,
             "x_hi": "-1.18e-38",
-            "x_lo": "-0.01"
+            "x_lo": "-2.35e-38"
           },
-          "ulp_clipped": 7553080
+          "ulp_clipped": 65536
         }
       },
       "celu_bw": {
@@ -2136,47 +2082,35 @@
       },
       "elu_alpha0p5": {
         "alpha0.5": {
-          "max_abs": "0.000864",
-          "max_ulp": "3.01e+38",
-          "mean_ulp": "1.21e+36",
+          "max_abs": "2.98e-08",
+          "max_ulp": "8.39e+06",
+          "mean_ulp": "0.278",
           "n_inputs": 33292290,
           "near_zero_atol": {
-            "max_abs": "0.000864",
-            "n": 7817135,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.01"
+            "max_abs": "1.18e-38",
+            "n": 1,
+            "x_hi": "-2.35e-38",
+            "x_lo": "-2.35e-38"
           },
-          "ulp_clipped": 7553080
+          "ulp_clipped": 1
         }
       },
       "elu_alpha1p0": {
         "alpha1.0": {
-          "max_abs": "0.00173",
-          "max_ulp": "3.01e+38",
-          "mean_ulp": "1.21e+36",
+          "max_abs": "5.96e-08",
+          "max_ulp": "1",
+          "mean_ulp": "0.0264",
           "n_inputs": 33292290,
-          "near_zero_atol": {
-            "max_abs": "0.00173",
-            "n": 7817135,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.01"
-          },
-          "ulp_clipped": 7553080
+          "ulp_clipped": 0
         }
       },
       "elu_alpha2p0": {
         "alpha2.0": {
-          "max_abs": "0.00345",
-          "max_ulp": "3.01e+38",
-          "mean_ulp": "1.21e+36",
+          "max_abs": "1.19e-07",
+          "max_ulp": "1",
+          "mean_ulp": "0.0264",
           "n_inputs": 33292290,
-          "near_zero_atol": {
-            "max_abs": "0.00345",
-            "n": 7817135,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.01"
-          },
-          "ulp_clipped": 7553080
+          "ulp_clipped": 0
         }
       },
       "elu_bw": {
@@ -2191,34 +2125,34 @@
       "erf": {
         "default": {
           "max_abs": "4.77e-07",
-          "max_ulp": "7",
-          "mean_ulp": "0.565",
+          "max_ulp": "6",
+          "mean_ulp": "0.564",
           "n_inputs": 33292290,
           "ulp_clipped": 0
         }
       },
       "erfinv": {
         "default": {
-          "max_abs": "0.0058",
+          "max_abs": "0.00522",
           "max_ulp": "1.68e+07",
-          "mean_ulp": "1.15e+07",
+          "mean_ulp": "1.11e+07",
           "n_inputs": 16515072,
           "near_zero_atol": {
-            "max_abs": "0.0058",
-            "n": 15617444,
+            "max_abs": "0.000459",
+            "n": 15613238,
             "x_hi": "0.01",
             "x_lo": "-0.01"
           },
-          "ulp_clipped": 16393306
+          "ulp_clipped": 16111512
         }
       },
       "erfinv_bw": {
         "default": {
           "max_abs": "3.32e+04",
-          "max_ulp": "4.94e+05",
-          "mean_ulp": "98",
+          "max_ulp": "4.98e+05",
+          "mean_ulp": "90.3",
           "n_inputs": 33292290,
-          "ulp_clipped": 107588
+          "ulp_clipped": 163120
         }
       },
       "exp": {
@@ -2245,20 +2179,20 @@
       },
       "exp2": {
         "default": {
-          "max_abs": "1.38e+33",
-          "max_ulp": "8.39e+06",
-          "mean_ulp": "0.755",
+          "max_abs": "7.91e+32",
+          "max_ulp": "39",
+          "mean_ulp": "0.269",
           "n_inputs": 33292290,
-          "ulp_clipped": 1
+          "ulp_clipped": 0
         }
       },
       "exp2_bw": {
         "default": {
-          "max_abs": "9.74e+32",
-          "max_ulp": "8.39e+06",
-          "mean_ulp": "0.794",
+          "max_abs": "5.48e+32",
+          "max_ulp": "55",
+          "mean_ulp": "0.337",
           "n_inputs": 33292290,
-          "ulp_clipped": 1
+          "ulp_clipped": 0
         }
       },
       "exp_bw": {
@@ -2404,14 +2338,14 @@
           "max_ulp": "1.16e+06",
           "mean_ulp": "3.33e+03",
           "n_inputs": 9696146,
-          "ulp_clipped": 130416
+          "ulp_clipped": 130403
         }
       },
       "lgamma_bw": {
         "default": {
           "max_abs": "8.51e+37",
           "max_ulp": "3.66e+17",
-          "mean_ulp": "2.12e+10",
+          "mean_ulp": "2.13e+10",
           "n_inputs": 33292290,
           "ulp_clipped": 16999997
         }
@@ -2419,8 +2353,8 @@
       "log": {
         "default": {
           "max_abs": "7.63e-06",
-          "max_ulp": "3",
-          "mean_ulp": "1",
+          "max_ulp": "1",
+          "mean_ulp": "0.992",
           "n_inputs": 16645894,
           "ulp_clipped": 0
         }
@@ -2428,8 +2362,8 @@
       "log10": {
         "default": {
           "max_abs": "3.81e-06",
-          "max_ulp": "5",
-          "mean_ulp": "1.14",
+          "max_ulp": "2",
+          "mean_ulp": "1.13",
           "n_inputs": 16645894,
           "ulp_clipped": 0
         }
@@ -2464,8 +2398,8 @@
       "log2": {
         "default": {
           "max_abs": "7.63e-06",
-          "max_ulp": "5",
-          "mean_ulp": "1.01",
+          "max_ulp": "2",
+          "mean_ulp": "1",
           "n_inputs": 16645894,
           "ulp_clipped": 0
         }
@@ -2507,7 +2441,7 @@
         "default": {
           "max_abs": "9.54e-07",
           "max_ulp": "4.19e+06",
-          "mean_ulp": "5.07",
+          "mean_ulp": "5.05",
           "n_inputs": 1307537,
           "ulp_clipped": 106
         }
@@ -2623,16 +2557,10 @@
       "selu": {
         "default": {
           "max_abs": "3.45e+32",
-          "max_ulp": "2.64e+38",
-          "mean_ulp": "1.07e+36",
+          "max_ulp": "51",
+          "mean_ulp": "26.1",
           "n_inputs": 33292290,
-          "near_zero_atol": {
-            "max_abs": "0.00304",
-            "n": 7817135,
-            "x_hi": "-1.18e-38",
-            "x_lo": "-0.01"
-          },
-          "ulp_clipped": 7539452
+          "ulp_clipped": 0
         }
       },
       "selu_bw": {
