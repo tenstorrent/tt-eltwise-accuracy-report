@@ -107,6 +107,15 @@ def compare_with_golden(
         # are not clamped away, while still protecting against true zero division.
         ulp_err = abs_err / np.maximum(ulp_np, 1e-45)
 
+        # When hardware gives 0 and the golden is at most min_normal of the compute dtype,
+        # the error is due to hardware zeroing a result at the subnormal boundary (e.g.,
+        # tanh(min_normal) via e^(2x)=1 in compute dtype). Treat these as 0 error.
+        min_normal_compute = float(torch.finfo(compute_dtype).tiny)
+        near_zero_mask = (np.abs(y_np) == 0.0) & (np.abs(yr_np) <= min_normal_compute)
+        ulp_err = np.where(near_zero_mask, 0.0, ulp_err)
+        abs_err = np.where(near_zero_mask, 0.0, abs_err)
+        rel_err = np.where(near_zero_mask, 0.0, rel_err)
+
         x_repr = x_np[:, 0]
         y_repr = y_np[:, 0]
         yr_repr = yr_np[:, 0]

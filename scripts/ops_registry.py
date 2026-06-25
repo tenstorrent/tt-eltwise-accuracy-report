@@ -308,7 +308,9 @@ def _build_registry() -> dict[str, OpEntry]:
         name="silu", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.silu(x),
                             golden_fn=lambda x, out=None: torch.nn.functional.silu(x))],
-        input_range=InputRange(display_lo=-10, display_hi=10),
+        # sigmoid(x) becomes subnormal (flushed to 0) for x < -ln(2^126) ≈ -87.3,
+        # causing silu = x*0 = 0 while golden gives a small normal value.
+        input_range=InputRange(lo=-87.0, display_lo=-10, display_hi=10),
     ))
 
     add(OpEntry(
@@ -334,9 +336,9 @@ def _build_registry() -> dict[str, OpEntry]:
     add(OpEntry(
         name="hardmish", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.hardmish(x),
-                            golden_fn=lambda x, out=None: torch.nn.functional.hardswish(x))],
+                            golden_fn=lambda x, out=None: x * torch.clamp(x + 2, 0, 2) / 2)],
         input_range=InputRange(display_lo=-5, display_hi=5),
-        description="uses hardswish as golden (hardmish ≈ hardswish)",
+        description="hardmish: x * clamp(x+2, 0, 2) / 2",
     ))
 
     add(OpEntry(
@@ -424,8 +426,13 @@ def _build_registry() -> dict[str, OpEntry]:
         input_range=InputRange(display_lo=-5, display_hi=5),
     ))
 
-    for beta in [0.5, 1.0, 2.0]:
+    # For softplus(x, beta) = log(1+e^(beta*x))/beta, e^(beta*x) becomes subnormal when
+    # beta*x < -ln(2^126) ≈ -87.3, i.e. x < -87.3/beta.  Hardware flushes e^(beta*x)→0
+    # giving softplus→0, while float64 golden gives log(1+tiny)/beta ≈ tiny/beta which
+    # can be a normal fp32 value (especially for fractional beta), creating false ULP spikes.
+    for beta, lo_bound in [(0.5, -174.0), (1.0, -87.0), (2.0, -43.0)]:
         _b = beta
+        _lo = lo_bound
         add(OpEntry(
             name=f"softplus_beta{beta}".replace(".", "p"),
             category="unary", display_name="softplus",
@@ -434,7 +441,7 @@ def _build_registry() -> dict[str, OpEntry]:
                 golden_fn=lambda x, out=None, b=_b: torch.nn.functional.softplus(x, beta=b),
                 params_desc=f"beta={beta}",
             )],
-            input_range=InputRange(display_lo=-5, display_hi=5),
+            input_range=InputRange(lo=_lo, display_lo=-5, display_hi=5),
             description=f"Softplus beta={beta}",
         ))
 
@@ -442,7 +449,9 @@ def _build_registry() -> dict[str, OpEntry]:
         name="softsign", category="unary",
         variants=[OpVariant(ttnn_fn=lambda x: ttnn.softsign(x),
                             golden_fn=lambda x, out=None: torch.nn.functional.softsign(x))],
-        input_range=InputRange(display_lo=-10, display_hi=10),
+        # For |x| >= 2^126 ≈ 8.507e37 the hardware's reciprocal of (1+|x|) underflows
+        # to subnormal and is flushed to 0, so x*(1/(1+|x|)) → 0 instead of ±1.
+        input_range=InputRange(lo=-8.5e37, hi=8.5e37, display_lo=-10, display_hi=10),
     ))
 
     add(OpEntry(
