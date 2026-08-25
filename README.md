@@ -9,18 +9,23 @@ Accuracy measurements for TT-Metal elementwise ops (bf16 and fp32) on Wormhole a
 ## Repository Structure
 
 ```
-scripts/
-  ops_registry.py       # Op definitions: variants, valid input ranges, golden fns
-  measure_accuracy.py   # Data collection (run on hardware)
-  generate_charts.py    # CSV → SVG charts
-  generate_reports.py   # SVG + data → browsable markdown report tree
-  requirements.txt
+src/ttnn_accuracy/
+  cli.py                # ttnn-accuracy measure | charts | report
+  paths.py
+  ops/registry.py       # Op definitions: variants, domains, golden fns
+  measure/
+    metrics.py          # ULP / abs / rel — pure, no device
+    sweeps.py           # bf16 exhaustive, fp32 in blocks
+    runner.py           # ops × dtypes × variants → CSV
+    device.py
+  report/
+    charts.py           # CSV → SVG
+    pages.py            # SVG + stats → markdown tree
 
-data/                   # Raw CSV measurements (committed)
-  {arch}/
-    {dtype}/
-      {op_name}/
-        {variant}.csv
+tests/unit/             # runs without hardware
+
+data/                   # Raw CSVs — gitignored, symlink this to a fast local disk
+  {arch}/{dtype}/{op_name}/{variant}.csv
 
 reports/                # Generated markdown + SVG charts (committed)
   README.md             # Top-level navigation
@@ -38,45 +43,52 @@ Reports are GitHub-browsable markdown. Start at [reports/README.md](reports/READ
 - **By Operation** — choose op, see it across all archs and dtypes
 - **By Data Type** — choose bf16 or fp32, see all ops on all archs
 
-## Running Measurements
+## Setup
 
-Measurements require a TT device and a TT-Metal environment.
+Measurements need a TT device. This package installs into tt-metal's `python_env` — `ttnn`
+and `torch` come from there, which is why they are not declared in `pyproject.toml`.
 
 ```bash
-cd scripts
-
-# Install Python dependencies (if not already in environment)
-pip install -r requirements.txt
-
-# Measure all ops, bf16 and fp32, on Wormhole
-python measure_accuracy.py --arch wh --ops all --dtype both
-
-# Measure specific ops
-python measure_accuracy.py --arch wh --ops exp,gelu,tanh --dtype bf16
-
-# Measure only unary ops on Blackhole
-python measure_accuracy.py --arch bh --category unary --dtype both
+source <path/to/tt-metal>/python_env/bin/activate
+export TT_METAL_HOME=<path/to/tt-metal>
+uv pip install -e .
 ```
+
+If `python_env` does not exist yet, run `./create_venv.sh` in tt-metal first — it is a separate
+step from `./build_metal.sh`, and skipping it is what produces
+`ModuleNotFoundError: No module named 'ttnn'`.
+
+`data/` is gitignored and grows fast; on a machine with a small home quota, symlink it:
+`ln -s /localdev/$USER/data data`.
+
+## Running Measurements
+
+```bash
+# All ops, bf16 and fp32, on Wormhole
+ttnn-accuracy measure --arch wh --ops all --dtype both
+
+# Specific ops
+ttnn-accuracy measure --arch wh --ops exp,gelu,tanh --dtype bf16
+
+# Only unary ops on Blackhole
+ttnn-accuracy measure --arch bh --category unary --dtype both
+```
+
+`--dtype fp32` walks the whole fp32 code space in 1024 device blocks per op variant. Start with
+`bf16`.
 
 ## Regenerating Charts and Reports
 
-After collecting new data:
-
 ```bash
-cd scripts
-
-# Generate SVG charts from CSVs
-python generate_charts.py
-
-# Regenerate full markdown report tree
-python generate_reports.py
+ttnn-accuracy charts     # CSVs → SVG, updates report_index.json
+ttnn-accuracy report     # SVG + stats → markdown tree
 ```
 
-Both scripts support `--arch`, `--dtype`, and `--op` flags to regenerate a subset.
+Both accept `--arch`, `--dtype`, and `--op`/`--categories` to regenerate a subset.
 
 ## Op Coverage
 
-Ops are defined in `scripts/ops_registry.py`. Each op entry specifies:
+Ops are defined in `src/ttnn_accuracy/ops/registry.py`. Each op entry specifies:
 - **Variants** — parameter configurations tested (e.g., `elu alpha=0.5/1.0/2.0`, `gelu default/fast_approx`)
 - **Valid input range** — domain restrictions applied during data collection
 - **Golden function** — PyTorch/mpmath reference for comparison

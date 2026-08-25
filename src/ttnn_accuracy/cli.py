@@ -1,0 +1,63 @@
+"""ttnn-accuracy: measure eltwise op accuracy, render charts, regenerate the report tree."""
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+from ttnn_accuracy.paths import DATA_DIR
+
+CATEGORIES = ["unary", "binary", "unary_bw"]
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="ttnn-accuracy", description=__doc__)
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    measure = sub.add_parser("measure", help="run accuracy sweeps on a device")
+    measure.add_argument("--arch", required=True, choices=["wh", "bh"])
+    measure.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
+    measure.add_argument("--category", choices=CATEGORIES, help="filter when --ops=all")
+    measure.add_argument("--dtype", default="bf16", choices=["bf16", "fp32", "both"])
+    measure.add_argument("--output-dir", type=Path, default=DATA_DIR)
+    measure.add_argument("--device-id", type=int, default=0)
+
+    charts = sub.add_parser("charts", help="render SVG charts from measured data")
+    charts.add_argument("--arch")
+    charts.add_argument("--dtype")
+    charts.add_argument("--op")
+
+    report = sub.add_parser("report", help="regenerate the markdown report tree")
+    report.add_argument("--arch")
+    report.add_argument("--dtype")
+    report.add_argument("--categories", default="unary", help="comma-separated")
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+
+    match args.command:
+        case "measure":
+            from ttnn_accuracy.measure.runner import measure
+            from ttnn_accuracy.ops.registry import list_op_names
+
+            ops = (
+                list_op_names(category=args.category)
+                if args.ops == "all"
+                else [o.strip() for o in args.ops.split(",")]
+            )
+            dtypes = ["bf16", "fp32"] if args.dtype == "both" else [args.dtype]
+            return measure(ops, dtypes, args.arch, args.output_dir, args.device_id)
+
+        case "charts":
+            from ttnn_accuracy.report.charts import generate_charts
+
+            return generate_charts(args.arch, args.dtype, args.op)
+
+        case "report":
+            from ttnn_accuracy.report.pages import generate_reports
+
+            cats = [c.strip() for c in args.categories.split(",")]
+            return generate_reports(args.arch, args.dtype, cats)
