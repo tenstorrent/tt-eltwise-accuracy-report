@@ -1,0 +1,77 @@
+[project]
+name = "ttnn-accuracy"
+version = "0.1.0"
+requires-python = ">=3.10"
+description = "Accuracy measurement and reporting for TT-Metal elementwise ops"
+
+dependencies = [
+    "matplotlib>=3.7",
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "loguru>=0.7",
+]
+
+[project.scripts]
+ttnn-accuracy = "ttnn_accuracy.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ttnn_accuracy"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6",
+    "pytest>=8.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["scripts", "src"]
+extend-exclude = ["reports", "data"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+    "F",      # pyflakes — undefined names, unused imports
+    "E", "W", # pycodestyle
+    "I",      # isort — import ordering
+    "UP",     # pyupgrade — modern syntax for the target version
+    "B",      # bugbear — likely bugs (mutable defaults, loop-variable capture)
+    "C4",     # comprehensions
+    "SIM",    # simplify
+    "RET",    # return-statement hygiene
+    "PTH",    # prefer pathlib over os.path
+    "NPY",    # numpy-specific correctness
+    "RUF",    # ruff's own rules
+    "T20",    # flag print() — this codebase should move to loguru
+]
+ignore = [
+    "E501",   # line length is enforced by the formatter, not the linter
+    "B008",   # function call in default argument — common and fine in CLI code
+    "RET504", # a named result before return often reads better here
+    "RUF002",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ttnn_accuracy"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["T201"]
+"tools/*" = ["T201"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+markers = [
+    "hardware: requires a Tenstorrent device (deselect with '-m \"not hardware\"')",
+]
