@@ -22,6 +22,19 @@ def test_ulp_matches_hand_calculation(value, dtype, expected):
     assert metrics.ulp(torch.tensor([value], dtype=dtype)).item() == pytest.approx(expected)
 
 
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float32])
+@pytest.mark.parametrize("value", [1.0, 0.5, 3.7, 1e-3, 1024.0, 2**-126])
+def test_ulp_matches_the_nextafter_definition(value, dtype):
+    """tt-metal defines ULP as nextafter(|x|) - |x|; we compute it from the exponent.
+
+    Kept as a test rather than an import: models.common.utility_functions is not in the
+    ttnn wheel, and its dtype-native subtraction underflows for small bf16 inputs.
+    """
+    x = torch.tensor([value], dtype=dtype)
+    reference = torch.nextafter(x.abs(), torch.tensor(float("inf"), dtype=dtype)) - x.abs()
+    assert metrics.ulp(x).item() == pytest.approx(reference.to(torch.float32).item())
+
+
 def test_ulp_is_sign_symmetric():
     pos = metrics.ulp(torch.tensor([3.5], dtype=torch.bfloat16))
     neg = metrics.ulp(torch.tensor([-3.5], dtype=torch.bfloat16))

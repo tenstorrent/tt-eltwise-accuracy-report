@@ -7,21 +7,21 @@ import warnings
 import numpy as np
 import pandas as pd
 import torch
+from models.common.utility_functions import ulp as tt_metal_ulp
 
+MIN_NORMAL = 2**-126  # smallest normal bf16 and fp32 value; below it hardware returns zero
 REL_FLOOR = 2**-9  # arbitrary, inherited from the POC
 ULP_FLOOR = 1e-45  # fp32 min subnormal: guards the division without clamping bf16 ULPs
 
-MANTISSA_BITS = {torch.bfloat16: 7, torch.float32: 23}
-
 
 def ulp(x: torch.Tensor) -> torch.Tensor:
-    """Unit in the last place of each element, always returned as float32.
+    """tt-metal's ULP, widened to float32.
 
-    Returning float32 rather than x.dtype prevents bf16 underflow: the ULP of the
-    bf16 min-normal is 2^-133, a valid fp32 subnormal that would flush to 0 in bf16.
+    The definition belongs to tt-metal so the whole org measures the same thing. Only
+    the width is ours: tt-metal returns x's dtype, and callers divide by this, so a
+    bf16 result would be capped at the bf16 subnormal floor.
     """
-    mag = x.to(torch.float32).abs().clamp(min=torch.finfo(torch.float32).tiny)
-    return torch.pow(2.0, mag.log2().floor() - MANTISSA_BITS[x.dtype])
+    return tt_metal_ulp(x).to(torch.float32)
 
 
 def flush_subnormals(t: torch.Tensor) -> torch.Tensor:

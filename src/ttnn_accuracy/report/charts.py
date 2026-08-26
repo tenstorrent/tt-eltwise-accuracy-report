@@ -17,12 +17,12 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
+from ttnn_accuracy.measure.metrics import MIN_NORMAL
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, REPO_ROOT
 
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
 
-MIN_NORMAL = 2**-126
 ULP_CLIP = 1000.0
 NEAR_ZERO_X = 0.01
 NEAR_ZERO_MAX_ABS = 0.5

@@ -10,8 +10,8 @@ import torch
 from loguru import logger
 
 from ttnn_accuracy.measure import metrics
+from ttnn_accuracy.measure.metrics import MIN_NORMAL
 
-MIN_NORMAL = 2**-126
 TILE_WIDTH = 2**7
 FP32_BLOCK = 2**6 * 2**9 * TILE_WIDTH
 
