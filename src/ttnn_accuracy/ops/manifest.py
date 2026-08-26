@@ -1,7 +1,11 @@
 """The committed op manifest.
 
-Holds only facts about ops, never timestamps or versions — a rerun on an unchanged
-ttnn must produce an unchanged file, so that a diff means ttnn changed.
+Two top-level keys, deliberately separate. `ops` is what ttnn reports and is rebuilt
+wholesale by `discover`; `domains` is what derivation computed and survives a rebuild,
+because it costs an fp64 sweep per op and does not change when ttnn's op list does.
+
+Neither holds a timestamp: an unchanged ttnn must produce an unchanged file, so that a
+diff means ttnn changed.
 """
 
 from __future__ import annotations
@@ -18,6 +22,7 @@ from ttnn_accuracy.paths import MANIFEST_FILE
 
 
 def build(include_experimental: bool = False) -> dict:
+    """Facts from ttnn only. `domains` is filled by derive_domains, not here."""
     ops = {}
     for op in introspect.discover(include_experimental):
         ops[op.qualified_name] = {
@@ -30,11 +35,13 @@ def build(include_experimental: bool = False) -> dict:
             "is_cpp": op.is_cpp,
             "is_experimental": op.is_experimental,
         }
-    return {"ops": ops}
+    return {"ops": ops, "domains": {}, "refused": {}}
 
 
 def load() -> dict:
-    return json.loads(MANIFEST_FILE.read_text()) if MANIFEST_FILE.exists() else {"ops": {}}
+    if not MANIFEST_FILE.exists():
+        return {"ops": {}, "domains": {}, "refused": {}}
+    return json.loads(MANIFEST_FILE.read_text())
 
 
 def save(manifest: dict) -> None:
@@ -60,10 +67,14 @@ def _single_axis(golden, backward: bool, x):
 
 
 def derive_domains() -> int:
-    """Add per-dtype bounds to every eltwise op the manifest already knows about."""
+    """Add per-dtype bounds to every eltwise op the manifest already knows about.
+
+    An op whose golden rejects the fp64 grid is recorded under `refused` with the reason,
+    so later stages can say why it is unmeasurable instead of guessing.
+    """
     manifest = load()
     discovered = {op.qualified_name: op for op in introspect.discover()}
-    refused = []
+    manifest["refused"] = {}
 
     for name, entry in eltwise(manifest).items():
         if entry["operands"] != 1:
@@ -75,22 +86,27 @@ def derive_domains() -> int:
             try:
                 domains[dtype] = derive(call, dtype)
             except Exception as exc:
-                refused.append(f"{name} {dtype}: {exc}")
+                manifest["refused"][name] = f"{type(exc).__name__} on {dtype}: {exc}"
         if domains:
-            entry["domains"] = domains
+            manifest["domains"][name] = domains
 
     save(manifest)
-    derived = sum("domains" in e for e in manifest["ops"].values())
+    derived, refused = len(manifest["domains"]), len(manifest["refused"])
     logger.success("domains for {} unary ops → {}", derived, MANIFEST_FILE)
     if refused:
-        logger.warning("{} goldens refused the fp64 grid, first: {}", len(refused), refused[0])
+        logger.warning("{} goldens refused the fp64 grid", refused)
     return 0 if derived else 1
 
 
 def discover(include_experimental: bool = False) -> int:
     existing = MANIFEST_FILE.exists()
+    old = load()
     new = build(include_experimental)
-    added, removed, changed = diff(load(), new)
+    added, removed, changed = diff(old, new)
+    # Derivation survives a rebuild, except where ttnn changed the op underneath it.
+    stale = set(changed)
+    for key in ("domains", "refused"):
+        new[key] = {k: v for k, v in old[key].items() if k in new["ops"] and k not in stale}
     save(new)
 
     counts = Counter(entry["category"] for entry in eltwise(new).values())

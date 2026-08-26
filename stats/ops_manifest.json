@@ -1,25 +1,2727 @@
 {
+  "domains": {
+    "ttnn.abs": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.abs_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.acos_bw": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": -0.99609375,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32766,
+        "n_valid": 32258
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": -0.9999999403953552,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 131070,
+        "n_valid": 129025
+      }
+    },
+    "ttnn.acosh": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": 1.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 48642,
+        "n_valid": 16384
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": 1.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 194561,
+        "n_valid": 65536
+      }
+    },
+    "ttnn.angle": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.asin_bw": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": -0.99609375,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32766,
+        "n_valid": 32258
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": -0.9999999403953552,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 131070,
+        "n_valid": 129025
+      }
+    },
+    "ttnn.asinh": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.asinh_bw": {
+      "bf16": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 510,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64516
+      },
+      "fp32": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 2046,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258051
+      }
+    },
+    "ttnn.assign_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.atan": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.atan_bw": {
+      "bf16": {
+        "hi": 9.223372036854776e+18,
+        "lo": -9.223372036854776e+18,
+        "n_flushed": 16638,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 48388
+      },
+      "fp32": {
+        "hi": 9.223372036854776e+18,
+        "lo": -9.223372036854776e+18,
+        "n_flushed": 66558,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 193539
+      }
+    },
+    "ttnn.atanh": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": -0.99609375,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32766,
+        "n_valid": 32258
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": -0.9999999403953552,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 131070,
+        "n_valid": 129025
+      }
+    },
+    "ttnn.atanh_bw": {
+      "bf16": {
+        "hi": 9.223372036854776e+18,
+        "lo": -9.223372036854776e+18,
+        "n_flushed": 16638,
+        "n_overflow": 2,
+        "n_undefined": 0,
+        "n_valid": 48386
+      },
+      "fp32": {
+        "hi": 9.223372036854776e+18,
+        "lo": -9.223372036854776e+18,
+        "n_flushed": 66558,
+        "n_overflow": 2,
+        "n_undefined": 0,
+        "n_valid": 193537
+      }
+    },
+    "ttnn.cbrt": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.ceil": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.ceil_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.celu": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.celu_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64630
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1582,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258515
+      }
+    },
+    "ttnn.clone": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.conj": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.cos": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.cos_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.cosh": {
+      "bf16": {
+        "hi": 89.0,
+        "lo": -89.0,
+        "n_flushed": 0,
+        "n_overflow": 31130,
+        "n_undefined": 0,
+        "n_valid": 33896
+      },
+      "fp32": {
+        "hi": 89.29940795898438,
+        "lo": -89.29940795898438,
+        "n_flushed": 0,
+        "n_overflow": 124522,
+        "n_undefined": 0,
+        "n_valid": 135575
+      }
+    },
+    "ttnn.cosh_bw": {
+      "bf16": {
+        "hi": 89.0,
+        "lo": -89.0,
+        "n_flushed": 0,
+        "n_overflow": 31130,
+        "n_undefined": 0,
+        "n_valid": 33896
+      },
+      "fp32": {
+        "hi": 89.29940795898438,
+        "lo": -89.29940795898438,
+        "n_flushed": 0,
+        "n_overflow": 124522,
+        "n_undefined": 0,
+        "n_valid": 135575
+      }
+    },
+    "ttnn.deg2rad": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 1484,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 63542
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 5928,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 254169
+      }
+    },
+    "ttnn.deg2rad_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.digamma": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -127.5,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 15615,
+        "n_valid": 49409
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -8388607.5,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 54295,
+        "n_valid": 205801
+      }
+    },
+    "ttnn.digamma_bw": {
+      "bf16": {
+        "hi": 8.507059173023462e+37,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 255,
+        "n_overflow": 15876,
+        "n_undefined": 0,
+        "n_valid": 48895
+      },
+      "fp32": {
+        "hi": 8.507059173023462e+37,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1023,
+        "n_overflow": 63491,
+        "n_undefined": 0,
+        "n_valid": 195583
+      }
+    },
+    "ttnn.elu": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.elu_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64630
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1582,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258515
+      }
+    },
+    "ttnn.erf": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.erf_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 394,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64632
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1572,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258525
+      }
+    },
+    "ttnn.erfc": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 198,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64828
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 794,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 259303
+      }
+    },
+    "ttnn.erfc_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 394,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64632
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1572,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258525
+      }
+    },
+    "ttnn.erfinv": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": -0.99609375,
+        "n_flushed": 34,
+        "n_overflow": 2,
+        "n_undefined": 32766,
+        "n_valid": 32224
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": -0.9999999403953552,
+        "n_flushed": 132,
+        "n_overflow": 2,
+        "n_undefined": 131070,
+        "n_valid": 128893
+      }
+    },
+    "ttnn.erfinv_bw": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": -0.99609375,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32766,
+        "n_valid": 32258
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": -0.9999999403953552,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 131070,
+        "n_valid": 129025
+      }
+    },
+    "ttnn.exp": {
+      "bf16": {
+        "hi": 88.5,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 15566,
+        "n_undefined": 0,
+        "n_valid": 49064
+      },
+      "fp32": {
+        "hi": 88.67318725585938,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1582,
+        "n_overflow": 62266,
+        "n_undefined": 0,
+        "n_valid": 196249
+      }
+    },
+    "ttnn.exp2": {
+      "bf16": {
+        "hi": 127.5,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 394,
+        "n_overflow": 15488,
+        "n_undefined": 0,
+        "n_valid": 49144
+      },
+      "fp32": {
+        "hi": 127.99999237060547,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1578,
+        "n_overflow": 61952,
+        "n_undefined": 0,
+        "n_valid": 196567
+      }
+    },
+    "ttnn.exp2_bw": {
+      "bf16": {
+        "hi": 128.0,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 15487,
+        "n_undefined": 0,
+        "n_valid": 49143
+      },
+      "fp32": {
+        "hi": 128.5009765625,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1583,
+        "n_overflow": 61949,
+        "n_undefined": 0,
+        "n_valid": 196565
+      }
+    },
+    "ttnn.exp_bw": {
+      "bf16": {
+        "hi": 88.5,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 15566,
+        "n_undefined": 0,
+        "n_valid": 49064
+      },
+      "fp32": {
+        "hi": 88.67318725585938,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1582,
+        "n_overflow": 62266,
+        "n_undefined": 0,
+        "n_valid": 196249
+      }
+    },
+    "ttnn.expm1": {
+      "bf16": {
+        "hi": 88.5,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 15566,
+        "n_undefined": 0,
+        "n_valid": 49460
+      },
+      "fp32": {
+        "hi": 88.67318725585938,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 62266,
+        "n_undefined": 0,
+        "n_valid": 197831
+      }
+    },
+    "ttnn.expm1_bw": {
+      "bf16": {
+        "hi": 88.5,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 15566,
+        "n_undefined": 0,
+        "n_valid": 49460
+      },
+      "fp32": {
+        "hi": 88.67318725585938,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 62266,
+        "n_undefined": 0,
+        "n_valid": 197831
+      }
+    },
+    "ttnn.fill_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.fill_zero_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.floor": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.floor_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.frac": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.frac_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.from_device": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.from_torch": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.gelu": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 256,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64770
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1024,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 259073
+      }
+    },
+    "ttnn.gelu_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 197,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64829
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 788,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 259309
+      }
+    },
+    "ttnn.hardmish": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.hardshrink": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.hardshrink_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.hardsigmoid": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.hardsigmoid_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.hardswish": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 256,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64770
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1024,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 259073
+      }
+    },
+    "ttnn.hardswish_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.hardtanh": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.hardtanh_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.i0": {
+      "bf16": {
+        "hi": 91.5,
+        "lo": -91.5,
+        "n_flushed": 0,
+        "n_overflow": 31120,
+        "n_undefined": 0,
+        "n_valid": 33906
+      },
+      "fp32": {
+        "hi": 91.8042984008789,
+        "lo": -91.8042984008789,
+        "n_flushed": 0,
+        "n_overflow": 124482,
+        "n_undefined": 0,
+        "n_valid": 135615
+      }
+    },
+    "ttnn.i0_bw": {
+      "bf16": {
+        "hi": 91.5,
+        "lo": -91.5,
+        "n_flushed": 256,
+        "n_overflow": 31120,
+        "n_undefined": 0,
+        "n_valid": 33650
+      },
+      "fp32": {
+        "hi": 91.8042984008789,
+        "lo": -91.8042984008789,
+        "n_flushed": 1024,
+        "n_overflow": 124482,
+        "n_undefined": 0,
+        "n_valid": 134591
+      }
+    },
+    "ttnn.i1": {
+      "bf16": {
+        "hi": 91.5,
+        "lo": -91.5,
+        "n_flushed": 256,
+        "n_overflow": 31120,
+        "n_undefined": 0,
+        "n_valid": 33650
+      },
+      "fp32": {
+        "hi": 91.8042984008789,
+        "lo": -91.8042984008789,
+        "n_flushed": 1024,
+        "n_overflow": 124482,
+        "n_undefined": 0,
+        "n_valid": 134591
+      }
+    },
+    "ttnn.identity": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.interleaved_to_sharded": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.leaky_relu": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 840,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64186
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 3360,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 256737
+      }
+    },
+    "ttnn.leaky_relu_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.lgamma": {
+      "bf16": {
+        "hi": 4.0499915496571656e+36,
+        "lo": -127.5,
+        "n_flushed": 0,
+        "n_overflow": 16445,
+        "n_undefined": 0,
+        "n_valid": 48581
+      },
+      "fp32": {
+        "hi": 4.083929091526476e+36,
+        "lo": -8388607.5,
+        "n_flushed": 0,
+        "n_overflow": 57605,
+        "n_undefined": 0,
+        "n_valid": 202492
+      }
+    },
+    "ttnn.lgamma_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -127.5,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 15615,
+        "n_valid": 49409
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -8388607.5,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 54295,
+        "n_valid": 205801
+      }
+    },
+    "ttnn.log": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32512,
+        "n_valid": 32512
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 130048,
+        "n_valid": 130048
+      }
+    },
+    "ttnn.log10": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32512,
+        "n_valid": 32512
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 130048,
+        "n_valid": 130048
+      }
+    },
+    "ttnn.log10_bw": {
+      "bf16": {
+        "hi": 3.6886076883031415e+37,
+        "lo": -3.6886076883031415e+37,
+        "n_flushed": 834,
+        "n_overflow": 2,
+        "n_undefined": 0,
+        "n_valid": 64190
+      },
+      "fp32": {
+        "hi": 3.691663993900292e+37,
+        "lo": -3.691663993900292e+37,
+        "n_flushed": 3342,
+        "n_overflow": 1,
+        "n_undefined": 0,
+        "n_valid": 256754
+      }
+    },
+    "ttnn.log1p": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -0.99609375,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 16383,
+        "n_valid": 48642
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -0.9999999403953552,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 65535,
+        "n_valid": 194561
+      }
+    },
+    "ttnn.log1p_bw": {
+      "bf16": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 510,
+        "n_overflow": 1,
+        "n_undefined": 0,
+        "n_valid": 64515
+      },
+      "fp32": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 2046,
+        "n_overflow": 1,
+        "n_undefined": 0,
+        "n_valid": 258050
+      }
+    },
+    "ttnn.log2": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32512,
+        "n_valid": 32512
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 130048,
+        "n_valid": 130048
+      }
+    },
+    "ttnn.log2_bw": {
+      "bf16": {
+        "hi": 1.2228897561221226e+38,
+        "lo": -1.2228897561221226e+38,
+        "n_flushed": 398,
+        "n_overflow": 2,
+        "n_undefined": 0,
+        "n_valid": 64626
+      },
+      "fp32": {
+        "hi": 1.2269475563994772e+38,
+        "lo": -1.2269475563994772e+38,
+        "n_flushed": 1594,
+        "n_overflow": 1,
+        "n_undefined": 0,
+        "n_valid": 258502
+      }
+    },
+    "ttnn.log_bw": {
+      "bf16": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 510,
+        "n_overflow": 2,
+        "n_undefined": 0,
+        "n_valid": 64514
+      },
+      "fp32": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 2046,
+        "n_overflow": 1,
+        "n_undefined": 0,
+        "n_valid": 258050
+      }
+    },
+    "ttnn.log_sigmoid": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64630
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1581,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258516
+      }
+    },
+    "ttnn.log_sigmoid_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64630
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1582,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258515
+      }
+    },
+    "ttnn.logical_not_": {
+      "bf16": {
+        "hi": 1.0,
+        "lo": 0.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 1.0,
+        "lo": 0.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.logit": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 3,
+        "n_undefined": 48895,
+        "n_valid": 16128
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 195583,
+        "n_valid": 64512
+      }
+    },
+    "ttnn.logit_bw": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 3,
+        "n_undefined": 48895,
+        "n_valid": 16128
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 195583,
+        "n_valid": 64512
+      }
+    },
+    "ttnn.logiteps_bw": {
+      "bf16": {
+        "hi": 0.99609375,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 3,
+        "n_undefined": 48895,
+        "n_valid": 16128
+      },
+      "fp32": {
+        "hi": 0.9999999403953552,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 195583,
+        "n_valid": 64512
+      }
+    },
+    "ttnn.mish": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 194,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64832
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 770,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 259327
+      }
+    },
+    "ttnn.move": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.multigammaln": {
+      "bf16": {
+        "hi": 1.0332670748484307e+36,
+        "lo": -63.75,
+        "n_flushed": 0,
+        "n_overflow": 35390,
+        "n_undefined": 0,
+        "n_valid": 29636
+      },
+      "fp32": {
+        "hi": 1.0378902758156256e+36,
+        "lo": -4194303.75,
+        "n_flushed": 0,
+        "n_overflow": 133372,
+        "n_undefined": 0,
+        "n_valid": 126725
+      }
+    },
+    "ttnn.multigammaln_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -63.75,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 34308,
+        "n_valid": 30716
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -4194303.75,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 129051,
+        "n_valid": 131045
+      }
+    },
+    "ttnn.neg": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.neg_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.ones_like": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.plus_one": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.rad2deg": {
+      "bf16": {
+        "hi": 5.898449231295564e+36,
+        "lo": -5.898449231295564e+36,
+        "n_flushed": 0,
+        "n_overflow": 1506,
+        "n_undefined": 0,
+        "n_valid": 63520
+      },
+      "fp32": {
+        "hi": 5.930801576089289e+36,
+        "lo": -5.930801576089289e+36,
+        "n_flushed": 0,
+        "n_overflow": 6024,
+        "n_undefined": 0,
+        "n_valid": 254073
+      }
+    },
+    "ttnn.rad2deg_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.real": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.reallocate": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.reciprocal_bw": {
+      "bf16": {
+        "hi": 9.223372036854776e+18,
+        "lo": -9.223372036854776e+18,
+        "n_flushed": 16638,
+        "n_overflow": 15876,
+        "n_undefined": 0,
+        "n_valid": 32512
+      },
+      "fp32": {
+        "hi": 9.223372036854776e+18,
+        "lo": -9.223372036854776e+18,
+        "n_flushed": 66558,
+        "n_overflow": 63491,
+        "n_undefined": 0,
+        "n_valid": 130048
+      }
+    },
+    "ttnn.relu": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.relu6": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.relu6_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.relu_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.reshard": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.round": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.round_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.rsqrt": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32512,
+        "n_valid": 32512
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 130048,
+        "n_valid": 130048
+      }
+    },
+    "ttnn.rsqrt_bw": {
+      "bf16": {
+        "hi": 1.2164816059872206e+25,
+        "lo": 1.3025671267009347e-26,
+        "n_flushed": 5726,
+        "n_overflow": 5123,
+        "n_undefined": 32512,
+        "n_valid": 21665
+      },
+      "fp32": {
+        "hi": 1.2169695223679702e+25,
+        "lo": 1.2949989923914706e-26,
+        "n_flushed": 22907,
+        "n_overflow": 20482,
+        "n_undefined": 130048,
+        "n_valid": 86660
+      }
+    },
+    "ttnn.selu": {
+      "bf16": {
+        "hi": 3.2167317497994964e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 13,
+        "n_undefined": 0,
+        "n_valid": 65013
+      },
+      "fp32": {
+        "hi": 3.2363448398862276e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 50,
+        "n_undefined": 0,
+        "n_valid": 260047
+      }
+    },
+    "ttnn.selu_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 395,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64631
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1578,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258519
+      }
+    },
+    "ttnn.sharded_to_interleaved": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.sigmoid": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 387,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64639
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1547,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258550
+      }
+    },
+    "ttnn.sigmoid_accurate": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 387,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64639
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1547,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258550
+      }
+    },
+    "ttnn.sigmoid_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 387,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64639
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1547,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258550
+      }
+    },
+    "ttnn.sign": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.sign_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.silu": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 634,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64392
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 2535,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 257562
+      }
+    },
+    "ttnn.silu_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 378,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64648
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1511,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258586
+      }
+    },
+    "ttnn.sin": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.sin_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.sinh": {
+      "bf16": {
+        "hi": 89.0,
+        "lo": -89.0,
+        "n_flushed": 0,
+        "n_overflow": 31130,
+        "n_undefined": 0,
+        "n_valid": 33896
+      },
+      "fp32": {
+        "hi": 89.29940795898438,
+        "lo": -89.29940795898438,
+        "n_flushed": 0,
+        "n_overflow": 124522,
+        "n_undefined": 0,
+        "n_valid": 135575
+      }
+    },
+    "ttnn.sinh_bw": {
+      "bf16": {
+        "hi": 89.0,
+        "lo": -89.0,
+        "n_flushed": 0,
+        "n_overflow": 31130,
+        "n_undefined": 0,
+        "n_valid": 33896
+      },
+      "fp32": {
+        "hi": 89.29940795898438,
+        "lo": -89.29940795898438,
+        "n_flushed": 0,
+        "n_overflow": 124522,
+        "n_undefined": 0,
+        "n_valid": 135575
+      }
+    },
+    "ttnn.softplus": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64630
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1581,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258516
+      }
+    },
+    "ttnn.softplus_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 396,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64630
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1582,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 258515
+      }
+    },
+    "ttnn.softshrink": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.softshrink_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.softsign": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.softsign_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.sqrt": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": 0.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 32512,
+        "n_valid": 32514
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": 0.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 130048,
+        "n_valid": 130049
+      }
+    },
+    "ttnn.sqrt_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 2,
+        "n_undefined": 32512,
+        "n_valid": 32512
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": 1.1754943508222875e-38,
+        "n_flushed": 0,
+        "n_overflow": 1,
+        "n_undefined": 130048,
+        "n_valid": 130048
+      }
+    },
+    "ttnn.square": {
+      "bf16": {
+        "hi": 1.8374686479671624e+19,
+        "lo": -1.8374686479671624e+19,
+        "n_flushed": 16128,
+        "n_overflow": 16384,
+        "n_undefined": 0,
+        "n_valid": 32514
+      },
+      "fp32": {
+        "hi": 1.8446742974197924e+19,
+        "lo": -1.8446742974197924e+19,
+        "n_flushed": 64512,
+        "n_overflow": 65536,
+        "n_undefined": 0,
+        "n_valid": 130049
+      }
+    },
+    "ttnn.square_bw": {
+      "bf16": {
+        "hi": 1.6947656946257677e+38,
+        "lo": -1.6947656946257677e+38,
+        "n_flushed": 0,
+        "n_overflow": 256,
+        "n_undefined": 0,
+        "n_valid": 64770
+      },
+      "fp32": {
+        "hi": 1.7014117331926443e+38,
+        "lo": -1.7014117331926443e+38,
+        "n_flushed": 0,
+        "n_overflow": 1024,
+        "n_undefined": 0,
+        "n_valid": 259073
+      }
+    },
+    "ttnn.squeeze": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.swish": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 634,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64392
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 2535,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 257562
+      }
+    },
+    "ttnn.tan": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.tan_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.tanh": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.tanh_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.tanhshrink": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.tanhshrink_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.tilize": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.tilize_with_zero_padding": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.to_device": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.to_dtype": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.to_layout": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.to_memory_config": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.to_torch": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.trunc": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.trunc_bw": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.typecast": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.untilize": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.xielu": {
+      "bf16": {
+        "hi": 2.0464356706771534e+19,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 128,
+        "n_overflow": 8177,
+        "n_undefined": 0,
+        "n_valid": 56721
+      },
+      "fp32": {
+        "hi": 2.0612700616567816e+19,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 512,
+        "n_overflow": 32707,
+        "n_undefined": 0,
+        "n_valid": 226878
+      }
+    },
+    "ttnn.zeros_like": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    }
+  },
   "ops": {
     "ttnn.abs": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -30,24 +2732,6 @@
     },
     "ttnn.abs_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -57,35 +2741,17 @@
       "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
     },
     "ttnn.acos": {
-      "category": "binary",
+      "category": "unary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "acos",
-      "operands": 2,
+      "operands": 1,
       "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.acos_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": -0.99609375,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32766,
-          "n_valid": 32258
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": -0.9999999403953552,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 131070,
-          "n_valid": 129025
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -96,24 +2762,6 @@
     },
     "ttnn.acosh": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": 1.0,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 48642,
-          "n_valid": 16384
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": 1.0,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 194561,
-          "n_valid": 65536
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -123,13 +2771,13 @@
       "signature": "(input_tensor_a, *args, **kwargs)"
     },
     "ttnn.acosh_bw": {
-      "category": "binary_bw",
+      "category": "unary_bw",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "acosh_bw",
-      "operands": 2,
+      "operands": 1,
       "signature": "(grad_tensor, input_tensor, *args, device, **kwargs)"
     },
     "ttnn.adaptive_avg_pool2d": {
@@ -334,24 +2982,6 @@
     },
     "ttnn.angle": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -401,35 +3031,17 @@
       "signature": null
     },
     "ttnn.asin": {
-      "category": "binary",
+      "category": "unary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "asin",
-      "operands": 2,
+      "operands": 1,
       "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.asin_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": -0.99609375,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32766,
-          "n_valid": 32258
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": -0.9999999403953552,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 131070,
-          "n_valid": 129025
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -440,24 +3052,6 @@
     },
     "ttnn.asinh": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -468,24 +3062,6 @@
     },
     "ttnn.asinh_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 8.507059173023462e+37,
-          "lo": -8.507059173023462e+37,
-          "n_flushed": 510,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64516
-        },
-        "fp32": {
-          "hi": 8.507059173023462e+37,
-          "lo": -8.507059173023462e+37,
-          "n_flushed": 2046,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258051
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -506,24 +3082,6 @@
     },
     "ttnn.assign_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -534,24 +3092,6 @@
     },
     "ttnn.atan": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -582,24 +3122,6 @@
     },
     "ttnn.atan_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 9.223372036854776e+18,
-          "lo": -9.223372036854776e+18,
-          "n_flushed": 16638,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 48388
-        },
-        "fp32": {
-          "hi": 9.223372036854776e+18,
-          "lo": -9.223372036854776e+18,
-          "n_flushed": 66558,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 193539
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -610,24 +3132,6 @@
     },
     "ttnn.atanh": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": -0.99609375,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32766,
-          "n_valid": 32258
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": -0.9999999403953552,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 131070,
-          "n_valid": 129025
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -638,24 +3142,6 @@
     },
     "ttnn.atanh_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 9.223372036854776e+18,
-          "lo": -9.223372036854776e+18,
-          "n_flushed": 16638,
-          "n_overflow": 2,
-          "n_undefined": 0,
-          "n_valid": 48386
-        },
-        "fp32": {
-          "hi": 9.223372036854776e+18,
-          "lo": -9.223372036854776e+18,
-          "n_flushed": 66558,
-          "n_overflow": 2,
-          "n_undefined": 0,
-          "n_valid": 193537
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -816,24 +3302,6 @@
     },
     "ttnn.cbrt": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -844,24 +3312,6 @@
     },
     "ttnn.ceil": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -872,24 +3322,6 @@
     },
     "ttnn.ceil_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -900,24 +3332,6 @@
     },
     "ttnn.celu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -928,24 +3342,6 @@
     },
     "ttnn.celu_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64630
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1582,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258515
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1006,24 +3402,6 @@
     },
     "ttnn.clone": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1084,24 +3462,6 @@
     },
     "ttnn.conj": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1192,24 +3552,6 @@
     },
     "ttnn.cos": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1220,24 +3562,6 @@
     },
     "ttnn.cos_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1248,24 +3572,6 @@
     },
     "ttnn.cosh": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 89.0,
-          "lo": -89.0,
-          "n_flushed": 0,
-          "n_overflow": 31130,
-          "n_undefined": 0,
-          "n_valid": 33896
-        },
-        "fp32": {
-          "hi": 89.29940795898438,
-          "lo": -89.29940795898438,
-          "n_flushed": 0,
-          "n_overflow": 124522,
-          "n_undefined": 0,
-          "n_valid": 135575
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1276,24 +3582,6 @@
     },
     "ttnn.cosh_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 89.0,
-          "lo": -89.0,
-          "n_flushed": 0,
-          "n_overflow": 31130,
-          "n_undefined": 0,
-          "n_valid": 33896
-        },
-        "fp32": {
-          "hi": 89.29940795898438,
-          "lo": -89.29940795898438,
-          "n_flushed": 0,
-          "n_overflow": 124522,
-          "n_undefined": 0,
-          "n_valid": 135575
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1334,24 +3622,6 @@
     },
     "ttnn.deg2rad": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 1484,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 63542
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 5928,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 254169
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1362,24 +3632,6 @@
     },
     "ttnn.deg2rad_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1400,24 +3652,6 @@
     },
     "ttnn.digamma": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -127.5,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 15615,
-          "n_valid": 49409
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -8388607.5,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 54295,
-          "n_valid": 205801
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1428,24 +3662,6 @@
     },
     "ttnn.digamma_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 8.507059173023462e+37,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 255,
-          "n_overflow": 15876,
-          "n_undefined": 0,
-          "n_valid": 48895
-        },
-        "fp32": {
-          "hi": 8.507059173023462e+37,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1023,
-          "n_overflow": 63491,
-          "n_undefined": 0,
-          "n_valid": 195583
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1536,24 +3752,6 @@
     },
     "ttnn.elu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1564,24 +3762,6 @@
     },
     "ttnn.elu_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64630
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1582,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258515
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1672,24 +3852,6 @@
     },
     "ttnn.erf": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1700,24 +3862,6 @@
     },
     "ttnn.erf_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 394,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64632
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1572,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258525
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1728,24 +3872,6 @@
     },
     "ttnn.erfc": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 198,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64828
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 794,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 259303
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1756,24 +3882,6 @@
     },
     "ttnn.erfc_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 394,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64632
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1572,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258525
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1784,24 +3892,6 @@
     },
     "ttnn.erfinv": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": -0.99609375,
-          "n_flushed": 34,
-          "n_overflow": 2,
-          "n_undefined": 32766,
-          "n_valid": 32224
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": -0.9999999403953552,
-          "n_flushed": 132,
-          "n_overflow": 2,
-          "n_undefined": 131070,
-          "n_valid": 128893
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1812,24 +3902,6 @@
     },
     "ttnn.erfinv_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": -0.99609375,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32766,
-          "n_valid": 32258
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": -0.9999999403953552,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 131070,
-          "n_valid": 129025
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1840,24 +3912,6 @@
     },
     "ttnn.exp": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 88.5,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 15566,
-          "n_undefined": 0,
-          "n_valid": 49064
-        },
-        "fp32": {
-          "hi": 88.67318725585938,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1582,
-          "n_overflow": 62266,
-          "n_undefined": 0,
-          "n_valid": 196249
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1868,24 +3922,6 @@
     },
     "ttnn.exp2": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 127.5,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 394,
-          "n_overflow": 15488,
-          "n_undefined": 0,
-          "n_valid": 49144
-        },
-        "fp32": {
-          "hi": 127.99999237060547,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1578,
-          "n_overflow": 61952,
-          "n_undefined": 0,
-          "n_valid": 196567
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1896,24 +3932,6 @@
     },
     "ttnn.exp2_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 128.0,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 15487,
-          "n_undefined": 0,
-          "n_valid": 49143
-        },
-        "fp32": {
-          "hi": 128.5009765625,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1583,
-          "n_overflow": 61949,
-          "n_undefined": 0,
-          "n_valid": 196565
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1924,24 +3942,6 @@
     },
     "ttnn.exp_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 88.5,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 15566,
-          "n_undefined": 0,
-          "n_valid": 49064
-        },
-        "fp32": {
-          "hi": 88.67318725585938,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1582,
-          "n_overflow": 62266,
-          "n_undefined": 0,
-          "n_valid": 196249
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1962,24 +3962,6 @@
     },
     "ttnn.expm1": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 88.5,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 15566,
-          "n_undefined": 0,
-          "n_valid": 49460
-        },
-        "fp32": {
-          "hi": 88.67318725585938,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 62266,
-          "n_undefined": 0,
-          "n_valid": 197831
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -1990,24 +3972,6 @@
     },
     "ttnn.expm1_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 88.5,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 15566,
-          "n_undefined": 0,
-          "n_valid": 49460
-        },
-        "fp32": {
-          "hi": 88.67318725585938,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 62266,
-          "n_undefined": 0,
-          "n_valid": 197831
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2028,24 +3992,6 @@
     },
     "ttnn.fill_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2096,24 +4042,6 @@
     },
     "ttnn.fill_zero_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2124,24 +4052,6 @@
     },
     "ttnn.floor": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2152,24 +4062,6 @@
     },
     "ttnn.floor_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2189,13 +4081,13 @@
       "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.fmod": {
-      "category": "ternary",
+      "category": "binary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "fmod",
-      "operands": 3,
+      "operands": 2,
       "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
     },
     "ttnn.fmod_bw": {
@@ -2220,24 +4112,6 @@
     },
     "ttnn.frac": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2248,24 +4122,6 @@
     },
     "ttnn.frac_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2286,24 +4142,6 @@
     },
     "ttnn.from_device": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": false,
@@ -2314,24 +4152,6 @@
     },
     "ttnn.from_torch": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": false,
@@ -2422,24 +4242,6 @@
     },
     "ttnn.gelu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 256,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64770
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1024,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 259073
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2450,24 +4252,6 @@
     },
     "ttnn.gelu_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 197,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64829
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 788,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 259309
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2517,13 +4301,13 @@
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, grid: ttnn._ttnn.tensor.Tensor, mode: str = 'bilinear', padding_mode: str = 'zeros', align_corners: bool = False, batch_output_channels: bool = False, grid_batching_factor: int = None, **_)"
     },
     "ttnn.group_norm": {
-      "category": "binary",
+      "category": "unary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "group_norm",
-      "operands": 2,
+      "operands": 1,
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, num_groups, epsilon=1e-05, weight=None, bias=None, memory_config=None, core_grid=None, input_mask=None, **kwargs)"
     },
     "ttnn.gt": {
@@ -2558,24 +4342,6 @@
     },
     "ttnn.hardmish": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2586,24 +4352,6 @@
     },
     "ttnn.hardshrink": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2614,24 +4362,6 @@
     },
     "ttnn.hardshrink_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2642,24 +4372,6 @@
     },
     "ttnn.hardsigmoid": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2670,24 +4382,6 @@
     },
     "ttnn.hardsigmoid_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2698,24 +4392,6 @@
     },
     "ttnn.hardswish": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 256,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64770
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1024,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 259073
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2726,24 +4402,6 @@
     },
     "ttnn.hardswish_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2754,24 +4412,6 @@
     },
     "ttnn.hardtanh": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2782,24 +4422,6 @@
     },
     "ttnn.hardtanh_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2840,24 +4462,6 @@
     },
     "ttnn.i0": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 91.5,
-          "lo": -91.5,
-          "n_flushed": 0,
-          "n_overflow": 31120,
-          "n_undefined": 0,
-          "n_valid": 33906
-        },
-        "fp32": {
-          "hi": 91.8042984008789,
-          "lo": -91.8042984008789,
-          "n_flushed": 0,
-          "n_overflow": 124482,
-          "n_undefined": 0,
-          "n_valid": 135615
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2868,24 +4472,6 @@
     },
     "ttnn.i0_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 91.5,
-          "lo": -91.5,
-          "n_flushed": 256,
-          "n_overflow": 31120,
-          "n_undefined": 0,
-          "n_valid": 33650
-        },
-        "fp32": {
-          "hi": 91.8042984008789,
-          "lo": -91.8042984008789,
-          "n_flushed": 1024,
-          "n_overflow": 124482,
-          "n_undefined": 0,
-          "n_valid": 134591
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2896,24 +4482,6 @@
     },
     "ttnn.i1": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 91.5,
-          "lo": -91.5,
-          "n_flushed": 256,
-          "n_overflow": 31120,
-          "n_undefined": 0,
-          "n_valid": 33650
-        },
-        "fp32": {
-          "hi": 91.8042984008789,
-          "lo": -91.8042984008789,
-          "n_flushed": 1024,
-          "n_overflow": 124482,
-          "n_undefined": 0,
-          "n_valid": 134591
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2924,24 +4492,6 @@
     },
     "ttnn.identity": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -2992,24 +4542,6 @@
     },
     "ttnn.interleaved_to_sharded": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3230,24 +4762,6 @@
     },
     "ttnn.leaky_relu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 840,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64186
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 3360,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 256737
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3258,24 +4772,6 @@
     },
     "ttnn.leaky_relu_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3316,24 +4812,6 @@
     },
     "ttnn.lgamma": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 4.0499915496571656e+36,
-          "lo": -127.5,
-          "n_flushed": 0,
-          "n_overflow": 16445,
-          "n_undefined": 0,
-          "n_valid": 48581
-        },
-        "fp32": {
-          "hi": 4.083929091526476e+36,
-          "lo": -8388607.5,
-          "n_flushed": 0,
-          "n_overflow": 57605,
-          "n_undefined": 0,
-          "n_valid": 202492
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3344,24 +4822,6 @@
     },
     "ttnn.lgamma_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -127.5,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 15615,
-          "n_valid": 49409
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -8388607.5,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 54295,
-          "n_valid": 205801
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3392,24 +4852,6 @@
     },
     "ttnn.log": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32512,
-          "n_valid": 32512
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 130048,
-          "n_valid": 130048
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3420,24 +4862,6 @@
     },
     "ttnn.log10": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32512,
-          "n_valid": 32512
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 130048,
-          "n_valid": 130048
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3448,24 +4872,6 @@
     },
     "ttnn.log10_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.6886076883031415e+37,
-          "lo": -3.6886076883031415e+37,
-          "n_flushed": 834,
-          "n_overflow": 2,
-          "n_undefined": 0,
-          "n_valid": 64190
-        },
-        "fp32": {
-          "hi": 3.691663993900292e+37,
-          "lo": -3.691663993900292e+37,
-          "n_flushed": 3342,
-          "n_overflow": 1,
-          "n_undefined": 0,
-          "n_valid": 256754
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3476,24 +4882,6 @@
     },
     "ttnn.log1p": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -0.99609375,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 16383,
-          "n_valid": 48642
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -0.9999999403953552,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 65535,
-          "n_valid": 194561
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3504,24 +4892,6 @@
     },
     "ttnn.log1p_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 8.507059173023462e+37,
-          "lo": -8.507059173023462e+37,
-          "n_flushed": 510,
-          "n_overflow": 1,
-          "n_undefined": 0,
-          "n_valid": 64515
-        },
-        "fp32": {
-          "hi": 8.507059173023462e+37,
-          "lo": -8.507059173023462e+37,
-          "n_flushed": 2046,
-          "n_overflow": 1,
-          "n_undefined": 0,
-          "n_valid": 258050
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3532,24 +4902,6 @@
     },
     "ttnn.log2": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32512,
-          "n_valid": 32512
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 130048,
-          "n_valid": 130048
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3560,24 +4912,6 @@
     },
     "ttnn.log2_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 1.2228897561221226e+38,
-          "lo": -1.2228897561221226e+38,
-          "n_flushed": 398,
-          "n_overflow": 2,
-          "n_undefined": 0,
-          "n_valid": 64626
-        },
-        "fp32": {
-          "hi": 1.2269475563994772e+38,
-          "lo": -1.2269475563994772e+38,
-          "n_flushed": 1594,
-          "n_overflow": 1,
-          "n_undefined": 0,
-          "n_valid": 258502
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3588,24 +4922,6 @@
     },
     "ttnn.log_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 8.507059173023462e+37,
-          "lo": -8.507059173023462e+37,
-          "n_flushed": 510,
-          "n_overflow": 2,
-          "n_undefined": 0,
-          "n_valid": 64514
-        },
-        "fp32": {
-          "hi": 8.507059173023462e+37,
-          "lo": -8.507059173023462e+37,
-          "n_flushed": 2046,
-          "n_overflow": 1,
-          "n_undefined": 0,
-          "n_valid": 258050
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3616,24 +4932,6 @@
     },
     "ttnn.log_sigmoid": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64630
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1581,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258516
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3644,24 +4942,6 @@
     },
     "ttnn.log_sigmoid_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64630
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1582,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258515
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3772,24 +5052,6 @@
     },
     "ttnn.logical_not_": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 1.0,
-          "lo": 0.0,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 1.0,
-          "lo": 0.0,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3850,24 +5112,6 @@
     },
     "ttnn.logit": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 3,
-          "n_undefined": 48895,
-          "n_valid": 16128
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 195583,
-          "n_valid": 64512
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3878,24 +5122,6 @@
     },
     "ttnn.logit_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 3,
-          "n_undefined": 48895,
-          "n_valid": 16128
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 195583,
-          "n_valid": 64512
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -3906,24 +5132,6 @@
     },
     "ttnn.logiteps_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 0.99609375,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 3,
-          "n_undefined": 48895,
-          "n_valid": 16128
-        },
-        "fp32": {
-          "hi": 0.9999999403953552,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 195583,
-          "n_valid": 64512
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4094,24 +5302,6 @@
     },
     "ttnn.mish": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 194,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64832
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 770,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 259327
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4542,24 +5732,6 @@
     },
     "ttnn.move": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4590,24 +5762,6 @@
     },
     "ttnn.multigammaln": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 1.0332670748484307e+36,
-          "lo": -63.75,
-          "n_flushed": 0,
-          "n_overflow": 35390,
-          "n_undefined": 0,
-          "n_valid": 29636
-        },
-        "fp32": {
-          "hi": 1.0378902758156256e+36,
-          "lo": -4194303.75,
-          "n_flushed": 0,
-          "n_overflow": 133372,
-          "n_undefined": 0,
-          "n_valid": 126725
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4618,24 +5772,6 @@
     },
     "ttnn.multigammaln_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -63.75,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 34308,
-          "n_valid": 30716
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -4194303.75,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 129051,
-          "n_valid": 131045
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4696,24 +5832,6 @@
     },
     "ttnn.neg": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4724,24 +5842,6 @@
     },
     "ttnn.neg_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4812,24 +5912,6 @@
     },
     "ttnn.ones_like": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -4880,24 +5962,6 @@
     },
     "ttnn.plus_one": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5028,24 +6092,6 @@
     },
     "ttnn.rad2deg": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 5.898449231295564e+36,
-          "lo": -5.898449231295564e+36,
-          "n_flushed": 0,
-          "n_overflow": 1506,
-          "n_undefined": 0,
-          "n_valid": 63520
-        },
-        "fp32": {
-          "hi": 5.930801576089289e+36,
-          "lo": -5.930801576089289e+36,
-          "n_flushed": 0,
-          "n_overflow": 6024,
-          "n_undefined": 0,
-          "n_valid": 254073
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5056,24 +6102,6 @@
     },
     "ttnn.rad2deg_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5124,24 +6152,6 @@
     },
     "ttnn.real": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5162,24 +6172,6 @@
     },
     "ttnn.reallocate": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": false,
@@ -5189,35 +6181,17 @@
       "signature": "(input_tensor, *args, **kwargs)"
     },
     "ttnn.reciprocal": {
-      "category": "binary",
+      "category": "unary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "reciprocal",
-      "operands": 2,
+      "operands": 1,
       "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.reciprocal_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 9.223372036854776e+18,
-          "lo": -9.223372036854776e+18,
-          "n_flushed": 16638,
-          "n_overflow": 15876,
-          "n_undefined": 0,
-          "n_valid": 32512
-        },
-        "fp32": {
-          "hi": 9.223372036854776e+18,
-          "lo": -9.223372036854776e+18,
-          "n_flushed": 66558,
-          "n_overflow": 63491,
-          "n_undefined": 0,
-          "n_valid": 130048
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5258,24 +6232,6 @@
     },
     "ttnn.relu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5286,24 +6242,6 @@
     },
     "ttnn.relu6": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5314,24 +6252,6 @@
     },
     "ttnn.relu6_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5342,24 +6262,6 @@
     },
     "ttnn.relu_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5389,13 +6291,13 @@
       "signature": "(input_tensor_a, lower_limit, *args, **kwargs)"
     },
     "ttnn.remainder": {
-      "category": "ternary",
+      "category": "binary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "remainder",
-      "operands": 3,
+      "operands": 2,
       "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
     },
     "ttnn.remainder_bw": {
@@ -5470,24 +6372,6 @@
     },
     "ttnn.reshard": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5548,24 +6432,6 @@
     },
     "ttnn.round": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5576,24 +6442,6 @@
     },
     "ttnn.round_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5624,24 +6472,6 @@
     },
     "ttnn.rsqrt": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32512,
-          "n_valid": 32512
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 130048,
-          "n_valid": 130048
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5652,24 +6482,6 @@
     },
     "ttnn.rsqrt_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 1.2164816059872206e+25,
-          "lo": 1.3025671267009347e-26,
-          "n_flushed": 5726,
-          "n_overflow": 5123,
-          "n_undefined": 32512,
-          "n_valid": 21665
-        },
-        "fp32": {
-          "hi": 1.2169695223679702e+25,
-          "lo": 1.2949989923914706e-26,
-          "n_flushed": 22907,
-          "n_overflow": 20482,
-          "n_undefined": 130048,
-          "n_valid": 86660
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5770,24 +6582,6 @@
     },
     "ttnn.selu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.2167317497994964e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 13,
-          "n_undefined": 0,
-          "n_valid": 65013
-        },
-        "fp32": {
-          "hi": 3.2363448398862276e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 50,
-          "n_undefined": 0,
-          "n_valid": 260047
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5798,24 +6592,6 @@
     },
     "ttnn.selu_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 395,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64631
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1578,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258519
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5826,24 +6602,6 @@
     },
     "ttnn.sharded_to_interleaved": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5864,24 +6622,6 @@
     },
     "ttnn.sigmoid": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 387,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64639
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1547,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258550
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5892,24 +6632,6 @@
     },
     "ttnn.sigmoid_accurate": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 387,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64639
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1547,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258550
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5920,24 +6642,6 @@
     },
     "ttnn.sigmoid_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 387,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64639
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1547,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258550
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5948,24 +6652,6 @@
     },
     "ttnn.sign": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -5976,24 +6662,6 @@
     },
     "ttnn.sign_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6014,24 +6682,6 @@
     },
     "ttnn.silu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 634,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64392
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 2535,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 257562
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6042,24 +6692,6 @@
     },
     "ttnn.silu_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 378,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64648
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1511,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258586
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6070,24 +6702,6 @@
     },
     "ttnn.sin": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6098,24 +6712,6 @@
     },
     "ttnn.sin_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6126,24 +6722,6 @@
     },
     "ttnn.sinh": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 89.0,
-          "lo": -89.0,
-          "n_flushed": 0,
-          "n_overflow": 31130,
-          "n_undefined": 0,
-          "n_valid": 33896
-        },
-        "fp32": {
-          "hi": 89.29940795898438,
-          "lo": -89.29940795898438,
-          "n_flushed": 0,
-          "n_overflow": 124522,
-          "n_undefined": 0,
-          "n_valid": 135575
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6154,24 +6732,6 @@
     },
     "ttnn.sinh_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 89.0,
-          "lo": -89.0,
-          "n_flushed": 0,
-          "n_overflow": 31130,
-          "n_undefined": 0,
-          "n_valid": 33896
-        },
-        "fp32": {
-          "hi": 89.29940795898438,
-          "lo": -89.29940795898438,
-          "n_flushed": 0,
-          "n_overflow": 124522,
-          "n_undefined": 0,
-          "n_valid": 135575
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6242,24 +6802,6 @@
     },
     "ttnn.softplus": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64630
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1581,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258516
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6270,24 +6812,6 @@
     },
     "ttnn.softplus_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 396,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64630
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 1582,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 258515
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6298,24 +6822,6 @@
     },
     "ttnn.softshrink": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6326,24 +6832,6 @@
     },
     "ttnn.softshrink_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6354,24 +6842,6 @@
     },
     "ttnn.softsign": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6382,24 +6852,6 @@
     },
     "ttnn.softsign_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6440,24 +6892,6 @@
     },
     "ttnn.sqrt": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": 0.0,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 32512,
-          "n_valid": 32514
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": 0.0,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 130048,
-          "n_valid": 130049
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6468,24 +6902,6 @@
     },
     "ttnn.sqrt_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 2,
-          "n_undefined": 32512,
-          "n_valid": 32512
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": 1.1754943508222875e-38,
-          "n_flushed": 0,
-          "n_overflow": 1,
-          "n_undefined": 130048,
-          "n_valid": 130048
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6496,24 +6912,6 @@
     },
     "ttnn.square": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 1.8374686479671624e+19,
-          "lo": -1.8374686479671624e+19,
-          "n_flushed": 16128,
-          "n_overflow": 16384,
-          "n_undefined": 0,
-          "n_valid": 32514
-        },
-        "fp32": {
-          "hi": 1.8446742974197924e+19,
-          "lo": -1.8446742974197924e+19,
-          "n_flushed": 64512,
-          "n_overflow": 65536,
-          "n_undefined": 0,
-          "n_valid": 130049
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6524,24 +6922,6 @@
     },
     "ttnn.square_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 1.6947656946257677e+38,
-          "lo": -1.6947656946257677e+38,
-          "n_flushed": 0,
-          "n_overflow": 256,
-          "n_undefined": 0,
-          "n_valid": 64770
-        },
-        "fp32": {
-          "hi": 1.7014117331926443e+38,
-          "lo": -1.7014117331926443e+38,
-          "n_flushed": 0,
-          "n_overflow": 1024,
-          "n_undefined": 0,
-          "n_valid": 259073
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6582,24 +6962,6 @@
     },
     "ttnn.squeeze": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6710,24 +7072,6 @@
     },
     "ttnn.swish": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 634,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 64392
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 2535,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 257562
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6738,24 +7082,6 @@
     },
     "ttnn.tan": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6766,24 +7092,6 @@
     },
     "ttnn.tan_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6794,24 +7102,6 @@
     },
     "ttnn.tanh": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6822,24 +7112,6 @@
     },
     "ttnn.tanh_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6850,24 +7122,6 @@
     },
     "ttnn.tanhshrink": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6878,24 +7132,6 @@
     },
     "ttnn.tanhshrink_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6936,24 +7172,6 @@
     },
     "ttnn.tilize": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -6974,24 +7192,6 @@
     },
     "ttnn.tilize_with_zero_padding": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7002,24 +7202,6 @@
     },
     "ttnn.to_device": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": false,
@@ -7030,24 +7212,6 @@
     },
     "ttnn.to_dtype": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7058,24 +7222,6 @@
     },
     "ttnn.to_layout": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7086,24 +7232,6 @@
     },
     "ttnn.to_memory_config": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7114,24 +7242,6 @@
     },
     "ttnn.to_torch": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": false,
@@ -7171,23 +7281,23 @@
       "signature": "(input, index, src, *args, **kwargs)"
     },
     "ttnn.transformer.attention_softmax": {
-      "category": "ternary",
+      "category": "unary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "attention_softmax",
-      "operands": 3,
+      "operands": 1,
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, head_size: int, attention_mask, **_)"
     },
     "ttnn.transformer.attention_softmax_": {
-      "category": "ternary",
+      "category": "unary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "attention_softmax_",
-      "operands": 3,
+      "operands": 1,
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, head_size: int, attention_mask, **_)"
     },
     "ttnn.transformer.chunk_gated_delta_rule": {
@@ -7371,13 +7481,13 @@
       "signature": null
     },
     "ttnn.transformer.split_query_key_value_and_split_heads": {
-      "category": "binary",
+      "category": "unary",
       "elementwise": null,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "split_query_key_value_and_split_heads",
-      "operands": 2,
+      "operands": 1,
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, kv_input_tensor: Optional[ttnn._ttnn.tensor.Tensor] = None, *, num_heads, num_kv_heads=None, transpose_key=True, **_)"
     },
     "ttnn.transpose": {
@@ -7412,24 +7522,6 @@
     },
     "ttnn.trunc": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7440,24 +7532,6 @@
     },
     "ttnn.trunc_bw": {
       "category": "unary_bw",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7468,24 +7542,6 @@
     },
     "ttnn.typecast": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7536,24 +7592,6 @@
     },
     "ttnn.untilize": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7644,24 +7682,6 @@
     },
     "ttnn.xielu": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 2.0464356706771534e+19,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 128,
-          "n_overflow": 8177,
-          "n_undefined": 0,
-          "n_valid": 56721
-        },
-        "fp32": {
-          "hi": 2.0612700616567816e+19,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 512,
-          "n_overflow": 32707,
-          "n_undefined": 0,
-          "n_valid": 226878
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7702,24 +7722,6 @@
     },
     "ttnn.zeros_like": {
       "category": "unary",
-      "domains": {
-        "bf16": {
-          "hi": 3.3895313892515355e+38,
-          "lo": -3.3895313892515355e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 65026
-        },
-        "fp32": {
-          "hi": 3.4028234663852886e+38,
-          "lo": -3.4028234663852886e+38,
-          "n_flushed": 0,
-          "n_overflow": 0,
-          "n_undefined": 0,
-          "n_valid": 260097
-        }
-      },
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
@@ -7728,5 +7730,20 @@
       "operands": 1,
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     }
+  },
+  "refused": {
+    "ttnn.eqz": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.gez": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.gtz": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.isfinite": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.isinf": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.isnan": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.isneginf": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.isposinf": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.lez": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.logical_not": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.ltz": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.nez": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
+    "ttnn.signbit": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'"
   }
 }

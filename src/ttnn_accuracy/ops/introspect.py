@@ -25,17 +25,25 @@ class DiscoveredOp:
     golden: Callable | None  # live reference, never serialised into the manifest
 
 
-def _required_args(golden) -> tuple[str | None, int | None]:
-    """Signature of the golden and how many operands it takes before defaults."""
+POSITIONAL = (inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD)
+
+
+def _signature(golden) -> tuple[str | None, int | None]:
+    """The golden's signature, and how many operands it takes.
+
+    Only positional parameters count. Several ttnn goldens declare a keyword-only
+    `device` with no default — `asin` is `(input_tensor_a, *args, device, **kwargs)` —
+    and counting that as an operand made unary ops look binary.
+    """
     try:
         sig = inspect.signature(golden)
     except (TypeError, ValueError):
         return None, None
-    required = sum(
-        p.default is inspect.Parameter.empty and p.kind not in (p.VAR_POSITIONAL, p.VAR_KEYWORD)
+    operands = sum(
+        p.default is inspect.Parameter.empty and p.kind in POSITIONAL
         for p in sig.parameters.values()
     )
-    return str(sig), required
+    return str(sig), operands
 
 
 def discover(include_experimental: bool = False) -> list[DiscoveredOp]:
@@ -45,9 +53,7 @@ def discover(include_experimental: bool = False) -> list[DiscoveredOp]:
     for op in ttnn.decorators.query_registered_operations(include_experimental):
         qualified = op.python_fully_qualified_name
         name = qualified.rsplit(".", 1)[-1]
-        signature, required = (
-            _required_args(op.golden_function) if op.golden_function else (None, None)
-        )
+        signature, required = _signature(op.golden_function) if op.golden_function else (None, None)
         found.append(
             DiscoveredOp(
                 name=name,

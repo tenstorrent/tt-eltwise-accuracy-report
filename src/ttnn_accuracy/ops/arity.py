@@ -55,8 +55,12 @@ def is_elementwise(op: DiscoveredOp) -> bool | None:
     n = operands(op)
     if n is None:
         return None
-    # (0.1, 0.9) keeps log, sqrt, asin, atanh and logit inside their domains.
-    base = [torch.rand(PROBE_SIZE, dtype=torch.float64) * 0.8 + 0.1 for _ in range(n)]
+    # (0.1, 0.9) keeps log, sqrt, asin, atanh and logit inside their domains. Seeded so the
+    # manifest is reproducible: an unchanged ttnn must produce an unchanged file.
+    rng = torch.Generator().manual_seed(0)
+    base = [
+        torch.rand(PROBE_SIZE, dtype=torch.float64, generator=rng) * 0.8 + 0.1 for _ in range(n)
+    ]
     bumped = [a.clone() for a in base]
     for a in bumped:
         a[0] *= 0.5

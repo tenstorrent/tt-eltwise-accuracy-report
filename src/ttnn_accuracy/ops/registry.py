@@ -54,6 +54,13 @@ class OpEntry:
             self.display_name = self.name
 
 
+def bw_fn(ttnn_bw_op):
+    """Backward call: gradient of ones, take the gradient w.r.t. the first operand."""
+    import ttnn
+
+    return lambda *operands: ttnn_bw_op(ttnn.ones_like(operands[0]), *operands)[0]
+
+
 def _build_registry() -> dict[str, OpEntry]:
     """Build the op registry.
 
@@ -100,10 +107,6 @@ def _build_registry() -> dict[str, OpEntry]:
             return result
 
         return golden
-
-    def bw_fn(ttnn_bw_op):
-        """Standard unary backward: grad=ones, returns first gradient."""
-        return lambda x: ttnn_bw_op(ttnn.ones_like(x), x)[0]
 
     add(
         OpEntry(
