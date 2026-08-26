@@ -11,7 +11,17 @@ import re
 from dataclasses import dataclass, field
 from datetime import datetime
 
-COLUMNS = ("x", "y", "y_ref", "ulp_error", "abs_error", "rel_error", "op", "variant", "dtype")
+COLUMNS = (
+    "x",
+    "y",
+    "y_ref",
+    "ulp_error",
+    "abs_error",
+    "outcome",
+    "op",
+    "variant",
+    "dtype",
+)
 
 ARCH_OF_DEVICE = {"WORMHOLE_B0": "wh", "BLACKHOLE": "bh"}
 

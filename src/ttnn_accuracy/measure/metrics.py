@@ -1,4 +1,4 @@
-"""Accuracy metrics"""
+"""Accuracy metrics, and what each measured point actually demonstrates."""
 
 from __future__ import annotations
 
@@ -10,8 +10,9 @@ import torch
 from models.common.utility_functions import ulp as tt_metal_ulp
 
 MIN_NORMAL = 2**-126  # smallest normal bf16 and fp32 value; below it hardware returns zero
-REL_FLOOR = 2**-9  # arbitrary, inherited from the POC
-ULP_FLOOR = 1e-45  # fp32 min subnormal: guards the division without clamping bf16 ULPs
+
+# Ordered by severity: a group is labelled by the worst outcome it contains.
+OUTCOMES = ("exact", "inexact", "flushed", "overflow", "undefined", "mismatch")
 
 
 def ulp(x: torch.Tensor) -> torch.Tensor:
@@ -28,51 +29,75 @@ def flush_subnormals(t: torch.Tensor) -> torch.Tensor:
     return torch.where(t.abs() < torch.finfo(t.dtype).tiny, torch.zeros_like(t), t)
 
 
+def classify(raw_golden: np.ndarray, gold: np.ndarray, calc: np.ndarray, dtype) -> np.ndarray:
+    """Index into OUTCOMES for every point. Bounds come from the dtype, never a literal.
+
+    `raw_golden` is the fp64 reference; `gold` is that reference as the hardware could
+    hold it, so a value the dtype cannot represent has already become 0 in `gold`.
+    """
+    limits = torch.finfo(dtype)
+    outcome = np.full(gold.shape, OUTCOMES.index("inexact"), dtype=np.int8)
+
+    outcome[calc == gold] = OUTCOMES.index("exact")
+    # gold == 0 with a non-zero reference means the value underflowed the dtype.
+    outcome[(gold == 0) & (raw_golden != 0)] = OUTCOMES.index("flushed")
+    outcome[np.abs(raw_golden) > limits.max] = OUTCOMES.index("overflow")
+    outcome[np.isnan(raw_golden)] = OUTCOMES.index("undefined")
+    outcome[np.isfinite(gold) != np.isfinite(calc)] = OUTCOMES.index("mismatch")
+    return outcome
+
+
+def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarray]:
+    """Per-element error and outcome, flat. Shared by the unary and binary sweeps.
+
+    ULP is left NaN wherever it is undefined — the reference is zero, so there is no
+    spacing to divide by. Those points still report absolute error, and the outcome
+    says which case they are, so nothing is silently rewritten to look perfect.
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)
+        dtype = calculated.dtype
+        # Hardware flushes subnormals to zero; flushing the reference the same way keeps
+        # the comparison between values the hardware could actually have produced.
+        calc = flush_subnormals(calculated.to(dtype)).to(torch.float32).flatten().numpy()
+        gold = flush_subnormals(golden.to(dtype)).to(torch.float32).flatten().numpy()
+        unit = ulp(flush_subnormals(golden.to(dtype))).flatten().numpy()
+        raw = golden.to(torch.float64).flatten().numpy()
+
+        outcome = classify(raw, gold, calc, dtype)
+        abs_err = np.abs(gold - calc)
+        # Dividing by the spacing around zero is what produced 1e24-ULP readings for a
+        # 0.003 absolute error. Defined only where the reference is a real value.
+        defined = (gold != 0) | (outcome == OUTCOMES.index("exact"))
+        return {
+            "y": calc,
+            "y_ref": gold,
+            "abs_error": abs_err,
+            "ulp_error": np.where(defined, abs_err / unit, np.nan),
+            "outcome": outcome,
+        }
+
+
 def compare(
     x: torch.Tensor,
     golden: torch.Tensor,
     calculated: torch.Tensor,
     group_size: int,
 ) -> pd.DataFrame:
-    """One row per group of `group_size` consecutive inputs, holding the group's worst error.
-
-    A group whose golden is entirely NaN yields NaN, which is the honest answer and is
-    written to the CSV as such; nanmax announcing it on every such group is not useful.
-    """
+    """One row per group of `group_size` consecutive inputs, holding its worst error."""
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
-        dtype = calculated.dtype
-        # Hardware flushes subnormals to zero; flushing the golden the same way stops
-        # one side being subnormal and the other exactly 0 from reading as huge error.
-        calc = flush_subnormals(calculated.to(dtype)).to(torch.float32)
-        gold = flush_subnormals(golden.to(torch.float32))
-        unit = ulp(flush_subnormals(golden.to(dtype))).to(torch.float32)
-
+        e = errors(golden, calculated)
         shape = (x.nelement() // group_size, group_size)
-
-        def grouped(t: torch.Tensor) -> np.ndarray:
-            return t.flatten().numpy().reshape(shape)
-
-        x_np, y_np, ref_np = grouped(x.to(torch.float32)), grouped(calc), grouped(gold)
-
-        abs_err = np.abs(ref_np - y_np)
-        rel_err = abs_err / np.maximum(np.abs(ref_np), REL_FLOOR)
-        ulp_err = abs_err / np.maximum(grouped(unit), ULP_FLOOR)
-
-        # Hardware zeroing a result at the subnormal boundary is a representation
-        # limit, not an accuracy error - e.g. tanh(min_normal) via e^(2x)=1.
-        boundary = (y_np == 0.0) & (np.abs(ref_np) <= float(torch.finfo(dtype).tiny))
-        abs_err, rel_err, ulp_err = (
-            np.where(boundary, 0.0, e) for e in (abs_err, rel_err, ulp_err)
-        )
+        g = {k: v.reshape(shape) for k, v in e.items()}
 
         return pd.DataFrame(
             {
-                "x": x_np[:, 0],
-                "y": y_np[:, 0],
-                "y_ref": ref_np[:, 0],
-                "ulp_error": np.nanmax(ulp_err, axis=-1),
-                "abs_error": np.nanmax(abs_err, axis=-1),
-                "rel_error": np.nanmax(rel_err, axis=-1),
+                "x": x.to(torch.float32).flatten().numpy().reshape(shape)[:, 0],
+                "y": g["y"][:, 0],
+                "y_ref": g["y_ref"][:, 0],
+                "ulp_error": np.nanmax(g["ulp_error"], axis=-1),
+                "abs_error": np.nanmax(g["abs_error"], axis=-1),
+                "outcome": np.take(OUTCOMES, g["outcome"].max(axis=-1)),
             }
         )

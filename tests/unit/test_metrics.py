@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import numpy as np
 import pytest
 import torch
 
@@ -73,12 +74,29 @@ def test_one_ulp_off_reads_as_one_ulp():
     assert df["ulp_error"].item() == pytest.approx(1.0)
 
 
-def test_subnormal_boundary_is_not_counted_as_error():
-    """Hardware returning 0 where the golden is at most min-normal is a representation limit."""
+def test_underflowed_golden_is_reported_as_flushed_not_as_zero_error():
+    """The dtype cannot hold the reference, so there is nothing to score — say so."""
     df = _compare([1.0], [float(torch.finfo(torch.bfloat16).tiny) / 2], [0.0])
-    assert df["ulp_error"].item() == 0.0
+    assert df["outcome"].item() == "flushed"
+    assert np.isnan(df["ulp_error"].item())
     assert df["abs_error"].item() == 0.0
-    assert df["rel_error"].item() == 0.0
+
+
+def test_ulp_is_undefined_when_the_reference_is_zero():
+    """A non-zero result against a zero reference is what produced 1e24-ULP readings."""
+    df = _compare([1.0], [0.0], [2**-100])
+    assert np.isnan(df["ulp_error"].item())
+    assert df["abs_error"].item() == pytest.approx(2**-100)
+
+
+def test_outcomes_are_labelled():
+    nan = float("nan")
+    assert _compare([1.0], [1.0], [1.0])["outcome"].item() == "exact"
+    assert _compare([1.0], [1.0], [1.0 + 2**-7])["outcome"].item() == "inexact"
+    assert _compare([1.0], [nan], [nan])["outcome"].item() == "undefined"
+    assert _compare([1.0], [1e40], [float("inf")])["outcome"].item() == "overflow"
+    # A finite answer where the reference is NaN is a defect, not an unscorable point.
+    assert _compare([1.0], [nan], [1.0])["outcome"].item() == "mismatch"
 
 
 def test_group_size_keeps_first_x_and_worst_error():
