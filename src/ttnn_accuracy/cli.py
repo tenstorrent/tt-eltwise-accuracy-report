@@ -5,9 +5,11 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from loguru import logger
+
 from ttnn_accuracy.paths import DATA_DIR
 
-CATEGORIES = ["unary", "binary", "unary_bw"]
+CATEGORIES = [f"{n}{suffix}" for n in ("unary", "binary", "ternary") for suffix in ("", "_bw")]
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -26,6 +28,12 @@ def build_parser() -> argparse.ArgumentParser:
     measure.add_argument("--dtype", default="bf16", choices=["bf16", "fp32", "both"])
     measure.add_argument("--output-dir", type=Path, default=DATA_DIR)
     measure.add_argument("--device-id", type=int, default=0)
+    measure.add_argument(
+        "--source",
+        default="manifest",
+        choices=["manifest", "registry"],
+        help="where op definitions and bounds come from",
+    )
 
     charts = sub.add_parser("charts", help="render SVG charts from measured data")
     charts.add_argument("--arch")
@@ -56,15 +64,18 @@ def main(argv: list[str] | None = None) -> int:
 
         case "measure":
             from ttnn_accuracy.measure.runner import measure
-            from ttnn_accuracy.ops.registry import list_op_names
+            from ttnn_accuracy.ops import plan
 
-            ops = (
-                list_op_names(category=args.category)
-                if args.ops == "all"
-                else [o.strip() for o in args.ops.split(",")]
-            )
+            names = None if args.ops == "all" else [o.strip() for o in args.ops.split(",")]
+            specs, problems = plan.resolve(args.source, names, args.category)
+            for problem in problems:
+                logger.error(problem)
+            if not specs:
+                return 1
             dtypes = ["bf16", "fp32"] if args.dtype == "both" else [args.dtype]
-            return measure(ops, dtypes, args.arch, args.output_dir, args.device_id)
+            return len(problems) + measure(
+                specs, dtypes, args.arch, args.output_dir, args.device_id
+            )
 
         case "charts":
             from ttnn_accuracy.report.charts import generate_charts

@@ -18,14 +18,16 @@ import pandas as pd
 from loguru import logger
 
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
+from ttnn_accuracy.measure.schema import COLUMNS
+from ttnn_accuracy.measure.store import RUN_STAMP
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, REPO_ROOT
 
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
 
+# Underscored so it cannot collide with an arch name when the report walks the index.
+RUNS_KEY = "_runs"
 ULP_CLIP = 1000.0
-NEAR_ZERO_X = 0.01
-NEAR_ZERO_MAX_ABS = 0.5
 
 
 def _finite(s: pd.Series) -> pd.Series:
@@ -43,39 +45,32 @@ def _subdirs(parent: Path, only: str | None) -> list[Path]:
     return sorted(d for d in parent.iterdir() if d.is_dir())
 
 
+def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
+    """Carry the measuring run into the index, so a page can say what produced its numbers."""
+    if not stamp.exists():
+        return
+    run = json.loads(stamp.read_text())
+    index.setdefault(RUNS_KEY, {}).setdefault(arch, {})[dtype] = {
+        k: run[k] for k in ("run_id", "tt_metal_commit", "ttnn_version", "device_arch", "ops")
+    }
+
+
 def compute_stats(df: pd.DataFrame) -> dict:
-    """Summary stats for one variant. `df` must already have subnormals removed."""
+    """Summary stats for one variant. `df` must already have subnormals removed.
+
+    ULP figures cover only the points where ULP is defined and non-trivial: the mean over
+    exact points would be diluted by ops that return zero across most of their range, and
+    the max over undefined points is what produced 1e24 readings.
+    """
     ulp = _finite(df["ulp_error"])
-    stats = {
+    inexact = ulp[df["outcome"] == "inexact"]
+    return {
         "max_ulp": _fmt(ulp.max()),
-        "mean_ulp": _fmt(ulp.mean()),
+        "mean_ulp": _fmt(inexact.mean()),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
         "n_inputs": len(df),
-    }
-    if nz := _near_zero_atol(df):
-        stats["near_zero_atol"] = nz
-    return stats
-
-
-def _near_zero_atol(df: pd.DataFrame) -> dict | None:
-    """Absolute tolerance for the region where ULP is inflated because the output is ~0.
-
-    Some ops (silu, elu, gelu_fast_approx) produce near-zero outputs for inputs close to
-    x=0, where ULP is ill-defined. A small absolute error there confirms ULP inflation
-    rather than a real defect, so a large one is reported as ULP instead.
-    """
-    near0 = df[(df["x"].abs() < NEAR_ZERO_X) & (df["ulp_error"] > ULP_CLIP)]
-    if near0.empty:
-        return None
-    max_abs = _finite(near0["abs_error"]).dropna().max()
-    if not (max_abs <= NEAR_ZERO_MAX_ABS):  # also rejects an all-NaN region
-        return None
-    return {
-        "x_lo": _fmt(near0["x"].min()),
-        "x_hi": _fmt(near0["x"].max()),
-        "max_abs": _fmt(max_abs),
-        "n": len(near0),
+        "outcomes": {k: int(v) for k, v in df["outcome"].value_counts().items()},
     }
 
 
@@ -125,15 +120,24 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
         return 1
 
     index = json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
-    plotted = 0
+    plotted = stale = 0
 
     for arch_dir in _subdirs(DATA_DIR, arch_filter):
         for dtype_dir in _subdirs(arch_dir, dtype_filter):
+            _record_run(index, arch_dir.name, dtype_dir.name, dtype_dir / RUN_STAMP)
             for op_dir in _subdirs(dtype_dir, op_filter):
                 arch, dtype, op = arch_dir.name, dtype_dir.name, op_dir.name
                 for csv_path in sorted(op_dir.glob("*.csv")):
                     variant = csv_path.stem
                     raw = pd.read_csv(csv_path, index_col="index")
+                    if missing := set(COLUMNS) - set(raw.columns):
+                        logger.error(
+                            "{} predates the current schema, missing {} — re-measure it",
+                            csv_path,
+                            ", ".join(sorted(missing)),
+                        )
+                        stale += 1
+                        continue
                     df = raw[raw["x"].abs() >= MIN_NORMAL]
                     if df.empty:
                         logger.warning("no normal-range rows in {}", csv_path)
@@ -152,4 +156,6 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
 
     INDEX_FILE.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
     logger.success("{} charts, updated {}", plotted, INDEX_FILE.relative_to(REPO_ROOT))
-    return 0
+    if stale:
+        logger.error("{} CSV(s) skipped as stale", stale)
+    return 1 if stale else 0

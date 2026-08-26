@@ -18,8 +18,11 @@ from pathlib import Path
 
 from loguru import logger
 
-from ttnn_accuracy.ops.registry import get_registry, variant_slug
+from ttnn_accuracy.measure.metrics import MIN_NORMAL
+from ttnn_accuracy.ops.plan import describe, params_desc
+from ttnn_accuracy.ops.registry import get_registry
 from ttnn_accuracy.paths import CHARTS_DIR, INDEX_FILE, REPO_ROOT, REPORTS_DIR
+from ttnn_accuracy.report.charts import RUNS_KEY
 
 ARCHS = ["wh", "bh"]
 DTYPES = ["bf16", "fp32"]
@@ -38,42 +41,24 @@ def _get_index() -> dict:
     return json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
 
 
-@cache
-def _entry(op_key: str):
-    # None for op_keys that report_index.json still carries but the registry has dropped.
-    return get_registry().get(op_key)
-
-
 def get_op_category(op_key: str) -> str:
-    e = _entry(op_key)
+    e = describe(op_key)
     return e.category if e else "unknown"
 
 
 def get_display_name(op_key: str) -> str:
-    e = _entry(op_key)
+    e = describe(op_key)
     return e.display_name if e else op_key
 
 
 def get_op_note(op_key: str) -> str:
-    e = _entry(op_key)
-    return e.input_range.note if e else ""
+    e = describe(op_key)
+    return e.note if e else ""
 
 
 def get_op_description(op_key: str) -> str:
-    e = _entry(op_key)
+    e = describe(op_key)
     return e.description if e else ""
-
-
-@cache
-def get_params_desc(op_key: str, variant_key: str) -> str:
-    """Human-readable params_desc for a variant — the inverse of variant_slug."""
-    e = _entry(op_key)
-    if not e:
-        return variant_key
-    return next(
-        (v.params_desc for v in e.variants if variant_slug(v.params_desc) == variant_key),
-        variant_key,
-    )
 
 
 def load_summary(arch: str, dtype: str, op_key: str, variant: str) -> dict | None:
@@ -82,13 +67,12 @@ def load_summary(arch: str, dtype: str, op_key: str, variant: str) -> dict | Non
     return dict(stats) if stats else None
 
 
-def _input_range_text(op_key: str) -> str:
-    """Human-readable description of the measured input range."""
-    e = _entry(op_key)
-    if not e:
+def _input_range_text(op_key: str, dtype: str) -> str:
+    """The range this op was measured over. Derived bounds differ per dtype."""
+    e = describe(op_key)
+    if not e or not e.bounds:
         return "unknown"
-    lo, hi = e.input_range.lo, e.input_range.hi
-    MIN_NORMAL = 2**-126
+    lo, hi = e.bounds[dtype]
 
     def _s(v: float) -> str:
         if abs(v) <= MIN_NORMAL * 2:
@@ -125,8 +109,8 @@ def discover_ops(categories: list[str] | None = None) -> dict:
             dtype = dtype_dir.name
             result[arch][dtype] = {}
             for op_key, variants_dict in sorted(_get_index().get(arch, {}).get(dtype, {}).items()):
-                if not _entry(op_key):
-                    logger.warning("{} is in report_index.json but not the registry", op_key)
+                if not describe(op_key):
+                    logger.warning("{} is measured but neither source defines it", op_key)
                     continue
                 if categories and get_op_category(op_key) not in categories:
                     continue
@@ -150,7 +134,7 @@ def group_by_display(ops: dict[str, list[str]]) -> dict[str, list[tuple[str, str
         for v in variants:
             groups[display].append((op_key, v))
     return {
-        d: sorted(entries, key=lambda e: get_params_desc(e[0], e[1]))
+        d: sorted(entries, key=lambda e: params_desc(e[0], e[1]))
         for d, entries in sorted(groups.items())
     }
 
@@ -166,6 +150,35 @@ def write(path: Path, content: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
     logger.info("wrote {}", path.relative_to(REPO_ROOT))
+
+
+def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """What each measured point demonstrated. ULP above covers the inexact points only."""
+    counted = [(k, v, load_summary(arch, dtype, k, v)) for k, v in entries]
+    counted = [(k, v, s) for k, v, s in counted if s and s.get("outcomes")]
+    if not counted:
+        return ""
+    kinds = sorted({k for _, _, s in counted for k in s["outcomes"]})
+    head = "| Parameters | " + " | ".join(kinds) + " |\n"
+    rule = "|------------" + "|------" * len(kinds) + "|\n"
+    rows = [
+        f"| `{params_desc(k, v)}` | "
+        + " | ".join(f"{s['outcomes'].get(kind, 0):,}" for kind in kinds)
+        + " |\n"
+        for k, v, s in counted
+    ]
+    return "**Outcomes**\n\n" + head + rule + "".join(rows) + "\n"
+
+
+def _provenance(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """Only claim a run for ops that run actually covered — silence would read as fresh."""
+    run = _get_index().get(RUNS_KEY, {}).get(arch, {}).get(dtype)
+    if not run or not all(op_key in run["ops"] for op_key, _ in entries):
+        return "> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.\n\n"
+    return (
+        f"_Measured on {run['device_arch']} · tt-metal `{run['tt_metal_commit']}` · "
+        f"ttnn `{run['ttnn_version']}` · run `{run['run_id']}`_\n\n"
+    )
 
 
 def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple[str, str]]) -> str:
@@ -197,7 +210,7 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
     )
 
     # Any entry will do: everything on this page shares a display_name, so one range
-    range_text = _input_range_text(entries[0][0])
+    range_text = _input_range_text(entries[0][0], dtype)
     lines.append(f"**Measured input range:** {range_text}  \n\n")
 
     lines.extend(
@@ -207,7 +220,7 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
         ]
     )
     for op_key, variant in entries:
-        params = get_params_desc(op_key, variant)
+        params = params_desc(op_key, variant)
         summary = load_summary(arch, dtype, op_key, variant)
         if summary:
             clipped = " ⚠" if summary.get("ulp_clipped") else ""
@@ -219,25 +232,13 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
             lines.append(f"| `{params}` | — | — | — |\n")
 
     lines.append("\n")
-
-    # Near-zero atol notes (one per entry if present)
-    for op_key, variant in entries:
-        params = get_params_desc(op_key, variant)
-        summary = load_summary(arch, dtype, op_key, variant)
-        nz = summary.get("near_zero_atol") if summary else None
-        if nz:
-            pstr = f" (`{params}`)" if len(entries) > 1 else ""
-            lines.append(
-                f"> **Note{pstr}:** ULP is not a useful metric near x ≈ 0 because the "
-                f"output itself is near zero. "
-                f"In x ∈ [{nz['x_lo']}, {nz['x_hi']}] "
-                f"({nz['n']} inputs): max absolute error = **{nz['max_abs']}**.\n\n"
-            )
+    lines.append(_outcome_table(arch, dtype, entries))
+    lines.append(_provenance(arch, dtype, entries))
 
     # One chart per parameter set
     multi = len(entries) > 1
     for op_key, variant in entries:
-        params = get_params_desc(op_key, variant)
+        params = params_desc(op_key, variant)
         if multi:
             lines.append(f"### `{params}`\n\n")
         chart = chart_rel_path(arch, dtype, op_key, variant, page_path.parent)
@@ -262,7 +263,7 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
 
     for display_name, entries in groups.items():
         for i, (op_key, variant) in enumerate(entries):
-            params = get_params_desc(op_key, variant)
+            params = params_desc(op_key, variant)
             summary = load_summary(arch, dtype, op_key, variant)
             max_ulp = (summary["max_ulp"] if summary else "—") + (
                 " ⚠" if summary and summary.get("ulp_clipped") else ""
@@ -277,7 +278,7 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
         lines.append(f"### [{display_name}]({display_name}.md)\n\n")
         for op_key, variant in entries:
             chart = chart_rel_path(arch, dtype, op_key, variant, page_path.parent)
-            params = get_params_desc(op_key, variant)
+            params = params_desc(op_key, variant)
             lines.append(f"![{display_name} {params}]({chart})\n\n")
 
     return "".join(lines)
@@ -367,7 +368,7 @@ def op_cross_arch_page(display_name: str, data: dict) -> str:
     lines.append("\n")
 
     all_params = sorted(
-        dict.fromkeys(get_params_desc(op_key, variant) for _, _, op_key, variant in all_entries)
+        dict.fromkeys(params_desc(op_key, variant) for _, _, op_key, variant in all_entries)
     )
     available_archs = sorted(dict.fromkeys(a for a, _, _, _ in all_entries))
     available_dtypes = sorted(dict.fromkeys(d for _, d, _, _ in all_entries))
@@ -385,7 +386,7 @@ def op_cross_arch_page(display_name: str, data: dict) -> str:
             cells = []
             for dtype in available_dtypes:
                 entry = next(
-                    ((k, v) for k, v in groups[arch, dtype] if get_params_desc(k, v) == params),
+                    ((k, v) for k, v in groups[arch, dtype] if params_desc(k, v) == params),
                     None,
                 )
                 if not entry:
@@ -408,7 +409,7 @@ def op_cross_arch_page(display_name: str, data: dict) -> str:
                 f"### {ARCH_DISPLAY.get(arch, arch)}, {DTYPE_DISPLAY.get(dtype, dtype)}\n\n"
             )
             for op_key, variant in group:
-                params = get_params_desc(op_key, variant)
+                params = params_desc(op_key, variant)
                 chart = chart_rel_path(arch, dtype, op_key, variant, page_path.parent)
                 lines.append(
                     f"**`{params}`**\n\n![{display_name} {params} {arch} {dtype}]({chart})\n\n"
@@ -592,10 +593,9 @@ def generate_reports(arch_filter=None, dtype_filter=None, categories=None) -> in
     for dtype in dtypes:
         write(REPORTS_DIR / "by_dtype" / dtype / "README.md", dtype_index(dtype, data))
 
-    # Ops whose display_name differs from their op_key had a page under the op_key before
-    # grouping; those pages are now covered by the display_name page.
-    reg = get_registry()
-    stale = {k for k in reg if get_display_name(k) != k}
+    # Registry-only concern: ops whose display_name differs from their op_key had a page
+    # under the op_key before grouping, now covered by the display_name page.
+    stale = {k for k in get_registry() if get_display_name(k) != k}
     for arch in archs:
         for dtype in dtypes:
             for md in sorted((REPORTS_DIR / "by_arch" / arch / dtype).glob("*.md")):
