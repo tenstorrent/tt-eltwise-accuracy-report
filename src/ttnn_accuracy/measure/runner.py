@@ -1,4 +1,4 @@
-"""Orchestration: walk ops × dtypes × variants, sweep each, write one CSV per variant."""
+"""Orchestration: walk specs × dtypes, sweep each, write one CSV per variant."""
 
 from __future__ import annotations
 
@@ -10,62 +10,51 @@ from ttnn_accuracy.measure.device import open_device
 from ttnn_accuracy.measure.schema import check_arch, describe_run
 from ttnn_accuracy.measure.store import write_result, write_run
 from ttnn_accuracy.measure.sweeps import SWEEPS
-from ttnn_accuracy.ops.registry import get_op, get_registry, variant_slug
+from ttnn_accuracy.ops.plan import OpSpec
 
 
 def measure(
-    op_names: list[str],
+    specs: list[OpSpec],
     dtypes: list[str],
     arch: str,
     out_root: Path,
     device_id: int = 0,
 ) -> int:
     """Returns the number of variants that produced no CSV — the process exit code."""
-    registry = get_registry()
-    # Report every bad name before claiming the device
-    known, failed = [], 0
-    for name in op_names:
-        if name in registry:
-            known.append(name)
-        else:
-            logger.error("unknown op: {}", name)
-            failed += 1
+    failed = 0
+    names = sorted({spec.name for spec in specs})
 
     with open_device(device_id) as device:
         check_arch(device, arch)
-        write_run(describe_run(device, arch, known, dtypes))
-        for name in known:
-            entry = get_op(name)
-            logger.info("{} ({})", name, entry.category)
+        write_run(describe_run(device, arch, names, dtypes), out_root)
+        for spec in specs:
+            logger.info("{} ({}) [{}]", spec.name, spec.category, spec.variant)
             for dtype in dtypes:
-                for variant in entry.variants:
-                    failed += _measure_variant(entry, variant, dtype, arch, out_root, device)
+                failed += _measure(spec, dtype, arch, out_root, device)
 
     if failed:
         logger.error("{} variant(s) produced no data", failed)
     return failed
 
 
-def _measure_variant(entry, variant, dtype: str, arch: str, out_root: Path, device) -> int:
-    slug = variant_slug(variant.params_desc)
-    logger.info("  [{}] {}", dtype, slug)
+def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int:
+    sweep = SWEEPS.get((spec.operands, dtype))
+    if sweep is None:
+        logger.error("  no {} sweep for {} operands ({})", dtype, spec.operands, spec.name)
+        return 1
+
+    lo, hi = spec.bounds[dtype]
     try:
-        df = SWEEPS[dtype](
-            variant.ttnn_fn,
-            variant.golden_fn,
-            device,
-            entry.input_range.lo,
-            entry.input_range.hi,
-        )
+        df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi)
     except Exception:
-        logger.exception("  {}/{} failed", entry.name, slug)
+        logger.exception("  {}/{} {} failed", spec.name, spec.variant, dtype)
         return 1
 
     if df is None:
-        logger.error("  no valid {} inputs for {}/{}", dtype, entry.name, slug)
+        logger.error("  no valid {} inputs for {}/{}", dtype, spec.name, spec.variant)
         return 1
 
-    df["op"], df["variant"], df["dtype"] = entry.name, slug, dtype
-    path = write_result(df, out_root, arch, dtype, entry.name, slug)
+    df["op"], df["variant"], df["dtype"] = spec.name, spec.variant, dtype
+    path = write_result(df, out_root, arch, dtype, spec.name, spec.variant)
     logger.success("  {} rows → {}", len(df), path)
     return 0
