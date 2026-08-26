@@ -14,6 +14,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="ttnn-accuracy", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
 
+    discover = sub.add_parser("discover", help="rebuild stats/ops_manifest.json from ttnn")
+    discover.add_argument("--include-experimental", action="store_true")
+
+    sub.add_parser("derive", help="add per-dtype domain bounds to the manifest")
+
     measure = sub.add_parser("measure", help="run accuracy sweeps on a device")
     measure.add_argument("--arch", required=True, choices=["wh", "bh"])
     measure.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
@@ -39,6 +44,16 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
 
     match args.command:
+        case "discover":
+            from ttnn_accuracy.ops.manifest import discover
+
+            return discover(args.include_experimental)
+
+        case "derive":
+            from ttnn_accuracy.ops.manifest import derive_domains
+
+            return derive_domains()
+
         case "measure":
             from ttnn_accuracy.measure.runner import measure
             from ttnn_accuracy.ops.registry import list_op_names

@@ -7,6 +7,8 @@ from pathlib import Path
 from loguru import logger
 
 from ttnn_accuracy.measure.device import open_device
+from ttnn_accuracy.measure.schema import check_arch, describe_run
+from ttnn_accuracy.measure.store import write_result, write_run
 from ttnn_accuracy.measure.sweeps import SWEEPS
 from ttnn_accuracy.ops.registry import get_op, get_registry, variant_slug
 
@@ -30,6 +32,8 @@ def measure(
             failed += 1
 
     with open_device(device_id) as device:
+        check_arch(device, arch)
+        write_run(describe_run(device, arch, known, dtypes))
         for name in known:
             entry = get_op(name)
             logger.info("{} ({})", name, entry.category)
@@ -62,9 +66,6 @@ def _measure_variant(entry, variant, dtype: str, arch: str, out_root: Path, devi
         return 1
 
     df["op"], df["variant"], df["dtype"] = entry.name, slug, dtype
-    out_dir = out_root / arch / dtype / entry.name
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / f"{slug}.csv"
-    df.to_csv(out_path, na_rep="NaN", index_label="index")
-    logger.success("  {} rows → {}", len(df), out_path)
+    path = write_result(df, out_root, arch, dtype, entry.name, slug)
+    logger.success("  {} rows → {}", len(df), path)
     return 0
