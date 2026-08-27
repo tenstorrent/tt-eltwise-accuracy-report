@@ -44,8 +44,9 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int
         return 1
 
     lo, hi = spec.bounds[dtype]
+    layout = spec.layouts[dtype]
     try:
-        df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi, spec.layouts[dtype])
+        df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi, layout)
     except Exception:
         logger.exception("  {}/{} {} failed", spec.name, spec.variant, dtype)
         return 1
@@ -55,6 +56,9 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int
         return 1
 
     df["op"], df["variant"], df["dtype"] = spec.name, spec.variant, dtype
+    # Layout is chosen per op by `probe`, and a different layout is a different kernel,
+    # so it belongs beside dtype rather than being inferable only from the manifest.
+    df["layout"] = layout
     path = write_result(df, out_root, arch, dtype, spec.name, spec.variant)
     logger.success("  {} rows → {}", len(df), path)
     return 0
