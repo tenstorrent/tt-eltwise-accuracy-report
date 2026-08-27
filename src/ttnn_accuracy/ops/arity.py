@@ -6,7 +6,9 @@ one lower than its signature suggests: `exp_bw(grad, x)` is a unary op under tes
 
 from __future__ import annotations
 
+import inspect
 from dataclasses import dataclass
+from types import SimpleNamespace
 
 import torch
 
@@ -14,6 +16,23 @@ from ttnn_accuracy.ops.introspect import DiscoveredOp
 
 CATEGORY = {1: "unary", 2: "binary", 3: "ternary"}
 PROBE_SIZE = 64
+
+# Six goldens (acos, asin, fmod, remainder, reciprocal, acosh_bw) demand a keyword-only
+# `device` so they can substitute the SFPU's finite NaN/Inf sentinels into their result.
+# The reference must stay IEEE — hardware encodings are the metric's concern, not the
+# golden's — so they get a stub whose substitution is the identity.
+_IEEE_DEVICE = SimpleNamespace(sfpu_nan=lambda: float("nan"), sfpu_inf=lambda: float("inf"))
+
+
+def _extra_kwargs(golden) -> dict:
+    try:
+        params = inspect.signature(golden).parameters.values()
+    except (TypeError, ValueError):  # torch builtins used directly have no signature
+        return {}
+    needs = any(
+        p.kind is p.KEYWORD_ONLY and p.default is p.empty and p.name == "device" for p in params
+    )
+    return {"device": _IEEE_DEVICE} if needs else {}
 
 
 def operands(op: DiscoveredOp) -> int | None:
@@ -32,13 +51,14 @@ def category(op: DiscoveredOp) -> str | None:
 
 
 def call_golden(golden, args: list[torch.Tensor], backward: bool) -> torch.Tensor:
+    kwargs = _extra_kwargs(golden)
     if backward:
         # A backward golden differentiates its operands, so they need to carry grad.
         with torch.enable_grad():
             tracked = [a.detach().requires_grad_(True) for a in args]
-            out = golden(torch.ones_like(tracked[0]), *tracked)
+            out = golden(torch.ones_like(tracked[0]), *tracked, **kwargs)
     else:
-        out = golden(*args)
+        out = golden(*args, **kwargs)
     out = out[0] if isinstance(out, (list, tuple)) else out
     return out.detach() if isinstance(out, torch.Tensor) else out
 
@@ -56,8 +76,12 @@ class Probe:
     depends_on_input: bool
 
 
-def probe(op: DiscoveredOp) -> Probe | None:
-    """Probe the golden. None when it refuses to be called.
+def probe(op: DiscoveredOp) -> tuple[Probe | None, str]:
+    """Probe the golden, and say why when it refuses to be called.
+
+    The reason is kept because 108 of 379 goldens refuse, and without it every one is
+    the same mystery: recording the exception is what separates a golden that needs a
+    `device` kwarg (measurable, once supplied) from a pooling op that will never fit.
 
     `elementwise`: does output[i] depend only on input[i]? Perturbing the first element
     must leave every other output untouched. A permutation test would let softmax
@@ -78,7 +102,7 @@ def probe(op: DiscoveredOp) -> Probe | None:
     """
     n = operands(op)
     if n is None:
-        return None
+        return None, "takes no tensor operands"
     # (0.1, 0.9) keeps log, sqrt, asin, atanh and logit inside their domains. Seeded so the
     # manifest is reproducible: an unchanged ttnn must produce an unchanged file.
     rng = torch.Generator().manual_seed(0)
@@ -99,12 +123,13 @@ def probe(op: DiscoveredOp) -> Probe | None:
             # any two positive ranges.
             for f in (lambda a: a + 10.0, lambda a: -a)
         ]
-    except Exception:
-        return None
+    except Exception as exc:
+        msg = str(exc).strip().splitlines()[0][:200] if str(exc).strip() else ""
+        return None, f"{type(exc).__name__}: {msg}" if msg else type(exc).__name__
     if not isinstance(before, torch.Tensor) or before.shape != base[0].shape:
-        return Probe(elementwise=False, real_valued=False, depends_on_input=False)
+        return Probe(elementwise=False, real_valued=False, depends_on_input=False), ""
     return Probe(
         elementwise=_same(before[1:], after[1:]),
         real_valued=before.is_floating_point(),
         depends_on_input=not all(_same(before, other) for other in elsewhere),
-    )
+    ), ""

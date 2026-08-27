@@ -36,6 +36,24 @@
         "n_valid": 260097
       }
     },
+    "ttnn.acos": {
+      "bf16": {
+        "hi": 1.0,
+        "lo": -1.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 32766,
+        "n_valid": 32260
+      },
+      "fp32": {
+        "hi": 1.0,
+        "lo": -1.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 131070,
+        "n_valid": 129027
+      }
+    },
     "ttnn.acos_bw": {
       "bf16": {
         "hi": 0.99609375,
@@ -72,6 +90,24 @@
         "n_valid": 65536
       }
     },
+    "ttnn.acosh_bw": {
+      "bf16": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 510,
+        "n_overflow": 2,
+        "n_undefined": 32258,
+        "n_valid": 32256
+      },
+      "fp32": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 2046,
+        "n_overflow": 2,
+        "n_undefined": 129025,
+        "n_valid": 129024
+      }
+    },
     "ttnn.angle": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
@@ -88,6 +124,24 @@
         "n_overflow": 0,
         "n_undefined": 0,
         "n_valid": 260097
+      }
+    },
+    "ttnn.asin": {
+      "bf16": {
+        "hi": 1.0,
+        "lo": -1.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 32766,
+        "n_valid": 32260
+      },
+      "fp32": {
+        "hi": 1.0,
+        "lo": -1.0,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 131070,
+        "n_valid": 129027
       }
     },
     "ttnn.asin_bw": {
@@ -1548,6 +1602,24 @@
         "n_valid": 260097
       }
     },
+    "ttnn.reciprocal": {
+      "bf16": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 510,
+        "n_overflow": 2,
+        "n_undefined": 0,
+        "n_valid": 64514
+      },
+      "fp32": {
+        "hi": 8.507059173023462e+37,
+        "lo": -8.507059173023462e+37,
+        "n_flushed": 2046,
+        "n_overflow": 1,
+        "n_undefined": 0,
+        "n_valid": 258050
+      }
+    },
     "ttnn.reciprocal_bw": {
       "bf16": {
         "hi": 9.223372036854776e+18,
@@ -2476,11 +2548,19 @@
       "bf16": "tile",
       "fp32": "tile"
     },
+    "ttnn.acos": {
+      "bf16": "tile",
+      "fp32": "tile"
+    },
     "ttnn.acos_bw": {
       "bf16": "tile",
       "fp32": "tile"
     },
     "ttnn.acosh": {
+      "bf16": "tile",
+      "fp32": "tile"
+    },
+    "ttnn.acosh_bw": {
       "bf16": "tile",
       "fp32": "tile"
     },
@@ -2497,6 +2577,10 @@
       "fp32": "tile"
     },
     "ttnn.addcmul": {
+      "bf16": "tile",
+      "fp32": "tile"
+    },
+    "ttnn.asin": {
       "bf16": "tile",
       "fp32": "tile"
     },
@@ -2681,6 +2765,10 @@
       "fp32": "tile"
     },
     "ttnn.floor_div": {
+      "bf16": "tile",
+      "fp32": "tile"
+    },
+    "ttnn.fmod": {
       "bf16": "tile",
       "fp32": "tile"
     },
@@ -2968,6 +3056,10 @@
       "bf16": "tile",
       "fp32": "tile"
     },
+    "ttnn.reciprocal": {
+      "bf16": "tile",
+      "fp32": "tile"
+    },
     "ttnn.reciprocal_bw": {
       "bf16": "tile",
       "fp32": "tile"
@@ -2985,6 +3077,10 @@
       "fp32": "tile"
     },
     "ttnn.relu_bw": {
+      "bf16": "tile",
+      "fp32": "tile"
+    },
+    "ttnn.remainder": {
       "bf16": "tile",
       "fp32": "tile"
     },
@@ -3208,14 +3304,14 @@
     },
     "ttnn.acos": {
       "category": "unary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "acos",
       "operands": 1,
-      "real_valued": null,
+      "real_valued": true,
       "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.acos_bw": {
@@ -3244,14 +3340,14 @@
     },
     "ttnn.acosh_bw": {
       "category": "unary_bw",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "acosh_bw",
       "operands": 1,
-      "real_valued": null,
+      "real_valued": true,
       "signature": "(grad_tensor, input_tensor, *args, device, **kwargs)"
     },
     "ttnn.adaptive_avg_pool2d": {
@@ -3556,14 +3652,14 @@
     },
     "ttnn.asin": {
       "category": "unary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "asin",
       "operands": 1,
-      "real_valued": null,
+      "real_valued": true,
       "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.asin_bw": {
@@ -4816,14 +4912,14 @@
     },
     "ttnn.fmod": {
       "category": "binary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "fmod",
       "operands": 2,
-      "real_valued": null,
+      "real_valued": true,
       "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
     },
     "ttnn.fmod_bw": {
@@ -7336,14 +7432,14 @@
     },
     "ttnn.reciprocal": {
       "category": "unary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "reciprocal",
       "operands": 1,
-      "real_valued": null,
+      "real_valued": true,
       "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.reciprocal_bw": {
@@ -7468,14 +7564,14 @@
     },
     "ttnn.remainder": {
       "category": "binary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "remainder",
       "operands": 2,
-      "real_valued": null,
+      "real_valued": true,
       "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
     },
     "ttnn.remainder_bw": {
@@ -9221,5 +9317,110 @@
     "ttnn.to_memory_config": "ttnn.to_memory_config(): incompatible function arguments.",
     "ttnn.to_torch": "'Tensor' object has no attribute 'to_torch'",
     "ttnn.typecast": "ttnn.typecast(): incompatible function arguments."
+  },
+  "unprobeable": {
+    "ttnn.adaptive_avg_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
+    "ttnn.adaptive_max_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
+    "ttnn.addalpha": "TypeError: add(): argument 'alpha' must be Number, not Tensor",
+    "ttnn.addcdiv_bw": "TypeError: addcdiv(): argument 'value' must be Number, not Tensor",
+    "ttnn.addcmul_bw": "TypeError: addcmul(): argument 'value' must be Number, not Tensor",
+    "ttnn.addmm": "RuntimeError: mat1 must be a matrix, got 1-D tensor",
+    "ttnn.angle_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
+    "ttnn.arange": "takes no tensor operands",
+    "ttnn.avg_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
+    "ttnn.bcast": "AssertionError: Invalid bcast dimension",
+    "ttnn.bitcast": "TypeError: register_ttnn_cpp_unary_function.<locals>._golden_function.<locals>.<lambda>() missing 1 required positional argument: 'dtype'",
+    "ttnn.bitwise_and": "NotImplementedError: \"bitwise_and_cpu\" not implemented for 'Double'",
+    "ttnn.bitwise_left_shift": "NotImplementedError: \"lshift_cpu\" not implemented for 'Double'",
+    "ttnn.bitwise_not": "NotImplementedError: \"bitwise_not_cpu\" not implemented for 'Double'",
+    "ttnn.bitwise_or": "NotImplementedError: \"bitwise_or_cpu\" not implemented for 'Double'",
+    "ttnn.bitwise_right_shift": "NotImplementedError: \"rshift_cpu\" not implemented for 'Double'",
+    "ttnn.bitwise_xor": "NotImplementedError: \"bitwise_xor_cpu\" not implemented for 'Double'",
+    "ttnn.chunk": "TypeError: chunk(): argument 'chunks' (position 2) must be int, not Tensor",
+    "ttnn.clamp": "RuntimeError: torch.clamp: At least one of 'min' or 'max' must not be None",
+    "ttnn.clip": "RuntimeError: torch.clamp: At least one of 'min' or 'max' must not be None",
+    "ttnn.concat": "TypeError: concat() received an invalid combination of arguments - got (Tensor, int), but expected one of:",
+    "ttnn.concat_bw": "RuntimeError: Mismatch in shape: grad_output[0] has a shape of torch.Size([64]) and output[0] has a shape of torch.Size([128]).",
+    "ttnn.conj_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
+    "ttnn.conv2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
+    "ttnn.embedding": "RuntimeError: 'weight' must be 2-D",
+    "ttnn.expand": "TypeError: expand(): argument 'size' (position 1) must be tuple of ints, but found element of type Tensor at pos 0",
+    "ttnn.fill": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
+    "ttnn.fill_cache": "IndexError: tuple index out of range",
+    "ttnn.fill_ones_rm": "TypeError: zeros() received an invalid combination of arguments - got (tuple, dtype=torch.dtype), but expected one of:",
+    "ttnn.fill_rm": "ValueError: only one element tensors can be converted to Python scalars",
+    "ttnn.fold": "ValueError: not enough values to unpack (expected 4, got 1)",
+    "ttnn.from_buffer": "KeyError: tensor([0.1283, 0.1632, 0.6565, 0.1946, 0.4607, 0.8058, 0.3305, 0.1859, 0.2745,",
+    "ttnn.full": "TypeError: full(): argument 'size' (position 1) must be tuple of ints, not Tensor",
+    "ttnn.full_like": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
+    "ttnn.gather": "TypeError: gather() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, out=NoneType, sparse_grad=bool), but expected one of:",
+    "ttnn.gcd": "NotImplementedError: \"gcd_cpu\" not implemented for 'Double'",
+    "ttnn.geglu": "AssertionError: dim must be an integer",
+    "ttnn.glu": "TypeError: glu(): argument 'dim' (position 2) must be int, not Tensor",
+    "ttnn.grid_sample": "ValueError: not enough values to unpack (expected 4, got 1)",
+    "ttnn.group_norm": "TypeError: _golden_function() missing 1 required keyword-only argument: 'num_groups'",
+    "ttnn.imag": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
+    "ttnn.imag_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
+    "ttnn.index_fill": "TypeError: index_fill() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.interleaved_to_sharded_partial": "TypeError: only integer tensors of a single element can be converted to an index",
+    "ttnn.is_imag": "AttributeError: module 'torch' has no attribute 'is_imag'",
+    "ttnn.is_real": "AttributeError: module 'torch' has no attribute 'is_real'",
+    "ttnn.kv_cache.fill_cache_for_user_": "IndexError: tuple index out of range",
+    "ttnn.kv_cache.update_cache_for_token_": "IndexError: too many indices for tensor of dimension 1",
+    "ttnn.lcm": "NotImplementedError: \"lcm_cpu\" not implemented for 'Double'",
+    "ttnn.logical_left_shift": "NotImplementedError: \"lshift_cpu\" not implemented for 'Double'",
+    "ttnn.logical_right_shift": "NotImplementedError: \"rshift_cpu\" not implemented for 'Double'",
+    "ttnn.max_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
+    "ttnn.narrow": "TypeError: narrow() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.normalize_global": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)",
+    "ttnn.normalize_hw": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got -2)",
+    "ttnn.ones": "TypeError: ones(): argument 'size' (position 1) must be tuple of ints, not Tensor",
+    "ttnn.pad": "IndexError: tuple index out of range",
+    "ttnn.permute": "TypeError: permute(): argument 'dims' (position 2) must be tuple of ints, not Tensor",
+    "ttnn.polar": "TypeError: polar() missing 1 required positional arguments: \"angle\"",
+    "ttnn.polar_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
+    "ttnn.polygamma": "TypeError: special_polygamma(): argument 'n' must be int, not Tensor",
+    "ttnn.polygamma_bw": "TypeError: polygamma(): argument 'n' (position 1) must be int, not Tensor",
+    "ttnn.pow_bw": "RuntimeError: Boolean value of Tensor with more than one value is ambiguous",
+    "ttnn.prelu": "RuntimeError: Mismatch of parameter numbers and input channel size. Found parameter numbers = 64 and channel size = 1.",
+    "ttnn.rdiv": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
+    "ttnn.rdiv_bw": "TypeError: div() received an invalid combination of arguments - got (NoneType, Tensor, rounding_mode=NoneType), but expected one of:",
+    "ttnn.real_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
+    "ttnn.reglu": "AssertionError: dim must be an integer",
+    "ttnn.repeat": "RuntimeError: Storage size calculation overflowed with sizes=[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, ",
+    "ttnn.repeat_bw": "TypeError: repeat(): argument 'repeats' (position 1) must be tuple of ints, not Tensor",
+    "ttnn.repeat_interleave": "NotImplementedError: \"repeat_interleave_cpu\" not implemented for 'Double'",
+    "ttnn.reshape": "TypeError: reshape(): argument 'shape' (position 1) must be tuple of ints, not Tensor",
+    "ttnn.reshape_on_device": "ValueError: only one element tensors can be converted to Python scalars",
+    "ttnn.roll": "TypeError: roll(): argument 'shifts' (position 2) must be tuple of ints, but found element of type Tensor at pos 0",
+    "ttnn.rotate": "RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 1 is not equal to len(dims) = 4",
+    "ttnn.scatter": "TypeError: scatter() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.scatter_add": "TypeError: scatter_add() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.sharded_to_interleaved_partial": "TypeError: only integer tensors of a single element can be converted to an index",
+    "ttnn.slice": "TypeError: object of type 'NoneType' has no len()",
+    "ttnn.split": "TypeError: split_with_sizes(): argument 'split_sizes' (position 2) must be tuple of ints, not Tensor",
+    "ttnn.stack": "TypeError: stack(): argument 'dim' (position 2) must be int, not Tensor",
+    "ttnn.subalpha": "TypeError: sub(): argument 'alpha' must be Number, not Tensor",
+    "ttnn.swiglu": "AssertionError: dim must be an integer",
+    "ttnn.threshold": "TypeError: threshold(): argument 'threshold' (position 2) must be Number, not Tensor",
+    "ttnn.threshold_bw": "TypeError: _threshold() missing 2 required positional arguments: 'threshold' and 'value'",
+    "ttnn.topk": "NameError: name 'torch' is not defined",
+    "ttnn.tosa_gather": "ValueError: not enough values to unpack (expected 3, got 1)",
+    "ttnn.tosa_scatter": "ValueError: not enough values to unpack (expected 3, got 1)",
+    "ttnn.transformer.attention_softmax": "TypeError: _golden_function() missing 2 required keyword-only arguments: 'head_size' and 'attention_mask'",
+    "ttnn.transformer.attention_softmax_": "TypeError: _golden_function() missing 2 required keyword-only arguments: 'head_size' and 'attention_mask'",
+    "ttnn.transformer.concatenate_heads": "ValueError: not enough values to unpack (expected 4, got 1)",
+    "ttnn.transformer.split_query_key_value_and_split_heads": "TypeError: _golden_function() missing 1 required keyword-only argument: 'num_heads'",
+    "ttnn.transpose": "TypeError: transpose() received an invalid combination of arguments - got (Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.tril": "RuntimeError: tril: input tensor must have at least 2 dimensions",
+    "ttnn.triu": "RuntimeError: triu: input tensor must have at least 2 dimensions",
+    "ttnn.unsqueeze": "TypeError: unsqueeze(): argument 'dim' (position 2) must be int, not Tensor",
+    "ttnn.untilize_with_unpadding": "IndexError: too many indices for tensor of dimension 1",
+    "ttnn.update_cache": "IndexError: too many indices for tensor of dimension 1",
+    "ttnn.upsample": "RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 1 is not equal to len(dims) = 4",
+    "ttnn.view": "TypeError: reshape(): argument 'shape' (position 1) must be tuple of ints, but found element of type Tensor at pos 0",
+    "ttnn.where": "RuntimeError: where expected condition to be a boolean tensor, but got a tensor with dtype Double",
+    "ttnn.where_bw": "RuntimeError: where expected condition to be a boolean tensor, but got a tensor with dtype Double",
+    "ttnn.zeros": "TypeError: zeros(): argument 'size' (position 1) must be tuple of ints, not Tensor"
   }
 }

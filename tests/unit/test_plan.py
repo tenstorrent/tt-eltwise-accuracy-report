@@ -29,6 +29,7 @@ MEASURABLE = {
 def _manifest(op_changes: dict, rejected: dict) -> dict:
     return {
         "ops": {"ttnn.exp": MEASURABLE | op_changes},
+        "unprobeable": {},
         "domains": {"ttnn.exp": {d: [0.0, 1.0] for d in ("bf16", "fp32")}},
         "refused": {},
         "layouts": {},

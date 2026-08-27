@@ -1,10 +1,12 @@
 """The committed op manifest.
 
-`ops` is what ttnn reports and is rebuilt wholesale by `discover`. Everything else is what
-the later stages learned by running goldens and calling the device: `domains` and its
-`refused` counterpart from derivation, `layouts` and its `rejected` counterpart from
-probing. Each costs far more than a rebuild and does not change when ttnn's op list does,
-so a rebuild keeps them for every op it did not see change.
+`ops` is what ttnn reports and is rebuilt wholesale by `discover`, along with
+`unprobeable` — why each unclassifiable golden refused, learned from the same calls.
+Everything else is what the later stages learned by running goldens and calling the
+device: `domains` and its `refused` counterpart from derivation, `layouts` and its
+`rejected` counterpart from probing. Each costs far more than a rebuild and does not
+change when ttnn's op list does, so a rebuild keeps them for every op it did not see
+change.
 
 Nothing here holds a timestamp: an unchanged ttnn must produce an unchanged file, so that
 a diff means ttnn changed.
@@ -26,9 +28,11 @@ from ttnn_accuracy.paths import MANIFEST_FILE
 
 def build(include_experimental: bool = False) -> dict:
     """Facts from ttnn only. `domains` is filled by derive_domains, not here."""
-    ops = {}
+    ops, unprobeable = {}, {}
     for op in introspect.discover(include_experimental):
-        probe = arity.probe(op) if op.has_golden else None
+        probe, why = arity.probe(op) if op.has_golden else (None, "")
+        if why:
+            unprobeable[op.qualified_name] = why
         ops[op.qualified_name] = {
             "name": op.name,
             "category": arity.category(op),
@@ -41,12 +45,26 @@ def build(include_experimental: bool = False) -> dict:
             "is_cpp": op.is_cpp,
             "is_experimental": op.is_experimental,
         }
-    return {"ops": ops, "domains": {}, "refused": {}, "layouts": {}, "rejected": {}}
+    return {
+        "ops": ops,
+        "unprobeable": unprobeable,
+        "domains": {},
+        "refused": {},
+        "layouts": {},
+        "rejected": {},
+    }
 
 
 def load() -> dict:
     """Defaults first, so a manifest written before a key existed still loads."""
-    empty = {"ops": {}, "domains": {}, "refused": {}, "layouts": {}, "rejected": {}}
+    empty = {
+        "ops": {},
+        "unprobeable": {},
+        "domains": {},
+        "refused": {},
+        "layouts": {},
+        "rejected": {},
+    }
     if not MANIFEST_FILE.exists():
         return empty
     return empty | json.loads(MANIFEST_FILE.read_text())
@@ -199,6 +217,11 @@ def discover(include_experimental: bool = False) -> int:
             logger.info(
                 "{} {}: {}", len(names), label, ", ".join(n.rsplit(".", 1)[-1] for n in names)
             )
+    if new["unprobeable"]:
+        logger.info(
+            "{} goldens refused the probe — each reason recorded under `unprobeable`",
+            len(new["unprobeable"]),
+        )
     if not existing:
         return 0
     for label, names in (("added", added), ("removed", removed), ("changed", changed)):

@@ -196,7 +196,8 @@ def _why_missing(manifest: dict, name: str) -> str:
     if why := manifest["rejected"].get(qualified):
         return f"{qualified}: the device rejected every dtype and layout probed — {why}"
     if op["elementwise"] is None:
-        return f"{qualified}: golden refused the probe, so it was never classified"
+        why = manifest["unprobeable"].get(qualified) or "it was never classified"
+        return f"{qualified}: golden refused the probe — {why}"
     if not op["elementwise"]:
         return f"{qualified}: not elementwise — output depends on more than its own input"
     if not op["real_valued"]:
