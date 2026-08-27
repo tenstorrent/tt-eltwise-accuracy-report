@@ -12,7 +12,7 @@ from models.common.utility_functions import ulp as tt_metal_ulp
 MIN_NORMAL = 2**-126  # smallest normal bf16 and fp32 value; below it hardware returns zero
 
 # Ordered by severity: a group is labelled by the worst outcome it contains.
-OUTCOMES = ("exact", "inexact", "flushed", "overflow", "undefined", "mismatch")
+OUTCOMES = ("exact", "inexact", "flushed", "zeroed", "overflow", "undefined", "mismatch")
 
 
 def ulp(x: torch.Tensor) -> torch.Tensor:
@@ -41,6 +41,10 @@ def classify(raw_golden: np.ndarray, gold: np.ndarray, calc: np.ndarray, dtype) 
     outcome[calc == gold] = OUTCOMES.index("exact")
     # gold == 0 with a non-zero reference means the value underflowed the dtype.
     outcome[(gold == 0) & (raw_golden != 0)] = OUTCOMES.index("flushed")
+    # The opposite: the dtype could hold this value and the hardware returned zero anyway.
+    # Real behaviour worth counting, but ULP cannot express it — a flush at the smallest
+    # normal is 128 ULP in bf16 by construction, whatever the absolute error (1e-38).
+    outcome[(calc == 0) & (gold != 0)] = OUTCOMES.index("zeroed")
     outcome[np.abs(raw_golden) > limits.max] = OUTCOMES.index("overflow")
     outcome[np.isnan(raw_golden)] = OUTCOMES.index("undefined")
     outcome[np.isfinite(gold) != np.isfinite(calc)] = OUTCOMES.index("mismatch")
@@ -67,8 +71,12 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
         outcome = classify(raw, gold, calc, dtype)
         abs_err = np.abs(gold - calc)
         # Dividing by the spacing around zero is what produced 1e24-ULP readings for a
-        # 0.003 absolute error. Defined only where the reference is a real value.
-        defined = (gold != 0) | (outcome == OUTCOMES.index("exact"))
+        # 0.003 absolute error. A ULP is only a distance between two real values: an exact
+        # match scores zero, anything else needs a non-zero reference to divide by, and
+        # every other outcome — a flush either way, an overflow, a NaN — has no ULP at all.
+        defined = (outcome == OUTCOMES.index("exact")) | (
+            (outcome == OUTCOMES.index("inexact")) & (gold != 0)
+        )
         return {
             "y": calc,
             "y_ref": gold,
