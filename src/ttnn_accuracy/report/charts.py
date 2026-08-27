@@ -40,14 +40,21 @@ def _fmt(v) -> str:
 
 
 def _usable_to(df: pd.DataFrame) -> float:
-    """Largest |x| below which no point yet exceeds USABLE_ULP. NaN when none qualifies.
+    """Largest finite |x| below which no point yet exceeds USABLE_ULP. NaN when none does.
 
-    One maximum over the whole domain hides a cliff. `sin` is bit-exact to 4096 and
-    unusable past it — because reducing a large argument mod 2π needs more bits of π than
-    the hardware carries — and its 3.38e+38 maximum alone reads as a broken op. Undefined
-    ULP does not count against the range: a flush is not an inaccuracy.
+    One maximum over the whole domain hides a cliff. `sin` holds to 2 ULP out to 2.6e5 and
+    collapses past it — reducing a large argument mod 2π needs more bits of π than the
+    hardware carries — and its 3.38e+38 maximum alone reads as a broken op. Undefined ULP
+    does not count against the range: a flush is not an inaccuracy.
+
+    Only asked of unary ops. An `x2` column means each x was paired with a sampled
+    partner, so one bad pair latches the running maximum and the figure then describes the
+    partner rather than x.
     """
-    ordered = df.reindex(df["x"].abs().sort_values().index)
+    if "x2" in df.columns:
+        return float("nan")
+    finite = df[_finite(df["x"]).notna()]
+    ordered = finite.reindex(finite["x"].abs().sort_values().index)
     within = _finite(ordered["ulp_error"]).fillna(0.0).cummax() <= USABLE_ULP
     return abs(ordered["x"][within].iloc[-1]) if within.any() else float("nan")
 
