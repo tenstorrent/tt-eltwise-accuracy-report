@@ -233,8 +233,8 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
 
     lines.extend(
         [
-            "| Parameters | Max ULP | Mean ULP | Max abs error |\n",
-            "|------------|---------|----------|---------------|\n",
+            "| Parameters | Max ULP | Mean ULP | Accurate to \\|x\\| | Max abs error |\n",
+            "|------------|---------|----------|-----------------|---------------|\n",
         ]
     )
     for op_key, variant in entries:
@@ -243,11 +243,11 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
         if summary:
             clipped = " ⚠" if summary.get("ulp_clipped") else ""
             lines.append(
-                f"| `{params}` | {summary['max_ulp']}{clipped} "
-                f"| {summary['mean_ulp']} | {summary['max_abs']} |\n"
+                f"| `{params}` | {summary['max_ulp']}{clipped} | {summary['mean_ulp']} "
+                f"| {summary.get('usable_to', '—')} | {summary['max_abs']} |\n"
             )
         else:
-            lines.append(f"| `{params}` | — | — | — |\n")
+            lines.append(f"| `{params}` | — | — | — | — |\n")
 
     lines.append("\n")
     lines.append(_outcome_table(arch, dtype, entries))
@@ -276,8 +276,8 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
         GENERATED_NOTE,
         f"[← {ARCH_DISPLAY.get(arch, arch)}](../README.md) | [Top](../../../README.md)\n\n",
         "## Operations Summary\n\n",
-        "| Op | Parameters | Max ULP | Mean ULP | Max abs error |\n",
-        "|----|------------|---------|----------|---------------|\n",
+        "| Op | Parameters | Max ULP | Mean ULP | Accurate to \\|x\\| | Max abs error |\n",
+        "|----|------------|---------|----------|-----------------|---------------|\n",
     ]
 
     for display_name, entries in groups.items():
@@ -288,9 +288,12 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
                 " ⚠" if summary and summary.get("ulp_clipped") else ""
             )
             mean_ulp = summary["mean_ulp"] if summary else "—"
+            usable = summary.get("usable_to", "—") if summary else "—"
             max_abs = summary["max_abs"] if summary else "—"
             op_cell = f"[{display_name}]({display_name}.md)" if i == 0 else ""
-            lines.append(f"| {op_cell} | `{params}` | {max_ulp} | {mean_ulp} | {max_abs} |\n")
+            lines.append(
+                f"| {op_cell} | `{params}` | {max_ulp} | {mean_ulp} | {usable} | {max_abs} |\n"
+            )
 
     lines.append("\n---\n\n## Charts Preview\n\n")
     for display_name, entries in groups.items():

@@ -28,6 +28,7 @@ plt.rcParams["figure.dpi"] = 100
 # Underscored so it cannot collide with an arch name when the report walks the index.
 RUNS_KEY = "_runs"
 ULP_CLIP = 1000.0
+USABLE_ULP = 2.0  # what "still accurate here" means for the usable-range figure
 
 
 def _finite(s: pd.Series) -> pd.Series:
@@ -36,6 +37,19 @@ def _finite(s: pd.Series) -> pd.Series:
 
 def _fmt(v) -> str:
     return "—" if v != v else f"{float(v):.3g}"
+
+
+def _usable_to(df: pd.DataFrame) -> float:
+    """Largest |x| below which no point yet exceeds USABLE_ULP. NaN when none qualifies.
+
+    One maximum over the whole domain hides a cliff. `sin` is bit-exact to 4096 and
+    unusable past it — because reducing a large argument mod 2π needs more bits of π than
+    the hardware carries — and its 3.38e+38 maximum alone reads as a broken op. Undefined
+    ULP does not count against the range: a flush is not an inaccuracy.
+    """
+    ordered = df.reindex(df["x"].abs().sort_values().index)
+    within = _finite(ordered["ulp_error"]).fillna(0.0).cummax() <= USABLE_ULP
+    return abs(ordered["x"][within].iloc[-1]) if within.any() else float("nan")
 
 
 def _subdirs(parent: Path, only: str | None) -> list[Path]:
@@ -70,6 +84,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
     return {
         "max_ulp": _fmt(ulp.max()),
         "mean_ulp": _fmt(ulp[ulp > 0].mean()),
+        "usable_to": _fmt(_usable_to(df)),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
         "n_inputs": len(df),
