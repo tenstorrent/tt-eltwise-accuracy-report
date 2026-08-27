@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from ttnn_accuracy.measure.schema import _tt_metal_commit
+from ttnn_accuracy.measure.schema import _commit_from_version
 from ttnn_accuracy.ops import arity
 from ttnn_accuracy.ops.introspect import DiscoveredOp
 
@@ -17,7 +17,7 @@ from ttnn_accuracy.ops.introspect import DiscoveredOp
     ],
 )
 def test_tt_metal_commit_is_read_from_the_ttnn_version(version, expected):
-    assert _tt_metal_commit(version) == expected
+    assert _commit_from_version(version) == expected
 
 
 def _op(name: str, required: int | None) -> DiscoveredOp:

@@ -1,15 +1,19 @@
 """The result contract: what a measured row holds, and what produced it.
 
-Imported by both `measure` and `report` so the two cannot drift. Config axes are
-declared before they are varied — a column costs nothing now and cannot be
-backfilled into runs that already exist.
+Imported by both `measure` and `report` so the two cannot drift. A config axis is added
+here when it starts being varied, because it cannot be backfilled into runs that already
+exist — `layout` earned its column once `probe` began choosing one per op.
 """
 
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 from dataclasses import dataclass, field
 from datetime import datetime
+
+from loguru import logger
 
 COLUMNS = (
     "x",
@@ -21,6 +25,7 @@ COLUMNS = (
     "op",
     "variant",
     "dtype",
+    "layout",
 )
 
 ARCH_OF_DEVICE = {"WORMHOLE_B0": "wh", "BLACKHOLE": "bh"}
@@ -35,18 +40,42 @@ class RunMeta:
     ttnn_version: str
     tt_metal_commit: str | None
     torch_version: str
-    # Reserved axes: populated once the compute-config matrix lands.
-    math_fidelity: str | None = None
-    fp32_dest_acc: bool | None = None
-    approx_mode: bool | None = None
     ops: list[str] = field(default_factory=list)
     dtypes: list[str] = field(default_factory=list)
 
 
-def _tt_metal_commit(version: str) -> str | None:
-    """The tt-metal SHA that ttnn was built from, e.g. 0.75.0rc10.dev817+g2adf8c65887."""
+def _commit_from_version(version: str) -> str | None:
+    """The SHA ttnn's package metadata claims, e.g. 0.75.0rc10.dev817+g2adf8c65887."""
     found = re.search(r"\+g([0-9a-f]{7,40})", version)
     return found.group(1) if found else None
+
+
+def _tt_metal_commit(version: str) -> str | None:
+    """The tt-metal SHA actually being run.
+
+    The checkout wins over the package metadata. `build_metal.sh` rebuilds the tree
+    without reinstalling ttnn, so importlib reports the commit from whenever ttnn was
+    last pip-installed — 52 commits stale when this was found, which would have stamped
+    every sweep with a version it was not measured on.
+    """
+    home = os.environ.get("TT_METAL_HOME")
+    if home:
+        head = subprocess.run(
+            ["git", "-C", home, "rev-parse", "--short=11", "HEAD"],
+            capture_output=True,
+            text=True,
+        )
+        if head.returncode == 0:
+            sha = head.stdout.strip()
+            if sha not in version:
+                logger.warning(
+                    "ttnn metadata reports {} but {} is at {} — reinstall ttnn to agree",
+                    version,
+                    home,
+                    sha,
+                )
+            return sha
+    return _commit_from_version(version)
 
 
 def describe_run(device, arch: str, ops: list[str], dtypes: list[str]) -> RunMeta:
