@@ -49,10 +49,11 @@ def _same(a: torch.Tensor, b: torch.Tensor) -> bool:
 
 @dataclass(frozen=True, slots=True)
 class Probe:
-    """What one pair of golden calls reveals about an op."""
+    """What a handful of golden calls reveal about an op."""
 
     elementwise: bool
     real_valued: bool
+    depends_on_input: bool
 
 
 def probe(op: DiscoveredOp) -> Probe | None:
@@ -68,6 +69,12 @@ def probe(op: DiscoveredOp) -> Probe | None:
     listed by name, so a predicate added to ttnn later is excluded without a code change.
     Catching it here keeps those ops from failing at measurement with a torch error about
     `abs_cpu`, which describes the symptom rather than the cause.
+
+    `depends_on_input`: `zeros_like` is elementwise and real-valued and returns the same
+    thing whatever it is given, so measuring its accuracy yields a flawless score for an
+    op that computes nothing. Two further inputs settle it, because one cannot: `sign` is
+    flat across (0.1, 0.9) and (2, 3) alike, so only flipping the sign as well
+    distinguishes an op that ignores its input from one that is merely flat here.
     """
     n = operands(op)
     if n is None:
@@ -84,8 +91,20 @@ def probe(op: DiscoveredOp) -> Probe | None:
     try:
         before = call_golden(op.golden, base, op.is_backward)
         after = call_golden(op.golden, bumped, op.is_backward)
+        elsewhere = [
+            call_golden(op.golden, [f(a) for a in base], op.is_backward)
+            # +10 clears the usual saturation points — hardtanh at 1, hardsigmoid at 3,
+            # relu6 at 6 — which a smaller shift leaves inside, making a piecewise op
+            # look constant. Negation is the second probe because `sign` is flat across
+            # any two positive ranges.
+            for f in (lambda a: a + 10.0, lambda a: -a)
+        ]
     except Exception:
         return None
     if not isinstance(before, torch.Tensor) or before.shape != base[0].shape:
-        return Probe(elementwise=False, real_valued=False)
-    return Probe(elementwise=_same(before[1:], after[1:]), real_valued=before.is_floating_point())
+        return Probe(elementwise=False, real_valued=False, depends_on_input=False)
+    return Probe(
+        elementwise=_same(before[1:], after[1:]),
+        real_valued=before.is_floating_point(),
+        depends_on_input=not all(_same(before, other) for other in elsewhere),
+    )

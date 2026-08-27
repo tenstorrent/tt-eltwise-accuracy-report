@@ -144,6 +144,11 @@ def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[
         if category and entry["category"] != category:
             continue
 
+        # Before `considered`, so a category sweep passes over it quietly while naming it
+        # explicitly still gets the recorded reason back from _why_missing.
+        if qualified in manifest["rejected"]:
+            continue
+
         considered.add(entry["name"])
         bounds = _bounds(manifest["domains"].get(qualified))
         if bounds is None and operands == 1:  # only a single axis is ever derived
@@ -164,9 +169,6 @@ def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[
             continue
 
         accepts = manifest["layouts"].get(qualified)
-        if accepts == {}:  # probed, runs in no dtype; None means never probed
-            continue
-
         backward = entry["category"].endswith("_bw")
         specs.append(
             OpSpec(
@@ -186,17 +188,21 @@ def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[
 
 
 def _why_missing(manifest: dict, name: str) -> str:
-    """Say which of the four reasons applies, rather than calling everything unknown."""
+    """Say which reason applies, rather than calling everything unknown."""
     qualified = f"ttnn.{name}"
     op = manifest["ops"].get(qualified)
     if op is None:
         return f"unknown op: {name}"
+    if why := manifest["rejected"].get(qualified):
+        return f"{qualified}: the device rejected every dtype and layout probed — {why}"
     if op["elementwise"] is None:
         return f"{qualified}: golden refused the probe, so it was never classified"
     if not op["elementwise"]:
         return f"{qualified}: not elementwise — output depends on more than its own input"
     if not op["real_valued"]:
         return f"{qualified}: golden is not real-valued — ULP needs a real value to measure"
+    if not op["depends_on_input"]:
+        return f"{qualified}: output does not depend on its input — nothing to be accurate about"
     return f"{qualified}: excluded by the category filter"
 
 

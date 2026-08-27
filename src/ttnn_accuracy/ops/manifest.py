@@ -1,11 +1,13 @@
 """The committed op manifest.
 
-Two top-level keys, deliberately separate. `ops` is what ttnn reports and is rebuilt
-wholesale by `discover`; `domains` is what derivation computed and survives a rebuild,
-because it costs an fp64 sweep per op and does not change when ttnn's op list does.
+`ops` is what ttnn reports and is rebuilt wholesale by `discover`. Everything else is what
+the later stages learned by running goldens and calling the device: `domains` and its
+`refused` counterpart from derivation, `layouts` and its `rejected` counterpart from
+probing. Each costs far more than a rebuild and does not change when ttnn's op list does,
+so a rebuild keeps them for every op it did not see change.
 
-Neither holds a timestamp: an unchanged ttnn must produce an unchanged file, so that a
-diff means ttnn changed.
+Nothing here holds a timestamp: an unchanged ttnn must produce an unchanged file, so that
+a diff means ttnn changed.
 """
 
 from __future__ import annotations
@@ -33,17 +35,18 @@ def build(include_experimental: bool = False) -> dict:
             "operands": arity.operands(op),
             "elementwise": probe.elementwise if probe else None,
             "real_valued": probe.real_valued if probe else None,
+            "depends_on_input": probe.depends_on_input if probe else None,
             "has_golden": op.has_golden,
             "signature": op.signature,
             "is_cpp": op.is_cpp,
             "is_experimental": op.is_experimental,
         }
-    return {"ops": ops, "domains": {}, "refused": {}, "layouts": {}}
+    return {"ops": ops, "domains": {}, "refused": {}, "layouts": {}, "rejected": {}}
 
 
 def load() -> dict:
     """Defaults first, so a manifest written before a key existed still loads."""
-    empty = {"ops": {}, "domains": {}, "refused": {}, "layouts": {}}
+    empty = {"ops": {}, "domains": {}, "refused": {}, "layouts": {}, "rejected": {}}
     if not MANIFEST_FILE.exists():
         return empty
     return empty | json.loads(MANIFEST_FILE.read_text())
@@ -63,15 +66,16 @@ def diff(old: dict, new: dict) -> tuple[list[str], list[str], list[str]]:
 
 
 def eltwise(manifest: dict) -> dict[str, dict]:
-    """The measurable subset: a real-valued elementwise golden taking 1-3 operands.
+    """The measurable subset: a real-valued elementwise golden that reads its input.
 
-    Predicates are excluded here rather than left to fail per run: `isnan` is elementwise
-    and unary, but ULP between two booleans is not a quantity.
+    Excluded here rather than left to produce a meaningless number: `isnan` is elementwise
+    and unary, but ULP between two booleans is not a quantity, and `zeros_like` would
+    score a flawless zero for an op that never looks at what it was given.
     """
     return {
         k: v
         for k, v in manifest["ops"].items()
-        if v["elementwise"] and v["category"] and v["real_valued"]
+        if v["elementwise"] and v["category"] and v["real_valued"] and v["depends_on_input"]
     }
 
 
@@ -81,6 +85,15 @@ def predicates(manifest: dict) -> list[str]:
         k
         for k, v in manifest["ops"].items()
         if v["elementwise"] and v["category"] and not v["real_valued"]
+    )
+
+
+def constants(manifest: dict) -> list[str]:
+    """Elementwise ops excluded only because their output ignores their input."""
+    return sorted(
+        k
+        for k, v in manifest["ops"].items()
+        if v["elementwise"] and v["category"] and v["real_valued"] and not v["depends_on_input"]
     )
 
 
@@ -96,7 +109,9 @@ def derive_domains() -> int:
     """
     manifest = load()
     discovered = {op.qualified_name: op for op in introspect.discover()}
-    manifest["refused"] = {}
+    # Both are recomputed for every op below, so clear them: keeping a previous domain for
+    # a golden that now refuses would leave the op with bounds and a refusal at once.
+    manifest["domains"], manifest["refused"] = {}, {}
 
     for name, entry in eltwise(manifest).items():
         if entry["operands"] != 1:
@@ -133,24 +148,31 @@ def probe_layouts(device_id: int = 0) -> int:
     from ttnn_accuracy.measure.sweeps import capabilities
 
     manifest = load()
-    manifest["layouts"] = {}
+    manifest["layouts"], manifest["rejected"] = {}, {}
+    ops = eltwise(manifest)
 
     with open_device(device_id) as device:
-        for name, entry in eltwise(manifest).items():
+        for i, (name, entry) in enumerate(ops.items(), start=1):
+            logger.debug("probing {}/{} {}", i, len(ops), name)
             try:
                 op = introspect.resolve(name)
             except AttributeError:
                 continue
             fn = bw_fn(op) if entry["category"].endswith("_bw") else op
-            if found := capabilities(fn, entry["operands"], device):
+            found, why = capabilities(fn, entry["operands"], device)
+            if found:
                 manifest["layouts"][name] = found
+            elif why:
+                manifest["rejected"][name] = why
 
     save(manifest)
     probed = len(manifest["layouts"])
-    logger.success("layouts for {} of {} ops → {}", probed, len(eltwise(manifest)), MANIFEST_FILE)
+    logger.success("layouts for {} of {} ops → {}", probed, len(ops), MANIFEST_FILE)
     rows = Counter(tuple(sorted(v)) for v in manifest["layouts"].values())
     for dtypes, count in rows.most_common():
         logger.info("{} ops accept {}", count, ", ".join(dtypes))
+    for name, why in sorted(manifest["rejected"].items()):
+        logger.info("{} accepts nothing: {}", name.rsplit(".", 1)[-1], why)
     return 0 if probed else 1
 
 
@@ -161,7 +183,7 @@ def discover(include_experimental: bool = False) -> int:
     added, removed, changed = diff(old, new)
     # Derivation survives a rebuild, except where ttnn changed the op underneath it.
     stale = set(changed)
-    for key in ("domains", "refused", "layouts"):
+    for key in ("domains", "refused", "layouts", "rejected"):
         new[key] = {k: v for k, v in old[key].items() if k in new["ops"] and k not in stale}
     save(new)
 
@@ -169,12 +191,14 @@ def discover(include_experimental: bool = False) -> int:
 
     logger.success("{} ttnn ops → {}", len(new["ops"]), MANIFEST_FILE)
     logger.info("eltwise: {} — {}", sum(counts.values()), dict(sorted(counts.items())))
-    if bools := predicates(new):
-        logger.info(
-            "{} predicates excluded, ULP needs a real value: {}",
-            len(bools),
-            ", ".join(n.rsplit(".", 1)[-1] for n in bools),
-        )
+    for label, names in (
+        ("predicates excluded, ULP needs a real value", predicates(new)),
+        ("excluded, their output ignores their input", constants(new)),
+    ):
+        if names:
+            logger.info(
+                "{} {}: {}", len(names), label, ", ".join(n.rsplit(".", 1)[-1] for n in names)
+            )
     if not existing:
         return 0
     for label, names in (("added", added), ("removed", removed), ("changed", changed)):

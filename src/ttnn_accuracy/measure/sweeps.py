@@ -84,25 +84,30 @@ def _on_device(
     return ttnn.to_torch(ttnn_fn(*tensors))
 
 
-def capabilities(ttnn_fn: Callable, operands: int, device) -> dict[str, str]:
+def capabilities(ttnn_fn: Callable, operands: int, device) -> tuple[dict[str, str], str]:
     """Which layout each dtype works in, learned by calling the op on one tile.
 
     ttnn declares its constraints as TT_FATAL assertions inside the C++ device operation
     — `tilize` demands ROW_MAJOR, `plus_one` demands INT32 — and nothing on the Python
     side exposes them. Calling is the only way to find out, so every combination that
     matters is tried once and the answer is recorded rather than rediscovered per run.
+
+    Returns what worked, and why nothing did. An op that accepts no configuration is
+    worth a reason: rank and dtype demands are ours to satisfy, and knowing which is
+    which is the difference between fixing the harness and excluding the op.
     """
-    found = {}
+    found, why = {}, ""
     for dtype, name in DTYPE.items():
         tile = torch.ones(TILE_WIDTH, TILE_WIDTH, dtype=getattr(torch, name))
         for layout in LAYOUT:
             try:
                 _on_device(ttnn_fn, *[tile] * operands, dtype=dtype, layout=layout, device=device)
-            except Exception:
+            except Exception as exc:
+                why = why or str(exc).strip().splitlines()[0][:200]
                 continue
             found[dtype] = layout
             break
-    return found
+    return found, why
 
 
 def sweep_bf16(
