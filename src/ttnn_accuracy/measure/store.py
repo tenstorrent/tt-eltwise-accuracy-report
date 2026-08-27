@@ -24,7 +24,10 @@ def write_result(
     out_dir = out_root / arch / dtype / op
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{variant}.csv"
-    df[list(COLUMNS)].to_csv(path, na_rep="NaN", index_label="index")
+    # COLUMNS is the minimum every reader can rely on, not the maximum: a two-operand
+    # sweep adds the partner values, without which its rows cannot be reproduced.
+    extra = [c for c in df.columns if c not in COLUMNS]
+    df[[*COLUMNS, *extra]].to_csv(path, na_rep="NaN", index_label="index")
     return path
 
 

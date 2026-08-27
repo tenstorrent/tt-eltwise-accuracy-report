@@ -13,7 +13,7 @@ from functools import cache
 from math import isnan
 
 from ttnn_accuracy.domain.derive import DTYPES
-from ttnn_accuracy.ops import arity
+from ttnn_accuracy.ops import arity, introspect
 from ttnn_accuracy.ops.manifest import eltwise, load
 from ttnn_accuracy.ops.registry import bw_fn, get_registry, list_op_names, variant_slug
 
@@ -27,6 +27,7 @@ class OpSpec:
     ttnn_fn: Callable
     golden_fn: Callable
     bounds: dict[str, tuple[float, float]]
+    layouts: dict[str, str]  # per dtype, like bounds: an op may want row-major in one only
 
 
 @dataclass(frozen=True, slots=True)
@@ -35,12 +36,14 @@ class OpInfo:
 
     category: str
     display_name: str
+    operands: int
     note: str
     description: str
     bounds: dict[str, tuple[float, float]] | None
 
 
 UNBOUNDED = dict.fromkeys(DTYPES, (-float("inf"), float("inf")))
+TILED = dict.fromkeys(DTYPES, "tile")  # the default until `probe` finds otherwise
 
 
 @cache
@@ -61,6 +64,7 @@ def describe(op_key: str) -> OpInfo | None:
         return OpInfo(
             category=entry.category,
             display_name=entry.display_name,
+            operands=2 if entry.category.startswith("binary") else 1,
             note=entry.input_range.note,
             description=entry.description,
             bounds=dict.fromkeys(DTYPES, (entry.input_range.lo, entry.input_range.hi)),
@@ -73,6 +77,7 @@ def describe(op_key: str) -> OpInfo | None:
     return OpInfo(
         category=op["category"],
         display_name=op["name"],
+        operands=op["operands"],
         note="",
         description="",
         # Two operands are never derived, and the sweep covers everything — matching
@@ -118,6 +123,7 @@ def _from_registry(names: list[str]) -> tuple[list[OpSpec], list[str]]:
                 ttnn_fn=v.ttnn_fn,
                 golden_fn=v.golden_fn,
                 bounds=bounds,
+                layouts=TILED,  # the registry predates layout discovery; its ops are all tiled
             )
             for v in entry.variants
         ]
@@ -152,9 +158,13 @@ def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[
         # Classification marks the invalid pairs, so the full range is safe to sweep.
         bounds = bounds or UNBOUNDED
         try:
-            op = _resolve_op(qualified)
+            op = introspect.resolve(qualified)
         except AttributeError:
             problems.append(f"{qualified}: not reachable on the ttnn module")
+            continue
+
+        accepts = manifest["layouts"].get(qualified)
+        if accepts == {}:  # probed, runs in no dtype; None means never probed
             continue
 
         backward = entry["category"].endswith("_bw")
@@ -167,6 +177,7 @@ def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[
                 ttnn_fn=bw_fn(op) if backward else op,
                 golden_fn=_golden(op.golden_function, backward, operands),
                 bounds=bounds,
+                layouts={**TILED, **(accepts or {})},
             )
         )
 
@@ -184,23 +195,16 @@ def _why_missing(manifest: dict, name: str) -> str:
         return f"{qualified}: golden refused the probe, so it was never classified"
     if not op["elementwise"]:
         return f"{qualified}: not elementwise — output depends on more than its own input"
+    if not op["real_valued"]:
+        return f"{qualified}: golden is not real-valued — ULP needs a real value to measure"
     return f"{qualified}: excluded by the category filter"
 
 
-def _resolve_op(qualified_name: str):
-    import ttnn
-
-    obj = ttnn
-    for part in qualified_name.split(".")[1:]:
-        obj = getattr(obj, part)
-    return obj
-
-
 def _golden(golden: Callable, backward: bool, operands: int) -> Callable:
-    """Adapt a ttnn golden to the shape the sweeps call: (x, out=None) or (a, b)."""
+    """Adapt a ttnn golden to the shape the sweeps call: (x, out=None), or one per operand."""
     if operands == 1:
         return lambda x, out=None: arity.call_golden(golden, [x], backward)
-    return lambda a, b: arity.call_golden(golden, [a, b], backward)
+    return lambda *args: arity.call_golden(golden, list(args), backward)
 
 
 def _bounds(domains: dict | None) -> dict[str, tuple[float, float]] | None:

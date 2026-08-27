@@ -19,6 +19,7 @@ from pathlib import Path
 from loguru import logger
 
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
+from ttnn_accuracy.measure.sweeps import SAMPLED
 from ttnn_accuracy.ops.plan import describe, params_desc
 from ttnn_accuracy.ops.registry import get_registry
 from ttnn_accuracy.paths import CHARTS_DIR, INDEX_FILE, REPO_ROOT, REPORTS_DIR
@@ -170,6 +171,23 @@ def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str
     return "**Outcomes**\n\n" + head + rule + "".join(rows) + "\n"
 
 
+def _sampling_note(dtype: str, entries: list[tuple[str, str]]) -> str:
+    """A sampled maximum is a lower bound, and must never read as a bound.
+
+    How a sweep samples follows from its arity and dtype, so it is looked up rather than
+    carried through the data as a column that would be identical on every row.
+    """
+    info = describe(entries[0][0])
+    how = SAMPLED.get((info.operands, dtype)) if info else None
+    if not how:
+        return ""
+    return (
+        f"> **Sampled, not exhaustive.** For this op {how}. The figures above are a lower "
+        "bound on the error, and comparable between releases, but they are not a bound "
+        "over the dtype.\n\n"
+    )
+
+
 def _provenance(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
     """Only claim a run for ops that run actually covered — silence would read as fresh."""
     run = _get_index().get(RUNS_KEY, {}).get(arch, {}).get(dtype)
@@ -233,6 +251,7 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
 
     lines.append("\n")
     lines.append(_outcome_table(arch, dtype, entries))
+    lines.append(_sampling_note(dtype, entries))
     lines.append(_provenance(arch, dtype, entries))
 
     # One chart per parameter set

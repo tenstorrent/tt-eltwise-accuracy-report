@@ -45,7 +45,7 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int
 
     lo, hi = spec.bounds[dtype]
     try:
-        df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi)
+        df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi, spec.layouts[dtype])
     except Exception:
         logger.exception("  {}/{} {} failed", spec.name, spec.variant, dtype)
         return 1

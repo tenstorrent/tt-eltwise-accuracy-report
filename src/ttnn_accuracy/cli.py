@@ -21,6 +21,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("derive", help="add per-dtype domain bounds to the manifest")
 
+    probe = sub.add_parser("probe", help="record which dtype and layout each op accepts")
+    probe.add_argument("--device-id", type=int, default=0)
+
     measure = sub.add_parser("measure", help="run accuracy sweeps on a device")
     measure.add_argument("--arch", required=True, choices=["wh", "bh"])
     measure.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
@@ -61,6 +64,11 @@ def main(argv: list[str] | None = None) -> int:
             from ttnn_accuracy.ops.manifest import derive_domains
 
             return derive_domains()
+
+        case "probe":
+            from ttnn_accuracy.ops.manifest import probe_layouts
+
+            return probe_layouts(args.device_id)
 
         case "measure":
             from ttnn_accuracy.measure.runner import measure
