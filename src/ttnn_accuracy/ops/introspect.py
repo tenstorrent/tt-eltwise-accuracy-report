@@ -12,6 +12,16 @@ from collections.abc import Callable
 from dataclasses import dataclass
 
 
+def resolve(qualified_name: str):
+    """The live ttnn callable behind a manifest key, e.g. `ttnn.experimental.plus_one`."""
+    import ttnn
+
+    obj = ttnn
+    for part in qualified_name.split(".")[1:]:
+        obj = getattr(obj, part)
+    return obj
+
+
 @dataclass(frozen=True, slots=True)
 class DiscoveredOp:
     name: str

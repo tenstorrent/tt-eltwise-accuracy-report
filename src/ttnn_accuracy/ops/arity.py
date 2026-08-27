@@ -6,6 +6,8 @@ one lower than its signature suggests: `exp_bw(grad, x)` is a unary op under tes
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import torch
 
 from ttnn_accuracy.ops.introspect import DiscoveredOp
@@ -45,12 +47,27 @@ def _same(a: torch.Tensor, b: torch.Tensor) -> bool:
     return bool(((a == b) | (a.isnan() & b.isnan())).all())
 
 
-def is_elementwise(op: DiscoveredOp) -> bool | None:
-    """Does output[i] depend only on input[i]? None when the golden refuses the probe.
+@dataclass(frozen=True, slots=True)
+class Probe:
+    """What one pair of golden calls reveals about an op."""
 
-    Perturbing the first element must leave every other output untouched. A permutation
-    test would let softmax through — it is permutation-equivariant without being
-    elementwise — whereas this excludes it, along with matmul and every reduction.
+    elementwise: bool
+    real_valued: bool
+
+
+def probe(op: DiscoveredOp) -> Probe | None:
+    """Probe the golden. None when it refuses to be called.
+
+    `elementwise`: does output[i] depend only on input[i]? Perturbing the first element
+    must leave every other output untouched. A permutation test would let softmax
+    through — it is permutation-equivariant without being elementwise — whereas this
+    excludes it, along with matmul and every reduction.
+
+    `real_valued`: a predicate like `isnan` returns bool, and the distance between two
+    booleans is not measured in ULP. Asked of the golden's own output dtype rather than
+    listed by name, so a predicate added to ttnn later is excluded without a code change.
+    Catching it here keeps those ops from failing at measurement with a torch error about
+    `abs_cpu`, which describes the symptom rather than the cause.
     """
     n = operands(op)
     if n is None:
@@ -70,5 +87,5 @@ def is_elementwise(op: DiscoveredOp) -> bool | None:
     except Exception:
         return None
     if not isinstance(before, torch.Tensor) or before.shape != base[0].shape:
-        return False
-    return _same(before[1:], after[1:])
+        return Probe(elementwise=False, real_valued=False)
+    return Probe(elementwise=_same(before[1:], after[1:]), real_valued=before.is_floating_point())

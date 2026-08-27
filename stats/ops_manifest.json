@@ -2728,7 +2728,9 @@
       "is_experimental": false,
       "name": "abs",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.abs_bw": {
       "category": "unary_bw",
@@ -2738,7 +2740,9 @@
       "is_experimental": false,
       "name": "abs_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.acos": {
       "category": "unary",
@@ -2748,7 +2752,9 @@
       "is_experimental": false,
       "name": "acos",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, device, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, device, **kwargs)",
+      "varies": null
     },
     "ttnn.acos_bw": {
       "category": "unary_bw",
@@ -2758,7 +2764,9 @@
       "is_experimental": false,
       "name": "acos_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.acosh": {
       "category": "unary",
@@ -2768,7 +2776,9 @@
       "is_experimental": false,
       "name": "acosh",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.acosh_bw": {
       "category": "unary_bw",
@@ -2778,7 +2788,9 @@
       "is_experimental": false,
       "name": "acosh_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, device, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, *args, device, **kwargs)",
+      "varies": null
     },
     "ttnn.adaptive_avg_pool2d": {
       "category": null,
@@ -2788,7 +2800,9 @@
       "is_experimental": false,
       "name": "adaptive_avg_pool2d",
       "operands": 6,
-      "signature": "(input_tensor, batch_size: int, input_h: int, input_w: int, channels: int, output_size: Tuple[int, int], **_)"
+      "real_valued": null,
+      "signature": "(input_tensor, batch_size: int, input_h: int, input_w: int, channels: int, output_size: Tuple[int, int], **_)",
+      "varies": null
     },
     "ttnn.adaptive_max_pool2d": {
       "category": null,
@@ -2798,7 +2812,9 @@
       "is_experimental": false,
       "name": "adaptive_max_pool2d",
       "operands": 6,
-      "signature": "(input_tensor, batch_size: int, input_h: int, input_w: int, channels: int, output_size: Tuple[int, int], **_)"
+      "real_valued": null,
+      "signature": "(input_tensor, batch_size: int, input_h: int, input_w: int, channels: int, output_size: Tuple[int, int], **_)",
+      "varies": null
     },
     "ttnn.add": {
       "category": "binary",
@@ -2808,7 +2824,9 @@
       "is_experimental": false,
       "name": "add",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.add_": {
       "category": "binary",
@@ -2818,7 +2836,9 @@
       "is_experimental": false,
       "name": "add_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)",
+      "varies": true
     },
     "ttnn.add_bw": {
       "category": "binary_bw",
@@ -2828,7 +2848,9 @@
       "is_experimental": false,
       "name": "add_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.addalpha": {
       "category": "ternary",
@@ -2838,7 +2860,9 @@
       "is_experimental": false,
       "name": "addalpha",
       "operands": 3,
-      "signature": "(input_tensor_a, input_tensor_b, alpha, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, alpha, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.addalpha_bw": {
       "category": "binary_bw",
@@ -2848,7 +2872,9 @@
       "is_experimental": false,
       "name": "addalpha_bw",
       "operands": 2,
-      "signature": "(grad, a, b, alpha=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, alpha=None, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.addcdiv": {
       "category": "ternary",
@@ -2858,7 +2884,9 @@
       "is_experimental": false,
       "name": "addcdiv",
       "operands": 3,
-      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, value=1, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, value=1, **kwargs)",
+      "varies": true
     },
     "ttnn.addcdiv_bw": {
       "category": null,
@@ -2868,7 +2896,9 @@
       "is_experimental": false,
       "name": "addcdiv_bw",
       "operands": 4,
-      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.addcmul": {
       "category": "ternary",
@@ -2878,7 +2908,9 @@
       "is_experimental": false,
       "name": "addcmul",
       "operands": 3,
-      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, value=1, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, value=1, **kwargs)",
+      "varies": true
     },
     "ttnn.addcmul_bw": {
       "category": null,
@@ -2888,7 +2920,9 @@
       "is_experimental": false,
       "name": "addcmul_bw",
       "operands": 4,
-      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.addmm": {
       "category": "ternary",
@@ -2898,7 +2932,9 @@
       "is_experimental": false,
       "name": "addmm",
       "operands": 3,
-      "signature": "(input_tensor, mat1_tensor, mat2_tensor, alpha=1.0, beta=1.0, out_tensor=None, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, mat1_tensor, mat2_tensor, alpha=1.0, beta=1.0, out_tensor=None, **kwargs)",
+      "varies": null
     },
     "ttnn.all_broadcast": {
       "category": null,
@@ -2908,7 +2944,9 @@
       "is_experimental": false,
       "name": "all_broadcast",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.all_gather": {
       "category": null,
@@ -2918,7 +2956,9 @@
       "is_experimental": false,
       "name": "all_gather",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.all_reduce": {
       "category": null,
@@ -2928,7 +2968,9 @@
       "is_experimental": false,
       "name": "all_reduce",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.all_to_all_combine": {
       "category": null,
@@ -2938,7 +2980,9 @@
       "is_experimental": false,
       "name": "all_to_all_combine",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.all_to_all_dispatch": {
       "category": null,
@@ -2948,7 +2992,9 @@
       "is_experimental": false,
       "name": "all_to_all_dispatch",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.allocate_tensor_on_device": {
       "category": null,
@@ -2958,7 +3004,9 @@
       "is_experimental": false,
       "name": "allocate_tensor_on_device",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.allocate_tensor_on_host": {
       "category": null,
@@ -2968,7 +3016,9 @@
       "is_experimental": false,
       "name": "allocate_tensor_on_host",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.alt_complex_rotate90": {
       "category": "unary",
@@ -2978,7 +3028,9 @@
       "is_experimental": false,
       "name": "alt_complex_rotate90",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.angle": {
       "category": "unary",
@@ -2988,7 +3040,9 @@
       "is_experimental": false,
       "name": "angle",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.angle_bw": {
       "category": "unary_bw",
@@ -2998,7 +3052,9 @@
       "is_experimental": false,
       "name": "angle_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.arange": {
       "category": null,
@@ -3008,7 +3064,9 @@
       "is_experimental": false,
       "name": "arange",
       "operands": null,
-      "signature": "(*args, dtype=DataType.BFLOAT16, **kwargs)"
+      "real_valued": null,
+      "signature": "(*args, dtype=DataType.BFLOAT16, **kwargs)",
+      "varies": null
     },
     "ttnn.argmax": {
       "category": "unary",
@@ -3018,7 +3076,9 @@
       "is_experimental": false,
       "name": "argmax",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)",
+      "varies": false
     },
     "ttnn.as_tensor": {
       "category": null,
@@ -3028,7 +3088,9 @@
       "is_experimental": false,
       "name": "as_tensor",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.asin": {
       "category": "unary",
@@ -3038,7 +3100,9 @@
       "is_experimental": false,
       "name": "asin",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, device, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, device, **kwargs)",
+      "varies": null
     },
     "ttnn.asin_bw": {
       "category": "unary_bw",
@@ -3048,7 +3112,9 @@
       "is_experimental": false,
       "name": "asin_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.asinh": {
       "category": "unary",
@@ -3058,7 +3124,9 @@
       "is_experimental": false,
       "name": "asinh",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.asinh_bw": {
       "category": "unary_bw",
@@ -3068,7 +3136,9 @@
       "is_experimental": false,
       "name": "asinh_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.assign": {
       "category": null,
@@ -3078,7 +3148,9 @@
       "is_experimental": false,
       "name": "assign",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.assign_bw": {
       "category": "unary_bw",
@@ -3088,7 +3160,9 @@
       "is_experimental": false,
       "name": "assign_bw",
       "operands": 1,
-      "signature": "(grad, a, b=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b=None, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.atan": {
       "category": "unary",
@@ -3098,7 +3172,9 @@
       "is_experimental": false,
       "name": "atan",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.atan2": {
       "category": "binary",
@@ -3108,7 +3184,9 @@
       "is_experimental": false,
       "name": "atan2",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.atan2_bw": {
       "category": "binary_bw",
@@ -3118,7 +3196,9 @@
       "is_experimental": false,
       "name": "atan2_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.atan_bw": {
       "category": "unary_bw",
@@ -3128,7 +3208,9 @@
       "is_experimental": false,
       "name": "atan_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.atanh": {
       "category": "unary",
@@ -3138,7 +3220,9 @@
       "is_experimental": false,
       "name": "atanh",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.atanh_bw": {
       "category": "unary_bw",
@@ -3148,7 +3232,9 @@
       "is_experimental": false,
       "name": "atanh_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.avg_pool2d": {
       "category": null,
@@ -3158,7 +3244,9 @@
       "is_experimental": false,
       "name": "avg_pool2d",
       "operands": 8,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, batch_size: int, input_h: int, input_w: int, channels: int, kernel_size: Tuple[int, int], stride: Tuple[int, int], padding, ceil_mode: bool = False, count_include_pad: bool = True, divisor_override: int = None, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, batch_size: int, input_h: int, input_w: int, channels: int, kernel_size: Tuple[int, int], stride: Tuple[int, int], padding, ceil_mode: bool = False, count_include_pad: bool = True, divisor_override: int = None, **_)",
+      "varies": null
     },
     "ttnn.batch_norm": {
       "category": null,
@@ -3168,7 +3256,9 @@
       "is_experimental": false,
       "name": "batch_norm",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.bcast": {
       "category": null,
@@ -3178,7 +3268,9 @@
       "is_experimental": false,
       "name": "bcast",
       "operands": 4,
-      "signature": "(in0, in1, math_op, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(in0, in1, math_op, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.bernoulli": {
       "category": null,
@@ -3188,7 +3280,9 @@
       "is_experimental": false,
       "name": "bernoulli",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.bias_gelu": {
       "category": "binary",
@@ -3198,7 +3292,9 @@
       "is_experimental": false,
       "name": "bias_gelu",
       "operands": 2,
-      "signature": "(a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.bias_gelu_": {
       "category": "binary",
@@ -3208,7 +3304,9 @@
       "is_experimental": false,
       "name": "bias_gelu_",
       "operands": 2,
-      "signature": "(a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.bias_gelu_bw": {
       "category": "binary_bw",
@@ -3218,7 +3316,9 @@
       "is_experimental": false,
       "name": "bias_gelu_bw",
       "operands": 2,
-      "signature": "(grad, a, b, value='none', *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, value='none', *args, **kwargs)",
+      "varies": true
     },
     "ttnn.bitcast": {
       "category": "unary",
@@ -3228,7 +3328,9 @@
       "is_experimental": false,
       "name": "bitcast",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": null
     },
     "ttnn.bitwise_and": {
       "category": "binary",
@@ -3238,7 +3340,9 @@
       "is_experimental": false,
       "name": "bitwise_and",
       "operands": 2,
-      "signature": "(input_tensor_a, value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.bitwise_left_shift": {
       "category": "binary",
@@ -3248,7 +3352,9 @@
       "is_experimental": false,
       "name": "bitwise_left_shift",
       "operands": 2,
-      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.bitwise_not": {
       "category": "unary",
@@ -3258,7 +3364,9 @@
       "is_experimental": false,
       "name": "bitwise_not",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.bitwise_or": {
       "category": "binary",
@@ -3268,7 +3376,9 @@
       "is_experimental": false,
       "name": "bitwise_or",
       "operands": 2,
-      "signature": "(input_tensor_a, value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.bitwise_right_shift": {
       "category": "binary",
@@ -3278,7 +3388,9 @@
       "is_experimental": false,
       "name": "bitwise_right_shift",
       "operands": 2,
-      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.bitwise_xor": {
       "category": "binary",
@@ -3288,7 +3400,9 @@
       "is_experimental": false,
       "name": "bitwise_xor",
       "operands": 2,
-      "signature": "(input_tensor_a, value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.broadcast": {
       "category": null,
@@ -3298,7 +3412,9 @@
       "is_experimental": false,
       "name": "broadcast",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.cbrt": {
       "category": "unary",
@@ -3308,7 +3424,9 @@
       "is_experimental": false,
       "name": "cbrt",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.ceil": {
       "category": "unary",
@@ -3318,7 +3436,9 @@
       "is_experimental": false,
       "name": "ceil",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.ceil_bw": {
       "category": "unary_bw",
@@ -3328,7 +3448,9 @@
       "is_experimental": false,
       "name": "ceil_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.celu": {
       "category": "unary",
@@ -3338,7 +3460,9 @@
       "is_experimental": false,
       "name": "celu",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, alpha=1.0, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, alpha=1.0, **kwargs)",
+      "varies": true
     },
     "ttnn.celu_bw": {
       "category": "unary_bw",
@@ -3348,7 +3472,9 @@
       "is_experimental": false,
       "name": "celu_bw",
       "operands": 1,
-      "signature": "(grad, input, alpha=1.0, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha=1.0, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.chunk": {
       "category": "ternary",
@@ -3358,7 +3484,9 @@
       "is_experimental": false,
       "name": "chunk",
       "operands": 3,
-      "signature": "(input_tensor, chunks, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, chunks, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.clamp": {
       "category": "unary",
@@ -3368,7 +3496,9 @@
       "is_experimental": false,
       "name": "clamp",
       "operands": 1,
-      "signature": "(input_tensor_a, min=None, max=None, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, min=None, max=None, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.clamp_bw": {
       "category": "ternary_bw",
@@ -3378,7 +3508,9 @@
       "is_experimental": false,
       "name": "clamp_bw",
       "operands": 3,
-      "signature": "(grad, input, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.clip": {
       "category": "unary",
@@ -3388,7 +3520,9 @@
       "is_experimental": false,
       "name": "clip",
       "operands": 1,
-      "signature": "(input_tensor_a, min=None, max=None, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, min=None, max=None, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.clip_bw": {
       "category": "ternary_bw",
@@ -3398,7 +3532,9 @@
       "is_experimental": false,
       "name": "clip_bw",
       "operands": 3,
-      "signature": "(grad, input, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.clone": {
       "category": "unary",
@@ -3408,7 +3544,9 @@
       "is_experimental": false,
       "name": "clone",
       "operands": 1,
-      "signature": "(tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.complex_tensor": {
       "category": null,
@@ -3418,7 +3556,9 @@
       "is_experimental": false,
       "name": "complex_tensor",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.composite_example": {
       "category": null,
@@ -3428,7 +3568,9 @@
       "is_experimental": false,
       "name": "composite_example",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.composite_example_multiple_return": {
       "category": null,
@@ -3438,7 +3580,9 @@
       "is_experimental": false,
       "name": "composite_example_multiple_return",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.concat": {
       "category": "unary",
@@ -3448,7 +3592,9 @@
       "is_experimental": false,
       "name": "concat",
       "operands": 1,
-      "signature": "(tensors, dim=0, groups=1, **_)"
+      "real_valued": null,
+      "signature": "(tensors, dim=0, groups=1, **_)",
+      "varies": null
     },
     "ttnn.concat_bw": {
       "category": "binary_bw",
@@ -3458,7 +3604,9 @@
       "is_experimental": false,
       "name": "concat_bw",
       "operands": 2,
-      "signature": "(grad, a, b, dim=None, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad, a, b, dim=None, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.conj": {
       "category": "unary",
@@ -3468,7 +3616,9 @@
       "is_experimental": false,
       "name": "conj",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.conj_bw": {
       "category": "unary_bw",
@@ -3478,7 +3628,9 @@
       "is_experimental": false,
       "name": "conj_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.conv1d": {
       "category": null,
@@ -3488,7 +3640,9 @@
       "is_experimental": false,
       "name": "conv1d",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.conv2d": {
       "category": null,
@@ -3498,7 +3652,9 @@
       "is_experimental": false,
       "name": "conv2d",
       "operands": 10,
-      "signature": "(input_tensor, weight_tensor, in_channels: int, out_channels: int, batch_size: int, input_height: int, input_width: int, kernel_size: Union[int, Tuple[int, int]], stride: Union[int, Tuple[int, int]], padding: Union[int, Tuple[int, int], Tuple[int, int, int, int]], dilation: Union[int, Tuple[int, int]] = (1, 1), groups: int = 1, bias_tensor=None, conv_config: ttnn._ttnn.operations.conv.Conv2dConfig = None, return_output_dim=False, return_weights_and_bias=False, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor, weight_tensor, in_channels: int, out_channels: int, batch_size: int, input_height: int, input_width: int, kernel_size: Union[int, Tuple[int, int]], stride: Union[int, Tuple[int, int]], padding: Union[int, Tuple[int, int], Tuple[int, int, int, int]], dilation: Union[int, Tuple[int, int]] = (1, 1), groups: int = 1, bias_tensor=None, conv_config: ttnn._ttnn.operations.conv.Conv2dConfig = None, return_output_dim=False, return_weights_and_bias=False, **_)",
+      "varies": null
     },
     "ttnn.conv_transpose2d": {
       "category": null,
@@ -3508,7 +3664,9 @@
       "is_experimental": false,
       "name": "conv_transpose2d",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.copy": {
       "category": null,
@@ -3518,7 +3676,9 @@
       "is_experimental": false,
       "name": "copy",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.copy_device_to_host_tensor": {
       "category": null,
@@ -3528,7 +3688,9 @@
       "is_experimental": false,
       "name": "copy_device_to_host_tensor",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.copy_host_to_device_tensor": {
       "category": null,
@@ -3538,7 +3700,9 @@
       "is_experimental": false,
       "name": "copy_host_to_device_tensor",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.copy_host_to_device_tensor_partial": {
       "category": null,
@@ -3548,7 +3712,9 @@
       "is_experimental": false,
       "name": "copy_host_to_device_tensor_partial",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.cos": {
       "category": "unary",
@@ -3558,7 +3724,9 @@
       "is_experimental": false,
       "name": "cos",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.cos_bw": {
       "category": "unary_bw",
@@ -3568,7 +3736,9 @@
       "is_experimental": false,
       "name": "cos_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.cosh": {
       "category": "unary",
@@ -3578,7 +3748,9 @@
       "is_experimental": false,
       "name": "cosh",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.cosh_bw": {
       "category": "unary_bw",
@@ -3588,7 +3760,9 @@
       "is_experimental": false,
       "name": "cosh_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.cumprod": {
       "category": null,
@@ -3598,7 +3772,9 @@
       "is_experimental": false,
       "name": "cumprod",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.cumsum": {
       "category": null,
@@ -3608,7 +3784,9 @@
       "is_experimental": false,
       "name": "cumsum",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.deallocate": {
       "category": null,
@@ -3618,7 +3796,9 @@
       "is_experimental": false,
       "name": "deallocate",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.deg2rad": {
       "category": "unary",
@@ -3628,7 +3808,9 @@
       "is_experimental": false,
       "name": "deg2rad",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.deg2rad_bw": {
       "category": "unary_bw",
@@ -3638,7 +3820,9 @@
       "is_experimental": false,
       "name": "deg2rad_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.dequantize": {
       "category": null,
@@ -3648,7 +3832,9 @@
       "is_experimental": false,
       "name": "dequantize",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.digamma": {
       "category": "unary",
@@ -3658,7 +3844,9 @@
       "is_experimental": false,
       "name": "digamma",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.digamma_bw": {
       "category": "unary_bw",
@@ -3668,7 +3856,9 @@
       "is_experimental": false,
       "name": "digamma_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.div": {
       "category": "binary",
@@ -3678,7 +3868,9 @@
       "is_experimental": false,
       "name": "div",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, rounding_mode=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, rounding_mode=None, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.div_bw": {
       "category": "binary_bw",
@@ -3688,7 +3880,9 @@
       "is_experimental": false,
       "name": "div_bw",
       "operands": 2,
-      "signature": "(grad, a, b, value=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, value=None, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.div_no_nan": {
       "category": "binary",
@@ -3698,7 +3892,9 @@
       "is_experimental": false,
       "name": "div_no_nan",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.div_no_nan_bw": {
       "category": "binary_bw",
@@ -3708,7 +3904,9 @@
       "is_experimental": false,
       "name": "div_no_nan_bw",
       "operands": 2,
-      "signature": "(grad, input, alpha, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.divide": {
       "category": null,
@@ -3718,7 +3916,9 @@
       "is_experimental": false,
       "name": "divide",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.divide_": {
       "category": "binary",
@@ -3728,7 +3928,9 @@
       "is_experimental": false,
       "name": "divide_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.dram_prefetcher": {
       "category": null,
@@ -3738,7 +3940,9 @@
       "is_experimental": false,
       "name": "dram_prefetcher",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.dump_tensor": {
       "category": null,
@@ -3748,7 +3952,9 @@
       "is_experimental": false,
       "name": "dump_tensor",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.elu": {
       "category": "unary",
@@ -3758,7 +3964,9 @@
       "is_experimental": false,
       "name": "elu",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, alpha=1.0, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, alpha=1.0, **kwargs)",
+      "varies": true
     },
     "ttnn.elu_bw": {
       "category": "unary_bw",
@@ -3768,7 +3976,9 @@
       "is_experimental": false,
       "name": "elu_bw",
       "operands": 1,
-      "signature": "(grad, input, alpha=1.0, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha=1.0, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.ema": {
       "category": null,
@@ -3778,7 +3988,9 @@
       "is_experimental": false,
       "name": "ema",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.embedding": {
       "category": "binary",
@@ -3788,7 +4000,9 @@
       "is_experimental": false,
       "name": "embedding",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, weight: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, weight: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": null
     },
     "ttnn.embedding_bw": {
       "category": null,
@@ -3798,7 +4012,9 @@
       "is_experimental": false,
       "name": "embedding_bw",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.empty": {
       "category": null,
@@ -3808,7 +4024,9 @@
       "is_experimental": false,
       "name": "empty",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.empty_like": {
       "category": null,
@@ -3818,7 +4036,9 @@
       "is_experimental": false,
       "name": "empty_like",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.eq": {
       "category": "binary",
@@ -3828,7 +4048,9 @@
       "is_experimental": false,
       "name": "eq",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.eq_": {
       "category": "binary",
@@ -3838,7 +4060,9 @@
       "is_experimental": false,
       "name": "eq_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.eqz": {
       "category": "unary",
@@ -3848,7 +4072,9 @@
       "is_experimental": false,
       "name": "eqz",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.erf": {
       "category": "unary",
@@ -3858,7 +4084,9 @@
       "is_experimental": false,
       "name": "erf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.erf_bw": {
       "category": "unary_bw",
@@ -3868,7 +4096,9 @@
       "is_experimental": false,
       "name": "erf_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.erfc": {
       "category": "unary",
@@ -3878,7 +4108,9 @@
       "is_experimental": false,
       "name": "erfc",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.erfc_bw": {
       "category": "unary_bw",
@@ -3888,7 +4120,9 @@
       "is_experimental": false,
       "name": "erfc_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.erfinv": {
       "category": "unary",
@@ -3898,7 +4132,9 @@
       "is_experimental": false,
       "name": "erfinv",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.erfinv_bw": {
       "category": "unary_bw",
@@ -3908,7 +4144,9 @@
       "is_experimental": false,
       "name": "erfinv_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.exp": {
       "category": "unary",
@@ -3918,7 +4156,9 @@
       "is_experimental": false,
       "name": "exp",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.exp2": {
       "category": "unary",
@@ -3928,7 +4168,9 @@
       "is_experimental": false,
       "name": "exp2",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.exp2_bw": {
       "category": "unary_bw",
@@ -3938,7 +4180,9 @@
       "is_experimental": false,
       "name": "exp2_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.exp_bw": {
       "category": "unary_bw",
@@ -3948,7 +4192,9 @@
       "is_experimental": false,
       "name": "exp_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.expand": {
       "category": "binary",
@@ -3958,7 +4204,9 @@
       "is_experimental": false,
       "name": "expand",
       "operands": 2,
-      "signature": "(input_tensor, output_shape, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, output_shape, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.expm1": {
       "category": "unary",
@@ -3968,7 +4216,9 @@
       "is_experimental": false,
       "name": "expm1",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.expm1_bw": {
       "category": "unary_bw",
@@ -3978,7 +4228,9 @@
       "is_experimental": false,
       "name": "expm1_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.fill": {
       "category": "binary",
@@ -3988,7 +4240,9 @@
       "is_experimental": false,
       "name": "fill",
       "operands": 2,
-      "signature": "(input_tensor_a, fill_value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, fill_value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.fill_bw": {
       "category": "unary_bw",
@@ -3998,7 +4252,9 @@
       "is_experimental": false,
       "name": "fill_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, value=2.0, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, value=2.0, **kwargs)",
+      "varies": false
     },
     "ttnn.fill_cache": {
       "category": "ternary",
@@ -4008,7 +4264,9 @@
       "is_experimental": false,
       "name": "fill_cache",
       "operands": 3,
-      "signature": "(cache_tensor, input_tensor, batch_idx, *args, update_idx=0, **kwargs)"
+      "real_valued": null,
+      "signature": "(cache_tensor, input_tensor, batch_idx, *args, update_idx=0, **kwargs)",
+      "varies": null
     },
     "ttnn.fill_implicit_tile_padding": {
       "category": "binary",
@@ -4018,7 +4276,9 @@
       "is_experimental": false,
       "name": "fill_implicit_tile_padding",
       "operands": 2,
-      "signature": "(input_tensor, fill_value, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, fill_value, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.fill_ones_rm": {
       "category": null,
@@ -4028,7 +4288,9 @@
       "is_experimental": false,
       "name": "fill_ones_rm",
       "operands": 7,
-      "signature": "(N, C, H, W, hOnes, wOnes, any, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(N, C, H, W, hOnes, wOnes, any, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.fill_rm": {
       "category": null,
@@ -4038,7 +4300,9 @@
       "is_experimental": false,
       "name": "fill_rm",
       "operands": 9,
-      "signature": "(N, C, H, W, hOnes, wOnes, any, val_hi, val_lo, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(N, C, H, W, hOnes, wOnes, any, val_hi, val_lo, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.fill_zero_bw": {
       "category": "unary_bw",
@@ -4048,7 +4312,9 @@
       "is_experimental": false,
       "name": "fill_zero_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.floor": {
       "category": "unary",
@@ -4058,7 +4324,9 @@
       "is_experimental": false,
       "name": "floor",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.floor_bw": {
       "category": "unary_bw",
@@ -4068,7 +4336,9 @@
       "is_experimental": false,
       "name": "floor_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.floor_div": {
       "category": "binary",
@@ -4078,7 +4348,9 @@
       "is_experimental": false,
       "name": "floor_div",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.fmod": {
       "category": "binary",
@@ -4088,7 +4360,9 @@
       "is_experimental": false,
       "name": "fmod",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)",
+      "varies": null
     },
     "ttnn.fmod_bw": {
       "category": "binary_bw",
@@ -4098,7 +4372,9 @@
       "is_experimental": false,
       "name": "fmod_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.fold": {
       "category": "ternary",
@@ -4108,7 +4384,9 @@
       "is_experimental": false,
       "name": "fold",
       "operands": 3,
-      "signature": "(input, stride_h, stride_w, *args, padding=(0, 0), collapse_output=False, **kwargs)"
+      "real_valued": null,
+      "signature": "(input, stride_h, stride_w, *args, padding=(0, 0), collapse_output=False, **kwargs)",
+      "varies": null
     },
     "ttnn.frac": {
       "category": "unary",
@@ -4118,7 +4396,9 @@
       "is_experimental": false,
       "name": "frac",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.frac_bw": {
       "category": "unary_bw",
@@ -4128,7 +4408,9 @@
       "is_experimental": false,
       "name": "frac_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.from_buffer": {
       "category": "ternary",
@@ -4138,7 +4420,9 @@
       "is_experimental": false,
       "name": "from_buffer",
       "operands": 3,
-      "signature": "(buffer, shape, dtype, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(buffer, shape, dtype, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.from_device": {
       "category": "unary",
@@ -4148,7 +4432,9 @@
       "is_experimental": false,
       "name": "from_device",
       "operands": 1,
-      "signature": "(tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.from_torch": {
       "category": "unary",
@@ -4158,7 +4444,9 @@
       "is_experimental": false,
       "name": "from_torch",
       "operands": 1,
-      "signature": "(input_tensor, dtype=None, *, spec=None, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor, dtype=None, *, spec=None, **_)",
+      "varies": true
     },
     "ttnn.full": {
       "category": "binary",
@@ -4168,7 +4456,9 @@
       "is_experimental": false,
       "name": "full",
       "operands": 2,
-      "signature": "(input_shape: ttnn._ttnn.types.Shape, fill_value: float, **_)"
+      "real_valued": null,
+      "signature": "(input_shape: ttnn._ttnn.types.Shape, fill_value: float, **_)",
+      "varies": null
     },
     "ttnn.full_like": {
       "category": "binary",
@@ -4178,7 +4468,9 @@
       "is_experimental": false,
       "name": "full_like",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, fill_value: float, dtype=None, *_, **__)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, fill_value: float, dtype=None, *_, **__)",
+      "varies": null
     },
     "ttnn.fused_rms_minimal": {
       "category": null,
@@ -4188,7 +4480,9 @@
       "is_experimental": false,
       "name": "fused_rms_minimal",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.gather": {
       "category": "ternary",
@@ -4198,7 +4492,9 @@
       "is_experimental": false,
       "name": "gather",
       "operands": 3,
-      "signature": "(input, dim, index, *, sparse_grad=False, out=None, **_)"
+      "real_valued": null,
+      "signature": "(input, dim, index, *, sparse_grad=False, out=None, **_)",
+      "varies": null
     },
     "ttnn.gcd": {
       "category": "binary",
@@ -4208,7 +4504,9 @@
       "is_experimental": false,
       "name": "gcd",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.ge": {
       "category": "binary",
@@ -4218,7 +4516,9 @@
       "is_experimental": false,
       "name": "ge",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.ge_": {
       "category": "binary",
@@ -4228,7 +4528,9 @@
       "is_experimental": false,
       "name": "ge_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.geglu": {
       "category": "binary",
@@ -4238,7 +4540,9 @@
       "is_experimental": false,
       "name": "geglu",
       "operands": 2,
-      "signature": "(input_tensor_a, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.gelu": {
       "category": "unary",
@@ -4248,7 +4552,9 @@
       "is_experimental": false,
       "name": "gelu",
       "operands": 1,
-      "signature": "(input_tensor, *args, variant=None, fast_and_approximate_mode=False, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, variant=None, fast_and_approximate_mode=False, **kwargs)",
+      "varies": true
     },
     "ttnn.gelu_bw": {
       "category": "unary_bw",
@@ -4258,7 +4564,9 @@
       "is_experimental": false,
       "name": "gelu_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.generic_op": {
       "category": null,
@@ -4268,7 +4576,9 @@
       "is_experimental": false,
       "name": "generic_op",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.gez": {
       "category": "unary",
@@ -4278,7 +4588,9 @@
       "is_experimental": false,
       "name": "gez",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.glu": {
       "category": "binary",
@@ -4288,7 +4600,9 @@
       "is_experimental": false,
       "name": "glu",
       "operands": 2,
-      "signature": "(input_tensor_a, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.grid_sample": {
       "category": "binary",
@@ -4298,7 +4612,9 @@
       "is_experimental": false,
       "name": "grid_sample",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, grid: ttnn._ttnn.tensor.Tensor, mode: str = 'bilinear', padding_mode: str = 'zeros', align_corners: bool = False, batch_output_channels: bool = False, grid_batching_factor: int = None, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, grid: ttnn._ttnn.tensor.Tensor, mode: str = 'bilinear', padding_mode: str = 'zeros', align_corners: bool = False, batch_output_channels: bool = False, grid_batching_factor: int = None, **_)",
+      "varies": null
     },
     "ttnn.group_norm": {
       "category": "unary",
@@ -4308,7 +4624,9 @@
       "is_experimental": false,
       "name": "group_norm",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, num_groups, epsilon=1e-05, weight=None, bias=None, memory_config=None, core_grid=None, input_mask=None, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, num_groups, epsilon=1e-05, weight=None, bias=None, memory_config=None, core_grid=None, input_mask=None, **kwargs)",
+      "varies": null
     },
     "ttnn.gt": {
       "category": "binary",
@@ -4318,7 +4636,9 @@
       "is_experimental": false,
       "name": "gt",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.gt_": {
       "category": "binary",
@@ -4328,7 +4648,9 @@
       "is_experimental": false,
       "name": "gt_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.gtz": {
       "category": "unary",
@@ -4338,7 +4660,9 @@
       "is_experimental": false,
       "name": "gtz",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.hardmish": {
       "category": "unary",
@@ -4348,7 +4672,9 @@
       "is_experimental": false,
       "name": "hardmish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.hardshrink": {
       "category": "unary",
@@ -4358,7 +4684,9 @@
       "is_experimental": false,
       "name": "hardshrink",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, lambd=0.5, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, lambd=0.5, **kwargs)",
+      "varies": true
     },
     "ttnn.hardshrink_bw": {
       "category": "unary_bw",
@@ -4368,7 +4696,9 @@
       "is_experimental": false,
       "name": "hardshrink_bw",
       "operands": 1,
-      "signature": "(grad, input, alpha=0.5, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha=0.5, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.hardsigmoid": {
       "category": "unary",
@@ -4378,7 +4708,9 @@
       "is_experimental": false,
       "name": "hardsigmoid",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.hardsigmoid_bw": {
       "category": "unary_bw",
@@ -4388,7 +4720,9 @@
       "is_experimental": false,
       "name": "hardsigmoid_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.hardswish": {
       "category": "unary",
@@ -4398,7 +4732,9 @@
       "is_experimental": false,
       "name": "hardswish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.hardswish_bw": {
       "category": "unary_bw",
@@ -4408,7 +4744,9 @@
       "is_experimental": false,
       "name": "hardswish_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.hardtanh": {
       "category": "unary",
@@ -4418,7 +4756,9 @@
       "is_experimental": false,
       "name": "hardtanh",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, min_val=-1.0, max_val=1.0, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, min_val=-1.0, max_val=1.0, **kwargs)",
+      "varies": true
     },
     "ttnn.hardtanh_bw": {
       "category": "unary_bw",
@@ -4428,7 +4768,9 @@
       "is_experimental": false,
       "name": "hardtanh_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, min_val=None, max_val=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, min_val=None, max_val=None, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.heaviside": {
       "category": "binary",
@@ -4438,7 +4780,9 @@
       "is_experimental": false,
       "name": "heaviside",
       "operands": 2,
-      "signature": "(input_tensor_a, value, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, value, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.hypot": {
       "category": "binary",
@@ -4448,7 +4792,9 @@
       "is_experimental": false,
       "name": "hypot",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.hypot_bw": {
       "category": "binary_bw",
@@ -4458,7 +4804,9 @@
       "is_experimental": false,
       "name": "hypot_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.i0": {
       "category": "unary",
@@ -4468,7 +4816,9 @@
       "is_experimental": false,
       "name": "i0",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.i0_bw": {
       "category": "unary_bw",
@@ -4478,7 +4828,9 @@
       "is_experimental": false,
       "name": "i0_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.i1": {
       "category": "unary",
@@ -4488,7 +4840,9 @@
       "is_experimental": false,
       "name": "i1",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.identity": {
       "category": "unary",
@@ -4498,7 +4852,9 @@
       "is_experimental": false,
       "name": "identity",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.imag": {
       "category": "unary",
@@ -4508,7 +4864,9 @@
       "is_experimental": false,
       "name": "imag",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.imag_bw": {
       "category": "unary_bw",
@@ -4518,7 +4876,9 @@
       "is_experimental": false,
       "name": "imag_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.index_fill": {
       "category": null,
@@ -4528,7 +4888,9 @@
       "is_experimental": false,
       "name": "index_fill",
       "operands": 4,
-      "signature": "(input, dim, index, value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input, dim, index, value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.indexed_fill": {
       "category": "ternary",
@@ -4538,7 +4900,9 @@
       "is_experimental": false,
       "name": "indexed_fill",
       "operands": 3,
-      "signature": "(batch_id, input_tensor_a, input_tensor_b, *args, dim=0, **kwargs)"
+      "real_valued": true,
+      "signature": "(batch_id, input_tensor_a, input_tensor_b, *args, dim=0, **kwargs)",
+      "varies": true
     },
     "ttnn.interleaved_to_sharded": {
       "category": "unary",
@@ -4548,7 +4912,9 @@
       "is_experimental": false,
       "name": "interleaved_to_sharded",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.interleaved_to_sharded_partial": {
       "category": null,
@@ -4558,7 +4924,9 @@
       "is_experimental": false,
       "name": "interleaved_to_sharded_partial",
       "operands": 5,
-      "signature": "(tensor, grid_size, shard_spec, num_slices, slice, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(tensor, grid_size, shard_spec, num_slices, slice, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.is_imag": {
       "category": "unary",
@@ -4568,7 +4936,9 @@
       "is_experimental": false,
       "name": "is_imag",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.is_real": {
       "category": "unary",
@@ -4578,7 +4948,9 @@
       "is_experimental": false,
       "name": "is_real",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.isclose": {
       "category": "binary",
@@ -4588,7 +4960,9 @@
       "is_experimental": false,
       "name": "isclose",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, rtol=1e-05, atol=1e-08, equal_nan=False, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, rtol=1e-05, atol=1e-08, equal_nan=False, **kwargs)",
+      "varies": false
     },
     "ttnn.isfinite": {
       "category": "unary",
@@ -4598,7 +4972,9 @@
       "is_experimental": false,
       "name": "isfinite",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.isinf": {
       "category": "unary",
@@ -4608,7 +4984,9 @@
       "is_experimental": false,
       "name": "isinf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.isnan": {
       "category": "unary",
@@ -4618,7 +4996,9 @@
       "is_experimental": false,
       "name": "isnan",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.isneginf": {
       "category": "unary",
@@ -4628,7 +5008,9 @@
       "is_experimental": false,
       "name": "isneginf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.isposinf": {
       "category": "unary",
@@ -4638,7 +5020,9 @@
       "is_experimental": false,
       "name": "isposinf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.kv_cache.fill_cache_for_user_": {
       "category": "ternary",
@@ -4648,7 +5032,9 @@
       "is_experimental": false,
       "name": "fill_cache_for_user_",
       "operands": 3,
-      "signature": "(cache, input, batch_index, *args, update_idx=0, **kwargs)"
+      "real_valued": null,
+      "signature": "(cache, input, batch_index, *args, update_idx=0, **kwargs)",
+      "varies": null
     },
     "ttnn.kv_cache.update_cache_for_token_": {
       "category": "ternary",
@@ -4658,7 +5044,9 @@
       "is_experimental": false,
       "name": "update_cache_for_token_",
       "operands": 3,
-      "signature": "(cache, input, update_index, batch_offset=0, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(cache, input, update_index, batch_offset=0, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.l1_loss": {
       "category": "binary",
@@ -4668,7 +5056,9 @@
       "is_experimental": false,
       "name": "l1_loss",
       "operands": 2,
-      "signature": "(ref_tensor: ttnn._ttnn.tensor.Tensor, pred_tensor: ttnn._ttnn.tensor.Tensor, *args, reduction='none', **kwargs)"
+      "real_valued": true,
+      "signature": "(ref_tensor: ttnn._ttnn.tensor.Tensor, pred_tensor: ttnn._ttnn.tensor.Tensor, *args, reduction='none', **kwargs)",
+      "varies": true
     },
     "ttnn.layer_norm": {
       "category": "unary",
@@ -4678,7 +5068,9 @@
       "is_experimental": false,
       "name": "layer_norm",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, epsilon=1e-12, residual_input_tensor=None, weight=None, bias=None, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, epsilon=1e-12, residual_input_tensor=None, weight=None, bias=None, **_)",
+      "varies": true
     },
     "ttnn.layer_norm_post_all_gather": {
       "category": null,
@@ -4688,7 +5080,9 @@
       "is_experimental": false,
       "name": "layer_norm_post_all_gather",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.layer_norm_pre_all_gather": {
       "category": null,
@@ -4698,7 +5092,9 @@
       "is_experimental": false,
       "name": "layer_norm_pre_all_gather",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.lcm": {
       "category": "binary",
@@ -4708,7 +5104,9 @@
       "is_experimental": false,
       "name": "lcm",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.ldexp": {
       "category": "binary",
@@ -4718,7 +5116,9 @@
       "is_experimental": false,
       "name": "ldexp",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.ldexp_": {
       "category": "binary",
@@ -4728,7 +5128,9 @@
       "is_experimental": false,
       "name": "ldexp_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.ldexp_bw": {
       "category": "binary_bw",
@@ -4738,7 +5140,9 @@
       "is_experimental": false,
       "name": "ldexp_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.le": {
       "category": "binary",
@@ -4748,7 +5152,9 @@
       "is_experimental": false,
       "name": "le",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.le_": {
       "category": "binary",
@@ -4758,7 +5164,9 @@
       "is_experimental": false,
       "name": "le_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.leaky_relu": {
       "category": "unary",
@@ -4768,7 +5176,9 @@
       "is_experimental": false,
       "name": "leaky_relu",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, negative_slope=0.01, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, negative_slope=0.01, **kwargs)",
+      "varies": true
     },
     "ttnn.leaky_relu_bw": {
       "category": "unary_bw",
@@ -4778,7 +5188,9 @@
       "is_experimental": false,
       "name": "leaky_relu_bw",
       "operands": 1,
-      "signature": "(grad, input, alpha=0.01, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha=0.01, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.lerp": {
       "category": "ternary",
@@ -4788,7 +5200,9 @@
       "is_experimental": false,
       "name": "lerp",
       "operands": 3,
-      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.lerp_bw": {
       "category": "ternary_bw",
@@ -4798,7 +5212,9 @@
       "is_experimental": false,
       "name": "lerp_bw",
       "operands": 3,
-      "signature": "(grad_tensor, input_tensor, end_tensor, weight, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, end_tensor, weight, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.lez": {
       "category": "unary",
@@ -4808,7 +5224,9 @@
       "is_experimental": false,
       "name": "lez",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.lgamma": {
       "category": "unary",
@@ -4818,7 +5236,9 @@
       "is_experimental": false,
       "name": "lgamma",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.lgamma_bw": {
       "category": "unary_bw",
@@ -4828,7 +5248,9 @@
       "is_experimental": false,
       "name": "lgamma_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.linear": {
       "category": "binary",
@@ -4838,7 +5260,9 @@
       "is_experimental": false,
       "name": "linear",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, transpose_a=False, transpose_b=False, *, bias=None, program_config=None, activation=None, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, transpose_a=False, transpose_b=False, *, bias=None, program_config=None, activation=None, **kwargs)",
+      "varies": false
     },
     "ttnn.load_tensor": {
       "category": null,
@@ -4848,7 +5272,9 @@
       "is_experimental": false,
       "name": "load_tensor",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.log": {
       "category": "unary",
@@ -4858,7 +5284,9 @@
       "is_experimental": false,
       "name": "log",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.log10": {
       "category": "unary",
@@ -4868,7 +5296,9 @@
       "is_experimental": false,
       "name": "log10",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.log10_bw": {
       "category": "unary_bw",
@@ -4878,7 +5308,9 @@
       "is_experimental": false,
       "name": "log10_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.log1p": {
       "category": "unary",
@@ -4888,7 +5320,9 @@
       "is_experimental": false,
       "name": "log1p",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.log1p_bw": {
       "category": "unary_bw",
@@ -4898,7 +5332,9 @@
       "is_experimental": false,
       "name": "log1p_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.log2": {
       "category": "unary",
@@ -4908,7 +5344,9 @@
       "is_experimental": false,
       "name": "log2",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.log2_bw": {
       "category": "unary_bw",
@@ -4918,7 +5356,9 @@
       "is_experimental": false,
       "name": "log2_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.log_bw": {
       "category": "unary_bw",
@@ -4928,7 +5368,9 @@
       "is_experimental": false,
       "name": "log_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.log_sigmoid": {
       "category": "unary",
@@ -4938,7 +5380,9 @@
       "is_experimental": false,
       "name": "log_sigmoid",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.log_sigmoid_bw": {
       "category": "unary_bw",
@@ -4948,7 +5392,9 @@
       "is_experimental": false,
       "name": "log_sigmoid_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logaddexp": {
       "category": "binary",
@@ -4958,7 +5404,9 @@
       "is_experimental": false,
       "name": "logaddexp",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logaddexp2": {
       "category": "binary",
@@ -4968,7 +5416,9 @@
       "is_experimental": false,
       "name": "logaddexp2",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logaddexp2_": {
       "category": "binary",
@@ -4978,7 +5428,9 @@
       "is_experimental": false,
       "name": "logaddexp2_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logaddexp2_bw": {
       "category": "binary_bw",
@@ -4988,7 +5440,9 @@
       "is_experimental": false,
       "name": "logaddexp2_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logaddexp_": {
       "category": "binary",
@@ -4998,7 +5452,9 @@
       "is_experimental": false,
       "name": "logaddexp_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logaddexp_bw": {
       "category": "binary_bw",
@@ -5008,7 +5464,9 @@
       "is_experimental": false,
       "name": "logaddexp_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logical_and": {
       "category": "binary",
@@ -5018,7 +5476,9 @@
       "is_experimental": false,
       "name": "logical_and",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.logical_and_": {
       "category": "binary",
@@ -5028,7 +5488,9 @@
       "is_experimental": false,
       "name": "logical_and_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.logical_left_shift": {
       "category": "binary",
@@ -5038,7 +5500,9 @@
       "is_experimental": false,
       "name": "logical_left_shift",
       "operands": 2,
-      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.logical_not": {
       "category": "unary",
@@ -5048,7 +5512,9 @@
       "is_experimental": false,
       "name": "logical_not",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.logical_not_": {
       "category": "unary",
@@ -5058,7 +5524,9 @@
       "is_experimental": false,
       "name": "logical_not_",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.logical_or": {
       "category": "binary",
@@ -5068,7 +5536,9 @@
       "is_experimental": false,
       "name": "logical_or",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.logical_or_": {
       "category": "binary",
@@ -5078,7 +5548,9 @@
       "is_experimental": false,
       "name": "logical_or_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.logical_right_shift": {
       "category": "binary",
@@ -5088,7 +5560,9 @@
       "is_experimental": false,
       "name": "logical_right_shift",
       "operands": 2,
-      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, shift_amt, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.logical_xor": {
       "category": "binary",
@@ -5098,7 +5572,9 @@
       "is_experimental": false,
       "name": "logical_xor",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.logical_xor_": {
       "category": "binary",
@@ -5108,7 +5584,9 @@
       "is_experimental": false,
       "name": "logical_xor_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.logit": {
       "category": "unary",
@@ -5118,7 +5596,9 @@
       "is_experimental": false,
       "name": "logit",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, eps=None, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, eps=None, **kwargs)",
+      "varies": true
     },
     "ttnn.logit_bw": {
       "category": "unary_bw",
@@ -5128,7 +5608,9 @@
       "is_experimental": false,
       "name": "logit_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.logiteps_bw": {
       "category": "unary_bw",
@@ -5138,7 +5620,9 @@
       "is_experimental": false,
       "name": "logiteps_bw",
       "operands": 1,
-      "signature": "(grad, input, alpha=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha=None, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.lt": {
       "category": "binary",
@@ -5148,7 +5632,9 @@
       "is_experimental": false,
       "name": "lt",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.lt_": {
       "category": "binary",
@@ -5158,7 +5644,9 @@
       "is_experimental": false,
       "name": "lt_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.ltz": {
       "category": "unary",
@@ -5168,7 +5656,9 @@
       "is_experimental": false,
       "name": "ltz",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.mac": {
       "category": "ternary",
@@ -5178,7 +5668,9 @@
       "is_experimental": false,
       "name": "mac",
       "operands": 3,
-      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.manual_seed": {
       "category": null,
@@ -5188,7 +5680,9 @@
       "is_experimental": false,
       "name": "manual_seed",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.matmul": {
       "category": "binary",
@@ -5198,7 +5692,9 @@
       "is_experimental": false,
       "name": "matmul",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, transpose_a=False, transpose_b=False, *, bias=None, activation=None, program_config=None, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, transpose_a=False, transpose_b=False, *, bias=None, activation=None, program_config=None, **kwargs)",
+      "varies": false
     },
     "ttnn.matmul_batched_weights": {
       "category": null,
@@ -5208,7 +5704,9 @@
       "is_experimental": false,
       "name": "matmul_batched_weights",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.max": {
       "category": "unary",
@@ -5218,7 +5716,9 @@
       "is_experimental": false,
       "name": "max",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)",
+      "varies": false
     },
     "ttnn.max_bw": {
       "category": "binary_bw",
@@ -5228,7 +5728,9 @@
       "is_experimental": false,
       "name": "max_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.max_pool2d": {
       "category": null,
@@ -5238,7 +5740,9 @@
       "is_experimental": false,
       "name": "max_pool2d",
       "operands": 9,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, batch_size: int, input_h: int, input_w: int, channels: int, kernel_size: Tuple[int, int], stride: Tuple[int, int], padding, dilation: Tuple[int, int], ceil_mode: bool = False, return_indices: bool = False, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, batch_size: int, input_h: int, input_w: int, channels: int, kernel_size: Tuple[int, int], stride: Tuple[int, int], padding, dilation: Tuple[int, int], ceil_mode: bool = False, return_indices: bool = False, **_)",
+      "varies": null
     },
     "ttnn.maximum": {
       "category": "binary",
@@ -5248,7 +5752,9 @@
       "is_experimental": false,
       "name": "maximum",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.mean": {
       "category": "unary",
@@ -5258,7 +5764,9 @@
       "is_experimental": false,
       "name": "mean",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)",
+      "varies": false
     },
     "ttnn.mesh_partition": {
       "category": null,
@@ -5268,7 +5776,9 @@
       "is_experimental": false,
       "name": "mesh_partition",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.min": {
       "category": "unary",
@@ -5278,7 +5788,9 @@
       "is_experimental": false,
       "name": "min",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)",
+      "varies": false
     },
     "ttnn.min_bw": {
       "category": "binary_bw",
@@ -5288,7 +5800,9 @@
       "is_experimental": false,
       "name": "min_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.minimum": {
       "category": "binary",
@@ -5298,7 +5812,9 @@
       "is_experimental": false,
       "name": "minimum",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.mish": {
       "category": "unary",
@@ -5308,7 +5824,9 @@
       "is_experimental": false,
       "name": "mish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.moe": {
       "category": null,
@@ -5318,7 +5836,9 @@
       "is_experimental": false,
       "name": "moe",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moe_expert_token_remap": {
       "category": null,
@@ -5328,7 +5848,9 @@
       "is_experimental": false,
       "name": "moe_expert_token_remap",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moe_routing_remap": {
       "category": null,
@@ -5338,7 +5860,9 @@
       "is_experimental": false,
       "name": "moe_routing_remap",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_abs_pow": {
       "category": null,
@@ -5348,7 +5872,9 @@
       "is_experimental": false,
       "name": "moreh_abs_pow",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_adam": {
       "category": null,
@@ -5358,7 +5884,9 @@
       "is_experimental": false,
       "name": "moreh_adam",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_adamw": {
       "category": null,
@@ -5368,7 +5896,9 @@
       "is_experimental": false,
       "name": "moreh_adamw",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_arange": {
       "category": null,
@@ -5378,7 +5908,9 @@
       "is_experimental": false,
       "name": "moreh_arange",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_bmm": {
       "category": null,
@@ -5388,7 +5920,9 @@
       "is_experimental": false,
       "name": "moreh_bmm",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_bmm_backward": {
       "category": null,
@@ -5398,7 +5932,9 @@
       "is_experimental": false,
       "name": "moreh_bmm_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_clip_grad_norm": {
       "category": null,
@@ -5408,7 +5944,9 @@
       "is_experimental": false,
       "name": "moreh_clip_grad_norm",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_cumsum": {
       "category": null,
@@ -5418,7 +5956,9 @@
       "is_experimental": false,
       "name": "moreh_cumsum",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_cumsum_backward": {
       "category": null,
@@ -5428,7 +5968,9 @@
       "is_experimental": false,
       "name": "moreh_cumsum_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_dot": {
       "category": null,
@@ -5438,7 +5980,9 @@
       "is_experimental": false,
       "name": "moreh_dot",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_dot_backward": {
       "category": null,
@@ -5448,7 +5992,9 @@
       "is_experimental": false,
       "name": "moreh_dot_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_fold": {
       "category": null,
@@ -5458,7 +6004,9 @@
       "is_experimental": false,
       "name": "moreh_fold",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_full": {
       "category": null,
@@ -5468,7 +6016,9 @@
       "is_experimental": false,
       "name": "moreh_full",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_full_like": {
       "category": null,
@@ -5478,7 +6028,9 @@
       "is_experimental": false,
       "name": "moreh_full_like",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_getitem": {
       "category": null,
@@ -5488,7 +6040,9 @@
       "is_experimental": false,
       "name": "moreh_getitem",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_group_norm": {
       "category": null,
@@ -5498,7 +6052,9 @@
       "is_experimental": false,
       "name": "moreh_group_norm",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_group_norm_backward": {
       "category": null,
@@ -5508,7 +6064,9 @@
       "is_experimental": false,
       "name": "moreh_group_norm_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_layer_norm": {
       "category": null,
@@ -5518,7 +6076,9 @@
       "is_experimental": false,
       "name": "moreh_layer_norm",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_layer_norm_backward": {
       "category": null,
@@ -5528,7 +6088,9 @@
       "is_experimental": false,
       "name": "moreh_layer_norm_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_linear": {
       "category": null,
@@ -5538,7 +6100,9 @@
       "is_experimental": false,
       "name": "moreh_linear",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_linear_backward": {
       "category": null,
@@ -5548,7 +6112,9 @@
       "is_experimental": false,
       "name": "moreh_linear_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_logsoftmax": {
       "category": null,
@@ -5558,7 +6124,9 @@
       "is_experimental": false,
       "name": "moreh_logsoftmax",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_logsoftmax_backward": {
       "category": null,
@@ -5568,7 +6136,9 @@
       "is_experimental": false,
       "name": "moreh_logsoftmax_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_matmul": {
       "category": null,
@@ -5578,7 +6148,9 @@
       "is_experimental": false,
       "name": "moreh_matmul",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_matmul_backward": {
       "category": null,
@@ -5588,7 +6160,9 @@
       "is_experimental": false,
       "name": "moreh_matmul_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_mean": {
       "category": null,
@@ -5598,7 +6172,9 @@
       "is_experimental": false,
       "name": "moreh_mean",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_mean_backward": {
       "category": null,
@@ -5608,7 +6184,9 @@
       "is_experimental": false,
       "name": "moreh_mean_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_nll_loss": {
       "category": null,
@@ -5618,7 +6196,9 @@
       "is_experimental": false,
       "name": "moreh_nll_loss",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_nll_loss_backward": {
       "category": null,
@@ -5628,7 +6208,9 @@
       "is_experimental": false,
       "name": "moreh_nll_loss_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_nll_loss_unreduced_backward": {
       "category": null,
@@ -5638,7 +6220,9 @@
       "is_experimental": false,
       "name": "moreh_nll_loss_unreduced_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_norm": {
       "category": null,
@@ -5648,7 +6232,9 @@
       "is_experimental": false,
       "name": "moreh_norm",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_norm_backward": {
       "category": null,
@@ -5658,7 +6244,9 @@
       "is_experimental": false,
       "name": "moreh_norm_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_sgd": {
       "category": null,
@@ -5668,7 +6256,9 @@
       "is_experimental": false,
       "name": "moreh_sgd",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_softmax": {
       "category": null,
@@ -5678,7 +6268,9 @@
       "is_experimental": false,
       "name": "moreh_softmax",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_softmax_backward": {
       "category": null,
@@ -5688,7 +6280,9 @@
       "is_experimental": false,
       "name": "moreh_softmax_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_softmin": {
       "category": null,
@@ -5698,7 +6292,9 @@
       "is_experimental": false,
       "name": "moreh_softmin",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_softmin_backward": {
       "category": null,
@@ -5708,7 +6304,9 @@
       "is_experimental": false,
       "name": "moreh_softmin_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_sum": {
       "category": null,
@@ -5718,7 +6316,9 @@
       "is_experimental": false,
       "name": "moreh_sum",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.moreh_sum_backward": {
       "category": null,
@@ -5728,7 +6328,9 @@
       "is_experimental": false,
       "name": "moreh_sum_backward",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.move": {
       "category": "unary",
@@ -5738,7 +6340,9 @@
       "is_experimental": false,
       "name": "move",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.mse_loss": {
       "category": "binary",
@@ -5748,7 +6352,9 @@
       "is_experimental": false,
       "name": "mse_loss",
       "operands": 2,
-      "signature": "(ref_tensor: ttnn._ttnn.tensor.Tensor, pred_tensor: ttnn._ttnn.tensor.Tensor, *args, reduction='none', **kwargs)"
+      "real_valued": true,
+      "signature": "(ref_tensor: ttnn._ttnn.tensor.Tensor, pred_tensor: ttnn._ttnn.tensor.Tensor, *args, reduction='none', **kwargs)",
+      "varies": true
     },
     "ttnn.mul_bw": {
       "category": "binary_bw",
@@ -5758,7 +6364,9 @@
       "is_experimental": false,
       "name": "mul_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.multigammaln": {
       "category": "unary",
@@ -5768,7 +6376,9 @@
       "is_experimental": false,
       "name": "multigammaln",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.multigammaln_bw": {
       "category": "unary_bw",
@@ -5778,7 +6388,9 @@
       "is_experimental": false,
       "name": "multigammaln_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.multiply": {
       "category": "binary",
@@ -5788,7 +6400,9 @@
       "is_experimental": false,
       "name": "multiply",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.multiply_": {
       "category": "binary",
@@ -5798,7 +6412,9 @@
       "is_experimental": false,
       "name": "multiply_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)",
+      "varies": true
     },
     "ttnn.narrow": {
       "category": null,
@@ -5808,7 +6424,9 @@
       "is_experimental": false,
       "name": "narrow",
       "operands": 4,
-      "signature": "(input_tensor, dim, start, length, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, dim, start, length, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.ne": {
       "category": "binary",
@@ -5818,7 +6436,9 @@
       "is_experimental": false,
       "name": "ne",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.ne_": {
       "category": "binary",
@@ -5828,7 +6448,9 @@
       "is_experimental": false,
       "name": "ne_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.neg": {
       "category": "unary",
@@ -5838,7 +6460,9 @@
       "is_experimental": false,
       "name": "neg",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.neg_bw": {
       "category": "unary_bw",
@@ -5848,7 +6472,9 @@
       "is_experimental": false,
       "name": "neg_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.nextafter": {
       "category": "binary",
@@ -5858,7 +6484,9 @@
       "is_experimental": false,
       "name": "nextafter",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.nez": {
       "category": "unary",
@@ -5868,7 +6496,9 @@
       "is_experimental": false,
       "name": "nez",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.nonzero": {
       "category": null,
@@ -5878,7 +6508,9 @@
       "is_experimental": false,
       "name": "nonzero",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.normalize_global": {
       "category": "unary",
@@ -5888,7 +6520,9 @@
       "is_experimental": false,
       "name": "normalize_global",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.normalize_hw": {
       "category": "unary",
@@ -5898,7 +6532,9 @@
       "is_experimental": false,
       "name": "normalize_hw",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.ones": {
       "category": "unary",
@@ -5908,7 +6544,9 @@
       "is_experimental": false,
       "name": "ones",
       "operands": 1,
-      "signature": "(input_shape: ttnn._ttnn.types.Shape, **_)"
+      "real_valued": null,
+      "signature": "(input_shape: ttnn._ttnn.types.Shape, **_)",
+      "varies": null
     },
     "ttnn.ones_like": {
       "category": "unary",
@@ -5918,7 +6556,9 @@
       "is_experimental": false,
       "name": "ones_like",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     },
     "ttnn.outer": {
       "category": "binary",
@@ -5928,7 +6568,9 @@
       "is_experimental": false,
       "name": "outer",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": false,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.pad": {
       "category": "binary",
@@ -5938,7 +6580,9 @@
       "is_experimental": false,
       "name": "pad",
       "operands": 2,
-      "signature": "(input_tensor, padding, *args, value=0, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor, padding, *args, value=0, **_)",
+      "varies": null
     },
     "ttnn.pearson_correlation_coefficient": {
       "category": null,
@@ -5948,7 +6592,9 @@
       "is_experimental": false,
       "name": "pearson_correlation_coefficient",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.permute": {
       "category": "binary",
@@ -5958,7 +6604,9 @@
       "is_experimental": false,
       "name": "permute",
       "operands": 2,
-      "signature": "(input_tensor, dims, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor, dims, **_)",
+      "varies": null
     },
     "ttnn.plus_one": {
       "category": "unary",
@@ -5968,7 +6616,9 @@
       "is_experimental": false,
       "name": "plus_one",
       "operands": 1,
-      "signature": "(input_tensor, *args, skip_negative_entries=False, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, skip_negative_entries=False, **kwargs)",
+      "varies": true
     },
     "ttnn.point_to_point": {
       "category": null,
@@ -5978,7 +6628,9 @@
       "is_experimental": false,
       "name": "point_to_point",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.polar": {
       "category": "unary",
@@ -5988,7 +6640,9 @@
       "is_experimental": false,
       "name": "polar",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.polar_bw": {
       "category": "unary_bw",
@@ -5998,7 +6652,9 @@
       "is_experimental": false,
       "name": "polar_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.polygamma": {
       "category": "binary",
@@ -6008,7 +6664,9 @@
       "is_experimental": false,
       "name": "polygamma",
       "operands": 2,
-      "signature": "(input_tensor_a, k, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, k, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.polygamma_bw": {
       "category": "binary_bw",
@@ -6018,7 +6676,9 @@
       "is_experimental": false,
       "name": "polygamma_bw",
       "operands": 2,
-      "signature": "(grad_tensor, input_tensor, n, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, n, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.polyval": {
       "category": "binary",
@@ -6028,7 +6688,9 @@
       "is_experimental": false,
       "name": "polyval",
       "operands": 2,
-      "signature": "(input_tensor_a, coeffs, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, coeffs, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.pow": {
       "category": "binary",
@@ -6038,7 +6700,9 @@
       "is_experimental": false,
       "name": "pow",
       "operands": 2,
-      "signature": "(input_tensor_a, exponent, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, exponent, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.pow_bw": {
       "category": "binary_bw",
@@ -6048,7 +6712,9 @@
       "is_experimental": false,
       "name": "pow_bw",
       "operands": 2,
-      "signature": "(grad_tensor, input_tensor, exponent, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, exponent, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.prelu": {
       "category": "binary",
@@ -6058,7 +6724,9 @@
       "is_experimental": false,
       "name": "prelu",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.prod": {
       "category": null,
@@ -6068,7 +6736,9 @@
       "is_experimental": false,
       "name": "prod",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.prod_bw": {
       "category": null,
@@ -6078,7 +6748,9 @@
       "is_experimental": false,
       "name": "prod_bw",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.quantize": {
       "category": null,
@@ -6088,7 +6760,9 @@
       "is_experimental": false,
       "name": "quantize",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.rad2deg": {
       "category": "unary",
@@ -6098,7 +6772,9 @@
       "is_experimental": false,
       "name": "rad2deg",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.rad2deg_bw": {
       "category": "unary_bw",
@@ -6108,7 +6784,9 @@
       "is_experimental": false,
       "name": "rad2deg_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.rand": {
       "category": null,
@@ -6118,7 +6796,9 @@
       "is_experimental": false,
       "name": "rand",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.randn": {
       "category": null,
@@ -6128,7 +6808,9 @@
       "is_experimental": false,
       "name": "randn",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.rdiv": {
       "category": "binary",
@@ -6138,7 +6820,9 @@
       "is_experimental": false,
       "name": "rdiv",
       "operands": 2,
-      "signature": "(input_tensor_a, value, *args, rounding_mode=None, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, value, *args, rounding_mode=None, **kwargs)",
+      "varies": null
     },
     "ttnn.rdiv_bw": {
       "category": "unary_bw",
@@ -6148,7 +6832,9 @@
       "is_experimental": false,
       "name": "rdiv_bw",
       "operands": 1,
-      "signature": "(grad, input, value=None, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad, input, value=None, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.real": {
       "category": "unary",
@@ -6158,7 +6844,9 @@
       "is_experimental": false,
       "name": "real",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.real_bw": {
       "category": "unary_bw",
@@ -6168,7 +6856,9 @@
       "is_experimental": false,
       "name": "real_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.reallocate": {
       "category": "unary",
@@ -6178,7 +6868,9 @@
       "is_experimental": false,
       "name": "reallocate",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.reciprocal": {
       "category": "unary",
@@ -6188,7 +6880,9 @@
       "is_experimental": false,
       "name": "reciprocal",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, device, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, *args, device, **kwargs)",
+      "varies": null
     },
     "ttnn.reciprocal_bw": {
       "category": "unary_bw",
@@ -6198,7 +6892,9 @@
       "is_experimental": false,
       "name": "reciprocal_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.reduce_scatter": {
       "category": null,
@@ -6208,7 +6904,9 @@
       "is_experimental": false,
       "name": "reduce_scatter",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.reduce_to_root": {
       "category": null,
@@ -6218,7 +6916,9 @@
       "is_experimental": false,
       "name": "reduce_to_root",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.reglu": {
       "category": "binary",
@@ -6228,7 +6928,9 @@
       "is_experimental": false,
       "name": "reglu",
       "operands": 2,
-      "signature": "(input_tensor_a, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.relu": {
       "category": "unary",
@@ -6238,7 +6940,9 @@
       "is_experimental": false,
       "name": "relu",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.relu6": {
       "category": "unary",
@@ -6248,7 +6952,9 @@
       "is_experimental": false,
       "name": "relu6",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.relu6_bw": {
       "category": "unary_bw",
@@ -6258,7 +6964,9 @@
       "is_experimental": false,
       "name": "relu6_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.relu_bw": {
       "category": "unary_bw",
@@ -6268,7 +6976,9 @@
       "is_experimental": false,
       "name": "relu_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.relu_max": {
       "category": "binary",
@@ -6278,7 +6988,9 @@
       "is_experimental": false,
       "name": "relu_max",
       "operands": 2,
-      "signature": "(input_tensor_a, upper_limit, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, upper_limit, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.relu_min": {
       "category": "binary",
@@ -6288,7 +7000,9 @@
       "is_experimental": false,
       "name": "relu_min",
       "operands": 2,
-      "signature": "(input_tensor_a, lower_limit, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, lower_limit, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.remainder": {
       "category": "binary",
@@ -6298,7 +7012,9 @@
       "is_experimental": false,
       "name": "remainder",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)",
+      "varies": null
     },
     "ttnn.remainder_bw": {
       "category": "binary_bw",
@@ -6308,7 +7024,9 @@
       "is_experimental": false,
       "name": "remainder_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.repeat": {
       "category": "binary",
@@ -6318,7 +7036,9 @@
       "is_experimental": false,
       "name": "repeat",
       "operands": 2,
-      "signature": "(tensor, shape, **_)"
+      "real_valued": false,
+      "signature": "(tensor, shape, **_)",
+      "varies": false
     },
     "ttnn.repeat_bw": {
       "category": "binary_bw",
@@ -6328,7 +7048,9 @@
       "is_experimental": false,
       "name": "repeat_bw",
       "operands": 2,
-      "signature": "(grad_tensor, input_tensor, sizes, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, sizes, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.repeat_interleave": {
       "category": "binary",
@@ -6338,7 +7060,9 @@
       "is_experimental": false,
       "name": "repeat_interleave",
       "operands": 2,
-      "signature": "(tensor, repeats, dim=0, **_)"
+      "real_valued": null,
+      "signature": "(tensor, repeats, dim=0, **_)",
+      "varies": null
     },
     "ttnn.requantize": {
       "category": null,
@@ -6348,7 +7072,9 @@
       "is_experimental": false,
       "name": "requantize",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.reshape": {
       "category": "binary",
@@ -6358,7 +7084,9 @@
       "is_experimental": false,
       "name": "reshape",
       "operands": 2,
-      "signature": "(input_tensor, shape: Union[ttnn._ttnn.types.Shape, Tuple[int, ...]]) -> ttnn._ttnn.tensor.Tensor"
+      "real_valued": null,
+      "signature": "(input_tensor, shape: Union[ttnn._ttnn.types.Shape, Tuple[int, ...]]) -> ttnn._ttnn.tensor.Tensor",
+      "varies": null
     },
     "ttnn.reshape_on_device": {
       "category": null,
@@ -6368,7 +7096,9 @@
       "is_experimental": false,
       "name": "reshape_on_device",
       "operands": 5,
-      "signature": "(input_tensor, W, Z, Y, X, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, W, Z, Y, X, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.reshard": {
       "category": "unary",
@@ -6378,7 +7108,9 @@
       "is_experimental": false,
       "name": "reshard",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.rms_norm": {
       "category": "unary",
@@ -6388,7 +7120,9 @@
       "is_experimental": false,
       "name": "rms_norm",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, weight=None, *, epsilon=1e-12, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, weight=None, *, epsilon=1e-12, **_)",
+      "varies": true
     },
     "ttnn.rms_norm_post_all_gather": {
       "category": null,
@@ -6398,7 +7132,9 @@
       "is_experimental": false,
       "name": "rms_norm_post_all_gather",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.rms_norm_pre_all_gather": {
       "category": null,
@@ -6408,7 +7144,9 @@
       "is_experimental": false,
       "name": "rms_norm_pre_all_gather",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.roll": {
       "category": "binary",
@@ -6418,7 +7156,9 @@
       "is_experimental": false,
       "name": "roll",
       "operands": 2,
-      "signature": "(input_tensor, shifts, dim=None, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, shifts, dim=None, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.rotate": {
       "category": "binary",
@@ -6428,7 +7168,9 @@
       "is_experimental": false,
       "name": "rotate",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, angle: float, center=None, fill: float = 0.0, expand: bool = False, interpolation_mode: str = 'nearest', **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, angle: float, center=None, fill: float = 0.0, expand: bool = False, interpolation_mode: str = 'nearest', **_)",
+      "varies": null
     },
     "ttnn.round": {
       "category": "unary",
@@ -6438,7 +7180,9 @@
       "is_experimental": false,
       "name": "round",
       "operands": 1,
-      "signature": "(input_tensor_a, decimals=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, decimals=None, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.round_bw": {
       "category": "unary_bw",
@@ -6448,7 +7192,9 @@
       "is_experimental": false,
       "name": "round_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.rpow": {
       "category": "binary",
@@ -6458,7 +7204,9 @@
       "is_experimental": false,
       "name": "rpow",
       "operands": 2,
-      "signature": "(input_tensor_a, dim, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, dim, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.rpow_bw": {
       "category": "binary_bw",
@@ -6468,7 +7216,9 @@
       "is_experimental": false,
       "name": "rpow_bw",
       "operands": 2,
-      "signature": "(grad, input, alpha, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.rsqrt": {
       "category": "unary",
@@ -6478,7 +7228,9 @@
       "is_experimental": false,
       "name": "rsqrt",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.rsqrt_bw": {
       "category": "unary_bw",
@@ -6488,7 +7240,9 @@
       "is_experimental": false,
       "name": "rsqrt_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.rsub": {
       "category": "binary",
@@ -6498,7 +7252,9 @@
       "is_experimental": false,
       "name": "rsub",
       "operands": 2,
-      "signature": "(input_tensor_a, value, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, value, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.rsub_": {
       "category": "binary",
@@ -6508,7 +7264,9 @@
       "is_experimental": false,
       "name": "rsub_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)",
+      "varies": true
     },
     "ttnn.rsub_bw": {
       "category": "binary_bw",
@@ -6518,7 +7276,9 @@
       "is_experimental": false,
       "name": "rsub_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.sampling": {
       "category": null,
@@ -6528,7 +7288,9 @@
       "is_experimental": false,
       "name": "sampling",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.scale_causal_mask_hw_dims_softmax_in_place": {
       "category": "binary",
@@ -6538,7 +7300,9 @@
       "is_experimental": false,
       "name": "scale_causal_mask_hw_dims_softmax_in_place",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scalar: float, attention_mask=None, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scalar: float, attention_mask=None, **_)",
+      "varies": true
     },
     "ttnn.scale_mask_softmax": {
       "category": "binary",
@@ -6548,7 +7312,9 @@
       "is_experimental": false,
       "name": "scale_mask_softmax",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scalar: float, attention_mask=None, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scalar: float, attention_mask=None, **_)",
+      "varies": true
     },
     "ttnn.scale_mask_softmax_in_place": {
       "category": "binary",
@@ -6558,7 +7324,9 @@
       "is_experimental": false,
       "name": "scale_mask_softmax_in_place",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scalar: float, attention_mask=None, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scalar: float, attention_mask=None, **_)",
+      "varies": true
     },
     "ttnn.scatter": {
       "category": null,
@@ -6568,7 +7336,9 @@
       "is_experimental": false,
       "name": "scatter",
       "operands": 4,
-      "signature": "(input, dim, index, src, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input, dim, index, src, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.scatter_add": {
       "category": null,
@@ -6578,7 +7348,9 @@
       "is_experimental": false,
       "name": "scatter_add",
       "operands": 4,
-      "signature": "(input, dim, index, src, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input, dim, index, src, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.selu": {
       "category": "unary",
@@ -6588,7 +7360,9 @@
       "is_experimental": false,
       "name": "selu",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.selu_bw": {
       "category": "unary_bw",
@@ -6598,7 +7372,9 @@
       "is_experimental": false,
       "name": "selu_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.sharded_to_interleaved": {
       "category": "unary",
@@ -6608,7 +7384,9 @@
       "is_experimental": false,
       "name": "sharded_to_interleaved",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.sharded_to_interleaved_partial": {
       "category": null,
@@ -6618,7 +7396,9 @@
       "is_experimental": false,
       "name": "sharded_to_interleaved_partial",
       "operands": 4,
-      "signature": "(slice, tensor, num_slices, slice_id, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(slice, tensor, num_slices, slice_id, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.sigmoid": {
       "category": "unary",
@@ -6628,7 +7408,9 @@
       "is_experimental": false,
       "name": "sigmoid",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.sigmoid_accurate": {
       "category": "unary",
@@ -6638,7 +7420,9 @@
       "is_experimental": false,
       "name": "sigmoid_accurate",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.sigmoid_bw": {
       "category": "unary_bw",
@@ -6648,7 +7432,9 @@
       "is_experimental": false,
       "name": "sigmoid_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.sign": {
       "category": "unary",
@@ -6658,7 +7444,9 @@
       "is_experimental": false,
       "name": "sign",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.sign_bw": {
       "category": "unary_bw",
@@ -6668,7 +7456,9 @@
       "is_experimental": false,
       "name": "sign_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.signbit": {
       "category": "unary",
@@ -6678,7 +7468,9 @@
       "is_experimental": false,
       "name": "signbit",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.silu": {
       "category": "unary",
@@ -6688,7 +7480,9 @@
       "is_experimental": false,
       "name": "silu",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.silu_bw": {
       "category": "unary_bw",
@@ -6698,7 +7492,9 @@
       "is_experimental": false,
       "name": "silu_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.sin": {
       "category": "unary",
@@ -6708,7 +7504,9 @@
       "is_experimental": false,
       "name": "sin",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.sin_bw": {
       "category": "unary_bw",
@@ -6718,7 +7516,9 @@
       "is_experimental": false,
       "name": "sin_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.sinh": {
       "category": "unary",
@@ -6728,7 +7528,9 @@
       "is_experimental": false,
       "name": "sinh",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.sinh_bw": {
       "category": "unary_bw",
@@ -6738,7 +7540,9 @@
       "is_experimental": false,
       "name": "sinh_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.situ_glu": {
       "category": null,
@@ -6748,7 +7552,9 @@
       "is_experimental": false,
       "name": "situ_glu",
       "operands": 4,
-      "signature": "(gate, up, beta1, beta2, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(gate, up, beta1, beta2, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.slice": {
       "category": "unary",
@@ -6758,7 +7564,9 @@
       "is_experimental": false,
       "name": "slice",
       "operands": 1,
-      "signature": "(input_tensor, slice_start=None, slice_end=None, slice_step=None, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, slice_start=None, slice_end=None, slice_step=None, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.snake_beta": {
       "category": null,
@@ -6768,7 +7576,9 @@
       "is_experimental": false,
       "name": "snake_beta",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.softcap": {
       "category": "binary",
@@ -6778,7 +7588,9 @@
       "is_experimental": false,
       "name": "softcap",
       "operands": 2,
-      "signature": "(input_tensor_a, beta, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, beta, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.softmax": {
       "category": "unary",
@@ -6788,7 +7600,9 @@
       "is_experimental": false,
       "name": "softmax",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Optional[int] = None, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Optional[int] = None, **_)",
+      "varies": true
     },
     "ttnn.softmax_in_place": {
       "category": "unary",
@@ -6798,7 +7612,9 @@
       "is_experimental": false,
       "name": "softmax_in_place",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Optional[int] = None, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Optional[int] = None, **_)",
+      "varies": true
     },
     "ttnn.softplus": {
       "category": "unary",
@@ -6808,7 +7624,9 @@
       "is_experimental": false,
       "name": "softplus",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.softplus_bw": {
       "category": "unary_bw",
@@ -6818,7 +7636,9 @@
       "is_experimental": false,
       "name": "softplus_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, beta=None, threshold=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, beta=None, threshold=None, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.softshrink": {
       "category": "unary",
@@ -6828,7 +7648,9 @@
       "is_experimental": false,
       "name": "softshrink",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, lambd=0.5, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, lambd=0.5, **kwargs)",
+      "varies": true
     },
     "ttnn.softshrink_bw": {
       "category": "unary_bw",
@@ -6838,7 +7660,9 @@
       "is_experimental": false,
       "name": "softshrink_bw",
       "operands": 1,
-      "signature": "(grad, input, alpha=0.5, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, alpha=0.5, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.softsign": {
       "category": "unary",
@@ -6848,7 +7672,9 @@
       "is_experimental": false,
       "name": "softsign",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.softsign_bw": {
       "category": "unary_bw",
@@ -6858,7 +7684,9 @@
       "is_experimental": false,
       "name": "softsign_bw",
       "operands": 1,
-      "signature": "(grad, input, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.sort": {
       "category": null,
@@ -6868,7 +7696,9 @@
       "is_experimental": false,
       "name": "sort",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.sparse_matmul": {
       "category": null,
@@ -6878,7 +7708,9 @@
       "is_experimental": false,
       "name": "sparse_matmul",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.split": {
       "category": "binary",
@@ -6888,7 +7720,9 @@
       "is_experimental": false,
       "name": "split",
       "operands": 2,
-      "signature": "(input_tensor, split_size, dim=0, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, split_size, dim=0, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.sqrt": {
       "category": "unary",
@@ -6898,7 +7732,9 @@
       "is_experimental": false,
       "name": "sqrt",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.sqrt_bw": {
       "category": "unary_bw",
@@ -6908,7 +7744,9 @@
       "is_experimental": false,
       "name": "sqrt_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.square": {
       "category": "unary",
@@ -6918,7 +7756,9 @@
       "is_experimental": false,
       "name": "square",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.square_bw": {
       "category": "unary_bw",
@@ -6928,7 +7768,9 @@
       "is_experimental": false,
       "name": "square_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.squared_difference": {
       "category": "binary",
@@ -6938,7 +7780,9 @@
       "is_experimental": false,
       "name": "squared_difference",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.squared_difference_": {
       "category": "binary",
@@ -6948,7 +7792,9 @@
       "is_experimental": false,
       "name": "squared_difference_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.squared_difference_bw": {
       "category": "binary_bw",
@@ -6958,7 +7804,9 @@
       "is_experimental": false,
       "name": "squared_difference_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.squeeze": {
       "category": "unary",
@@ -6968,7 +7816,9 @@
       "is_experimental": false,
       "name": "squeeze",
       "operands": 1,
-      "signature": "(input_tensor, dim=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, dim=None, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.stack": {
       "category": "binary",
@@ -6978,7 +7828,9 @@
       "is_experimental": false,
       "name": "stack",
       "operands": 2,
-      "signature": "(input_tensors, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensors, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.std": {
       "category": "unary",
@@ -6988,7 +7840,9 @@
       "is_experimental": false,
       "name": "std",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)",
+      "varies": false
     },
     "ttnn.std_hw": {
       "category": null,
@@ -6998,7 +7852,9 @@
       "is_experimental": false,
       "name": "std_hw",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.sub_bw": {
       "category": "binary_bw",
@@ -7008,7 +7864,9 @@
       "is_experimental": false,
       "name": "sub_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.subalpha": {
       "category": "ternary",
@@ -7018,7 +7876,9 @@
       "is_experimental": false,
       "name": "subalpha",
       "operands": 3,
-      "signature": "(input_tensor_a, input_tensor_b, alpha, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, alpha, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.subalpha_bw": {
       "category": "binary_bw",
@@ -7028,7 +7888,9 @@
       "is_experimental": false,
       "name": "subalpha_bw",
       "operands": 2,
-      "signature": "(grad, a, b, alpha=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, alpha=None, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.subtract": {
       "category": "binary",
@@ -7038,7 +7900,9 @@
       "is_experimental": false,
       "name": "subtract",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.subtract_": {
       "category": "binary",
@@ -7048,7 +7912,9 @@
       "is_experimental": false,
       "name": "subtract_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)",
+      "varies": true
     },
     "ttnn.sum": {
       "category": "unary",
@@ -7058,7 +7924,9 @@
       "is_experimental": false,
       "name": "sum",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)",
+      "varies": false
     },
     "ttnn.swiglu": {
       "category": "binary",
@@ -7068,7 +7936,9 @@
       "is_experimental": false,
       "name": "swiglu",
       "operands": 2,
-      "signature": "(input_tensor_a, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.swish": {
       "category": "unary",
@@ -7078,7 +7948,9 @@
       "is_experimental": false,
       "name": "swish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.tan": {
       "category": "unary",
@@ -7088,7 +7960,9 @@
       "is_experimental": false,
       "name": "tan",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.tan_bw": {
       "category": "unary_bw",
@@ -7098,7 +7972,9 @@
       "is_experimental": false,
       "name": "tan_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.tanh": {
       "category": "unary",
@@ -7108,7 +7984,9 @@
       "is_experimental": false,
       "name": "tanh",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": true
     },
     "ttnn.tanh_bw": {
       "category": "unary_bw",
@@ -7118,7 +7996,9 @@
       "is_experimental": false,
       "name": "tanh_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.tanhshrink": {
       "category": "unary",
@@ -7128,7 +8008,9 @@
       "is_experimental": false,
       "name": "tanhshrink",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.tanhshrink_bw": {
       "category": "unary_bw",
@@ -7138,7 +8020,9 @@
       "is_experimental": false,
       "name": "tanhshrink_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.test_hang_device_operation": {
       "category": null,
@@ -7148,7 +8032,9 @@
       "is_experimental": false,
       "name": "test_hang_device_operation",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.threshold": {
       "category": "ternary",
@@ -7158,7 +8044,9 @@
       "is_experimental": false,
       "name": "threshold",
       "operands": 3,
-      "signature": "(input_tensor_a, threshold, value, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, threshold, value, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.threshold_bw": {
       "category": "unary_bw",
@@ -7168,7 +8056,9 @@
       "is_experimental": false,
       "name": "threshold_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.tilize": {
       "category": "unary",
@@ -7178,7 +8068,9 @@
       "is_experimental": false,
       "name": "tilize",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.tilize_with_val_padding": {
       "category": "ternary",
@@ -7188,7 +8080,9 @@
       "is_experimental": false,
       "name": "tilize_with_val_padding",
       "operands": 3,
-      "signature": "(input_tensor, output_tensor_shape, pad_value, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, output_tensor_shape, pad_value, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.tilize_with_zero_padding": {
       "category": "unary",
@@ -7198,7 +8092,9 @@
       "is_experimental": false,
       "name": "tilize_with_zero_padding",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.to_device": {
       "category": "unary",
@@ -7208,7 +8104,9 @@
       "is_experimental": false,
       "name": "to_device",
       "operands": 1,
-      "signature": "(tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.to_dtype": {
       "category": "unary",
@@ -7218,7 +8116,9 @@
       "is_experimental": false,
       "name": "to_dtype",
       "operands": 1,
-      "signature": "(tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.to_layout": {
       "category": "unary",
@@ -7228,7 +8128,9 @@
       "is_experimental": false,
       "name": "to_layout",
       "operands": 1,
-      "signature": "(tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.to_memory_config": {
       "category": "unary",
@@ -7238,7 +8140,9 @@
       "is_experimental": false,
       "name": "to_memory_config",
       "operands": 1,
-      "signature": "(tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.to_torch": {
       "category": "unary",
@@ -7248,7 +8152,9 @@
       "is_experimental": false,
       "name": "to_torch",
       "operands": 1,
-      "signature": "(tensor, *, torch_rank=None, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *, torch_rank=None, **kwargs)",
+      "varies": true
     },
     "ttnn.topk": {
       "category": "binary",
@@ -7258,7 +8164,9 @@
       "is_experimental": false,
       "name": "topk",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, k: int, dim: Optional[int] = None, largest=True, sorted=True, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, k: int, dim: Optional[int] = None, largest=True, sorted=True, **_)",
+      "varies": null
     },
     "ttnn.tosa_gather": {
       "category": "binary",
@@ -7268,7 +8176,9 @@
       "is_experimental": false,
       "name": "tosa_gather",
       "operands": 2,
-      "signature": "(input, index, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input, index, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.tosa_scatter": {
       "category": "ternary",
@@ -7278,7 +8188,9 @@
       "is_experimental": false,
       "name": "tosa_scatter",
       "operands": 3,
-      "signature": "(input, index, src, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input, index, src, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.transformer.attention_softmax": {
       "category": "unary",
@@ -7288,7 +8200,9 @@
       "is_experimental": false,
       "name": "attention_softmax",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, head_size: int, attention_mask, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, head_size: int, attention_mask, **_)",
+      "varies": null
     },
     "ttnn.transformer.attention_softmax_": {
       "category": "unary",
@@ -7298,7 +8212,9 @@
       "is_experimental": false,
       "name": "attention_softmax_",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, head_size: int, attention_mask, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *, head_size: int, attention_mask, **_)",
+      "varies": null
     },
     "ttnn.transformer.chunk_gated_delta_rule": {
       "category": null,
@@ -7308,7 +8224,9 @@
       "is_experimental": false,
       "name": "chunk_gated_delta_rule",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.chunked_flash_mla_prefill": {
       "category": null,
@@ -7318,7 +8236,9 @@
       "is_experimental": false,
       "name": "chunked_flash_mla_prefill",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.chunked_scaled_dot_product_attention": {
       "category": null,
@@ -7328,7 +8248,9 @@
       "is_experimental": false,
       "name": "chunked_scaled_dot_product_attention",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.concatenate_heads": {
       "category": "unary",
@@ -7338,7 +8260,9 @@
       "is_experimental": false,
       "name": "concatenate_heads",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": null
     },
     "ttnn.transformer.exp_ring_joint_scaled_dot_product_attention": {
       "category": null,
@@ -7348,7 +8272,9 @@
       "is_experimental": false,
       "name": "exp_ring_joint_scaled_dot_product_attention",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.flash_mla_prefill": {
       "category": null,
@@ -7358,7 +8284,9 @@
       "is_experimental": false,
       "name": "flash_mla_prefill",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.flash_multi_latent_attention_decode": {
       "category": null,
@@ -7368,7 +8296,9 @@
       "is_experimental": false,
       "name": "flash_multi_latent_attention_decode",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.gated_delta_attn_seq": {
       "category": null,
@@ -7378,7 +8308,9 @@
       "is_experimental": false,
       "name": "gated_delta_attn_seq",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.joint_scaled_dot_product_attention": {
       "category": null,
@@ -7388,7 +8320,9 @@
       "is_experimental": false,
       "name": "joint_scaled_dot_product_attention",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.paged_flash_multi_latent_attention_decode": {
       "category": null,
@@ -7398,7 +8332,9 @@
       "is_experimental": false,
       "name": "paged_flash_multi_latent_attention_decode",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.paged_scaled_dot_product_attention_decode": {
       "category": null,
@@ -7408,7 +8344,9 @@
       "is_experimental": false,
       "name": "paged_scaled_dot_product_attention_decode",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.ring_distributed_scaled_dot_product_attention": {
       "category": null,
@@ -7418,7 +8356,9 @@
       "is_experimental": false,
       "name": "ring_distributed_scaled_dot_product_attention",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.ring_joint_scaled_dot_product_attention": {
       "category": null,
@@ -7428,7 +8368,9 @@
       "is_experimental": false,
       "name": "ring_joint_scaled_dot_product_attention",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.ring_mla": {
       "category": null,
@@ -7438,7 +8380,9 @@
       "is_experimental": false,
       "name": "ring_mla",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.scaled_dot_product_attention": {
       "category": null,
@@ -7448,7 +8392,9 @@
       "is_experimental": false,
       "name": "scaled_dot_product_attention",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.scaled_dot_product_attention_decode": {
       "category": null,
@@ -7458,7 +8404,9 @@
       "is_experimental": false,
       "name": "scaled_dot_product_attention_decode",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.sparse_sdpa": {
       "category": null,
@@ -7468,7 +8416,9 @@
       "is_experimental": false,
       "name": "sparse_sdpa",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.sparse_sdpa_msa": {
       "category": null,
@@ -7478,7 +8428,9 @@
       "is_experimental": false,
       "name": "sparse_sdpa_msa",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.transformer.split_query_key_value_and_split_heads": {
       "category": "unary",
@@ -7488,7 +8440,9 @@
       "is_experimental": false,
       "name": "split_query_key_value_and_split_heads",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, kv_input_tensor: Optional[ttnn._ttnn.tensor.Tensor] = None, *, num_heads, num_kv_heads=None, transpose_key=True, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, kv_input_tensor: Optional[ttnn._ttnn.tensor.Tensor] = None, *, num_heads, num_kv_heads=None, transpose_key=True, **_)",
+      "varies": null
     },
     "ttnn.transpose": {
       "category": "ternary",
@@ -7498,7 +8452,9 @@
       "is_experimental": false,
       "name": "transpose",
       "operands": 3,
-      "signature": "(input_tensor, dim1, dim2, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, dim1, dim2, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.tril": {
       "category": "unary",
@@ -7508,7 +8464,9 @@
       "is_experimental": false,
       "name": "tril",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": null
     },
     "ttnn.triu": {
       "category": "unary",
@@ -7518,7 +8476,9 @@
       "is_experimental": false,
       "name": "triu",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": null
     },
     "ttnn.trunc": {
       "category": "unary",
@@ -7528,7 +8488,9 @@
       "is_experimental": false,
       "name": "trunc",
       "operands": 1,
-      "signature": "(input_tensor_a, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.trunc_bw": {
       "category": "unary_bw",
@@ -7538,7 +8500,9 @@
       "is_experimental": false,
       "name": "trunc_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)",
+      "varies": false
     },
     "ttnn.typecast": {
       "category": "unary",
@@ -7548,7 +8512,9 @@
       "is_experimental": false,
       "name": "typecast",
       "operands": 1,
-      "signature": "(tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.unary_chain": {
       "category": null,
@@ -7558,7 +8524,9 @@
       "is_experimental": false,
       "name": "unary_chain",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.uniform": {
       "category": null,
@@ -7568,7 +8536,9 @@
       "is_experimental": false,
       "name": "uniform",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.unsqueeze": {
       "category": "binary",
@@ -7578,7 +8548,9 @@
       "is_experimental": false,
       "name": "unsqueeze",
       "operands": 2,
-      "signature": "(input_tensor, dim, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, dim, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.unsqueeze_to_4D": {
       "category": null,
@@ -7588,7 +8560,9 @@
       "is_experimental": false,
       "name": "unsqueeze_to_4D",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.untilize": {
       "category": "unary",
@@ -7598,7 +8572,9 @@
       "is_experimental": false,
       "name": "untilize",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.untilize_with_unpadding": {
       "category": "binary",
@@ -7608,7 +8584,9 @@
       "is_experimental": false,
       "name": "untilize_with_unpadding",
       "operands": 2,
-      "signature": "(input_tensor, output_tensor_end, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, output_tensor_end, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.update_cache": {
       "category": "ternary",
@@ -7618,7 +8596,9 @@
       "is_experimental": false,
       "name": "update_cache",
       "operands": 3,
-      "signature": "(cache, input, update_idx, *args, batch_offset=0, **kwargs)"
+      "real_valued": null,
+      "signature": "(cache, input, update_idx, *args, batch_offset=0, **kwargs)",
+      "varies": null
     },
     "ttnn.upsample": {
       "category": "binary",
@@ -7628,7 +8608,9 @@
       "is_experimental": false,
       "name": "upsample",
       "operands": 2,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scale_factor, mode: str = 'nearest', **_)"
+      "real_valued": null,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, scale_factor, mode: str = 'nearest', **_)",
+      "varies": null
     },
     "ttnn.var": {
       "category": "unary",
@@ -7638,7 +8620,9 @@
       "is_experimental": false,
       "name": "var",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)"
+      "real_valued": false,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, dim: Union[int, Tuple[int], NoneType] = None, keepdim=False, **_)",
+      "varies": false
     },
     "ttnn.var_hw": {
       "category": null,
@@ -7648,7 +8632,9 @@
       "is_experimental": false,
       "name": "var_hw",
       "operands": null,
-      "signature": null
+      "real_valued": null,
+      "signature": null,
+      "varies": null
     },
     "ttnn.view": {
       "category": "binary",
@@ -7658,7 +8644,9 @@
       "is_experimental": false,
       "name": "view",
       "operands": 2,
-      "signature": "(input_tensor, shape, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor, shape, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.where": {
       "category": "ternary",
@@ -7668,7 +8656,9 @@
       "is_experimental": false,
       "name": "where",
       "operands": 3,
-      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.where_bw": {
       "category": "ternary_bw",
@@ -7678,7 +8668,9 @@
       "is_experimental": false,
       "name": "where_bw",
       "operands": 3,
-      "signature": "(grad_tensor, condition_tensor, input_tensor, other_tensor, *args, **kwargs)"
+      "real_valued": null,
+      "signature": "(grad_tensor, condition_tensor, input_tensor, other_tensor, *args, **kwargs)",
+      "varies": null
     },
     "ttnn.xielu": {
       "category": "unary",
@@ -7688,7 +8680,9 @@
       "is_experimental": false,
       "name": "xielu",
       "operands": 1,
-      "signature": "(x, *args, alpha_p=0.8, alpha_n=0.8, **kwargs)"
+      "real_valued": true,
+      "signature": "(x, *args, alpha_p=0.8, alpha_n=0.8, **kwargs)",
+      "varies": true
     },
     "ttnn.xlogy": {
       "category": "binary",
@@ -7698,7 +8692,9 @@
       "is_experimental": false,
       "name": "xlogy",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.xlogy_bw": {
       "category": "binary_bw",
@@ -7708,7 +8704,9 @@
       "is_experimental": false,
       "name": "xlogy_bw",
       "operands": 2,
-      "signature": "(grad, a, b, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, a, b, *args, **kwargs)",
+      "varies": true
     },
     "ttnn.zeros": {
       "category": "unary",
@@ -7718,7 +8716,9 @@
       "is_experimental": false,
       "name": "zeros",
       "operands": 1,
-      "signature": "(input_shape: ttnn._ttnn.types.Shape, **_)"
+      "real_valued": null,
+      "signature": "(input_shape: ttnn._ttnn.types.Shape, **_)",
+      "varies": null
     },
     "ttnn.zeros_like": {
       "category": "unary",
@@ -7728,22 +8728,10 @@
       "is_experimental": false,
       "name": "zeros_like",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+      "real_valued": true,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)",
+      "varies": false
     }
   },
-  "refused": {
-    "ttnn.eqz": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.gez": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.gtz": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.isfinite": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.isinf": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.isnan": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.isneginf": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.isposinf": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.lez": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.logical_not": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.ltz": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.nez": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'",
-    "ttnn.signbit": "NotImplementedError on fp32: \"abs_cpu\" not implemented for 'Bool'"
-  }
+  "refused": {}
 }
