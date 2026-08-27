@@ -61,12 +61,15 @@ def compute_stats(df: pd.DataFrame) -> dict:
     ULP figures cover only the points where ULP is defined and non-trivial: the mean over
     exact points would be diluted by ops that return zero across most of their range, and
     the max over undefined points is what produced 1e24 readings.
+
+    Both read the value, not the outcome label. An fp32 row labels a group of 128 by the
+    worst outcome in it, so filtering the mean on the label would drop a whole group's
+    real error because one point in it flushed, while the max kept it.
     """
     ulp = _finite(df["ulp_error"])
-    inexact = ulp[df["outcome"] == "inexact"]
     return {
         "max_ulp": _fmt(ulp.max()),
-        "mean_ulp": _fmt(inexact.mean()),
+        "mean_ulp": _fmt(ulp[ulp > 0].mean()),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
         "n_inputs": len(df),

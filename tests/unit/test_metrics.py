@@ -82,6 +82,21 @@ def test_underflowed_golden_is_reported_as_flushed_not_as_zero_error():
     assert df["abs_error"].item() == 0.0
 
 
+def test_hardware_zeroing_a_representable_value_is_not_a_128_ulp_error():
+    """What made atan2 read 128 ULP for an absolute error of 1e-38.
+
+    The reference is the smallest normal, which the dtype holds perfectly well, so this
+    is not `flushed`. The hardware returned zero anyway. ULP cannot express that: a flush
+    at the smallest normal is the exponent range itself, 2**7 in bf16, whatever the
+    absolute error — so it is counted as its own outcome and left out of the ULP figures.
+    """
+    tiny = float(torch.finfo(torch.bfloat16).tiny)
+    df = _compare([1.0], [tiny], [0.0])
+    assert df["outcome"].item() == "zeroed"
+    assert np.isnan(df["ulp_error"].item())
+    assert df["abs_error"].item() == pytest.approx(tiny)
+
+
 def test_ulp_is_undefined_when_the_reference_is_zero():
     """A non-zero result against a zero reference is what produced 1e24-ULP readings."""
     df = _compare([1.0], [0.0], [2**-100])

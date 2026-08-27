@@ -154,7 +154,7 @@ def write(path: Path, content: str):
 
 
 def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
-    """What each measured point demonstrated. ULP above covers the inexact points only."""
+    """What each measured point demonstrated. Only `exact` and `inexact` carry a ULP."""
     counted = [(k, v, load_summary(arch, dtype, k, v)) for k, v in entries]
     counted = [(k, v, s) for k, v, s in counted if s and s.get("outcomes")]
     if not counted:
