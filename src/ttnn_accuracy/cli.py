@@ -7,7 +7,7 @@ from pathlib import Path
 
 from loguru import logger
 
-from ttnn_accuracy.paths import DATA_DIR
+from ttnn_accuracy.paths import DATA_DIR, INDEX_FILE
 
 CATEGORIES = [f"{n}{suffix}" for n in ("unary", "binary", "ternary") for suffix in ("", "_bw")]
 
@@ -47,6 +47,12 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--arch")
     report.add_argument("--dtype")
     report.add_argument("--categories", default="unary", help="comma-separated")
+
+    compare = sub.add_parser("compare", help="diff two report indexes; exit 1 on regression")
+    compare.add_argument(
+        "baseline", type=Path, help="report_index.json measured on the older build"
+    )
+    compare.add_argument("candidate", type=Path, nargs="?", default=INDEX_FILE)
 
     return parser
 
@@ -95,3 +101,8 @@ def main(argv: list[str] | None = None) -> int:
 
             cats = [c.strip() for c in args.categories.split(",")]
             return generate_reports(args.arch, args.dtype, cats)
+
+        case "compare":
+            from ttnn_accuracy.report.compare import compare
+
+            return compare(args.baseline, args.candidate)
