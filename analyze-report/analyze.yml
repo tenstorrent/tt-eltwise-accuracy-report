@@ -1,0 +1,29 @@
+# DRAFT — the LLM analysis pass over a freshly regenerated report. Not wired anywhere.
+# Runs after nightly-report: reads report_index.json plus the interpretation contract,
+# writes verdicts and flags movements worth a human's attention. The verdict tiers and
+# contract it consumes are the "suggested" items in README.md and do not exist yet.
+name: analyze-report
+
+on:
+  workflow_run:
+    workflows: [nightly-report]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ask the model
+        # Sketch: feed report_index.json + the contract; receive per-op verdicts and a
+        # short digest of what moved since the previous index (git show HEAD~1:...).
+        run: |
+          echo "TODO: claude -p 'apply the interpretation contract to report_index.json;"
+          echo "      emit verdicts.json and a digest of movements' --allowedTools none"
+
+      - name: Publish verdicts
+        run: |
+          echo "TODO: commit verdicts.json beside report_index.json; open an issue when"
+          echo "      the digest is non-empty"

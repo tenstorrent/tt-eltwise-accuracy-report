@@ -1,0 +1,49 @@
+# Periodic report regeneration, no human intervention (the epic's automation bullet).
+# Inert here: copy to .github/workflows/ once a self-hosted runner with a TT device
+# exists. Runner provides: TT_METAL_HOME (built tt-metal checkout), PYTHON_ENV.
+name: nightly-report
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: nightly-report   # wh and bh jobs push to the same branch; run them serially
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    strategy:
+      matrix:
+        arch: [wh, bh]
+      max-parallel: 1
+    runs-on: [self-hosted, "${{ matrix.arch }}"]
+    timeout-minutes: 720
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild tt-metal at main
+        run: |
+          git -C "$TT_METAL_HOME" pull --ff-only
+          "$TT_METAL_HOME"/build_metal.sh
+
+      - name: Regenerate the report
+        run: |
+          source "$PYTHON_ENV/bin/activate"
+          pip install -e . --quiet
+          ttnn-accuracy discover
+          ttnn-accuracy derive
+          ttnn-accuracy probe
+          for cat in unary unary_bw binary binary_bw ternary ternary_bw; do
+            ttnn-accuracy measure --arch "${{ matrix.arch }}" --category "$cat" --dtype both
+          done
+          ttnn-accuracy charts
+          ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
+
+      - name: Publish
+        run: |
+          git add -A reports/ report_index.json stats/
+          git -c user.name=nightly -c user.email=nightly@users.noreply.github.com \
+            commit -m "data(${{ matrix.arch }}): nightly report $(date -u +%F)" || exit 0
+          git pull --rebase && git push
