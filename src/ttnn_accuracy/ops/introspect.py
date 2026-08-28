@@ -12,7 +12,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from functools import partial
 
-from ttnn_accuracy.ops.registry import OVERRIDES
+from ttnn_accuracy.ops.overrides import OVERRIDES
 
 
 def resolve(qualified_name: str):

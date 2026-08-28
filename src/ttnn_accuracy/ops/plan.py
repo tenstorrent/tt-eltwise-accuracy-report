@@ -1,8 +1,7 @@
-"""What to measure, resolved from the manifest or from the legacy registry.
+"""What to measure, resolved from the manifest into one OpSpec per variant.
 
-Both sources produce the same OpSpec, so the runner never learns which it got. Bounds
-are per dtype because that is what derivation produces: exp overflows at 88.5 in bf16
-and 88.67 in fp32, a distinction the registry's single constant could not express.
+Bounds are per dtype because that is what derivation produces: exp overflows at 88.5 in
+bf16 and 88.67 in fp32.
 """
 
 from __future__ import annotations
@@ -14,15 +13,8 @@ from math import isnan
 
 from ttnn_accuracy.domain.derive import DTYPES
 from ttnn_accuracy.ops import arity, introspect
-from ttnn_accuracy.ops.manifest import eltwise, load
-from ttnn_accuracy.ops.registry import (
-    EXCLUDED,
-    OVERRIDES,
-    bw_fn,
-    get_registry,
-    list_op_names,
-    variant_slug,
-)
+from ttnn_accuracy.ops.manifest import load
+from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, bw_fn, variant_slug
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,13 +31,10 @@ class OpSpec:
 
 @dataclass(frozen=True, slots=True)
 class OpInfo:
-    """What the report needs to describe an op, from whichever source knows it."""
+    """What the report needs to describe an op, straight from the manifest."""
 
     category: str
-    display_name: str
     operands: int
-    note: str
-    description: str
     bounds: dict[str, tuple[float, float]] | None
 
 
@@ -61,21 +50,7 @@ def _manifest() -> dict:
 
 @cache
 def describe(op_key: str) -> OpInfo | None:
-    """Metadata for a measured op, from whichever source defines it.
-
-    A registry op keeps the registry's own bounds — that is what its committed data was
-    measured with, and substituting derived bounds here would misdescribe it.
-    """
-    entry = get_registry().get(op_key)
-    if entry:
-        return OpInfo(
-            category=entry.category,
-            display_name=entry.display_name,
-            operands=2 if entry.category.startswith("binary") else 1,
-            note=entry.input_range.note,
-            description=entry.description,
-            bounds=dict.fromkeys(DTYPES, (entry.input_range.lo, entry.input_range.hi)),
-        )
+    """Metadata for a measured op, straight from the manifest."""
     manifest = _manifest()
     op = manifest["ops"].get(f"ttnn.{op_key}")
     if not op:
@@ -83,10 +58,7 @@ def describe(op_key: str) -> OpInfo | None:
     bounds = _bounds(manifest["domains"].get(f"ttnn.{op_key}"))
     return OpInfo(
         category=op["category"],
-        display_name=op["name"],
         operands=op["operands"],
-        note="",
-        description="",
         # Two operands are never derived, and the sweep covers everything — matching
         # _from_manifest so the page states the range the data was actually measured over.
         bounds=bounds or (UNBOUNDED if op["operands"] > 1 else None),
@@ -94,51 +66,15 @@ def describe(op_key: str) -> OpInfo | None:
 
 
 def params_desc(op_key: str, variant: str) -> str:
-    """The human-readable form of a variant slug. Manifest ops have only `default`."""
-    entry = get_registry().get(op_key)
-    if not entry:
-        return variant
-    return next(
-        (v.params_desc for v in entry.variants if variant_slug(v.params_desc) == variant),
-        variant,
-    )
+    """The human-readable form of a variant slug, recovered from the overrides table."""
+    for ov in OVERRIDES.get(f"ttnn.{op_key}", ()):
+        if variant_slug(ov.params_desc) == variant:
+            return ov.params_desc
+    return variant
 
 
 def resolve(
-    source: str, names: list[str] | None, category: str | None, arch: str = "wh"
-) -> tuple[list[OpSpec], list[str]]:
-    if source == "manifest":
-        return _from_manifest(names, category, arch)
-    return _from_registry(names or list_op_names(category=category))
-
-
-def _from_registry(names: list[str]) -> tuple[list[OpSpec], list[str]]:
-    registry = get_registry()
-    specs, problems = [], []
-    for name in names:
-        entry = registry.get(name)
-        if entry is None:
-            problems.append(f"unknown op: {name}")
-            continue
-        bounds = dict.fromkeys(DTYPES, (entry.input_range.lo, entry.input_range.hi))
-        specs += [
-            OpSpec(
-                name=entry.name,
-                variant=variant_slug(v.params_desc),
-                category=entry.category,
-                operands=2 if entry.category.startswith("binary") else 1,
-                ttnn_fn=v.ttnn_fn,
-                golden_fn=v.golden_fn,
-                bounds=bounds,
-                layouts=TILED,  # the registry predates layout discovery; its ops are all tiled
-            )
-            for v in entry.variants
-        ]
-    return specs, problems
-
-
-def _from_manifest(
-    names: list[str] | None, category: str | None, arch: str
+    names: list[str] | None, category: str | None, arch: str = "wh"
 ) -> tuple[list[OpSpec], list[str]]:
     """Every eltwise arity the sweeps can build operands for on this architecture."""
     specs, problems = [], []
@@ -147,7 +83,7 @@ def _from_manifest(
     layouts, rejected = manifest["layouts"].get(arch, {}), manifest["rejected"].get(arch, {})
     considered = set()
 
-    for qualified, entry in eltwise(manifest).items():
+    for qualified, entry in manifest["ops"].items():
         operands = entry["operands"]
         if wanted and entry["name"] not in wanted:
             continue
@@ -203,25 +139,21 @@ def _from_manifest(
 
 
 def _why_missing(manifest: dict, name: str, arch: str) -> str:
-    """Say which reason applies, rather than calling everything unknown."""
+    """Say which reason applies, rather than calling everything unknown.
+
+    The manifest holds only in-scope eltwise ops, so an absent name is answered from the
+    exclusion table and the recorded refusals before it is called unknown.
+    """
     qualified = f"ttnn.{name}"
-    op = manifest["ops"].get(qualified)
-    if op is None:
-        return f"unknown op: {name}"
     if why := EXCLUDED.get(qualified):
         return f"{qualified}: excluded — {why}"
+    if why := manifest["unprobeable"].get(qualified):
+        return f"{qualified}: golden refused the probe — {why}"
     if why := manifest["rejected"].get(arch, {}).get(qualified):
         return f"{qualified}: {arch} rejected every dtype and layout probed — {why}"
-    if op["elementwise"] is None:
-        why = manifest["unprobeable"].get(qualified) or "it was never classified"
-        return f"{qualified}: golden refused the probe — {why}"
-    if not op["elementwise"]:
-        return f"{qualified}: not elementwise — output depends on more than its own input"
-    if not op["real_valued"]:
-        return f"{qualified}: golden is not real-valued — ULP needs a real value to measure"
-    if not op["depends_on_input"]:
-        return f"{qualified}: output does not depend on its input — nothing to be accurate about"
-    return f"{qualified}: excluded by the category filter"
+    if qualified in manifest["ops"]:
+        return f"{qualified}: excluded by the category filter"
+    return f"unknown op: {name} — not eltwise, or ttnn does not register it"
 
 
 def _golden(golden: Callable, backward: bool, operands: int) -> Callable:

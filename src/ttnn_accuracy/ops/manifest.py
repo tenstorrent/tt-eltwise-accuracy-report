@@ -1,12 +1,12 @@
-"""The committed op manifest.
+"""The committed op manifest — eltwise ops only.
 
-`ops` is what ttnn reports and is rebuilt wholesale by `discover`, along with
-`unprobeable` — why each unclassifiable golden refused, learned from the same calls.
-Everything else is what the later stages learned by running goldens and calling the
-device: `domains` and its `refused` counterpart from derivation, `layouts` and its
-`rejected` counterpart from probing. Each costs far more than a rebuild and does not
-change when ttnn's op list does, so a rebuild keeps them for every op it did not see
-change.
+`ops` holds every ttnn op that classified as real-valued elementwise mathematics, rebuilt
+wholesale by `discover`, along with `unprobeable` — why each unclassifiable golden
+refused, learned from the same calls. Everything else is what the later stages learned by
+running goldens and calling the device: `domains` and its `refused` counterpart from
+derivation, `layouts` and its `rejected` counterpart from probing, per architecture. Each
+costs far more than a rebuild and does not change when ttnn's op list does, so a rebuild
+keeps them for every op it did not see change.
 
 Nothing here holds a timestamp: an unchanged ttnn must produce an unchanged file, so that
 a diff means ttnn changed.
@@ -22,29 +22,41 @@ from loguru import logger
 
 from ttnn_accuracy.domain.derive import DTYPES, derive
 from ttnn_accuracy.ops import arity, introspect
-from ttnn_accuracy.ops.registry import EXCLUDED, OVERRIDES, bw_fn
+from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, bw_fn
 from ttnn_accuracy.paths import MANIFEST_FILE
 
 
 def build(include_experimental: bool = False) -> dict:
-    """Facts from ttnn only. `domains` is filled by derive_domains, not here."""
+    """Eltwise facts only. `domains` is filled by derive_domains, not here.
+
+    The scope is eltwise, so an op that is not real-valued elementwise mathematics never
+    enters `ops` — matmuls, predicates, constant outputs and the excluded movers are
+    dropped at the door rather than stored with a flag. `unprobeable` keeps every
+    refusal: a golden that cannot be called might still be an eltwise op waiting for an
+    override, so those reasons are the queue for extending coverage.
+    """
     ops, unprobeable = {}, {}
     for op in introspect.discover(include_experimental):
         probe, why = arity.probe(op) if op.has_golden else (None, "")
         if why:
             unprobeable[op.qualified_name] = why
-        ops[op.qualified_name] = {
-            "name": op.name,
-            "category": arity.category(op),
-            "operands": arity.operands(op),
-            "elementwise": probe.elementwise if probe else None,
-            "real_valued": probe.real_valued if probe else None,
-            "depends_on_input": probe.depends_on_input if probe else None,
-            "has_golden": op.has_golden,
-            "signature": op.signature,
-            "is_cpp": op.is_cpp,
-            "is_experimental": op.is_experimental,
-        }
+        category = arity.category(op)
+        eltwise = (
+            probe
+            and probe.elementwise
+            and probe.real_valued
+            and probe.depends_on_input
+            and category
+        )
+        if eltwise and op.qualified_name not in EXCLUDED:
+            ops[op.qualified_name] = {
+                "name": op.name,
+                "category": category,
+                "operands": arity.operands(op),
+                "signature": op.signature,
+                "is_cpp": op.is_cpp,
+                "is_experimental": op.is_experimental,
+            }
     return {
         "ops": ops,
         "unprobeable": unprobeable,
@@ -89,43 +101,6 @@ def diff(old: dict, new: dict) -> tuple[list[str], list[str], list[str]]:
     return added, removed, changed
 
 
-def eltwise(manifest: dict) -> dict[str, dict]:
-    """The measurable subset: a real-valued elementwise golden that reads its input.
-
-    Excluded here rather than left to produce a meaningless number: `isnan` is elementwise
-    and unary, but ULP between two booleans is not a quantity, `zeros_like` would score a
-    flawless zero for an op that never looks at what it was given, and `clone` would score
-    one for an op that computes nothing.
-    """
-    return {
-        k: v
-        for k, v in manifest["ops"].items()
-        if v["elementwise"]
-        and v["category"]
-        and v["real_valued"]
-        and v["depends_on_input"]
-        and k not in EXCLUDED
-    }
-
-
-def predicates(manifest: dict) -> list[str]:
-    """Elementwise ops excluded only because their golden returns bool."""
-    return sorted(
-        k
-        for k, v in manifest["ops"].items()
-        if v["elementwise"] and v["category"] and not v["real_valued"]
-    )
-
-
-def constants(manifest: dict) -> list[str]:
-    """Elementwise ops excluded only because their output ignores their input."""
-    return sorted(
-        k
-        for k, v in manifest["ops"].items()
-        if v["elementwise"] and v["category"] and v["real_valued"] and not v["depends_on_input"]
-    )
-
-
 def _single_axis(golden, backward: bool, x):
     return arity.call_golden(golden, [x], backward)
 
@@ -142,7 +117,7 @@ def derive_domains() -> int:
     # a golden that now refuses would leave the op with bounds and a refusal at once.
     manifest["domains"], manifest["refused"] = {}, {}
 
-    for name, entry in eltwise(manifest).items():
+    for name, entry in manifest["ops"].items():
         if entry["operands"] != 1:
             continue  # binary and ternary need an operand grid, not a single axis
         op = discovered[name]
@@ -178,7 +153,7 @@ def probe_layouts(device_id: int = 0) -> int:
     from ttnn_accuracy.measure.sweeps import capabilities
 
     manifest = load()
-    ops = eltwise(manifest)
+    ops = manifest["ops"]
 
     with open_device(device_id) as device:
         # Keyed by the architecture actually probed: `softcap` exists only on Blackhole,
@@ -228,18 +203,10 @@ def discover(include_experimental: bool = False) -> int:
         }
     save(new)
 
-    counts = Counter(entry["category"] for entry in eltwise(new).values())
+    counts = Counter(entry["category"] for entry in new["ops"].values())
 
-    logger.success("{} ttnn ops → {}", len(new["ops"]), MANIFEST_FILE)
-    logger.info("eltwise: {} — {}", sum(counts.values()), dict(sorted(counts.items())))
-    for label, names in (
-        ("predicates excluded, ULP needs a real value", predicates(new)),
-        ("excluded, their output ignores their input", constants(new)),
-    ):
-        if names:
-            logger.info(
-                "{} {}: {}", len(names), label, ", ".join(n.rsplit(".", 1)[-1] for n in names)
-            )
+    logger.success("{} eltwise ops → {}", len(new["ops"]), MANIFEST_FILE)
+    logger.info("{}", dict(sorted(counts.items())))
     if new["unprobeable"]:
         logger.info(
             "{} goldens refused the probe — each reason recorded under `unprobeable`",

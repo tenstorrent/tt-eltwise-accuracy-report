@@ -1,9 +1,8 @@
-"""Every exclusion the manifest records must keep the op out of the plan.
+"""Exclusions must keep an op out of the plan, and naming it must return the reason.
 
 Three times a stage has written an exclusion the planner never read — the `outcome`
 column, the `sampled` column, and `rejected`, whose ops were swept anyway and failed one
-by one on the device. Lint and the rest of the suite passed through all three, because
-nothing asserted that the two halves agree. These cases do.
+by one on the device. These cases assert the two halves agree.
 """
 
 from __future__ import annotations
@@ -12,47 +11,47 @@ import pytest
 
 from ttnn_accuracy.ops import plan
 
-MEASURABLE = {
+EXP = {
     "name": "exp",
     "category": "unary",
     "operands": 1,
-    "elementwise": True,
-    "real_valued": True,
-    "depends_on_input": True,
-    "has_golden": True,
     "signature": None,
     "is_cpp": True,
     "is_experimental": False,
 }
 
 
-def _manifest(op_changes: dict, rejected: dict) -> dict:
+def _manifest(rejected: dict | None = None, unprobeable: dict | None = None) -> dict:
     return {
-        "ops": {"ttnn.exp": MEASURABLE | op_changes},
-        "unprobeable": {},
-        "domains": {"ttnn.exp": {d: [0.0, 1.0] for d in ("bf16", "fp32")}},
+        "ops": {"ttnn.exp": dict(EXP)},
+        "unprobeable": unprobeable or {},
+        "domains": {"ttnn.exp": {d: {"lo": 0.0, "hi": 1.0} for d in ("bf16", "fp32")}},
         "refused": {},
         "layouts": {},
-        "rejected": {"wh": rejected},
+        "rejected": {"wh": rejected or {}},
     }
 
 
-@pytest.mark.parametrize(
-    ("op_changes", "rejected", "expected"),
-    [
-        ({"elementwise": False}, {}, "not elementwise"),
-        ({"real_valued": False}, {}, "not real-valued"),
-        ({"depends_on_input": False}, {}, "does not depend on its input"),
-        ({"elementwise": None}, {}, "never classified"),
-        ({}, {"ttnn.exp": "TT_FATAL: only rank-4"}, "rejected every dtype and layout"),
-    ],
-)
-def test_an_excluded_op_never_reaches_the_plan(monkeypatch, op_changes, rejected, expected):
-    manifest = _manifest(op_changes, rejected)
+def test_a_device_rejected_op_never_reaches_the_plan(monkeypatch):
+    manifest = _manifest(rejected={"ttnn.exp": "TT_FATAL: only rank-4"})
     monkeypatch.setattr(plan, "_manifest", lambda: manifest)
-
-    specs, _ = plan.resolve("manifest", None, "unary", "wh")
+    specs, _ = plan.resolve(None, "unary", "wh")
     assert specs == []
 
-    # Naming it explicitly must still say why, rather than calling it unknown.
-    assert expected in plan._why_missing(manifest, "exp", "wh")
+
+@pytest.mark.parametrize(
+    ("name", "manifest", "expected"),
+    [
+        ("clone", _manifest(), "excluded — moves data"),
+        (
+            "conv2d",
+            _manifest(unprobeable={"ttnn.conv2d": "TypeError: reshape()"}),
+            "refused the probe",
+        ),
+        ("exp", _manifest(rejected={"ttnn.exp": "TT_FATAL"}), "rejected every dtype"),
+        ("exp", _manifest(), "category filter"),
+        ("matmul", _manifest(), "unknown op"),
+    ],
+)
+def test_a_missing_op_is_answered_with_its_recorded_reason(name, manifest, expected):
+    assert expected in plan._why_missing(manifest, name, "wh")

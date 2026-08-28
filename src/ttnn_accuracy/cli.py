@@ -31,12 +31,6 @@ def build_parser() -> argparse.ArgumentParser:
     measure.add_argument("--dtype", default="bf16", choices=["bf16", "fp32", "both"])
     measure.add_argument("--output-dir", type=Path, default=DATA_DIR)
     measure.add_argument("--device-id", type=int, default=0)
-    measure.add_argument(
-        "--source",
-        default="manifest",
-        choices=["manifest", "registry"],
-        help="where op definitions and bounds come from",
-    )
 
     charts = sub.add_parser("charts", help="render SVG charts from measured data")
     charts.add_argument("--arch")
@@ -81,7 +75,7 @@ def main(argv: list[str] | None = None) -> int:
             from ttnn_accuracy.ops import plan
 
             names = None if args.ops == "all" else [o.strip() for o in args.ops.split(",")]
-            specs, problems = plan.resolve(args.source, names, args.category, args.arch)
+            specs, problems = plan.resolve(names, args.category, args.arch)
             for problem in problems:
                 logger.error(problem)
             if not specs:

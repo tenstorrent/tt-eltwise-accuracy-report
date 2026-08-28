@@ -3,14 +3,13 @@
 Source of truth for what pages exist: reports/charts/{arch}/{dtype}/*.svg
 Source of truth for summary stats:    report_index.json
 
-Ops that share a display_name (e.g. celu_alpha0p5/1p0/2p0 all display as "celu")
-are grouped onto a single page with one section per parameter set.
+An op's variants (exp default and fast_approx) share one page, one section per
+parameter set.
 """
 
 from __future__ import annotations
 
 import json
-import shutil
 from collections import defaultdict
 from datetime import datetime
 from functools import cache
@@ -21,7 +20,6 @@ from loguru import logger
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
 from ttnn_accuracy.measure.sweeps import SAMPLED
 from ttnn_accuracy.ops.plan import describe, params_desc
-from ttnn_accuracy.ops.registry import get_registry
 from ttnn_accuracy.paths import CHARTS_DIR, INDEX_FILE, REPO_ROOT, REPORTS_DIR
 from ttnn_accuracy.report.charts import RUNS_KEY
 
@@ -45,21 +43,6 @@ def _get_index() -> dict:
 def get_op_category(op_key: str) -> str:
     e = describe(op_key)
     return e.category if e else "unknown"
-
-
-def get_display_name(op_key: str) -> str:
-    e = describe(op_key)
-    return e.display_name if e else op_key
-
-
-def get_op_note(op_key: str) -> str:
-    e = describe(op_key)
-    return e.note if e else ""
-
-
-def get_op_description(op_key: str) -> str:
-    e = describe(op_key)
-    return e.description if e else ""
 
 
 def load_summary(arch: str, dtype: str, op_key: str, variant: str) -> dict | None:
@@ -111,7 +94,7 @@ def discover_ops(categories: list[str] | None = None) -> dict:
             result[arch][dtype] = {}
             for op_key, variants_dict in sorted(_get_index().get(arch, {}).get(dtype, {}).items()):
                 if not describe(op_key):
-                    logger.warning("{} is measured but neither source defines it", op_key)
+                    logger.warning("{} is measured but the manifest does not define it", op_key)
                     continue
                 if categories and get_op_category(op_key) not in categories:
                     continue
@@ -126,14 +109,11 @@ def discover_ops(categories: list[str] | None = None) -> dict:
 
 
 def group_by_display(ops: dict[str, list[str]]) -> dict[str, list[tuple[str, str]]]:
-    """Group {op_key: [variants]} by display_name.
-    Returns {display_name: [(op_key, variant), ...]} sorted by params_desc.
-    """
+    """{op_key: [(op_key, variant), ...]} with variants sorted by params_desc."""
     groups: dict[str, list[tuple[str, str]]] = defaultdict(list)
     for op_key, variants in ops.items():
-        display = get_display_name(op_key)
         for v in variants:
-            groups[display].append((op_key, v))
+            groups[op_key].append((op_key, v))
     return {
         d: sorted(entries, key=lambda e: params_desc(e[0], e[1]))
         for d, entries in sorted(groups.items())
@@ -227,21 +207,12 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
     """
     page_path = REPORTS_DIR / "by_arch" / arch / dtype / f"{display_name}.md"
 
-    # Only show a note or description the whole group agrees on — per-variant text is
-    # already visible in the params table.
-    notes = {get_op_note(k) for k, _ in entries}
-    descs = {get_op_description(k) for k, _ in entries}
-
     lines = [
         f"# {display_name} — {ARCH_DISPLAY.get(arch, arch)}, {DTYPE_DISPLAY.get(dtype, dtype)}\n",
         GENERATED_NOTE,
         f"**Architecture:** {ARCH_DISPLAY.get(arch, arch)}  \n",
         f"**Data type:** {DTYPE_DISPLAY.get(dtype, dtype)}  \n",
     ]
-    if len(notes) == 1 and (note := notes.pop()):
-        lines.append(f"**Valid domain:** {note}  \n")
-    if len(descs) == 1 and (desc := descs.pop()):
-        lines.append(f"**Notes:** {desc}  \n")
     lines.append("\n---\n\n")
     lines.append(
         f"[← {ARCH_DISPLAY.get(arch, arch)} {DTYPE_DISPLAY.get(dtype, dtype)} ops](README.md) | "
@@ -397,19 +368,11 @@ def op_cross_arch_page(display_name: str, data: dict) -> str:
     # (arch, dtype, op_key, variant) — display_name comes from this same data, so never empty.
     all_entries = [(a, d, k, v) for (a, d), g in groups.items() for k, v in g]
 
-    # Notes and description are op-level, so any op_key on this page will do.
-    note = get_op_note(all_entries[0][2])
-    desc = get_op_description(all_entries[0][2])
-
     lines = [
         f"# `{display_name}` — All Architectures & Data Types\n",
         GENERATED_NOTE,
         "[← All ops](../README.md) | [Top](../../README.md)\n\n",
     ]
-    if note:
-        lines.append(f"**Valid domain:** {note}  \n")
-    if desc:
-        lines.append(f"**Notes:** {desc}  \n")
     lines.append("\n")
 
     all_params = sorted(
@@ -637,21 +600,6 @@ def generate_reports(arch_filter=None, dtype_filter=None, categories=None) -> in
     write(REPORTS_DIR / "by_dtype" / "README.md", dtype_list_index(data))
     for dtype in dtypes:
         write(REPORTS_DIR / "by_dtype" / dtype / "README.md", dtype_index(dtype, data))
-
-    # Registry-only concern: ops whose display_name differs from their op_key had a page
-    # under the op_key before grouping, now covered by the display_name page.
-    stale = {k for k in get_registry() if get_display_name(k) != k}
-    for arch in archs:
-        for dtype in dtypes:
-            for md in sorted((REPORTS_DIR / "by_arch" / arch / dtype).glob("*.md")):
-                if md.stem in stale:
-                    md.unlink()
-                    logger.info("removed stale {}", md.relative_to(REPO_ROOT))
-
-    for op_dir in sorted((REPORTS_DIR / "by_op").iterdir()):
-        if op_dir.is_dir() and op_dir.name in stale:
-            shutil.rmtree(op_dir)
-            logger.info("removed stale {}/", op_dir.relative_to(REPO_ROOT))
 
     logger.success("report tree regenerated")
     return 0
