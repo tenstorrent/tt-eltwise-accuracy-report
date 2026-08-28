@@ -81,7 +81,7 @@ def main(argv: list[str] | None = None) -> int:
             from ttnn_accuracy.ops import plan
 
             names = None if args.ops == "all" else [o.strip() for o in args.ops.split(",")]
-            specs, problems = plan.resolve(args.source, names, args.category)
+            specs, problems = plan.resolve(args.source, names, args.category, args.arch)
             for problem in problems:
                 logger.error(problem)
             if not specs:

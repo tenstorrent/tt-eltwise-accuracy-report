@@ -19,6 +19,10 @@ from ttnn_accuracy.measure.metrics import MIN_NORMAL
 
 TILE_WIDTH = 2**7
 FP32_BLOCK = 2**6 * 2**9 * TILE_WIDTH
+# Worst-of-group per CSV row. At 128 an exhaustive fp32 op writes 25M rows and 1.7GB —
+# ~270GB for the catalog, and a chart that plots them all. 2**16 keeps the max exact,
+# costs only mean granularity, and makes an fp32 op the same weight as a bf16 one.
+FP32_GROUP = 2**16
 B_CHUNK = 2**7  # second operands per dispatch, matching ttnn-eltwise-op-tester's batch
 TERNARY_STRIDE = 2**9  # keeps a 3-operand sweep the same size as a 2-operand one
 FP32_SAMPLE_SEED = 0  # fixed: the fp32 pair sample must not move between releases
@@ -110,6 +114,34 @@ def capabilities(ttnn_fn: Callable, operands: int, device) -> tuple[dict[str, st
     return found, why
 
 
+SPECIAL_VALUES = (0.0, -0.0, float("inf"), float("-inf"), float("nan"), MIN_NORMAL, -MIN_NORMAL)
+
+
+def specials(ttnn_fn, golden_fn, operands: int, dtype: str, layout: str, device) -> pd.DataFrame:
+    """The op at the values every sweep filters out, with ones in the other operands.
+
+    Domain filtering drops ±inf, NaN and the sign of zero before any sweep runs, yet those
+    are exactly where kernels and goldens part company. The rows carry no ULP — the
+    distance between two infinities is not a quantity — and the `special` outcome keeps
+    them out of every statistic; the page prints them as they are.
+    """
+    x = torch.tensor(SPECIAL_VALUES, dtype=getattr(torch, DTYPE[dtype]))
+    tiled = [_tile(t) for t in (x, *[torch.ones_like(x)] * (operands - 1))]
+    y_ref = _golden(golden_fn, *tiled)
+    y = _on_device(ttnn_fn, *tiled, dtype=dtype, layout=layout, device=device)
+    k = len(SPECIAL_VALUES)
+    return pd.DataFrame(
+        {
+            "x": np.array(SPECIAL_VALUES, dtype=np.float32),
+            "y": y.flatten()[:k].to(torch.float32).numpy(),
+            "y_ref": y_ref.flatten()[:k].to(torch.float32).numpy(),
+            "ulp_error": np.nan,
+            "abs_error": np.nan,
+            "outcome": "special",
+        }
+    )
+
+
 def sweep_bf16(
     ttnn_fn, golden_fn, device, lo: float, hi: float, layout: str
 ) -> pd.DataFrame | None:
@@ -143,13 +175,17 @@ def sweep_fp32(
         codes += FP32_BLOCK
         if not x.numel():
             continue
+        # Same acceptance _tile gives at tile width: repeats of a real input inside the
+        # final group, which cannot move a worst-of-group row.
+        if pad := -x.numel() % FP32_GROUP:
+            x = torch.cat([x, x[-1].expand(pad)])
         x = _tile(x)
         frames.append(
             metrics.compare(
                 x,
                 _golden(golden_fn, x),
                 _on_device(ttnn_fn, x, dtype="fp32", layout=layout, device=device),
-                group_size=TILE_WIDTH,
+                group_size=FP32_GROUP,
             )
         )
         logger.debug("fp32 block {}/{}", i + 1, blocks)
@@ -245,16 +281,13 @@ def sweep_binary_fp32(
     return _sweep_pairs(ttnn_fn, golden_fn, device, _fp32_sample(lo, hi), "fp32", layout)
 
 
-def sweep_ternary_bf16(
-    ttnn_fn, golden_fn, device, lo: float, hi: float, layout: str
-) -> pd.DataFrame | None:
-    """Exhaustive in the first operand, strided in the other two.
+def _sweep_triples(ttnn_fn, golden_fn, device, values, dtype, layout) -> pd.DataFrame | None:
+    """Every value in the first operand, every TERNARY_STRIDE-th in the other two.
 
-    65536³ is 2.8e14 points, so the second and third operands take every TERNARY_STRIDE-th
-    bf16 code instead of all of them. The stride is uniform over the code space, so it
-    samples every exponent rather than clustering near zero.
+    A full triple space is values³ — 2.8e14 even for bf16 — so the second and third
+    operands stride the value set instead of exhausting it. The stride is uniform over
+    the code space, so it samples every exponent rather than clustering near zero.
     """
-    values = _bf16_values(lo, hi)
     n = values.numel()
     if not n:
         return None
@@ -267,16 +300,32 @@ def sweep_ternary_bf16(
         for c in sampled:
             yield rows, [a, b, c.expand(rows * n)]
 
-    return _multi_operand(ttnn_fn, golden_fn, device, values, batches(), rows, "bf16", layout)
+    return _multi_operand(ttnn_fn, golden_fn, device, values, batches(), rows, dtype, layout)
+
+
+def sweep_ternary_bf16(
+    ttnn_fn, golden_fn, device, lo: float, hi: float, layout: str
+) -> pd.DataFrame | None:
+    return _sweep_triples(ttnn_fn, golden_fn, device, _bf16_values(lo, hi), "bf16", layout)
+
+
+def sweep_ternary_fp32(
+    ttnn_fn, golden_fn, device, lo: float, hi: float, layout: str
+) -> pd.DataFrame | None:
+    return _sweep_triples(ttnn_fn, golden_fn, device, _fp32_sample(lo, hi), "fp32", layout)
 
 
 # Sweeps that do not cover their whole input space, and how each one samples. A single
-# count cannot describe both: the ternary sweep leaves its first operand exhaustive.
+# count cannot describe both: the bf16 ternary sweep leaves its first operand exhaustive.
 SAMPLED = {
     (2, "fp32"): "both operands take 65,536 of the 2³² fp32 values, drawn once from a fixed seed",
     (3, "bf16"): (
         f"the first operand is exhaustive; the second and third take every "
         f"{TERNARY_STRIDE}th bf16 code, {2**16 // TERNARY_STRIDE} values each"
+    ),
+    (3, "fp32"): (
+        f"the first operand takes 65,536 of the 2³² fp32 values, drawn once from a fixed "
+        f"seed; the second and third take every {TERNARY_STRIDE}th of that sample"
     ),
 }
 
@@ -286,4 +335,5 @@ SWEEPS = {
     (2, "bf16"): sweep_binary_bf16,
     (2, "fp32"): sweep_binary_fp32,
     (3, "bf16"): sweep_ternary_bf16,
+    (3, "fp32"): sweep_ternary_fp32,
 }

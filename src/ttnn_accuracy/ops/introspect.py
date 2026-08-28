@@ -10,6 +10,9 @@ from __future__ import annotations
 import inspect
 from collections.abc import Callable
 from dataclasses import dataclass
+from functools import partial
+
+from ttnn_accuracy.ops.registry import OVERRIDES
 
 
 def resolve(qualified_name: str):
@@ -63,18 +66,28 @@ def discover(include_experimental: bool = False) -> list[DiscoveredOp]:
     for op in ttnn.decorators.query_registered_operations(include_experimental):
         qualified = op.python_fully_qualified_name
         name = qualified.rsplit(".", 1)[-1]
-        signature, required = _signature(op.golden_function) if op.golden_function else (None, None)
+        golden = op.golden_function
+        # Bound here, before the signature is read, so a bound scalar stops counting as
+        # an operand and the op classifies by what the sweep will actually vary. Variants
+        # of one op share arity and domain, so the first speaks for all of them. A
+        # replacement golden also serves ops upstream never gave one — `divide` is
+        # elementwise mathematics whether or not ttnn attached a reference to it.
+        if variants := OVERRIDES.get(qualified):
+            ov = variants[0]
+            if ov.golden or golden is not None:
+                golden = ov.golden or partial(golden, **ov.golden_kwargs)
+        signature, required = _signature(golden) if golden else (None, None)
         found.append(
             DiscoveredOp(
                 name=name,
                 qualified_name=qualified,
-                has_golden=op.golden_function is not None,
+                has_golden=golden is not None,
                 signature=signature,
                 required_args=required,
                 is_backward=name.endswith("_bw"),
                 is_cpp=op.is_cpp_operation,
                 is_experimental=op.is_experimental,
-                golden=op.golden_function,
+                golden=golden,
             )
         )
     return sorted(found, key=lambda o: o.qualified_name)

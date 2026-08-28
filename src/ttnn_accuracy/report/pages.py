@@ -153,6 +153,28 @@ def write(path: Path, content: str):
     logger.info("wrote {}", path.relative_to(REPO_ROOT))
 
 
+def _specials_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """Raw outputs at ±0, ±inf, NaN and the smallest normals, device beside golden.
+
+    No ULP exists at these points, so agreement is shown as equality of the printed
+    values — which is the question a user of the op actually has there.
+    """
+    rows = []
+    for op_key, variant in entries:
+        summary = load_summary(arch, dtype, op_key, variant)
+        for r in (summary or {}).get("specials", []):
+            mark = "agree" if r["y"] == r["y_ref"] else "**differ**"
+            rows.append(
+                f"| `{params_desc(op_key, variant)}` | {r['x']} | {r['y']} | {r['y_ref']} | {mark} |\n"
+            )
+    if not rows:
+        return ""
+    return (
+        "### Special values\n\n"
+        "| Variant | x | device | golden | |\n|---|---|---|---|---|\n" + "".join(rows) + "\n"
+    )
+
+
 def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
     """What each measured point demonstrated. Only `exact` and `inexact` carry a ULP."""
     counted = [(k, v, load_summary(arch, dtype, k, v)) for k, v in entries]
@@ -251,6 +273,7 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
 
     lines.append("\n")
     lines.append(_outcome_table(arch, dtype, entries))
+    lines.append(_specials_table(arch, dtype, entries))
     lines.append(_sampling_note(dtype, entries))
     lines.append(_provenance(arch, dtype, entries))
 

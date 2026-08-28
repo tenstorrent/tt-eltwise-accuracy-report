@@ -342,6 +342,42 @@
         "n_valid": 258515
       }
     },
+    "ttnn.clamp": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.clip": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.clone": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
@@ -1026,6 +1062,24 @@
         "n_valid": 260097
       }
     },
+    "ttnn.heaviside": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.i0": {
       "bf16": {
         "hi": 91.5,
@@ -1548,6 +1602,78 @@
         "n_valid": 260097
       }
     },
+    "ttnn.polygamma": {
+      "bf16": {
+        "hi": 8.507059173023462e+37,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 255,
+        "n_overflow": 15876,
+        "n_undefined": 0,
+        "n_valid": 48895
+      },
+      "fp32": {
+        "hi": 8.507059173023462e+37,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1023,
+        "n_overflow": 63491,
+        "n_undefined": 0,
+        "n_valid": 195583
+      }
+    },
+    "ttnn.polygamma_bw": {
+      "bf16": {
+        "hi": 9.223372036854776e+18,
+        "lo": -127.5,
+        "n_flushed": 8319,
+        "n_overflow": 37017,
+        "n_undefined": 0,
+        "n_valid": 19690
+      },
+      "fp32": {
+        "hi": 9.223372036854776e+18,
+        "lo": -8388607.5,
+        "n_flushed": 33279,
+        "n_overflow": 139890,
+        "n_undefined": 0,
+        "n_valid": 86928
+      }
+    },
+    "ttnn.pow_bw": {
+      "bf16": {
+        "hi": 1.6947656946257677e+38,
+        "lo": 0.0,
+        "n_flushed": 0,
+        "n_overflow": 32640,
+        "n_undefined": 0,
+        "n_valid": 32386
+      },
+      "fp32": {
+        "hi": 1.7014117331926443e+38,
+        "lo": 0.0,
+        "n_flushed": 0,
+        "n_overflow": 130560,
+        "n_undefined": 0,
+        "n_valid": 129537
+      }
+    },
+    "ttnn.prelu": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 256,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 64770
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1024,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 259073
+      }
+    },
     "ttnn.rad2deg": {
       "bf16": {
         "hi": 5.898449231295564e+36,
@@ -1564,6 +1690,42 @@
         "n_overflow": 6024,
         "n_undefined": 0,
         "n_valid": 254073
+      }
+    },
+    "ttnn.rdiv": {
+      "bf16": {
+        "hi": 1.7014118346046923e+38,
+        "lo": -1.7014118346046923e+38,
+        "n_flushed": 254,
+        "n_overflow": 2,
+        "n_undefined": 0,
+        "n_valid": 64770
+      },
+      "fp32": {
+        "hi": 1.7014118346046923e+38,
+        "lo": -1.7014118346046923e+38,
+        "n_flushed": 1022,
+        "n_overflow": 1,
+        "n_undefined": 0,
+        "n_valid": 259074
+      }
+    },
+    "ttnn.rdiv_bw": {
+      "bf16": {
+        "hi": 1.3042424520864956e+19,
+        "lo": -1.3042424520864956e+19,
+        "n_flushed": 16532,
+        "n_overflow": 15982,
+        "n_undefined": 0,
+        "n_valid": 32512
+      },
+      "fp32": {
+        "hi": 1.3031847219005751e+19,
+        "lo": -1.3031847219005751e+19,
+        "n_flushed": 66136,
+        "n_overflow": 63913,
+        "n_undefined": 0,
+        "n_valid": 130048
       }
     },
     "ttnn.real": {
@@ -1710,6 +1872,42 @@
         "n_valid": 260097
       }
     },
+    "ttnn.relu_max": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.relu_min": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.reshard": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
@@ -1744,6 +1942,42 @@
         "n_overflow": 0,
         "n_undefined": 0,
         "n_valid": 260097
+      }
+    },
+    "ttnn.rpow": {
+      "bf16": {
+        "hi": 127.5,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 394,
+        "n_overflow": 15488,
+        "n_undefined": 0,
+        "n_valid": 49144
+      },
+      "fp32": {
+        "hi": 127.99999237060547,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 1578,
+        "n_overflow": 61952,
+        "n_undefined": 0,
+        "n_valid": 196567
+      }
+    },
+    "ttnn.rpow_bw": {
+      "bf16": {
+        "hi": 1.6947656946257677e+38,
+        "lo": -1.6947656946257677e+38,
+        "n_flushed": 0,
+        "n_overflow": 256,
+        "n_undefined": 0,
+        "n_valid": 64770
+      },
+      "fp32": {
+        "hi": 1.7014117331926443e+38,
+        "lo": -1.7014117331926443e+38,
+        "n_flushed": 0,
+        "n_overflow": 1024,
+        "n_undefined": 0,
+        "n_valid": 259073
       }
     },
     "ttnn.rsqrt": {
@@ -2014,6 +2248,24 @@
         "n_overflow": 124522,
         "n_undefined": 0,
         "n_valid": 135575
+      }
+    },
+    "ttnn.softcap": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 2,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65024
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 2,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260095
       }
     },
     "ttnn.softplus": {
@@ -2340,6 +2592,24 @@
         "n_valid": 260097
       }
     },
+    "ttnn.threshold": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.tilize": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
@@ -2540,741 +2810,815 @@
     }
   },
   "layouts": {
-    "ttnn.abs": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.abs_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.acos": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.acos_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.acosh": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.acosh_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.add": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.add_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.addcdiv": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.addcmul": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.asin": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.asin_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.asinh": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.asinh_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.atan": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.atan2": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.atan2_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.atan_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.atanh": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.atanh_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.bias_gelu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.bias_gelu_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.bias_gelu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.cbrt": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.ceil": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.celu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.celu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.clamp_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.clip_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.clone": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.cos": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.cos_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.cosh": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.cosh_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.deg2rad": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.digamma": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.digamma_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.div": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.div_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.div_no_nan": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.divide_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.elu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.elu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.erf": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.erf_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.erfc": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.erfc_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.erfinv": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.erfinv_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.exp": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.exp2": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.exp2_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.exp_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.expm1": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.expm1_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.floor": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.floor_div": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.fmod": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.frac": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.from_device": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.ge_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.gelu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.gelu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.gt_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardmish": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardshrink": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardshrink_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardsigmoid": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardsigmoid_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardswish": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardswish_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardtanh": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hardtanh_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hypot": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.hypot_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.i0": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.i0_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.i1": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.identity": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.l1_loss": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.ldexp": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.ldexp_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.ldexp_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.le_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.leaky_relu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.lerp": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.lerp_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.lgamma": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.lgamma_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log10": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log10_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log1p": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log1p_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log2": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log2_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log_sigmoid": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.log_sigmoid_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logaddexp": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logaddexp2": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logaddexp2_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logaddexp2_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logaddexp_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logaddexp_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logical_not_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logical_xor_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logit": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logit_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.logiteps_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.lt_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.mac": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.max_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.maximum": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.min_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.minimum": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.mish": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.move": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.mse_loss": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.mul_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.multigammaln": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.multigammaln_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.multiply": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.multiply_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.neg": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.nextafter": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.pow": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.rad2deg": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.reallocate": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.reciprocal": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.reciprocal_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.relu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.relu6": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.relu6_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.relu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.remainder": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.round": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.rsqrt": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.rsqrt_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.rsub": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.rsub_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.selu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.selu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sharded_to_interleaved": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sigmoid": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sigmoid_accurate": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sigmoid_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sign": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.silu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.silu_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sin": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sin_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sinh": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sinh_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.softplus": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.softplus_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.softshrink": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.softshrink_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.softsign": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.softsign_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sqrt": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.sqrt_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.square": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.square_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.squared_difference": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.squared_difference_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.squared_difference_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.squeeze": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.subtract": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.subtract_": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.swish": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.tan": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.tan_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.tanh": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.tanh_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.tanhshrink": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.tanhshrink_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.tilize": {
-      "bf16": "row_major",
-      "fp32": "row_major"
-    },
-    "ttnn.tilize_with_zero_padding": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.trunc": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.untilize": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.xielu": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.xlogy": {
-      "bf16": "tile",
-      "fp32": "tile"
-    },
-    "ttnn.xlogy_bw": {
-      "bf16": "tile",
-      "fp32": "tile"
+    "wh": {
+      "ttnn.abs": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.abs_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.acos": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.acos_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.acosh": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.acosh_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.add": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.add_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.addalpha": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.addcdiv": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.addcmul": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.asin": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.asin_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.asinh": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.asinh_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.atan": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.atan2": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.atan2_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.atan_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.atanh": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.atanh_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.bias_gelu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.bias_gelu_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.bias_gelu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.cbrt": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.ceil": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.celu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.celu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.clamp": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.clamp_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.clip": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.clip_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.clone": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.cos": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.cos_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.cosh": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.cosh_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.deg2rad": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.digamma": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.digamma_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.div": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.div_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.div_no_nan": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.divide_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.elu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.elu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.erf": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.erf_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.erfc": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.erfc_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.erfinv": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.erfinv_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.exp": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.exp2": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.exp2_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.exp_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.expm1": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.expm1_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.floor": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.floor_div": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.fmod": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.frac": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.from_device": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.ge_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.gelu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.gelu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.gt_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardmish": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardshrink": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardshrink_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardsigmoid": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardsigmoid_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardswish": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardswish_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardtanh": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hardtanh_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.heaviside": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hypot": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.hypot_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.i0": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.i0_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.i1": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.identity": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.l1_loss": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.ldexp": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.ldexp_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.ldexp_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.le_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.leaky_relu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.leaky_relu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.lerp": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.lerp_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.lgamma": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.lgamma_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log10": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log10_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log1p": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log1p_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log2": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log2_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log_sigmoid": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.log_sigmoid_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logaddexp": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logaddexp2": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logaddexp2_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logaddexp2_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logaddexp_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logaddexp_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logical_not_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logical_xor_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logit": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logit_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.logiteps_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.lt_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.mac": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.max_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.maximum": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.min_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.minimum": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.mish": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.move": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.mse_loss": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.mul_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.multigammaln": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.multigammaln_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.multiply": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.multiply_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.neg": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.nextafter": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.polygamma": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.polygamma_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.pow": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.pow_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.prelu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rad2deg": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rdiv": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rdiv_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.reallocate": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.reciprocal": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.reciprocal_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.relu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.relu6": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.relu6_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.relu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.relu_max": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.relu_min": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.remainder": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.round": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rpow": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rpow_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rsqrt": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rsqrt_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rsub": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.rsub_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.selu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.selu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sharded_to_interleaved": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sigmoid": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sigmoid_accurate": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sigmoid_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sign": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.silu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.silu_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sin": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sin_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sinh": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sinh_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.softplus": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.softplus_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.softshrink": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.softshrink_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.softsign": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.softsign_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sqrt": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.sqrt_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.square": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.square_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.squared_difference": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.squared_difference_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.squared_difference_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.squeeze": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.subalpha": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.subtract": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.subtract_": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.swish": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.tan": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.tan_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.tanh": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.tanh_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.tanhshrink": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.tanhshrink_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.threshold": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.tilize": {
+        "bf16": "row_major",
+        "fp32": "row_major"
+      },
+      "ttnn.tilize_with_zero_padding": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.trunc": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.untilize": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.where": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.xielu": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.xlogy": {
+        "bf16": "tile",
+        "fp32": "tile"
+      },
+      "ttnn.xlogy_bw": {
+        "bf16": "tile",
+        "fp32": "tile"
+      }
     }
   },
   "ops": {
@@ -3411,16 +3755,16 @@
       "signature": "(grad, a, b, *args, **kwargs)"
     },
     "ttnn.addalpha": {
-      "category": "ternary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "binary",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "addalpha",
-      "operands": 3,
-      "real_valued": null,
-      "signature": "(input_tensor_a, input_tensor_b, alpha, *args, **kwargs)"
+      "operands": 2,
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *, alpha=2.0, **kwargs)"
     },
     "ttnn.addalpha_bw": {
       "category": "binary_bw",
@@ -3447,16 +3791,16 @@
       "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, value=1, **kwargs)"
     },
     "ttnn.addcdiv_bw": {
-      "category": null,
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "ternary_bw",
+      "depends_on_input": false,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "addcdiv_bw",
-      "operands": 4,
-      "real_valued": null,
-      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, value, *args, **kwargs)"
+      "operands": 3,
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, *, value=1.0, **kwargs)"
     },
     "ttnn.addcmul": {
       "category": "ternary",
@@ -3471,16 +3815,16 @@
       "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, value=1, **kwargs)"
     },
     "ttnn.addcmul_bw": {
-      "category": null,
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "ternary_bw",
+      "depends_on_input": false,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "addcmul_bw",
-      "operands": 4,
-      "real_valued": null,
-      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, value, *args, **kwargs)"
+      "operands": 3,
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, tensor1_tensor, tensor2_tensor, *, value=1.0, **kwargs)"
     },
     "ttnn.addmm": {
       "category": "ternary",
@@ -4048,15 +4392,15 @@
     },
     "ttnn.clamp": {
       "category": "unary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "clamp",
       "operands": 1,
-      "real_valued": null,
-      "signature": "(input_tensor_a, min=None, max=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *, min=-1.0, max=1.0, **kwargs)"
     },
     "ttnn.clamp_bw": {
       "category": "ternary_bw",
@@ -4072,15 +4416,15 @@
     },
     "ttnn.clip": {
       "category": "unary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "clip",
       "operands": 1,
-      "real_valued": null,
-      "signature": "(input_tensor_a, min=None, max=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(input_tensor_a, *, min=-1.0, max=1.0, **kwargs)"
     },
     "ttnn.clip_bw": {
       "category": "ternary_bw",
@@ -4455,28 +4799,28 @@
       "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.div_no_nan_bw": {
-      "category": "binary_bw",
-      "depends_on_input": true,
+      "category": "unary_bw",
+      "depends_on_input": false,
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "div_no_nan_bw",
-      "operands": 2,
+      "operands": 1,
       "real_valued": true,
-      "signature": "(grad, input, alpha, *args, **kwargs)"
+      "signature": "(grad, input, *, alpha=2.0, **kwargs)"
     },
     "ttnn.divide": {
-      "category": null,
-      "depends_on_input": null,
-      "elementwise": null,
-      "has_golden": false,
+      "category": "binary",
+      "depends_on_input": true,
+      "elementwise": true,
+      "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "divide",
-      "operands": null,
-      "real_valued": null,
-      "signature": null
+      "operands": 2,
+      "real_valued": true,
+      "signature": "(x, y)"
     },
     "ttnn.divide_": {
       "category": "binary",
@@ -5331,16 +5675,16 @@
       "signature": "(grad_tensor, input_tensor, min_val=None, max_val=None, *args, **kwargs)"
     },
     "ttnn.heaviside": {
-      "category": "binary",
+      "category": "unary",
       "depends_on_input": true,
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "heaviside",
-      "operands": 2,
+      "operands": 1,
       "real_valued": true,
-      "signature": "(input_tensor_a, value, *args, **kwargs)"
+      "signature": "(input_tensor_a, *, value=0.5, **kwargs)"
     },
     "ttnn.hypot": {
       "category": "binary",
@@ -7215,28 +7559,28 @@
       "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
     },
     "ttnn.polygamma": {
-      "category": "binary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "unary",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "polygamma",
-      "operands": 2,
-      "real_valued": null,
-      "signature": "(input_tensor_a, k, *args, **kwargs)"
+      "operands": 1,
+      "real_valued": true,
+      "signature": "(input_tensor_a, *, k=1, **kwargs)"
     },
     "ttnn.polygamma_bw": {
-      "category": "binary_bw",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "unary_bw",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "polygamma_bw",
-      "operands": 2,
-      "real_valued": null,
-      "signature": "(grad_tensor, input_tensor, n, *args, **kwargs)"
+      "operands": 1,
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *, n=1, **kwargs)"
     },
     "ttnn.polyval": {
       "category": "binary",
@@ -7263,28 +7607,28 @@
       "signature": "(input_tensor_a, exponent, *args, **kwargs)"
     },
     "ttnn.pow_bw": {
-      "category": "binary_bw",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "unary_bw",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "pow_bw",
-      "operands": 2,
-      "real_valued": null,
-      "signature": "(grad_tensor, input_tensor, exponent, *args, **kwargs)"
+      "operands": 1,
+      "real_valued": true,
+      "signature": "(grad_tensor, input_tensor, *, exponent=2.0, **kwargs)"
     },
     "ttnn.prelu": {
-      "category": "binary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "unary",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "prelu",
-      "operands": 2,
-      "real_valued": null,
-      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+      "operands": 1,
+      "real_valued": true,
+      "signature": "(input_tensor_a, *, input_tensor_b=0.25, **kwargs)"
     },
     "ttnn.prod": {
       "category": null,
@@ -7371,28 +7715,28 @@
       "signature": null
     },
     "ttnn.rdiv": {
-      "category": "binary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "unary",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "rdiv",
-      "operands": 2,
-      "real_valued": null,
-      "signature": "(input_tensor_a, value, *args, rounding_mode=None, **kwargs)"
+      "operands": 1,
+      "real_valued": true,
+      "signature": "(input_tensor_a, *, value=2.0, rounding_mode=None, **kwargs)"
     },
     "ttnn.rdiv_bw": {
       "category": "unary_bw",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "rdiv_bw",
       "operands": 1,
-      "real_valued": null,
-      "signature": "(grad, input, value=None, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, input, *, value=2.0, **kwargs)"
     },
     "ttnn.real": {
       "category": "unary",
@@ -7539,28 +7883,28 @@
       "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
     },
     "ttnn.relu_max": {
-      "category": "binary",
+      "category": "unary",
       "depends_on_input": true,
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "relu_max",
-      "operands": 2,
+      "operands": 1,
       "real_valued": true,
-      "signature": "(input_tensor_a, upper_limit, *args, **kwargs)"
+      "signature": "(input_tensor_a, *, upper_limit=1.0, **kwargs)"
     },
     "ttnn.relu_min": {
-      "category": "binary",
+      "category": "unary",
       "depends_on_input": true,
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "relu_min",
-      "operands": 2,
+      "operands": 1,
       "real_valued": true,
-      "signature": "(input_tensor_a, lower_limit, *args, **kwargs)"
+      "signature": "(input_tensor_a, *, lower_limit=1.0, **kwargs)"
     },
     "ttnn.remainder": {
       "category": "binary",
@@ -7755,28 +8099,28 @@
       "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
     },
     "ttnn.rpow": {
-      "category": "binary",
+      "category": "unary",
       "depends_on_input": true,
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "rpow",
-      "operands": 2,
+      "operands": 1,
       "real_valued": true,
-      "signature": "(input_tensor_a, dim, *args, **kwargs)"
+      "signature": "(input_tensor_a, *, dim=2.0, **kwargs)"
     },
     "ttnn.rpow_bw": {
-      "category": "binary_bw",
+      "category": "unary_bw",
       "depends_on_input": true,
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "rpow_bw",
-      "operands": 2,
+      "operands": 1,
       "real_valued": true,
-      "signature": "(grad, input, alpha, *args, **kwargs)"
+      "signature": "(grad, input, *, alpha=2.0, **kwargs)"
     },
     "ttnn.rsqrt": {
       "category": "unary",
@@ -8139,16 +8483,16 @@
       "signature": null
     },
     "ttnn.softcap": {
-      "category": "binary",
+      "category": "unary",
       "depends_on_input": true,
       "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "softcap",
-      "operands": 2,
+      "operands": 1,
       "real_valued": true,
-      "signature": "(input_tensor_a, beta, *args, **kwargs)"
+      "signature": "(input_tensor_a, *, beta=50.0, **kwargs)"
     },
     "ttnn.softmax": {
       "category": "unary",
@@ -8427,16 +8771,16 @@
       "signature": "(grad, a, b, *args, **kwargs)"
     },
     "ttnn.subalpha": {
-      "category": "ternary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "binary",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "subalpha",
-      "operands": 3,
-      "real_valued": null,
-      "signature": "(input_tensor_a, input_tensor_b, alpha, *args, **kwargs)"
+      "operands": 2,
+      "real_valued": true,
+      "signature": "(input_tensor_a, input_tensor_b, *, alpha=2.0, **kwargs)"
     },
     "ttnn.subalpha_bw": {
       "category": "binary_bw",
@@ -8595,28 +8939,28 @@
       "signature": null
     },
     "ttnn.threshold": {
-      "category": "ternary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "category": "unary",
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "threshold",
-      "operands": 3,
-      "real_valued": null,
-      "signature": "(input_tensor_a, threshold, value, *args, **kwargs)"
+      "operands": 1,
+      "real_valued": true,
+      "signature": "(input_tensor_a, *, threshold=0.5, value=0.0, **kwargs)"
     },
     "ttnn.threshold_bw": {
       "category": "unary_bw",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "threshold_bw",
       "operands": 1,
-      "real_valued": null,
-      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(grad, x)"
     },
     "ttnn.tilize": {
       "category": "unary",
@@ -9208,15 +9552,15 @@
     },
     "ttnn.where": {
       "category": "ternary",
-      "depends_on_input": null,
-      "elementwise": null,
+      "depends_on_input": true,
+      "elementwise": true,
       "has_golden": true,
       "is_cpp": true,
       "is_experimental": false,
       "name": "where",
       "operands": 3,
-      "real_valued": null,
-      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, **kwargs)"
+      "real_valued": true,
+      "signature": "(condition, x, y)"
     },
     "ttnn.where_bw": {
       "category": "ternary_bw",
@@ -9293,37 +9637,29 @@
   },
   "refused": {},
   "rejected": {
-    "ttnn.angle": "ttnn.angle(): incompatible function arguments.",
-    "ttnn.conj": "ttnn.conj(): incompatible function arguments.",
-    "ttnn.div_no_nan_bw": "ttnn.div_no_nan_bw(): incompatible function arguments.",
-    "ttnn.fill_implicit_tile_padding": "ttnn.fill_implicit_tile_padding(): incompatible function arguments.",
-    "ttnn.from_torch": "ttnn.from_torch(): incompatible function arguments.",
-    "ttnn.heaviside": "ttnn.heaviside(): incompatible function arguments.",
-    "ttnn.indexed_fill": "TT_FATAL @ /home/ijankowski/tt-metal-work/tt-metal/ttnn/cpp/ttnn/operations/data_movement/indexed_fill/device/indexed_fill_device_operation.cpp:53: input_tensor_a_shape.rank() == 4",
-    "ttnn.interleaved_to_sharded": "ttnn.interleaved_to_sharded(): incompatible function arguments.",
-    "ttnn.leaky_relu": "ttnn.leaky_relu(): incompatible function arguments.",
-    "ttnn.plus_one": "TT_FATAL @ /home/ijankowski/tt-metal-work/tt-metal/ttnn/cpp/ttnn/operations/experimental/plusone/device/plusone_device_operation.cpp:13: input_tensor.dtype() == tt::tt_metal::DataType::INT32 || input_",
-    "ttnn.real": "ttnn.real(): incompatible function arguments.",
-    "ttnn.relu_max": "ttnn.relu_max(): incompatible function arguments.",
-    "ttnn.relu_min": "ttnn.relu_min(): incompatible function arguments.",
-    "ttnn.reshard": "ttnn.reshard(): incompatible function arguments.",
-    "ttnn.rpow": "ttnn.rpow(): incompatible function arguments.",
-    "ttnn.rpow_bw": "ttnn.rpow_bw(): incompatible function arguments.",
-    "ttnn.softcap": "ttnn.softcap(): incompatible function arguments.",
-    "ttnn.tilize_with_val_padding": "ttnn.tilize_with_val_padding(): incompatible function arguments.",
-    "ttnn.to_device": "ttnn.to_device(): incompatible function arguments.",
-    "ttnn.to_dtype": "ttnn.to_dtype(): incompatible function arguments.",
-    "ttnn.to_layout": "ttnn.to_layout(): incompatible function arguments.",
-    "ttnn.to_memory_config": "ttnn.to_memory_config(): incompatible function arguments.",
-    "ttnn.to_torch": "'Tensor' object has no attribute 'to_torch'",
-    "ttnn.typecast": "ttnn.typecast(): incompatible function arguments."
+    "wh": {
+      "ttnn.angle": "ttnn.angle(): incompatible function arguments.",
+      "ttnn.conj": "ttnn.conj(): incompatible function arguments.",
+      "ttnn.fill_implicit_tile_padding": "ttnn.fill_implicit_tile_padding(): incompatible function arguments.",
+      "ttnn.from_torch": "ttnn.from_torch(): incompatible function arguments.",
+      "ttnn.indexed_fill": "TT_FATAL @ /home/ijankowski/tt-metal-work/tt-metal/ttnn/cpp/ttnn/operations/data_movement/indexed_fill/device/indexed_fill_device_operation.cpp:53: input_tensor_a_shape.rank() == 4",
+      "ttnn.interleaved_to_sharded": "ttnn.interleaved_to_sharded(): incompatible function arguments.",
+      "ttnn.plus_one": "TT_FATAL @ /home/ijankowski/tt-metal-work/tt-metal/ttnn/cpp/ttnn/operations/experimental/plusone/device/plusone_device_operation.cpp:13: input_tensor.dtype() == tt::tt_metal::DataType::INT32 || input_",
+      "ttnn.real": "ttnn.real(): incompatible function arguments.",
+      "ttnn.reshard": "ttnn.reshard(): incompatible function arguments.",
+      "ttnn.softcap": "TT_FATAL @ /home/ijankowski/tt-metal-work/tt-metal/ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE",
+      "ttnn.tilize_with_val_padding": "ttnn.tilize_with_val_padding(): incompatible function arguments.",
+      "ttnn.to_device": "ttnn.to_device(): incompatible function arguments.",
+      "ttnn.to_dtype": "ttnn.to_dtype(): incompatible function arguments.",
+      "ttnn.to_layout": "ttnn.to_layout(): incompatible function arguments.",
+      "ttnn.to_memory_config": "ttnn.to_memory_config(): incompatible function arguments.",
+      "ttnn.to_torch": "'Tensor' object has no attribute 'to_torch'",
+      "ttnn.typecast": "ttnn.typecast(): incompatible function arguments."
+    }
   },
   "unprobeable": {
     "ttnn.adaptive_avg_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.adaptive_max_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
-    "ttnn.addalpha": "TypeError: add(): argument 'alpha' must be Number, not Tensor",
-    "ttnn.addcdiv_bw": "TypeError: addcdiv(): argument 'value' must be Number, not Tensor",
-    "ttnn.addcmul_bw": "TypeError: addcmul(): argument 'value' must be Number, not Tensor",
     "ttnn.addmm": "RuntimeError: mat1 must be a matrix, got 1-D tensor",
     "ttnn.angle_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.arange": "takes no tensor operands",
@@ -9337,8 +9673,6 @@
     "ttnn.bitwise_right_shift": "NotImplementedError: \"rshift_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_xor": "NotImplementedError: \"bitwise_xor_cpu\" not implemented for 'Double'",
     "ttnn.chunk": "TypeError: chunk(): argument 'chunks' (position 2) must be int, not Tensor",
-    "ttnn.clamp": "RuntimeError: torch.clamp: At least one of 'min' or 'max' must not be None",
-    "ttnn.clip": "RuntimeError: torch.clamp: At least one of 'min' or 'max' must not be None",
     "ttnn.concat": "TypeError: concat() received an invalid combination of arguments - got (Tensor, int), but expected one of:",
     "ttnn.concat_bw": "RuntimeError: Mismatch in shape: grad_output[0] has a shape of torch.Size([64]) and output[0] has a shape of torch.Size([128]).",
     "ttnn.conj_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
@@ -9379,12 +9713,6 @@
     "ttnn.permute": "TypeError: permute(): argument 'dims' (position 2) must be tuple of ints, not Tensor",
     "ttnn.polar": "TypeError: polar() missing 1 required positional arguments: \"angle\"",
     "ttnn.polar_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
-    "ttnn.polygamma": "TypeError: special_polygamma(): argument 'n' must be int, not Tensor",
-    "ttnn.polygamma_bw": "TypeError: polygamma(): argument 'n' (position 1) must be int, not Tensor",
-    "ttnn.pow_bw": "RuntimeError: Boolean value of Tensor with more than one value is ambiguous",
-    "ttnn.prelu": "RuntimeError: Mismatch of parameter numbers and input channel size. Found parameter numbers = 64 and channel size = 1.",
-    "ttnn.rdiv": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
-    "ttnn.rdiv_bw": "TypeError: div() received an invalid combination of arguments - got (NoneType, Tensor, rounding_mode=NoneType), but expected one of:",
     "ttnn.real_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.reglu": "AssertionError: dim must be an integer",
     "ttnn.repeat": "RuntimeError: Storage size calculation overflowed with sizes=[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, ",
@@ -9400,10 +9728,7 @@
     "ttnn.slice": "TypeError: object of type 'NoneType' has no len()",
     "ttnn.split": "TypeError: split_with_sizes(): argument 'split_sizes' (position 2) must be tuple of ints, not Tensor",
     "ttnn.stack": "TypeError: stack(): argument 'dim' (position 2) must be int, not Tensor",
-    "ttnn.subalpha": "TypeError: sub(): argument 'alpha' must be Number, not Tensor",
     "ttnn.swiglu": "AssertionError: dim must be an integer",
-    "ttnn.threshold": "TypeError: threshold(): argument 'threshold' (position 2) must be Number, not Tensor",
-    "ttnn.threshold_bw": "TypeError: _threshold() missing 2 required positional arguments: 'threshold' and 'value'",
     "ttnn.topk": "NameError: name 'torch' is not defined",
     "ttnn.tosa_gather": "ValueError: not enough values to unpack (expected 3, got 1)",
     "ttnn.tosa_scatter": "ValueError: not enough values to unpack (expected 3, got 1)",
@@ -9419,7 +9744,6 @@
     "ttnn.update_cache": "IndexError: too many indices for tensor of dimension 1",
     "ttnn.upsample": "RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 1 is not equal to len(dims) = 4",
     "ttnn.view": "TypeError: reshape(): argument 'shape' (position 1) must be tuple of ints, but found element of type Tensor at pos 0",
-    "ttnn.where": "RuntimeError: where expected condition to be a boolean tensor, but got a tensor with dtype Double",
     "ttnn.where_bw": "RuntimeError: where expected condition to be a boolean tensor, but got a tensor with dtype Double",
     "ttnn.zeros": "TypeError: zeros(): argument 'size' (position 1) must be tuple of ints, not Tensor"
   }

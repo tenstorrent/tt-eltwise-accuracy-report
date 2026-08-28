@@ -9,13 +9,20 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
-from functools import cache
+from functools import cache, partial
 from math import isnan
 
 from ttnn_accuracy.domain.derive import DTYPES
 from ttnn_accuracy.ops import arity, introspect
 from ttnn_accuracy.ops.manifest import eltwise, load
-from ttnn_accuracy.ops.registry import bw_fn, get_registry, list_op_names, variant_slug
+from ttnn_accuracy.ops.registry import (
+    EXCLUDED,
+    OVERRIDES,
+    bw_fn,
+    get_registry,
+    list_op_names,
+    variant_slug,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -98,10 +105,10 @@ def params_desc(op_key: str, variant: str) -> str:
 
 
 def resolve(
-    source: str, names: list[str] | None, category: str | None
+    source: str, names: list[str] | None, category: str | None, arch: str = "wh"
 ) -> tuple[list[OpSpec], list[str]]:
     if source == "manifest":
-        return _from_manifest(names, category)
+        return _from_manifest(names, category, arch)
     return _from_registry(names or list_op_names(category=category))
 
 
@@ -130,11 +137,14 @@ def _from_registry(names: list[str]) -> tuple[list[OpSpec], list[str]]:
     return specs, problems
 
 
-def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[OpSpec], list[str]]:
-    """Every eltwise arity the sweeps can build operands for."""
+def _from_manifest(
+    names: list[str] | None, category: str | None, arch: str
+) -> tuple[list[OpSpec], list[str]]:
+    """Every eltwise arity the sweeps can build operands for on this architecture."""
     specs, problems = [], []
     wanted = set(names or [])
     manifest = _manifest()
+    layouts, rejected = manifest["layouts"].get(arch, {}), manifest["rejected"].get(arch, {})
     considered = set()
 
     for qualified, entry in eltwise(manifest).items():
@@ -146,7 +156,7 @@ def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[
 
         # Before `considered`, so a category sweep passes over it quietly while naming it
         # explicitly still gets the recorded reason back from _why_missing.
-        if qualified in manifest["rejected"]:
+        if qualified in rejected:
             continue
 
         considered.add(entry["name"])
@@ -168,33 +178,40 @@ def _from_manifest(names: list[str] | None, category: str | None) -> tuple[list[
             problems.append(f"{qualified}: not reachable on the ttnn module")
             continue
 
-        accepts = manifest["layouts"].get(qualified)
+        accepts = layouts.get(qualified)
         backward = entry["category"].endswith("_bw")
-        specs.append(
-            OpSpec(
-                name=entry["name"],
-                variant="default",
-                category=entry["category"],
-                operands=operands,
-                ttnn_fn=bw_fn(op) if backward else op,
-                golden_fn=_golden(op.golden_function, backward, operands),
-                bounds=bounds,
-                layouts={**TILED, **(accepts or {})},
+        for ov in OVERRIDES.get(qualified, (None,)):
+            ttnn_fn, golden = bw_fn(op) if backward else op, op.golden_function
+            if ov:
+                ttnn_fn = partial(ttnn_fn, **ov.ttnn_kwargs)
+                golden = ov.golden or partial(golden, **ov.golden_kwargs)
+            specs.append(
+                OpSpec(
+                    name=entry["name"],
+                    variant=variant_slug(ov.params_desc) if ov else "default",
+                    category=entry["category"],
+                    operands=operands,
+                    ttnn_fn=ttnn_fn,
+                    golden_fn=_golden(golden, backward, operands),
+                    bounds=bounds,
+                    layouts={**TILED, **(accepts or {})},
+                )
             )
-        )
 
-    problems += [_why_missing(manifest, n) for n in sorted(wanted - considered)]
+    problems += [_why_missing(manifest, n, arch) for n in sorted(wanted - considered)]
     return specs, problems
 
 
-def _why_missing(manifest: dict, name: str) -> str:
+def _why_missing(manifest: dict, name: str, arch: str) -> str:
     """Say which reason applies, rather than calling everything unknown."""
     qualified = f"ttnn.{name}"
     op = manifest["ops"].get(qualified)
     if op is None:
         return f"unknown op: {name}"
-    if why := manifest["rejected"].get(qualified):
-        return f"{qualified}: the device rejected every dtype and layout probed — {why}"
+    if why := EXCLUDED.get(qualified):
+        return f"{qualified}: excluded — {why}"
+    if why := manifest["rejected"].get(arch, {}).get(qualified):
+        return f"{qualified}: {arch} rejected every dtype and layout probed — {why}"
     if op["elementwise"] is None:
         why = manifest["unprobeable"].get(qualified) or "it was never classified"
         return f"{qualified}: golden refused the probe — {why}"

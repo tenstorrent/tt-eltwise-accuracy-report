@@ -22,7 +22,7 @@ from loguru import logger
 
 from ttnn_accuracy.domain.derive import DTYPES, derive
 from ttnn_accuracy.ops import arity, introspect
-from ttnn_accuracy.ops.registry import bw_fn
+from ttnn_accuracy.ops.registry import EXCLUDED, OVERRIDES, bw_fn
 from ttnn_accuracy.paths import MANIFEST_FILE
 
 
@@ -67,7 +67,13 @@ def load() -> dict:
     }
     if not MANIFEST_FILE.exists():
         return empty
-    return empty | json.loads(MANIFEST_FILE.read_text())
+    manifest = empty | json.loads(MANIFEST_FILE.read_text())
+    # Manifests written before layouts were arch-keyed hold flat per-op dicts, and every
+    # one of those was probed on Wormhole.
+    for key in ("layouts", "rejected"):
+        if any(k.startswith("ttnn.") for k in manifest[key]):
+            manifest[key] = {"wh": manifest[key]}
+    return manifest
 
 
 def save(manifest: dict) -> None:
@@ -87,13 +93,18 @@ def eltwise(manifest: dict) -> dict[str, dict]:
     """The measurable subset: a real-valued elementwise golden that reads its input.
 
     Excluded here rather than left to produce a meaningless number: `isnan` is elementwise
-    and unary, but ULP between two booleans is not a quantity, and `zeros_like` would
-    score a flawless zero for an op that never looks at what it was given.
+    and unary, but ULP between two booleans is not a quantity, `zeros_like` would score a
+    flawless zero for an op that never looks at what it was given, and `clone` would score
+    one for an op that computes nothing.
     """
     return {
         k: v
         for k, v in manifest["ops"].items()
-        if v["elementwise"] and v["category"] and v["real_valued"] and v["depends_on_input"]
+        if v["elementwise"]
+        and v["category"]
+        and v["real_valued"]
+        and v["depends_on_input"]
+        and k not in EXCLUDED
     }
 
 
@@ -163,13 +174,18 @@ def probe_layouts(device_id: int = 0) -> int:
     disagreements unsupported.
     """
     from ttnn_accuracy.measure.device import open_device
+    from ttnn_accuracy.measure.schema import ARCH_OF_DEVICE
     from ttnn_accuracy.measure.sweeps import capabilities
 
     manifest = load()
-    manifest["layouts"], manifest["rejected"] = {}, {}
     ops = eltwise(manifest)
 
     with open_device(device_id) as device:
+        # Keyed by the architecture actually probed: `softcap` exists only on Blackhole,
+        # and a Wormhole probe must not overwrite what a Blackhole probe learned.
+        arch = ARCH_OF_DEVICE[device.arch().name]
+        layouts = manifest["layouts"][arch] = {}
+        rejected = manifest["rejected"][arch] = {}
         for i, (name, entry) in enumerate(ops.items(), start=1):
             logger.debug("probing {}/{} {}", i, len(ops), name)
             try:
@@ -177,19 +193,21 @@ def probe_layouts(device_id: int = 0) -> int:
             except AttributeError:
                 continue
             fn = bw_fn(op) if entry["category"].endswith("_bw") else op
+            if variants := OVERRIDES.get(name):
+                fn = partial(fn, **variants[0].ttnn_kwargs)
             found, why = capabilities(fn, entry["operands"], device)
             if found:
-                manifest["layouts"][name] = found
+                layouts[name] = found
             elif why:
-                manifest["rejected"][name] = why
+                rejected[name] = why
 
     save(manifest)
-    probed = len(manifest["layouts"])
-    logger.success("layouts for {} of {} ops → {}", probed, len(ops), MANIFEST_FILE)
-    rows = Counter(tuple(sorted(v)) for v in manifest["layouts"].values())
+    probed = len(layouts)
+    logger.success("{} layouts for {} of {} ops → {}", arch, probed, len(ops), MANIFEST_FILE)
+    rows = Counter(tuple(sorted(v)) for v in layouts.values())
     for dtypes, count in rows.most_common():
         logger.info("{} ops accept {}", count, ", ".join(dtypes))
-    for name, why in sorted(manifest["rejected"].items()):
+    for name, why in sorted(rejected.items()):
         logger.info("{} accepts nothing: {}", name.rsplit(".", 1)[-1], why)
     return 0 if probed else 1
 
@@ -201,8 +219,13 @@ def discover(include_experimental: bool = False) -> int:
     added, removed, changed = diff(old, new)
     # Derivation survives a rebuild, except where ttnn changed the op underneath it.
     stale = set(changed)
-    for key in ("domains", "refused", "layouts", "rejected"):
+    for key in ("domains", "refused"):
         new[key] = {k: v for k, v in old[key].items() if k in new["ops"] and k not in stale}
+    for key in ("layouts", "rejected"):  # arch-keyed: prune ops within each architecture
+        new[key] = {
+            arch: {k: v for k, v in per.items() if k in new["ops"] and k not in stale}
+            for arch, per in old[key].items()
+        }
     save(new)
 
     counts = Counter(entry["category"] for entry in eltwise(new).values())

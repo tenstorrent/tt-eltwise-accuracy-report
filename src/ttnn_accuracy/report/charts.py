@@ -39,6 +39,21 @@ def _fmt(v) -> str:
     return "—" if v != v else f"{float(v):.3g}"
 
 
+def _special_fmt(v: float) -> str:
+    if v != v:
+        return "nan"
+    if v == 0:
+        return "-0" if np.signbit(v) else "0"
+    return f"{v:.4g}"
+
+
+def _specials_rows(specials: pd.DataFrame) -> list[dict]:
+    """Display strings: NaN and ±inf are not JSON numbers, and the sign of zero is the point."""
+    return [
+        {c: _special_fmt(row[c]) for c in ("x", "y", "y_ref")} for _, row in specials.iterrows()
+    ]
+
+
 def _usable_to(df: pd.DataFrame) -> float:
     """Largest finite |x| below which no point yet exceeds USABLE_ULP. NaN when none does.
 
@@ -83,7 +98,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
     exact points would be diluted by ops that return zero across most of their range, and
     the max over undefined points is what produced 1e24 readings.
 
-    Both read the value, not the outcome label. An fp32 row labels a group of 128 by the
+    Both read the value, not the outcome label. An fp32 row labels a whole group by the
     worst outcome in it, so filtering the mean on the label would drop a whole group's
     real error because one point in it flushed, while the max kept it.
     """
@@ -163,7 +178,8 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                         )
                         stale += 1
                         continue
-                    df = raw[raw["x"].abs() >= MIN_NORMAL]
+                    special = raw[raw["outcome"] == "special"]
+                    df = raw[(raw["outcome"] != "special") & (raw["x"].abs() >= MIN_NORMAL)]
                     if df.empty:
                         logger.warning("no normal-range rows in {}", csv_path)
                         continue
@@ -171,7 +187,7 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                     svg = CHARTS_DIR / arch / dtype / f"{op}_{variant}_ulp.svg"
                     plot_ulp_chart(df, op, variant, arch, dtype, svg)
                     index.setdefault(arch, {}).setdefault(dtype, {}).setdefault(op, {})[variant] = (
-                        compute_stats(df)
+                        compute_stats(df) | {"specials": _specials_rows(special)}
                     )
                     plotted += 1
 

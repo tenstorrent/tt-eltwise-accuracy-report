@@ -33,7 +33,7 @@ def _manifest(op_changes: dict, rejected: dict) -> dict:
         "domains": {"ttnn.exp": {d: [0.0, 1.0] for d in ("bf16", "fp32")}},
         "refused": {},
         "layouts": {},
-        "rejected": rejected,
+        "rejected": {"wh": rejected},
     }
 
 
@@ -51,8 +51,8 @@ def test_an_excluded_op_never_reaches_the_plan(monkeypatch, op_changes, rejected
     manifest = _manifest(op_changes, rejected)
     monkeypatch.setattr(plan, "_manifest", lambda: manifest)
 
-    specs, _ = plan.resolve("manifest", None, "unary")
+    specs, _ = plan.resolve("manifest", None, "unary", "wh")
     assert specs == []
 
     # Naming it explicitly must still say why, rather than calling it unknown.
-    assert expected in plan._why_missing(manifest, "exp")
+    assert expected in plan._why_missing(manifest, "exp", "wh")

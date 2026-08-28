@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pandas as pd
 from loguru import logger
 
 from ttnn_accuracy.measure.device import open_device
 from ttnn_accuracy.measure.schema import check_arch, describe_run
 from ttnn_accuracy.measure.store import write_result, write_run
-from ttnn_accuracy.measure.sweeps import SWEEPS
+from ttnn_accuracy.measure.sweeps import SWEEPS, specials
 from ttnn_accuracy.ops.plan import OpSpec
 
 
@@ -54,6 +55,12 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int
     if df is None:
         logger.error("  no valid {} inputs for {}/{}", dtype, spec.name, spec.variant)
         return 1
+
+    try:
+        extra = specials(spec.ttnn_fn, spec.golden_fn, spec.operands, dtype, layout, device)
+        df = pd.concat([df, extra], ignore_index=True)
+    except Exception as exc:  # a third-party golden may balk at inf or NaN; the sweep stands
+        logger.warning("  no special-value rows for {}: {}", spec.name, exc)
 
     df["op"], df["variant"], df["dtype"] = spec.name, spec.variant, dtype
     # Layout is chosen per op by `probe`, and a different layout is a different kernel,
