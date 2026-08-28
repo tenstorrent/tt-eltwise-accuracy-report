@@ -14,12 +14,22 @@ from dataclasses import dataclass
 
 
 def bw_fn(ttnn_bw_op):
-    """Backward call: gradient of ones, take the gradient w.r.t. the first operand."""
+    """Backward call: gradient of ones, take the gradient w.r.t. the first operand.
+
+    The gradient tensor and the grads not under test are freed before returning — an
+    fp32 sweep makes a thousand of each per op, faster than GC keeps up with.
+    """
     import ttnn
 
-    return lambda *operands, **params: ttnn_bw_op(ttnn.ones_like(operands[0]), *operands, **params)[
-        0
-    ]
+    def call(*operands, **params):
+        ones = ttnn.ones_like(operands[0])
+        grads = ttnn_bw_op(ones, *operands, **params)
+        for t in (ones, *grads[1:]):
+            if t.is_allocated():
+                ttnn.deallocate(t)
+        return grads[0]
+
+    return call
 
 
 @dataclass(frozen=True, slots=True)

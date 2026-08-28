@@ -85,7 +85,15 @@ def _on_device(
     tensors = [
         ttnn.from_torch(t, device=device, dtype=ttnn_dtype, layout=ttnn_layout) for t in operands
     ]
-    return ttnn.to_torch(ttnn_fn(*tensors))
+    result = ttnn_fn(*tensors)
+    host = ttnn.to_torch(result)
+    # Freed here, not left to GC: an fp32 sweep dispatches a thousand times per op and
+    # DRAM fragments faster than collection runs — block times doubled until this was
+    # explicit. is_allocated guards the in-place ops, whose result aliases an input.
+    for t in (result, *tensors):
+        if t.is_allocated():
+            ttnn.deallocate(t)
+    return host
 
 
 def capabilities(ttnn_fn: Callable, operands: int, device) -> tuple[dict[str, str], str]:
