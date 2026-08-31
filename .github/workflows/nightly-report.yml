@@ -18,9 +18,6 @@ on:
         options: [both, wh, bh]
         default: both
 
-concurrency:
-  group: nightly-report
-  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -59,9 +56,13 @@ jobs:
     strategy:
       matrix:
         arch: ${{ fromJSON(needs.pin.outputs.archs) }}
-      max-parallel: 1   # both jobs publish to the same branch
       fail-fast: false  # one architecture failing must not cancel the other
     runs-on: [self-hosted, "${{ matrix.arch }}"]
+    # Per architecture, not per workflow: the two use different machines and devices, and
+    # the only thing they share is the push, which rebases and retries.
+    concurrency:
+      group: nightly-report-${{ matrix.arch }}
+      cancel-in-progress: false
     timeout-minutes: 720
     defaults:
       run:
