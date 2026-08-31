@@ -24,7 +24,11 @@ jobs:
       sha: ${{ steps.tt.outputs.sha }}
     steps:
       - id: tt
-        run: echo "sha=$(git ls-remote https://github.com/tenstorrent/tt-metal.git main | cut -f1)" >> "$GITHUB_OUTPUT"
+        # The exact ref, and awk for the field: a bare `main` also matches other refs
+        # ending in main, and two SHAs on the line make GITHUB_OUTPUT unparseable.
+        run: |
+          sha=$(git ls-remote https://github.com/tenstorrent/tt-metal.git refs/heads/main | awk '{print $1}')
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
 
   measure:
     needs: pin
