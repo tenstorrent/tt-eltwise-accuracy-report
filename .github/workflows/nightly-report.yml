@@ -5,6 +5,9 @@
 #   TT_METAL_HOME  a tt-metal checkout the runner may rebuild (any remote layout)
 #   PYTHON_ENV     its venv, with ttnn and torch importable
 #   DATA_DIR       a large local disk for the raw CSVs (hundreds of GB, never committed)
+#
+# Nothing else is assumed: not where the venv sits relative to tt-metal, not which
+# remote the checkout tracks, not that the machines have separate home directories.
 name: nightly-report
 
 on:
@@ -81,6 +84,12 @@ jobs:
           [ -f "$PYTHON_ENV/bin/activate" ] || { echo "no venv at $PYTHON_ENV"; exit 1; }
           command -v uv >/dev/null || { echo "uv is not on PATH — the venv has no pip"; exit 1; }
           mkdir -p "$DATA_DIR"
+          # Kernel cache on the machine's own disk, one per architecture. The default
+          # lives under $HOME, which these runners share over NFS: both jobs would then
+          # compile into one directory, and neither could clear it while the other holds
+          # files open. Written through GITHUB_ENV because the runner's environment is
+          # visible to the shell, never to the `env` expression context.
+          echo "TT_METAL_CACHE=$DATA_DIR/kernel-cache-${{ matrix.arch }}" >> "$GITHUB_ENV"
 
       - name: Build tt-metal at the pinned SHA
         # Fetched by URL, not by remote name: a runner's checkout may have `origin` on a
@@ -96,10 +105,10 @@ jobs:
           git checkout --force ${{ needs.pin.outputs.sha }}
           git submodule update --init --recursive
           ./build_metal.sh
-          # Kernels cached from the previous build segfault when dispatched against new
-          # host code, and the cache key does not capture the change. A rebuild at a
-          # different SHA invalidates it, so drop it rather than debug it nightly.
-          rm -rf "${HOME}/.cache/ttnn" "${HOME}/.cache/tt-metal-cache"
+          # Kernels compiled against the previous build segfault when dispatched against
+          # new host code, and the cache key does not capture that. This cache belongs to
+          # this architecture on this disk, so nothing else can be holding it open.
+          rm -rf "$TT_METAL_CACHE"
 
       - name: Measure and regenerate
         # DATA_DIR is read by every stage, so measure writes where charts will look.
