@@ -196,6 +196,26 @@ EXCLUDED = (
 )
 
 
+def with_value(ov: Override, value: float | int) -> Override:
+    """The same override at a different value, for a one-off measurement.
+
+    Only the number is supplied: the table keeps both spellings, and six goldens name
+    their scalar differently from the binding they belong to (`rpow`'s exponent is `dim`
+    in its golden), which a caller cannot be expected to know.
+    """
+    if len(ov.ttnn_kwargs) != 1:
+        takes = "no scalar to set" if not ov.ttnn_kwargs else f"more than one: {ov.params_desc}"
+        raise ValueError(f"takes {takes} — edit overrides.py for this one")
+    return Override(
+        dict.fromkeys(ov.ttnn_kwargs, value),
+        dict.fromkeys(ov.golden_kwargs, value),
+        ",".join(f"{k}={value}" for k in ov.ttnn_kwargs),
+        ov.golden,
+        ov.bounds,
+        f"{ov.why} (measured here at {value})" if ov.why else f"measured at {value}",
+    )
+
+
 def variant_slug(params_desc: str) -> str:
     """Filename form of a variant. Sole definition — measure and report must agree on it."""
     return params_desc.replace(" ", "_").replace(",", "_").replace("=", "")

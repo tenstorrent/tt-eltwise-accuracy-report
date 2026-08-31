@@ -29,6 +29,11 @@ def build_parser() -> argparse.ArgumentParser:
     measure.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
     measure.add_argument("--category", choices=CATEGORIES, help="filter when --ops=all")
     measure.add_argument("--dtype", default="bf16", choices=["bf16", "fp32", "both"])
+    measure.add_argument(
+        "--params",
+        help="measure named ops at a different scalar, e.g. relu_max=6,leaky_relu=0.2 — "
+        "the value only; the op's own parameter name comes from ops/overrides.py",
+    )
     measure.add_argument("--output-dir", type=Path, default=DATA_DIR)
     measure.add_argument("--device-id", type=int, default=0)
 
@@ -49,6 +54,14 @@ def build_parser() -> argparse.ArgumentParser:
     compare.add_argument("candidate", type=Path, nargs="?", default=INDEX_FILE)
 
     return parser
+
+
+def _values(params: str | None) -> dict[str, float | int]:
+    """`relu_max=6,polygamma=2` → {"relu_max": 6.0, "polygamma": 2}. int where written int."""
+    if not params:
+        return {}
+    pairs = (p.split("=", 1) for p in params.split(",") if p.strip())
+    return {op.strip(): int(v) if v.strip().lstrip("-").isdigit() else float(v) for op, v in pairs}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -75,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
             from ttnn_accuracy.ops import plan
 
             names = None if args.ops == "all" else [o.strip() for o in args.ops.split(",")]
-            specs, problems = plan.resolve(names, args.category, args.arch)
+            specs, problems = plan.resolve(names, args.category, args.arch, _values(args.params))
             for problem in problems:
                 logger.error(problem)
             if not specs:

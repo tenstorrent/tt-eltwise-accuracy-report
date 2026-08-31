@@ -1,0 +1,66 @@
+# A report for parameters someone wants to try, without touching the published one.
+# Fill the form in the Actions tab; the result comes back as a downloadable artifact
+# and nothing is committed. Runner contract as in nightly-report.yml.
+name: custom-report
+
+on:
+  workflow_dispatch:
+    inputs:
+      ops:
+        description: ops to measure, comma separated (e.g. relu_max,leaky_relu)
+        required: true
+      params:
+        description: values to measure them at (e.g. relu_max=6,leaky_relu=0.2)
+        required: false
+      arch:
+        type: choice
+        options: [wh, bh]
+        default: wh
+      dtype:
+        type: choice
+        options: [bf16, fp32, both]
+        default: bf16
+
+jobs:
+  measure:
+    runs-on: [self-hosted, "${{ inputs.arch }}"]
+    timeout-minutes: 240
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the runner contract
+        run: |
+          for var in TT_METAL_HOME PYTHON_ENV DATA_DIR; do
+            [ -n "${!var:-}" ] || { echo "$var is unset"; exit 1; }
+          done
+
+      - name: Measure at the requested parameters
+        # Its own DATA_DIR and no build: this measures whatever tt-metal the runner
+        # already has, against parameters the published report does not carry.
+        env:
+          DATA_DIR: ${{ runner.temp }}/custom-data
+        run: |
+          source "$PYTHON_ENV/bin/activate"
+          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
+          python3 -m ttnn_accuracy.cli measure --arch "${{ inputs.arch }}" \
+            --ops "${{ inputs.ops }}" --dtype "${{ inputs.dtype }}" \
+            ${{ inputs.params && format('--params {0}', inputs.params) || '' }}
+          python3 -m ttnn_accuracy.cli charts
+          python3 -m ttnn_accuracy.cli report \
+            --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: custom-report-${{ inputs.arch }}-${{ github.run_id }}
+          path: |
+            reports/
+            report_index.json
+          retention-days: 14
+
+      - name: Leave the checkout clean
+        # The published report lives in git; this run must not be mistaken for it.
+        if: always()
+        run: git checkout -- reports/ report_index.json

@@ -14,7 +14,7 @@ from math import isnan
 from ttnn_accuracy.domain.derive import DTYPES
 from ttnn_accuracy.ops import arity, introspect
 from ttnn_accuracy.ops.manifest import load
-from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, bw_fn, variant_slug
+from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, bw_fn, variant_slug, with_value
 
 
 @dataclass(frozen=True, slots=True)
@@ -77,7 +77,10 @@ def params_desc(op_key: str, variant: str) -> str:
 
 
 def resolve(
-    names: list[str] | None, category: str | None, arch: str = "wh"
+    names: list[str] | None,
+    category: str | None,
+    arch: str = "wh",
+    values: dict[str, float] | None = None,
 ) -> tuple[list[OpSpec], list[str]]:
     """Every eltwise arity the sweeps can build operands for on this architecture."""
     specs, problems = [], []
@@ -119,7 +122,17 @@ def resolve(
 
         accepts = layouts.get(qualified)
         backward = entry["category"].endswith("_bw")
-        for ov in OVERRIDES.get(qualified, (None,)):
+        variants = OVERRIDES.get(qualified, (None,))
+        if values and (value := values.get(entry["name"])) is not None:
+            if variants[0] is None:
+                problems.append(f"{qualified}: takes no scalar parameter to set")
+                continue
+            try:
+                variants = (with_value(variants[0], value),)
+            except ValueError as exc:
+                problems.append(f"{qualified}: {exc}")
+                continue
+        for ov in variants:
             ttnn_fn, golden = bw_fn(op) if backward else op, op.golden_function
             if ov:
                 ttnn_fn = partial(ttnn_fn, **ov.ttnn_kwargs)
