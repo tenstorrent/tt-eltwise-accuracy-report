@@ -1,8 +1,8 @@
 # Nightly report workflow
 
 [nightly-report.yml](nightly-report.yml) — the epic's no-human-intervention bullet.
-Inert here; it runs once copied to `.github/workflows/` on a repo with self-hosted
-TT runners labelled `wh` and `bh`.
+Wired; it fires once self-hosted TT runners labelled `wh` and `bh` are registered
+(cron nightly on the default branch, or the Run-workflow button).
 
 ## One night
 

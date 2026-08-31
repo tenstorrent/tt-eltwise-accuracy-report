@@ -6,7 +6,7 @@ goldens — per architecture (WH, BH) and dtype (bf16, fp32).
 **Browse:** [reports/README.md](reports/README.md) ·
 **Design:** [docs/architecture.md](docs/architecture.md) ·
 [docs/scope.md](docs/scope.md) · [analyze-report/](analyze-report/README.md) ·
-[workflow/](workflow/nightly-report.yml)
+[.github/workflows/](.github/workflows/README.md)
 
 ## Structure
 
@@ -23,7 +23,7 @@ src/ttnn_accuracy/
   measure/              # metrics · sweeps · schema · store · runner · device
   report/               # charts (CSV → SVG + report_index.json) · pages · compare
 
-workflow/               # the periodic regenerate-and-publish GitHub workflow
+.github/workflows/      # the periodic regenerate-and-publish workflow, with its diagrams
 analyze-report/         # LLM consumption: workflows, uncovered-op backlog, analysis draft
 stats/ops_manifest.json # what discover, derive and probe learned (committed)
 stats/runs/             # one provenance record per measurement run (committed)

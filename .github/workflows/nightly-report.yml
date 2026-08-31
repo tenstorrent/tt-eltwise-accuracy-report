@@ -1,6 +1,6 @@
 # Periodic report regeneration, no human intervention (the epic's automation bullet).
-# Inert here: copy to .github/workflows/ once a self-hosted runner with a TT device
-# exists. Runner provides: TT_METAL_HOME (built tt-metal checkout), PYTHON_ENV.
+# Needs a self-hosted runner with a TT device, labelled wh or bh, providing
+# TT_METAL_HOME (tt-metal checkout) and PYTHON_ENV (its built venv).
 name: nightly-report
 
 on:
@@ -9,8 +9,11 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: nightly-report   # wh and bh jobs push to the same branch; run them serially
+  group: nightly-report   # never two overlapping nightly runs; max-parallel serializes the jobs
   cancel-in-progress: false
+
+permissions:
+  contents: write         # the Publish step pushes with the workflow token
 
 jobs:
   measure:
@@ -22,10 +25,16 @@ jobs:
     timeout-minutes: 720
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # the publish step rebases; a shallow clone cannot
 
       - name: Rebuild tt-metal at main
+        # checkout main explicitly: the runner's tt-metal may sit detached at a pinned SHA
         run: |
+          git -C "$TT_METAL_HOME" fetch origin main
+          git -C "$TT_METAL_HOME" checkout main
           git -C "$TT_METAL_HOME" pull --ff-only
+          git -C "$TT_METAL_HOME" submodule update --init --recursive
           "$TT_METAL_HOME"/build_metal.sh
 
       - name: Regenerate the report
