@@ -129,6 +129,21 @@ jobs:
           ttnn-accuracy charts
           ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
 
+      - name: Say what moved
+        # The run page is where someone looks, so the diff against last night's committed
+        # index is written there. Never gating: a change is news, not a failure.
+        run: |
+          source "$PYTHON_ENV/bin/activate"
+          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
+          git show HEAD:report_index.json > "$RUNNER_TEMP/previous.json" 2>/dev/null || exit 0
+          {
+            echo "## ${{ matrix.arch }} at ${{ needs.pin.outputs.sha }}"
+            echo '```'
+            python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" 2>&1 |
+              sed 's/^[^|]*| *[A-Z]* *| *[^ ]* *- *//' || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Publish
         # The other architecture may have pushed while this job measured, so rebase onto
         # it rather than racing; nothing to commit is a success, not a failure.

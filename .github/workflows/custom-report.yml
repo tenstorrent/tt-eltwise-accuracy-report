@@ -40,14 +40,20 @@ jobs:
       - name: Measure at the requested parameters
         # Its own DATA_DIR and no build: this measures whatever tt-metal the runner
         # already has, against parameters the published report does not carry.
+        # Inputs arrive as environment variables, never interpolated into the script:
+        # ${{ inputs.params }} inline would let anyone who can press the button run
+        # arbitrary shell on the runner.
         env:
           DATA_DIR: ${{ runner.temp }}/custom-data
+          OPS: ${{ inputs.ops }}
+          PARAMS: ${{ inputs.params }}
+          ARCH: ${{ inputs.arch }}
+          DTYPE: ${{ inputs.dtype }}
         run: |
           source "$PYTHON_ENV/bin/activate"
           export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
-          python3 -m ttnn_accuracy.cli measure --arch "${{ inputs.arch }}" \
-            --ops "${{ inputs.ops }}" --dtype "${{ inputs.dtype }}" \
-            ${{ inputs.params && format('--params {0}', inputs.params) || '' }}
+          python3 -m ttnn_accuracy.cli measure --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" \
+            ${PARAMS:+--params "$PARAMS"}
           python3 -m ttnn_accuracy.cli charts
           python3 -m ttnn_accuracy.cli report \
             --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw

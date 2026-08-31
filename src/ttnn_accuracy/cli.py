@@ -57,11 +57,21 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _values(params: str | None) -> dict[str, float | int]:
-    """`relu_max=6,polygamma=2` → {"relu_max": 6.0, "polygamma": 2}. int where written int."""
-    if not params:
-        return {}
-    pairs = (p.split("=", 1) for p in params.split(",") if p.strip())
-    return {op.strip(): int(v) if v.strip().lstrip("-").isdigit() else float(v) for op, v in pairs}
+    """`relu_max=6,polygamma=2` → {"relu_max": 6, "polygamma": 2}. int where written int.
+
+    Typed by hand, often into a web form, so a mistake answers itself rather than
+    surfacing as a parse traceback.
+    """
+    values: dict[str, float | int] = {}
+    for pair in (p.strip() for p in (params or "").split(",") if p.strip()):
+        op, _, raw = pair.partition("=")
+        if not raw:
+            raise SystemExit(f"--params: expected op=value, got `{pair}`")
+        try:
+            values[op.strip()] = int(raw) if raw.strip().lstrip("+-").isdigit() else float(raw)
+        except ValueError:
+            raise SystemExit(f"--params: `{raw.strip()}` is not a number, in `{pair}`") from None
+    return values
 
 
 def main(argv: list[str] | None = None) -> int:
