@@ -30,7 +30,7 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py310"
-src = ["scripts", "src"]
+src = ["src"]
 extend-exclude = ["reports", "data"]
 
 [tool.ruff.format]
@@ -64,14 +64,7 @@ ignore = [
 [tool.ruff.lint.isort]
 known-first-party = ["ttnn_accuracy"]
 
-[tool.ruff.lint.per-file-ignores]
-"tests/*" = ["T201"]
-"tools/*" = ["T201"]
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra"
-markers = [
-    "hardware: requires a Tenstorrent device (deselect with '-m \"not hardware\"')",
-]
