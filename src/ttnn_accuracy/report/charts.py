@@ -20,7 +20,7 @@ from loguru import logger
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
 from ttnn_accuracy.measure.schema import COLUMNS
 from ttnn_accuracy.measure.store import RUN_STAMP
-from ttnn_accuracy.ops.overrides import OVERRIDES, variant_slug
+from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, variant_slug
 from ttnn_accuracy.ops.plan import describe
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, REPO_ROOT
 
@@ -189,6 +189,15 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
         return 1
 
     index = json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
+    # An op that leaves scope keeps its old entry forever otherwise: charts only visits
+    # ops with CSVs, and an unvisited entry would publish stats nothing can reproduce.
+    for arch, dtypes in index.items():
+        if arch == RUNS_KEY:
+            continue
+        for ops in dtypes.values():
+            for gone in [op for op in ops if f"ttnn.{op}" in EXCLUDED]:
+                del ops[gone]
+                logger.info("dropped {} from the index — excluded from scope", gone)
     plotted = stale = 0
 
     for arch_dir in _subdirs(DATA_DIR, arch_filter):

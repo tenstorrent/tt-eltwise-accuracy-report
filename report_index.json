@@ -1858,19 +1858,6 @@
           "verdict": "bit-exact"
         }
       },
-      "clone": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
-        }
-      },
       "cos": {
         "default": {
           "max_abs": "3.34e+38",
@@ -3461,19 +3448,6 @@
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
-        }
-      },
-      "from_device": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
         }
       },
       "ge_": {
@@ -6183,19 +6157,6 @@
           "verdict": "within 2 ULP everywhere"
         }
       },
-      "move": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
-        }
-      },
       "mse_loss": {
         "default": {
           "max_abs": "2.66e+36",
@@ -6831,19 +6792,6 @@
           "ulp_clipped": 0,
           "usable_to": "1.3e+19",
           "verdict": "within 2 ULP everywhere"
-        }
-      },
-      "reallocate": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
         }
       },
       "reciprocal": {
@@ -7676,19 +7624,6 @@
           "ulp_clipped": 0,
           "usable_to": "0.582",
           "verdict": "accurate to |x| <= 0.582; up to 3 ULP beyond"
-        }
-      },
-      "sharded_to_interleaved": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
         }
       },
       "sigmoid": {
@@ -8792,19 +8727,6 @@
           "verdict": "within 2 ULP everywhere"
         }
       },
-      "squeeze": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
-        }
-      },
       "subalpha": {
         "alpha2.0": {
           "max_abs": "3.38e+38",
@@ -9328,19 +9250,6 @@
           "verdict": "bit-exact"
         }
       },
-      "tilize_with_zero_padding": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
-        }
-      },
       "trunc": {
         "default": {
           "max_abs": "0",
@@ -9390,19 +9299,6 @@
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
-        }
-      },
-      "untilize": {
-        "default": {
-          "max_abs": "0",
-          "max_ulp": "0",
-          "mean_ulp": "\u2014",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 65024
-          },
-          "ulp_clipped": 0,
-          "usable_to": "3.39e+38"
         }
       },
       "where": {
