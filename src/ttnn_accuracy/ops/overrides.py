@@ -49,6 +49,11 @@ class Override:
     golden_kwargs: dict
     params_desc: str
     golden: Callable | None = None
+    # Replaces the derived sweep range. Derivation bounds where the golden returns
+    # nonsense, not where it stops being computable: torch's polygamma backward costs
+    # time linear in |x| for x < 0 (10k elements at |x|≈1e8 took 1.8 hours), so the
+    # sweep must stop where the reference can still be produced.
+    bounds: dict[str, tuple[float, float]] | None = None
 
 
 def _where_golden(condition, x, y):
@@ -110,7 +115,14 @@ OVERRIDES: dict[str, tuple[Override, ...]] = {
     "ttnn.rdiv": (_override({"value": 2.0}),),
     "ttnn.rdiv_bw": (_override({"scalar": 2.0}, {"value": 2.0}),),
     "ttnn.polygamma": (_override({"k": 1}),),
-    "ttnn.polygamma_bw": (_override({"n": 1}),),
+    "ttnn.polygamma_bw": (
+        Override(
+            {"n": 1},
+            {"n": 1},
+            "n=1",
+            bounds=dict.fromkeys(("bf16", "fp32"), (-1024.0, float("inf"))),
+        ),
+    ),
     "ttnn.pow_bw": (_override({"exponent": 2.0}),),
     "ttnn.prelu": (_override({"weight": 0.25}, {"input_tensor_b": 0.25}),),
     "ttnn.where": (_override({}, {}, golden=_where_golden),),

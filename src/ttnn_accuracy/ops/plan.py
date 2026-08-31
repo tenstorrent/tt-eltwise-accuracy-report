@@ -55,7 +55,10 @@ def describe(op_key: str) -> OpInfo | None:
     op = manifest["ops"].get(f"ttnn.{op_key}")
     if not op:
         return None
-    bounds = _bounds(manifest["domains"].get(f"ttnn.{op_key}"))
+    variants = OVERRIDES.get(f"ttnn.{op_key}", ())
+    bounds = (variants[0].bounds if variants and variants[0].bounds else None) or _bounds(
+        manifest["domains"].get(f"ttnn.{op_key}")
+    )
     return OpInfo(
         category=op["category"],
         operands=op["operands"],
@@ -129,7 +132,7 @@ def resolve(
                     operands=operands,
                     ttnn_fn=ttnn_fn,
                     golden_fn=_golden(golden, backward, operands),
-                    bounds=bounds,
+                    bounds=ov.bounds if ov and ov.bounds else bounds,
                     layouts={**TILED, **(accepts or {})},
                 )
             )

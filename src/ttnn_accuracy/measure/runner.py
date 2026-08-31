@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import warnings
 from pathlib import Path
 
 import pandas as pd
@@ -58,7 +59,11 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int
 
     try:
         extra = specials(spec.ttnn_fn, spec.golden_fn, spec.operands, dtype, layout, device)
-        df = pd.concat([df, extra], ignore_index=True)
+        with warnings.catch_warnings():
+            # The specials rows carry no ULP by design, and pandas deprecation-warns on
+            # concatenating their all-NA columns; the dtypes are float on both sides.
+            warnings.simplefilter("ignore", FutureWarning)
+            df = pd.concat([df, extra], ignore_index=True)
     except Exception as exc:  # a third-party golden may balk at inf or NaN; the sweep stands
         logger.warning("  no special-value rows for {}: {}", spec.name, exc)
 
