@@ -20,6 +20,8 @@ from loguru import logger
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
 from ttnn_accuracy.measure.schema import COLUMNS
 from ttnn_accuracy.measure.store import RUN_STAMP
+from ttnn_accuracy.ops.overrides import OVERRIDES, variant_slug
+from ttnn_accuracy.ops.plan import describe
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, REPO_ROOT
 
 plt.rcParams["svg.fonttype"] = "none"
@@ -37,6 +39,33 @@ def _finite(s: pd.Series) -> pd.Series:
 
 def _fmt(v) -> str:
     return "—" if v != v else f"{float(v):.3g}"
+
+
+def _num(v) -> float | None:
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def verdict(max_ulp: str, mean_ulp: str, usable_to: str, operands: int | None) -> str:
+    """One of five fixed phrases, so no reader — human or LLM — invents the judgment.
+
+    The rules live here and nowhere else; analyze-report/contract.md is their prose twin
+    and must change with them.
+    """
+    mx = _num(max_ulp)
+    if mx is None:
+        return "no scorable points"
+    if mx == 0:
+        return "bit-exact"
+    if mx <= USABLE_ULP:
+        return f"within {USABLE_ULP:g} ULP everywhere"
+    if operands == 1:
+        if _num(usable_to) is not None:
+            return f"accurate to |x| <= {usable_to}; up to {max_ulp} ULP beyond"
+        return f"never within {USABLE_ULP:g} ULP; mean {mean_ulp}, worst {max_ulp}"
+    return f"worst pairing {max_ulp} ULP; mean {mean_ulp}"
 
 
 def _special_fmt(v: float) -> str:
@@ -186,8 +215,26 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                     logger.info("plotting {}/{}/{}/{}", arch, dtype, op, variant)
                     svg = CHARTS_DIR / arch / dtype / f"{op}_{variant}_ulp.svg"
                     plot_ulp_chart(df, op, variant, arch, dtype, svg)
+                    stats = compute_stats(df) | {"specials": _specials_rows(special)}
+                    info = describe(op)
+                    stats["verdict"] = verdict(
+                        stats["max_ulp"],
+                        stats["mean_ulp"],
+                        stats["usable_to"],
+                        info.operands if info else None,
+                    )
+                    ov = next(
+                        (
+                            o
+                            for o in OVERRIDES.get(f"ttnn.{op}", ())
+                            if variant_slug(o.params_desc) == variant
+                        ),
+                        None,
+                    )
+                    if ov and ov.why:
+                        stats["rationale"] = ov.why
                     index.setdefault(arch, {}).setdefault(dtype, {}).setdefault(op, {})[variant] = (
-                        compute_stats(df) | {"specials": _specials_rows(special)}
+                        stats
                     )
                     plotted += 1
 

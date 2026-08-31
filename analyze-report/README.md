@@ -28,11 +28,10 @@ sequenceDiagram
     Note over L: not in the index → say so, never extrapolate
 ```
 
-Suggested, so answers need no judgment:
-
-- verdict tiers per entry — bit-exact / ≤2 ULP / accurate to bound / degraded near zero / unreliable
-- a rationale string per override
-- one committed contract defining every metric, threshold and outcome label
+Built, so answers need no judgment: a `verdict` per index entry (five fixed phrases,
+rules in `report/charts.py::verdict`), a `rationale` per override, and
+[contract.md](contract.md) — the committed definition of every metric, threshold,
+outcome label and answering rule.
 
 ## 2 — Cover an uncovered op
 

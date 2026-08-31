@@ -243,6 +243,12 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
             lines.append(f"| `{params}` | — | — | — | — |\n")
 
     lines.append("\n")
+    for op_key, variant in entries:
+        s = load_summary(arch, dtype, op_key, variant)
+        if s and s.get("verdict"):
+            why = f" · _{s['rationale']}_" if s.get("rationale") else ""
+            lines.append(f"**{params_desc(op_key, variant)}** — {s['verdict']}{why}  \n")
+    lines.append("\n")
     lines.append(_outcome_table(arch, dtype, entries))
     lines.append(_specials_table(arch, dtype, entries))
     lines.append(_sampling_note(dtype, entries))

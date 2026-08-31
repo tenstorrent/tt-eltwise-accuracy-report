@@ -45,6 +45,29 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
     assert [name for name, rows in buckets.items() if rows] == ([bucket] if bucket else [])
 
 
+@pytest.mark.parametrize(
+    ("max_ulp", "mean_ulp", "usable_to", "operands", "expected"),
+    [
+        ("0", "—", "3.39e+38", 1, "bit-exact"),
+        ("2", "1.1", "3.39e+38", 1, "within 2 ULP everywhere"),
+        (
+            "3.38e+38",
+            "2.5e+36",
+            "2.62e+05",
+            1,
+            "accurate to |x| <= 2.62e+05; up to 3.38e+38 ULP beyond",
+        ),
+        ("1.14e+36", "4.5e+34", "—", 1, "never within 2 ULP; mean 4.5e+34, worst 1.14e+36"),
+        ("254", "2.42", "—", 2, "worst pairing 254 ULP; mean 2.42"),
+        ("—", "—", "—", 1, "no scorable points"),
+    ],
+)
+def test_verdicts_follow_the_contract(max_ulp, mean_ulp, usable_to, operands, expected):
+    from ttnn_accuracy.report.charts import verdict
+
+    assert verdict(max_ulp, mean_ulp, usable_to, operands) == expected
+
+
 def test_coverage_changes_are_named_not_scored():
     old, new = _index(), _index()
     new["wh"]["bf16"]["sinh"] = {"default": dict(STATS)}

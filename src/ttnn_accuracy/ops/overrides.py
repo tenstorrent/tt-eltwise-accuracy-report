@@ -54,6 +54,9 @@ class Override:
     # time linear in |x| for x < 0 (10k elements at |x|≈1e8 took 1.8 hours), so the
     # sweep must stop where the reference can still be produced.
     bounds: dict[str, tuple[float, float]] | None = None
+    # Why these values: carried into the index so a reader — human or LLM — answers
+    # "why was it measured at 0.01?" from the record instead of from anyone's memory.
+    why: str = ""
 
 
 def _where_golden(condition, x, y):
@@ -81,51 +84,80 @@ def _threshold_bw_golden(grad, x):
 
 
 def _override(
-    ttnn_kwargs: dict, golden_kwargs: dict | None = None, golden=None, desc: str | None = None
+    ttnn_kwargs: dict,
+    golden_kwargs: dict | None = None,
+    golden=None,
+    desc: str | None = None,
+    why: str = "",
 ) -> Override:
     """golden_kwargs defaults to ttnn_kwargs; six goldens name the same scalar differently."""
     desc = desc or ",".join(f"{k}={v}" for k, v in ttnn_kwargs.items()) or "default"
     return Override(
-        ttnn_kwargs, ttnn_kwargs if golden_kwargs is None else golden_kwargs, desc, golden
+        ttnn_kwargs, ttnn_kwargs if golden_kwargs is None else golden_kwargs, desc, golden, why=why
     )
 
 
-_FAST = _override({"fast_and_approximate_mode": True}, {}, desc="fast_approx")
+_FAST = _override(
+    {"fast_and_approximate_mode": True},
+    {},
+    desc="fast_approx",
+    why="the approximation mode models opt into for speed",
+)
 
 OVERRIDES: dict[str, tuple[Override, ...]] = {
-    "ttnn.divide": (_override({}, {}, golden=_divide_golden),),
+    "ttnn.divide": (
+        _override({}, {}, golden=_divide_golden, why="upstream never attached a golden"),
+    ),
     "ttnn.exp": (_override({}), _FAST),
     "ttnn.gelu": (_override({}), _FAST),
-    "ttnn.leaky_relu": (_override({"negative_slope": 0.01}),),
-    "ttnn.heaviside": (_override({"value": 0.5}),),
-    "ttnn.relu_max": (_override({"upper_limit": 1.0}),),
-    "ttnn.relu_min": (_override({"lower_limit": 1.0}),),
-    "ttnn.rpow": (_override({"exponent": 2.0}, {"dim": 2.0}),),
-    "ttnn.rpow_bw": (_override({"exponent": 2.0}, {"alpha": 2.0}),),
-    "ttnn.softcap": (_override({"beta": 50.0}),),
-    "ttnn.div_no_nan_bw": (_override({"scalar": 2.0}, {"alpha": 2.0}),),
-    "ttnn.clamp": (_override({"min": -1.0, "max": 1.0}),),
-    "ttnn.clip": (_override({"min": -1.0, "max": 1.0}),),
-    "ttnn.threshold": (_override({"threshold": 0.5, "value": 0.0}),),
-    "ttnn.threshold_bw": (_override({"min": 0.5, "max": 0.0}, {}, golden=_threshold_bw_golden),),
-    "ttnn.addalpha": (_override({"alpha": 2.0}),),
-    "ttnn.subalpha": (_override({"alpha": 2.0}),),
-    "ttnn.addcdiv_bw": (_override({"alpha": 1.0}, {"value": 1.0}),),
-    "ttnn.addcmul_bw": (_override({"alpha": 1.0}, {"value": 1.0}),),
-    "ttnn.rdiv": (_override({"value": 2.0}),),
-    "ttnn.rdiv_bw": (_override({"scalar": 2.0}, {"value": 2.0}),),
-    "ttnn.polygamma": (_override({"k": 1}),),
+    "ttnn.leaky_relu": (_override({"negative_slope": 0.01}, why="torch's default slope"),),
+    "ttnn.heaviside": (_override({"value": 0.5}, why="torch's convention at x = 0"),),
+    "ttnn.relu_max": (_override({"upper_limit": 1.0}, why="unit clamp, the registry's midpoint"),),
+    "ttnn.relu_min": (_override({"lower_limit": 1.0}, why="unit clamp, the registry's midpoint"),),
+    "ttnn.rpow": (_override({"exponent": 2.0}, {"dim": 2.0}, why="squaring"),),
+    "ttnn.rpow_bw": (_override({"exponent": 2.0}, {"alpha": 2.0}, why="squaring"),),
+    "ttnn.softcap": (_override({"beta": 50.0}, why="Gemma's logit soft-cap"),),
+    "ttnn.div_no_nan_bw": (
+        _override({"scalar": 2.0}, {"alpha": 2.0}, why="2 keeps the op distinct from assign"),
+    ),
+    "ttnn.clamp": (_override({"min": -1.0, "max": 1.0}, why="the symmetric unit interval"),),
+    "ttnn.clip": (_override({"min": -1.0, "max": 1.0}, why="the symmetric unit interval"),),
+    "ttnn.threshold": (
+        _override({"threshold": 0.5, "value": 0.0}, why="domain midpoint, torch's zero fill"),
+    ),
+    "ttnn.threshold_bw": (
+        _override(
+            {"min": 0.5, "max": 0.0},
+            {},
+            golden=_threshold_bw_golden,
+            why="ttnn binds threshold and value as min/max; the golden's *args are unbindable",
+        ),
+    ),
+    "ttnn.addalpha": (_override({"alpha": 2.0}, why="2 keeps the op distinct from add"),),
+    "ttnn.subalpha": (_override({"alpha": 2.0}, why="2 keeps the op distinct from subtract"),),
+    "ttnn.addcdiv_bw": (_override({"alpha": 1.0}, {"value": 1.0}, why="torch's default value"),),
+    "ttnn.addcmul_bw": (_override({"alpha": 1.0}, {"value": 1.0}, why="torch's default value"),),
+    "ttnn.rdiv": (_override({"value": 2.0}, why="2 keeps the op distinct from reciprocal"),),
+    "ttnn.rdiv_bw": (
+        _override({"scalar": 2.0}, {"value": 2.0}, why="2 keeps the op distinct from reciprocal"),
+    ),
+    "ttnn.polygamma": (_override({"k": 1}, why="trigamma, the first order in use"),),
     "ttnn.polygamma_bw": (
         Override(
             {"n": 1},
             {"n": 1},
             "n=1",
             bounds=dict.fromkeys(("bf16", "fp32"), (-1024.0, float("inf"))),
+            why="trigamma; swept above -1024, where torch can still compute the reference",
         ),
     ),
-    "ttnn.pow_bw": (_override({"exponent": 2.0}),),
-    "ttnn.prelu": (_override({"weight": 0.25}, {"input_tensor_b": 0.25}),),
-    "ttnn.where": (_override({}, {}, golden=_where_golden),),
+    "ttnn.pow_bw": (_override({"exponent": 2.0}, why="squaring"),),
+    "ttnn.prelu": (
+        _override({"weight": 0.25}, {"input_tensor_b": 0.25}, why="torch's channel-weight init"),
+    ),
+    "ttnn.where": (
+        _override({}, {}, golden=_where_golden, why="the attached golden demands a bool condition"),
+    ),
 }
 
 # Elementwise by every probe, but not eltwise mathematics this report can score.

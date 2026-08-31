@@ -1,7 +1,6 @@
 # DRAFT — the LLM analysis pass over a freshly regenerated report. Not wired anywhere.
-# Runs after nightly-report: reads report_index.json plus the interpretation contract,
-# writes verdicts and flags movements worth a human's attention. The verdict tiers and
-# contract it consumes are the "suggested" items in README.md and do not exist yet.
+# Runs after nightly-report: reads report_index.json (verdicts and rationale included)
+# plus contract.md, and flags movements worth a human's attention.
 name: analyze-report
 
 on:
