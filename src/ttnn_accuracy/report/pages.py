@@ -133,6 +133,11 @@ def write(path: Path, content: str):
     logger.info("wrote {}", path.relative_to(REPO_ROOT))
 
 
+def _usable_text(summary: dict) -> str:
+    """`—` reads as a gap in the measurement, which it never is: say which case it is."""
+    return summary.get("usable_to") or "—" if summary.get("usable_to") != "—" else "nowhere"
+
+
 def _specials_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
     """Raw outputs at ±0, ±inf, NaN and the smallest normals, device beside golden.
 
@@ -224,23 +229,28 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
     range_text = _input_range_text(entries[0][0], dtype)
     lines.append(f"**Measured input range:** {range_text}  \n\n")
 
-    lines.extend(
-        [
-            "| Parameters | Max ULP | Mean ULP | Accurate to \\|x\\| | Max abs error |\n",
-            "|------------|---------|----------|-----------------|---------------|\n",
-        ]
-    )
+    # Only for unary ops: elsewhere x is one operand of several, and a bound on it would
+    # describe the sampled partner rather than the input under test.
+    info = describe(entries[0][0])
+    unary = bool(info and info.operands == 1)
+    head = "| Parameters | Max ULP | Mean ULP | Max abs error |"
+    rule = "|------------|---------|----------|---------------|"
+    if unary:
+        head = head.replace("| Max abs", "| Accurate to \\|x\\| | Max abs")
+        rule = rule.replace("|------------|---------|----------|", "|---|---|---|---|")
+    lines.extend([head + "\n", rule + "\n"])
     for op_key, variant in entries:
         params = params_desc(op_key, variant)
         summary = load_summary(arch, dtype, op_key, variant)
-        if summary:
-            clipped = " ⚠" if summary.get("ulp_clipped") else ""
-            lines.append(
-                f"| `{params}` | {summary['max_ulp']}{clipped} | {summary['mean_ulp']} "
-                f"| {summary.get('usable_to', '—')} | {summary['max_abs']} |\n"
-            )
-        else:
-            lines.append(f"| `{params}` | — | — | — | — |\n")
+        if not summary:
+            lines.append(f"| `{params}` |" + " — |" * (4 if unary else 3) + "\n")
+            continue
+        clipped = " ⚠" if summary.get("ulp_clipped") else ""
+        cells = [summary["max_ulp"] + clipped, summary["mean_ulp"]]
+        if unary:
+            cells.append(_usable_text(summary))
+        cells.append(summary["max_abs"])
+        lines.append(f"| `{params}` | " + " | ".join(cells) + " |\n")
 
     lines.append("\n")
     for op_key, variant in entries:
@@ -276,6 +286,8 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
         GENERATED_NOTE,
         f"[← {ARCH_DISPLAY.get(arch, arch)}](../README.md) | [Top](../../../README.md)\n\n",
         "## Operations Summary\n\n",
+        "_Accurate to \\|x\\|: the largest \\|x\\| within 2 ULP. `n/a` for ops of more than one "
+        "operand, where a bound on x would describe its sampled partner instead._\n\n",
         "| Op | Parameters | Max ULP | Mean ULP | Accurate to \\|x\\| | Max abs error |\n",
         "|----|------------|---------|----------|-----------------|---------------|\n",
     ]
@@ -284,11 +296,17 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
         for i, (op_key, variant) in enumerate(entries):
             params = params_desc(op_key, variant)
             summary = load_summary(arch, dtype, op_key, variant)
+            info = describe(op_key)
             max_ulp = (summary["max_ulp"] if summary else "—") + (
                 " ⚠" if summary and summary.get("ulp_clipped") else ""
             )
             mean_ulp = summary["mean_ulp"] if summary else "—"
-            usable = summary.get("usable_to", "—") if summary else "—"
+            if not summary:
+                usable = "—"
+            elif info and info.operands > 1:
+                usable = "n/a"
+            else:
+                usable = _usable_text(summary)
             max_abs = summary["max_abs"] if summary else "—"
             op_cell = f"[{display_name}]({display_name}.md)" if i == 0 else ""
             lines.append(

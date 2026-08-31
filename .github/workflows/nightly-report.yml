@@ -11,6 +11,12 @@ on:
   schedule:
     - cron: "0 2 * * *"
   workflow_dispatch:
+    inputs:
+      arch:
+        description: which architectures to measure
+        type: choice
+        options: [both, wh, bh]
+        default: both
 
 concurrency:
   group: nightly-report
@@ -26,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.tt.outputs.sha }}
+      archs: ${{ steps.archs.outputs.list }}
     steps:
       - id: tt
         # The fully qualified ref: tt-metal also has branches like `bliu/main`, and a
@@ -36,11 +43,22 @@ jobs:
           [ ${#sha} -eq 40 ] || { echo "resolved '$sha', not one SHA"; exit 1; }
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
 
+      - id: archs
+        # Only measure what has a runner today: a job for an unregistered label queues
+        # for hours and then times out, which reads as a failure rather than a choice.
+        run: |
+          case "${{ inputs.arch || 'both' }}" in
+            wh) list='["wh"]' ;;
+            bh) list='["bh"]' ;;
+            *)  list='["wh","bh"]' ;;
+          esac
+          echo "list=$list" >> "$GITHUB_OUTPUT"
+
   measure:
     needs: pin
     strategy:
       matrix:
-        arch: [wh, bh]
+        arch: ${{ fromJSON(needs.pin.outputs.archs) }}
       max-parallel: 1   # both jobs publish to the same branch
       fail-fast: false  # one architecture failing must not cancel the other
     runs-on: [self-hosted, "${{ matrix.arch }}"]
@@ -66,15 +84,21 @@ jobs:
       - name: Build tt-metal at the pinned SHA
         # Fetched by URL, not by remote name: a runner's checkout may have `origin` on a
         # personal fork, where the SHA the pin job resolved upstream does not exist.
-        # Run from inside TT_METAL_HOME — build_metal.sh configures the working
-        # directory, which in CI is this repo's checkout rather than tt-metal.
-        working-directory: ${{ env.TT_METAL_HOME }}
+        # cd in the shell, never `working-directory: ${{ env.TT_METAL_HOME }}`: the env
+        # context holds only what the workflow file declares, so that expression is
+        # empty and every command below would run in this repo's checkout — which once
+        # overwrote it with tt-metal and repointed the venv at it.
         run: |
+          cd "$TT_METAL_HOME"
           git fetch --recurse-submodules=no \
             https://github.com/tenstorrent/tt-metal.git ${{ needs.pin.outputs.sha }}
           git checkout --force ${{ needs.pin.outputs.sha }}
           git submodule update --init --recursive
           ./build_metal.sh
+          # Kernels cached from the previous build segfault when dispatched against new
+          # host code, and the cache key does not capture the change. A rebuild at a
+          # different SHA invalidates it, so drop it rather than debug it nightly.
+          rm -rf "${HOME}/.cache/ttnn" "${HOME}/.cache/tt-metal-cache"
 
       - name: Measure and regenerate
         # DATA_DIR is read by every stage, so measure writes where charts will look.
@@ -83,6 +107,14 @@ jobs:
         run: |
           source "$PYTHON_ENV/bin/activate"
           uv pip install -e . --quiet --python "$PYTHON_ENV/bin/python3"
+          # The venv reaches ttnn through a .pth of absolute paths, so a build run from
+          # the wrong directory silently repoints it. Importing the wrong ttnn against a
+          # freshly built libttnn segfaults, so refuse to measure rather than crash.
+          python3 -c "
+          import pathlib, ttnn
+          p = pathlib.Path(ttnn.__file__)
+          assert p.is_relative_to('$TT_METAL_HOME'), f'ttnn came from {p}, not \$TT_METAL_HOME'
+          print('ttnn:', p)"
           ttnn-accuracy discover
           ttnn-accuracy derive
           ttnn-accuracy probe
