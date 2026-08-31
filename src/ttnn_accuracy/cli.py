@@ -100,3 +100,7 @@ def main(argv: list[str] | None = None) -> int:
             from ttnn_accuracy.report.compare import compare
 
             return compare(args.baseline, args.candidate)
+
+
+if __name__ == "__main__":  # `python -m ttnn_accuracy.cli`, for callers that must not install
+    raise SystemExit(main())

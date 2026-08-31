@@ -106,18 +106,23 @@ jobs:
         # `pip install` would silently fall through to the system one.
         run: |
           source "$PYTHON_ENV/bin/activate"
-          uv pip install -e . --quiet --python "$PYTHON_ENV/bin/python3"
+          # Never install: the venv is shared with whoever uses this machine, and
+          # `pip install -e .` rebinds their editable checkout to this workspace. Running
+          # from source needs no install and mutates nothing.
+          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
+          ttnn-accuracy() { python3 -m ttnn_accuracy.cli "$@"; }
           # The venv reaches ttnn through a .pth of absolute paths, so a build run from
           # the wrong directory silently repoints it. Importing the wrong ttnn against a
           # freshly built libttnn segfaults, so refuse to measure rather than crash.
           python3 -c "
-          import pathlib, ttnn
-          p = pathlib.Path(ttnn.__file__)
-          assert p.is_relative_to('$TT_METAL_HOME'), f'ttnn came from {p}, not \$TT_METAL_HOME'
-          print('ttnn:', p)"
+          import pathlib, ttnn, ttnn_accuracy
+          for mod, root in ((ttnn, '$TT_METAL_HOME'), (ttnn_accuracy, '$GITHUB_WORKSPACE')):
+              p = pathlib.Path(mod.__file__)
+              assert p.is_relative_to(root), f'{mod.__name__} came from {p}, not {root}'
+              print(mod.__name__, p)"
           ttnn-accuracy discover
           ttnn-accuracy derive
-          ttnn-accuracy probe
+          ttnn-accuracy probe   # outlives a crashing op on its own; see probe_layouts
           for cat in unary unary_bw binary binary_bw ternary ternary_bw; do
             ttnn-accuracy measure --arch "${{ matrix.arch }}" --category "$cat" --dtype both
           done

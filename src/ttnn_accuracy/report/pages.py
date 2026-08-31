@@ -19,6 +19,7 @@ from loguru import logger
 
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
 from ttnn_accuracy.measure.sweeps import SAMPLED
+from ttnn_accuracy.ops.manifest import load as load_manifest
 from ttnn_accuracy.ops.plan import describe, params_desc
 from ttnn_accuracy.paths import CHARTS_DIR, INDEX_FILE, REPO_ROOT, REPORTS_DIR
 from ttnn_accuracy.report.charts import RUNS_KEY
@@ -131,6 +132,24 @@ def write(path: Path, content: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
     logger.info("wrote {}", path.relative_to(REPO_ROOT))
+
+
+def _unmeasured_table(arch: str) -> str:
+    """Ops in scope that produced no data here, and why.
+
+    An op the device refuses — or one that segfaults the host — is a finding, and the
+    severest kind. Left to the manifest alone it would simply be absent from the report,
+    which reads as an op nobody thought to measure.
+    """
+    rejected = load_manifest()["rejected"].get(arch, {})
+    if not rejected:
+        return ""
+    rows = "".join(f"| `{q.rsplit('.', 1)[-1]}` | {why} |\n" for q, why in sorted(rejected.items()))
+    return (
+        f"## Not measurable on {ARCH_DISPLAY.get(arch, arch)}\n\n"
+        f"In scope, but the device produced nothing — each with the reason recorded when it "
+        f"was probed.\n\n| Op | Why |\n|----|-----|\n{rows}\n"
+    )
 
 
 def _usable_text(summary: dict) -> str:
@@ -313,6 +332,8 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
                 f"| {op_cell} | `{params}` | {max_ulp} | {mean_ulp} | {usable} | {max_abs} |\n"
             )
 
+    lines.append("\n")
+    lines.append(_unmeasured_table(arch))
     lines.append("\n---\n\n## Charts Preview\n\n")
     for display_name, entries in groups.items():
         lines.append(f"### [{display_name}]({display_name}.md)\n\n")

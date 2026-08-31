@@ -64,6 +64,7 @@ def build(include_experimental: bool = False) -> dict:
         "refused": {},
         "layouts": {},
         "rejected": {},
+        "probing": {},
     }
 
 
@@ -76,6 +77,7 @@ def load() -> dict:
         "refused": {},
         "layouts": {},
         "rejected": {},
+        "probing": {},
     }
     if not MANIFEST_FILE.exists():
         return empty
@@ -140,14 +142,44 @@ def derive_domains() -> int:
 
 
 def probe_layouts(device_id: int = 0) -> int:
-    """Record which layout each op accepts per dtype, by calling it on one tile.
+    """Probe every op, outliving any that kills the process.
 
-    ttnn states these constraints only as TT_FATAL assertions inside the C++ device
-    operation — `tilize` demands ROW_MAJOR, `plus_one` demands INT32 — so they cannot be
-    read, only discovered. Doing it once here means a sweep runs each op in a
-    configuration it accepts, instead of forcing one on every op and calling the
-    disagreements unsupported.
+    An op can segfault the host — `bias_gelu_bw` does on some tt-metal builds — and a
+    segfault cannot be caught, only outlived. Each pass therefore runs in its own
+    process, having recorded the op it is about to probe; a pass that dies tells the next
+    one what killed it, which is recorded as that op's result. One crash costs one op and
+    a device open, not the run.
     """
+    import multiprocessing
+
+    context = multiprocessing.get_context("spawn")  # a fresh interpreter, no shared device
+    # Every crash consumes exactly one op, so a pass per op is the bound by construction.
+    for attempt in range(len(load()["ops"]) + 1):
+        child = context.Process(target=_probe_pass, args=(device_id,))
+        child.start()
+        child.join()
+        if child.exitcode == 0:
+            return _probe_summary()
+        logger.error("probe pass {} died with {}, resuming past it", attempt + 1, child.exitcode)
+    return 1
+
+
+def _probe_summary() -> int:
+    manifest = load()
+    arch, *_ = manifest["layouts"]
+    layouts, rejected = manifest["layouts"][arch], manifest["rejected"][arch]
+    logger.success(
+        "{} layouts for {} of {} ops → {}", arch, len(layouts), len(manifest["ops"]), MANIFEST_FILE
+    )
+    for dtypes, count in Counter(tuple(sorted(v)) for v in layouts.values()).most_common():
+        logger.info("{} ops accept {}", count, ", ".join(dtypes))
+    for name, why in sorted(rejected.items()):
+        logger.info("{} accepts nothing: {}", name.rsplit(".", 1)[-1], why)
+    return 0 if layouts else 1
+
+
+def _probe_pass(device_id: int) -> None:
+    """One pass over the ops still unprobed. Runs in its own process; may not return."""
     from ttnn_accuracy.measure.device import open_device
     from ttnn_accuracy.measure.schema import ARCH_OF_DEVICE
     from ttnn_accuracy.measure.sweeps import capabilities
@@ -159,10 +191,23 @@ def probe_layouts(device_id: int = 0) -> int:
         # Keyed by the architecture actually probed: `softcap` exists only on Blackhole,
         # and a Wormhole probe must not overwrite what a Blackhole probe learned.
         arch = ARCH_OF_DEVICE[device.arch().name]
-        layouts = manifest["layouts"][arch] = {}
-        rejected = manifest["rejected"][arch] = {}
-        for i, (name, entry) in enumerate(ops.items(), start=1):
-            logger.debug("probing {}/{} {}", i, len(ops), name)
+        layouts = manifest["layouts"].setdefault(arch, {})
+        rejected = manifest["rejected"].setdefault(arch, {})
+        # An op can take the whole process down — bias_gelu_bw segfaults the host on some
+        # tt-metal builds — and a segfault is not catchable, so the op being probed is
+        # recorded before it runs. Finding that record on the next run means it never
+        # returned: that is the finding, and the remaining ops are not lost with it.
+        if died := manifest["probing"].pop(arch, None):
+            rejected[died] = "crashed the process while probing — see the run log"
+            logger.error("{} crashed the previous probe; recorded and skipped", died)
+
+        todo = [(n, e) for n, e in ops.items() if n not in layouts and n not in rejected]
+        if not todo:  # a completed pass, so start a fresh one
+            layouts.clear(), rejected.clear()
+            todo = list(ops.items())
+
+        for i, (name, entry) in enumerate(todo, start=1):
+            logger.debug("probing {}/{} {}", i, len(todo), name)
             try:
                 op = introspect.resolve(name)
             except AttributeError:
@@ -170,21 +215,15 @@ def probe_layouts(device_id: int = 0) -> int:
             fn = bw_fn(op) if entry["category"].endswith("_bw") else op
             if variants := OVERRIDES.get(name):
                 fn = partial(fn, **variants[0].ttnn_kwargs)
+            manifest["probing"][arch] = name
+            save(manifest)  # named before it runs: a segfault leaves no other trace
             found, why = capabilities(fn, entry["operands"], device)
+            manifest["probing"].pop(arch, None)
             if found:
                 layouts[name] = found
             elif why:
                 rejected[name] = why
-
-    save(manifest)
-    probed = len(layouts)
-    logger.success("{} layouts for {} of {} ops → {}", arch, probed, len(ops), MANIFEST_FILE)
-    rows = Counter(tuple(sorted(v)) for v in layouts.values())
-    for dtypes, count in rows.most_common():
-        logger.info("{} ops accept {}", count, ", ".join(dtypes))
-    for name, why in sorted(rejected.items()):
-        logger.info("{} accepts nothing: {}", name.rsplit(".", 1)[-1], why)
-    return 0 if probed else 1
+            save(manifest)  # every op, so a crash loses only the op that caused it
 
 
 def discover(include_experimental: bool = False) -> int:
