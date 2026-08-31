@@ -10,7 +10,7 @@ from loguru import logger
 
 from ttnn_accuracy.measure.device import open_device
 from ttnn_accuracy.measure.schema import check_arch, describe_run
-from ttnn_accuracy.measure.store import write_result, write_run
+from ttnn_accuracy.measure.store import measured_at, write_failures, write_result, write_run
 from ttnn_accuracy.measure.sweeps import SWEEPS, specials
 from ttnn_accuracy.ops.plan import OpSpec
 
@@ -22,40 +22,57 @@ def measure(
     out_root: Path,
     device_id: int = 0,
 ) -> int:
-    """Returns the number of variants that produced no CSV — the process exit code."""
-    failed = 0
+    """Returns the number of variants that produced no CSV — the process exit code.
+
+    Each is also recorded beside the data with its reason: an op that probes but will not
+    sweep is a finding, and a reader who cannot see it reads its absence as an oversight.
+
+    A variant already measured on this same tt-metal build is skipped, so an interrupted
+    run resumes where it stopped. Hours of measurement should not be lost to a device
+    reset at op 150, and a build that differs invalidates everything anyway.
+    """
+    failures: dict[str, dict[str, str]] = {}
     names = sorted({spec.name for spec in specs})
 
     with open_device(device_id) as device:
         check_arch(device, arch)
-        write_run(describe_run(device, arch, names, dtypes), out_root)
+        meta = describe_run(device, arch, names, dtypes)
+        done = measured_at(out_root, arch, dtypes, meta.tt_metal_commit)
+        write_run(meta, out_root)
         for spec in specs:
             logger.info("{} ({}) [{}]", spec.name, spec.category, spec.variant)
             for dtype in dtypes:
-                failed += _measure(spec, dtype, arch, out_root, device)
+                if (dtype, spec.name, spec.variant) in done:
+                    logger.debug("  {} already measured on this build", dtype)
+                    continue
+                if why := _measure(spec, dtype, arch, out_root, device):
+                    failures.setdefault(dtype, {})[f"{spec.name}/{spec.variant}"] = why
 
+    write_failures(failures, out_root, arch)
+    failed = sum(len(v) for v in failures.values())
     if failed:
         logger.error("{} variant(s) produced no data", failed)
     return failed
 
 
-def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int:
+def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:
+    """Empty when the CSV was written, else why it was not."""
     sweep = SWEEPS.get((spec.operands, dtype))
     if sweep is None:
         logger.error("  no {} sweep for {} operands ({})", dtype, spec.operands, spec.name)
-        return 1
+        return f"no {dtype} sweep for {spec.operands} operands"
 
     lo, hi = spec.bounds[dtype]
     layout = spec.layouts[dtype]
     try:
         df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi, layout)
-    except Exception:
+    except Exception as exc:
         logger.exception("  {}/{} {} failed", spec.name, spec.variant, dtype)
-        return 1
+        return f"the sweep raised {type(exc).__name__}: {str(exc).strip().splitlines()[0][:160]}"
 
     if df is None:
         logger.error("  no valid {} inputs for {}/{}", dtype, spec.name, spec.variant)
-        return 1
+        return f"no valid {dtype} inputs in its domain"
 
     try:
         extra = specials(spec.ttnn_fn, spec.golden_fn, spec.operands, dtype, layout, device)
@@ -73,4 +90,4 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> int
     df["layout"] = layout
     path = write_result(df, out_root, arch, dtype, spec.name, spec.variant)
     logger.success("  {} rows → {}", len(df), path)
-    return 0
+    return ""

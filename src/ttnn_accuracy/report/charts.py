@@ -117,7 +117,7 @@ def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
     run = json.loads(stamp.read_text())
     index.setdefault(RUNS_KEY, {}).setdefault(arch, {})[dtype] = {
         k: run[k] for k in ("run_id", "tt_metal_commit", "ttnn_version", "device_arch", "ops")
-    }
+    } | {"failed": run.get("failed", {})}
 
 
 def compute_stats(df: pd.DataFrame) -> dict:

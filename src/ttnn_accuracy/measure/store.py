@@ -44,6 +44,39 @@ def write_run(meta: RunMeta, out_root: Path) -> None:
     logger.info("run provenance → {}", RUNS_DIR / f"{meta.run_id}.json")
 
 
+def measured_at(out_root: Path, arch: str, dtypes: list[str], commit: str | None) -> set[tuple]:
+    """(dtype, op, variant) already measured on this build, so a stopped run can resume.
+
+    Keyed on the tt-metal commit in the stamp: data from another build is not this run's
+    to keep, and re-measuring it is the only way the two halves stay comparable.
+    """
+    done = set()
+    for dtype in dtypes:
+        stamp = out_root / arch / dtype / RUN_STAMP
+        if not stamp.exists() or json.loads(stamp.read_text()).get("tt_metal_commit") != commit:
+            continue
+        done |= {
+            (dtype, csv.parent.name, csv.stem) for csv in (out_root / arch / dtype).glob("*/*.csv")
+        }
+    return done
+
+
+def write_failures(failures: dict[str, dict[str, str]], out_root: Path, arch: str) -> None:
+    """Record, beside the data, which variants produced none and why.
+
+    The stamp is the only per-arch-per-dtype artifact the report already reads, so a
+    measure-time failure reaches the page by the same route as its provenance. Written
+    even when empty, to clear last run's failures once an op starts working again.
+    """
+    for dtype in set(failures) | {p.name for p in (out_root / arch).glob("*") if p.is_dir()}:
+        stamp = out_root / arch / dtype / RUN_STAMP
+        if not stamp.exists():
+            continue
+        data = json.loads(stamp.read_text())
+        data["failed"] = failures.get(dtype, {})
+        stamp.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
+
 def _stamp(stamp: Path, meta: RunMeta) -> str:
     """Accumulate ops across partial runs of one build; a new build supersedes the old.
 

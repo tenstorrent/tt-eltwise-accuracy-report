@@ -134,21 +134,25 @@ def write(path: Path, content: str):
     logger.info("wrote {}", path.relative_to(REPO_ROOT))
 
 
-def _unmeasured_table(arch: str) -> str:
+def _unmeasured_table(arch: str, dtype: str) -> str:
     """Ops in scope that produced no data here, and why.
 
-    An op the device refuses — or one that segfaults the host — is a finding, and the
-    severest kind. Left to the manifest alone it would simply be absent from the report,
-    which reads as an op nobody thought to measure.
+    An op the device refuses, one that segfaults the host, one whose sweep raises — each
+    is a finding, and the severest kind. Recorded only in the manifest and the run stamp,
+    they would be absent from the report, which reads as ops nobody thought to measure.
     """
-    rejected = load_manifest()["rejected"].get(arch, {})
-    if not rejected:
+    rows = {
+        q.rsplit(".", 1)[-1]: why for q, why in load_manifest()["rejected"].get(arch, {}).items()
+    }
+    rows |= _get_index().get(RUNS_KEY, {}).get(arch, {}).get(dtype, {}).get("failed", {})
+    if not rows:
         return ""
-    rows = "".join(f"| `{q.rsplit('.', 1)[-1]}` | {why} |\n" for q, why in sorted(rejected.items()))
+    body = "".join(f"| `{op}` | {why} |\n" for op, why in sorted(rows.items()))
     return (
-        f"## Not measurable on {ARCH_DISPLAY.get(arch, arch)}\n\n"
-        f"In scope, but the device produced nothing — each with the reason recorded when it "
-        f"was probed.\n\n| Op | Why |\n|----|-----|\n{rows}\n"
+        f"## Not measurable on {ARCH_DISPLAY.get(arch, arch)}, "
+        f"{DTYPE_DISPLAY.get(dtype, dtype)}\n\nIn scope, but produced no data — each with "
+        f"the reason recorded when it was probed or swept.\n\n"
+        f"| Op | Why |\n|----|-----|\n{body}\n"
     )
 
 
@@ -333,7 +337,7 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
             )
 
     lines.append("\n")
-    lines.append(_unmeasured_table(arch))
+    lines.append(_unmeasured_table(arch, dtype))
     lines.append("\n---\n\n## Charts Preview\n\n")
     for display_name, entries in groups.items():
         lines.append(f"### [{display_name}]({display_name}.md)\n\n")

@@ -133,11 +133,25 @@ jobs:
           ttnn-accuracy discover
           ttnn-accuracy derive
           ttnn-accuracy probe   # outlives a crashing op on its own; see probe_layouts
+          # measure exits with the number of variants that produced no data, which is a
+          # finding the report carries — not a reason to discard the categories after it,
+          # nor the charts and pages built from everything that did measure.
+          # Measuring is hours of device time and the device can go away under it — a
+          # reset, a bus error, an expiring reservation. A second attempt resumes from
+          # the CSVs the first one wrote, so an interruption costs one op, not the night.
+          empty=0
           for cat in unary unary_bw binary binary_bw ternary ternary_bw; do
-            ttnn-accuracy measure --arch "${{ matrix.arch }}" --category "$cat" --dtype both
+            for attempt in 1 2; do
+              ttnn-accuracy measure --arch "${{ matrix.arch }}" --category "$cat" --dtype both
+              status=$?
+              [ "$status" -lt 128 ] && break   # a signal, not a count of empty variants
+              echo "::warning::$cat died with signal $((status - 128)), resuming"
+            done
+            [ "$status" -lt 128 ] && empty=$((empty + status))
           done
           ttnn-accuracy charts
           ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
+          [ "$empty" -eq 0 ] || echo "::warning::$empty variant(s) produced no data — see the report"
 
       - name: Say what moved
         # The run page is where someone looks, so the diff against last night's committed
