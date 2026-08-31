@@ -1,6 +1,10 @@
 # Periodic report regeneration, no human intervention (the epic's automation bullet).
-# Needs a self-hosted runner with a TT device, labelled wh or bh, providing
-# TT_METAL_HOME (tt-metal checkout) and PYTHON_ENV (its built venv).
+#
+# Runner contract — a self-hosted runner labelled `wh` or `bh`, on a machine with that
+# device, whose environment provides:
+#   TT_METAL_HOME  a tt-metal checkout the runner may rebuild (any remote layout)
+#   PYTHON_ENV     its venv, with ttnn and torch importable
+#   DATA_DIR       a large local disk for the raw CSVs (hundreds of GB, never committed)
 name: nightly-report
 
 on:
@@ -9,25 +13,27 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: nightly-report   # never two overlapping nightly runs; max-parallel serializes the jobs
+  group: nightly-report
   cancel-in-progress: false
 
 permissions:
-  contents: write         # the Publish step pushes with the workflow token
+  contents: write
 
 jobs:
   pin:
-    # One SHA for the whole night: the bh job runs hours after wh, and letting each pull
-    # main at its own start time would measure the two architectures on different builds.
+    # One SHA for the whole night. The bh job starts hours after wh, so resolving main
+    # separately per job would measure the two architectures on different builds.
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.tt.outputs.sha }}
     steps:
       - id: tt
-        # The exact ref, and awk for the field: a bare `main` also matches other refs
-        # ending in main, and two SHAs on the line make GITHUB_OUTPUT unparseable.
+        # The fully qualified ref: tt-metal also has branches like `bliu/main`, and a
+        # bare `main` matches them too, putting two SHAs in the output.
         run: |
+          set -euo pipefail
           sha=$(git ls-remote https://github.com/tenstorrent/tt-metal.git refs/heads/main | awk '{print $1}')
+          [ ${#sha} -eq 40 ] || { echo "resolved '$sha', not one SHA"; exit 1; }
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
 
   measure:
@@ -35,22 +41,39 @@ jobs:
     strategy:
       matrix:
         arch: [wh, bh]
-      max-parallel: 1
+      max-parallel: 1   # both jobs publish to the same branch
+      fail-fast: false  # one architecture failing must not cancel the other
     runs-on: [self-hosted, "${{ matrix.arch }}"]
     timeout-minutes: 720
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0   # the publish step rebases; a shallow clone cannot
 
-      - name: Rebuild tt-metal at the pinned SHA
+      - name: Check the runner contract
         run: |
-          git -C "$TT_METAL_HOME" fetch origin
-          git -C "$TT_METAL_HOME" checkout ${{ needs.pin.outputs.sha }}
-          git -C "$TT_METAL_HOME" submodule update --init --recursive
-          "$TT_METAL_HOME"/build_metal.sh
+          for var in TT_METAL_HOME PYTHON_ENV DATA_DIR; do
+            [ -n "${!var:-}" ] || { echo "$var is unset — see the runner contract above"; exit 1; }
+          done
+          [ -x "$TT_METAL_HOME/build_metal.sh" ] || { echo "no tt-metal at $TT_METAL_HOME"; exit 1; }
+          [ -f "$PYTHON_ENV/bin/activate" ] || { echo "no venv at $PYTHON_ENV"; exit 1; }
+          mkdir -p "$DATA_DIR"
 
-      - name: Regenerate the report
+      - name: Build tt-metal at the pinned SHA
+        # Fetched by URL, not by remote name: a runner's checkout may have `origin` on a
+        # personal fork, where the SHA the pin job resolved upstream does not exist.
+        run: |
+          git -C "$TT_METAL_HOME" fetch --recurse-submodules=no \
+            https://github.com/tenstorrent/tt-metal.git ${{ needs.pin.outputs.sha }}
+          git -C "$TT_METAL_HOME" checkout --force ${{ needs.pin.outputs.sha }}
+          git -C "$TT_METAL_HOME" submodule update --init --recursive
+          "$TT_METAL_HOME/build_metal.sh"
+
+      - name: Measure and regenerate
+        # DATA_DIR is read by every stage, so measure writes where charts will look.
         run: |
           source "$PYTHON_ENV/bin/activate"
           pip install -e . --quiet
@@ -64,8 +87,15 @@ jobs:
           ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
 
       - name: Publish
+        # The other architecture may have pushed while this job measured, so rebase onto
+        # it rather than racing; nothing to commit is a success, not a failure.
         run: |
           git add -A reports/ report_index.json stats/
-          git -c user.name=nightly -c user.email=nightly@users.noreply.github.com \
-            commit -m "data(${{ matrix.arch }}): nightly report $(date -u +%F)" || exit 0
-          git pull --rebase && git push
+          git diff --cached --quiet && { echo "no change to publish"; exit 0; }
+          git -c user.name=nightly-report -c user.email=nightly@users.noreply.github.com \
+            commit -m "data(${{ matrix.arch }}): nightly report at ${{ needs.pin.outputs.sha }}"
+          for attempt in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            echo "push race, retrying ($attempt)"; sleep $((attempt * 10))
+          done
+          exit 1
