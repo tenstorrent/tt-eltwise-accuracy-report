@@ -60,6 +60,7 @@ jobs:
           done
           [ -x "$TT_METAL_HOME/build_metal.sh" ] || { echo "no tt-metal at $TT_METAL_HOME"; exit 1; }
           [ -f "$PYTHON_ENV/bin/activate" ] || { echo "no venv at $PYTHON_ENV"; exit 1; }
+          command -v uv >/dev/null || { echo "uv is not on PATH — the venv has no pip"; exit 1; }
           mkdir -p "$DATA_DIR"
 
       - name: Build tt-metal at the pinned SHA
@@ -77,9 +78,11 @@ jobs:
 
       - name: Measure and regenerate
         # DATA_DIR is read by every stage, so measure writes where charts will look.
+        # uv, not pip: tt-metal's venv is built by uv and has no pip of its own, so
+        # `pip install` would silently fall through to the system one.
         run: |
           source "$PYTHON_ENV/bin/activate"
-          pip install -e . --quiet
+          uv pip install -e . --quiet --python "$PYTHON_ENV/bin/python3"
           ttnn-accuracy discover
           ttnn-accuracy derive
           ttnn-accuracy probe
