@@ -12,6 +12,7 @@ in a committed artifact, so a model retrieves decisions — it never invents the
 | what was measured, on what silicon | `data/{arch}/{dtype}/{op}/{variant}.csv` + `stats/runs/{id}.json` |
 | the numbers an answer cites | `report_index.json` — per arch/dtype/op/variant, with provenance |
 | the human view | `reports/**` pages and charts |
+| the reader's definitions | [contract.md](contract.md) — metrics, outcomes, verdict rules, answering rules |
 
 ## 1 — Answer a customer
 

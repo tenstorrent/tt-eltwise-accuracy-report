@@ -40,6 +40,7 @@ Every sampled page carries an explicit note: a sampled maximum is a lower bound.
 | fp32 pair sample | preference | scheme B below, seed fixed forever — a moving sample makes error changes unattributable |
 | ternary stride | preference | every 512th code — uniform over exponents, priced like a binary sweep |
 | domains | preference | fp64 bisection per dtype, unary only; refusals recorded with reasons |
+| computability bound | forced | `polygamma_bw` swept above −1024 — torch's reference costs O(\|x\|) below zero |
 
 ### fp32 pair sample — options considered
 

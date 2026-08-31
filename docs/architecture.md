@@ -88,6 +88,7 @@ flowchart TB
     subgraph ops["ops/ — what"]
         INT["introspect"] --> ARI["arity"]
         MAN["manifest"]
+        PLN["plan"]
         OVR["overrides"]
     end
 
@@ -116,8 +117,9 @@ flowchart TB
     SWP --> MET
     STO --> SCH
     DER --> MET
-    CHT --> MET
-    PAG --> OVR
+    CHT --> MET & PLN & OVR
+    PAG --> PLN
+    PLN --> MAN & OVR
     TTM["tt-metal ulp"] --> MET
 ```
 
@@ -186,5 +188,5 @@ Reserved axes are null columns in every run record — free now, unbackfillable 
 | `ops/overrides.py` | yes | hand-edited | every editorial decision: scalars, variants, supplied goldens, exclusions |
 | `stats/runs/{id}.json` | yes | measure | tt-metal commit, versions, device |
 | `data/**.csv` | no | measure | per-input rows; symlink to local disk |
-| `report_index.json` | yes | charts | summary stats per arch/dtype/op/variant — what an LLM consumes |
+| `report_index.json` | yes | charts | stats, verdict and rationale per arch/dtype/op/variant — what an LLM consumes, under `analyze-report/contract.md` |
 | `reports/**` | yes | charts, report | SVGs and markdown |

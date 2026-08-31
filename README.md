@@ -24,7 +24,7 @@ src/ttnn_accuracy/
   report/               # charts (CSV → SVG + report_index.json) · pages · compare
 
 .github/workflows/      # the periodic regenerate-and-publish workflow, with its diagrams
-analyze-report/         # LLM consumption: workflows, uncovered-op backlog, analysis draft
+analyze-report/         # LLM consumption: workflows, interpretation contract, uncovered-op backlog
 stats/ops_manifest.json # what discover, derive and probe learned (committed)
 stats/runs/             # one provenance record per measurement run (committed)
 data/                   # raw CSVs — gitignored; symlink to a fast local disk
