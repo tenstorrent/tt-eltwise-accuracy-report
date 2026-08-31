@@ -92,20 +92,30 @@ def compare(
     calculated: torch.Tensor,
     group_size: int,
 ) -> pd.DataFrame:
-    """One row per group of `group_size` consecutive inputs, holding its worst error."""
+    """One row per group of `group_size` consecutive inputs: its worst point, whole.
+
+    Every column of a row describes the same point — the one with the group's worst
+    defined ULP — matching the binary sweep's reduction. Taking each column's own
+    extremum instead produced rows whose x, error and outcome came from four different
+    points: irreproducible, and `zeroed` rows carrying a ULP. A group with no defined
+    ULP keeps its first point, whose outcome says why there was nothing to rank.
+    """
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
         e = errors(golden, calculated)
-        shape = (x.nelement() // group_size, group_size)
+        rows = x.nelement() // group_size
+        shape = (rows, group_size)
         g = {k: v.reshape(shape) for k, v in e.items()}
+        col = np.arange(rows)
+        pos = np.nan_to_num(g["ulp_error"], nan=-np.inf).argmax(axis=-1)
 
         return pd.DataFrame(
             {
-                "x": x.to(torch.float32).flatten().numpy().reshape(shape)[:, 0],
-                "y": g["y"][:, 0],
-                "y_ref": g["y_ref"][:, 0],
-                "ulp_error": np.nanmax(g["ulp_error"], axis=-1),
-                "abs_error": np.nanmax(g["abs_error"], axis=-1),
-                "outcome": np.take(OUTCOMES, g["outcome"].max(axis=-1)),
+                "x": x.to(torch.float32).flatten().numpy().reshape(shape)[col, pos],
+                "y": g["y"][col, pos],
+                "y_ref": g["y_ref"][col, pos],
+                "ulp_error": g["ulp_error"][col, pos],
+                "abs_error": g["abs_error"][col, pos],
+                "outcome": np.take(OUTCOMES, g["outcome"][col, pos]),
             }
         )

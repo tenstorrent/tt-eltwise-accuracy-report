@@ -98,9 +98,9 @@ def compute_stats(df: pd.DataFrame) -> dict:
     exact points would be diluted by ops that return zero across most of their range, and
     the max over undefined points is what produced 1e24 readings.
 
-    Both read the value, not the outcome label. An fp32 row labels a whole group by the
-    worst outcome in it, so filtering the mean on the label would drop a whole group's
-    real error because one point in it flushed, while the max kept it.
+    Both read the value, not the outcome label: an fp32 row is its group's worst-ULP
+    point, so a label like `flushed` means that group's best evidence is a flush, and
+    the value columns always belong to the same point as the label.
     """
     ulp = _finite(df["ulp_error"])
     return {

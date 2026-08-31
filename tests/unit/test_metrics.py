@@ -69,6 +69,31 @@ def test_exact_match_is_zero_error():
     assert df["abs_error"].tolist() == [0.0, 0.0]
 
 
+def test_a_grouped_row_is_one_coherent_point():
+    """Every column of a grouped row must describe the same point.
+
+    Taking each column's own extremum produced fp32 rows whose x, error and outcome came
+    from four different points — irreproducible, and caught only by hand-recomputing a
+    row. The group's worst defined-ULP point is the whole row.
+    """
+    df = _compare(
+        [1.0, 2.0, 4.0, 8.0],
+        [1.0, 2.5, 4.0, 8.0],  # worst defined ULP at x=2.0 (32 bf16 ULPs)
+        [1.0, 2.0, 4.0, 8.0],
+        group_size=4,
+    )
+    row = df.iloc[0]
+    assert row["x"] == 2.0
+    assert row["y"] == 2.0
+    assert row["y_ref"] == 2.5
+    assert row["outcome"] == "inexact"
+    assert row["abs_error"] == 0.5
+    assert (
+        row["ulp_error"]
+        == row["abs_error"] / metrics.ulp(torch.tensor([2.5], dtype=torch.bfloat16)).item()
+    )
+
+
 def test_one_ulp_off_reads_as_one_ulp():
     df = _compare([1.0], [1.0], [1.0 + 2**-7])
     assert df["ulp_error"].item() == pytest.approx(1.0)
@@ -114,8 +139,7 @@ def test_outcomes_are_labelled():
     assert _compare([1.0], [nan], [1.0])["outcome"].item() == "mismatch"
 
 
-def test_group_size_keeps_first_x_and_worst_error():
+def test_group_size_reduces_to_the_worst_error():
     df = _compare([1.0, 1.0], [1.0, 1.0], [1.0, 1.0 + 2**-6], group_size=2)
     assert len(df) == 1
-    assert df["x"].item() == 1.0
     assert df["ulp_error"].item() == pytest.approx(2.0)
