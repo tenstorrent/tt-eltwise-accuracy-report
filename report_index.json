@@ -12,6 +12,7 @@
           "acosh_bw",
           "add",
           "add_",
+          "addalpha",
           "addcdiv",
           "addcmul",
           "angle",
@@ -34,7 +35,9 @@
           "ceil_bw",
           "celu",
           "celu_bw",
+          "clamp",
           "clamp_bw",
+          "clip",
           "clip_bw",
           "clone",
           "conj",
@@ -88,6 +91,7 @@
           "hardswish_bw",
           "hardtanh",
           "hardtanh_bw",
+          "heaviside",
           "hypot",
           "hypot_bw",
           "i0",
@@ -149,9 +153,15 @@
           "nextafter",
           "ones_like",
           "plus_one",
+          "polygamma",
+          "polygamma_bw",
           "pow",
+          "pow_bw",
+          "prelu",
           "rad2deg",
           "rad2deg_bw",
+          "rdiv",
+          "rdiv_bw",
           "real",
           "reallocate",
           "reciprocal",
@@ -160,10 +170,14 @@
           "relu6",
           "relu6_bw",
           "relu_bw",
+          "relu_max",
+          "relu_min",
           "remainder",
           "reshard",
           "round",
           "round_bw",
+          "rpow",
+          "rpow_bw",
           "rsqrt",
           "rsqrt_bw",
           "rsub",
@@ -196,6 +210,7 @@
           "squared_difference_",
           "squared_difference_bw",
           "squeeze",
+          "subalpha",
           "subtract",
           "subtract_",
           "swish",
@@ -205,6 +220,7 @@
           "tanh_bw",
           "tanhshrink",
           "tanhshrink_bw",
+          "threshold",
           "tilize",
           "tilize_with_zero_padding",
           "to_device",
@@ -216,12 +232,13 @@
           "trunc_bw",
           "typecast",
           "untilize",
+          "where",
           "xielu",
           "xlogy",
           "xlogy_bw",
           "zeros_like"
         ],
-        "run_id": "20260827T130000",
+        "run_id": "20260827T132622",
         "tt_metal_commit": "a5cd86212e1",
         "ttnn_version": "0.75.0rc10.dev817+g2adf8c65887"
       }
@@ -331,6 +348,20 @@
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
+          "n_inputs": 65026,
+          "outcomes": {
+            "inexact": 65024,
+            "overflow": 2
+          },
+          "ulp_clipped": 0,
+          "usable_to": "\u2014"
+        }
+      },
+      "addalpha": {
+        "alpha2.0": {
+          "max_abs": "3.38e+38",
+          "max_ulp": "254",
+          "mean_ulp": "2.42",
           "n_inputs": 65026,
           "outcomes": {
             "inexact": 65024,
@@ -618,6 +649,19 @@
           "usable_to": "3.39e+38"
         }
       },
+      "clamp": {
+        "min-1.0_max1.0": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
+        }
+      },
       "clamp_bw": {
         "default": {
           "max_abs": "0",
@@ -629,6 +673,19 @@
           },
           "ulp_clipped": 0,
           "usable_to": "\u2014"
+        }
+      },
+      "clip": {
+        "min-1.0_max1.0": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
         }
       },
       "clip_bw": {
@@ -1271,6 +1328,19 @@
           "usable_to": "3.39e+38"
         }
       },
+      "heaviside": {
+        "value0.5": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
+        }
+      },
       "hypot": {
         "default": {
           "max_abs": "7.21e+16",
@@ -1426,6 +1496,21 @@
           },
           "ulp_clipped": 0,
           "usable_to": "\u2014"
+        }
+      },
+      "leaky_relu": {
+        "negative_slope0.01": {
+          "max_abs": "2.08e+34",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 48843,
+            "flushed": 840,
+            "inexact": 15341
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
         }
       },
       "leaky_relu_bw": {
@@ -2034,6 +2119,40 @@
           "usable_to": "\u2014"
         }
       },
+      "polygamma": {
+        "k1": {
+          "max_abs": "6.44e+36",
+          "max_ulp": "1.02e+08",
+          "mean_ulp": "1.32e+04",
+          "n_inputs": 64769,
+          "outcomes": {
+            "exact": 32294,
+            "inexact": 16338,
+            "mismatch": 6,
+            "overflow": 15874,
+            "zeroed": 257
+          },
+          "ulp_clipped": 20,
+          "usable_to": "5.31"
+        }
+      },
+      "polygamma_bw": {
+        "n1": {
+          "max_abs": "1.33e+36",
+          "max_ulp": "3.57e+08",
+          "mean_ulp": "6.81e+05",
+          "n_inputs": 41217,
+          "outcomes": {
+            "exact": 18527,
+            "inexact": 1088,
+            "mismatch": 121,
+            "overflow": 21406,
+            "zeroed": 75
+          },
+          "ulp_clipped": 32,
+          "usable_to": "4.47"
+        }
+      },
       "pow": {
         "default": {
           "max_abs": "2.31e+38",
@@ -2048,6 +2167,34 @@
           "usable_to": "\u2014"
         }
       },
+      "pow_bw": {
+        "exponent2.0": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 32384,
+          "outcomes": {
+            "exact": 32384
+          },
+          "ulp_clipped": 0,
+          "usable_to": "1.69e+38"
+        }
+      },
+      "prelu": {
+        "weight0.25": {
+          "max_abs": "1.18e-38",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 64768,
+            "flushed": 255,
+            "zeroed": 1
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
+        }
+      },
       "rad2deg": {
         "default": {
           "max_abs": "1.33e+36",
@@ -2060,6 +2207,38 @@
           },
           "ulp_clipped": 0,
           "usable_to": "5.9e+36"
+        }
+      },
+      "rdiv": {
+        "value2.0": {
+          "max_abs": "6.65e+35",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 64770,
+          "outcomes": {
+            "exact": 63504,
+            "inexact": 1008,
+            "zeroed": 258
+          },
+          "ulp_clipped": 0,
+          "usable_to": "1.7e+38"
+        }
+      },
+      "rdiv_bw": {
+        "scalar2.0": {
+          "max_abs": "6.65e+35",
+          "max_ulp": "2",
+          "mean_ulp": "1.02",
+          "n_inputs": 48492,
+          "outcomes": {
+            "exact": 19908,
+            "inexact": 12348,
+            "mismatch": 148,
+            "overflow": 15980,
+            "zeroed": 108
+          },
+          "ulp_clipped": 0,
+          "usable_to": "1.3e+19"
         }
       },
       "reallocate": {
@@ -2159,6 +2338,32 @@
           "usable_to": "3.39e+38"
         }
       },
+      "relu_max": {
+        "upper_limit1.0": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
+        }
+      },
+      "relu_min": {
+        "lower_limit1.0": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
+        }
+      },
       "remainder": {
         "default": {
           "max_abs": "4.06e+31",
@@ -2184,6 +2389,35 @@
           },
           "ulp_clipped": 0,
           "usable_to": "3.39e+38"
+        }
+      },
+      "rpow": {
+        "exponent2.0": {
+          "max_abs": "7.21e+16",
+          "max_ulp": "1",
+          "mean_ulp": "0.843",
+          "n_inputs": 49536,
+          "outcomes": {
+            "exact": 47903,
+            "flushed": 394,
+            "inexact": 1239
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
+        }
+      },
+      "rpow_bw": {
+        "exponent2.0": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 64768,
+          "outcomes": {
+            "exact": 32384,
+            "mismatch": 32384
+          },
+          "ulp_clipped": 0,
+          "usable_to": "1.69e+38"
         }
       },
       "rsqrt": {
@@ -2633,6 +2867,20 @@
           "usable_to": "3.39e+38"
         }
       },
+      "subalpha": {
+        "alpha2.0": {
+          "max_abs": "3.38e+38",
+          "max_ulp": "254",
+          "mean_ulp": "2.42",
+          "n_inputs": 65026,
+          "outcomes": {
+            "inexact": 65024,
+            "overflow": 2
+          },
+          "ulp_clipped": 0,
+          "usable_to": "\u2014"
+        }
+      },
       "subtract": {
         "default": {
           "max_abs": "1.33e+36",
@@ -2765,6 +3013,19 @@
           "usable_to": "7.45e-09"
         }
       },
+      "threshold": {
+        "threshold0.5_value0.0": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38"
+        }
+      },
       "tilize_with_zero_padding": {
         "default": {
           "max_abs": "0",
@@ -2802,6 +3063,19 @@
           },
           "ulp_clipped": 0,
           "usable_to": "3.39e+38"
+        }
+      },
+      "where": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 65026
+          },
+          "ulp_clipped": 0,
+          "usable_to": "\u2014"
         }
       },
       "xielu": {
