@@ -16,7 +16,18 @@ permissions:
   contents: write         # the Publish step pushes with the workflow token
 
 jobs:
+  pin:
+    # One SHA for the whole night: the bh job runs hours after wh, and letting each pull
+    # main at its own start time would measure the two architectures on different builds.
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.tt.outputs.sha }}
+    steps:
+      - id: tt
+        run: echo "sha=$(git ls-remote https://github.com/tenstorrent/tt-metal.git main | cut -f1)" >> "$GITHUB_OUTPUT"
+
   measure:
+    needs: pin
     strategy:
       matrix:
         arch: [wh, bh]
@@ -28,12 +39,10 @@ jobs:
         with:
           fetch-depth: 0   # the publish step rebases; a shallow clone cannot
 
-      - name: Rebuild tt-metal at main
-        # checkout main explicitly: the runner's tt-metal may sit detached at a pinned SHA
+      - name: Rebuild tt-metal at the pinned SHA
         run: |
-          git -C "$TT_METAL_HOME" fetch origin main
-          git -C "$TT_METAL_HOME" checkout main
-          git -C "$TT_METAL_HOME" pull --ff-only
+          git -C "$TT_METAL_HOME" fetch origin
+          git -C "$TT_METAL_HOME" checkout ${{ needs.pin.outputs.sha }}
           git -C "$TT_METAL_HOME" submodule update --init --recursive
           "$TT_METAL_HOME"/build_metal.sh
 

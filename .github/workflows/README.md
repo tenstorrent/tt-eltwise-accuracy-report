@@ -19,7 +19,7 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A["checkout"] --> B["rebuild tt-metal at main"]
+    A["checkout"] --> B["rebuild tt-metal at the night's<br/>pinned SHA — both archs, one build"]
     B --> C["discover · derive · probe<br/>manifest refreshed, per-arch layouts"]
     C --> D["measure: 6 categories × both dtypes"]
     D --> E["charts + report"]
@@ -30,7 +30,7 @@ flowchart TD
 |---|---|
 | trigger | nightly cron + `workflow_dispatch` |
 | runners | `[self-hosted, wh]` / `[self-hosted, bh]`, matrix `max-parallel: 1` |
-| tt-metal version | whatever `main` is that night — recorded per run in `stats/runs/` |
+| tt-metal version | `main`'s SHA resolved once per night, both archs build it — recorded in `stats/runs/` |
 | gate | none — regenerate and publish; `compare` exists as a manual tool |
 | runner provides | `TT_METAL_HOME` (built checkout), `PYTHON_ENV` |
 | timeout | 12 h per arch |
