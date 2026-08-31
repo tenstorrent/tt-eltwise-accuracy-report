@@ -65,12 +65,15 @@ jobs:
       - name: Build tt-metal at the pinned SHA
         # Fetched by URL, not by remote name: a runner's checkout may have `origin` on a
         # personal fork, where the SHA the pin job resolved upstream does not exist.
+        # Run from inside TT_METAL_HOME — build_metal.sh configures the working
+        # directory, which in CI is this repo's checkout rather than tt-metal.
+        working-directory: ${{ env.TT_METAL_HOME }}
         run: |
-          git -C "$TT_METAL_HOME" fetch --recurse-submodules=no \
+          git fetch --recurse-submodules=no \
             https://github.com/tenstorrent/tt-metal.git ${{ needs.pin.outputs.sha }}
-          git -C "$TT_METAL_HOME" checkout --force ${{ needs.pin.outputs.sha }}
-          git -C "$TT_METAL_HOME" submodule update --init --recursive
-          "$TT_METAL_HOME/build_metal.sh"
+          git checkout --force ${{ needs.pin.outputs.sha }}
+          git submodule update --init --recursive
+          ./build_metal.sh
 
       - name: Measure and regenerate
         # DATA_DIR is read by every stage, so measure writes where charts will look.
