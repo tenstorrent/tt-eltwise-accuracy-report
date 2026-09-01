@@ -56,7 +56,19 @@ def measure(
 
 
 def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:
-    """Empty when the CSV was written, else why it was not."""
+    """Empty when the CSV was written, else why it was not. Never raises.
+
+    One variant must not end the run: whatever it does short of killing the process is
+    that variant's recorded result, and the other 197 still get measured.
+    """
+    try:
+        return _measure_one(spec, dtype, arch, out_root, device)
+    except Exception as exc:
+        logger.exception("  {}/{} {} failed", spec.name, spec.variant, dtype)
+        return f"{type(exc).__name__}: {str(exc).strip().splitlines()[0][:160]}"
+
+
+def _measure_one(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:
     sweep = SWEEPS.get((spec.operands, dtype))
     if sweep is None:
         logger.error("  no {} sweep for {} operands ({})", dtype, spec.operands, spec.name)
@@ -64,12 +76,7 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str
 
     lo, hi = spec.bounds[dtype]
     layout = spec.layouts[dtype]
-    try:
-        df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi, layout)
-    except Exception as exc:
-        logger.exception("  {}/{} {} failed", spec.name, spec.variant, dtype)
-        return f"the sweep raised {type(exc).__name__}: {str(exc).strip().splitlines()[0][:160]}"
-
+    df = sweep(spec.ttnn_fn, spec.golden_fn, device, lo, hi, layout)
     if df is None:
         logger.error("  no valid {} inputs for {}/{}", dtype, spec.name, spec.variant)
         return f"no valid {dtype} inputs in its domain"

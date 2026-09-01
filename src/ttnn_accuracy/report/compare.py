@@ -51,9 +51,13 @@ def diff(old: dict, new: dict) -> dict[str, list]:
             buckets["added"].append((key, None, b))
         elif b is None:
             buckets["removed"].append((key, a, None))
-        elif any(_num(a[m]) != _num(b[m]) for m in SCORED) or a["usable_to"] != b["usable_to"]:
-            worse = any(_num(b[m]) > _num(a[m]) for m in SCORED)
-            better = any(_num(b[m]) < _num(a[m]) for m in SCORED)
+        # .get throughout: an index committed before a field existed is still a valid
+        # baseline to diff against, and the nightly diffs against whatever last landed.
+        elif any(_num(a.get(m)) != _num(b.get(m)) for m in SCORED) or a.get("usable_to") != b.get(
+            "usable_to"
+        ):
+            worse = any(_num(b.get(m)) > _num(a.get(m)) for m in SCORED)
+            better = any(_num(b.get(m)) < _num(a.get(m)) for m in SCORED)
             bucket = "regressed" if worse else "improved" if better else "changed"
             buckets[bucket].append((key, a, b))
     return buckets
@@ -82,7 +86,9 @@ def compare(old_path: Path, new_path: Path) -> int:
                 getattr(logger, level)(where)
                 continue
             moves = ", ".join(
-                f"{m} {a[m]} → {b[m]}" for m in (*SCORED, "usable_to") if str(a[m]) != str(b[m])
+                f"{m} {a.get(m)} → {b.get(m)}"
+                for m in (*SCORED, "usable_to")
+                if str(a.get(m)) != str(b.get(m))
             )
             getattr(logger, level)("{}: {}", where, moves)
 

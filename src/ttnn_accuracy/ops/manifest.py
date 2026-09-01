@@ -153,20 +153,22 @@ def probe_layouts(device_id: int = 0) -> int:
     import multiprocessing
 
     context = multiprocessing.get_context("spawn")  # a fresh interpreter, no shared device
+    # The child reports which architecture it probed: the parent has no device, and
+    # guessing from the manifest would summarise the other architecture once both exist.
+    probed = context.SimpleQueue()
     # Every crash consumes exactly one op, so a pass per op is the bound by construction.
     for attempt in range(len(load()["ops"]) + 1):
-        child = context.Process(target=_probe_pass, args=(device_id,))
+        child = context.Process(target=_probe_pass, args=(device_id, probed))
         child.start()
         child.join()
         if child.exitcode == 0:
-            return _probe_summary()
+            return _probe_summary(probed.get())
         logger.error("probe pass {} died with {}, resuming past it", attempt + 1, child.exitcode)
     return 1
 
 
-def _probe_summary() -> int:
+def _probe_summary(arch: str) -> int:
     manifest = load()
-    arch, *_ = manifest["layouts"]
     layouts, rejected = manifest["layouts"][arch], manifest["rejected"][arch]
     logger.success(
         "{} layouts for {} of {} ops → {}", arch, len(layouts), len(manifest["ops"]), MANIFEST_FILE
@@ -178,7 +180,7 @@ def _probe_summary() -> int:
     return 0 if layouts else 1
 
 
-def _probe_pass(device_id: int) -> None:
+def _probe_pass(device_id: int, probed) -> None:
     """One pass over the ops still unprobed. Runs in its own process; may not return."""
     from ttnn_accuracy.measure.device import open_device
     from ttnn_accuracy.measure.schema import ARCH_OF_DEVICE
@@ -224,6 +226,7 @@ def _probe_pass(device_id: int) -> None:
             elif why:
                 rejected[name] = why
             save(manifest)  # every op, so a crash loses only the op that caused it
+    probed.put(arch)
 
 
 def discover(include_experimental: bool = False) -> int:
