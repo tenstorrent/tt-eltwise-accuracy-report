@@ -413,189 +413,7 @@
     "wh": {
       "bf16": {
         "device_arch": "WORMHOLE_B0",
-        "ops": [
-          "abs",
-          "abs_bw",
-          "acos",
-          "acos_bw",
-          "acosh",
-          "acosh_bw",
-          "add",
-          "add_",
-          "addalpha",
-          "asin",
-          "asin_bw",
-          "asinh",
-          "asinh_bw",
-          "atan",
-          "atan2",
-          "atan_bw",
-          "atanh",
-          "atanh_bw",
-          "bias_gelu",
-          "bias_gelu_",
-          "cbrt",
-          "ceil",
-          "celu",
-          "celu_bw",
-          "clamp",
-          "clip",
-          "cos",
-          "cos_bw",
-          "cosh",
-          "cosh_bw",
-          "deg2rad",
-          "digamma",
-          "digamma_bw",
-          "div",
-          "div_no_nan",
-          "divide",
-          "divide_",
-          "elu",
-          "elu_bw",
-          "erf",
-          "erf_bw",
-          "erfc",
-          "erfc_bw",
-          "erfinv",
-          "erfinv_bw",
-          "exp",
-          "exp2",
-          "exp2_bw",
-          "exp_bw",
-          "expm1",
-          "expm1_bw",
-          "floor",
-          "floor_div",
-          "fmod",
-          "frac",
-          "ge_",
-          "gelu",
-          "gelu_bw",
-          "gt_",
-          "hardmish",
-          "hardshrink",
-          "hardshrink_bw",
-          "hardsigmoid",
-          "hardsigmoid_bw",
-          "hardswish",
-          "hardswish_bw",
-          "hardtanh",
-          "hardtanh_bw",
-          "heaviside",
-          "hypot",
-          "i0",
-          "i0_bw",
-          "i1",
-          "identity",
-          "l1_loss",
-          "ldexp",
-          "ldexp_",
-          "le_",
-          "leaky_relu",
-          "leaky_relu_bw",
-          "lgamma",
-          "lgamma_bw",
-          "log",
-          "log10",
-          "log10_bw",
-          "log1p",
-          "log1p_bw",
-          "log2",
-          "log2_bw",
-          "log_bw",
-          "log_sigmoid",
-          "log_sigmoid_bw",
-          "logaddexp",
-          "logaddexp2",
-          "logaddexp2_",
-          "logaddexp_",
-          "logical_not_",
-          "logical_xor_",
-          "logit",
-          "logit_bw",
-          "logiteps_bw",
-          "lt_",
-          "maximum",
-          "minimum",
-          "mish",
-          "mse_loss",
-          "multigammaln",
-          "multigammaln_bw",
-          "multiply",
-          "multiply_",
-          "neg",
-          "nextafter",
-          "polygamma",
-          "polygamma_bw",
-          "pow",
-          "pow_bw",
-          "prelu",
-          "rad2deg",
-          "rdiv",
-          "rdiv_bw",
-          "reciprocal",
-          "reciprocal_bw",
-          "relu",
-          "relu6",
-          "relu6_bw",
-          "relu_bw",
-          "relu_max",
-          "relu_min",
-          "remainder",
-          "round",
-          "rpow",
-          "rpow_bw",
-          "rsqrt",
-          "rsqrt_bw",
-          "rsub",
-          "rsub_",
-          "selu",
-          "selu_bw",
-          "sigmoid",
-          "sigmoid_accurate",
-          "sigmoid_bw",
-          "sign",
-          "silu",
-          "silu_bw",
-          "sin",
-          "sin_bw",
-          "sinh",
-          "sinh_bw",
-          "softplus",
-          "softplus_bw",
-          "softshrink",
-          "softshrink_bw",
-          "softsign",
-          "softsign_bw",
-          "sqrt",
-          "sqrt_bw",
-          "square",
-          "square_bw",
-          "squared_difference",
-          "squared_difference_",
-          "subalpha",
-          "subtract",
-          "subtract_",
-          "swish",
-          "tan",
-          "tan_bw",
-          "tanh",
-          "tanh_bw",
-          "tanhshrink",
-          "tanhshrink_bw",
-          "threshold",
-          "threshold_bw",
-          "trunc",
-          "xielu",
-          "xlogy"
-        ],
-        "run_id": "20260831T073412",
-        "tt_metal_commit": "2adf8c65887",
-        "ttnn_version": "0.75.0rc10.dev817+g2adf8c65887"
-      },
-      "fp32": {
-        "device_arch": "WORMHOLE_B0",
+        "failed": {},
         "ops": [
           "abs",
           "abs_bw",
@@ -620,7 +438,6 @@
           "atanh_bw",
           "bias_gelu",
           "bias_gelu_",
-          "bias_gelu_bw",
           "cbrt",
           "ceil",
           "celu",
@@ -629,7 +446,6 @@
           "clamp_bw",
           "clip",
           "clip_bw",
-          "clone",
           "cos",
           "cos_bw",
           "cosh",
@@ -660,7 +476,6 @@
           "floor_div",
           "fmod",
           "frac",
-          "from_device",
           "ge_",
           "gelu",
           "gelu_bw",
@@ -720,7 +535,6 @@
           "min_bw",
           "minimum",
           "mish",
-          "move",
           "mse_loss",
           "mul_bw",
           "multigammaln",
@@ -737,7 +551,6 @@
           "rad2deg",
           "rdiv",
           "rdiv_bw",
-          "reallocate",
           "reciprocal",
           "reciprocal_bw",
           "relu",
@@ -756,7 +569,6 @@
           "rsub_",
           "selu",
           "selu_bw",
-          "sharded_to_interleaved",
           "sigmoid",
           "sigmoid_accurate",
           "sigmoid_bw",
@@ -780,7 +592,6 @@
           "squared_difference",
           "squared_difference_",
           "squared_difference_bw",
-          "squeeze",
           "subalpha",
           "subtract",
           "subtract_",
@@ -793,18 +604,218 @@
           "tanhshrink_bw",
           "threshold",
           "threshold_bw",
-          "tilize",
-          "tilize_with_zero_padding",
           "trunc",
-          "untilize",
           "where",
           "xielu",
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260831T073009",
-        "tt_metal_commit": "2adf8c65887",
-        "ttnn_version": "0.75.0rc10.dev817+g2adf8c65887"
+        "run_id": "20260901T075510",
+        "tt_metal_commit": "047ec3ccf96",
+        "ttnn_version": "0.1.dev30578+g5b8d933"
+      },
+      "fp32": {
+        "device_arch": "WORMHOLE_B0",
+        "failed": {},
+        "ops": [
+          "abs",
+          "abs_bw",
+          "acos",
+          "acos_bw",
+          "acosh",
+          "acosh_bw",
+          "add",
+          "add_",
+          "addalpha",
+          "addcdiv",
+          "addcmul",
+          "asin",
+          "asin_bw",
+          "asinh",
+          "asinh_bw",
+          "atan",
+          "atan2",
+          "atan2_bw",
+          "atan_bw",
+          "atanh",
+          "atanh_bw",
+          "bias_gelu",
+          "bias_gelu_",
+          "cbrt",
+          "ceil",
+          "celu",
+          "celu_bw",
+          "clamp",
+          "clamp_bw",
+          "clip",
+          "clip_bw",
+          "cos",
+          "cos_bw",
+          "cosh",
+          "cosh_bw",
+          "deg2rad",
+          "digamma",
+          "digamma_bw",
+          "div",
+          "div_bw",
+          "div_no_nan",
+          "divide",
+          "divide_",
+          "elu",
+          "elu_bw",
+          "erf",
+          "erf_bw",
+          "erfc",
+          "erfc_bw",
+          "erfinv",
+          "erfinv_bw",
+          "exp",
+          "exp2",
+          "exp2_bw",
+          "exp_bw",
+          "expm1",
+          "expm1_bw",
+          "floor",
+          "floor_div",
+          "fmod",
+          "frac",
+          "ge_",
+          "gelu",
+          "gelu_bw",
+          "gt_",
+          "hardmish",
+          "hardshrink",
+          "hardshrink_bw",
+          "hardsigmoid",
+          "hardsigmoid_bw",
+          "hardswish",
+          "hardswish_bw",
+          "hardtanh",
+          "hardtanh_bw",
+          "heaviside",
+          "hypot",
+          "hypot_bw",
+          "i0",
+          "i0_bw",
+          "i1",
+          "identity",
+          "l1_loss",
+          "ldexp",
+          "ldexp_",
+          "ldexp_bw",
+          "le_",
+          "leaky_relu",
+          "leaky_relu_bw",
+          "lerp",
+          "lerp_bw",
+          "lgamma",
+          "lgamma_bw",
+          "log",
+          "log10",
+          "log10_bw",
+          "log1p",
+          "log1p_bw",
+          "log2",
+          "log2_bw",
+          "log_bw",
+          "log_sigmoid",
+          "log_sigmoid_bw",
+          "logaddexp",
+          "logaddexp2",
+          "logaddexp2_",
+          "logaddexp2_bw",
+          "logaddexp_",
+          "logaddexp_bw",
+          "logical_not_",
+          "logical_xor_",
+          "logit",
+          "logit_bw",
+          "logiteps_bw",
+          "lt_",
+          "mac",
+          "max_bw",
+          "maximum",
+          "min_bw",
+          "minimum",
+          "mish",
+          "mse_loss",
+          "mul_bw",
+          "multigammaln",
+          "multigammaln_bw",
+          "multiply",
+          "multiply_",
+          "neg",
+          "nextafter",
+          "polygamma",
+          "polygamma_bw",
+          "pow",
+          "pow_bw",
+          "prelu",
+          "rad2deg",
+          "rdiv",
+          "rdiv_bw",
+          "reciprocal",
+          "reciprocal_bw",
+          "relu",
+          "relu6",
+          "relu6_bw",
+          "relu_bw",
+          "relu_max",
+          "relu_min",
+          "remainder",
+          "round",
+          "rpow",
+          "rpow_bw",
+          "rsqrt",
+          "rsqrt_bw",
+          "rsub",
+          "rsub_",
+          "selu",
+          "selu_bw",
+          "sigmoid",
+          "sigmoid_accurate",
+          "sigmoid_bw",
+          "sign",
+          "silu",
+          "silu_bw",
+          "sin",
+          "sin_bw",
+          "sinh",
+          "sinh_bw",
+          "softplus",
+          "softplus_bw",
+          "softshrink",
+          "softshrink_bw",
+          "softsign",
+          "softsign_bw",
+          "sqrt",
+          "sqrt_bw",
+          "square",
+          "square_bw",
+          "squared_difference",
+          "squared_difference_",
+          "squared_difference_bw",
+          "subalpha",
+          "subtract",
+          "subtract_",
+          "swish",
+          "tan",
+          "tan_bw",
+          "tanh",
+          "tanh_bw",
+          "tanhshrink",
+          "tanhshrink_bw",
+          "threshold",
+          "threshold_bw",
+          "trunc",
+          "where",
+          "xielu",
+          "xlogy",
+          "xlogy_bw"
+        ],
+        "run_id": "20260901T075510",
+        "tt_metal_commit": "047ec3ccf96",
+        "ttnn_version": "0.1.dev30578+g5b8d933"
       }
     }
   },
@@ -20803,7 +20814,43 @@
             "inexact": 36375,
             "undefined": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 5800,
           "usable_to": "\u2014",
           "verdict": "worst pairing 2.11e+06 ULP; mean 2.32e+03"
@@ -20820,7 +20867,43 @@
             "inexact": 2413,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 126 ULP; mean 19.6"
@@ -21150,7 +21233,43 @@
             "exact": 16642,
             "inexact": 48384
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 248 ULP; mean 4.92"
@@ -21709,7 +21828,43 @@
           "outcomes": {
             "exact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -21776,7 +21931,43 @@
           "outcomes": {
             "exact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -22214,7 +22405,43 @@
           "outcomes": {
             "inexact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -24217,7 +24444,43 @@
             "inexact": 48640,
             "mismatch": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 75 ULP; mean 2.44"
@@ -24599,7 +24862,43 @@
           "outcomes": {
             "inexact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "nan",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "2",
+              "y_ref": "2"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -24772,7 +25071,43 @@
             "inexact": 2267,
             "undefined": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "-inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 2,
           "usable_to": "\u2014",
           "verdict": "worst pairing 1.77e+03 ULP; mean 40"
@@ -24787,7 +25122,43 @@
           "outcomes": {
             "inexact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -25597,7 +25968,43 @@
             "exact": 29952,
             "inexact": 35074
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-0",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 41 ULP; mean 3.82"
@@ -25667,7 +26074,43 @@
             "exact": 29185,
             "inexact": 35841
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-0",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 62 ULP; mean 4.88"
@@ -25940,7 +26383,43 @@
           "outcomes": {
             "exact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -25957,7 +26436,43 @@
             "inexact": 32130,
             "undefined": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 64 ULP; mean 26.4"
@@ -25973,7 +26488,43 @@
             "exact": 63234,
             "inexact": 1792
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 64 ULP; mean 64"
@@ -25989,7 +26540,43 @@
             "exact": 65025,
             "overflow": 1
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -26005,7 +26592,43 @@
             "exact": 63234,
             "inexact": 1792
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 64 ULP; mean 64"
@@ -26021,7 +26644,43 @@
             "exact": 65025,
             "overflow": 1
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -26092,7 +26751,43 @@
             "inexact": 49214,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -26107,7 +26802,43 @@
           "outcomes": {
             "exact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -26231,7 +26962,43 @@
             "exact": 65024,
             "mismatch": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -26247,7 +27014,43 @@
             "exact": 65024,
             "mismatch": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -26315,7 +27118,43 @@
             "inexact": 28672,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-1.192e-07",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-1.192e-07",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-1.192e-07",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.192e-07",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 25856,
           "usable_to": "\u2014",
           "verdict": "worst pairing 1.3e+33 ULP; mean 2.32e+31"
@@ -26444,7 +27283,43 @@
             "exact": 18360,
             "inexact": 46666
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 12,
           "usable_to": "\u2014",
           "verdict": "worst pairing 4.86e+18 ULP; mean 2.08e+14"
@@ -27144,7 +28019,43 @@
             "inexact": 65024,
             "undefined": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "-inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "-inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 58386,
           "usable_to": "\u2014",
           "verdict": "worst pairing 6.65e+35 ULP; mean 1.06e+35"
@@ -27423,7 +28334,43 @@
             "inexact": 65024,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "-inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -27439,7 +28386,43 @@
             "inexact": 65024,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "-inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -28611,7 +29594,43 @@
             "inexact": 49214,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -28628,7 +29647,43 @@
             "inexact": 49214,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -28645,7 +29700,43 @@
             "inexact": 64896,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -28662,7 +29753,43 @@
             "overflow": 2
           },
           "rationale": "2 keeps the op distinct from subtract",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 254 ULP; mean 2.42"
@@ -28678,7 +29805,43 @@
             "inexact": 65024,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -28694,7 +29857,43 @@
             "inexact": 65024,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -29235,7 +30434,43 @@
             "exact": 65026
           },
           "rationale": "the attached golden demands a bool condition",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -29243,15 +30478,14 @@
       },
       "xielu": {
         "default": {
-          "max_abs": "2.05e+38",
-          "max_ulp": "1.87e+38",
-          "mean_ulp": "3.67e+36",
+          "max_abs": "6.65e+35",
+          "max_ulp": "1",
+          "mean_ulp": "1",
           "n_inputs": 56847,
           "outcomes": {
-            "exact": 56664,
+            "exact": 56669,
             "flushed": 127,
-            "inexact": 54,
-            "mismatch": 1,
+            "inexact": 50,
             "zeroed": 1
           },
           "specials": [
@@ -29291,9 +30525,9 @@
               "y_ref": "-8e-07"
             }
           ],
-          "ulp_clipped": 1,
-          "usable_to": "90",
-          "verdict": "accurate to |x| <= 90; up to 1.87e+38 ULP beyond"
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "within 2 ULP everywhere"
         }
       },
       "xlogy": {
@@ -29306,7 +30540,43 @@
             "inexact": 65024,
             "overflow": 2
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 897 ULP; mean 655"
@@ -29321,7 +30591,43 @@
           "outcomes": {
             "inexact": 65026
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -29338,7 +30644,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -29405,7 +30747,43 @@
             "exact": 27022,
             "inexact": 5236
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1.571",
+              "y_ref": "1.571"
+            },
+            {
+              "x": "-0",
+              "y": "1.571",
+              "y_ref": "1.571"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.571",
+              "y_ref": "1.571"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1.571",
+              "y_ref": "1.571"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "1",
           "verdict": "within 2 ULP everywhere"
@@ -29472,7 +30850,43 @@
           "outcomes": {
             "inexact": 16384
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-0",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "never within 2 ULP; mean 1, worst 3"
@@ -29480,13 +30894,13 @@
       },
       "acosh_bw": {
         "default": {
-          "max_abs": "1.53e-05",
+          "max_abs": "0.00276",
           "max_ulp": "724",
           "mean_ulp": "1.12",
           "n_inputs": 64514,
           "outcomes": {
-            "inexact": 16382,
-            "mismatch": 32258,
+            "inexact": 16384,
+            "mismatch": 32256,
             "zeroed": 15874
           },
           "specials": [
@@ -29798,7 +31212,43 @@
             "exact": 30134,
             "inexact": 2124
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "1",
           "verdict": "within 2 ULP everywhere"
@@ -29866,7 +31316,43 @@
             "exact": 29918,
             "inexact": 35106
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -29935,7 +31421,43 @@
             "exact": 57400,
             "inexact": 7624
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1.571",
+              "y_ref": "1.571"
+            },
+            {
+              "x": "-inf",
+              "y": "-1.571",
+              "y_ref": "-1.571"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -30098,7 +31620,7 @@
       },
       "atanh": {
         "default": {
-          "max_abs": "4.77e-07",
+          "max_abs": "2.38e-07",
           "max_ulp": "3",
           "mean_ulp": "1.56",
           "n_inputs": 32256,
@@ -30106,22 +31628,57 @@
             "exact": 26590,
             "inexact": 5666
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
-          "usable_to": "0.000851",
-          "verdict": "accurate to |x| <= 0.000851; up to 3 ULP beyond"
+          "usable_to": "0.000852",
+          "verdict": "accurate to |x| <= 0.000852; up to 3 ULP beyond"
         }
       },
       "atanh_bw": {
         "default": {
-          "max_abs": "0.5",
+          "max_abs": "0.25",
           "max_ulp": "2.05e+03",
           "mean_ulp": "1.51",
           "n_inputs": 48386,
           "outcomes": {
             "exact": 29674,
-            "inexact": 18710,
-            "overflow": 2
+            "inexact": 18712
           },
           "specials": [
             {
@@ -30278,7 +31835,43 @@
           "outcomes": {
             "inexact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "2.274e-13",
+              "y_ref": "2.274e-13"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-2.274e-13",
+              "y_ref": "-2.274e-13"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "5.77e-38",
           "verdict": "accurate to |x| <= 5.77e-38; up to 3 ULP beyond"
@@ -30293,7 +31886,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-0",
+              "y_ref": "-0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -30309,7 +31938,43 @@
             "exact": 62154,
             "inexact": 2870
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -30322,9 +31987,9 @@
           "mean_ulp": "1",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 61922,
-            "flushed": 397,
-            "inexact": 2705
+            "exact": 61923,
+            "flushed": 395,
+            "inexact": 2706
           },
           "specials": [
             {
@@ -30378,7 +32043,43 @@
             "exact": 65024
           },
           "rationale": "the symmetric unit interval",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -30445,7 +32146,43 @@
             "exact": 65024
           },
           "rationale": "the symmetric unit interval",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -30504,31 +32241,67 @@
       },
       "cos": {
         "default": {
-          "max_abs": "4.79e+37",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.21e+38",
           "mean_ulp": "1.45e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 28542,
-            "inexact": 13698,
-            "mismatch": 22784
+            "inexact": 18292,
+            "mismatch": 18190
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 4770,
-          "usable_to": "5.22e+04",
-          "verdict": "accurate to |x| <= 5.22e+04; up to 3.21e+38 ULP beyond"
+          "usable_to": "5.23e+04",
+          "verdict": "accurate to |x| <= 5.23e+04; up to 3.21e+38 ULP beyond"
         }
       },
       "cos_bw": {
         "default": {
-          "max_abs": "1.08e+38",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.32e+38",
           "mean_ulp": "1.86e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 30132,
-            "inexact": 12108,
-            "mismatch": 22784
+            "inexact": 16702,
+            "mismatch": 18190
           },
           "specials": [
             {
@@ -30582,7 +32355,43 @@
             "exact": 29890,
             "inexact": 4004
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "89",
           "verdict": "within 2 ULP everywhere"
@@ -30590,14 +32399,14 @@
       },
       "cosh_bw": {
         "default": {
-          "max_abs": "1.01e+31",
+          "max_abs": "5.07e+30",
           "max_ulp": "2",
           "mean_ulp": "1.14",
           "n_inputs": 33894,
           "outcomes": {
-            "exact": 27316,
+            "exact": 27318,
             "inexact": 6574,
-            "mismatch": 4
+            "mismatch": 2
           },
           "specials": [
             {
@@ -30649,10 +32458,45 @@
           "n_inputs": 65024,
           "outcomes": {
             "flushed": 1482,
-            "inexact": 63540,
-            "zeroed": 2
+            "inexact": 63542
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "2.052e-40"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-2.052e-40"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -30665,10 +32509,46 @@
           "mean_ulp": "7.77e+12",
           "n_inputs": 51584,
           "outcomes": {
-            "inexact": 49409,
-            "mismatch": 2175
+            "inexact": 50757,
+            "undefined": 827
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "6.68e+06",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-0",
+              "y": "6.68e+06",
+              "y_ref": "inf"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "89.09",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "6.68e+06",
+              "y_ref": "-8.507e+37"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "6.68e+06",
+              "y_ref": "8.507e+37"
+            }
+          ],
           "ulp_clipped": 47852,
           "usable_to": "\u2014",
           "verdict": "never within 2 ULP; mean 7.77e+12, worst 3.66e+17"
@@ -30676,16 +32556,15 @@
       },
       "digamma_bw": {
         "default": {
-          "max_abs": "6.44e+36",
+          "max_abs": "2.59e+38",
           "max_ulp": "7.91e+33",
           "mean_ulp": "3.25e+29",
           "n_inputs": 64769,
           "outcomes": {
             "exact": 1,
-            "inexact": 48631,
-            "mismatch": 7,
-            "overflow": 15874,
-            "zeroed": 256
+            "inexact": 48641,
+            "overflow": 15872,
+            "zeroed": 255
           },
           "specials": [
             {
@@ -30773,6 +32652,57 @@
               "x": "-1.175e-38",
               "y": "-1.175e-38",
               "y_ref": "-1.175e-38"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
+        }
+      },
+      "div_bw": {
+        "default": {
+          "max_abs": "5.07e+30",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
             }
           ],
           "ulp_clipped": 0,
@@ -30944,7 +32874,43 @@
             "exact": 62154,
             "inexact": 2870
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -30957,9 +32923,9 @@
           "mean_ulp": "1",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 61922,
-            "flushed": 397,
-            "inexact": 2705
+            "exact": 61923,
+            "flushed": 395,
+            "inexact": 2706
           },
           "specials": [
             {
@@ -31013,7 +32979,43 @@
             "exact": 31936,
             "inexact": 33088
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.326e-38",
+              "y_ref": "1.326e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.326e-38",
+              "y_ref": "-1.326e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "0.000334",
           "verdict": "accurate to |x| <= 0.000334; up to 6 ULP beyond"
@@ -31026,10 +33028,9 @@
           "mean_ulp": "3.72",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 60464,
-            "flushed": 394,
-            "inexact": 4164,
-            "zeroed": 2
+            "exact": 60466,
+            "flushed": 392,
+            "inexact": 4166
           },
           "specials": [
             {
@@ -31081,10 +33082,46 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 16148,
-            "flushed": 199,
-            "inexact": 48677
+            "flushed": 198,
+            "inexact": 48678
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.9999",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "2.942e-12",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "nan",
+              "y": "2.942e-12",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.9999",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 3000,
           "usable_to": "\u2014",
           "verdict": "never within 2 ULP; mean 1.71e+29, worst 2.1e+33"
@@ -31097,10 +33134,9 @@
           "mean_ulp": "3.72",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 60464,
-            "flushed": 394,
-            "inexact": 4164,
-            "zeroed": 2
+            "exact": 60466,
+            "flushed": 392,
+            "inexact": 4166
           },
           "specials": [
             {
@@ -31151,11 +33187,47 @@
           "mean_ulp": "2.62e+05",
           "n_inputs": 32256,
           "outcomes": {
-            "flushed": 32,
-            "inexact": 2800,
-            "zeroed": 29424
+            "flushed": 34,
+            "inexact": 2802,
+            "zeroed": 29420
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "1.042e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-0",
+              "y_ref": "-1.042e-38"
+            }
+          ],
           "ulp_clipped": 2354,
           "usable_to": "0.000511",
           "verdict": "accurate to |x| <= 0.000511; up to 7.96e+06 ULP beyond"
@@ -31163,7 +33235,7 @@
       },
       "erfinv_bw": {
         "default": {
-          "max_abs": "3.32e+04",
+          "max_abs": "243",
           "max_ulp": "4.98e+05",
           "mean_ulp": "1.32e+03",
           "n_inputs": 32256,
@@ -31220,14 +33292,102 @@
           "mean_ulp": "1",
           "n_inputs": 49458,
           "outcomes": {
-            "exact": 43615,
-            "flushed": 397,
-            "inexact": 5446
+            "exact": 43616,
+            "flushed": 395,
+            "inexact": 5447
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
+        },
+        "fast_approx": {
+          "max_abs": "6.16e+36",
+          "max_ulp": "3.79e+05",
+          "mean_ulp": "2e+05",
+          "n_inputs": 49458,
+          "outcomes": {
+            "exact": 15174,
+            "flushed": 395,
+            "inexact": 33889
+          },
+          "rationale": "the approximation mode models opt into for speed",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.9785",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "0.9785",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.9785",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.9785",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 33889,
+          "usable_to": "\u2014",
+          "verdict": "never within 2 ULP; mean 2e+05, worst 3.79e+05"
         }
       },
       "exp2": {
@@ -31237,11 +33397,47 @@
           "mean_ulp": "1",
           "n_inputs": 49536,
           "outcomes": {
-            "exact": 43097,
-            "flushed": 395,
+            "exact": 43099,
+            "flushed": 393,
             "inexact": 6044
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -31254,9 +33450,9 @@
           "mean_ulp": "1.17",
           "n_inputs": 49537,
           "outcomes": {
-            "exact": 42460,
-            "flushed": 397,
-            "inexact": 6679,
+            "exact": 42461,
+            "flushed": 395,
+            "inexact": 6680,
             "mismatch": 1
           },
           "specials": [
@@ -31308,9 +33504,9 @@
           "mean_ulp": "1",
           "n_inputs": 49458,
           "outcomes": {
-            "exact": 43615,
-            "flushed": 397,
-            "inexact": 5446
+            "exact": 43616,
+            "flushed": 395,
+            "inexact": 5447
           },
           "specials": [
             {
@@ -31364,7 +33560,43 @@
             "exact": 44201,
             "inexact": 5257
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -31377,9 +33609,9 @@
           "mean_ulp": "1.14e+04",
           "n_inputs": 49458,
           "outcomes": {
-            "exact": 43888,
-            "inexact": 5430,
-            "zeroed": 140
+            "exact": 43889,
+            "inexact": 5431,
+            "zeroed": 138
           },
           "specials": [
             {
@@ -31432,7 +33664,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -31551,7 +33819,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -31615,15 +33919,104 @@
           "mean_ulp": "1.55e+05",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58683,
-            "flushed": 254,
-            "inexact": 6000,
-            "zeroed": 87
+            "exact": 58684,
+            "flushed": 256,
+            "inexact": 6001,
+            "zeroed": 83
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "5.877e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-5.877e-39"
+            }
+          ],
           "ulp_clipped": 114,
-          "usable_to": "0.307",
-          "verdict": "accurate to |x| <= 0.307; up to 1.51e+08 ULP beyond"
+          "usable_to": "0.309",
+          "verdict": "accurate to |x| <= 0.309; up to 1.51e+08 ULP beyond"
+        },
+        "fast_approx": {
+          "max_abs": "0.0234",
+          "max_ulp": "2.91e+38",
+          "mean_ulp": "4.9e+36",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 32079,
+            "flushed": 254,
+            "inexact": 32494,
+            "zeroed": 197
+          },
+          "rationale": "the approximation mode models opt into for speed",
+          "specials": [
+            {
+              "x": "0",
+              "y": "-0.0001044",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0.0001044",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-0.0001044",
+              "y_ref": "5.877e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-0.0001044",
+              "y_ref": "-5.877e-39"
+            }
+          ],
+          "ulp_clipped": 30383,
+          "usable_to": "6e-36",
+          "verdict": "accurate to |x| <= 6e-36; up to 2.91e+38 ULP beyond"
         }
       },
       "gelu_bw": {
@@ -31633,10 +34026,9 @@
           "mean_ulp": "1.24e+05",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 59407,
-            "flushed": 197,
-            "inexact": 5418,
-            "zeroed": 2
+            "exact": 59408,
+            "flushed": 196,
+            "inexact": 5420
           },
           "specials": [
             {
@@ -31676,8 +34068,8 @@
             }
           ],
           "ulp_clipped": 321,
-          "usable_to": "0.0396",
-          "verdict": "accurate to |x| <= 0.0396; up to 6.59e+08 ULP beyond"
+          "usable_to": "0.0393",
+          "verdict": "accurate to |x| <= 0.0393; up to 6.59e+08 ULP beyond"
         }
       },
       "gt_": {
@@ -31740,7 +34132,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -31755,7 +34183,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -31822,7 +34286,43 @@
             "exact": 61098,
             "inexact": 3926
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "-0",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.5",
+              "y_ref": "0.5"
+            }
+          ],
           "ulp_clipped": 1,
           "usable_to": "2.61",
           "verdict": "accurate to |x| <= 2.61; up to 4.89e+06 ULP beyond"
@@ -31887,11 +34387,46 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 59542,
-            "flushed": 254,
-            "inexact": 5226,
-            "zeroed": 2
+            "flushed": 256,
+            "inexact": 5226
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "5.877e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-5.877e-39"
+            }
+          ],
           "ulp_clipped": 1,
           "usable_to": "2.36",
           "verdict": "accurate to |x| <= 2.36; up to 7.34e+06 ULP beyond"
@@ -31904,9 +34439,8 @@
           "mean_ulp": "6e+06",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 60328,
-            "inexact": 4695,
-            "zeroed": 1
+            "exact": 60329,
+            "inexact": 4695
           },
           "specials": [
             {
@@ -31946,8 +34480,8 @@
             }
           ],
           "ulp_clipped": 257,
-          "usable_to": "0.00178",
-          "verdict": "accurate to |x| <= 0.00178; up to 1.41e+10 ULP beyond"
+          "usable_to": "0.00179",
+          "verdict": "accurate to |x| <= 0.00179; up to 1.41e+10 ULP beyond"
         }
       },
       "hardtanh": {
@@ -31959,7 +34493,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -32026,7 +34596,43 @@
             "exact": 65024
           },
           "rationale": "torch's convention at x = 0",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -32084,6 +34690,58 @@
           "verdict": "worst pairing 3.44e+06 ULP; mean 3.28e+04"
         }
       },
+      "hypot_bw": {
+        "default": {
+          "max_abs": "1",
+          "max_ulp": "4.86e+06",
+          "mean_ulp": "4.48e+04",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 48640,
+            "zeroed": 16384
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
+          "ulp_clipped": 3288,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 4.86e+06 ULP; mean 4.48e+04"
+        }
+      },
       "i0": {
         "default": {
           "max_abs": "3.09e+38",
@@ -32094,7 +34752,43 @@
             "exact": 30548,
             "inexact": 3356
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 868,
           "usable_to": "2.56",
           "verdict": "accurate to |x| <= 2.56; up to 1.68e+07 ULP beyond"
@@ -32108,9 +34802,8 @@
           "n_inputs": 33904,
           "outcomes": {
             "exact": 29518,
-            "flushed": 254,
-            "inexact": 4130,
-            "zeroed": 2
+            "flushed": 256,
+            "inexact": 4130
           },
           "specials": [
             {
@@ -32150,8 +34843,8 @@
             }
           ],
           "ulp_clipped": 14,
-          "usable_to": "0.00772",
-          "verdict": "accurate to |x| <= 0.00772; up to 1.56e+07 ULP beyond"
+          "usable_to": "0.00774",
+          "verdict": "accurate to |x| <= 0.00774; up to 1.56e+07 ULP beyond"
         }
       },
       "i1": {
@@ -32162,14 +34855,49 @@
           "n_inputs": 33904,
           "outcomes": {
             "exact": 29518,
-            "flushed": 254,
-            "inexact": 4130,
-            "zeroed": 2
+            "flushed": 256,
+            "inexact": 4130
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "1.15e+37",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "-1.15e+37",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "1.15e+37",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "5.877e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-5.877e-39"
+            }
+          ],
           "ulp_clipped": 14,
-          "usable_to": "0.00772",
-          "verdict": "accurate to |x| <= 0.00772; up to 1.56e+07 ULP beyond"
+          "usable_to": "0.00774",
+          "verdict": "accurate to |x| <= 0.00774; up to 1.56e+07 ULP beyond"
         }
       },
       "identity": {
@@ -32181,7 +34909,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -32340,6 +35104,57 @@
           "verdict": "within 2 ULP everywhere"
         }
       },
+      "ldexp_bw": {
+        "default": {
+          "max_abs": "1.19e-07",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "nan",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "2",
+              "y_ref": "2"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
+        }
+      },
       "le_": {
         "default": {
           "max_abs": "0",
@@ -32403,7 +35218,43 @@
             "inexact": 31672
           },
           "rationale": "torch's default slope",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-1.175e-40"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -32570,10 +35421,45 @@
           "mean_ulp": "2.98e+03",
           "n_inputs": 50757,
           "outcomes": {
-            "inexact": 48582,
-            "overflow": 2175
+            "inexact": 50757
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "87.34",
+              "y_ref": "87.34"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "87.34",
+              "y_ref": "87.34"
+            }
+          ],
           "ulp_clipped": 314,
           "usable_to": "0.108",
           "verdict": "accurate to |x| <= 0.108; up to 3.27e+07 ULP beyond"
@@ -32586,8 +35472,8 @@
           "mean_ulp": "7.77e+12",
           "n_inputs": 51584,
           "outcomes": {
-            "inexact": 49409,
-            "mismatch": 2175
+            "inexact": 50757,
+            "undefined": 827
           },
           "specials": [
             {
@@ -32640,7 +35526,43 @@
           "outcomes": {
             "inexact": 32512
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-87.34",
+              "y_ref": "-87.34"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -32655,7 +35577,43 @@
           "outcomes": {
             "inexact": 32512
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-37.93",
+              "y_ref": "-37.93"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -32722,7 +35680,43 @@
             "exact": 28529,
             "inexact": 20111
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -32730,14 +35724,13 @@
       },
       "log1p_bw": {
         "default": {
-          "max_abs": "0.25",
+          "max_abs": "0.125",
           "max_ulp": "2",
           "mean_ulp": "1.03",
           "n_inputs": 64514,
           "outcomes": {
             "exact": 26947,
-            "inexact": 37566,
-            "overflow": 1
+            "inexact": 37567
           },
           "specials": [
             {
@@ -32790,7 +35783,43 @@
           "outcomes": {
             "inexact": 32512
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-126",
+              "y_ref": "-126"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -32803,8 +35832,8 @@
           "mean_ulp": "1.33",
           "n_inputs": 64626,
           "outcomes": {
-            "inexact": 64512,
-            "mismatch": 114
+            "inexact": 64514,
+            "mismatch": 112
           },
           "specials": [
             {
@@ -32907,12 +35936,47 @@
           "mean_ulp": "1.82e+04",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 31068,
-            "flushed": 396,
-            "inexact": 33559,
-            "zeroed": 1
+            "exact": 31069,
+            "flushed": 395,
+            "inexact": 33560
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-0.6924",
+              "y_ref": "-0.6931"
+            },
+            {
+              "x": "-0",
+              "y": "-0.6924",
+              "y_ref": "-0.6931"
+            },
+            {
+              "x": "inf",
+              "y": "-0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "-0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-0.6924",
+              "y_ref": "-0.6931"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-0.6924",
+              "y_ref": "-0.6931"
+            }
+          ],
           "ulp_clipped": 33406,
           "usable_to": "\u2014",
           "verdict": "never within 2 ULP; mean 1.82e+04, worst 4.4e+05"
@@ -32925,9 +35989,9 @@
           "mean_ulp": "1.25",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58012,
-            "flushed": 397,
-            "inexact": 6615
+            "exact": 58013,
+            "flushed": 395,
+            "inexact": 6616
           },
           "specials": [
             {
@@ -33130,6 +36194,58 @@
           "verdict": "worst pairing 1.54e+09 ULP; mean 1.05e+07"
         }
       },
+      "logaddexp2_bw": {
+        "default": {
+          "max_abs": "1.19e-07",
+          "max_ulp": "46",
+          "mean_ulp": "6.56",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 29336,
+            "inexact": 35688
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-0",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 46 ULP; mean 6.56"
+        }
+      },
       "logaddexp_": {
         "default": {
           "max_abs": "7.63e-06",
@@ -33183,6 +36299,58 @@
           "verdict": "worst pairing 5.23e+08 ULP; mean 7.28e+06"
         }
       },
+      "logaddexp_bw": {
+        "default": {
+          "max_abs": "1.19e-07",
+          "max_ulp": "66",
+          "mean_ulp": "8.57",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 29495,
+            "inexact": 35529
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-0",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 66 ULP; mean 8.57"
+        }
+      },
       "logical_not_": {
         "default": {
           "max_abs": "0",
@@ -33192,7 +36360,43 @@
           "outcomes": {
             "exact": 16129
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "1",
           "verdict": "bit-exact"
@@ -33258,7 +36462,43 @@
           "outcomes": {
             "inexact": 16128
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-87.34",
+              "y_ref": "-87.34"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            }
+          ],
           "ulp_clipped": 2,
           "usable_to": "0.332",
           "verdict": "accurate to |x| <= 0.332; up to 4.19e+06 ULP beyond"
@@ -33311,7 +36551,7 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "0.996",
+          "usable_to": "0.998",
           "verdict": "within 2 ULP everywhere"
         }
       },
@@ -33362,7 +36602,7 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "0.996",
+          "usable_to": "0.998",
           "verdict": "within 2 ULP everywhere"
         }
       },
@@ -33468,6 +36708,58 @@
           "verdict": "worst pairing 4.22e+06 ULP; mean 7.31e+05"
         }
       },
+      "max_bw": {
+        "default": {
+          "max_abs": "0.5",
+          "max_ulp": "4.19e+06",
+          "mean_ulp": "4.19e+06",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 63057,
+            "inexact": 1967
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 1967,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 4.19e+06 ULP; mean 4.19e+06"
+        }
+      },
       "maximum": {
         "default": {
           "max_abs": "0",
@@ -33517,6 +36809,58 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
+        }
+      },
+      "min_bw": {
+        "default": {
+          "max_abs": "0.5",
+          "max_ulp": "4.19e+06",
+          "mean_ulp": "4.19e+06",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 63057,
+            "inexact": 1967
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 1967,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 4.19e+06 ULP; mean 4.19e+06"
         }
       },
       "minimum": {
@@ -33577,15 +36921,51 @@
           "mean_ulp": "2.49",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58692,
-            "flushed": 192,
-            "inexact": 6128,
-            "zeroed": 12
+            "exact": 58695,
+            "flushed": 191,
+            "inexact": 6129,
+            "zeroed": 9
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "7.053e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-7.053e-39"
+            }
+          ],
           "ulp_clipped": 0,
-          "usable_to": "8.52e-06",
-          "verdict": "accurate to |x| <= 8.52e-06; up to 7 ULP beyond"
+          "usable_to": "8.61e-06",
+          "verdict": "accurate to |x| <= 8.61e-06; up to 7 ULP beyond"
         }
       },
       "mse_loss": {
@@ -33640,6 +37020,57 @@
           "verdict": "within 2 ULP everywhere"
         }
       },
+      "mul_bw": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "bit-exact"
+        }
+      },
       "multigammaln": {
         "default": {
           "max_abs": "4.06e+31",
@@ -33647,11 +37078,47 @@
           "mean_ulp": "9.16e+03",
           "n_inputs": 50376,
           "outcomes": {
-            "inexact": 22197,
-            "mismatch": 7478,
-            "overflow": 20701
+            "inexact": 24392,
+            "mismatch": 7422,
+            "overflow": 18562
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "inf",
+              "y_ref": "inf"
+            }
+          ],
           "ulp_clipped": 2989,
           "usable_to": "2.98e-08",
           "verdict": "accurate to |x| <= 2.98e-08; up to 3.51e+07 ULP beyond"
@@ -33664,9 +37131,9 @@
           "mean_ulp": "2.04e+11",
           "n_inputs": 51456,
           "outcomes": {
-            "inexact": 30715,
-            "mismatch": 20740,
-            "zeroed": 1
+            "inexact": 32197,
+            "mismatch": 18560,
+            "undefined": 699
           },
           "specials": [
             {
@@ -33821,7 +37288,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -33881,19 +37384,54 @@
       },
       "polygamma": {
         "k1": {
-          "max_abs": "6.44e+36",
+          "max_abs": "2.59e+38",
           "max_ulp": "7.91e+33",
           "mean_ulp": "3.25e+29",
           "n_inputs": 64769,
           "outcomes": {
             "exact": 1,
-            "inexact": 48631,
-            "mismatch": 7,
-            "overflow": 15874,
-            "zeroed": 256
+            "inexact": 48641,
+            "overflow": 15872,
+            "zeroed": 255
           },
           "rationale": "trigamma, the first order in use",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "inf",
+              "y_ref": "inf"
+            }
+          ],
           "ulp_clipped": 15848,
           "usable_to": "8.58e-05",
           "verdict": "accurate to |x| <= 8.58e-05; up to 7.91e+33 ULP beyond"
@@ -34062,17 +37600,52 @@
       },
       "prelu": {
         "weight0.25": {
-          "max_abs": "1.18e-38",
+          "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 64768,
-            "flushed": 255,
-            "zeroed": 1
+            "flushed": 256
           },
           "rationale": "torch's channel-weight init",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-2.939e-39"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -34087,7 +37660,43 @@
           "outcomes": {
             "inexact": 63518
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "6.735e-37",
+              "y_ref": "6.735e-37"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-6.735e-37",
+              "y_ref": "-6.735e-37"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "5.9e+36",
           "verdict": "within 2 ULP everywhere"
@@ -34100,11 +37709,48 @@
           "mean_ulp": "1",
           "n_inputs": 64770,
           "outcomes": {
+            "exact": 2,
             "inexact": 64512,
-            "zeroed": 258
+            "zeroed": 256
           },
           "rationale": "2 keeps the op distinct from reciprocal",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.701e+38",
+              "y_ref": "1.701e+38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.701e+38",
+              "y_ref": "-1.701e+38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "1.7e+38",
           "verdict": "within 2 ULP everywhere"
@@ -34117,10 +37763,11 @@
           "mean_ulp": "1.14",
           "n_inputs": 48490,
           "outcomes": {
+            "exact": 2,
             "inexact": 32256,
-            "mismatch": 150,
-            "overflow": 15978,
-            "zeroed": 106
+            "mismatch": 148,
+            "overflow": 15980,
+            "zeroed": 104
           },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
@@ -34175,7 +37822,43 @@
             "exact": 2,
             "inexact": 64512
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "8.507e+37",
+              "y_ref": "8.507e+37"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-8.507e+37",
+              "y_ref": "-8.507e+37"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "8.51e+37",
           "verdict": "within 2 ULP everywhere"
@@ -34190,8 +37873,8 @@
           "outcomes": {
             "exact": 2,
             "inexact": 32256,
-            "mismatch": 256,
-            "overflow": 15872
+            "mismatch": 254,
+            "overflow": 15874
           },
           "specials": [
             {
@@ -34244,7 +37927,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -34259,7 +37978,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "6",
+              "y_ref": "6"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "6",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -34377,7 +38132,43 @@
             "exact": 65024
           },
           "rationale": "unit clamp, the registry's midpoint",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -34393,7 +38184,43 @@
             "exact": 65024
           },
           "rationale": "unit clamp, the registry's midpoint",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -34460,7 +38287,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -34473,13 +38336,49 @@
           "mean_ulp": "1",
           "n_inputs": 49536,
           "outcomes": {
-            "exact": 41980,
-            "flushed": 395,
+            "exact": 41983,
+            "flushed": 393,
             "inexact": 5624,
-            "mismatch": 1537
+            "mismatch": 1536
           },
           "rationale": "squaring",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -34547,7 +38446,43 @@
           "outcomes": {
             "inexact": 32512
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-0",
+              "y": "nan",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "9.223e+18",
+              "y_ref": "9.223e+18"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -34560,8 +38495,8 @@
           "mean_ulp": "4.51",
           "n_inputs": 21666,
           "outcomes": {
-            "inexact": 21590,
-            "mismatch": 76
+            "inexact": 21591,
+            "mismatch": 75
           },
           "specials": [
             {
@@ -34716,7 +38651,43 @@
           "outcomes": {
             "inexact": 65012
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-1.758",
+              "y_ref": "-1.758"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.235e-38",
+              "y_ref": "1.235e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-2.067e-38",
+              "y_ref": "-2.067e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "never within 2 ULP; mean 26.2, worst 51"
@@ -34729,10 +38700,10 @@
           "mean_ulp": "20.6",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 15173,
-            "flushed": 395,
-            "inexact": 49454,
-            "zeroed": 2
+            "exact": 15174,
+            "flushed": 394,
+            "inexact": 49455,
+            "zeroed": 1
           },
           "specials": [
             {
@@ -34783,11 +38754,47 @@
           "mean_ulp": "1.41",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58466,
-            "flushed": 388,
-            "inexact": 6170
+            "exact": 58467,
+            "flushed": 386,
+            "inexact": 6171
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "-0",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "-0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.5",
+              "y_ref": "0.5"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "16.6",
           "verdict": "accurate to |x| <= 16.6; up to 3 ULP beyond"
@@ -34800,11 +38807,47 @@
           "mean_ulp": "1.41",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58466,
-            "flushed": 388,
-            "inexact": 6170
+            "exact": 58467,
+            "flushed": 386,
+            "inexact": 6171
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "-0",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "-0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.5",
+              "y_ref": "0.5"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.5",
+              "y_ref": "0.5"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "16.6",
           "verdict": "accurate to |x| <= 16.6; up to 3 ULP beyond"
@@ -34817,10 +38860,10 @@
           "mean_ulp": "2.71e+04",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 60761,
-            "flushed": 388,
-            "inexact": 3733,
-            "zeroed": 142
+            "exact": 60763,
+            "flushed": 386,
+            "inexact": 3735,
+            "zeroed": 140
           },
           "specials": [
             {
@@ -34873,7 +38916,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-1",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -34886,15 +38965,51 @@
           "mean_ulp": "1.58",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 57754,
-            "flushed": 632,
-            "inexact": 6626,
-            "zeroed": 12
+            "exact": 57755,
+            "flushed": 633,
+            "inexact": 6627,
+            "zeroed": 9
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "5.877e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-5.877e-39"
+            }
+          ],
           "ulp_clipped": 0,
-          "usable_to": "0.000931",
-          "verdict": "accurate to |x| <= 0.000931; up to 3 ULP beyond"
+          "usable_to": "0.000928",
+          "verdict": "accurate to |x| <= 0.000928; up to 3 ULP beyond"
         }
       },
       "silu_bw": {
@@ -34904,10 +39019,10 @@
           "mean_ulp": "841",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 57824,
-            "flushed": 378,
-            "inexact": 6811,
-            "zeroed": 11
+            "exact": 57825,
+            "flushed": 377,
+            "inexact": 6813,
+            "zeroed": 9
           },
           "specials": [
             {
@@ -34953,16 +39068,52 @@
       },
       "sin": {
         "default": {
-          "max_abs": "1.08e+38",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.32e+38",
           "mean_ulp": "1.86e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 30132,
-            "inexact": 12108,
-            "mismatch": 22784
+            "inexact": 16702,
+            "mismatch": 18190
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 4514,
           "usable_to": "1.04e+05",
           "verdict": "accurate to |x| <= 1.04e+05; up to 3.32e+38 ULP beyond"
@@ -34970,14 +39121,14 @@
       },
       "sin_bw": {
         "default": {
-          "max_abs": "4.79e+37",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.21e+38",
           "mean_ulp": "1.45e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 28542,
-            "inexact": 13698,
-            "mismatch": 22784
+            "inexact": 18292,
+            "mismatch": 18190
           },
           "specials": [
             {
@@ -35017,8 +39168,8 @@
             }
           ],
           "ulp_clipped": 4770,
-          "usable_to": "5.22e+04",
-          "verdict": "accurate to |x| <= 5.22e+04; up to 3.21e+38 ULP beyond"
+          "usable_to": "5.23e+04",
+          "verdict": "accurate to |x| <= 5.23e+04; up to 3.21e+38 ULP beyond"
         }
       },
       "sinh": {
@@ -35031,7 +39182,43 @@
             "exact": 27316,
             "inexact": 6578
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "89",
           "verdict": "within 2 ULP everywhere"
@@ -35039,14 +39226,14 @@
       },
       "sinh_bw": {
         "default": {
-          "max_abs": "1.01e+31",
+          "max_abs": "5.07e+30",
           "max_ulp": "1",
           "mean_ulp": "1",
           "n_inputs": 33894,
           "outcomes": {
-            "exact": 29890,
+            "exact": 29892,
             "inexact": 4000,
-            "mismatch": 4
+            "mismatch": 2
           },
           "specials": [
             {
@@ -35092,17 +39279,53 @@
       },
       "softplus": {
         "default": {
-          "max_abs": "4.17e-05",
+          "max_abs": "6.93e+35",
           "max_ulp": "8.2e+03",
           "mean_ulp": "656",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 31034,
-            "flushed": 397,
-            "inexact": 33464,
-            "mismatch": 129
+            "exact": 31077,
+            "flushed": 395,
+            "inexact": 33522,
+            "mismatch": 30
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.6931",
+              "y_ref": "0.6931"
+            },
+            {
+              "x": "-0",
+              "y": "0.6931",
+              "y_ref": "0.6931"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.6931",
+              "y_ref": "0.6931"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.6931",
+              "y_ref": "0.6931"
+            }
+          ],
           "ulp_clipped": 52,
           "usable_to": "\u2014",
           "verdict": "never within 2 ULP; mean 656, worst 8.2e+03"
@@ -35115,9 +39338,9 @@
           "mean_ulp": "1.37",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58026,
-            "flushed": 397,
-            "inexact": 6601
+            "exact": 58027,
+            "flushed": 395,
+            "inexact": 6602
           },
           "specials": [
             {
@@ -35157,8 +39380,8 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.09",
-          "verdict": "accurate to |x| <= 1.09; up to 3 ULP beyond"
+          "usable_to": "1.1",
+          "verdict": "accurate to |x| <= 1.1; up to 3 ULP beyond"
         }
       },
       "softshrink": {
@@ -35170,7 +39393,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -35234,11 +39493,47 @@
           "mean_ulp": "0.89",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 26804,
+            "exact": 26806,
             "inexact": 37708,
-            "zeroed": 512
+            "zeroed": 510
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "2.53e+07",
           "verdict": "accurate to |x| <= 2.53e+07; up to 3 ULP beyond"
@@ -35251,8 +39546,8 @@
           "mean_ulp": "1.54e+05",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 42558,
-            "inexact": 22466
+            "exact": 42560,
+            "inexact": 22464
           },
           "specials": [
             {
@@ -35292,8 +39587,8 @@
             }
           ],
           "ulp_clipped": 3734,
-          "usable_to": "9.87e-05",
-          "verdict": "accurate to |x| <= 9.87e-05; up to 8.38e+06 ULP beyond"
+          "usable_to": "9.88e-05",
+          "verdict": "accurate to |x| <= 9.88e-05; up to 8.38e+06 ULP beyond"
         }
       },
       "sqrt": {
@@ -35305,7 +39600,43 @@
           "outcomes": {
             "inexact": 32512
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "nan",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.084e-19",
+              "y_ref": "1.084e-19"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "nan",
+              "y_ref": "nan"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
@@ -35372,7 +39703,43 @@
             "exact": 32512,
             "flushed": 16128
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "1.84e+19",
           "verdict": "bit-exact"
@@ -35531,6 +39898,57 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
+        }
+      },
+      "squared_difference_bw": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "bit-exact"
         }
       },
       "subalpha": {
@@ -35694,45 +40112,116 @@
           "mean_ulp": "1.58",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 57754,
-            "flushed": 632,
-            "inexact": 6626,
-            "zeroed": 12
+            "exact": 57755,
+            "flushed": 633,
+            "inexact": 6627,
+            "zeroed": 9
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "5.877e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-5.877e-39"
+            }
+          ],
           "ulp_clipped": 0,
-          "usable_to": "0.000931",
-          "verdict": "accurate to |x| <= 0.000931; up to 3 ULP beyond"
+          "usable_to": "0.000928",
+          "verdict": "accurate to |x| <= 0.000928; up to 3 ULP beyond"
         }
       },
       "tan": {
         "default": {
-          "max_abs": "1.22e+38",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.34e+38",
           "mean_ulp": "1.43e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 30396,
-            "inexact": 10020,
-            "mismatch": 24578,
-            "zeroed": 30
+            "inexact": 14518,
+            "mismatch": 20110
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 3698,
-          "usable_to": "20.2",
-          "verdict": "accurate to |x| <= 20.2; up to 3.34e+38 ULP beyond"
+          "usable_to": "20.3",
+          "verdict": "accurate to |x| <= 20.3; up to 3.34e+38 ULP beyond"
         }
       },
       "tan_bw": {
         "default": {
-          "max_abs": "2.02e+36",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.16e+38",
           "mean_ulp": "9.23e+35",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 30228,
-            "inexact": 9085,
-            "mismatch": 25711
+            "inexact": 14420,
+            "mismatch": 20376
           },
           "specials": [
             {
@@ -35786,10 +40275,46 @@
             "exact": 61086,
             "inexact": 3938
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
           "ulp_clipped": 0,
-          "usable_to": "0.000484",
-          "verdict": "accurate to |x| <= 0.000484; up to 3 ULP beyond"
+          "usable_to": "0.000485",
+          "verdict": "accurate to |x| <= 0.000485; up to 3 ULP beyond"
         }
       },
       "tanh_bw": {
@@ -35799,8 +40324,8 @@
           "mean_ulp": "9.01e+03",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 31388,
-            "inexact": 33636
+            "exact": 31390,
+            "inexact": 33634
           },
           "specials": [
             {
@@ -35851,10 +40376,46 @@
           "mean_ulp": "9.11e+04",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 51054,
-            "inexact": 13970
+            "exact": 51056,
+            "inexact": 13968
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 1984,
           "usable_to": "1.34e-08",
           "verdict": "accurate to |x| <= 1.34e-08; up to 4.19e+06 ULP beyond"
@@ -35922,7 +40483,43 @@
             "exact": 65024
           },
           "rationale": "domain midpoint, torch's zero fill",
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -35989,7 +40586,43 @@
           "outcomes": {
             "exact": 65024
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "-0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-0",
+              "y_ref": "-0"
+            }
+          ],
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
@@ -36049,21 +40682,55 @@
       },
       "xielu": {
         "default": {
-          "max_abs": "2.72e+38",
+          "max_abs": "2.03e+31",
           "max_ulp": "1.08e+07",
           "mean_ulp": "256",
           "n_inputs": 56848,
           "outcomes": {
             "exact": 14456,
-            "flushed": 127,
-            "inexact": 42261,
-            "mismatch": 3,
-            "zeroed": 1
+            "flushed": 128,
+            "inexact": 42264
           },
-          "specials": [],
+          "specials": [
+            {
+              "x": "0",
+              "y": "-8e-07",
+              "y_ref": "-8e-07"
+            },
+            {
+              "x": "-0",
+              "y": "-8e-07",
+              "y_ref": "-8e-07"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "5.877e-39"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-8e-07",
+              "y_ref": "-8e-07"
+            }
+          ],
           "ulp_clipped": 1,
-          "usable_to": "0.688",
-          "verdict": "accurate to |x| <= 0.688; up to 1.08e+07 ULP beyond"
+          "usable_to": "0.691",
+          "verdict": "accurate to |x| <= 0.691; up to 1.08e+07 ULP beyond"
         }
       },
       "xlogy": {
@@ -36115,6 +40782,57 @@
           "ulp_clipped": 65024,
           "usable_to": "\u2014",
           "verdict": "worst pairing 8.84e+07 ULP; mean 6.07e+07"
+        }
+      },
+      "xlogy_bw": {
+        "default": {
+          "max_abs": "7.63e-06",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
         }
       }
     }

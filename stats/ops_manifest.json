@@ -2525,10 +2525,6 @@
         "bf16": "tile",
         "fp32": "tile"
       },
-      "ttnn.bias_gelu_bw": {
-        "bf16": "tile",
-        "fp32": "tile"
-      },
       "ttnn.cbrt": {
         "bf16": "tile",
         "fp32": "tile"
@@ -4785,10 +4781,12 @@
       "signature": "(grad, a, b, *args, **kwargs)"
     }
   },
+  "probing": {},
   "refused": {},
   "rejected": {
     "wh": {
-      "ttnn.softcap": "TT_FATAL @ /home/ijankowski/tt-metal-work/tt-metal/ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
+      "ttnn.bias_gelu_bw": "crashed the process while probing \u2014 see the run log",
+      "ttnn.softcap": "TT_FATAL @ /localdev/ijankowski/tt-metal/ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
     }
   },
   "unprobeable": {
