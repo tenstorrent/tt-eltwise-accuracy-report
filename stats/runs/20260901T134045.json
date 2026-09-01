@@ -1,0 +1,20 @@
+{
+  "arch": "bh",
+  "device_arch": "BLACKHOLE",
+  "device_id": 1,
+  "dtypes": [
+    "bf16",
+    "fp32"
+  ],
+  "ops": [
+    "addcdiv",
+    "addcmul",
+    "lerp",
+    "mac",
+    "where"
+  ],
+  "run_id": "20260901T134045",
+  "torch_version": "2.11.0+cpu",
+  "tt_metal_commit": "f9377427c7f",
+  "ttnn_version": "0.75.0rc10.dev916+ga5cd86212e1"
+}

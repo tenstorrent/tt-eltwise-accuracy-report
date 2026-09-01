@@ -3,6 +3,7 @@
     "bh": {
       "bf16": {
         "device_arch": "BLACKHOLE",
+        "failed": {},
         "ops": [
           "abs",
           "abs_bw",
@@ -27,7 +28,6 @@
           "atanh_bw",
           "bias_gelu",
           "bias_gelu_",
-          "bias_gelu_bw",
           "cbrt",
           "ceil",
           "celu",
@@ -201,12 +201,13 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260831T103203",
-        "tt_metal_commit": "a5cd86212e1",
+        "run_id": "20260901T134349",
+        "tt_metal_commit": "f9377427c7f",
         "ttnn_version": "0.75.0rc10.dev916+ga5cd86212e1"
       },
       "fp32": {
         "device_arch": "BLACKHOLE",
+        "failed": {},
         "ops": [
           "abs",
           "abs_bw",
@@ -231,7 +232,6 @@
           "atanh_bw",
           "bias_gelu",
           "bias_gelu_",
-          "bias_gelu_bw",
           "cbrt",
           "ceil",
           "celu",
@@ -405,8 +405,8 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260831T103203",
-        "tt_metal_commit": "a5cd86212e1",
+        "run_id": "20260901T134349",
+        "tt_metal_commit": "f9377427c7f",
         "ttnn_version": "0.75.0rc10.dev916+ga5cd86212e1"
       }
     },
@@ -2866,6 +2866,57 @@
           "verdict": "bit-exact"
         }
       },
+      "div_bw": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 65026
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "bit-exact"
+        }
+      },
       "div_no_nan": {
         "default": {
           "max_abs": "0",
@@ -4852,6 +4903,59 @@
           "verdict": "worst pairing 53 ULP; mean 1.46"
         }
       },
+      "hypot_bw": {
+        "default": {
+          "max_abs": "0.293",
+          "max_ulp": "75",
+          "mean_ulp": "2.44",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 16384,
+            "inexact": 48640,
+            "mismatch": 2
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 75 ULP; mean 2.44"
+        }
+      },
       "i0": {
         "default": {
           "max_abs": "2.29e+38",
@@ -5217,6 +5321,57 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 255 ULP; mean 94.5"
+        }
+      },
+      "ldexp_bw": {
+        "default": {
+          "max_abs": "0.00781",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65026,
+          "outcomes": {
+            "inexact": 65026
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "nan",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "2",
+              "y_ref": "2"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
         }
       },
       "le_": {
@@ -6272,6 +6427,58 @@
           "verdict": "worst pairing 3.03e+06 ULP; mean 4.08e+03"
         }
       },
+      "logaddexp2_bw": {
+        "default": {
+          "max_abs": "0.00391",
+          "max_ulp": "41",
+          "mean_ulp": "3.82",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 29952,
+            "inexact": 35074
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-0",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.334",
+              "y_ref": "0.3333"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 41 ULP; mean 3.82"
+        }
+      },
       "logaddexp_": {
         "default": {
           "max_abs": "0.25",
@@ -6324,6 +6531,58 @@
           "ulp_clipped": 16583,
           "usable_to": "\u2014",
           "verdict": "worst pairing 8.39e+06 ULP; mean 4.85e+03"
+        }
+      },
+      "logaddexp_bw": {
+        "default": {
+          "max_abs": "0.00391",
+          "max_ulp": "62",
+          "mean_ulp": "4.88",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 29185,
+            "inexact": 35841
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-0",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.2695",
+              "y_ref": "0.2689"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 62 ULP; mean 4.88"
         }
       },
       "logical_not_": {
@@ -6688,6 +6947,58 @@
           "verdict": "worst pairing 64 ULP; mean 26.4"
         }
       },
+      "max_bw": {
+        "default": {
+          "max_abs": "0.5",
+          "max_ulp": "64",
+          "mean_ulp": "64",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 63234,
+            "inexact": 1792
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 64 ULP; mean 64"
+        }
+      },
       "maximum": {
         "default": {
           "max_abs": "0",
@@ -6738,6 +7049,58 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
+        }
+      },
+      "min_bw": {
+        "default": {
+          "max_abs": "0.5",
+          "max_ulp": "64",
+          "mean_ulp": "64",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 63234,
+            "inexact": 1792
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 64 ULP; mean 64"
         }
       },
       "minimum": {
@@ -6897,6 +7260,57 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
+        }
+      },
+      "mul_bw": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 65026
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "bit-exact"
         }
       },
       "multigammaln": {
@@ -9797,6 +10211,59 @@
           "verdict": "within 2 ULP everywhere"
         }
       },
+      "squared_difference_bw": {
+        "default": {
+          "max_abs": "1.33e+36",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65026,
+          "outcomes": {
+            "exact": 128,
+            "inexact": 64896,
+            "overflow": 2
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
+        }
+      },
       "subalpha": {
         "alpha2.0": {
           "max_abs": "3.38e+38",
@@ -10533,15 +11000,14 @@
       },
       "xielu": {
         "default": {
-          "max_abs": "2.05e+38",
-          "max_ulp": "1.87e+38",
-          "mean_ulp": "3.67e+36",
+          "max_abs": "6.65e+35",
+          "max_ulp": "1",
+          "mean_ulp": "1",
           "n_inputs": 56847,
           "outcomes": {
-            "exact": 56664,
+            "exact": 56669,
             "flushed": 127,
-            "inexact": 54,
-            "mismatch": 1,
+            "inexact": 50,
             "zeroed": 1
           },
           "specials": [
@@ -10581,9 +11047,9 @@
               "y_ref": "-8e-07"
             }
           ],
-          "ulp_clipped": 1,
-          "usable_to": "90",
-          "verdict": "accurate to |x| <= 90; up to 1.87e+38 ULP beyond"
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "within 2 ULP everywhere"
         }
       },
       "xlogy": {
@@ -10636,6 +11102,57 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 897 ULP; mean 655"
+        }
+      },
+      "xlogy_bw": {
+        "default": {
+          "max_abs": "0.5",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65026,
+          "outcomes": {
+            "inexact": 65026
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
         }
       }
     },
@@ -11626,7 +12143,7 @@
       },
       "atanh": {
         "default": {
-          "max_abs": "4.77e-07",
+          "max_abs": "2.38e-07",
           "max_ulp": "3",
           "mean_ulp": "1.51",
           "n_inputs": 32256,
@@ -12248,14 +12765,14 @@
       },
       "cos": {
         "default": {
-          "max_abs": "4.79e+37",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.21e+38",
           "mean_ulp": "1.45e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 28542,
-            "inexact": 13698,
-            "mismatch": 22784
+            "inexact": 18292,
+            "mismatch": 18190
           },
           "specials": [
             {
@@ -12295,8 +12812,8 @@
             }
           ],
           "ulp_clipped": 4770,
-          "usable_to": "5.22e+04",
-          "verdict": "accurate to |x| <= 5.22e+04; up to 3.21e+38 ULP beyond"
+          "usable_to": "5.23e+04",
+          "verdict": "accurate to |x| <= 5.23e+04; up to 3.21e+38 ULP beyond"
         }
       },
       "cos_bw": {
@@ -12465,8 +12982,7 @@
           "n_inputs": 65024,
           "outcomes": {
             "flushed": 1482,
-            "inexact": 63540,
-            "zeroed": 2
+            "inexact": 63542
           },
           "specials": [
             {
@@ -12517,8 +13033,8 @@
           "mean_ulp": "7.77e+12",
           "n_inputs": 51584,
           "outcomes": {
-            "inexact": 49409,
-            "mismatch": 2175
+            "inexact": 50757,
+            "undefined": 827
           },
           "specials": [
             {
@@ -12664,6 +13180,57 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
+        }
+      },
+      "div_bw": {
+        "default": {
+          "max_abs": "4.46e-40",
+          "max_ulp": "7.95e+04",
+          "mean_ulp": "7.95e+04",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 65024,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 7.95e+04 ULP; mean 7.95e+04"
         }
       },
       "div_no_nan": {
@@ -13038,8 +13605,8 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 16147,
-            "flushed": 199,
-            "inexact": 48678
+            "flushed": 198,
+            "inexact": 48679
           },
           "specials": [
             {
@@ -13143,9 +13710,9 @@
           "mean_ulp": "2.62e+05",
           "n_inputs": 32256,
           "outcomes": {
-            "flushed": 32,
-            "inexact": 2800,
-            "zeroed": 29424
+            "flushed": 34,
+            "inexact": 2802,
+            "zeroed": 29420
           },
           "specials": [
             {
@@ -13248,9 +13815,9 @@
           "mean_ulp": "1",
           "n_inputs": 49458,
           "outcomes": {
-            "exact": 43615,
-            "flushed": 397,
-            "inexact": 5446
+            "exact": 43616,
+            "flushed": 395,
+            "inexact": 5447
           },
           "specials": [
             {
@@ -13294,15 +13861,14 @@
           "verdict": "within 2 ULP everywhere"
         },
         "fast_approx": {
-          "max_abs": "7.55e+36",
+          "max_abs": "6.16e+36",
           "max_ulp": "3.79e+05",
           "mean_ulp": "2e+05",
           "n_inputs": 49458,
           "outcomes": {
-            "exact": 15173,
-            "flushed": 396,
-            "inexact": 33888,
-            "zeroed": 1
+            "exact": 15174,
+            "flushed": 395,
+            "inexact": 33889
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -13354,8 +13920,8 @@
           "mean_ulp": "1",
           "n_inputs": 49536,
           "outcomes": {
-            "exact": 43097,
-            "flushed": 395,
+            "exact": 43099,
+            "flushed": 393,
             "inexact": 6044
           },
           "specials": [
@@ -13876,10 +14442,10 @@
           "mean_ulp": "1.7e+05",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58683,
-            "flushed": 256,
-            "inexact": 6000,
-            "zeroed": 85
+            "exact": 58686,
+            "flushed": 254,
+            "inexact": 6001,
+            "zeroed": 83
           },
           "specials": [
             {
@@ -13928,10 +14494,10 @@
           "mean_ulp": "4.9e+36",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 32078,
-            "flushed": 256,
-            "inexact": 32490,
-            "zeroed": 200
+            "exact": 32079,
+            "flushed": 254,
+            "inexact": 32494,
+            "zeroed": 197
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -14343,8 +14909,8 @@
           "mean_ulp": "1.41e+03",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 59542,
-            "flushed": 256,
+            "exact": 59544,
+            "flushed": 254,
             "inexact": 5226
           },
           "specials": [
@@ -14647,6 +15213,58 @@
           "verdict": "worst pairing 3.44e+06 ULP; mean 3.28e+04"
         }
       },
+      "hypot_bw": {
+        "default": {
+          "max_abs": "1",
+          "max_ulp": "4.86e+06",
+          "mean_ulp": "4.48e+04",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 48640,
+            "zeroed": 16384
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
+          "ulp_clipped": 3288,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 4.86e+06 ULP; mean 4.48e+04"
+        }
+      },
       "i0": {
         "default": {
           "max_abs": "3.09e+38",
@@ -14759,8 +15377,8 @@
           "mean_ulp": "4.1e+04",
           "n_inputs": 33904,
           "outcomes": {
-            "exact": 29504,
-            "flushed": 256,
+            "exact": 29506,
+            "flushed": 254,
             "inexact": 4144
           },
           "specials": [
@@ -14801,8 +15419,8 @@
             }
           ],
           "ulp_clipped": 14,
-          "usable_to": "0.00662",
-          "verdict": "accurate to |x| <= 0.00662; up to 1.56e+07 ULP beyond"
+          "usable_to": "0.00664",
+          "verdict": "accurate to |x| <= 0.00664; up to 1.56e+07 ULP beyond"
         }
       },
       "identity": {
@@ -15002,6 +15620,57 @@
               "x": "-1.175e-38",
               "y": "-2.351e-38",
               "y_ref": "-2.351e-38"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
+        }
+      },
+      "ldexp_bw": {
+        "default": {
+          "max_abs": "1.19e-07",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-0",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-inf",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "nan",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "2",
+              "y_ref": "2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "2",
+              "y_ref": "2"
             }
           ],
           "ulp_clipped": 0,
@@ -15275,8 +15944,7 @@
           "mean_ulp": "2.98e+03",
           "n_inputs": 50757,
           "outcomes": {
-            "inexact": 48582,
-            "overflow": 2175
+            "inexact": 50757
           },
           "specials": [
             {
@@ -15792,10 +16460,9 @@
           "mean_ulp": "1.82e+04",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 31068,
-            "flushed": 396,
-            "inexact": 33559,
-            "zeroed": 1
+            "exact": 31069,
+            "flushed": 395,
+            "inexact": 33560
           },
           "specials": [
             {
@@ -16051,6 +16718,58 @@
           "verdict": "worst pairing 1.54e+09 ULP; mean 1.05e+07"
         }
       },
+      "logaddexp2_bw": {
+        "default": {
+          "max_abs": "1.19e-07",
+          "max_ulp": "9.02e+04",
+          "mean_ulp": "5.6e+04",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 29282,
+            "inexact": 35742
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-0",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.3333",
+              "y_ref": "0.3333"
+            }
+          ],
+          "ulp_clipped": 35301,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 9.02e+04 ULP; mean 5.6e+04"
+        }
+      },
       "logaddexp_": {
         "default": {
           "max_abs": "7.63e-06",
@@ -16102,6 +16821,58 @@
           "ulp_clipped": 46909,
           "usable_to": "\u2014",
           "verdict": "worst pairing 5.23e+08 ULP; mean 7.28e+06"
+        }
+      },
+      "logaddexp_bw": {
+        "default": {
+          "max_abs": "1.19e-07",
+          "max_ulp": "8.98e+04",
+          "mean_ulp": "4.46e+04",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 29428,
+            "inexact": 35596
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-0",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0.2689",
+              "y_ref": "0.2689"
+            }
+          ],
+          "ulp_clipped": 35168,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 8.98e+04 ULP; mean 4.46e+04"
         }
       },
       "logical_not_": {
@@ -16461,6 +17232,58 @@
           "verdict": "worst pairing 4.22e+06 ULP; mean 7.31e+05"
         }
       },
+      "max_bw": {
+        "default": {
+          "max_abs": "0.5",
+          "max_ulp": "4.19e+06",
+          "mean_ulp": "4.19e+06",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 63057,
+            "inexact": 1967
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 1967,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 4.19e+06 ULP; mean 4.19e+06"
+        }
+      },
       "maximum": {
         "default": {
           "max_abs": "0",
@@ -16510,6 +17333,58 @@
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
+        }
+      },
+      "min_bw": {
+        "default": {
+          "max_abs": "0.5",
+          "max_ulp": "4.19e+06",
+          "mean_ulp": "4.19e+06",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 63057,
+            "inexact": 1967
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 1967,
+          "usable_to": "\u2014",
+          "verdict": "worst pairing 4.19e+06 ULP; mean 4.19e+06"
         }
       },
       "minimum": {
@@ -16570,10 +17445,10 @@
           "mean_ulp": "2.58",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58633,
-            "flushed": 194,
-            "inexact": 6187,
-            "zeroed": 10
+            "exact": 58636,
+            "flushed": 191,
+            "inexact": 6188,
+            "zeroed": 9
           },
           "specials": [
             {
@@ -16613,8 +17488,8 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.48e-07",
-          "verdict": "accurate to |x| <= 1.48e-07; up to 7 ULP beyond"
+          "usable_to": "1.49e-07",
+          "verdict": "accurate to |x| <= 1.49e-07; up to 7 ULP beyond"
         }
       },
       "mse_loss": {
@@ -16669,6 +17544,57 @@
           "verdict": "within 2 ULP everywhere"
         }
       },
+      "mul_bw": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "bit-exact"
+        }
+      },
       "multigammaln": {
         "default": {
           "max_abs": "4.06e+31",
@@ -16676,9 +17602,9 @@
           "mean_ulp": "9.16e+03",
           "n_inputs": 50376,
           "outcomes": {
-            "inexact": 22197,
-            "mismatch": 7478,
-            "overflow": 20701
+            "inexact": 24392,
+            "mismatch": 7422,
+            "overflow": 18562
           },
           "specials": [
             {
@@ -16982,14 +17908,13 @@
       },
       "polygamma": {
         "k1": {
-          "max_abs": "6.44e+36",
+          "max_abs": "2.59e+38",
           "max_ulp": "7.91e+33",
           "mean_ulp": "3.25e+29",
           "n_inputs": 64769,
           "outcomes": {
-            "inexact": 48631,
-            "mismatch": 7,
-            "overflow": 15874,
+            "inexact": 48640,
+            "overflow": 15872,
             "zeroed": 257
           },
           "rationale": "trigamma, the first order in use",
@@ -17203,8 +18128,8 @@
           "mean_ulp": "\u2014",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 64768,
-            "flushed": 256
+            "exact": 64769,
+            "flushed": 255
           },
           "rationale": "torch's channel-weight init",
           "specials": [
@@ -17932,10 +18857,10 @@
           "mean_ulp": "1",
           "n_inputs": 49536,
           "outcomes": {
-            "exact": 41980,
-            "flushed": 395,
+            "exact": 41983,
+            "flushed": 393,
             "inexact": 5624,
-            "mismatch": 1537
+            "mismatch": 1536
           },
           "rationale": "squaring",
           "specials": [
@@ -18350,9 +19275,9 @@
           "mean_ulp": "1.65",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58398,
-            "flushed": 388,
-            "inexact": 6238
+            "exact": 58399,
+            "flushed": 386,
+            "inexact": 6239
           },
           "specials": [
             {
@@ -18403,9 +19328,9 @@
           "mean_ulp": "1.65",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 58398,
-            "flushed": 388,
-            "inexact": 6238
+            "exact": 58399,
+            "flushed": 386,
+            "inexact": 6239
           },
           "specials": [
             {
@@ -18561,10 +19486,10 @@
           "mean_ulp": "1.82",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 57748,
-            "flushed": 634,
-            "inexact": 6632,
-            "zeroed": 10
+            "exact": 57751,
+            "flushed": 631,
+            "inexact": 6633,
+            "zeroed": 9
           },
           "specials": [
             {
@@ -18664,14 +19589,14 @@
       },
       "sin": {
         "default": {
-          "max_abs": "1.08e+38",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.32e+38",
           "mean_ulp": "1.86e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 30132,
-            "inexact": 12108,
-            "mismatch": 22784
+            "inexact": 16702,
+            "mismatch": 18190
           },
           "specials": [
             {
@@ -18875,15 +19800,15 @@
       },
       "softplus": {
         "default": {
-          "max_abs": "4.17e-05",
+          "max_abs": "6.93e+35",
           "max_ulp": "8.2e+03",
           "mean_ulp": "656",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 31034,
-            "flushed": 397,
-            "inexact": 33464,
-            "mismatch": 129
+            "exact": 31077,
+            "flushed": 395,
+            "inexact": 33522,
+            "mismatch": 30
           },
           "specials": [
             {
@@ -19496,6 +20421,57 @@
           "verdict": "within 2 ULP everywhere"
         }
       },
+      "squared_difference_bw": {
+        "default": {
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-0",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "nan",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-2",
+              "y_ref": "-2"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "bit-exact"
+        }
+      },
       "subalpha": {
         "alpha2.0": {
           "max_abs": "0",
@@ -19657,10 +20633,10 @@
           "mean_ulp": "1.82",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 57748,
-            "flushed": 634,
-            "inexact": 6632,
-            "zeroed": 10
+            "exact": 57751,
+            "flushed": 631,
+            "inexact": 6633,
+            "zeroed": 9
           },
           "specials": [
             {
@@ -19706,15 +20682,14 @@
       },
       "tan": {
         "default": {
-          "max_abs": "1.22e+38",
+          "max_abs": "3.4e+38",
           "max_ulp": "3.34e+38",
           "mean_ulp": "1.43e+36",
           "n_inputs": 65024,
           "outcomes": {
             "exact": 30396,
-            "inexact": 10020,
-            "mismatch": 24578,
-            "zeroed": 30
+            "inexact": 14518,
+            "mismatch": 20110
           },
           "specials": [
             {
@@ -19754,8 +20729,8 @@
             }
           ],
           "ulp_clipped": 3698,
-          "usable_to": "20.2",
-          "verdict": "accurate to |x| <= 20.2; up to 3.34e+38 ULP beyond"
+          "usable_to": "20.3",
+          "verdict": "accurate to |x| <= 20.3; up to 3.34e+38 ULP beyond"
         }
       },
       "tan_bw": {
@@ -19922,8 +20897,8 @@
           "mean_ulp": "1.23e+05",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 53644,
-            "inexact": 11380
+            "exact": 53646,
+            "inexact": 11378
           },
           "specials": [
             {
@@ -20228,15 +21203,14 @@
       },
       "xielu": {
         "default": {
-          "max_abs": "2.72e+38",
+          "max_abs": "2.03e+31",
           "max_ulp": "1.08e+07",
           "mean_ulp": "256",
           "n_inputs": 56848,
           "outcomes": {
-            "exact": 14456,
-            "flushed": 128,
-            "inexact": 42261,
-            "mismatch": 3
+            "exact": 14457,
+            "flushed": 127,
+            "inexact": 42264
           },
           "specials": [
             {
@@ -20276,8 +21250,8 @@
             }
           ],
           "ulp_clipped": 1,
-          "usable_to": "0.688",
-          "verdict": "accurate to |x| <= 0.688; up to 1.08e+07 ULP beyond"
+          "usable_to": "0.691",
+          "verdict": "accurate to |x| <= 0.691; up to 1.08e+07 ULP beyond"
         }
       },
       "xlogy": {
@@ -20329,6 +21303,57 @@
           "ulp_clipped": 65024,
           "usable_to": "\u2014",
           "verdict": "worst pairing 8.84e+07 ULP; mean 6.07e+07"
+        }
+      },
+      "xlogy_bw": {
+        "default": {
+          "max_abs": "7.63e-06",
+          "max_ulp": "1",
+          "mean_ulp": "1",
+          "n_inputs": 65024,
+          "outcomes": {
+            "inexact": 65024
+          },
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "\u2014",
+          "verdict": "within 2 ULP everywhere"
         }
       }
     }
