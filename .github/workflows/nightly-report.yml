@@ -59,6 +59,11 @@ jobs:
     strategy:
       matrix:
         arch: ${{ fromJSON(needs.pin.outputs.archs) }}
+      # Serial, because both jobs regenerate report_index.json and reports/: git cannot
+      # merge those textually, and a rebase conflict poisons the tree for every retry.
+      # A nightly has all night, and one writer at a time is cheaper than teaching two
+      # jobs to merge generated JSON.
+      max-parallel: 1
       fail-fast: false  # one architecture failing must not cancel the other
     runs-on: [self-hosted, "${{ matrix.arch }}"]
     # Per architecture, not per workflow: the two use different machines and devices, and
@@ -177,7 +182,21 @@ jobs:
           git -c user.name=nightly-report -c user.email=nightly@users.noreply.github.com \
             commit -m "data(${{ matrix.arch }}): nightly report at ${{ needs.pin.outputs.sha }}"
           for attempt in 1 2 3; do
-            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            # Abort first: a conflicted rebase left by the previous attempt makes every
+            # later pull fail with "unmerged files" rather than retrying anything.
+            git rebase --abort 2>/dev/null || true
+            git pull --rebase origin "$GITHUB_REF_NAME" &&
+              git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
             echo "push race, retrying ($attempt)"; sleep $((attempt * 10))
           done
+          echo "could not publish; the measurements are on the runner's disk"
           exit 1
+
+      - name: Leave the workspace detached
+        # The next run's checkout deletes every local branch before reusing the clone, and
+        # cannot delete the one still checked out here — it then re-clones the whole
+        # history instead. A rebase left in progress blocks its detach for the same reason.
+        if: always()
+        run: |
+          git rebase --abort 2>/dev/null || true
+          git checkout --detach 2>/dev/null || true

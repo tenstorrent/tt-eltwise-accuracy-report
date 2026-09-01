@@ -67,6 +67,10 @@ jobs:
           retention-days: 14
 
       - name: Leave the checkout clean
-        # The published report lives in git; this run must not be mistaken for it.
+        # The published report lives in git; this run must not be mistaken for it. Detached
+        # because the next run's checkout deletes every local branch before reusing the
+        # clone, and cannot delete the one still checked out here.
         if: always()
-        run: git checkout -- reports/ report_index.json
+        run: |
+          git checkout -- reports/ report_index.json
+          git checkout --detach 2>/dev/null || true
