@@ -52,13 +52,26 @@ jobs:
         run: |
           source "$PYTHON_ENV/bin/activate"
           export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
+          # `|| status=$?`, never a bare call: the shell runs with -e, and measure exits
+          # with the number of variants that produced no data. Someone trying a parameter
+          # that does not work is the likeliest user of this form, and the report of what
+          # happened is exactly what they came for — losing it is the worst outcome.
+          status=0
           python3 -m ttnn_accuracy.cli measure --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" \
-            ${PARAMS:+--params "$PARAMS"}
+            ${PARAMS:+--params "$PARAMS"} || status=$?
+          if [ "$status" -ge 128 ]; then
+            echo "::error::measure died with signal $((status - 128))"
+            exit 1
+          fi
+          [ "$status" -eq 0 ] || echo "::warning::$status variant(s) produced no data"
           python3 -m ttnn_accuracy.cli charts
           python3 -m ttnn_accuracy.cli report \
             --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
 
       - uses: actions/upload-artifact@v4
+        # Even after a hard failure: whatever did measure is still the answer to the
+        # question that was asked.
+        if: always()
         with:
           name: custom-report-${{ inputs.arch }}-${{ github.run_id }}
           path: |
