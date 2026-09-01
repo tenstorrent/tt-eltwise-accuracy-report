@@ -147,12 +147,18 @@ jobs:
           empty=0
           for cat in unary unary_bw binary binary_bw ternary ternary_bw; do
             for attempt in 1 2; do
-              ttnn-accuracy measure --arch "${{ matrix.arch }}" --category "$cat" --dtype both
-              status=$?
-              [ "$status" -lt 128 ] && break   # a signal, not a count of empty variants
+              # `|| status=$?`, never a bare call: the shell runs with -e, so a non-zero
+              # exit — which here is a count of findings, not an error — would kill the
+              # step and abandon every category after this one.
+              status=0
+              ttnn-accuracy measure --arch "${{ matrix.arch }}" --category "$cat" --dtype both ||
+                status=$?
+              if [ "$status" -lt 128 ]; then   # a count of empty variants, not a signal
+                empty=$((empty + status))
+                break
+              fi
               echo "::warning::$cat died with signal $((status - 128)), resuming"
             done
-            [ "$status" -lt 128 ] && empty=$((empty + status))
           done
           ttnn-accuracy charts
           ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw

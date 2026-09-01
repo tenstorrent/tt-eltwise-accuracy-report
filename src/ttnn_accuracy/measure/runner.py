@@ -42,6 +42,8 @@ def measure(
         for spec in specs:
             logger.info("{} ({}) [{}]", spec.name, spec.category, spec.variant)
             for dtype in dtypes:
+                if dtype not in spec.layouts:  # the probe found this arch rejects it
+                    continue
                 if (dtype, spec.name, spec.variant) in done:
                     logger.debug("  {} already measured on this build", dtype)
                     continue

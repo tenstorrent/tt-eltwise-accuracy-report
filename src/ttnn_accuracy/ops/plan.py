@@ -146,7 +146,10 @@ def resolve(
                     ttnn_fn=ttnn_fn,
                     golden_fn=_golden(golden, backward, operands),
                     bounds=ov.bounds if ov and ov.bounds else bounds,
-                    layouts={**TILED, **(accepts or {})},
+                    # The probe's record is authoritative where it exists: an op it
+                    # accepted in one dtype only must not be planned in the other, which
+                    # then fails on the device instead of in the plan.
+                    layouts=accepts or TILED,
                 )
             )
 
