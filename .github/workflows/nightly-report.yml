@@ -167,6 +167,10 @@ jobs:
       - name: Say what moved
         # The run page is where someone looks, so the diff against last night's committed
         # index is written there. Never gating: a change is news, not a failure.
+        env:
+          # loguru's default format carries colour markup and a timestamp/level/module
+          # prefix, both of which reach the summary as literal escape codes.
+          LOGURU_FORMAT: "{message}"
         run: |
           source "$PYTHON_ENV/bin/activate"
           export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
@@ -174,8 +178,7 @@ jobs:
           {
             echo "## ${{ matrix.arch }} at ${{ needs.pin.outputs.sha }}"
             echo '```'
-            python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" 2>&1 |
-              sed 's/^[^|]*| *[A-Z]* *| *[^ ]* *- *//' || true
+            python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" 2>&1 || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
