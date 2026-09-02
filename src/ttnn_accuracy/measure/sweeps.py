@@ -15,6 +15,7 @@ import torch
 from loguru import logger
 
 from ttnn_accuracy.measure import metrics
+from ttnn_accuracy.measure.device import reason
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
 
 TILE_WIDTH = 2**7
@@ -101,7 +102,7 @@ def capabilities(ttnn_fn: Callable, operands: int, device) -> tuple[dict[str, st
             try:
                 _on_device(ttnn_fn, *[tile] * operands, dtype=dtype, layout=layout, device=device)
             except Exception as exc:
-                why = why or str(exc).strip().splitlines()[0][:200]
+                why = why or reason(exc)
                 continue
             found[dtype] = layout
             break

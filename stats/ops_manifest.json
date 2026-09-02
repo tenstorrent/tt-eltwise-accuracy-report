@@ -5570,7 +5570,7 @@
     },
     "wh": {
       "ttnn.bias_gelu_bw": "crashed the process while probing \u2014 see the run log",
-      "ttnn.softcap": "TT_FATAL @ /localdev/ijankowski/tt-metal/ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
+      "ttnn.softcap": "TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
     }
   },
   "unprobeable": {
