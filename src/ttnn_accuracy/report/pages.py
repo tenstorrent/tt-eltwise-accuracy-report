@@ -21,8 +21,15 @@ from ttnn_accuracy.measure.metrics import MIN_NORMAL
 from ttnn_accuracy.measure.sweeps import SAMPLED
 from ttnn_accuracy.ops.manifest import load as load_manifest
 from ttnn_accuracy.ops.plan import describe, params_desc
-from ttnn_accuracy.paths import CHARTS_DIR, INDEX_FILE, REPO_ROOT, REPORTS_DIR
-from ttnn_accuracy.report.charts import RUNS_KEY
+from ttnn_accuracy.paths import (
+    ASK_FILE,
+    CHARTS_DIR,
+    CONTRACT_FILE,
+    INDEX_FILE,
+    REPO_ROOT,
+    REPORTS_DIR,
+    RUNS_KEY,
+)
 
 ARCHS = ["wh", "bh"]
 DTYPES = ["bf16", "fp32"]
@@ -252,8 +259,7 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
     range_text = _input_range_text(entries[0][0], dtype)
     lines.append(f"**Measured input range:** {range_text}  \n\n")
 
-    # Only for unary ops: elsewhere x is one operand of several, and a bound on it would
-    # describe the sampled partner rather than the input under test.
+    # Unary only: elsewhere a bound on x would describe the sampled partner.
     info = describe(entries[0][0])
     unary = bool(info and info.operands == 1)
     head = "| Parameters | Max ULP | Mean ULP | Max abs error |"
@@ -606,6 +612,59 @@ def top_readme(data: dict) -> str:
     return "".join(lines)
 
 
+ASK_HEADER = """# Ask an assistant about these measurements
+
+Give your assistant this page's URL, or paste the file, then ask in plain language —
+"is `exp` usable on Wormhole in bfloat16?", "which ops are worse than 2 ULP in fp32?".
+Everything needed to answer is below: the definitions, then every measured result.
+
+Answering rules, in force for whoever reads this: quote the `Verdict` column rather than
+judging the numbers yourself, name the architecture and dtype in every answer, and if a
+variant is not in the table say so instead of extrapolating from a neighbouring one.
+
+"""
+
+
+def ask_page() -> str:
+    """One self-contained page: a link a reader can hand to any assistant.
+
+    The contract is inlined rather than linked. The point of the page is that fetching
+    one URL yields the definitions and the numbers together, with nothing to follow —
+    a chat that cannot browse still has everything once the page is pasted.
+    """
+    index = _get_index()
+    rows = [
+        f"| {arch} | {dtype} | `{op}` | `{params_desc(op, variant)}` | {s.get('verdict', '—')} "
+        f"| {s.get('max_ulp', '—')} | {s.get('mean_ulp', '—')} | {s.get('usable_to', '—')} |"
+        for arch in sorted(k for k in index if k != RUNS_KEY)
+        for dtype, ops in sorted(index[arch].items())
+        for op, variants in sorted(ops.items())
+        for variant, s in sorted(variants.items())
+    ]
+    builds = [
+        f"| {arch} | {dtype} | `{run.get('tt_metal_commit')}` | {run.get('ttnn_version')} |"
+        for arch, dtypes in sorted(index.get(RUNS_KEY, {}).items())
+        for dtype, run in sorted(dtypes.items())
+    ]
+    return "\n".join(
+        [
+            ASK_HEADER,
+            "## Measured against\n",
+            "| Arch | Dtype | tt-metal | ttnn |",
+            "|---|---|---|---|",
+            *builds,
+            "",
+            CONTRACT_FILE.read_text().partition("\n")[2].strip(),
+            "",
+            f"## Results — {len(rows)} variants\n",
+            "| Arch | Dtype | Op | Parameters | Verdict | Max ULP | Mean ULP | Usable to |",
+            "|---|---|---|---|---|---|---|---|",
+            *rows,
+            "",
+        ]
+    )
+
+
 def generate_reports(arch_filter=None, dtype_filter=None, categories=None) -> int:
     if categories is None:
         categories = ["unary"]
@@ -624,6 +683,7 @@ def generate_reports(arch_filter=None, dtype_filter=None, categories=None) -> in
     grouped = {(a, d): group_by_display(data.get(a, {}).get(d, {})) for a in archs for d in dtypes}
 
     write(REPORTS_DIR / "README.md", top_readme(data))
+    write(ASK_FILE, ask_page())
 
     write(REPORTS_DIR / "by_arch" / "README.md", arch_list_index(data))
     for arch in archs:

@@ -22,15 +22,17 @@ from ttnn_accuracy.measure.schema import COLUMNS
 from ttnn_accuracy.measure.store import RUN_STAMP
 from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, variant_slug
 from ttnn_accuracy.ops.plan import describe
-from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, REPO_ROOT
+from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, REPO_ROOT, RUNS_KEY
 
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
 
-# Underscored so it cannot collide with an arch name when the report walks the index.
-RUNS_KEY = "_runs"
 ULP_CLIP = 1000.0
 USABLE_ULP = 2.0  # what "still accurate here" means for the usable-range figure
+# Outcomes that are wrong answers rather than unscorable ones: the device returned inf
+# where a value exists, or zero where the dtype could hold it. They carry no ULP, so
+# without naming them here every accuracy figure would pass straight over them.
+DEFECTS = ("mismatch", "zeroed")
 
 
 def _finite(s: pd.Series) -> pd.Series:
@@ -48,13 +50,18 @@ def _num(v) -> float | None:
         return None
 
 
-def verdict(max_ulp: str, mean_ulp: str, usable_to: str, operands: int | None) -> str:
-    """One of five fixed phrases, so no reader — human or LLM — invents the judgment.
+def verdict(
+    max_ulp: str, mean_ulp: str, usable_to: str, operands: int | None, defects: int, points: int
+) -> str:
+    """One of seven fixed phrases, so no reader invents the judgment.
 
-    The rules live here and nowhere else; analyze-report/contract.md is their prose twin
-    and must change with them.
+    The rules live here alone; analyze-report/contract.md is their twin and moves with them.
     """
     mx = _num(max_ulp)
+    # First, and whatever the ULP says: an op that returns inf or zero where a value
+    # exists is not accurate to anything, and every other figure here excludes those points.
+    if defects:
+        return f"{defects} of {points} points returned inf or zero where a value exists"
     if mx is None:
         return "no scorable points"
     if mx == 0:
@@ -84,22 +91,19 @@ def _specials_rows(specials: pd.DataFrame) -> list[dict]:
 
 
 def _usable_to(df: pd.DataFrame) -> float:
-    """Largest finite |x| below which no point yet exceeds USABLE_ULP. NaN when none does.
+    """Largest finite |x| below which no point yet exceeds USABLE_ULP; NaN when none does.
 
-    One maximum over the whole domain hides a cliff. `sin` holds to 2 ULP out to 2.6e5 and
-    collapses past it — reducing a large argument mod 2π needs more bits of π than the
-    hardware carries — and its 3.38e+38 maximum alone reads as a broken op. Undefined ULP
-    does not count against the range: a flush is not an inaccuracy.
-
-    Only asked of unary ops. An `x2` column means each x was paired with a sampled
-    partner, so one bad pair latches the running maximum and the figure then describes the
-    partner rather than x.
+    One maximum hides a cliff: `sin` holds to 2 ULP out to 2.6e5 and collapses past it.
+    Unary only — with a sampled partner one bad pair would latch the running maximum.
     """
     if "x2" in df.columns:
         return float("nan")
     finite = df[_finite(df["x"]).notna()]
     ordered = finite.reindex(finite["x"].abs().sort_values().index)
-    within = _finite(ordered["ulp_error"]).fillna(0.0).cummax() <= USABLE_ULP
+    # NaN ULP means unscorable, which a flush is and a defect is not: 0.0 would let an
+    # infinity extend the usable range it ends.
+    ulp = _finite(ordered["ulp_error"]).fillna(0.0)
+    within = ulp.mask(ordered["outcome"].isin(DEFECTS), float("inf")).cummax() <= USABLE_ULP
     return abs(ordered["x"][within].iloc[-1]) if within.any() else float("nan")
 
 
@@ -121,15 +125,10 @@ def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
 
 
 def compute_stats(df: pd.DataFrame) -> dict:
-    """Summary stats for one variant. `df` must already have subnormals removed.
+    """Summary stats for one variant; `df` must already have subnormals removed.
 
-    ULP figures cover only the points where ULP is defined and non-trivial: the mean over
-    exact points would be diluted by ops that return zero across most of their range, and
-    the max over undefined points is what produced 1e24 readings.
-
-    Both read the value, not the outcome label: an fp32 row is its group's worst-ULP
-    point, so a label like `flushed` means that group's best evidence is a flush, and
-    the value columns always belong to the same point as the label.
+    ULP covers only defined, non-trivial points: the mean would be diluted by ops that
+    return zero across most of their range, the max produced 1e24 readings.
     """
     ulp = _finite(df["ulp_error"])
     return {
@@ -138,6 +137,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
         "usable_to": _fmt(_usable_to(df)),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
+        "defects": int(df["outcome"].isin(DEFECTS).sum()),
         "n_inputs": len(df),
         "outcomes": {k: int(v) for k, v in df["outcome"].value_counts().items()},
     }
@@ -189,8 +189,7 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
         return 1
 
     index = json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
-    # An op that leaves scope keeps its old entry forever otherwise: charts only visits
-    # ops with CSVs, and an unvisited entry would publish stats nothing can reproduce.
+    # charts only visits ops with CSVs, so an op that left scope would keep its entry.
     for arch, dtypes in index.items():
         if arch == RUNS_KEY:
             continue
@@ -231,6 +230,8 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                         stats["mean_ulp"],
                         stats["usable_to"],
                         info.operands if info else None,
+                        stats["defects"],
+                        stats["n_inputs"],
                     )
                     ov = next(
                         (

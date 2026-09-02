@@ -16,6 +16,7 @@ STATS = {
     "max_ulp": "1",
     "mean_ulp": "1",
     "ulp_clipped": 0,
+    "defects": 0,
     "usable_to": "3.39e+38",
     "max_abs": "0.25",
     "n_inputs": 65024,
@@ -35,6 +36,8 @@ def _index(**stats) -> dict:
     [
         ({"max_ulp": "254"}, "regressed"),
         ({"ulp_clipped": 3}, "regressed"),
+        # The logaddexp class: no ULP moves, because these points never had one.
+        ({"defects": 15566}, "regressed"),
         ({"mean_ulp": "—"}, "improved"),  # no inexact points left: errors vanished
         ({"usable_to": "1"}, "changed"),  # reported, never scored: its "—" is ambiguous
         ({}, None),
@@ -46,26 +49,36 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
 
 
 @pytest.mark.parametrize(
-    ("max_ulp", "mean_ulp", "usable_to", "operands", "expected"),
+    ("max_ulp", "mean_ulp", "usable_to", "operands", "defects", "expected"),
     [
-        ("0", "—", "3.39e+38", 1, "bit-exact"),
-        ("2", "1.1", "3.39e+38", 1, "within 2 ULP everywhere"),
+        ("0", "—", "3.39e+38", 1, 0, "bit-exact"),
+        ("2", "1.1", "3.39e+38", 1, 0, "within 2 ULP everywhere"),
         (
             "3.38e+38",
             "2.5e+36",
             "2.62e+05",
             1,
+            0,
             "accurate to |x| <= 2.62e+05; up to 3.38e+38 ULP beyond",
         ),
-        ("1.14e+36", "4.5e+34", "—", 1, "never within 2 ULP; mean 4.5e+34, worst 1.14e+36"),
-        ("254", "2.42", "—", 2, "worst pairing 254 ULP; mean 2.42"),
-        ("—", "—", "—", 1, "no scorable points"),
+        ("1.14e+36", "4.5e+34", "—", 1, 0, "never within 2 ULP; mean 4.5e+34, worst 1.14e+36"),
+        ("254", "2.42", "—", 2, 0, "worst pairing 254 ULP; mean 2.42"),
+        ("—", "—", "—", 1, 0, "no scorable points"),
+        # rpow_bw at exponent 2.0: every scorable point exact, half of them infinite.
+        (
+            "0",
+            "—",
+            "3.39e+38",
+            1,
+            32384,
+            "32384 of 64777 points returned inf or zero where a value exists",
+        ),
     ],
 )
-def test_verdicts_follow_the_contract(max_ulp, mean_ulp, usable_to, operands, expected):
+def test_verdicts_follow_the_contract(max_ulp, mean_ulp, usable_to, operands, defects, expected):
     from ttnn_accuracy.report.charts import verdict
 
-    assert verdict(max_ulp, mean_ulp, usable_to, operands) == expected
+    assert verdict(max_ulp, mean_ulp, usable_to, operands, defects, 64777) == expected
 
 
 def test_coverage_changes_are_named_not_scored():

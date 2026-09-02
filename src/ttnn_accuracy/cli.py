@@ -37,6 +37,22 @@ def build_parser() -> argparse.ArgumentParser:
     measure.add_argument("--output-dir", type=Path, default=DATA_DIR)
     measure.add_argument("--device-id", type=int, default=0)
 
+    perf = sub.add_parser("perf", help="time each op on a device; never scored, host-specific")
+    perf.add_argument("--arch", required=True, choices=["wh", "bh"])
+    perf.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
+    perf.add_argument("--category", choices=CATEGORIES, help="filter when --ops=all")
+    perf.add_argument("--dtype", default="both", choices=["bf16", "fp32", "both"])
+    perf.add_argument("--device-id", type=int, default=0)
+    perf.add_argument("--out", type=Path, help="where to write the timings (default stats/perf/)")
+    perf.set_defaults(params=None)  # so _selection reads args.params for both commands
+
+    perf_diff = sub.add_parser(
+        "perf-diff", help="two timing files → what got slower; exit 1 when anything did"
+    )
+    perf_diff.add_argument("baseline", type=Path)
+    perf_diff.add_argument("candidate", type=Path)
+    perf_diff.add_argument("--findings", type=Path, help="also write the diff as a markdown page")
+
     charts = sub.add_parser("charts", help="render SVG charts from measured data")
     charts.add_argument("--arch")
     charts.add_argument("--dtype")
@@ -52,15 +68,15 @@ def build_parser() -> argparse.ArgumentParser:
         "baseline", type=Path, help="report_index.json measured on the older build"
     )
     compare.add_argument("candidate", type=Path, nargs="?", default=INDEX_FILE)
+    compare.add_argument("--findings", type=Path, help="also write the diff as a markdown page")
 
     return parser
 
 
 def _values(params: str | None) -> dict[str, float | int]:
-    """`relu_max=6,polygamma=2` → {"relu_max": 6, "polygamma": 2}. int where written int.
+    """`relu_max=6,polygamma=2` → {"relu_max": 6, "polygamma": 2}, int where written int.
 
-    Typed by hand, often into a web form, so a mistake answers itself rather than
-    surfacing as a parse traceback.
+    Typed into a web form, so a mistake answers itself rather than raising a traceback.
     """
     values: dict[str, float | int] = {}
     for pair in (p.strip() for p in (params or "").split(",") if p.strip()):
@@ -72,6 +88,18 @@ def _values(params: str | None) -> dict[str, float | int]:
         except ValueError:
             raise SystemExit(f"--params: `{raw.strip()}` is not a number, in `{pair}`") from None
     return values
+
+
+def _selection(args) -> tuple[list, list[str], int]:
+    """The ops and dtypes asked for, refusals logged — shared so measure and perf agree."""
+    from ttnn_accuracy.ops import plan
+
+    names = None if args.ops == "all" else [o.strip() for o in args.ops.split(",")]
+    specs, problems = plan.resolve(names, args.category, args.arch, _values(args.params))
+    for problem in problems:
+        logger.error(problem)
+    dtypes = ["bf16", "fp32"] if args.dtype == "both" else [args.dtype]
+    return specs, dtypes, len(problems)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -95,18 +123,24 @@ def main(argv: list[str] | None = None) -> int:
 
         case "measure":
             from ttnn_accuracy.measure.runner import measure
-            from ttnn_accuracy.ops import plan
 
-            names = None if args.ops == "all" else [o.strip() for o in args.ops.split(",")]
-            specs, problems = plan.resolve(names, args.category, args.arch, _values(args.params))
-            for problem in problems:
-                logger.error(problem)
+            specs, dtypes, problems = _selection(args)
             if not specs:
                 return 1
-            dtypes = ["bf16", "fp32"] if args.dtype == "both" else [args.dtype]
-            return len(problems) + measure(
-                specs, dtypes, args.arch, args.output_dir, args.device_id
-            )
+            return problems + measure(specs, dtypes, args.arch, args.output_dir, args.device_id)
+
+        case "perf":
+            from ttnn_accuracy.measure.perf import measure_perf
+
+            specs, dtypes, problems = _selection(args)
+            if not specs:
+                return 1
+            return problems + measure_perf(specs, dtypes, args.arch, args.device_id, args.out)
+
+        case "perf-diff":
+            from ttnn_accuracy.measure.perf import perf_diff
+
+            return perf_diff(args.baseline, args.candidate, args.findings)
 
         case "charts":
             from ttnn_accuracy.report.charts import generate_charts
@@ -122,7 +156,7 @@ def main(argv: list[str] | None = None) -> int:
         case "compare":
             from ttnn_accuracy.report.compare import compare
 
-            return compare(args.baseline, args.candidate)
+            return compare(args.baseline, args.candidate, args.findings)
 
 
 if __name__ == "__main__":  # `python -m ttnn_accuracy.cli`, for callers that must not install

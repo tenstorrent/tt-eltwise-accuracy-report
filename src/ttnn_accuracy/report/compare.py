@@ -1,13 +1,8 @@
 """Two report indexes → what moved between two tt-metal builds.
 
-Measurement is deterministic: the same inputs on the same silicon through the same
-kernels give identical output, so any difference between two indexes is a real change —
-never noise, and there is no tolerance to tune. A run exits non-zero when anything got
-worse, which is the whole CI gate.
-
-`usable_to` is reported when it moves but never scored: its "—" means both "not within
-2 ULP anywhere" and "not applicable to a multi-operand op", and a gate must not guess
-which. `mean_ulp`'s "—" is unambiguous — no inexact points — so it scores as 0.
+Measurement is deterministic, so any difference is real and there is no tolerance to tune.
+`usable_to` is reported but never scored: its "—" means both "never within 2 ULP" and
+"not applicable here". `mean_ulp`'s "—" is unambiguous, so it scores as 0.
 """
 
 from __future__ import annotations
@@ -17,9 +12,11 @@ from pathlib import Path
 
 from loguru import logger
 
-from ttnn_accuracy.report.charts import RUNS_KEY
+from ttnn_accuracy.paths import RUNS_KEY
 
-SCORED = ("max_ulp", "mean_ulp", "ulp_clipped")
+# `defects` is scored like an error figure: inf or zero where a value exists is the worst
+# answer an op can give, and it is the one the ULP columns cannot see.
+SCORED = ("max_ulp", "mean_ulp", "ulp_clipped", "defects")
 
 
 def _num(value) -> float:
@@ -51,8 +48,7 @@ def diff(old: dict, new: dict) -> dict[str, list]:
             buckets["added"].append((key, None, b))
         elif b is None:
             buckets["removed"].append((key, a, None))
-        # .get throughout: an index committed before a field existed is still a valid
-        # baseline to diff against, and the nightly diffs against whatever last landed.
+        # .get throughout: an index predating a field is still a valid baseline.
         elif any(_num(a.get(m)) != _num(b.get(m)) for m in SCORED) or a.get("usable_to") != b.get(
             "usable_to"
         ):
@@ -63,15 +59,60 @@ def diff(old: dict, new: dict) -> dict[str, list]:
     return buckets
 
 
+def _moves(a: dict, b: dict) -> str:
+    return ", ".join(
+        f"{m} {a.get(m)} → {b.get(m)}"
+        for m in (*SCORED, "usable_to")
+        if str(a.get(m)) != str(b.get(m))
+    )
+
+
+# The bucketing is the classification: `changed` is usable_to-only by construction.
+SECTIONS = (
+    ("regressed", "Regressions", "A scored metric got worse."),
+    ("improved", "Improvements", "A scored metric got better."),
+    (
+        "changed",
+        "Expected",
+        "Only `usable_to` moved: a different kernel puts the 2 ULP boundary on a "
+        "neighbouring group. No scored metric changed.",
+    ),
+    ("added", "New coverage", "Measured here for the first time."),
+    ("removed", "No longer measured", "Present in the baseline, absent now."),
+)
+
+
+def digest(old: dict, new: dict) -> str:
+    """The diff as one markdown page — the file a reader opens instead of 754."""
+    buckets = diff(old, new)
+    out = ["# Findings", "", f"_{_commits(old)} → {_commits(new)}_", ""]
+    for key, title, why in SECTIONS:
+        if not (rows := buckets[key]):
+            continue
+        out += [f"## {title} ({len(rows)})", "", why, "", "| Variant | Moved |", "|---|---|"]
+        out += [
+            f"| `{arch}/{dtype}/{op}/{variant}` | {_moves(a, b) if a and b else '—'} |"
+            for (arch, dtype, op, variant), a, b in rows
+        ]
+        out.append("")
+    if not any(buckets.values()):
+        out += ["Nothing moved.", ""]
+    return "\n".join(out)
+
+
 def _commits(index: dict) -> str:
     runs = index.get(RUNS_KEY, {})
     shas = {run.get("tt_metal_commit") for arch in runs.values() for run in arch.values()}
     return ", ".join(sorted(str(s) for s in shas)) or "unknown"
 
 
-def compare(old_path: Path, new_path: Path) -> int:
+def compare(old_path: Path, new_path: Path, findings: Path | None = None) -> int:
     old, new = json.loads(old_path.read_text()), json.loads(new_path.read_text())
     buckets = diff(old, new)
+    if findings:
+        findings.parent.mkdir(parents=True, exist_ok=True)
+        findings.write_text(digest(old, new))
+        logger.info("findings → {}", findings)
 
     logger.info("baseline {} (tt-metal {})", old_path, _commits(old))
     logger.info("candidate {} (tt-metal {})", new_path, _commits(new))
@@ -85,12 +126,7 @@ def compare(old_path: Path, new_path: Path) -> int:
             if a is None or b is None:
                 getattr(logger, level)(where)
                 continue
-            moves = ", ".join(
-                f"{m} {a.get(m)} → {b.get(m)}"
-                for m in (*SCORED, "usable_to")
-                if str(a.get(m)) != str(b.get(m))
-            )
-            getattr(logger, level)("{}: {}", where, moves)
+            getattr(logger, level)("{}: {}", where, _moves(a, b))
 
     unchanged = len(_variants(old).keys() & _variants(new).keys()) - sum(
         len(buckets[k]) for k in ("regressed", "improved", "changed")
