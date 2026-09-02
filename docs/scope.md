@@ -40,6 +40,7 @@ Every sampled page carries an explicit note: a sampled maximum is a lower bound.
 | fp32 pair sample | preference | scheme B below, seed fixed forever — a moving sample makes error changes unattributable |
 | ternary stride | preference | every 512th code — uniform over exponents, priced like a binary sweep |
 | domains | preference | fp64 bisection per dtype, unary only; refusals recorded with reasons |
+| domain shape | forced | one interval. `digamma` and `lgamma_bw` are NaN at every negative integer, `acosh_bw` NaN for \|x\| < 1, `multigammaln_bw` below 0.5 — a bisection cannot express a hole, so those points are swept and land as `undefined`. They carry no ULP and are not counted as defects, so nothing is scored wrongly; the cost is sweep time |
 | computability bound | forced | `polygamma_bw` swept above −1024 — torch's reference costs O(\|x\|) below zero |
 
 ### fp32 pair sample — options considered
