@@ -16,7 +16,7 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | `n_inputs` | measured points (fp32 rows are each the worst point of 2¹⁶ consecutive codes) |
 | `outcomes` | count per outcome label, below |
 | `specials` | device vs golden at ±0, ±inf, NaN, ±min-normal — printed values, no ULP |
-| `defects` | points labelled `mismatch` or `zeroed` — wrong answers that carry no ULP, so no other field here counts them |
+| `defects` | points where the device returned inf or zero and the reference is a representable value — wrong answers that carry no ULP, so no other field counts them. A `mismatch` against a NaN reference is a disagreement about the domain, not a defect, and is excluded |
 | `verdict` | one of the seven phrases below, precomputed |
 | `rationale` | why this variant's parameters have these values (from `ops/overrides.py`) |
 | `_runs.{arch}.{dtype}` | provenance: tt-metal commit, device, versions — every claim is per this build |

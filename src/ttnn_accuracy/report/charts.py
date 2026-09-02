@@ -29,10 +29,17 @@ plt.rcParams["figure.dpi"] = 100
 
 ULP_CLIP = 1000.0
 USABLE_ULP = 2.0  # what "still accurate here" means for the usable-range figure
-# Outcomes that are wrong answers rather than unscorable ones: the device returned inf
-# where a value exists, or zero where the dtype could hold it. They carry no ULP, so
-# without naming them here every accuracy figure would pass straight over them.
-DEFECTS = ("mismatch", "zeroed")
+
+
+def _defects(df: pd.DataFrame) -> pd.Series:
+    """Wrong answers that carry no ULP: inf or zero where a representable value exists.
+
+    `mismatch` also covers the device answering where the reference is NaN — a disagreement
+    about the domain, not about precision — so it counts only where y_ref is finite.
+    """
+    return (df["outcome"] == "zeroed") | (
+        (df["outcome"] == "mismatch") & df["y_ref"].notna() & np.isfinite(df["y_ref"])
+    )
 
 
 def _finite(s: pd.Series) -> pd.Series:
@@ -103,8 +110,10 @@ def _usable_to(df: pd.DataFrame) -> float:
     # NaN ULP means unscorable, which a flush is and a defect is not: 0.0 would let an
     # infinity extend the usable range it ends.
     ulp = _finite(ordered["ulp_error"]).fillna(0.0)
-    within = ulp.mask(ordered["outcome"].isin(DEFECTS), float("inf")).cummax() <= USABLE_ULP
-    return abs(ordered["x"][within].iloc[-1]) if within.any() else float("nan")
+    within = ulp.mask(_defects(ordered), float("inf")).cummax() <= USABLE_ULP
+    # `or nan`: a bound of 0 means only x=0 held, and "accurate to |x| <= 0" reads as a
+    # range where there is none — the no-usable-range phrase is the honest one.
+    return (abs(ordered["x"][within].iloc[-1]) or float("nan")) if within.any() else float("nan")
 
 
 def _subdirs(parent: Path, only: str | None) -> list[Path]:
@@ -137,10 +146,44 @@ def compute_stats(df: pd.DataFrame) -> dict:
         "usable_to": _fmt(_usable_to(df)),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
-        "defects": int(df["outcome"].isin(DEFECTS).sum()),
+        "defects": int(_defects(df).sum()),
         "n_inputs": len(df),
         "outcomes": {k: int(v) for k, v in df["outcome"].value_counts().items()},
     }
+
+
+def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | None:
+    """One measured CSV → its index entry and the rows worth plotting, or None.
+
+    Shared with `check`, so a developer's numbers are produced exactly as the report's are.
+    """
+    raw = pd.read_csv(path, index_col="index")
+    if missing := set(COLUMNS) - set(raw.columns):
+        logger.error("{} predates the schema, missing {} — re-measure", path, sorted(missing))
+        return None
+    special = raw[raw["outcome"] == "special"]
+    df = raw[(raw["outcome"] != "special") & (raw["x"].abs() >= MIN_NORMAL)]
+    if df.empty:
+        logger.warning("no normal-range rows in {}", path)
+        return None
+
+    info = describe(op)
+    stats = compute_stats(df) | {"specials": _specials_rows(special)}
+    stats["verdict"] = verdict(
+        stats["max_ulp"],
+        stats["mean_ulp"],
+        stats["usable_to"],
+        info.operands if info else None,
+        stats["defects"],
+        stats["n_inputs"],
+    )
+    ov = next(
+        (o for o in OVERRIDES.get(f"ttnn.{op}", ()) if variant_slug(o.params_desc) == variant),
+        None,
+    )
+    if ov and ov.why:
+        stats["rationale"] = ov.why
+    return stats, df
 
 
 def _aggregate(df: pd.DataFrame, group_size: int = 128) -> tuple[np.ndarray, np.ndarray]:
@@ -206,43 +249,20 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                 arch, dtype, op = arch_dir.name, dtype_dir.name, op_dir.name
                 for csv_path in sorted(op_dir.glob("*.csv")):
                     variant = csv_path.stem
-                    raw = pd.read_csv(csv_path, index_col="index")
-                    if missing := set(COLUMNS) - set(raw.columns):
-                        logger.error(
-                            "{} predates the current schema, missing {} — re-measure it",
-                            csv_path,
-                            ", ".join(sorted(missing)),
-                        )
+                    scored = score_csv(csv_path, op, variant)
+                    if scored is None:
                         stale += 1
                         continue
-                    special = raw[raw["outcome"] == "special"]
-                    df = raw[(raw["outcome"] != "special") & (raw["x"].abs() >= MIN_NORMAL)]
-                    if df.empty:
-                        logger.warning("no normal-range rows in {}", csv_path)
-                        continue
+                    stats, df = scored
                     logger.info("plotting {}/{}/{}/{}", arch, dtype, op, variant)
-                    svg = CHARTS_DIR / arch / dtype / f"{op}_{variant}_ulp.svg"
-                    plot_ulp_chart(df, op, variant, arch, dtype, svg)
-                    stats = compute_stats(df) | {"specials": _specials_rows(special)}
-                    info = describe(op)
-                    stats["verdict"] = verdict(
-                        stats["max_ulp"],
-                        stats["mean_ulp"],
-                        stats["usable_to"],
-                        info.operands if info else None,
-                        stats["defects"],
-                        stats["n_inputs"],
+                    plot_ulp_chart(
+                        df,
+                        op,
+                        variant,
+                        arch,
+                        dtype,
+                        CHARTS_DIR / arch / dtype / f"{op}_{variant}_ulp.svg",
                     )
-                    ov = next(
-                        (
-                            o
-                            for o in OVERRIDES.get(f"ttnn.{op}", ())
-                            if variant_slug(o.params_desc) == variant
-                        ),
-                        None,
-                    )
-                    if ov and ov.why:
-                        stats["rationale"] = ov.why
                     index.setdefault(arch, {}).setdefault(dtype, {}).setdefault(op, {})[variant] = (
                         stats
                     )
