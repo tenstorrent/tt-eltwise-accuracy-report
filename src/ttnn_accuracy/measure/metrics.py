@@ -16,12 +16,7 @@ OUTCOMES = ("exact", "inexact", "flushed", "zeroed", "overflow", "undefined", "m
 
 
 def ulp(x: torch.Tensor) -> torch.Tensor:
-    """tt-metal's ULP, widened to float32.
-
-    The definition belongs to tt-metal so the whole org measures the same thing. Only
-    the width is ours: tt-metal returns x's dtype, and callers divide by this, so a
-    bf16 result would be capped at the bf16 subnormal floor.
-    """
+    """tt-metal's ULP in fp32: callers divide by it, and bf16 would cap the quotient."""
     return tt_metal_ulp(x).to(torch.float32)
 
 
@@ -30,20 +25,13 @@ def flush_subnormals(t: torch.Tensor) -> torch.Tensor:
 
 
 def classify(raw_golden: np.ndarray, gold: np.ndarray, calc: np.ndarray, dtype) -> np.ndarray:
-    """Index into OUTCOMES for every point. Bounds come from the dtype, never a literal.
-
-    `raw_golden` is the fp64 reference; `gold` is that reference as the hardware could
-    hold it, so a value the dtype cannot represent has already become 0 in `gold`.
-    """
+    """Index into OUTCOMES per point. `gold` is the fp64 `raw_golden` as the dtype holds it."""
     limits = torch.finfo(dtype)
     outcome = np.full(gold.shape, OUTCOMES.index("inexact"), dtype=np.int8)
 
     outcome[calc == gold] = OUTCOMES.index("exact")
-    # gold == 0 with a non-zero reference means the value underflowed the dtype.
-    outcome[(gold == 0) & (raw_golden != 0)] = OUTCOMES.index("flushed")
-    # The opposite: the dtype could hold this value and the hardware returned zero anyway.
-    # Real behaviour worth counting, but ULP cannot express it — a flush at the smallest
-    # normal is 128 ULP in bf16 by construction, whatever the absolute error (1e-38).
+    outcome[(gold == 0) & (raw_golden != 0)] = OUTCOMES.index("flushed")  # underflowed
+    # Representable, and zeroed anyway: a defect, but 128 ULP in bf16 by construction.
     outcome[(calc == 0) & (gold != 0)] = OUTCOMES.index("zeroed")
     outcome[np.abs(raw_golden) > limits.max] = OUTCOMES.index("overflow")
     outcome[np.isnan(raw_golden)] = OUTCOMES.index("undefined")
@@ -52,17 +40,11 @@ def classify(raw_golden: np.ndarray, gold: np.ndarray, calc: np.ndarray, dtype) 
 
 
 def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarray]:
-    """Per-element error and outcome, flat. Shared by the unary and binary sweeps.
-
-    ULP is left NaN wherever it is undefined — the reference is zero, so there is no
-    spacing to divide by. Those points still report absolute error, and the outcome
-    says which case they are, so nothing is silently rewritten to look perfect.
-    """
+    """Per-element error and outcome, flat. Undefined ULP stays NaN, never a flattering 0."""
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
         dtype = calculated.dtype
-        # Hardware flushes subnormals to zero; flushing the reference the same way keeps
-        # the comparison between values the hardware could actually have produced.
+        # The reference is flushed too, so both sides are values the hardware could produce.
         calc = flush_subnormals(calculated.to(dtype)).to(torch.float32).flatten().numpy()
         gold = flush_subnormals(golden.to(dtype)).to(torch.float32).flatten().numpy()
         unit = ulp(flush_subnormals(golden.to(dtype))).flatten().numpy()
@@ -70,10 +52,7 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
 
         outcome = classify(raw, gold, calc, dtype)
         abs_err = np.abs(gold - calc)
-        # Dividing by the spacing around zero is what produced 1e24-ULP readings for a
-        # 0.003 absolute error. A ULP is only a distance between two real values: an exact
-        # match scores zero, anything else needs a non-zero reference to divide by, and
-        # every other outcome — a flush either way, an overflow, a NaN — has no ULP at all.
+        # Spacing around zero is what read 1e24 ULP for a 0.003 absolute error.
         defined = (outcome == OUTCOMES.index("exact")) | (
             (outcome == OUTCOMES.index("inexact")) & (gold != 0)
         )
@@ -92,13 +71,9 @@ def compare(
     calculated: torch.Tensor,
     group_size: int,
 ) -> pd.DataFrame:
-    """One row per group of `group_size` consecutive inputs: its worst point, whole.
+    """One row per `group_size` inputs: the worst-defined-ULP point, every column from it.
 
-    Every column of a row describes the same point — the one with the group's worst
-    defined ULP — matching the binary sweep's reduction. Taking each column's own
-    extremum instead produced rows whose x, error and outcome came from four different
-    points: irreproducible, and `zeroed` rows carrying a ULP. A group with no defined
-    ULP keeps its first point, whose outcome says why there was nothing to rank.
+    Per-column extrema built rows whose x, error and outcome came from four points.
     """
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)

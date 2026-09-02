@@ -24,12 +24,8 @@ def measure(
 ) -> int:
     """Returns the number of variants that produced no CSV — the process exit code.
 
-    Each is also recorded beside the data with its reason: an op that probes but will not
-    sweep is a finding, and a reader who cannot see it reads its absence as an oversight.
-
-    A variant already measured on this same tt-metal build is skipped, so an interrupted
-    run resumes where it stopped. Hours of measurement should not be lost to a device
-    reset at op 150, and a build that differs invalidates everything anyway.
+    Each is recorded beside the data with its reason, and anything already measured on
+    this build is skipped, so a device reset at op 150 costs one op rather than the night.
     """
     failures: dict[str, dict[str, str]] = {}
     names = sorted({spec.name for spec in specs})
@@ -58,11 +54,8 @@ def measure(
 
 
 def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:
-    """Empty when the CSV was written, else why it was not. Never raises.
-
-    One variant must not end the run: whatever it does short of killing the process is
-    that variant's recorded result, and the other 197 still get measured.
-    """
+    """Empty when the CSV was written, else why it was not. Never raises: one variant
+    must not end the run."""
     try:
         return _measure_one(spec, dtype, arch, out_root, device)
     except Exception as exc:
@@ -86,17 +79,14 @@ def _measure_one(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) ->
     try:
         extra = specials(spec.ttnn_fn, spec.golden_fn, spec.operands, dtype, layout, device)
         with warnings.catch_warnings():
-            # The specials rows carry no ULP by design, and pandas deprecation-warns on
-            # concatenating their all-NA columns; the dtypes are float on both sides.
+            # Specials carry no ULP, and pandas deprecation-warns on their all-NA columns.
             warnings.simplefilter("ignore", FutureWarning)
             df = pd.concat([df, extra], ignore_index=True)
     except Exception as exc:  # a third-party golden may balk at inf or NaN; the sweep stands
         logger.warning("  no special-value rows for {}: {}", spec.name, exc)
 
     df["op"], df["variant"], df["dtype"] = spec.name, spec.variant, dtype
-    # Layout is chosen per op by `probe`, and a different layout is a different kernel,
-    # so it belongs beside dtype rather than being inferable only from the manifest.
-    df["layout"] = layout
+    df["layout"] = layout  # a different layout is a different kernel, so it is a column
     path = write_result(df, out_root, arch, dtype, spec.name, spec.variant)
     logger.success("  {} rows → {}", len(df), path)
     return ""

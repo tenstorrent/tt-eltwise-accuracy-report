@@ -17,10 +17,7 @@ from ttnn_accuracy.ops.introspect import DiscoveredOp
 CATEGORY = {1: "unary", 2: "binary", 3: "ternary"}
 PROBE_SIZE = 64
 
-# Six goldens (acos, asin, fmod, remainder, reciprocal, acosh_bw) demand a keyword-only
-# `device` so they can substitute the SFPU's finite NaN/Inf sentinels into their result.
-# The reference must stay IEEE — hardware encodings are the metric's concern, not the
-# golden's — so they get a stub whose substitution is the identity.
+# Six goldens want a `device` to substitute SFPU sentinels; the reference must stay IEEE.
 _IEEE_DEVICE = SimpleNamespace(sfpu_nan=lambda: float("nan"), sfpu_inf=lambda: float("inf"))
 
 
@@ -77,34 +74,18 @@ class Probe:
 
 
 def probe(op: DiscoveredOp) -> tuple[Probe | None, str]:
-    """Probe the golden, and say why when it refuses to be called.
+    """Probe the golden, and say why when it refuses — 108 of 379 do, each for its own reason.
 
-    The reason is kept because 108 of 379 goldens refuse, and without it every one is
-    the same mystery: recording the exception is what separates a golden that needs a
-    `device` kwarg (measurable, once supplied) from a pooling op that will never fit.
-
-    `elementwise`: does output[i] depend only on input[i]? Perturbing the first element
-    must leave every other output untouched. A permutation test would let softmax
-    through — it is permutation-equivariant without being elementwise — whereas this
-    excludes it, along with matmul and every reduction.
-
-    `real_valued`: a predicate like `isnan` returns bool, and the distance between two
-    booleans is not measured in ULP. Asked of the golden's own output dtype rather than
-    listed by name, so a predicate added to ttnn later is excluded without a code change.
-    Catching it here keeps those ops from failing at measurement with a torch error about
-    `abs_cpu`, which describes the symptom rather than the cause.
-
-    `depends_on_input`: `zeros_like` is elementwise and real-valued and returns the same
-    thing whatever it is given, so measuring its accuracy yields a flawless score for an
-    op that computes nothing. Two further inputs settle it, because one cannot: `sign` is
-    flat across (0.1, 0.9) and (2, 3) alike, so only flipping the sign as well
-    distinguishes an op that ignores its input from one that is merely flat here.
+    `elementwise`: perturbing one input must move only its own output, which excludes
+    softmax where a permutation test would not. `real_valued`: ULP between booleans is not
+    a quantity, asked of the output dtype so a new predicate needs no code change.
+    `depends_on_input`: `zeros_like` would otherwise score flawlessly, and two probes are
+    needed because `sign` is flat across any two positive ranges.
     """
     n = operands(op)
     if n is None:
         return None, "takes no tensor operands"
-    # (0.1, 0.9) keeps log, sqrt, asin, atanh and logit inside their domains. Seeded so the
-    # manifest is reproducible: an unchanged ttnn must produce an unchanged file.
+    # (0.1, 0.9) keeps log, asin and logit in domain; seeded so the manifest reproduces.
     rng = torch.Generator().manual_seed(0)
     base = [
         torch.rand(PROBE_SIZE, dtype=torch.float64, generator=rng) * 0.8 + 0.1 for _ in range(n)
@@ -117,10 +98,7 @@ def probe(op: DiscoveredOp) -> tuple[Probe | None, str]:
         after = call_golden(op.golden, bumped, op.is_backward)
         elsewhere = [
             call_golden(op.golden, [f(a) for a in base], op.is_backward)
-            # +10 clears the usual saturation points — hardtanh at 1, hardsigmoid at 3,
-            # relu6 at 6 — which a smaller shift leaves inside, making a piecewise op
-            # look constant. Negation is the second probe because `sign` is flat across
-            # any two positive ranges.
+            # +10 clears relu6 and friends, negation catches `sign`: both look flat otherwise.
             for f in (lambda a: a + 10.0, lambda a: -a)
         ]
     except Exception as exc:

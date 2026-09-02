@@ -24,8 +24,7 @@ def write_result(
     out_dir = out_root / arch / dtype / op
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{variant}.csv"
-    # COLUMNS is the minimum every reader can rely on, not the maximum: a two-operand
-    # sweep adds the partner values, without which its rows cannot be reproduced.
+    # COLUMNS is the minimum, not the maximum: a pair sweep adds the partner values.
     extra = [c for c in df.columns if c not in COLUMNS]
     df[[*COLUMNS, *extra]].to_csv(path, na_rep="NaN", index_label="index")
     return path
@@ -47,8 +46,7 @@ def write_run(meta: RunMeta, out_root: Path) -> None:
 def measured_at(out_root: Path, arch: str, dtypes: list[str], commit: str | None) -> set[tuple]:
     """(dtype, op, variant) already measured on this build, so a stopped run can resume.
 
-    Keyed on the tt-metal commit in the stamp: data from another build is not this run's
-    to keep, and re-measuring it is the only way the two halves stay comparable.
+    Keyed on the commit: data from another build is not this run's to keep.
     """
     done = set()
     for dtype in dtypes:
@@ -62,11 +60,9 @@ def measured_at(out_root: Path, arch: str, dtypes: list[str], commit: str | None
 
 
 def write_failures(failures: dict[str, dict[str, str]], out_root: Path, arch: str) -> None:
-    """Record, beside the data, which variants produced none and why.
+    """Which variants produced no data, and why, in the stamp the report already reads.
 
-    The stamp is the only per-arch-per-dtype artifact the report already reads, so a
-    measure-time failure reaches the page by the same route as its provenance. Written
-    even when empty, to clear last run's failures once an op starts working again.
+    Written even when empty, to clear last run's failures once an op starts working.
     """
     for dtype in set(failures) | {p.name for p in (out_root / arch).glob("*") if p.is_dir()}:
         stamp = out_root / arch / dtype / RUN_STAMP
@@ -80,8 +76,7 @@ def write_failures(failures: dict[str, dict[str, str]], out_root: Path, arch: st
 def _stamp(stamp: Path, meta: RunMeta) -> str:
     """Accumulate ops across partial runs of one build; a new build supersedes the old.
 
-    Measuring unary then unary_bw must leave both attributed — overwriting made the
-    first run's pages read as untracked. `run_id` names the latest run of the build.
+    Overwriting instead made the earlier categories' pages read as untracked.
     """
     data = asdict(meta)
     if stamp.exists():

@@ -55,7 +55,7 @@ op, which is why architecture is an axis.
 ```mermaid
 flowchart TD
     T["ttnn runtime<br/>~500 registered ops"] --> D1["discover<br/>classify, keep eltwise"]
-    D1 --> M1[("ops_manifest.json<br/>212 eltwise + refusal reasons")]
+    D1 --> M1[("ops_manifest.json<br/>196 eltwise + refusal reasons")]
     M1 --> D2["derive"]
     D2 -->|fp64 sweep| M1
     M1 --> D3["probe"]

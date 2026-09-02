@@ -62,8 +62,7 @@ def describe(op_key: str) -> OpInfo | None:
     return OpInfo(
         category=op["category"],
         operands=op["operands"],
-        # Two operands are never derived, and the sweep covers everything — matching
-        # _from_manifest so the page states the range the data was actually measured over.
+        # Two operands are never derived and the sweep covers everything.
         bounds=bounds or (UNBOUNDED if op["operands"] > 1 else None),
     )
 
@@ -96,8 +95,7 @@ def resolve(
         if category and entry["category"] != category:
             continue
 
-        # Before `considered`, so a category sweep passes over it quietly while naming it
-        # explicitly still gets the recorded reason back from _why_missing.
+        # Before `considered`: a category sweep skips it, naming it still gets the reason.
         if qualified in rejected:
             continue
 
@@ -111,8 +109,7 @@ def resolve(
                 else f"{qualified}: no derived domain — run `ttnn-accuracy derive`"
             )
             continue
-        # Derivation is a single-axis bisection, so it never runs for two operands.
-        # Classification marks the invalid pairs, so the full range is safe to sweep.
+        # Bisection is single-axis, and classification marks the invalid pairs anyway.
         bounds = bounds or UNBOUNDED
         try:
             op = introspect.resolve(qualified)
@@ -146,9 +143,7 @@ def resolve(
                     ttnn_fn=ttnn_fn,
                     golden_fn=_golden(golden, backward, operands),
                     bounds=ov.bounds if ov and ov.bounds else bounds,
-                    # The probe's record is authoritative where it exists: an op it
-                    # accepted in one dtype only must not be planned in the other, which
-                    # then fails on the device instead of in the plan.
+                    # The probe's record wins: a dtype it rejected must not reach the device.
                     layouts=accepts or TILED,
                 )
             )
@@ -158,11 +153,7 @@ def resolve(
 
 
 def _why_missing(manifest: dict, name: str, arch: str) -> str:
-    """Say which reason applies, rather than calling everything unknown.
-
-    The manifest holds only in-scope eltwise ops, so an absent name is answered from the
-    exclusion table and the recorded refusals before it is called unknown.
-    """
+    """Which reason applies — the exclusion table and the refusals answer before "unknown"."""
     qualified = f"ttnn.{name}"
     if why := EXCLUDED.get(qualified):
         return f"{qualified}: excluded — {why}"

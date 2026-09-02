@@ -1,8 +1,7 @@
 """The result contract: what a measured row holds, and what produced it.
 
-Imported by both `measure` and `report` so the two cannot drift. A config axis is added
-here when it starts being varied, because it cannot be backfilled into runs that already
-exist — `layout` earned its column once `probe` began choosing one per op.
+Imported by `measure` and `report` so the two cannot drift. An axis earns a column when
+it starts being varied — it cannot be backfilled into runs that already exist.
 """
 
 from __future__ import annotations
@@ -51,12 +50,9 @@ def _commit_from_version(version: str) -> str | None:
 
 
 def _tt_metal_commit(version: str) -> str | None:
-    """The tt-metal SHA actually being run.
+    """The tt-metal SHA actually being run: the checkout wins over package metadata.
 
-    The checkout wins over the package metadata. `build_metal.sh` rebuilds the tree
-    without reinstalling ttnn, so importlib reports the commit from whenever ttnn was
-    last pip-installed — 52 commits stale when this was found, which would have stamped
-    every sweep with a version it was not measured on.
+    `build_metal.sh` rebuilds without reinstalling ttnn, so importlib was 52 commits stale.
     """
     home = os.environ.get("TT_METAL_HOME")
     if home:

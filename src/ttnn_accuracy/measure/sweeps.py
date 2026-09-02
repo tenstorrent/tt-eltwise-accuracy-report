@@ -19,9 +19,7 @@ from ttnn_accuracy.measure.metrics import MIN_NORMAL
 
 TILE_WIDTH = 2**7
 FP32_BLOCK = 2**6 * 2**9 * TILE_WIDTH
-# Worst-of-group per CSV row. At 128 an exhaustive fp32 op writes 25M rows and 1.7GB —
-# ~270GB for the catalog, and a chart that plots them all. 2**16 keeps the max exact,
-# costs only mean granularity, and makes an fp32 op the same weight as a bf16 one.
+# Worst-of-group per row: keeps the max exact and an fp32 op the weight of a bf16 one.
 FP32_GROUP = 2**16
 B_CHUNK = 2**7  # second operands per dispatch, matching ttnn-eltwise-op-tester's batch
 TERNARY_STRIDE = 2**9  # keeps a 3-operand sweep the same size as a 2-operand one
@@ -38,14 +36,10 @@ def _bf16_values(lo: float, hi: float) -> torch.Tensor:
 
 
 def _fp32_sample(lo: float, hi: float) -> torch.Tensor:
-    """One fp32 value from each of the 65536 bf16 cells, low mantissa bits randomised.
+    """One fp32 value per bf16 cell, low mantissa bits from a fixed seed.
 
-    Exhaustive fp32 pairs are 1.8e19 points, so a two-operand fp32 sweep must sample. The
-    high 16 bits of an fp32 code are a bf16 code, so striding by 2**16 covers every sign,
-    exponent and leading-mantissa combination — but it would leave the low 16 mantissa
-    bits zero, and those are the bits that drive rounding. Filling them from a fixed seed
-    exercises rounding while keeping the sample identical between runs, which is what
-    makes a change in the reported error attributable to the kernel rather than the draw.
+    Striding by 2**16 alone would zero the bits that drive rounding; the seed is fixed so a
+    change in the error is the kernel's, not the draw's.
     """
     high = np.arange(2**16, dtype=np.uint32) << 16
     low = np.random.default_rng(FP32_SAMPLE_SEED).integers(0, 2**16, 2**16, dtype=np.uint32)
@@ -87,9 +81,7 @@ def _on_device(
     ]
     result = ttnn_fn(*tensors)
     host = ttnn.to_torch(result)
-    # Freed here, not left to GC: an fp32 sweep dispatches a thousand times per op and
-    # DRAM fragments faster than collection runs — block times doubled until this was
-    # explicit. is_allocated guards the in-place ops, whose result aliases an input.
+    # Not left to GC: DRAM fragments faster than collection runs, and block times doubled.
     for t in (result, *tensors):
         if t.is_allocated():
             ttnn.deallocate(t)
@@ -97,16 +89,10 @@ def _on_device(
 
 
 def capabilities(ttnn_fn: Callable, operands: int, device) -> tuple[dict[str, str], str]:
-    """Which layout each dtype works in, learned by calling the op on one tile.
+    """Which layout each dtype works in, and why nothing did.
 
-    ttnn declares its constraints as TT_FATAL assertions inside the C++ device operation
-    — `tilize` demands ROW_MAJOR, `plus_one` demands INT32 — and nothing on the Python
-    side exposes them. Calling is the only way to find out, so every combination that
-    matters is tried once and the answer is recorded rather than rediscovered per run.
-
-    Returns what worked, and why nothing did. An op that accepts no configuration is
-    worth a reason: rank and dtype demands are ours to satisfy, and knowing which is
-    which is the difference between fixing the harness and excluding the op.
+    ttnn declares its constraints as TT_FATAL inside the C++ op, so calling is the only
+    way to learn them; the answer is recorded rather than rediscovered per run.
     """
     found, why = {}, ""
     for dtype, name in DTYPE.items():
@@ -128,10 +114,8 @@ SPECIAL_VALUES = (0.0, -0.0, float("inf"), float("-inf"), float("nan"), MIN_NORM
 def specials(ttnn_fn, golden_fn, operands: int, dtype: str, layout: str, device) -> pd.DataFrame:
     """The op at the values every sweep filters out, with ones in the other operands.
 
-    Domain filtering drops ±inf, NaN and the sign of zero before any sweep runs, yet those
-    are exactly where kernels and goldens part company. The rows carry no ULP — the
-    distance between two infinities is not a quantity — and the `special` outcome keeps
-    them out of every statistic; the page prints them as they are.
+    No ULP: the distance between two infinities is not a quantity, so the page prints
+    device beside golden and the `special` outcome keeps them out of every statistic.
     """
     x = torch.tensor(SPECIAL_VALUES, dtype=getattr(torch, DTYPE[dtype]))
     tiled = [_tile(t) for t in (x, *[torch.ones_like(x)] * (operands - 1))]
@@ -165,9 +149,7 @@ def sweep_bf16(
         _on_device(ttnn_fn, x, dtype="bf16", layout=layout, device=device),
         group_size=1,
     )
-    # Drop the rows _tile repeated to fill the last tile; they are real inputs measured
-    # twice, and counting them twice would skew n_inputs and the mean.
-    return df.iloc[:measured]
+    return df.iloc[:measured]  # drop _tile's padding: real inputs, counted twice
 
 
 def sweep_fp32(
@@ -183,8 +165,7 @@ def sweep_fp32(
         codes += FP32_BLOCK
         if not x.numel():
             continue
-        # Same acceptance _tile gives at tile width: repeats of a real input inside the
-        # final group, which cannot move a worst-of-group row.
+        # Repeats of a real input, which cannot move a worst-of-group row.
         if pad := -x.numel() % FP32_GROUP:
             x = torch.cat([x, x[-1].expand(pad)])
         x = _tile(x)
@@ -203,12 +184,7 @@ def sweep_fp32(
 def _multi_operand(
     ttnn_fn, golden_fn, device, values, batches, total, dtype, layout
 ) -> pd.DataFrame:
-    """One row per first operand: the pairing of the others that hurt it most.
-
-    Every column of a row describes the same point. Reducing each column independently
-    would label a row `overflow` because some far-away operand overflowed, which says
-    nothing about the error reported beside it.
-    """
+    """One row per first operand: the pairing of the others that hurt it most, whole."""
     n = values.numel()
     col = np.arange(n)
     best = np.full(n, -np.inf)  # -inf, not NaN, so the first comparison always takes
@@ -221,13 +197,11 @@ def _multi_operand(
             _on_device(ttnn_fn, *tiled, dtype=dtype, layout=layout, device=device),
         )
         e = {k: v[: rows * n].reshape(rows, n) for k, v in e.items()}
-        # Carry the partner operands: `x` alone does not identify a point in a pair or a
-        # triple, so without these a finding cannot be reproduced or reported upstream.
+        # Without the partners `x` alone does not identify the point, so nothing reproduces.
         for k, operand in enumerate(operands[1:], start=2):
             e[f"x{k}"] = operand[: rows * n].to(torch.float32).numpy().reshape(rows, n)
 
-        # Rank by ULP, treating undefined as lowest, so a defined point always wins.
-        scored = np.nan_to_num(e["ulp_error"], nan=-np.inf)
+        scored = np.nan_to_num(e["ulp_error"], nan=-np.inf)  # a defined point always wins
         pos = scored.argmax(axis=0)
         top = scored[pos, col]
         beats = top > best
@@ -269,32 +243,21 @@ def _sweep_pairs(ttnn_fn, golden_fn, device, values, dtype, layout) -> pd.DataFr
 def sweep_binary_bf16(
     ttnn_fn, golden_fn, device, lo: float, hi: float, layout: str
 ) -> pd.DataFrame | None:
-    """Every bf16 pair in [lo, hi]² — exhaustive, as in ttnn-eltwise-op-tester.
-
-    65536² pairs stream in chunks of second operands. Reducing over b alone, rather than
-    over blocks of a too, keeps a row per a-value: a binary op costs a unary op's storage.
-    """
+    """Every bf16 pair in [lo, hi]², streamed in chunks of b — one row per a-value."""
     return _sweep_pairs(ttnn_fn, golden_fn, device, _bf16_values(lo, hi), "bf16", layout)
 
 
 def sweep_binary_fp32(
     ttnn_fn, golden_fn, device, lo: float, hi: float, layout: str
 ) -> pd.DataFrame | None:
-    """Sampled fp32 pairs: one representative from each bf16 cell, both operands.
-
-    The same 65536 cells the bf16 sweep covers exhaustively, but a random fp32 value from
-    inside each. The reported maximum is therefore a lower bound over a fixed sample, not
-    a bound over the dtype — the page has to say so.
-    """
+    """Sampled fp32 pairs, one per bf16 cell: the maximum is a lower bound, and says so."""
     return _sweep_pairs(ttnn_fn, golden_fn, device, _fp32_sample(lo, hi), "fp32", layout)
 
 
 def _sweep_triples(ttnn_fn, golden_fn, device, values, dtype, layout) -> pd.DataFrame | None:
-    """Every value in the first operand, every TERNARY_STRIDE-th in the other two.
+    """First operand exhaustive, the others strided — values³ is 2.8e14 even in bf16.
 
-    A full triple space is values³ — 2.8e14 even for bf16 — so the second and third
-    operands stride the value set instead of exhausting it. The stride is uniform over
-    the code space, so it samples every exponent rather than clustering near zero.
+    The stride is uniform over the code space, so it samples every exponent.
     """
     n = values.numel()
     if not n:
@@ -323,8 +286,7 @@ def sweep_ternary_fp32(
     return _sweep_triples(ttnn_fn, golden_fn, device, _fp32_sample(lo, hi), "fp32", layout)
 
 
-# Sweeps that do not cover their whole input space, and how each one samples. A single
-# count cannot describe both: the bf16 ternary sweep leaves its first operand exhaustive.
+# How each incomplete sweep samples — one count cannot say, the ternaries mix the two.
 SAMPLED = {
     (2, "fp32"): "both operands take 65,536 of the 2³² fp32 values, drawn once from a fixed seed",
     (3, "bf16"): (

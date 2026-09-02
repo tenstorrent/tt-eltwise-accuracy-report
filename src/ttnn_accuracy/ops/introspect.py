@@ -67,11 +67,7 @@ def discover(include_experimental: bool = False) -> list[DiscoveredOp]:
         qualified = op.python_fully_qualified_name
         name = qualified.rsplit(".", 1)[-1]
         golden = op.golden_function
-        # Bound here, before the signature is read, so a bound scalar stops counting as
-        # an operand and the op classifies by what the sweep will actually vary. Variants
-        # of one op share arity and domain, so the first speaks for all of them. A
-        # replacement golden also serves ops upstream never gave one — `divide` is
-        # elementwise mathematics whether or not ttnn attached a reference to it.
+        # Bound before the signature is read, so a bound scalar stops counting as an operand.
         if variants := OVERRIDES.get(qualified):
             ov = variants[0]
             if ov.golden or golden is not None:

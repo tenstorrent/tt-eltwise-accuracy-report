@@ -36,32 +36,23 @@ def bw_fn(ttnn_bw_op):
 class Override:
     """Scalar parameters an op needs before it is measurable.
 
-    The values are editorial: discovery can learn that leaky_relu refuses two tensors,
-    but not that it should be measured at torch's default slope. Binding them with
-    functools.partial makes the bound argument stop counting as an operand, so the op
-    reclassifies (leaky_relu binary → unary) and probe, derive and sweep run unchanged.
-    `golden` replaces the attached golden outright — for a condition the sweep cannot
-    send in the attached golden's dtype (`where`), scalars keyword binding cannot reach
-    (`threshold_bw`), or an op upstream never gave a reference at all (`divide`).
+    The values are editorial: discovery learns that leaky_relu refuses two tensors, not
+    that it wants torch's default slope. Binding with partial stops the argument counting
+    as an operand, so the op reclassifies and every later stage runs unchanged. `golden`
+    replaces the attached one where keyword binding cannot reach, or none was ever given.
     """
 
     ttnn_kwargs: dict
     golden_kwargs: dict
     params_desc: str
     golden: Callable | None = None
-    # Replaces the derived sweep range. Derivation bounds where the golden returns
-    # nonsense, not where it stops being computable: torch's polygamma backward costs
-    # time linear in |x| for x < 0 (10k elements at |x|≈1e8 took 1.8 hours), so the
-    # sweep must stop where the reference can still be produced.
+    # Where the reference stops being computable: polygamma_bw took 1.8h at |x| ~ 1e8.
     bounds: dict[str, tuple[float, float]] | None = None
-    # Why these values: carried into the index so a reader — human or LLM — answers
-    # "why was it measured at 0.01?" from the record instead of from anyone's memory.
-    why: str = ""
+    why: str = ""  # carried into the index, so "why 0.01?" is answered from the record
 
 
 def _where_golden(condition, x, y):
-    # Bitwise-nonzero is the device's truth test, != 0 is IEEE's: they part company only
-    # at -0.0, and that disagreement is a finding to measure, not to paper over.
+    # Device truth is bitwise-nonzero, IEEE's is != 0: they differ at -0.0, which is a finding.
     import torch
 
     return torch.where(condition != 0, x, y)
@@ -75,9 +66,7 @@ def _divide_golden(x, y):
 
 
 def _threshold_bw_golden(grad, x):
-    # ttnn binds the scalars as min/max but they are threshold and value; the replaced
-    # branch has zero slope, so value never appears in the gradient. Written out rather
-    # than bound because the attached golden takes its scalars as unnamed *args.
+    # ttnn calls the scalars min/max; they are threshold and value, and value has no slope.
     import torch
 
     return torch.where(x > 0.5, grad, torch.zeros_like(grad))
@@ -160,8 +149,7 @@ OVERRIDES: dict[str, tuple[Override, ...]] = {
     ),
 }
 
-# Elementwise by every probe, but not eltwise mathematics this report can score.
-# `identity` stays, as the deliberate control for the pass-through path itself.
+# Elementwise by probe, not scorable mathematics. `identity` stays as the control.
 EXCLUDED = (
     dict.fromkeys(
         (
