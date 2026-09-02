@@ -610,8 +610,8 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260901T075510",
-        "tt_metal_commit": "047ec3ccf96",
+        "run_id": "20260902T135808",
+        "tt_metal_commit": "812427269cb",
         "ttnn_version": "0.1.dev30578+g5b8d933"
       },
       "fp32": {
@@ -813,8 +813,8 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260901T075510",
-        "tt_metal_commit": "047ec3ccf96",
+        "run_id": "20260902T135808",
+        "tt_metal_commit": "812427269cb",
         "ttnn_version": "0.1.dev30578+g5b8d933"
       }
     }
@@ -21362,6 +21362,7 @@
     "bf16": {
       "abs": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -21413,6 +21414,7 @@
       },
       "abs_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -21464,6 +21466,7 @@
       },
       "acos": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -21515,6 +21518,7 @@
       },
       "acos_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0469",
           "max_ulp": "3",
           "mean_ulp": "1.1",
@@ -21567,6 +21571,7 @@
       },
       "acosh": {
         "default": {
+          "defects": 0,
           "max_abs": "0.25",
           "max_ulp": "1",
           "mean_ulp": "0.994",
@@ -21619,6 +21624,7 @@
       },
       "acosh_bw": {
         "default": {
+          "defects": 15874,
           "max_abs": "0.0469",
           "max_ulp": "3",
           "mean_ulp": "1.01",
@@ -21668,11 +21674,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "1.05",
-          "verdict": "accurate to |x| <= 1.05; up to 3 ULP beyond"
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
         }
       },
       "add": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -21725,6 +21732,7 @@
       },
       "add_": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -21777,6 +21785,7 @@
       },
       "addalpha": {
         "alpha2.0": {
+          "defects": 0,
           "max_abs": "3.38e+38",
           "max_ulp": "254",
           "mean_ulp": "2.42",
@@ -21830,6 +21839,7 @@
       },
       "addcdiv": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "2.11e+06",
           "mean_ulp": "2.32e+03",
@@ -21883,6 +21893,7 @@
       },
       "addcmul": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "126",
           "mean_ulp": "19.6",
@@ -21936,6 +21947,7 @@
       },
       "asin": {
         "default": {
+          "defects": 2,
           "max_abs": "1.18e-38",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -21982,12 +21994,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1",
-          "verdict": "bit-exact"
+          "usable_to": "\u2014",
+          "verdict": "2 of 32258 points returned inf or zero where a value exists"
         }
       },
       "asin_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0469",
           "max_ulp": "3",
           "mean_ulp": "1.1",
@@ -22040,6 +22053,7 @@
       },
       "asinh": {
         "default": {
+          "defects": 0,
           "max_abs": "0.25",
           "max_ulp": "1",
           "mean_ulp": "0.996",
@@ -22092,6 +22106,7 @@
       },
       "asinh_bw": {
         "default": {
+          "defects": 15874,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -22139,12 +22154,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "8.51e+37",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "1.84e+19",
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
         }
       },
       "atan": {
         "default": {
+          "defects": 2,
           "max_abs": "0.00781",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -22192,12 +22208,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "\u2014",
+          "verdict": "2 of 65024 points returned inf or zero where a value exists"
         }
       },
       "atan2": {
         "default": {
+          "defects": 0,
           "max_abs": "0.781",
           "max_ulp": "200",
           "mean_ulp": "2.88",
@@ -22250,6 +22267,7 @@
       },
       "atan2_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "4.47e+18",
           "max_ulp": "248",
           "mean_ulp": "4.92",
@@ -22302,6 +22320,7 @@
       },
       "atan_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "0.00781",
           "max_ulp": "2",
           "mean_ulp": "1.04",
@@ -22349,12 +22368,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "9.22e+18",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "9.19e+18",
+          "verdict": "2 of 48386 points returned inf or zero where a value exists"
         }
       },
       "atanh": {
         "default": {
+          "defects": 2,
           "max_abs": "0.0156",
           "max_ulp": "2",
           "mean_ulp": "0.997",
@@ -22402,12 +22422,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "0.996",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "\u2014",
+          "verdict": "2 of 32256 points returned inf or zero where a value exists"
         }
       },
       "atanh_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "0.5",
           "max_ulp": "8",
           "mean_ulp": "1.16",
@@ -22457,11 +22478,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "0.82",
-          "verdict": "accurate to |x| <= 0.82; up to 8 ULP beyond"
+          "verdict": "2 of 48386 points returned inf or zero where a value exists"
         }
       },
       "bias_gelu": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1.14e+36",
           "mean_ulp": "4.5e+34",
@@ -22516,6 +22538,7 @@
       },
       "bias_gelu_": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1.14e+36",
           "mean_ulp": "4.5e+34",
@@ -22587,6 +22610,7 @@
       },
       "cbrt": {
         "default": {
+          "defects": 0,
           "max_abs": "3.44e+10",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -22639,6 +22663,7 @@
       },
       "ceil": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -22690,6 +22715,7 @@
       },
       "celu": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -22741,6 +22767,7 @@
       },
       "celu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "0.776",
@@ -22794,6 +22821,7 @@
       },
       "clamp": {
         "min-1.0_max1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -22846,6 +22874,7 @@
       },
       "clamp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -22897,6 +22926,7 @@
       },
       "clip": {
         "min-1.0_max1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -22949,6 +22979,7 @@
       },
       "clip_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23000,6 +23031,7 @@
       },
       "cos": {
         "default": {
+          "defects": 21274,
           "max_abs": "3.34e+38",
           "max_ulp": "2.96e+38",
           "mean_ulp": "2.71e+36",
@@ -23048,11 +23080,12 @@
           ],
           "ulp_clipped": 4349,
           "usable_to": "1.31e+05",
-          "verdict": "accurate to |x| <= 1.31e+05; up to 2.96e+38 ULP beyond"
+          "verdict": "21274 of 65024 points returned inf or zero where a value exists"
         }
       },
       "cos_bw": {
         "default": {
+          "defects": 21275,
           "max_abs": "3.34e+38",
           "max_ulp": "3.38e+38",
           "mean_ulp": "2.53e+36",
@@ -23101,11 +23134,12 @@
           ],
           "ulp_clipped": 4323,
           "usable_to": "2.62e+05",
-          "verdict": "accurate to |x| <= 2.62e+05; up to 3.38e+38 ULP beyond"
+          "verdict": "21275 of 65024 points returned inf or zero where a value exists"
         }
       },
       "cosh": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23157,6 +23191,7 @@
       },
       "cosh_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23203,12 +23238,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "89",
-          "verdict": "bit-exact"
+          "usable_to": "88.5",
+          "verdict": "2 of 33894 points returned inf or zero where a value exists"
         }
       },
       "deg2rad": {
         "default": {
+          "defects": 2,
           "max_abs": "4.15e+34",
           "max_ulp": "1",
           "mean_ulp": "0.992",
@@ -23257,12 +23293,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "6.7e-37",
+          "verdict": "2 of 65024 points returned inf or zero where a value exists"
         }
       },
       "digamma": {
         "default": {
+          "defects": 0,
           "max_abs": "8.51e+37",
           "max_ulp": "5.57e+05",
           "mean_ulp": "177",
@@ -23316,6 +23353,7 @@
       },
       "digamma_bw": {
         "default": {
+          "defects": 263,
           "max_abs": "6.44e+36",
           "max_ulp": "1.02e+08",
           "mean_ulp": "1.32e+04",
@@ -23365,12 +23403,13 @@
             }
           ],
           "ulp_clipped": 20,
-          "usable_to": "5.31",
-          "verdict": "accurate to |x| <= 5.31; up to 1.02e+08 ULP beyond"
+          "usable_to": "0.996",
+          "verdict": "263 of 64769 points returned inf or zero where a value exists"
         }
       },
       "div": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23423,6 +23462,7 @@
       },
       "div_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "3.32e+35",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -23474,6 +23514,7 @@
       },
       "div_no_nan": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23525,6 +23566,7 @@
       },
       "divide": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23578,6 +23620,7 @@
       },
       "divide_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23630,6 +23673,7 @@
       },
       "elu": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -23681,6 +23725,7 @@
       },
       "elu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "0.776",
@@ -23734,6 +23779,7 @@
       },
       "erf": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -23786,6 +23832,7 @@
       },
       "erf_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00781",
           "max_ulp": "112",
           "mean_ulp": "5",
@@ -23839,6 +23886,7 @@
       },
       "erfc": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00781",
           "max_ulp": "3.19e+28",
           "mean_ulp": "3.23e+24",
@@ -23892,6 +23940,7 @@
       },
       "erfc_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00781",
           "max_ulp": "112",
           "mean_ulp": "5",
@@ -23945,6 +23994,7 @@
       },
       "erfinv": {
         "default": {
+          "defects": 29424,
           "max_abs": "0.0156",
           "max_ulp": "121",
           "mean_ulp": "6.53",
@@ -23993,12 +24043,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "0.000515",
-          "verdict": "accurate to |x| <= 0.000515; up to 121 ULP beyond"
+          "usable_to": "1.31e-38",
+          "verdict": "29424 of 32256 points returned inf or zero where a value exists"
         }
       },
       "erfinv_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "2.25",
           "max_ulp": "9",
           "mean_ulp": "1.39",
@@ -24051,6 +24102,7 @@
       },
       "exp": {
         "default": {
+          "defects": 0,
           "max_abs": "6.65e+35",
           "max_ulp": "1",
           "mean_ulp": "0.856",
@@ -24102,6 +24154,7 @@
           "verdict": "within 2 ULP everywhere"
         },
         "fast_approx": {
+          "defects": 0,
           "max_abs": "5.32e+36",
           "max_ulp": "6",
           "mean_ulp": "3.05",
@@ -24156,6 +24209,7 @@
       },
       "exp2": {
         "default": {
+          "defects": 0,
           "max_abs": "7.21e+16",
           "max_ulp": "1",
           "mean_ulp": "0.843",
@@ -24209,6 +24263,7 @@
       },
       "exp2_bw": {
         "default": {
+          "defects": 1,
           "max_abs": "6.65e+35",
           "max_ulp": "2",
           "mean_ulp": "1.05",
@@ -24257,12 +24312,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "128",
+          "verdict": "1 of 49537 points returned inf or zero where a value exists"
         }
       },
       "exp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "6.65e+35",
           "max_ulp": "1",
           "mean_ulp": "0.856",
@@ -24316,6 +24372,7 @@
       },
       "expm1": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -24367,6 +24424,7 @@
       },
       "expm1_bw": {
         "default": {
+          "defects": 331,
           "max_abs": "8",
           "max_ulp": "125",
           "mean_ulp": "5.83",
@@ -24415,11 +24473,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "2.08",
-          "verdict": "accurate to |x| <= 2.08; up to 125 ULP beyond"
+          "verdict": "331 of 49458 points returned inf or zero where a value exists"
         }
       },
       "floor": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -24471,6 +24530,7 @@
       },
       "floor_div": {
         "default": {
+          "defects": 0,
           "max_abs": "1",
           "max_ulp": "64",
           "mean_ulp": "42",
@@ -24524,6 +24584,7 @@
       },
       "fmod": {
         "default": {
+          "defects": 0,
           "max_abs": "4.06e+31",
           "max_ulp": "6.65e+35",
           "mean_ulp": "7.8e+34",
@@ -24577,6 +24638,7 @@
       },
       "frac": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -24628,6 +24690,7 @@
       },
       "ge_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -24679,6 +24742,7 @@
       },
       "gelu": {
         "default": {
+          "defects": 86,
           "max_abs": "0.00781",
           "max_ulp": "165",
           "mean_ulp": "9.42",
@@ -24727,10 +24791,11 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "4.81",
-          "verdict": "accurate to |x| <= 4.81; up to 165 ULP beyond"
+          "usable_to": "2.33e-38",
+          "verdict": "86 of 65024 points returned inf or zero where a value exists"
         },
         "fast_approx": {
+          "defects": 198,
           "max_abs": "0.0239",
           "max_ulp": "1.14e+36",
           "mean_ulp": "1.82e+34",
@@ -24781,11 +24846,12 @@
           ],
           "ulp_clipped": 28162,
           "usable_to": "2.33e-38",
-          "verdict": "accurate to |x| <= 2.33e-38; up to 1.14e+36 ULP beyond"
+          "verdict": "198 of 65024 points returned inf or zero where a value exists"
         }
       },
       "gelu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00781",
           "max_ulp": "3",
           "mean_ulp": "1.52",
@@ -24839,6 +24905,7 @@
       },
       "gt_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -24890,6 +24957,7 @@
       },
       "hardmish": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00195",
           "max_ulp": "1",
           "mean_ulp": "0.993",
@@ -24942,6 +25010,7 @@
       },
       "hardshrink": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -24993,6 +25062,7 @@
       },
       "hardshrink_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -25044,6 +25114,7 @@
       },
       "hardsigmoid": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "0.661",
@@ -25096,6 +25167,7 @@
       },
       "hardsigmoid_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -25147,6 +25219,7 @@
       },
       "hardswish": {
         "default": {
+          "defects": 2,
           "max_abs": "0.0156",
           "max_ulp": "2",
           "mean_ulp": "1.01",
@@ -25195,12 +25268,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "2.33e-38",
+          "verdict": "2 of 65024 points returned inf or zero where a value exists"
         }
       },
       "hardswish_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "85",
           "mean_ulp": "2.36",
@@ -25253,6 +25327,7 @@
       },
       "hardtanh": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -25304,6 +25379,7 @@
       },
       "hardtanh_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -25355,6 +25431,7 @@
       },
       "heaviside": {
         "value0.5": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -25407,6 +25484,7 @@
       },
       "hypot": {
         "default": {
+          "defects": 16384,
           "max_abs": "7.21e+16",
           "max_ulp": "53",
           "mean_ulp": "1.46",
@@ -25455,11 +25533,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 53 ULP; mean 1.46"
+          "verdict": "16384 of 65026 points returned inf or zero where a value exists"
         }
       },
       "hypot_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.293",
           "max_ulp": "75",
           "mean_ulp": "2.44",
@@ -25513,6 +25592,7 @@
       },
       "i0": {
         "default": {
+          "defects": 0,
           "max_abs": "2.29e+38",
           "max_ulp": "255",
           "mean_ulp": "56.4",
@@ -25565,6 +25645,7 @@
       },
       "i0_bw": {
         "default": {
+          "defects": 4,
           "max_abs": "2.16e+38",
           "max_ulp": "218",
           "mean_ulp": "8.95",
@@ -25613,12 +25694,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "88.5",
-          "verdict": "accurate to |x| <= 88.5; up to 218 ULP beyond"
+          "usable_to": "2.33e-38",
+          "verdict": "4 of 33904 points returned inf or zero where a value exists"
         }
       },
       "i1": {
         "default": {
+          "defects": 4,
           "max_abs": "2.16e+38",
           "max_ulp": "218",
           "mean_ulp": "8.95",
@@ -25667,12 +25749,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "88.5",
-          "verdict": "accurate to |x| <= 88.5; up to 218 ULP beyond"
+          "usable_to": "2.33e-38",
+          "verdict": "4 of 33904 points returned inf or zero where a value exists"
         }
       },
       "identity": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -25724,6 +25807,7 @@
       },
       "l1_loss": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -25776,6 +25860,7 @@
       },
       "ldexp": {
         "default": {
+          "defects": 0,
           "max_abs": "3.39e+38",
           "max_ulp": "255",
           "mean_ulp": "94.5",
@@ -25828,6 +25913,7 @@
       },
       "ldexp_": {
         "default": {
+          "defects": 0,
           "max_abs": "3.39e+38",
           "max_ulp": "255",
           "mean_ulp": "94.5",
@@ -25880,6 +25966,7 @@
       },
       "ldexp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00781",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -25931,6 +26018,7 @@
       },
       "le_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -25982,6 +26070,7 @@
       },
       "leaky_relu": {
         "negative_slope0.01": {
+          "defects": 0,
           "max_abs": "2.08e+34",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26036,6 +26125,7 @@
       },
       "leaky_relu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -26087,6 +26177,7 @@
       },
       "lerp": {
         "default": {
+          "defects": 0,
           "max_abs": "3.87e+25",
           "max_ulp": "1.77e+03",
           "mean_ulp": "40",
@@ -26140,6 +26231,7 @@
       },
       "lerp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00781",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26191,6 +26283,7 @@
       },
       "lgamma": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "324",
           "mean_ulp": "1.17",
@@ -26244,6 +26337,7 @@
       },
       "lgamma_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "8.51e+37",
           "max_ulp": "5.57e+05",
           "mean_ulp": "177",
@@ -26297,6 +26391,7 @@
       },
       "log": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26349,6 +26444,7 @@
       },
       "log10": {
         "default": {
+          "defects": 0,
           "max_abs": "0.125",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26401,6 +26497,7 @@
       },
       "log10_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.66e+35",
           "max_ulp": "2",
           "mean_ulp": "1.02",
@@ -26453,6 +26550,7 @@
       },
       "log1p": {
         "default": {
+          "defects": 0,
           "max_abs": "0.25",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26505,6 +26603,7 @@
       },
       "log1p_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "0.0312",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26553,12 +26652,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "8.51e+37",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "8.47e+37",
+          "verdict": "2 of 64514 points returned inf or zero where a value exists"
         }
       },
       "log2": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0625",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26611,6 +26711,7 @@
       },
       "log2_bw": {
         "default": {
+          "defects": 116,
           "max_abs": "6.65e+35",
           "max_ulp": "2",
           "mean_ulp": "1.02",
@@ -26658,12 +26759,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.22e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "\u2014",
+          "verdict": "116 of 64626 points returned inf or zero where a value exists"
         }
       },
       "log_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "3.32e+35",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -26711,12 +26813,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "8.51e+37",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "8.47e+37",
+          "verdict": "2 of 64514 points returned inf or zero where a value exists"
         }
       },
       "log_sigmoid": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0312",
           "max_ulp": "6",
           "mean_ulp": "1.51",
@@ -26770,6 +26873,7 @@
       },
       "log_sigmoid_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "2",
           "mean_ulp": "0.929",
@@ -26823,6 +26927,7 @@
       },
       "logaddexp": {
         "default": {
+          "defects": 15566,
           "max_abs": "0.25",
           "max_ulp": "8.39e+06",
           "mean_ulp": "4.85e+03",
@@ -26872,11 +26977,12 @@
           ],
           "ulp_clipped": 16583,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 8.39e+06 ULP; mean 4.85e+03"
+          "verdict": "15566 of 65026 points returned inf or zero where a value exists"
         }
       },
       "logaddexp2": {
         "default": {
+          "defects": 15488,
           "max_abs": "0.25",
           "max_ulp": "3.03e+06",
           "mean_ulp": "4.08e+03",
@@ -26926,11 +27032,12 @@
           ],
           "ulp_clipped": 16684,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 3.03e+06 ULP; mean 4.08e+03"
+          "verdict": "15488 of 65026 points returned inf or zero where a value exists"
         }
       },
       "logaddexp2_": {
         "default": {
+          "defects": 15488,
           "max_abs": "0.25",
           "max_ulp": "3.03e+06",
           "mean_ulp": "4.08e+03",
@@ -26980,11 +27087,12 @@
           ],
           "ulp_clipped": 16684,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 3.03e+06 ULP; mean 4.08e+03"
+          "verdict": "15488 of 65026 points returned inf or zero where a value exists"
         }
       },
       "logaddexp2_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "41",
           "mean_ulp": "3.82",
@@ -27037,6 +27145,7 @@
       },
       "logaddexp_": {
         "default": {
+          "defects": 15566,
           "max_abs": "0.25",
           "max_ulp": "8.39e+06",
           "mean_ulp": "4.85e+03",
@@ -27086,11 +27195,12 @@
           ],
           "ulp_clipped": 16583,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 8.39e+06 ULP; mean 4.85e+03"
+          "verdict": "15566 of 65026 points returned inf or zero where a value exists"
         }
       },
       "logaddexp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "62",
           "mean_ulp": "4.88",
@@ -27143,6 +27253,7 @@
       },
       "logical_not_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -27194,6 +27305,7 @@
       },
       "logical_xor_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -27245,6 +27357,7 @@
       },
       "logit": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "64",
           "mean_ulp": "1.95",
@@ -27297,6 +27410,7 @@
       },
       "logit_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "3.32e+35",
           "max_ulp": "2",
           "mean_ulp": "1",
@@ -27349,6 +27463,7 @@
       },
       "logiteps_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "3.32e+35",
           "max_ulp": "2",
           "mean_ulp": "1",
@@ -27401,6 +27516,7 @@
       },
       "lt_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -27452,6 +27568,7 @@
       },
       "mac": {
         "default": {
+          "defects": 0,
           "max_abs": "0.25",
           "max_ulp": "64",
           "mean_ulp": "26.4",
@@ -27505,6 +27622,7 @@
       },
       "max_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "64",
           "mean_ulp": "64",
@@ -27557,6 +27675,7 @@
       },
       "maximum": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -27609,6 +27728,7 @@
       },
       "min_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "64",
           "mean_ulp": "64",
@@ -27661,6 +27781,7 @@
       },
       "minimum": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -27713,6 +27834,7 @@
       },
       "mish": {
         "default": {
+          "defects": 11,
           "max_abs": "0.0156",
           "max_ulp": "1",
           "mean_ulp": "0.997",
@@ -27761,12 +27883,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "1.95e-38",
+          "verdict": "11 of 65024 points returned inf or zero where a value exists"
         }
       },
       "mse_loss": {
         "default": {
+          "defects": 0,
           "max_abs": "2.66e+36",
           "max_ulp": "2",
           "mean_ulp": "1.71",
@@ -27820,6 +27943,7 @@
       },
       "mul_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -27871,6 +27995,7 @@
       },
       "multigammaln": {
         "default": {
+          "defects": 11536,
           "max_abs": "1.33e+36",
           "max_ulp": "724",
           "mean_ulp": "1.81",
@@ -27920,12 +28045,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "0.00243",
-          "verdict": "accurate to |x| <= 0.00243; up to 724 ULP beyond"
+          "usable_to": "5.59e-17",
+          "verdict": "11536 of 48328 points returned inf or zero where a value exists"
         }
       },
       "multigammaln_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "2.34e+16",
           "max_ulp": "2.38e+06",
           "mean_ulp": "294",
@@ -27979,6 +28105,7 @@
       },
       "multiply": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28031,6 +28158,7 @@
       },
       "multiply_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28083,6 +28211,7 @@
       },
       "neg": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28134,6 +28263,7 @@
       },
       "nextafter": {
         "default": {
+          "defects": 0,
           "max_abs": "2.38e-07",
           "max_ulp": "1.3e+33",
           "mean_ulp": "2.32e+31",
@@ -28187,6 +28317,7 @@
       },
       "polygamma": {
         "k1": {
+          "defects": 263,
           "max_abs": "6.44e+36",
           "max_ulp": "1.02e+08",
           "mean_ulp": "1.32e+04",
@@ -28237,12 +28368,13 @@
             }
           ],
           "ulp_clipped": 20,
-          "usable_to": "5.31",
-          "verdict": "accurate to |x| <= 5.31; up to 1.02e+08 ULP beyond"
+          "usable_to": "0.996",
+          "verdict": "263 of 64769 points returned inf or zero where a value exists"
         }
       },
       "polygamma_bw": {
         "n1": {
+          "defects": 75,
           "max_abs": "1.33e+36",
           "max_ulp": "3.57e+08",
           "mean_ulp": "6.81e+05",
@@ -28295,11 +28427,12 @@
           ],
           "ulp_clipped": 32,
           "usable_to": "4.47",
-          "verdict": "accurate to |x| <= 4.47; up to 3.57e+08 ULP beyond"
+          "verdict": "75 of 49922 points returned inf or zero where a value exists"
         }
       },
       "pow": {
         "default": {
+          "defects": 0,
           "max_abs": "2.31e+38",
           "max_ulp": "4.86e+18",
           "mean_ulp": "2.08e+14",
@@ -28352,6 +28485,7 @@
       },
       "pow_bw": {
         "exponent2.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28404,6 +28538,7 @@
       },
       "prelu": {
         "weight0.25": {
+          "defects": 1,
           "max_abs": "1.18e-38",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28452,12 +28587,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "bit-exact"
+          "usable_to": "4.68e-38",
+          "verdict": "1 of 65024 points returned inf or zero where a value exists"
         }
       },
       "rad2deg": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -28510,6 +28646,7 @@
       },
       "rdiv": {
         "value2.0": {
+          "defects": 258,
           "max_abs": "6.65e+35",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -28558,12 +28695,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.7e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "8.47e+37",
+          "verdict": "258 of 64770 points returned inf or zero where a value exists"
         }
       },
       "rdiv_bw": {
         "scalar2.0": {
+          "defects": 256,
           "max_abs": "6.65e+35",
           "max_ulp": "2",
           "mean_ulp": "1.02",
@@ -28614,12 +28752,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.3e+19",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "7.67e-20",
+          "verdict": "256 of 48492 points returned inf or zero where a value exists"
         }
       },
       "reciprocal": {
         "default": {
+          "defects": 2,
           "max_abs": "3.32e+35",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -28667,12 +28806,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "8.51e+37",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "8.47e+37",
+          "verdict": "2 of 64514 points returned inf or zero where a value exists"
         }
       },
       "reciprocal_bw": {
         "default": {
+          "defects": 256,
           "max_abs": "3.32e+35",
           "max_ulp": "2",
           "mean_ulp": "1.02",
@@ -28722,12 +28862,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "9.22e+18",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "5.42e-20",
+          "verdict": "256 of 48386 points returned inf or zero where a value exists"
         }
       },
       "relu": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28779,6 +28920,7 @@
       },
       "relu6": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28830,6 +28972,7 @@
       },
       "relu6_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28881,6 +29024,7 @@
       },
       "relu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28932,6 +29076,7 @@
       },
       "relu_max": {
         "upper_limit1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -28984,6 +29129,7 @@
       },
       "relu_min": {
         "lower_limit1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -29036,6 +29182,7 @@
       },
       "remainder": {
         "default": {
+          "defects": 0,
           "max_abs": "4.06e+31",
           "max_ulp": "6.65e+35",
           "mean_ulp": "1.06e+35",
@@ -29088,6 +29235,7 @@
       },
       "round": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -29139,6 +29287,7 @@
       },
       "rpow": {
         "exponent2.0": {
+          "defects": 0,
           "max_abs": "7.21e+16",
           "max_ulp": "1",
           "mean_ulp": "0.843",
@@ -29193,6 +29342,7 @@
       },
       "rpow_bw": {
         "exponent2.0": {
+          "defects": 32384,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -29240,12 +29390,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.69e+38",
-          "verdict": "bit-exact"
+          "usable_to": "1.18e-38",
+          "verdict": "32384 of 64768 points returned inf or zero where a value exists"
         }
       },
       "rsqrt": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -29297,6 +29448,7 @@
       },
       "rsqrt_bw": {
         "default": {
+          "defects": 75,
           "max_abs": "1.33e+36",
           "max_ulp": "3",
           "mean_ulp": "1.28",
@@ -29345,12 +29497,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.43e-26",
-          "verdict": "accurate to |x| <= 3.43e-26; up to 3 ULP beyond"
+          "usable_to": "\u2014",
+          "verdict": "75 of 21665 points returned inf or zero where a value exists"
         }
       },
       "rsub": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -29403,6 +29556,7 @@
       },
       "rsub_": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -29455,6 +29609,7 @@
       },
       "selu": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -29506,6 +29661,7 @@
       },
       "selu_bw": {
         "default": {
+          "defects": 1,
           "max_abs": "0.0156",
           "max_ulp": "3",
           "mean_ulp": "1.04",
@@ -29555,11 +29711,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "0.582",
-          "verdict": "accurate to |x| <= 0.582; up to 3 ULP beyond"
+          "verdict": "1 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sigmoid": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "0.876",
@@ -29613,6 +29770,7 @@
       },
       "sigmoid_accurate": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "0.876",
@@ -29666,6 +29824,7 @@
       },
       "sigmoid_bw": {
         "default": {
+          "defects": 329,
           "max_abs": "0.00203",
           "max_ulp": "266",
           "mean_ulp": "5.66",
@@ -29715,11 +29874,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "1.86",
-          "verdict": "accurate to |x| <= 1.86; up to 266 ULP beyond"
+          "verdict": "329 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sign": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -29771,6 +29931,7 @@
       },
       "silu": {
         "default": {
+          "defects": 13,
           "max_abs": "0.0312",
           "max_ulp": "1",
           "mean_ulp": "0.998",
@@ -29819,12 +29980,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "2.33e-38",
+          "verdict": "13 of 65024 points returned inf or zero where a value exists"
         }
       },
       "silu_bw": {
         "default": {
+          "defects": 9,
           "max_abs": "0.00781",
           "max_ulp": "285",
           "mean_ulp": "1.54",
@@ -29874,11 +30036,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "0.887",
-          "verdict": "accurate to |x| <= 0.887; up to 285 ULP beyond"
+          "verdict": "9 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sin": {
         "default": {
+          "defects": 21275,
           "max_abs": "3.34e+38",
           "max_ulp": "3.38e+38",
           "mean_ulp": "2.53e+36",
@@ -29927,11 +30090,12 @@
           ],
           "ulp_clipped": 4323,
           "usable_to": "2.62e+05",
-          "verdict": "accurate to |x| <= 2.62e+05; up to 3.38e+38 ULP beyond"
+          "verdict": "21275 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sin_bw": {
         "default": {
+          "defects": 21274,
           "max_abs": "3.34e+38",
           "max_ulp": "2.96e+38",
           "mean_ulp": "2.71e+36",
@@ -29980,11 +30144,12 @@
           ],
           "ulp_clipped": 4349,
           "usable_to": "1.31e+05",
-          "verdict": "accurate to |x| <= 1.31e+05; up to 2.96e+38 ULP beyond"
+          "verdict": "21274 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sinh": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -30036,6 +30201,7 @@
       },
       "sinh_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -30082,12 +30248,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "89",
-          "verdict": "bit-exact"
+          "usable_to": "88.5",
+          "verdict": "2 of 33894 points returned inf or zero where a value exists"
         }
       },
       "softplus": {
         "default": {
+          "defects": 526,
           "max_abs": "0.00781",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -30136,12 +30303,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "5.03",
+          "verdict": "526 of 65024 points returned inf or zero where a value exists"
         }
       },
       "softplus_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "2",
           "mean_ulp": "0.897",
@@ -30195,6 +30363,7 @@
       },
       "softshrink": {
         "default": {
+          "defects": 0,
           "max_abs": "3.28e+04",
           "max_ulp": "1",
           "mean_ulp": "0.996",
@@ -30247,6 +30416,7 @@
       },
       "softshrink_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -30298,6 +30468,7 @@
       },
       "softsign": {
         "default": {
+          "defects": 510,
           "max_abs": "1",
           "max_ulp": "1",
           "mean_ulp": "0.69",
@@ -30345,12 +30516,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "8.51e+37",
+          "verdict": "510 of 65024 points returned inf or zero where a value exists"
         }
       },
       "softsign_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0156",
           "max_ulp": "81",
           "mean_ulp": "3.38",
@@ -30403,6 +30575,7 @@
       },
       "sqrt": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -30454,6 +30627,7 @@
       },
       "sqrt_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.8e+16",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -30506,6 +30680,7 @@
       },
       "square": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "0.991",
@@ -30559,6 +30734,7 @@
       },
       "square_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -30610,6 +30786,7 @@
       },
       "squared_difference": {
         "default": {
+          "defects": 0,
           "max_abs": "2.66e+36",
           "max_ulp": "2",
           "mean_ulp": "1.71",
@@ -30663,6 +30840,7 @@
       },
       "squared_difference_": {
         "default": {
+          "defects": 0,
           "max_abs": "2.66e+36",
           "max_ulp": "2",
           "mean_ulp": "1.71",
@@ -30716,6 +30894,7 @@
       },
       "squared_difference_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -30769,6 +30948,7 @@
       },
       "subalpha": {
         "alpha2.0": {
+          "defects": 0,
           "max_abs": "3.38e+38",
           "max_ulp": "254",
           "mean_ulp": "2.42",
@@ -30822,6 +31002,7 @@
       },
       "subtract": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -30874,6 +31055,7 @@
       },
       "subtract_": {
         "default": {
+          "defects": 0,
           "max_abs": "1.33e+36",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -30926,6 +31108,7 @@
       },
       "swish": {
         "default": {
+          "defects": 13,
           "max_abs": "0.0312",
           "max_ulp": "1",
           "mean_ulp": "0.998",
@@ -30974,12 +31157,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "2.33e-38",
+          "verdict": "13 of 65024 points returned inf or zero where a value exists"
         }
       },
       "tan": {
         "default": {
+          "defects": 21634,
           "max_abs": "3.08e+38",
           "max_ulp": "3.3e+38",
           "mean_ulp": "1.16e+36",
@@ -31029,11 +31213,12 @@
           ],
           "ulp_clipped": 2345,
           "usable_to": "1.31e+05",
-          "verdict": "accurate to |x| <= 1.31e+05; up to 3.3e+38 ULP beyond"
+          "verdict": "21634 of 65024 points returned inf or zero where a value exists"
         }
       },
       "tan_bw": {
         "default": {
+          "defects": 12178,
           "max_abs": "3.19e+38",
           "max_ulp": "2.53e+38",
           "mean_ulp": "3.12e+35",
@@ -31082,11 +31267,12 @@
           ],
           "ulp_clipped": 1232,
           "usable_to": "1.31e+05",
-          "verdict": "accurate to |x| <= 1.31e+05; up to 2.53e+38 ULP beyond"
+          "verdict": "12178 of 65024 points returned inf or zero where a value exists"
         }
       },
       "tanh": {
         "default": {
+          "defects": 2,
           "max_abs": "0.00391",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -31134,12 +31320,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "\u2014",
+          "verdict": "2 of 65024 points returned inf or zero where a value exists"
         }
       },
       "tanh_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00391",
           "max_ulp": "55.5",
           "mean_ulp": "2.23",
@@ -31192,6 +31379,7 @@
       },
       "tanhshrink": {
         "default": {
+          "defects": 0,
           "max_abs": "2",
           "max_ulp": "63.5",
           "mean_ulp": "9.5",
@@ -31244,6 +31432,7 @@
       },
       "tanhshrink_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00781",
           "max_ulp": "63",
           "mean_ulp": "3.71",
@@ -31296,6 +31485,7 @@
       },
       "threshold": {
         "threshold0.5_value0.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -31348,6 +31538,7 @@
       },
       "threshold_bw": {
         "min0.5_max0.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -31400,6 +31591,7 @@
       },
       "trunc": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -31451,6 +31643,7 @@
       },
       "where": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -31503,6 +31696,7 @@
       },
       "xielu": {
         "default": {
+          "defects": 1,
           "max_abs": "6.65e+35",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -31551,12 +31745,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "2.33e-38",
+          "verdict": "1 of 56847 points returned inf or zero where a value exists"
         }
       },
       "xlogy": {
         "default": {
+          "defects": 0,
           "max_abs": "4.66e+36",
           "max_ulp": "897",
           "mean_ulp": "655",
@@ -31609,6 +31804,7 @@
       },
       "xlogy_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -31662,6 +31858,7 @@
     "fp32": {
       "abs": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -31713,6 +31910,7 @@
       },
       "abs_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -31764,6 +31962,7 @@
       },
       "acos": {
         "default": {
+          "defects": 0,
           "max_abs": "2.38e-07",
           "max_ulp": "2",
           "mean_ulp": "1",
@@ -31816,6 +32015,7 @@
       },
       "acos_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00232",
           "max_ulp": "609",
           "mean_ulp": "1.61",
@@ -31868,6 +32068,7 @@
       },
       "acosh": {
         "default": {
+          "defects": 0,
           "max_abs": "7.63e-06",
           "max_ulp": "3",
           "mean_ulp": "1",
@@ -31919,6 +32120,7 @@
       },
       "acosh_bw": {
         "default": {
+          "defects": 15874,
           "max_abs": "0.00276",
           "max_ulp": "724",
           "mean_ulp": "1.12",
@@ -31967,11 +32169,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "0.996",
-          "verdict": "accurate to |x| <= 0.996; up to 724 ULP beyond"
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
         }
       },
       "add": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -32023,6 +32226,7 @@
       },
       "add_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -32074,6 +32278,7 @@
       },
       "addalpha": {
         "alpha2.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -32126,6 +32331,7 @@
       },
       "addcdiv": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2.19e+12",
           "mean_ulp": "8.82e+07",
@@ -32177,6 +32383,7 @@
       },
       "addcmul": {
         "default": {
+          "defects": 0,
           "max_abs": "1.01e+31",
           "max_ulp": "2.13e+06",
           "mean_ulp": "1.59e+04",
@@ -32229,6 +32436,7 @@
       },
       "asin": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "2",
           "mean_ulp": "1.08",
@@ -32281,6 +32489,7 @@
       },
       "asin_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00232",
           "max_ulp": "609",
           "mean_ulp": "1.61",
@@ -32333,6 +32542,7 @@
       },
       "asinh": {
         "default": {
+          "defects": 0,
           "max_abs": "7.63e-06",
           "max_ulp": "2",
           "mean_ulp": "1",
@@ -32385,6 +32595,7 @@
       },
       "asinh_bw": {
         "default": {
+          "defects": 15874,
           "max_abs": "1.19e-07",
           "max_ulp": "2",
           "mean_ulp": "1.03",
@@ -32432,12 +32643,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "8.51e+37",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "1.84e+19",
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
         }
       },
       "atan": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "2",
           "mean_ulp": "1.02",
@@ -32490,6 +32702,7 @@
       },
       "atan2": {
         "default": {
+          "defects": 0,
           "max_abs": "0.785",
           "max_ulp": "1.32e+07",
           "mean_ulp": "1.26e+05",
@@ -32541,6 +32754,7 @@
       },
       "atan2_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "4.5e+18",
           "max_ulp": "1.64e+07",
           "mean_ulp": "9.5e+04",
@@ -32593,6 +32807,7 @@
       },
       "atan_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "3",
           "mean_ulp": "1.19",
@@ -32645,6 +32860,7 @@
       },
       "atanh": {
         "default": {
+          "defects": 0,
           "max_abs": "2.38e-07",
           "max_ulp": "3",
           "mean_ulp": "1.56",
@@ -32697,6 +32913,7 @@
       },
       "atanh_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.25",
           "max_ulp": "2.05e+03",
           "mean_ulp": "1.51",
@@ -32749,6 +32966,7 @@
       },
       "bias_gelu": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0234",
           "max_ulp": "2.91e+38",
           "mean_ulp": "4.94e+36",
@@ -32801,6 +33019,7 @@
       },
       "bias_gelu_": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0234",
           "max_ulp": "2.91e+38",
           "mean_ulp": "4.94e+36",
@@ -32853,6 +33072,7 @@
       },
       "cbrt": {
         "default": {
+          "defects": 0,
           "max_abs": "1.05e+06",
           "max_ulp": "3",
           "mean_ulp": "1.82",
@@ -32904,6 +33124,7 @@
       },
       "ceil": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -32955,6 +33176,7 @@
       },
       "celu": {
         "default": {
+          "defects": 0,
           "max_abs": "5.96e-08",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -33007,6 +33229,7 @@
       },
       "celu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.96e-08",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -33060,6 +33283,7 @@
       },
       "clamp": {
         "min-1.0_max1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -33112,6 +33336,7 @@
       },
       "clamp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -33163,6 +33388,7 @@
       },
       "clip": {
         "min-1.0_max1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -33215,6 +33441,7 @@
       },
       "clip_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -33266,6 +33493,7 @@
       },
       "cos": {
         "default": {
+          "defects": 18190,
           "max_abs": "3.4e+38",
           "max_ulp": "3.21e+38",
           "mean_ulp": "1.45e+36",
@@ -33314,11 +33542,12 @@
           ],
           "ulp_clipped": 4770,
           "usable_to": "5.23e+04",
-          "verdict": "accurate to |x| <= 5.23e+04; up to 3.21e+38 ULP beyond"
+          "verdict": "18190 of 65024 points returned inf or zero where a value exists"
         }
       },
       "cos_bw": {
         "default": {
+          "defects": 18190,
           "max_abs": "3.4e+38",
           "max_ulp": "3.32e+38",
           "mean_ulp": "1.86e+36",
@@ -33367,11 +33596,12 @@
           ],
           "ulp_clipped": 4514,
           "usable_to": "1.04e+05",
-          "verdict": "accurate to |x| <= 1.04e+05; up to 3.32e+38 ULP beyond"
+          "verdict": "18190 of 65024 points returned inf or zero where a value exists"
         }
       },
       "cosh": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -33424,6 +33654,7 @@
       },
       "cosh_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "5.07e+30",
           "max_ulp": "2",
           "mean_ulp": "1.14",
@@ -33471,12 +33702,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "89",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "88.5",
+          "verdict": "2 of 33894 points returned inf or zero where a value exists"
         }
       },
       "deg2rad": {
         "default": {
+          "defects": 0,
           "max_abs": "6.34e+29",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -33529,6 +33761,7 @@
       },
       "digamma": {
         "default": {
+          "defects": 0,
           "max_abs": "8.51e+37",
           "max_ulp": "3.66e+17",
           "mean_ulp": "7.77e+12",
@@ -33581,6 +33814,7 @@
       },
       "digamma_bw": {
         "default": {
+          "defects": 255,
           "max_abs": "2.59e+38",
           "max_ulp": "7.91e+33",
           "mean_ulp": "3.25e+29",
@@ -33630,11 +33864,12 @@
           ],
           "ulp_clipped": 15848,
           "usable_to": "8.58e-05",
-          "verdict": "accurate to |x| <= 8.58e-05; up to 7.91e+33 ULP beyond"
+          "verdict": "255 of 64769 points returned inf or zero where a value exists"
         }
       },
       "div": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.2",
@@ -33686,6 +33921,7 @@
       },
       "div_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.07e+30",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -33737,6 +33973,7 @@
       },
       "div_no_nan": {
         "default": {
+          "defects": 0,
           "max_abs": "4.06e+31",
           "max_ulp": "2",
           "mean_ulp": "1.53",
@@ -33788,6 +34025,7 @@
       },
       "divide": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.2",
@@ -33840,6 +34078,7 @@
       },
       "divide_": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.2",
@@ -33891,6 +34130,7 @@
       },
       "elu": {
         "default": {
+          "defects": 0,
           "max_abs": "5.96e-08",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -33943,6 +34183,7 @@
       },
       "elu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.96e-08",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -33996,6 +34237,7 @@
       },
       "erf": {
         "default": {
+          "defects": 0,
           "max_abs": "4.77e-07",
           "max_ulp": "6",
           "mean_ulp": "1.22",
@@ -34048,6 +34290,7 @@
       },
       "erf_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "65",
           "mean_ulp": "3.72",
@@ -34101,6 +34344,7 @@
       },
       "erfc": {
         "default": {
+          "defects": 0,
           "max_abs": "9.7e-05",
           "max_ulp": "2.1e+33",
           "mean_ulp": "1.71e+29",
@@ -34154,6 +34398,7 @@
       },
       "erfc_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "65",
           "mean_ulp": "3.72",
@@ -34207,6 +34452,7 @@
       },
       "erfinv": {
         "default": {
+          "defects": 29420,
           "max_abs": "0.00522",
           "max_ulp": "7.96e+06",
           "mean_ulp": "2.62e+05",
@@ -34254,12 +34500,13 @@
             }
           ],
           "ulp_clipped": 2354,
-          "usable_to": "0.000511",
-          "verdict": "accurate to |x| <= 0.000511; up to 7.96e+06 ULP beyond"
+          "usable_to": "1.32e-38",
+          "verdict": "29420 of 32256 points returned inf or zero where a value exists"
         }
       },
       "erfinv_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "243",
           "max_ulp": "4.98e+05",
           "mean_ulp": "1.32e+03",
@@ -34312,6 +34559,7 @@
       },
       "exp": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -34363,6 +34611,7 @@
           "verdict": "within 2 ULP everywhere"
         },
         "fast_approx": {
+          "defects": 0,
           "max_abs": "6.16e+36",
           "max_ulp": "3.79e+05",
           "mean_ulp": "2e+05",
@@ -34417,6 +34666,7 @@
       },
       "exp2": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -34470,6 +34720,7 @@
       },
       "exp2_bw": {
         "default": {
+          "defects": 1,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.17",
@@ -34518,12 +34769,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "128",
+          "verdict": "1 of 49537 points returned inf or zero where a value exists"
         }
       },
       "exp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -34577,6 +34829,7 @@
       },
       "expm1": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -34629,6 +34882,7 @@
       },
       "expm1_bw": {
         "default": {
+          "defects": 138,
           "max_abs": "2.03e+31",
           "max_ulp": "4.91e+06",
           "mean_ulp": "1.14e+04",
@@ -34677,11 +34931,12 @@
           ],
           "ulp_clipped": 149,
           "usable_to": "2.08",
-          "verdict": "accurate to |x| <= 2.08; up to 4.91e+06 ULP beyond"
+          "verdict": "138 of 49458 points returned inf or zero where a value exists"
         }
       },
       "floor": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -34733,6 +34988,7 @@
       },
       "floor_div": {
         "default": {
+          "defects": 0,
           "max_abs": "1",
           "max_ulp": "4.19e+06",
           "mean_ulp": "1.77e+03",
@@ -34785,6 +35041,7 @@
       },
       "fmod": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1.7e+38",
           "mean_ulp": "2.72e+36",
@@ -34837,6 +35094,7 @@
       },
       "frac": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -34888,6 +35146,7 @@
       },
       "ge_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -34939,6 +35198,7 @@
       },
       "gelu": {
         "default": {
+          "defects": 83,
           "max_abs": "2.86e-06",
           "max_ulp": "1.51e+08",
           "mean_ulp": "1.55e+05",
@@ -34988,9 +35248,10 @@
           ],
           "ulp_clipped": 114,
           "usable_to": "0.309",
-          "verdict": "accurate to |x| <= 0.309; up to 1.51e+08 ULP beyond"
+          "verdict": "83 of 65024 points returned inf or zero where a value exists"
         },
         "fast_approx": {
+          "defects": 197,
           "max_abs": "0.0234",
           "max_ulp": "2.91e+38",
           "mean_ulp": "4.9e+36",
@@ -35041,11 +35302,12 @@
           ],
           "ulp_clipped": 30383,
           "usable_to": "6e-36",
-          "verdict": "accurate to |x| <= 6e-36; up to 2.91e+38 ULP beyond"
+          "verdict": "197 of 65024 points returned inf or zero where a value exists"
         }
       },
       "gelu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.00751",
           "max_ulp": "6.59e+08",
           "mean_ulp": "1.24e+05",
@@ -35099,6 +35361,7 @@
       },
       "gt_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35150,6 +35413,7 @@
       },
       "hardmish": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35201,6 +35465,7 @@
       },
       "hardshrink": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35252,6 +35517,7 @@
       },
       "hardshrink_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35303,6 +35569,7 @@
       },
       "hardsigmoid": {
         "default": {
+          "defects": 0,
           "max_abs": "5.96e-08",
           "max_ulp": "4.89e+06",
           "mean_ulp": "1.25e+03",
@@ -35355,6 +35622,7 @@
       },
       "hardsigmoid_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35406,6 +35674,7 @@
       },
       "hardswish": {
         "default": {
+          "defects": 0,
           "max_abs": "2.38e-07",
           "max_ulp": "7.34e+06",
           "mean_ulp": "1.41e+03",
@@ -35459,6 +35728,7 @@
       },
       "hardswish_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "1.41e+10",
           "mean_ulp": "6e+06",
@@ -35511,6 +35781,7 @@
       },
       "hardtanh": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35562,6 +35833,7 @@
       },
       "hardtanh_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35613,6 +35885,7 @@
       },
       "heaviside": {
         "value0.5": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35665,6 +35938,7 @@
       },
       "hypot": {
         "default": {
+          "defects": 16384,
           "max_abs": "1.1e+12",
           "max_ulp": "3.44e+06",
           "mean_ulp": "3.28e+04",
@@ -35712,11 +35986,12 @@
           ],
           "ulp_clipped": 3082,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 3.44e+06 ULP; mean 3.28e+04"
+          "verdict": "16384 of 65024 points returned inf or zero where a value exists"
         }
       },
       "hypot_bw": {
         "default": {
+          "defects": 16384,
           "max_abs": "1",
           "max_ulp": "4.86e+06",
           "mean_ulp": "4.48e+04",
@@ -35764,11 +36039,12 @@
           ],
           "ulp_clipped": 3288,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 4.86e+06 ULP; mean 4.48e+04"
+          "verdict": "16384 of 65024 points returned inf or zero where a value exists"
         }
       },
       "i0": {
         "default": {
+          "defects": 0,
           "max_abs": "3.09e+38",
           "max_ulp": "1.68e+07",
           "mean_ulp": "2.19e+06",
@@ -35821,6 +36097,7 @@
       },
       "i0_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "2.96e+38",
           "max_ulp": "1.56e+07",
           "mean_ulp": "4.11e+04",
@@ -35874,6 +36151,7 @@
       },
       "i1": {
         "default": {
+          "defects": 0,
           "max_abs": "2.96e+38",
           "max_ulp": "1.56e+07",
           "mean_ulp": "4.11e+04",
@@ -35927,6 +36205,7 @@
       },
       "identity": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -35978,6 +36257,7 @@
       },
       "l1_loss": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -36029,6 +36309,7 @@
       },
       "ldexp": {
         "default": {
+          "defects": 0,
           "max_abs": "4.06e+31",
           "max_ulp": "2",
           "mean_ulp": "1.5",
@@ -36080,6 +36361,7 @@
       },
       "ldexp_": {
         "default": {
+          "defects": 0,
           "max_abs": "4.06e+31",
           "max_ulp": "2",
           "mean_ulp": "1.5",
@@ -36131,6 +36413,7 @@
       },
       "ldexp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -36182,6 +36465,7 @@
       },
       "le_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -36233,6 +36517,7 @@
       },
       "leaky_relu": {
         "negative_slope0.01": {
+          "defects": 0,
           "max_abs": "3.17e+29",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -36287,6 +36572,7 @@
       },
       "leaky_relu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -36338,6 +36624,7 @@
       },
       "lerp": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1.46e+08",
           "mean_ulp": "9.53e+04",
@@ -36390,6 +36677,7 @@
       },
       "lerp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -36441,6 +36729,7 @@
       },
       "lgamma": {
         "default": {
+          "defects": 0,
           "max_abs": "4.06e+31",
           "max_ulp": "3.27e+07",
           "mean_ulp": "2.98e+03",
@@ -36492,6 +36781,7 @@
       },
       "lgamma_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "8.51e+37",
           "max_ulp": "3.66e+17",
           "mean_ulp": "7.77e+12",
@@ -36544,6 +36834,7 @@
       },
       "log": {
         "default": {
+          "defects": 0,
           "max_abs": "7.63e-06",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -36595,6 +36886,7 @@
       },
       "log10": {
         "default": {
+          "defects": 0,
           "max_abs": "3.81e-06",
           "max_ulp": "2",
           "mean_ulp": "1.22",
@@ -36646,6 +36938,7 @@
       },
       "log10_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.07e+30",
           "max_ulp": "2",
           "mean_ulp": "1.41",
@@ -36697,6 +36990,7 @@
       },
       "log1p": {
         "default": {
+          "defects": 0,
           "max_abs": "7.63e-06",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -36749,6 +37043,7 @@
       },
       "log1p_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.125",
           "max_ulp": "2",
           "mean_ulp": "1.03",
@@ -36801,6 +37096,7 @@
       },
       "log2": {
         "default": {
+          "defects": 0,
           "max_abs": "7.63e-06",
           "max_ulp": "2",
           "mean_ulp": "1",
@@ -36852,6 +37148,7 @@
       },
       "log2_bw": {
         "default": {
+          "defects": 112,
           "max_abs": "1.01e+31",
           "max_ulp": "2",
           "mean_ulp": "1.33",
@@ -36898,12 +37195,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.22e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "\u2014",
+          "verdict": "112 of 64626 points returned inf or zero where a value exists"
         }
       },
       "log_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.07e+30",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -36956,6 +37254,7 @@
       },
       "log_sigmoid": {
         "default": {
+          "defects": 0,
           "max_abs": "0.0181",
           "max_ulp": "4.4e+05",
           "mean_ulp": "1.82e+04",
@@ -37009,6 +37308,7 @@
       },
       "log_sigmoid_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "3",
           "mean_ulp": "1.25",
@@ -37062,6 +37362,7 @@
       },
       "logaddexp": {
         "default": {
+          "defects": 15566,
           "max_abs": "7.63e-06",
           "max_ulp": "5.23e+08",
           "mean_ulp": "7.28e+06",
@@ -37110,11 +37411,12 @@
           ],
           "ulp_clipped": 46909,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 5.23e+08 ULP; mean 7.28e+06"
+          "verdict": "15566 of 65024 points returned inf or zero where a value exists"
         }
       },
       "logaddexp2": {
         "default": {
+          "defects": 15488,
           "max_abs": "7.63e-06",
           "max_ulp": "1.54e+09",
           "mean_ulp": "1.05e+07",
@@ -37163,11 +37465,12 @@
           ],
           "ulp_clipped": 46998,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 1.54e+09 ULP; mean 1.05e+07"
+          "verdict": "15488 of 65024 points returned inf or zero where a value exists"
         }
       },
       "logaddexp2_": {
         "default": {
+          "defects": 15488,
           "max_abs": "7.63e-06",
           "max_ulp": "1.54e+09",
           "mean_ulp": "1.05e+07",
@@ -37216,11 +37519,12 @@
           ],
           "ulp_clipped": 46998,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 1.54e+09 ULP; mean 1.05e+07"
+          "verdict": "15488 of 65024 points returned inf or zero where a value exists"
         }
       },
       "logaddexp2_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "46",
           "mean_ulp": "6.56",
@@ -37273,6 +37577,7 @@
       },
       "logaddexp_": {
         "default": {
+          "defects": 15566,
           "max_abs": "7.63e-06",
           "max_ulp": "5.23e+08",
           "mean_ulp": "7.28e+06",
@@ -37321,11 +37626,12 @@
           ],
           "ulp_clipped": 46909,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 5.23e+08 ULP; mean 7.28e+06"
+          "verdict": "15566 of 65024 points returned inf or zero where a value exists"
         }
       },
       "logaddexp_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "66",
           "mean_ulp": "8.57",
@@ -37378,6 +37684,7 @@
       },
       "logical_not_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -37429,6 +37736,7 @@
       },
       "logical_xor_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -37480,6 +37788,7 @@
       },
       "logit": {
         "default": {
+          "defects": 0,
           "max_abs": "7.63e-06",
           "max_ulp": "4.19e+06",
           "mean_ulp": "261",
@@ -37531,6 +37840,7 @@
       },
       "logit_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.07e+30",
           "max_ulp": "2",
           "mean_ulp": "1.06",
@@ -37582,6 +37892,7 @@
       },
       "logiteps_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.07e+30",
           "max_ulp": "2",
           "mean_ulp": "1.06",
@@ -37633,6 +37944,7 @@
       },
       "lt_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -37684,6 +37996,7 @@
       },
       "mac": {
         "default": {
+          "defects": 0,
           "max_abs": "3.8e+30",
           "max_ulp": "4.22e+06",
           "mean_ulp": "7.31e+05",
@@ -37735,6 +38048,7 @@
       },
       "max_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "4.19e+06",
           "mean_ulp": "4.19e+06",
@@ -37787,6 +38101,7 @@
       },
       "maximum": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -37838,6 +38153,7 @@
       },
       "min_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.5",
           "max_ulp": "4.19e+06",
           "mean_ulp": "4.19e+06",
@@ -37890,6 +38206,7 @@
       },
       "minimum": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -37941,6 +38258,7 @@
       },
       "mish": {
         "default": {
+          "defects": 9,
           "max_abs": "1.91e-06",
           "max_ulp": "7",
           "mean_ulp": "2.49",
@@ -37990,11 +38308,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "8.61e-06",
-          "verdict": "accurate to |x| <= 8.61e-06; up to 7 ULP beyond"
+          "verdict": "9 of 65024 points returned inf or zero where a value exists"
         }
       },
       "mse_loss": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.94",
@@ -38047,6 +38366,7 @@
       },
       "mul_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -38098,6 +38418,7 @@
       },
       "multigammaln": {
         "default": {
+          "defects": 7422,
           "max_abs": "4.06e+31",
           "max_ulp": "3.51e+07",
           "mean_ulp": "9.16e+03",
@@ -38145,12 +38466,13 @@
             }
           ],
           "ulp_clipped": 2989,
-          "usable_to": "2.98e-08",
-          "verdict": "accurate to |x| <= 2.98e-08; up to 3.51e+07 ULP beyond"
+          "usable_to": "5.55e-17",
+          "verdict": "7422 of 50376 points returned inf or zero where a value exists"
         }
       },
       "multigammaln_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "2.36e+16",
           "max_ulp": "1.36e+15",
           "mean_ulp": "2.04e+11",
@@ -38204,6 +38526,7 @@
       },
       "multiply": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -38255,6 +38578,7 @@
       },
       "multiply_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -38306,6 +38630,7 @@
       },
       "neg": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -38357,6 +38682,7 @@
       },
       "nextafter": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "8.51e+37",
           "mean_ulp": "1.34e+36",
@@ -38409,6 +38735,7 @@
       },
       "polygamma": {
         "k1": {
+          "defects": 255,
           "max_abs": "2.59e+38",
           "max_ulp": "7.91e+33",
           "mean_ulp": "3.25e+29",
@@ -38459,11 +38786,12 @@
           ],
           "ulp_clipped": 15848,
           "usable_to": "8.58e-05",
-          "verdict": "accurate to |x| <= 8.58e-05; up to 7.91e+33 ULP beyond"
+          "verdict": "255 of 64769 points returned inf or zero where a value exists"
         }
       },
       "polygamma_bw": {
         "n1": {
+          "defects": 75,
           "max_abs": "2.99e+38",
           "max_ulp": "4.45e+30",
           "mean_ulp": "4.42e+26",
@@ -38515,11 +38843,12 @@
           ],
           "ulp_clipped": 1008,
           "usable_to": "1.79e-13",
-          "verdict": "accurate to |x| <= 1.79e-13; up to 4.45e+30 ULP beyond"
+          "verdict": "75 of 49922 points returned inf or zero where a value exists"
         }
       },
       "pow": {
         "default": {
+          "defects": 0,
           "max_abs": "3e+34",
           "max_ulp": "5.92e+03",
           "mean_ulp": "3.21",
@@ -38573,6 +38902,7 @@
       },
       "pow_bw": {
         "exponent2.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -38625,6 +38955,7 @@
       },
       "prelu": {
         "weight0.25": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -38678,6 +39009,7 @@
       },
       "rad2deg": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -38729,6 +39061,7 @@
       },
       "rdiv": {
         "value2.0": {
+          "defects": 256,
           "max_abs": "1.01e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -38777,12 +39110,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.7e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "8.51e+37",
+          "verdict": "256 of 64770 points returned inf or zero where a value exists"
         }
       },
       "rdiv_bw": {
         "scalar2.0": {
+          "defects": 252,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.14",
@@ -38833,12 +39167,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.3e+19",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "7.67e-20",
+          "verdict": "252 of 48490 points returned inf or zero where a value exists"
         }
       },
       "reciprocal": {
         "default": {
+          "defects": 0,
           "max_abs": "5.07e+30",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -38891,6 +39226,7 @@
       },
       "reciprocal_bw": {
         "default": {
+          "defects": 254,
           "max_abs": "1.01e+31",
           "max_ulp": "2",
           "mean_ulp": "1.14",
@@ -38939,12 +39275,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "9.22e+18",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "5.42e-20",
+          "verdict": "254 of 48386 points returned inf or zero where a value exists"
         }
       },
       "relu": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -38996,6 +39333,7 @@
       },
       "relu6": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39047,6 +39385,7 @@
       },
       "relu6_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39098,6 +39437,7 @@
       },
       "relu_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39149,6 +39489,7 @@
       },
       "relu_max": {
         "upper_limit1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39201,6 +39542,7 @@
       },
       "relu_min": {
         "lower_limit1.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39253,6 +39595,7 @@
       },
       "remainder": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1.7e+38",
           "mean_ulp": "2.68e+36",
@@ -39305,6 +39648,7 @@
       },
       "round": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39356,6 +39700,7 @@
       },
       "rpow": {
         "exponent2.0": {
+          "defects": 1536,
           "max_abs": "2.03e+31",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -39405,12 +39750,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "3.39e+38",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "8.28e+34",
+          "verdict": "1536 of 49536 points returned inf or zero where a value exists"
         }
       },
       "rpow_bw": {
         "exponent2.0": {
+          "defects": 32384,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39458,12 +39804,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "1.69e+38",
-          "verdict": "bit-exact"
+          "usable_to": "1.18e-38",
+          "verdict": "32384 of 64768 points returned inf or zero where a value exists"
         }
       },
       "rsqrt": {
         "default": {
+          "defects": 0,
           "max_abs": "5.5e+11",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -39515,6 +39862,7 @@
       },
       "rsqrt_bw": {
         "default": {
+          "defects": 75,
           "max_abs": "7.1e+31",
           "max_ulp": "7",
           "mean_ulp": "4.51",
@@ -39561,12 +39909,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "2.04e-26",
-          "verdict": "accurate to |x| <= 2.04e-26; up to 7 ULP beyond"
+          "usable_to": "\u2014",
+          "verdict": "75 of 21666 points returned inf or zero where a value exists"
         }
       },
       "rsub": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39618,6 +39967,7 @@
       },
       "rsub_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39669,6 +40019,7 @@
       },
       "selu": {
         "default": {
+          "defects": 0,
           "max_abs": "3.45e+32",
           "max_ulp": "51",
           "mean_ulp": "26.2",
@@ -39720,6 +40071,7 @@
       },
       "selu_bw": {
         "default": {
+          "defects": 1,
           "max_abs": "5.25e-06",
           "max_ulp": "51",
           "mean_ulp": "20.6",
@@ -39769,11 +40121,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
-          "verdict": "never within 2 ULP; mean 20.6, worst 51"
+          "verdict": "1 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sigmoid": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "3",
           "mean_ulp": "1.41",
@@ -39827,6 +40180,7 @@
       },
       "sigmoid_accurate": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "3",
           "mean_ulp": "1.41",
@@ -39880,6 +40234,7 @@
       },
       "sigmoid_bw": {
         "default": {
+          "defects": 140,
           "max_abs": "1.12e-07",
           "max_ulp": "8.39e+06",
           "mean_ulp": "2.71e+04",
@@ -39929,11 +40284,12 @@
           ],
           "ulp_clipped": 169,
           "usable_to": "0.859",
-          "verdict": "accurate to |x| <= 0.859; up to 8.39e+06 ULP beyond"
+          "verdict": "140 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sign": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -39985,6 +40341,7 @@
       },
       "silu": {
         "default": {
+          "defects": 9,
           "max_abs": "1.91e-06",
           "max_ulp": "3",
           "mean_ulp": "1.58",
@@ -40034,11 +40391,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "0.000928",
-          "verdict": "accurate to |x| <= 0.000928; up to 3 ULP beyond"
+          "verdict": "9 of 65024 points returned inf or zero where a value exists"
         }
       },
       "silu_bw": {
         "default": {
+          "defects": 9,
           "max_abs": "9.54e-07",
           "max_ulp": "5.72e+06",
           "mean_ulp": "841",
@@ -40088,11 +40446,12 @@
           ],
           "ulp_clipped": 1,
           "usable_to": "0.000244",
-          "verdict": "accurate to |x| <= 0.000244; up to 5.72e+06 ULP beyond"
+          "verdict": "9 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sin": {
         "default": {
+          "defects": 18190,
           "max_abs": "3.4e+38",
           "max_ulp": "3.32e+38",
           "mean_ulp": "1.86e+36",
@@ -40141,11 +40500,12 @@
           ],
           "ulp_clipped": 4514,
           "usable_to": "1.04e+05",
-          "verdict": "accurate to |x| <= 1.04e+05; up to 3.32e+38 ULP beyond"
+          "verdict": "18190 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sin_bw": {
         "default": {
+          "defects": 18190,
           "max_abs": "3.4e+38",
           "max_ulp": "3.21e+38",
           "mean_ulp": "1.45e+36",
@@ -40194,11 +40554,12 @@
           ],
           "ulp_clipped": 4770,
           "usable_to": "5.23e+04",
-          "verdict": "accurate to |x| <= 5.23e+04; up to 3.21e+38 ULP beyond"
+          "verdict": "18190 of 65024 points returned inf or zero where a value exists"
         }
       },
       "sinh": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.14",
@@ -40251,6 +40612,7 @@
       },
       "sinh_bw": {
         "default": {
+          "defects": 2,
           "max_abs": "5.07e+30",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -40298,12 +40660,13 @@
             }
           ],
           "ulp_clipped": 0,
-          "usable_to": "89",
-          "verdict": "within 2 ULP everywhere"
+          "usable_to": "88.5",
+          "verdict": "2 of 33894 points returned inf or zero where a value exists"
         }
       },
       "softplus": {
         "default": {
+          "defects": 30,
           "max_abs": "6.93e+35",
           "max_ulp": "8.2e+03",
           "mean_ulp": "656",
@@ -40353,11 +40716,12 @@
           ],
           "ulp_clipped": 52,
           "usable_to": "\u2014",
-          "verdict": "never within 2 ULP; mean 656, worst 8.2e+03"
+          "verdict": "30 of 65024 points returned inf or zero where a value exists"
         }
       },
       "softplus_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "1.79e-07",
           "max_ulp": "3",
           "mean_ulp": "1.37",
@@ -40411,6 +40775,7 @@
       },
       "softshrink": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -40462,6 +40827,7 @@
       },
       "softshrink_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -40513,6 +40879,7 @@
       },
       "softsign": {
         "default": {
+          "defects": 510,
           "max_abs": "1",
           "max_ulp": "3",
           "mean_ulp": "0.89",
@@ -40561,11 +40928,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "2.53e+07",
-          "verdict": "accurate to |x| <= 2.53e+07; up to 3 ULP beyond"
+          "verdict": "510 of 65024 points returned inf or zero where a value exists"
         }
       },
       "softsign_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "2.38e-07",
           "max_ulp": "8.38e+06",
           "mean_ulp": "1.54e+05",
@@ -40618,6 +40986,7 @@
       },
       "sqrt": {
         "default": {
+          "defects": 0,
           "max_abs": "1.1e+12",
           "max_ulp": "1",
           "mean_ulp": "1",
@@ -40669,6 +41038,7 @@
       },
       "sqrt_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "5.5e+11",
           "max_ulp": "2",
           "mean_ulp": "1.41",
@@ -40720,6 +41090,7 @@
       },
       "square": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -40772,6 +41143,7 @@
       },
       "square_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -40823,6 +41195,7 @@
       },
       "squared_difference": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.94",
@@ -40875,6 +41248,7 @@
       },
       "squared_difference_": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "2",
           "mean_ulp": "1.94",
@@ -40927,6 +41301,7 @@
       },
       "squared_difference_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -40978,6 +41353,7 @@
       },
       "subalpha": {
         "alpha2.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -41030,6 +41406,7 @@
       },
       "subtract": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -41081,6 +41458,7 @@
       },
       "subtract_": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -41132,6 +41510,7 @@
       },
       "swish": {
         "default": {
+          "defects": 9,
           "max_abs": "1.91e-06",
           "max_ulp": "3",
           "mean_ulp": "1.58",
@@ -41181,11 +41560,12 @@
           ],
           "ulp_clipped": 0,
           "usable_to": "0.000928",
-          "verdict": "accurate to |x| <= 0.000928; up to 3 ULP beyond"
+          "verdict": "9 of 65024 points returned inf or zero where a value exists"
         }
       },
       "tan": {
         "default": {
+          "defects": 20110,
           "max_abs": "3.4e+38",
           "max_ulp": "3.34e+38",
           "mean_ulp": "1.43e+36",
@@ -41234,11 +41614,12 @@
           ],
           "ulp_clipped": 3698,
           "usable_to": "20.3",
-          "verdict": "accurate to |x| <= 20.3; up to 3.34e+38 ULP beyond"
+          "verdict": "20110 of 65024 points returned inf or zero where a value exists"
         }
       },
       "tan_bw": {
         "default": {
+          "defects": 20376,
           "max_abs": "3.4e+38",
           "max_ulp": "3.16e+38",
           "mean_ulp": "9.23e+35",
@@ -41287,11 +41668,12 @@
           ],
           "ulp_clipped": 3944,
           "usable_to": "1.03",
-          "verdict": "accurate to |x| <= 1.03; up to 3.16e+38 ULP beyond"
+          "verdict": "20376 of 65024 points returned inf or zero where a value exists"
         }
       },
       "tanh": {
         "default": {
+          "defects": 0,
           "max_abs": "1.19e-07",
           "max_ulp": "3",
           "mean_ulp": "1.55",
@@ -41344,6 +41726,7 @@
       },
       "tanh_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "0.000814",
           "max_ulp": "4.19e+06",
           "mean_ulp": "9.01e+03",
@@ -41396,6 +41779,7 @@
       },
       "tanhshrink": {
         "default": {
+          "defects": 0,
           "max_abs": "2",
           "max_ulp": "4.19e+06",
           "mean_ulp": "9.11e+04",
@@ -41448,6 +41832,7 @@
       },
       "tanhshrink_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "2.38e-07",
           "max_ulp": "4.19e+06",
           "mean_ulp": "9.85e+04",
@@ -41500,6 +41885,7 @@
       },
       "threshold": {
         "threshold0.5_value0.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -41552,6 +41938,7 @@
       },
       "threshold_bw": {
         "min0.5_max0.0": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -41604,6 +41991,7 @@
       },
       "trunc": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -41655,6 +42043,7 @@
       },
       "where": {
         "default": {
+          "defects": 0,
           "max_abs": "0",
           "max_ulp": "0",
           "mean_ulp": "\u2014",
@@ -41707,6 +42096,7 @@
       },
       "xielu": {
         "default": {
+          "defects": 0,
           "max_abs": "2.03e+31",
           "max_ulp": "1.08e+07",
           "mean_ulp": "256",
@@ -41760,6 +42150,7 @@
       },
       "xlogy": {
         "default": {
+          "defects": 0,
           "max_abs": "4.73e+36",
           "max_ulp": "8.84e+07",
           "mean_ulp": "6.07e+07",
@@ -41811,6 +42202,7 @@
       },
       "xlogy_bw": {
         "default": {
+          "defects": 0,
           "max_abs": "7.63e-06",
           "max_ulp": "1",
           "mean_ulp": "1",
