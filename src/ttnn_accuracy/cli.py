@@ -37,6 +37,16 @@ def build_parser() -> argparse.ArgumentParser:
     measure.add_argument("--output-dir", type=Path, default=DATA_DIR)
     measure.add_argument("--device-id", type=int, default=0)
 
+    check = sub.add_parser(
+        "check", help="measure named ops and diff them against the published report"
+    )
+    check.add_argument("--arch", required=True, choices=["wh", "bh"])
+    check.add_argument("--ops", required=True, help="comma-separated op names")
+    check.add_argument("--dtype", default="both", choices=["bf16", "fp32", "both"])
+    check.add_argument("--params", help="measure at a different scalar, e.g. relu_max=6")
+    check.add_argument("--device-id", type=int, default=0)
+    check.set_defaults(category=None)
+
     perf = sub.add_parser("perf", help="time each op on a device; never scored, host-specific")
     perf.add_argument("--arch", required=True, choices=["wh", "bh"])
     perf.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
@@ -128,6 +138,14 @@ def main(argv: list[str] | None = None) -> int:
             if not specs:
                 return 1
             return problems + measure(specs, dtypes, args.arch, args.output_dir, args.device_id)
+
+        case "check":
+            from ttnn_accuracy.measure.runner import check
+
+            specs, dtypes, problems = _selection(args)
+            if not specs:
+                return 1
+            return problems + check(specs, dtypes, args.arch, args.device_id)
 
         case "perf":
             from ttnn_accuracy.measure.perf import measure_perf

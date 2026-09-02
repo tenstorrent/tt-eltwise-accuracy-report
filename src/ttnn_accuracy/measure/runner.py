@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+import json
 import warnings
 from pathlib import Path
 
 import pandas as pd
 from loguru import logger
 
-from ttnn_accuracy.measure.device import open_device
+from ttnn_accuracy.measure.device import open_device, reason
 from ttnn_accuracy.measure.schema import check_arch, describe_run
 from ttnn_accuracy.measure.store import measured_at, write_failures, write_result, write_run
 from ttnn_accuracy.measure.sweeps import SWEEPS, specials
@@ -21,6 +22,7 @@ def measure(
     arch: str,
     out_root: Path,
     device_id: int = 0,
+    archive: bool = True,
 ) -> int:
     """Returns the number of variants that produced no CSV — the process exit code.
 
@@ -34,7 +36,7 @@ def measure(
         check_arch(device, arch)
         meta = describe_run(device, arch, names, dtypes)
         done = measured_at(out_root, arch, dtypes, meta.tt_metal_commit)
-        write_run(meta, out_root)
+        write_run(meta, out_root, archive)
         for spec in specs:
             logger.info("{} ({}) [{}]", spec.name, spec.category, spec.variant)
             for dtype in dtypes:
@@ -53,6 +55,56 @@ def measure(
     return failed
 
 
+def check(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0) -> int:
+    """Measure these ops now and say what moved against the published report.
+
+    The kernel author's loop. Accuracy is deterministic, so the baseline is read from git
+    rather than re-measured, and only the ops named here go near the device.
+    """
+    from tempfile import TemporaryDirectory
+
+    from ttnn_accuracy.paths import INDEX_FILE
+    from ttnn_accuracy.report.charts import score_csv
+    from ttnn_accuracy.report.compare import diff
+
+    if not INDEX_FILE.exists():
+        raise SystemExit(f"no baseline at {INDEX_FILE} — nothing to check against")
+    baseline = json.loads(INDEX_FILE.read_text())
+
+    with TemporaryDirectory(prefix="ttnn-check-") as tmp:
+        empty = measure(specs, dtypes, arch, Path(tmp), device_id, archive=False)
+        candidate = {arch: {}}
+        for csv in sorted(Path(tmp).glob(f"{arch}/*/*/*.csv")):
+            dtype, op, variant = csv.parts[-3], csv.parts[-2], csv.stem
+            if scored := score_csv(csv, op, variant):
+                candidate[arch].setdefault(dtype, {}).setdefault(op, {})[variant] = scored[0]
+
+    # Only what was just measured: the baseline holds 766 variants and all but these are
+    # unchanged by construction, so diffing the whole thing would bury the answer.
+    measured = {
+        (d, o, v) for d, ops in candidate[arch].items() for o, vs in ops.items() for v in vs
+    }
+    trimmed = {
+        arch: {
+            dtype: {
+                op: {v: s for v, s in vs.items() if (dtype, op, v) in measured}
+                for op, vs in ops.items()
+            }
+            for dtype, ops in baseline.get(arch, {}).items()
+        }
+    }
+    buckets = diff(trimmed, candidate)
+    for name, rows in buckets.items():
+        for (_, dtype, op, variant), _, now in rows:
+            where = f"  {dtype}/{op}/{variant}"
+            getattr(logger, "error" if name == "regressed" else "info")(
+                "{} {}: {}", name, where, (now or {}).get("verdict", "—")
+            )
+    if not any(buckets.values()):
+        logger.success("{} variant(s) measured, nothing moved", len(measured))
+    return empty + len(buckets["regressed"])
+
+
 def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:
     """Empty when the CSV was written, else why it was not. Never raises: one variant
     must not end the run."""
@@ -60,7 +112,7 @@ def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str
         return _measure_one(spec, dtype, arch, out_root, device)
     except Exception as exc:
         logger.exception("  {}/{} {} failed", spec.name, spec.variant, dtype)
-        return f"{type(exc).__name__}: {str(exc).strip().splitlines()[0][:160]}"
+        return f"{type(exc).__name__}: {reason(exc, 160)}"
 
 
 def _measure_one(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:

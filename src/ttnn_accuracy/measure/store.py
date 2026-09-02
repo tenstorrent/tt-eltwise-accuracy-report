@@ -30,17 +30,22 @@ def write_result(
     return path
 
 
-def write_run(meta: RunMeta, out_root: Path) -> None:
-    """Archive the run, and leave a copy beside the data so charts can attribute it."""
-    RUNS_DIR.mkdir(parents=True, exist_ok=True)
-    (RUNS_DIR / f"{meta.run_id}.json").write_text(
-        json.dumps(asdict(meta), indent=2, sort_keys=True) + "\n"
-    )
+def write_run(meta: RunMeta, out_root: Path, archive: bool = True) -> None:
+    """Archive the run, and leave a copy beside the data so charts can attribute it.
+
+    `check` measures into a temp directory and is not a run of record: it archives nothing.
+    """
+    if archive:
+        RUNS_DIR.mkdir(parents=True, exist_ok=True)
+        (RUNS_DIR / f"{meta.run_id}.json").write_text(
+            json.dumps(asdict(meta), indent=2, sort_keys=True) + "\n"
+        )
     for dtype in meta.dtypes:
         stamp = out_root / meta.arch / dtype / RUN_STAMP
         stamp.parent.mkdir(parents=True, exist_ok=True)
         stamp.write_text(_stamp(stamp, meta))
-    logger.info("run provenance → {}", RUNS_DIR / f"{meta.run_id}.json")
+    if archive:
+        logger.info("run provenance → {}", RUNS_DIR / f"{meta.run_id}.json")
 
 
 def measured_at(out_root: Path, arch: str, dtypes: list[str], commit: str | None) -> set[tuple]:
