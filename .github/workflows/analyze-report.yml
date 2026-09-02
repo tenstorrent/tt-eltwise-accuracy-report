@@ -1,0 +1,106 @@
+# The reading pass over a finished nightly: what moved, and whether it matters.
+#
+# Runs on ubuntu-latest with no device and no tt-metal — `compare` is pure JSON. The page
+# it writes, analyze-report/findings.md, is produced by rules, not by a model: `compare`'s
+# buckets already are the classification, so the nightly needs no API key and nothing to
+# pay for. A model is optional and adds only a short note on top; set the repository
+# secret ANTHROPIC_API_KEY to switch it on, leave it unset and everything else still runs.
+name: analyze-report
+
+on:
+  workflow_run:
+    workflows: [nightly-report]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    # At job level so the step conditions can read it: a step's own `env` is not in scope
+    # for its own `if`.
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # workflow_run checks out the triggering commit, which predates the data the
+          # nightly went on to push. The point of this job is to read that data.
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: What moved
+        id: moved
+        # The nightly's own head_sha is the commit it checked out, so the index there is
+        # exactly the one it replaced — a baseline, with no guessing at "last night".
+        env:
+          BASE: ${{ github.event.workflow_run.head_sha || 'HEAD~1' }}
+          LOGURU_FORMAT: "{message}"
+        run: |
+          git show "$BASE:report_index.json" > "$RUNNER_TEMP/previous.json"
+          status=0
+          PYTHONPATH=src python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" \
+            --findings analyze-report/findings.md || status=$?
+          echo "regressed=$status" >> "$GITHUB_OUTPUT"
+          # Every run writes the page; only a bucket means there is something to publish.
+          if grep -q '^## ' analyze-report/findings.md
+          then echo "any=true" >> "$GITHUB_OUTPUT"
+          else echo "any=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Add a model's note, when one is configured
+        if: steps.moved.outputs.any == 'true' && env.ANTHROPIC_API_KEY != ''
+        # Only what the tables cannot say: which movement deserves a human today. The
+        # facts are already on the page, so the note is capped short and told not to
+        # restate them.
+        run: |
+          jq -n --rawfile contract analyze-report/contract.md \
+                --rawfile findings analyze-report/findings.md '
+            {model: "claude-opus-5", max_tokens: 600,
+             system: ("You are given an interpretation contract and a findings page whose " +
+               "tables are already correct and complete. Reply with at most five bullet " +
+               "lines of GitHub-flavoured markdown saying which movement deserves a human " +
+               "today and why. Never restate a table, never add a heading, never infer a " +
+               "cause, and cite each line as arch/dtype/op/variant. If nothing deserves " +
+               "attention, reply with the single line: nothing here needs a human."),
+             messages: [{role: "user", content: (
+               "<contract>\n" + $contract + "\n</contract>\n\n" +
+               "<findings>\n" + $findings + "\n</findings>")}]}' \
+            > "$RUNNER_TEMP/request.json"
+
+          curl -sS --fail-with-body https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            --data @"$RUNNER_TEMP/request.json" > "$RUNNER_TEMP/response.json"
+
+          # -e so a refusal or an error body fails the step instead of appending "null".
+          { echo; echo "## Worth a look"; echo
+            jq -er '.content[0].text' "$RUNNER_TEMP/response.json"
+          } >> analyze-report/findings.md
+
+      - name: Publish
+        if: steps.moved.outputs.any == 'true'
+        run: |
+          cat analyze-report/findings.md >> "$GITHUB_STEP_SUMMARY"
+          git add analyze-report/findings.md
+          git diff --cached --quiet && { echo "nothing new to say"; exit 0; }
+          git -c user.name=analyze-report -c user.email=analyze@users.noreply.github.com \
+            commit -m "docs: findings for $(date -u +%Y-%m-%d)"
+          git pull --rebase origin "${{ github.event.repository.default_branch }}"
+          git push origin HEAD:"${{ github.event.repository.default_branch }}"
+
+      - name: Raise an issue when something got worse
+        if: steps.moved.outputs.regressed != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Accuracy regressed at ${{ github.event.workflow_run.head_sha || github.sha }}" \
+            --body-file analyze-report/findings.md

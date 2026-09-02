@@ -1,0 +1,114 @@
+# Kernel timing at a tt-metal commit you name, and the comparison between two.
+#
+# Give one commit and you get its timings. Give two and both are built and timed on the
+# same host, back to back, and the run reports what moved. Two commits because a timing is
+# a property of the machine as much as of the kernel: comparing against a number taken on
+# another box, or on another day, measures the box.
+#
+# Dispatch only for now. Runner contract as in nightly-report.yml.
+name: perf-report
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: tt-metal commit to time (full SHA, short SHA or branch)
+        required: true
+        default: main
+      against:
+        description: second tt-metal commit — given, the run compares the two
+        required: false
+      arch:
+        type: choice
+        options: [wh, bh]
+        default: wh
+      ops:
+        description: ops to time, comma separated (default all)
+        required: false
+      dtype:
+        type: choice
+        options: [both, bf16, fp32]
+        default: both
+
+jobs:
+  time:
+    runs-on: [self-hosted, "${{ inputs.arch }}"]
+    # Shared with the nightly: a device running a six-hour sweep times the sweep.
+    concurrency:
+      group: nightly-report-${{ inputs.arch }}
+      cancel-in-progress: false
+    timeout-minutes: 360
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the runner contract
+        run: |
+          for var in TT_METAL_HOME PYTHON_ENV DATA_DIR; do
+            [ -n "${!var:-}" ] || { echo "$var is unset — see the runner contract"; exit 1; }
+          done
+          [ -x "$TT_METAL_HOME/build_metal.sh" ] || { echo "no tt-metal at $TT_METAL_HOME"; exit 1; }
+          echo "TT_METAL_CACHE=$DATA_DIR/kernel-cache-${{ inputs.arch }}" >> "$GITHUB_ENV"
+
+      - name: Build and time each commit
+        # Inputs arrive as environment variables, never interpolated into the script: a
+        # commit field expanded inline would run as shell on the runner.
+        env:
+          COMMIT: ${{ inputs.commit }}
+          AGAINST: ${{ inputs.against }}
+          OPS: ${{ inputs.ops || 'all' }}
+          DTYPE: ${{ inputs.dtype }}
+          ARCH: ${{ inputs.arch }}
+          LOGURU_FORMAT: "{message}"
+        run: |
+          source "$PYTHON_ENV/bin/activate"
+          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
+
+          for ref in $AGAINST $COMMIT; do    # baseline first, so the candidate is timed last
+            cd "$TT_METAL_HOME"
+            # By URL, not by remote name: a runner's origin may be a personal fork where
+            # the SHA does not exist.
+            git fetch --recurse-submodules=no https://github.com/tenstorrent/tt-metal.git "$ref"
+            git checkout --force FETCH_HEAD
+            git submodule update --init --recursive
+            ./build_metal.sh
+            # Kernels compiled against the previous build segfault under new host code,
+            # and the cache key does not capture that.
+            rm -rf "$TT_METAL_CACHE"
+            sha=$(git rev-parse --short=11 HEAD)
+
+            cd "$GITHUB_WORKSPACE"
+            python3 -m ttnn_accuracy.cli perf --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" \
+              --out "timings/$sha.json" || echo "::warning::$sha: $? variant(s) produced no timing"
+            echo "$sha" >> timings/order.txt
+          done
+
+      - name: Compare
+        if: inputs.against != ''
+        env:
+          LOGURU_FORMAT: "{message}"
+        run: |
+          source "$PYTHON_ENV/bin/activate"
+          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
+          base=$(sed -n 1p timings/order.txt)
+          cand=$(sed -n 2p timings/order.txt)
+          # Exits 1 when something got slower — a result to report, not a failed run.
+          python3 -m ttnn_accuracy.cli perf-diff "timings/$base.json" "timings/$cand.json" \
+            --findings timings/perf-diff.md || true
+          cat timings/perf-diff.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        # Even after a failure: whatever was timed still answers the question asked.
+        if: always()
+        with:
+          name: timings-${{ inputs.arch }}-${{ github.run_id }}
+          path: timings/
+          retention-days: 14
+
+      - name: Leave the workspace detached
+        if: always()
+        run: |
+          rm -rf timings
+          git checkout --detach 2>/dev/null || true
