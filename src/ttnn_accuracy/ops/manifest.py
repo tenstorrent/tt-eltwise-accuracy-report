@@ -1,15 +1,10 @@
 """The committed op manifest — eltwise ops only.
 
-`ops` holds every ttnn op that classified as real-valued elementwise mathematics, rebuilt
-wholesale by `discover`, along with `unprobeable` — why each unclassifiable golden
-refused, learned from the same calls. Everything else is what the later stages learned by
-running goldens and calling the device: `domains` and its `refused` counterpart from
-derivation, `layouts` and its `rejected` counterpart from probing, per architecture. Each
-costs far more than a rebuild and does not change when ttnn's op list does, so a rebuild
-keeps them for every op it did not see change.
+`discover` rebuilds `ops` and `unprobeable` wholesale; `domains`/`refused` come from
+derivation and `layouts`/`rejected` from probing, per architecture. The latter cost far
+more than a rebuild and outlive one, so a rebuild keeps them for every unchanged op.
 
-Nothing here holds a timestamp: an unchanged ttnn must produce an unchanged file, so that
-a diff means ttnn changed.
+No timestamps: an unchanged ttnn must produce an unchanged file, so a diff means ttnn moved.
 """
 
 from __future__ import annotations
@@ -27,13 +22,10 @@ from ttnn_accuracy.paths import MANIFEST_FILE
 
 
 def build(include_experimental: bool = False) -> dict:
-    """Eltwise facts only. `domains` is filled by derive_domains, not here.
+    """Eltwise facts only; `domains` is filled by derive_domains, not here.
 
-    The scope is eltwise, so an op that is not real-valued elementwise mathematics never
-    enters `ops` — matmuls, predicates, constant outputs and the excluded movers are
-    dropped at the door rather than stored with a flag. `unprobeable` keeps every
-    refusal: a golden that cannot be called might still be an eltwise op waiting for an
-    override, so those reasons are the queue for extending coverage.
+    Anything not real-valued elementwise is dropped at the door rather than flagged, and
+    `unprobeable` keeps every refusal — that list is the queue for extending coverage.
     """
     ops, unprobeable = {}, {}
     for op in introspect.discover(include_experimental):
@@ -57,33 +49,23 @@ def build(include_experimental: bool = False) -> dict:
                 "is_cpp": op.is_cpp,
                 "is_experimental": op.is_experimental,
             }
-    return {
-        "ops": ops,
-        "unprobeable": unprobeable,
-        "domains": {},
-        "refused": {},
-        "layouts": {},
-        "rejected": {},
-        "probing": {},
-    }
+    return _empty() | {"ops": ops, "unprobeable": unprobeable}
+
+
+FIELDS = ("ops", "unprobeable", "domains", "refused", "layouts", "rejected", "probing")
+
+
+def _empty() -> dict:
+    """A fresh dict per field — `dict.fromkeys` would alias one across all seven."""
+    return {field: {} for field in FIELDS}
 
 
 def load() -> dict:
     """Defaults first, so a manifest written before a key existed still loads."""
-    empty = {
-        "ops": {},
-        "unprobeable": {},
-        "domains": {},
-        "refused": {},
-        "layouts": {},
-        "rejected": {},
-        "probing": {},
-    }
     if not MANIFEST_FILE.exists():
-        return empty
-    manifest = empty | json.loads(MANIFEST_FILE.read_text())
-    # Manifests written before layouts were arch-keyed hold flat per-op dicts, and every
-    # one of those was probed on Wormhole.
+        return _empty()
+    manifest = _empty() | json.loads(MANIFEST_FILE.read_text())
+    # Pre-arch-keyed manifests hold flat per-op dicts, all of them probed on Wormhole.
     for key in ("layouts", "rejected"):
         if any(k.startswith("ttnn.") for k in manifest[key]):
             manifest[key] = {"wh": manifest[key]}
@@ -108,15 +90,10 @@ def _single_axis(golden, backward: bool, x):
 
 
 def derive_domains() -> int:
-    """Add per-dtype bounds to every eltwise op the manifest already knows about.
-
-    An op whose golden rejects the fp64 grid is recorded under `refused` with the reason,
-    so later stages can say why it is unmeasurable instead of guessing.
-    """
+    """Per-dtype bounds for every known eltwise op; a golden that refuses is recorded."""
     manifest = load()
     discovered = {op.qualified_name: op for op in introspect.discover()}
-    # Both are recomputed for every op below, so clear them: keeping a previous domain for
-    # a golden that now refuses would leave the op with bounds and a refusal at once.
+    # Cleared: a stale domain beside a fresh refusal would leave the op holding both.
     manifest["domains"], manifest["refused"] = {}, {}
 
     for name, entry in manifest["ops"].items():
@@ -144,18 +121,13 @@ def derive_domains() -> int:
 def probe_layouts(device_id: int = 0) -> int:
     """Probe every op, outliving any that kills the process.
 
-    An op can segfault the host — `bias_gelu_bw` does on some tt-metal builds — and a
-    segfault cannot be caught, only outlived. Each pass therefore runs in its own
-    process, having recorded the op it is about to probe; a pass that dies tells the next
-    one what killed it, which is recorded as that op's result. One crash costs one op and
-    a device open, not the run.
+    A segfault cannot be caught, only outlived, so each pass runs in its own process
+    having named the op it is about to probe: one crash costs one op, not the run.
     """
     import multiprocessing
 
     context = multiprocessing.get_context("spawn")  # a fresh interpreter, no shared device
-    # The child reports which architecture it probed: the parent has no device, and
-    # guessing from the manifest would summarise the other architecture once both exist.
-    probed = context.SimpleQueue()
+    probed = context.SimpleQueue()  # the parent has no device, so the child names the arch
     # Every crash consumes exactly one op, so a pass per op is the bound by construction.
     for attempt in range(len(load()["ops"]) + 1):
         child = context.Process(target=_probe_pass, args=(device_id, probed))
@@ -190,15 +162,11 @@ def _probe_pass(device_id: int, probed) -> None:
     ops = manifest["ops"]
 
     with open_device(device_id) as device:
-        # Keyed by the architecture actually probed: `softcap` exists only on Blackhole,
-        # and a Wormhole probe must not overwrite what a Blackhole probe learned.
+        # Keyed by arch: `softcap` is Blackhole-only, and neither probe may erase the other.
         arch = ARCH_OF_DEVICE[device.arch().name]
         layouts = manifest["layouts"].setdefault(arch, {})
         rejected = manifest["rejected"].setdefault(arch, {})
-        # An op can take the whole process down — bias_gelu_bw segfaults the host on some
-        # tt-metal builds — and a segfault is not catchable, so the op being probed is
-        # recorded before it runs. Finding that record on the next run means it never
-        # returned: that is the finding, and the remaining ops are not lost with it.
+        # A name still recorded here means that op never returned: that is the finding.
         if died := manifest["probing"].pop(arch, None):
             rejected[died] = "crashed the process while probing — see the run log"
             logger.error("{} crashed the previous probe; recorded and skipped", died)
@@ -219,6 +187,7 @@ def _probe_pass(device_id: int, probed) -> None:
                 fn = partial(fn, **variants[0].ttnn_kwargs)
             manifest["probing"][arch] = name
             save(manifest)  # named before it runs: a segfault leaves no other trace
+
             found, why = capabilities(fn, entry["operands"], device)
             manifest["probing"].pop(arch, None)
             if found:
