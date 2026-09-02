@@ -70,9 +70,13 @@ def time_op(spec: OpSpec, dtype: str, device) -> dict[str, float | int]:
         for _ in range(spec.operands)
     ]
 
+    # By buffer, not by object: an in-place op returns a fresh Python wrapper around an
+    # operand's buffer, so `is` misses it, the operand is freed under the next iteration,
+    # and the allocator segfaults a few ops later.
+    operands = {t.buffer_address() for t in tensors}
+
     def release(t) -> None:
-        # An in-place op returns an input; freeing it would starve the next iteration.
-        if not any(t is held for held in tensors) and t.is_allocated():
+        if t.is_allocated() and t.buffer_address() not in operands:
             ttnn.deallocate(t)
 
     try:
@@ -106,9 +110,14 @@ def measure_perf(
     results: dict = {}
     failed = 0
 
+    path = out or PERF_DIR / f"{arch}.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+
     with open_device(device_id) as device:
         check_arch(device, arch)
         meta = describe_run(device, arch, sorted({s.name for s in specs}), dtypes)
+        # The host is part of the measurement: only this field says two rows are comparable.
+        results[RUNS_KEY] = asdict(meta) | {"host": platform.node()}
         for spec in specs:
             for dtype in dtypes:
                 if dtype not in spec.layouts:  # the probe found this arch rejects it
@@ -120,6 +129,9 @@ def measure_perf(
                     failed += 1
                     continue
                 results.setdefault(dtype, {}).setdefault(spec.name, {})[spec.variant] = row
+                # Rewritten per op: a segfault cannot be caught, only outlived, and the
+                # timings taken before it still answer part of the question.
+                path.write_text(json.dumps(results, indent=2, sort_keys=True) + "\n")
                 logger.info(
                     "{} [{}] {}: {} us, {} Melem/s (spread {}%)",
                     spec.name,
@@ -130,11 +142,6 @@ def measure_perf(
                     row["spread_pct"],
                 )
 
-    # The host is part of the measurement: only this field says two rows are comparable.
-    results[RUNS_KEY] = asdict(meta) | {"host": platform.node()}
-    path = out or PERF_DIR / f"{arch}.json"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(results, indent=2, sort_keys=True) + "\n")
     logger.success("timings → {}", path)
     if failed:
         logger.error("{} variant(s) produced no timing", failed)

@@ -66,6 +66,10 @@ jobs:
           source "$PYTHON_ENV/bin/activate"
           export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
 
+          # Up front: perf writes into it, and order.txt must survive a run that crashed
+          # before writing anything.
+          mkdir -p timings
+
           for ref in $AGAINST $COMMIT; do    # baseline first, so the candidate is timed last
             cd "$TT_METAL_HOME"
             # By URL, not by remote name: a runner's origin may be a personal fork where
@@ -80,9 +84,27 @@ jobs:
             sha=$(git rev-parse --short=11 HEAD)
 
             cd "$GITHUB_WORKSPACE"
+            # Tee'd so the run page shows the timings even for a single commit, where
+            # there is no comparison to print and a green job would otherwise say nothing.
+            status=0
             python3 -m ttnn_accuracy.cli perf --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" \
-              --out "timings/$sha.json" || echo "::warning::$sha: $? variant(s) produced no timing"
+              --out "timings/$sha.json" 2>&1 | tee "$RUNNER_TEMP/$sha.log" || status=$?
+            # Under 128 the status counts variants that produced no timing; 128+ is the
+            # signal that killed it, and perf rewrites its file per op, so what was timed
+            # before the crash is still on disk and still worth publishing.
+            if [ "$status" -ge 128 ]; then
+              echo "::error::$sha died with signal $((status - 128)) — timings up to that op kept"
+            elif [ "$status" -ne 0 ]; then
+              echo "::warning::$sha: $status variant(s) produced no timing"
+            fi
             echo "$sha" >> timings/order.txt
+
+            {
+              echo "## $sha on $(hostname)"
+              echo '```'
+              grep "Melem/s" "$RUNNER_TEMP/$sha.log" || echo "nothing timed"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
           done
 
       - name: Compare
