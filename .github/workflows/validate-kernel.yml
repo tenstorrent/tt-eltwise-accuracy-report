@@ -1,0 +1,125 @@
+# Is a kernel someone changed correct, and is it still fast?
+#
+# Name a tt-metal commit and the ops it touches. The run builds it, measures those ops on
+# the device and diffs them against the published report, times them against the published
+# timings, and fails when something got worse. Nothing is committed; the report is the
+# baseline, never the output. Runner contract as in nightly-report.yml.
+name: validate-kernel
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: tt-metal commit or branch to validate — an abbreviation
+          only resolves if it is reachable from main
+        required: true
+      ops:
+        description: ops the change touches, comma separated (e.g. exp,gelu)
+        required: true
+      arch:
+        type: choice
+        options: [wh, bh]
+        default: wh
+      dtype:
+        type: choice
+        options: [both, bf16, fp32]
+        default: both
+      max_ulp:
+        description: also fail any variant worse than this, whatever the baseline says
+        required: false
+      params:
+        description: measure at a different scalar, e.g. relu_max=6
+        required: false
+
+jobs:
+  validate:
+    runs-on: [self-hosted, "${{ inputs.arch }}"]
+    # Shared with the nightly: one device, one sweep at a time.
+    concurrency:
+      group: nightly-report-${{ inputs.arch }}
+      cancel-in-progress: false
+    timeout-minutes: 360
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the runner contract
+        run: |
+          for var in TT_METAL_HOME PYTHON_ENV DATA_DIR; do
+            [ -n "${!var:-}" ] || { echo "$var is unset — see the runner contract"; exit 1; }
+          done
+          [ -x "$TT_METAL_HOME/build_metal.sh" ] || { echo "no tt-metal at $TT_METAL_HOME"; exit 1; }
+          echo "TT_METAL_CACHE=$DATA_DIR/kernel-cache-${{ inputs.arch }}" >> "$GITHUB_ENV"
+
+      - name: Build the candidate
+        # Inputs arrive as environment variables, never interpolated into the script.
+        env:
+          COMMIT: ${{ inputs.commit }}
+        run: |
+          cd "$TT_METAL_HOME"
+          # By URL, not remote name: a runner's origin may be a fork without this SHA.
+          # An abbreviation cannot be fetched: fall back to main and resolve against it.
+          git fetch --recurse-submodules=no https://github.com/tenstorrent/tt-metal.git "$COMMIT" \
+            && git checkout --force FETCH_HEAD \
+            || { git fetch --recurse-submodules=no \
+                   https://github.com/tenstorrent/tt-metal.git main; \
+                 git checkout --force "$COMMIT"; }
+          git submodule update --init --recursive
+          ./build_metal.sh
+          # Kernels compiled against the previous build segfault under new host code.
+          rm -rf "$TT_METAL_CACHE"
+          echo "SHA=$(git rev-parse --short=11 HEAD)" >> "$GITHUB_ENV"
+
+      - name: Check the ops it touches
+        env:
+          OPS: ${{ inputs.ops }}
+          ARCH: ${{ inputs.arch }}
+          DTYPE: ${{ inputs.dtype }}
+          MAX_ULP: ${{ inputs.max_ulp }}
+          PARAMS: ${{ inputs.params }}
+          LOGURU_FORMAT: "{message}"
+        run: |
+          source "$PYTHON_ENV/bin/activate"
+          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
+          # The venv reaches ttnn through a .pth of absolute paths, so a build run from the
+          # wrong directory silently repoints it, and the wrong ttnn segfaults on the new lib.
+          python3 -c "
+          import pathlib, ttnn
+          p = pathlib.Path(ttnn.__file__)
+          assert p.is_relative_to('$TT_METAL_HOME'), f'ttnn came from {p}, not $TT_METAL_HOME'
+          print('ttnn', p)"
+
+          # Exit counts findings: variants that produced no data, timings that got slower,
+          # variants over the bar, and regressions. Non-zero is the answer, so let it stand.
+          status=0
+          python3 -m ttnn_accuracy.cli check --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" --perf \
+            ${MAX_ULP:+--max-ulp "$MAX_ULP"} ${PARAMS:+--params "$PARAMS"} \
+            2>&1 | tee "$RUNNER_TEMP/check.log" || status=$?
+          {
+            echo "## \`$OPS\` on $ARCH at $SHA"
+            echo
+            echo '```'
+            cat "$RUNNER_TEMP/check.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          # check's last line already says what moved; this puts it on the run's face.
+          [ "$status" -eq 0 ] || echo "::error::$status finding(s) — see the summary"
+          exit "$status"
+
+      - uses: actions/upload-artifact@v4
+        # Even after a failure: the log is the answer to the question that was asked.
+        if: always()
+        with:
+          name: validate-${{ inputs.arch }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/check.log
+          retention-days: 14
+
+      - name: Leave the checkout clean
+        # `check` onboards an op the manifest lacks, which rewrites it; that belongs in a
+        # commit someone makes deliberately, not in a validation run's workspace.
+        if: always()
+        run: |
+          git checkout -- stats/ 2>/dev/null || true
+          git checkout --detach 2>/dev/null || true

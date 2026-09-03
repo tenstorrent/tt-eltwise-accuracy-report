@@ -4,11 +4,27 @@
 |---|---|---|---|
 | [nightly-report.yml](nightly-report.yml) | cron 02:00, dispatch | `wh` + `bh` | commits `reports/`, `report_index.json`, `stats/` |
 | [analyze-report.yml](analyze-report.yml) | after a nightly | none | commits `analyze-report/findings.md`, opens an issue on a regression |
+| [validate-kernel.yml](validate-kernel.yml) | dispatch | one arch | artifact only — builds a commit you name, checks the ops it touches, fails on a finding |
 | [perf-report.yml](perf-report.yml) | dispatch | one arch | artifact only — timings for one commit, or the diff between two |
 | [custom-report.yml](custom-report.yml) | dispatch | one arch | artifact only — a report at parameters you name |
 
 Only the nightly writes to the repository, so no other run can overwrite a baseline.
 Runners labelled `wh` and `bh` are registered; the cron is live.
+
+## Validating a change
+
+```mermaid
+flowchart LR
+    I["commit + ops"] --> B["build tt-metal<br/>at that commit"]
+    B --> C["check: measure those ops"]
+    C --> A["diff vs the published report<br/>accuracy, and timings on this host"]
+    A --> V{"anything worse?"}
+    V -->|yes| F["job fails, findings on the run page"]
+    V -->|no| P["job passes"]
+```
+
+The published report is the baseline, never the output — accuracy is deterministic, so it
+is read from git rather than re-measured.
 
 ## One night
 

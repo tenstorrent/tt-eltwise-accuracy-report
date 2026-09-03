@@ -116,6 +116,10 @@ An op ttnn has gained since the manifest was built is not in scope yet. `check` 
 in for you — `discover`, `derive` and `probe` run first, before the device is taken — so
 the manifest it updates is a real change to commit, not a side effect to discard.
 
+Without a machine, the `validate-kernel` workflow does the same from the Actions tab: give
+it a tt-metal commit and the ops your change touches, and it builds, checks, times and
+fails on a finding. Nothing is committed.
+
 ## Comparing two builds
 
 Accuracy needs no second build: the published index is the baseline. Timing does, because
