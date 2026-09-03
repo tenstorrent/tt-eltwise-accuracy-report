@@ -119,3 +119,16 @@ def test_the_absolute_bar_is_independent_of_the_baseline(stats, bar, failures):
     from ttnn_accuracy.measure.runner import _over_bar
 
     assert _over_bar({"bf16": {"exp": {"default": stats}}}, bar) == failures
+
+
+def test_a_new_defect_count_outranks_a_metric_that_improved():
+    """bh/fp32/multigammaln gained 7,422 defects while ulp_clipped fell by two."""
+    old = _index(ulp_clipped=2989)
+    del old["wh"]["bf16"]["exp"]["default"]["defects"]
+    buckets = diff(old, _index(ulp_clipped=2987, defects=7422))
+    assert not buckets["improved"]
+    assert [k for k, *_ in buckets["changed"]] == [("wh", "bf16", "exp", "default")]
+
+
+def test_an_improvement_with_no_new_metric_is_still_an_improvement():
+    assert diff(_index(ulp_clipped=5), _index(ulp_clipped=2))["improved"]

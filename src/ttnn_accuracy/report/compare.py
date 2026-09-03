@@ -64,11 +64,14 @@ def _bucket(a: dict, b: dict) -> str:
     scored = [m for m in SCORED if m in a and m in b]
     if any(_num(b[m]) > _num(a[m]) for m in scored):
         return "regressed"
+    # Before `improved`, not after: multigammaln gained 7,422 defects while ulp_clipped
+    # ticked down by two, and calling that an improvement is the wrong headline.
+    # A metric appearing as 0 says nothing; appearing with a count is the finding itself.
+    if [m for m in SCORED if m not in a and _num(b.get(m))]:
+        return "changed"
     if any(_num(b[m]) < _num(a[m]) for m in scored):
         return "improved"
-    # A metric appearing as 0 says nothing; appearing with a count is the finding itself.
-    appeared = [m for m in SCORED if m not in a and _num(b.get(m))]
-    return "changed" if appeared or a.get("usable_to") != b.get("usable_to") else ""
+    return "changed" if a.get("usable_to") != b.get("usable_to") else ""
 
 
 def _moves(a: dict, b: dict) -> str:
@@ -86,8 +89,9 @@ SECTIONS = (
     (
         "changed",
         "Expected",
-        "Only `usable_to` moved: a different kernel puts the 2 ULP boundary on a "
-        "neighbouring group. No scored metric changed.",
+        "No scored metric got worse. Either `usable_to` moved — a different kernel puts "
+        "the 2 ULP boundary on a neighbouring group — or a metric is reported here for "
+        "the first time, which is news rather than a change in the kernel.",
     ),
     ("added", "New coverage", "Measured here for the first time."),
     ("removed", "No longer measured", "Present in the baseline, absent now."),
