@@ -9,202 +9,202 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 
 | Op | Parameters | Max ULP | Mean ULP | Accurate to \|x\| | Max abs error | µs |
 |----|------------|---------|----------|-----------------|---------------|----|
-| [abs](abs.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [abs_bw](abs_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [acos](acos.md) | `default` | 2 | 1 | 1 | 2.38e-07 | — |
-| [acos_bw](acos_bw.md) | `default` | 609 | 1.61 | 0.938 | 0.00232 | — |
-| [acosh](acosh.md) | `default` | 2 | 1 | 3.39e+38 | 7.63e-06 | — |
-| [acosh_bw](acosh_bw.md) | `default` | 724 | 1.12 | 0.996 | 0.00276 | — |
-| [add](add.md) | `default` | 0 | — | n/a | 0 | — |
-| [add_](add_.md) | `default` | 0 | — | n/a | 0 | — |
-| [addalpha](addalpha.md) | `alpha=2.0` | 0 | — | n/a | 0 | — |
-| [addcdiv](addcdiv.md) | `default` | 2.19e+12 ⚠ | 8.82e+07 | n/a | 4.06e+31 | — |
-| [addcmul](addcmul.md) | `default` | 2.13e+06 ⚠ | 1.59e+04 | n/a | 1.01e+31 | — |
-| [asin](asin.md) | `default` | 2 | 1.08 | 1 | 1.19e-07 | — |
-| [asin_bw](asin_bw.md) | `default` | 609 | 1.61 | 0.938 | 0.00232 | — |
-| [asinh](asinh.md) | `default` | 2 | 1 | 3.39e+38 | 7.63e-06 | — |
-| [asinh_bw](asinh_bw.md) | `default` | 2 | 1.03 | 1.84e+19 | 1.19e-07 | — |
-| [atan](atan.md) | `default` | 2 | 1.02 | 3.39e+38 | 1.19e-07 | — |
-| [atan2](atan2.md) | `default` | 1.32e+07 ⚠ | 1.26e+05 | n/a | 0.785 | — |
-| [atan2_bw](atan2_bw.md) | `default` | 1.64e+07 ⚠ | 1.66e+05 | n/a | 4.5e+18 | — |
-| [atan_bw](atan_bw.md) | `default` | 9.02e+04 ⚠ | 3.25e+03 | 4.08e+03 | 1.19e-07 | — |
-| [atanh](atanh.md) | `default` | 3 | 1.51 | 0.00772 | 2.38e-07 | — |
-| [atanh_bw](atanh_bw.md) | `default` | 9.02e+04 ⚠ | 3.31e+03 | 0.855 | 0.25 | — |
-| [bias_gelu](bias_gelu.md) | `default` | 2.91e+38 ⚠ | 4.94e+36 | n/a | 0.0234 | — |
-| [bias_gelu_](bias_gelu_.md) | `default` | 2.91e+38 ⚠ | 4.94e+36 | n/a | 0.0234 | — |
-| [cbrt](cbrt.md) | `default` | 3 | 1.82 | 5.77e-38 | 1.05e+06 | — |
-| [ceil](ceil.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [celu](celu.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | — |
-| [celu_bw](celu_bw.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | — |
-| [clamp](clamp.md) | `min=-1.0,max=1.0` | 0 | — | 3.39e+38 | 0 | — |
-| [clamp_bw](clamp_bw.md) | `default` | 0 | — | n/a | 0 | — |
-| [clip](clip.md) | `min=-1.0,max=1.0` | 0 | — | 3.39e+38 | 0 | — |
-| [clip_bw](clip_bw.md) | `default` | 0 | — | n/a | 0 | — |
-| [cos](cos.md) | `default` | 3.21e+38 ⚠ | 1.45e+36 | 5.23e+04 | 3.4e+38 | — |
-| [cos_bw](cos_bw.md) | `default` | 3.32e+38 ⚠ | 1.86e+36 | 1.04e+05 | 3.4e+38 | — |
-| [cosh](cosh.md) | `default` | 1 | 1 | 89 | 2.03e+31 | — |
-| [cosh_bw](cosh_bw.md) | `default` | 2 | 1.12 | 88.5 | 5.07e+30 | — |
-| [deg2rad](deg2rad.md) | `default` | 1 | 1 | 3.39e+38 | 6.34e+29 | — |
-| [digamma](digamma.md) | `default` | 3.66e+17 ⚠ | 7.77e+12 | nowhere | 8.51e+37 | — |
-| [digamma_bw](digamma_bw.md) | `default` | 7.91e+33 ⚠ | 3.25e+29 | 5.4e-20 | 2.59e+38 | — |
-| [div](div.md) | `default` | 2 | 1.58 | n/a | 2.03e+31 | — |
-| [div_bw](div_bw.md) | `default` | 7.95e+04 ⚠ | 7.95e+04 | n/a | 4.46e-40 | — |
-| [div_no_nan](div_no_nan.md) | `default` | 9.24e+04 ⚠ | 4.51e+04 | n/a | 7.74e+25 | — |
-| [divide](divide.md) | `default` | 2 | 1.58 | n/a | 2.03e+31 | — |
-| [divide_](divide_.md) | `default` | 2 | 1.58 | n/a | 2.03e+31 | — |
-| [elu](elu.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | — |
-| [elu_bw](elu_bw.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | — |
-| [erf](erf.md) | `default` | 7 | 1.23 | 0.000334 | 4.77e-07 | — |
-| [erf_bw](erf_bw.md) | `default` | 65 | 3.72 | 0.996 | 1.19e-07 | — |
-| [erfc](erfc.md) | `default` | 2.1e+33 ⚠ | 1.71e+29 | nowhere | 0.00388 | — |
-| [erfc_bw](erfc_bw.md) | `default` | 65 | 3.72 | 0.996 | 1.19e-07 | — |
-| [erfinv](erfinv.md) | `default` | 7.96e+06 ⚠ | 2.62e+05 | 1.32e-38 | 0.0149 | — |
-| [erfinv_bw](erfinv_bw.md) | `default` | 1.03e+06 ⚠ | 1.68e+03 | 0.000496 | 2.57e+05 | — |
-| [exp](exp.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | — |
-|  | `fast_approx` | 3.79e+05 ⚠ | 2e+05 | nowhere | 6.16e+36 | — |
-| [exp2](exp2.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | — |
-| [exp2_bw](exp2_bw.md) | `default` | 2 | 1.17 | 128 | 2.03e+31 | — |
-| [exp_bw](exp_bw.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | — |
-| [expm1](expm1.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | — |
-| [expm1_bw](expm1_bw.md) | `default` | 4.91e+06 ⚠ | 1.14e+04 | 2.08 | 2.03e+31 | — |
-| [floor](floor.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [floor_div](floor_div.md) | `default` | 4.19e+06 ⚠ | 1.56e+03 | n/a | 1 | — |
-| [fmod](fmod.md) | `default` | 3.19e+38 ⚠ | 4e+36 | n/a | 3.8e+31 | — |
-| [frac](frac.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [ge_](ge_.md) | `default` | 0 | — | n/a | 0 | — |
-| [gelu](gelu.md) | `default` | 1.71e+08 ⚠ | 1.7e+05 | 0.301 | 3.81e-06 | — |
-|  | `fast_approx` | 2.91e+38 ⚠ | 4.9e+36 | 6e-36 | 0.0234 | — |
-| [gelu_bw](gelu_bw.md) | `default` | 6.59e+08 ⚠ | 1.24e+05 | 0.0393 | 0.00751 | — |
-| [gt_](gt_.md) | `default` | 0 | — | n/a | 0 | — |
-| [hardmish](hardmish.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [hardshrink](hardshrink.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [hardshrink_bw](hardshrink_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [hardsigmoid](hardsigmoid.md) | `default` | 4.89e+06 ⚠ | 1.25e+03 | 2.61 | 5.96e-08 | — |
-| [hardsigmoid_bw](hardsigmoid_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [hardswish](hardswish.md) | `default` | 7.34e+06 ⚠ | 1.41e+03 | 2.36 | 2.38e-07 | — |
-| [hardswish_bw](hardswish_bw.md) | `default` | 1.41e+10 ⚠ | 6e+06 | 0.00179 | 0.5 | — |
-| [hardtanh](hardtanh.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [hardtanh_bw](hardtanh_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [heaviside](heaviside.md) | `value=0.5` | 0 | — | 3.39e+38 | 0 | — |
-| [hypot](hypot.md) | `default` | 3.44e+06 ⚠ | 3.28e+04 | n/a | 1.1e+12 | — |
-| [hypot_bw](hypot_bw.md) | `default` | 4.86e+06 ⚠ | 4.48e+04 | n/a | 1 | — |
-| [i0](i0.md) | `default` | 1.68e+07 ⚠ | 2.19e+06 | 2.56 | 3.09e+38 | — |
-| [i0_bw](i0_bw.md) | `default` | 1.56e+07 ⚠ | 4.1e+04 | 0.00664 | 2.96e+38 | — |
-| [i1](i1.md) | `default` | 1.56e+07 ⚠ | 4.1e+04 | 0.00664 | 2.96e+38 | — |
-| [identity](identity.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [l1_loss](l1_loss.md) | `default` | 0 | — | n/a | 0 | — |
-| [ldexp](ldexp.md) | `default` | 2 | 1.5 | n/a | 4.06e+31 | — |
-| [ldexp_](ldexp_.md) | `default` | 2 | 1.5 | n/a | 4.06e+31 | — |
-| [ldexp_bw](ldexp_bw.md) | `default` | 1 | 1 | n/a | 1.19e-07 | — |
-| [le_](le_.md) | `default` | 0 | — | n/a | 0 | — |
-| [leaky_relu](leaky_relu.md) | `negative_slope=0.01` | 1 | 1 | 3.39e+38 | 3.17e+29 | — |
-| [leaky_relu_bw](leaky_relu_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [lerp](lerp.md) | `default` | 1.46e+08 ⚠ | 9.53e+04 | n/a | 2.03e+31 | — |
-| [lerp_bw](lerp_bw.md) | `default` | 0 | — | n/a | 0 | — |
-| [lgamma](lgamma.md) | `default` | 3.27e+07 ⚠ | 2.98e+03 | 0.108 | 4.06e+31 | — |
-| [lgamma_bw](lgamma_bw.md) | `default` | 3.66e+17 ⚠ | 7.77e+12 | nowhere | 8.51e+37 | — |
-| [log](log.md) | `default` | 1 | 1 | 3.39e+38 | 7.63e-06 | — |
-| [log10](log10.md) | `default` | 2 | 1.22 | 3.39e+38 | 3.81e-06 | — |
-| [log10_bw](log10_bw.md) | `default` | 9.02e+04 ⚠ | 1.73e+03 | 8.81e+30 | 5.07e+30 | — |
-| [log1p](log1p.md) | `default` | 1 | 1 | 3.39e+38 | 7.63e-06 | — |
-| [log1p_bw](log1p_bw.md) | `default` | 9.02e+04 ⚠ | 2.96e+03 | 2.02e+31 | 0.00391 | — |
-| [log2](log2.md) | `default` | 2 | 1 | 3.39e+38 | 7.63e-06 | — |
-| [log2_bw](log2_bw.md) | `default` | 9.02e+04 ⚠ | 1.76e+03 | nowhere | 1.01e+31 | — |
-| [log_bw](log_bw.md) | `default` | 9.02e+04 ⚠ | 1.72e+03 | 2.02e+31 | 5.07e+30 | — |
-| [log_sigmoid](log_sigmoid.md) | `default` | 4.4e+05 ⚠ | 1.82e+04 | nowhere | 0.0181 | — |
-| [log_sigmoid_bw](log_sigmoid_bw.md) | `default` | 3 | 1.25 | 1.09 | 1.19e-07 | — |
-| [logaddexp](logaddexp.md) | `default` | 5.23e+08 ⚠ | 7.28e+06 | n/a | 7.63e-06 | — |
-| [logaddexp2](logaddexp2.md) | `default` | 1.54e+09 ⚠ | 1.05e+07 | n/a | 7.63e-06 | — |
-| [logaddexp2_](logaddexp2_.md) | `default` | 1.54e+09 ⚠ | 1.05e+07 | n/a | 7.63e-06 | — |
-| [logaddexp2_bw](logaddexp2_bw.md) | `default` | 9.02e+04 ⚠ | 5.6e+04 | n/a | 1.19e-07 | — |
-| [logaddexp_](logaddexp_.md) | `default` | 5.23e+08 ⚠ | 7.28e+06 | n/a | 7.63e-06 | — |
-| [logaddexp_bw](logaddexp_bw.md) | `default` | 8.98e+04 ⚠ | 4.46e+04 | n/a | 1.19e-07 | — |
-| [logical_not_](logical_not_.md) | `default` | 0 | — | 1 | 0 | — |
-| [logical_xor_](logical_xor_.md) | `default` | 0 | — | n/a | 0 | — |
-| [logit](logit.md) | `default` | 4.19e+06 ⚠ | 261 | 0.375 | 7.63e-06 | — |
-| [logit_bw](logit_bw.md) | `default` | 2 | 1.05 | 0.998 | 5.07e+30 | — |
-| [logiteps_bw](logiteps_bw.md) | `default` | 2 | 1.05 | 0.998 | 5.07e+30 | — |
-| [lt_](lt_.md) | `default` | 0 | — | n/a | 0 | — |
-| [mac](mac.md) | `default` | 4.22e+06 ⚠ | 7.31e+05 | n/a | 3.8e+30 | — |
-| [max_bw](max_bw.md) | `default` | 4.19e+06 ⚠ | 4.19e+06 | n/a | 0.5 | — |
-| [maximum](maximum.md) | `default` | 0 | — | n/a | 0 | — |
-| [min_bw](min_bw.md) | `default` | 4.19e+06 ⚠ | 4.19e+06 | n/a | 0.5 | — |
-| [minimum](minimum.md) | `default` | 0 | — | n/a | 0 | — |
-| [mish](mish.md) | `default` | 7 | 2.58 | 1.49e-07 | 1.91e-06 | — |
-| [mse_loss](mse_loss.md) | `default` | 2 | 1.94 | n/a | 2.03e+31 | — |
-| [mul_bw](mul_bw.md) | `default` | 0 | — | n/a | 0 | — |
-| [multigammaln](multigammaln.md) | `default` | 3.51e+07 ⚠ | 9.16e+03 | 5.55e-17 | 4.06e+31 | — |
-| [multigammaln_bw](multigammaln_bw.md) | `default` | 1.36e+15 ⚠ | 2.04e+11 | 5.55e-17 | 2.36e+16 | — |
-| [multiply](multiply.md) | `default` | 0 | — | n/a | 0 | — |
-| [multiply_](multiply_.md) | `default` | 0 | — | n/a | 0 | — |
-| [neg](neg.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [nextafter](nextafter.md) | `default` | 8.51e+37 ⚠ | 1.34e+36 | n/a | 1.19e-07 | — |
-| [polygamma](polygamma.md) | `k=1` | 7.91e+33 ⚠ | 3.25e+29 | 5.4e-20 | 2.59e+38 | — |
-| [polygamma_bw](polygamma_bw.md) | `n=1` | 4.45e+30 ⚠ | 4.42e+26 | 1.79e-13 | 2.99e+38 | — |
-| [pow](pow.md) | `default` | 5.92e+03 ⚠ | 3.21 | n/a | 3e+34 | — |
-| [pow_bw](pow_bw.md) | `exponent=2.0` | 0 | — | 1.69e+38 | 0 | — |
-| [prelu](prelu.md) | `weight=0.25` | 0 | — | 3.39e+38 | 0 | — |
-| [rad2deg](rad2deg.md) | `default` | 1 | 1 | 5.9e+36 | 2.03e+31 | — |
-| [rdiv](rdiv.md) | `value=2.0` | 1 | 1 | 8.47e+37 | 1.01e+31 | — |
-| [rdiv_bw](rdiv_bw.md) | `scalar=2.0` | 9.02e+04 ⚠ | 1.92e+03 | 7.67e-20 | 2.03e+31 | — |
-| [reciprocal](reciprocal.md) | `default` | 9.02e+04 ⚠ | 1.72e+03 | 2.02e+31 | 5.07e+30 | — |
-| [reciprocal_bw](reciprocal_bw.md) | `default` | 9.02e+04 ⚠ | 1.92e+03 | 5.42e-20 | 1.01e+31 | — |
-| [relu](relu.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [relu6](relu6.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [relu6_bw](relu6_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [relu_bw](relu_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [relu_max](relu_max.md) | `upper_limit=1.0` | 0 | — | 3.39e+38 | 0 | — |
-| [relu_min](relu_min.md) | `lower_limit=1.0` | 0 | — | 3.39e+38 | 0 | — |
-| [remainder](remainder.md) | `default` | 3.19e+38 ⚠ | 4.03e+36 | n/a | 3.8e+31 | — |
-| [round](round.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [rpow](rpow.md) | `exponent=2.0` | 1 | 1 | 8.28e+34 | 2.03e+31 | — |
-| [rpow_bw](rpow_bw.md) | `exponent=2.0` | 0 | — | 1.18e-38 | 0 | — |
-| [rsqrt](rsqrt.md) | `default` | 1 | 1 | 3.39e+38 | 5.5e+11 | — |
-| [rsqrt_bw](rsqrt_bw.md) | `default` | 7 | 4.5 | nowhere | 7.1e+31 | — |
-| [rsub](rsub.md) | `default` | 0 | — | n/a | 0 | — |
-| [rsub_](rsub_.md) | `default` | 0 | — | n/a | 0 | — |
-| [selu](selu.md) | `default` | 51 | 26.2 | nowhere | 3.45e+32 | — |
-| [selu_bw](selu_bw.md) | `default` | 51 | 20.6 | nowhere | 5.25e-06 | — |
-| [sigmoid](sigmoid.md) | `default` | 3 | 1.65 | 0.000475 | 1.19e-07 | — |
-| [sigmoid_accurate](sigmoid_accurate.md) | `default` | 3 | 1.65 | 0.000475 | 1.19e-07 | — |
-| [sigmoid_bw](sigmoid_bw.md) | `default` | 8.39e+06 ⚠ | 2.54e+04 | 0.617 | 1.45e-07 | — |
-| [sign](sign.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [silu](silu.md) | `default` | 4 | 1.82 | 2.63e-05 | 1.91e-06 | — |
-| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 1.59e-05 | 1.43e-06 | — |
-| [sin](sin.md) | `default` | 3.32e+38 ⚠ | 1.86e+36 | 1.04e+05 | 3.4e+38 | — |
-| [sin_bw](sin_bw.md) | `default` | 3.21e+38 ⚠ | 1.45e+36 | 5.23e+04 | 3.4e+38 | — |
-| [sinh](sinh.md) | `default` | 2 | 1.12 | 89 | 2.03e+31 | — |
-| [sinh_bw](sinh_bw.md) | `default` | 1 | 1 | 88.5 | 5.07e+30 | — |
-| [softplus](softplus.md) | `default` | 8.2e+03 ⚠ | 656 | nowhere | 6.93e+35 | — |
-| [softplus_bw](softplus_bw.md) | `default` | 3 | 1.36 | 1.09 | 1.79e-07 | — |
-| [softshrink](softshrink.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [softshrink_bw](softshrink_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [softsign](softsign.md) | `default` | 3 | 1.28 | 0.000243 | 1 | — |
-| [softsign_bw](softsign_bw.md) | `default` | 8.38e+06 ⚠ | 1.54e+05 | 6.44e-05 | 2.38e-07 | — |
-| [sqrt](sqrt.md) | `default` | 1 | 1 | 3.39e+38 | 1.1e+12 | — |
-| [sqrt_bw](sqrt_bw.md) | `default` | 2 | 1.38 | 3.39e+38 | 5.5e+11 | — |
-| [square](square.md) | `default` | 0 | — | 1.84e+19 | 0 | — |
-| [square_bw](square_bw.md) | `default` | 0 | — | 1.69e+38 | 0 | — |
-| [squared_difference](squared_difference.md) | `default` | 2 | 1.94 | n/a | 2.03e+31 | — |
-| [squared_difference_](squared_difference_.md) | `default` | 2 | 1.94 | n/a | 2.03e+31 | — |
-| [squared_difference_bw](squared_difference_bw.md) | `default` | 0 | — | n/a | 0 | — |
-| [subalpha](subalpha.md) | `alpha=2.0` | 0 | — | n/a | 0 | — |
-| [subtract](subtract.md) | `default` | 0 | — | n/a | 0 | — |
-| [subtract_](subtract_.md) | `default` | 0 | — | n/a | 0 | — |
-| [swish](swish.md) | `default` | 4 | 1.82 | 2.63e-05 | 1.91e-06 | — |
-| [tan](tan.md) | `default` | 3.34e+38 ⚠ | 1.43e+36 | 20.3 | 3.4e+38 | — |
-| [tan_bw](tan_bw.md) | `default` | 3.16e+38 ⚠ | 9.23e+35 | 1.01 | 3.4e+38 | — |
-| [tanh](tanh.md) | `default` | 3 | 1.54 | 0.0154 | 1.19e-07 | — |
-| [tanh_bw](tanh_bw.md) | `default` | 4.19e+06 ⚠ | 9.01e+03 | nowhere | 0.000814 | — |
-| [tanhshrink](tanhshrink.md) | `default` | 4.19e+06 ⚠ | 1.23e+05 | 1.34e-08 | 4.77e-07 | — |
-| [tanhshrink_bw](tanhshrink_bw.md) | `default` | 4.19e+06 ⚠ | 9.94e+04 | 7.42e-09 | 2.38e-07 | — |
-| [threshold](threshold.md) | `threshold=0.5,value=0.0` | 0 | — | 3.39e+38 | 0 | — |
-| [threshold_bw](threshold_bw.md) | `min=0.5,max=0.0` | 0 | — | 3.39e+38 | 0 | — |
-| [trunc](trunc.md) | `default` | 0 | — | 3.39e+38 | 0 | — |
-| [where](where.md) | `default` | 0 | — | n/a | 0 | — |
-| [xielu](xielu.md) | `default` | 1.08e+07 ⚠ | 256 | 0.691 | 2.03e+31 | — |
-| [xlogy](xlogy.md) | `default` | 8.84e+07 ⚠ | 6.07e+07 | n/a | 4.73e+36 | — |
-| [xlogy_bw](xlogy_bw.md) | `default` | 1 | 1 | n/a | 7.63e-06 | — |
+| [abs](abs.md) | `default` | 0 | — | 3.39e+38 | 0 | 379 |
+| [abs_bw](abs_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 1258 |
+| [acos](acos.md) | `default` | 2 | 1 | 1 | 2.38e-07 | 465 |
+| [acos_bw](acos_bw.md) | `default` | 609 | 1.61 | 0.938 | 0.00232 | 7575 |
+| [acosh](acosh.md) | `default` | 2 | 1 | 3.39e+38 | 7.63e-06 | 441 |
+| [acosh_bw](acosh_bw.md) | `default` | 724 | 1.12 | 0.996 | 0.00276 | 8665 |
+| [add](add.md) | `default` | 0 | — | n/a | 0 | 520 |
+| [add_](add_.md) | `default` | 0 | — | n/a | 0 | 518 |
+| [addalpha](addalpha.md) | `alpha=2.0` | 0 | — | n/a | 0 | 521 |
+| [addcdiv](addcdiv.md) | `default` | 2.19e+12 ⚠ | 8.82e+07 | n/a | 4.06e+31 | 700 |
+| [addcmul](addcmul.md) | `default` | 2.13e+06 ⚠ | 1.59e+04 | n/a | 1.01e+31 | 698 |
+| [asin](asin.md) | `default` | 2 | 1.08 | 1 | 1.19e-07 | 447 |
+| [asin_bw](asin_bw.md) | `default` | 609 | 1.61 | 0.938 | 0.00232 | 7432 |
+| [asinh](asinh.md) | `default` | 2 | 1 | 3.39e+38 | 7.63e-06 | 583 |
+| [asinh_bw](asinh_bw.md) | `default` | 2 | 1.03 | 1.84e+19 | 1.19e-07 | 1318 |
+| [atan](atan.md) | `default` | 2 | 1.02 | 3.39e+38 | 1.19e-07 | 455 |
+| [atan2](atan2.md) | `default` | 1.32e+07 ⚠ | 1.26e+05 | n/a | 0.785 | 534 |
+| [atan2_bw](atan2_bw.md) | `default` | 1.64e+07 ⚠ | 1.66e+05 | n/a | 4.5e+18 | 5439 |
+| [atan_bw](atan_bw.md) | `default` | 9.02e+04 ⚠ | 3.25e+03 | 4.08e+03 | 1.19e-07 | 1266 |
+| [atanh](atanh.md) | `default` | 3 | 1.51 | 0.00772 | 2.38e-07 | 603 |
+| [atanh_bw](atanh_bw.md) | `default` | 9.02e+04 ⚠ | 3.31e+03 | 0.855 | 0.25 | 8381 |
+| [bias_gelu](bias_gelu.md) | `default` | 2.91e+38 ⚠ | 4.94e+36 | n/a | 0.0234 | 521 |
+| [bias_gelu_](bias_gelu_.md) | `default` | 2.91e+38 ⚠ | 4.94e+36 | n/a | 0.0234 | 519 |
+| [cbrt](cbrt.md) | `default` | 3 | 1.82 | 5.77e-38 | 1.05e+06 | 411 |
+| [ceil](ceil.md) | `default` | 0 | — | 3.39e+38 | 0 | 379 |
+| [celu](celu.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | 427 |
+| [celu_bw](celu_bw.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | 2764 |
+| [clamp](clamp.md) | `min=-1.0,max=1.0` | 0 | — | 3.39e+38 | 0 | 379 |
+| [clamp_bw](clamp_bw.md) | `default` | 0 | — | n/a | 0 | 2418 |
+| [clip](clip.md) | `min=-1.0,max=1.0` | 0 | — | 3.39e+38 | 0 | 379 |
+| [clip_bw](clip_bw.md) | `default` | 0 | — | n/a | 0 | 2415 |
+| [cos](cos.md) | `default` | 3.21e+38 ⚠ | 1.45e+36 | 5.23e+04 | 3.4e+38 | 419 |
+| [cos_bw](cos_bw.md) | `default` | 3.32e+38 ⚠ | 1.86e+36 | 1.04e+05 | 3.4e+38 | 1658 |
+| [cosh](cosh.md) | `default` | 1 | 1 | 89 | 2.03e+31 | 439 |
+| [cosh_bw](cosh_bw.md) | `default` | 2 | 1.12 | 88.5 | 5.07e+30 | 6744 |
+| [deg2rad](deg2rad.md) | `default` | 1 | 1 | 3.39e+38 | 6.34e+29 | 379 |
+| [digamma](digamma.md) | `default` | 3.66e+17 ⚠ | 7.77e+12 | nowhere | 8.51e+37 | 712 |
+| [digamma_bw](digamma_bw.md) | `default` | 7.91e+33 ⚠ | 3.25e+29 | 5.4e-20 | 2.59e+38 | 7188 |
+| [div](div.md) | `default` | 2 | 1.58 | n/a | 2.03e+31 | 524 |
+| [div_bw](div_bw.md) | `default` | 7.95e+04 ⚠ | 7.95e+04 | n/a | 4.46e-40 | 10503 |
+| [div_no_nan](div_no_nan.md) | `default` | 9.24e+04 ⚠ | 4.51e+04 | n/a | 7.74e+25 | 1764 |
+| [divide](divide.md) | `default` | 2 | 1.58 | n/a | 2.03e+31 | 526 |
+| [divide_](divide_.md) | `default` | 2 | 1.58 | n/a | 2.03e+31 | 523 |
+| [elu](elu.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | 426 ±6% |
+| [elu_bw](elu_bw.md) | `default` | 1 | 1 | 3.39e+38 | 5.96e-08 | 2758 |
+| [erf](erf.md) | `default` | 7 | 1.23 | 0.000334 | 4.77e-07 | 533 |
+| [erf_bw](erf_bw.md) | `default` | 65 | 3.72 | 0.996 | 1.19e-07 | 2438 |
+| [erfc](erfc.md) | `default` | 2.1e+33 ⚠ | 1.71e+29 | nowhere | 0.00388 | 591 |
+| [erfc_bw](erfc_bw.md) | `default` | 65 | 3.72 | 0.996 | 1.19e-07 | 2447 |
+| [erfinv](erfinv.md) | `default` | 7.96e+06 ⚠ | 2.62e+05 | 1.32e-38 | 0.0149 | 380 |
+| [erfinv_bw](erfinv_bw.md) | `default` | 1.03e+06 ⚠ | 1.68e+03 | 0.000496 | 2.57e+05 | 7486 |
+| [exp](exp.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | 454 |
+|  | `fast_approx` | 3.79e+05 ⚠ | 2e+05 | nowhere | 6.16e+36 | 385 |
+| [exp2](exp2.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | 422 |
+| [exp2_bw](exp2_bw.md) | `default` | 2 | 1.17 | 128 | 2.03e+31 | 1673 |
+| [exp_bw](exp_bw.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | 1334 |
+| [expm1](expm1.md) | `default` | 1 | 1 | 3.39e+38 | 2.03e+31 | 455 |
+| [expm1_bw](expm1_bw.md) | `default` | 4.91e+06 ⚠ | 1.14e+04 | 2.08 | 2.03e+31 | 1721 |
+| [floor](floor.md) | `default` | 0 | — | 3.39e+38 | 0 | 383 ±10% |
+| [floor_div](floor_div.md) | `default` | 4.19e+06 ⚠ | 1.56e+03 | n/a | 1 | 2481 |
+| [fmod](fmod.md) | `default` | 3.19e+38 ⚠ | 4e+36 | n/a | 3.8e+31 | 545 ±9% |
+| [frac](frac.md) | `default` | 0 | — | 3.39e+38 | 0 | 393 |
+| [ge_](ge_.md) | `default` | 0 | — | n/a | 0 | 542 |
+| [gelu](gelu.md) | `default` | 1.71e+08 ⚠ | 1.7e+05 | 0.301 | 3.81e-06 | 402 ±20% |
+|  | `fast_approx` | 2.91e+38 ⚠ | 4.9e+36 | 6e-36 | 0.0234 | 395 ±5% |
+| [gelu_bw](gelu_bw.md) | `default` | 6.59e+08 ⚠ | 1.24e+05 | 0.0393 | 0.00751 | 928 |
+| [gt_](gt_.md) | `default` | 0 | — | n/a | 0 | 530 |
+| [hardmish](hardmish.md) | `default` | 0 | — | 3.39e+38 | 0 | 384 ±9% |
+| [hardshrink](hardshrink.md) | `default` | 0 | — | 3.39e+38 | 0 | 385 |
+| [hardshrink_bw](hardshrink_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 1643 |
+| [hardsigmoid](hardsigmoid.md) | `default` | 4.89e+06 ⚠ | 1.25e+03 | 2.61 | 5.96e-08 | 394 ±8% |
+| [hardsigmoid_bw](hardsigmoid_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 2549 |
+| [hardswish](hardswish.md) | `default` | 7.34e+06 ⚠ | 1.41e+03 | 2.36 | 2.38e-07 | 405 ±16% |
+| [hardswish_bw](hardswish_bw.md) | `default` | 1.41e+10 ⚠ | 6e+06 | 0.00179 | 0.5 | 3605 |
+| [hardtanh](hardtanh.md) | `default` | 0 | — | 3.39e+38 | 0 | 386 |
+| [hardtanh_bw](hardtanh_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 2165 |
+| [heaviside](heaviside.md) | `value=0.5` | 0 | — | 3.39e+38 | 0 | 392 |
+| [hypot](hypot.md) | `default` | 3.44e+06 ⚠ | 3.28e+04 | n/a | 1.1e+12 | 545 |
+| [hypot_bw](hypot_bw.md) | `default` | 4.86e+06 ⚠ | 4.48e+04 | n/a | 1 | 3312 |
+| [i0](i0.md) | `default` | 1.68e+07 ⚠ | 2.19e+06 | 2.56 | 3.09e+38 | 448 |
+| [i0_bw](i0_bw.md) | `default` | 1.56e+07 ⚠ | 4.1e+04 | 0.00664 | 2.96e+38 | 1436 |
+| [i1](i1.md) | `default` | 1.56e+07 ⚠ | 4.1e+04 | 0.00664 | 2.96e+38 | 569 |
+| [identity](identity.md) | `default` | 0 | — | 3.39e+38 | 0 | 388 |
+| [l1_loss](l1_loss.md) | `default` | 0 | — | n/a | 0 | 537 |
+| [ldexp](ldexp.md) | `default` | 2 | 1.5 | n/a | 4.06e+31 | 539 |
+| [ldexp_](ldexp_.md) | `default` | 2 | 1.5 | n/a | 4.06e+31 | 546 |
+| [ldexp_bw](ldexp_bw.md) | `default` | 1 | 1 | n/a | 1.19e-07 | 2380 |
+| [le_](le_.md) | `default` | 0 | — | n/a | 0 | 538 |
+| [leaky_relu](leaky_relu.md) | `negative_slope=0.01` | 1 | 1 | 3.39e+38 | 3.17e+29 | 385 |
+| [leaky_relu_bw](leaky_relu_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 1835 |
+| [lerp](lerp.md) | `default` | 1.46e+08 ⚠ | 9.53e+04 | n/a | 2.03e+31 | 710 |
+| [lerp_bw](lerp_bw.md) | `default` | 0 | — | n/a | 0 | 2794 |
+| [lgamma](lgamma.md) | `default` | 3.27e+07 ⚠ | 2.98e+03 | 0.108 | 4.06e+31 | 1337 |
+| [lgamma_bw](lgamma_bw.md) | `default` | 3.66e+17 ⚠ | 7.77e+12 | nowhere | 8.51e+37 | 1611 |
+| [log](log.md) | `default` | 1 | 1 | 3.39e+38 | 7.63e-06 | 443 |
+| [log10](log10.md) | `default` | 2 | 1.22 | 3.39e+38 | 3.81e-06 | 451 ±10% |
+| [log10_bw](log10_bw.md) | `default` | 9.02e+04 ⚠ | 1.73e+03 | 8.81e+30 | 5.07e+30 | 5216 |
+| [log1p](log1p.md) | `default` | 1 | 1 | 3.39e+38 | 7.63e-06 | 446 ±5% |
+| [log1p_bw](log1p_bw.md) | `default` | 9.02e+04 ⚠ | 2.96e+03 | 2.02e+31 | 0.00391 | 5220 |
+| [log2](log2.md) | `default` | 2 | 1 | 3.39e+38 | 7.63e-06 | 452 ±10% |
+| [log2_bw](log2_bw.md) | `default` | 9.02e+04 ⚠ | 1.76e+03 | nowhere | 1.01e+31 | 5214 |
+| [log_bw](log_bw.md) | `default` | 9.02e+04 ⚠ | 1.72e+03 | 2.02e+31 | 5.07e+30 | 3952 |
+| [log_sigmoid](log_sigmoid.md) | `default` | 4.4e+05 ⚠ | 1.82e+04 | nowhere | 0.0181 | 477 ±10% |
+| [log_sigmoid_bw](log_sigmoid_bw.md) | `default` | 3 | 1.25 | 1.09 | 1.19e-07 | 5833 |
+| [logaddexp](logaddexp.md) | `default` | 5.23e+08 ⚠ | 7.28e+06 | n/a | 7.63e-06 | 586 |
+| [logaddexp2](logaddexp2.md) | `default` | 1.54e+09 ⚠ | 1.05e+07 | n/a | 7.63e-06 | 549 |
+| [logaddexp2_](logaddexp2_.md) | `default` | 1.54e+09 ⚠ | 1.05e+07 | n/a | 7.63e-06 | 554 |
+| [logaddexp2_bw](logaddexp2_bw.md) | `default` | 9.02e+04 ⚠ | 5.6e+04 | n/a | 1.19e-07 | 5132 |
+| [logaddexp_](logaddexp_.md) | `default` | 5.23e+08 ⚠ | 7.28e+06 | n/a | 7.63e-06 | 589 ±12% |
+| [logaddexp_bw](logaddexp_bw.md) | `default` | 8.98e+04 ⚠ | 4.46e+04 | n/a | 1.19e-07 | 4791 |
+| [logical_not_](logical_not_.md) | `default` | 0 | — | 1 | 0 | 383 |
+| [logical_xor_](logical_xor_.md) | `default` | 0 | — | n/a | 0 | 535 |
+| [logit](logit.md) | `default` | 4.19e+06 ⚠ | 261 | 0.375 | 7.63e-06 | 425 ±9% |
+| [logit_bw](logit_bw.md) | `default` | 2 | 1.05 | 0.998 | 5.07e+30 | 7023 |
+| [logiteps_bw](logiteps_bw.md) | `default` | 2 | 1.05 | 0.998 | 5.07e+30 | 8319 |
+| [lt_](lt_.md) | `default` | 0 | — | n/a | 0 | 529 |
+| [mac](mac.md) | `default` | 4.22e+06 ⚠ | 7.31e+05 | n/a | 3.8e+30 | 709 |
+| [max_bw](max_bw.md) | `default` | 4.19e+06 ⚠ | 4.19e+06 | n/a | 0.5 | 5430 |
+| [maximum](maximum.md) | `default` | 0 | — | n/a | 0 | 530 |
+| [min_bw](min_bw.md) | `default` | 4.19e+06 ⚠ | 4.19e+06 | n/a | 0.5 | 5438 |
+| [minimum](minimum.md) | `default` | 0 | — | n/a | 0 | 531 |
+| [mish](mish.md) | `default` | 7 | 2.58 | 1.49e-07 | 1.91e-06 | 592 |
+| [mse_loss](mse_loss.md) | `default` | 2 | 1.94 | n/a | 2.03e+31 | 531 ±9% |
+| [mul_bw](mul_bw.md) | `default` | 0 | — | n/a | 0 | 1409 |
+| [multigammaln](multigammaln.md) | `default` | 3.51e+07 ⚠ | 9.16e+03 | 5.55e-17 | 4.06e+31 | 8312 |
+| [multigammaln_bw](multigammaln_bw.md) | `default` | 1.36e+15 ⚠ | 2.04e+11 | 5.55e-17 | 2.36e+16 | 7880 |
+| [multiply](multiply.md) | `default` | 0 | — | n/a | 0 | 533 |
+| [multiply_](multiply_.md) | `default` | 0 | — | n/a | 0 | 531 |
+| [neg](neg.md) | `default` | 0 | — | 3.39e+38 | 0 | 386 |
+| [nextafter](nextafter.md) | `default` | 8.51e+37 ⚠ | 1.34e+36 | n/a | 1.19e-07 | 3172 |
+| [polygamma](polygamma.md) | `k=1` | 7.91e+33 ⚠ | 3.25e+29 | 5.4e-20 | 2.59e+38 | 1025 |
+| [polygamma_bw](polygamma_bw.md) | `n=1` | 4.45e+30 ⚠ | 4.42e+26 | 1.79e-13 | 2.99e+38 | 7253 |
+| [pow](pow.md) | `default` | 5.92e+03 ⚠ | 3.21 | n/a | 3e+34 | 650 |
+| [pow_bw](pow_bw.md) | `exponent=2.0` | 0 | — | 1.69e+38 | 0 | 2525 |
+| [prelu](prelu.md) | `weight=0.25` | 0 | — | 3.39e+38 | 0 | 389 |
+| [rad2deg](rad2deg.md) | `default` | 1 | 1 | 5.9e+36 | 2.03e+31 | 385 ±5% |
+| [rdiv](rdiv.md) | `value=2.0` | 1 | 1 | 8.47e+37 | 1.01e+31 | 392 |
+| [rdiv_bw](rdiv_bw.md) | `scalar=2.0` | 9.02e+04 ⚠ | 1.92e+03 | 7.67e-20 | 2.03e+31 | 6798 |
+| [reciprocal](reciprocal.md) | `default` | 9.02e+04 ⚠ | 1.72e+03 | 2.02e+31 | 5.07e+30 | 388 |
+| [reciprocal_bw](reciprocal_bw.md) | `default` | 9.02e+04 ⚠ | 1.92e+03 | 5.42e-20 | 1.01e+31 | 5072 |
+| [relu](relu.md) | `default` | 0 | — | 3.39e+38 | 0 | 385 |
+| [relu6](relu6.md) | `default` | 0 | — | 3.39e+38 | 0 | 386 |
+| [relu6_bw](relu6_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 3995 |
+| [relu_bw](relu_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 1275 |
+| [relu_max](relu_max.md) | `upper_limit=1.0` | 0 | — | 3.39e+38 | 0 | 384 |
+| [relu_min](relu_min.md) | `lower_limit=1.0` | 0 | — | 3.39e+38 | 0 | 384 |
+| [remainder](remainder.md) | `default` | 3.19e+38 ⚠ | 4.03e+36 | n/a | 3.8e+31 | 543 |
+| [round](round.md) | `default` | 0 | — | 3.39e+38 | 0 | 386 |
+| [rpow](rpow.md) | `exponent=2.0` | 1 | 1 | 8.28e+34 | 2.03e+31 | 629 ±9% |
+| [rpow_bw](rpow_bw.md) | `exponent=2.0` | 0 | — | 1.18e-38 | 0 | 2891 |
+| [rsqrt](rsqrt.md) | `default` | 1 | 1 | 3.39e+38 | 5.5e+11 | 422 |
+| [rsqrt_bw](rsqrt_bw.md) | `default` | 7 | 4.5 | nowhere | 7.1e+31 | 5764 |
+| [rsub](rsub.md) | `default` | 0 | — | n/a | 0 | 531 |
+| [rsub_](rsub_.md) | `default` | 0 | — | n/a | 0 | 536 |
+| [selu](selu.md) | `default` | 51 | 26.2 | nowhere | 3.45e+32 | 433 |
+| [selu_bw](selu_bw.md) | `default` | 51 | 20.6 | nowhere | 5.25e-06 | 3136 |
+| [sigmoid](sigmoid.md) | `default` | 3 | 1.65 | 0.000475 | 1.19e-07 | 430 ±5% |
+| [sigmoid_accurate](sigmoid_accurate.md) | `default` | 3 | 1.65 | 0.000475 | 1.19e-07 | 435 ±9% |
+| [sigmoid_bw](sigmoid_bw.md) | `default` | 8.39e+06 ⚠ | 2.54e+04 | 0.617 | 1.45e-07 | 2196 |
+| [sign](sign.md) | `default` | 0 | — | 3.39e+38 | 0 | 393 ±12% |
+| [silu](silu.md) | `default` | 4 | 1.82 | 2.63e-05 | 1.91e-06 | 434 |
+| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 1.59e-05 | 1.43e-06 | 3080 |
+| [sin](sin.md) | `default` | 3.32e+38 ⚠ | 1.86e+36 | 1.04e+05 | 3.4e+38 | 424 ±10% |
+| [sin_bw](sin_bw.md) | `default` | 3.21e+38 ⚠ | 1.45e+36 | 5.23e+04 | 3.4e+38 | 1305 |
+| [sinh](sinh.md) | `default` | 2 | 1.12 | 89 | 2.03e+31 | 462 |
+| [sinh_bw](sinh_bw.md) | `default` | 1 | 1 | 88.5 | 5.07e+30 | 5988 |
+| [softplus](softplus.md) | `default` | 8.2e+03 ⚠ | 656 | nowhere | 6.93e+35 | 410 |
+| [softplus_bw](softplus_bw.md) | `default` | 3 | 1.36 | 1.09 | 1.79e-07 | 4401 |
+| [softshrink](softshrink.md) | `default` | 0 | — | 3.39e+38 | 0 | 394 |
+| [softshrink_bw](softshrink_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 2162 |
+| [softsign](softsign.md) | `default` | 3 | 1.28 | 0.000243 | 1 | 385 |
+| [softsign_bw](softsign_bw.md) | `default` | 8.38e+06 ⚠ | 1.54e+05 | 6.44e-05 | 2.38e-07 | 1290 |
+| [sqrt](sqrt.md) | `default` | 1 | 1 | 3.39e+38 | 1.1e+12 | 412 |
+| [sqrt_bw](sqrt_bw.md) | `default` | 2 | 1.38 | 3.39e+38 | 5.5e+11 | 6449 |
+| [square](square.md) | `default` | 0 | — | 1.84e+19 | 0 | 396 ±5% |
+| [square_bw](square_bw.md) | `default` | 0 | — | 1.69e+38 | 0 | 1270 |
+| [squared_difference](squared_difference.md) | `default` | 2 | 1.94 | n/a | 2.03e+31 | 541 |
+| [squared_difference_](squared_difference_.md) | `default` | 2 | 1.94 | n/a | 2.03e+31 | 541 |
+| [squared_difference_bw](squared_difference_bw.md) | `default` | 0 | — | n/a | 0 | 2165 |
+| [subalpha](subalpha.md) | `alpha=2.0` | 0 | — | n/a | 0 | 532 |
+| [subtract](subtract.md) | `default` | 0 | — | n/a | 0 | 542 |
+| [subtract_](subtract_.md) | `default` | 0 | — | n/a | 0 | 541 |
+| [swish](swish.md) | `default` | 4 | 1.82 | 2.63e-05 | 1.91e-06 | 446 ±6% |
+| [tan](tan.md) | `default` | 3.34e+38 ⚠ | 1.43e+36 | 20.3 | 3.4e+38 | 479 ±8% |
+| [tan_bw](tan_bw.md) | `default` | 3.16e+38 ⚠ | 9.23e+35 | 1.01 | 3.4e+38 | 2097 |
+| [tanh](tanh.md) | `default` | 3 | 1.54 | 0.0154 | 1.19e-07 | 449 |
+| [tanh_bw](tanh_bw.md) | `default` | 4.19e+06 ⚠ | 9.01e+03 | nowhere | 0.000814 | 936 |
+| [tanhshrink](tanhshrink.md) | `default` | 4.19e+06 ⚠ | 1.23e+05 | 1.34e-08 | 4.77e-07 | 545 ±11% |
+| [tanhshrink_bw](tanhshrink_bw.md) | `default` | 4.19e+06 ⚠ | 9.94e+04 | 7.42e-09 | 2.38e-07 | 1709 |
+| [threshold](threshold.md) | `threshold=0.5,value=0.0` | 0 | — | 3.39e+38 | 0 | 385 |
+| [threshold_bw](threshold_bw.md) | `min=0.5,max=0.0` | 0 | — | 3.39e+38 | 0 | 1640 |
+| [trunc](trunc.md) | `default` | 0 | — | 3.39e+38 | 0 | 379 |
+| [where](where.md) | `default` | 0 | — | n/a | 0 | 699 |
+| [xielu](xielu.md) | `default` | 1.08e+07 ⚠ | 256 | 0.691 | 2.03e+31 | 415 |
+| [xlogy](xlogy.md) | `default` | 8.84e+07 ⚠ | 6.07e+07 | n/a | 4.73e+36 | 526 |
+| [xlogy_bw](xlogy_bw.md) | `default` | 1 | 1 | n/a | 7.63e-06 | 8937 |
 
 ## Not measurable on Blackhole (BH), float32
 

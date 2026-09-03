@@ -22,10 +22,10 @@ Charts show ULP (units in last place) error across the full input range.
 | Metric | Count |
 |--------|-------|
 | Architectures measured | 2 |
-| Unique ops measured | 196 |
+| Unique ops measured | 195 |
 | Blackhole (BH) bfloat16 ops | 195 |
 | Blackhole (BH) float32 ops | 194 |
-| Wormhole (WH) bfloat16 ops | 195 |
+| Wormhole (WH) bfloat16 ops | 194 |
 | Wormhole (WH) float32 ops | 194 |
 
 ---

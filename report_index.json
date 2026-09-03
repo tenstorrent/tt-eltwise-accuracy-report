@@ -4,6 +4,7 @@
       "bf16": {
         "device_arch": "BLACKHOLE",
         "failed": {},
+        "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
         "ops": [
           "abs",
           "abs_bw",
@@ -201,13 +202,14 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260903T103548",
-        "tt_metal_commit": "72023534b03",
+        "run_id": "20260903T150812",
+        "tt_metal_commit": "fbf7d27db93",
         "ttnn_version": "0.75.0rc10.dev916+ga5cd86212e1"
       },
       "fp32": {
         "device_arch": "BLACKHOLE",
         "failed": {},
+        "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
         "ops": [
           "abs",
           "abs_bw",
@@ -405,8 +407,8 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260903T103548",
-        "tt_metal_commit": "72023534b03",
+        "run_id": "20260903T150812",
+        "tt_metal_commit": "fbf7d27db93",
         "ttnn_version": "0.75.0rc10.dev916+ga5cd86212e1"
       }
     },
@@ -831,6 +833,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 84391.8,
+            "us_median": 198.801
+          },
           "specials": [
             {
               "x": "0",
@@ -883,6 +890,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 25882.3,
+            "us_median": 648.211
+          },
           "specials": [
             {
               "x": "0",
@@ -934,6 +946,11 @@
           "n_inputs": 32258,
           "outcomes": {
             "exact": 32258
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 59879.2,
+            "us_median": 280.184
           },
           "specials": [
             {
@@ -988,6 +1005,11 @@
             "exact": 32116,
             "inexact": 140
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4299.8,
+            "us_median": 3901.837
+          },
           "specials": [
             {
               "x": "0",
@@ -1040,6 +1062,11 @@
           "outcomes": {
             "exact": 15939,
             "inexact": 445
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 47239.5,
+            "us_median": 355.152
           },
           "specials": [
             {
@@ -1096,6 +1123,11 @@
             "mismatch": 32258,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3741.3,
+            "us_median": 4484.295
+          },
           "specials": [
             {
               "x": "0",
@@ -1148,6 +1180,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 61764.9,
+            "us_median": 271.63
           },
           "specials": [
             {
@@ -1202,6 +1239,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 61775.3,
+            "us_median": 271.585
+          },
           "specials": [
             {
               "x": "0",
@@ -1254,6 +1296,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 61648.0,
+            "us_median": 272.145
           },
           "rationale": "2 keeps the op distinct from add",
           "specials": [
@@ -1310,6 +1357,11 @@
             "inexact": 38255,
             "undefined": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 46580.6,
+            "us_median": 360.176
+          },
           "specials": [
             {
               "x": "0",
@@ -1364,6 +1416,11 @@
             "inexact": 2413,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 46809.8,
+            "us_median": 358.412
+          },
           "specials": [
             {
               "x": "0",
@@ -1416,6 +1473,11 @@
           "outcomes": {
             "exact": 32256,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60637.7,
+            "us_median": 276.679
           },
           "specials": [
             {
@@ -1470,6 +1532,11 @@
             "exact": 31984,
             "inexact": 272
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4421.1,
+            "us_median": 3794.838
+          },
           "specials": [
             {
               "x": "0",
@@ -1522,6 +1589,11 @@
           "outcomes": {
             "exact": 64418,
             "inexact": 606
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 34774.2,
+            "us_median": 482.462
           },
           "specials": [
             {
@@ -1577,6 +1649,11 @@
             "inexact": 4012,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 22312.3,
+            "us_median": 751.926
+          },
           "specials": [
             {
               "x": "0",
@@ -1631,6 +1708,11 @@
             "inexact": 28,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 83381.0,
+            "us_median": 201.211
+          },
           "specials": [
             {
               "x": "0",
@@ -1684,6 +1766,11 @@
             "exact": 2,
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60398.5,
+            "us_median": 277.775
+          },
           "specials": [
             {
               "x": "0",
@@ -1736,6 +1823,11 @@
           "outcomes": {
             "exact": 16642,
             "inexact": 48384
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5977.0,
+            "us_median": 2806.963
           },
           "specials": [
             {
@@ -1791,6 +1883,11 @@
             "inexact": 7302,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 25581.4,
+            "us_median": 655.835
+          },
           "specials": [
             {
               "x": "0",
@@ -1844,6 +1941,11 @@
             "exact": 5440,
             "inexact": 26814,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 64572.8,
+            "us_median": 259.819
           },
           "specials": [
             {
@@ -1900,6 +2002,11 @@
             "overflow": 2,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3914.1,
+            "us_median": 4286.303
+          },
           "specials": [
             {
               "x": "0",
@@ -1954,6 +2061,11 @@
             "inexact": 64768,
             "overflow": 1,
             "undefined": 1
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 61673.4,
+            "us_median": 272.033
           },
           "specials": [
             {
@@ -2010,6 +2122,11 @@
             "overflow": 1,
             "undefined": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 61651.4,
+            "us_median": 272.13
+          },
           "specials": [
             {
               "x": "0",
@@ -2063,6 +2180,11 @@
             "exact": 64178,
             "inexact": 846
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 76681.8,
+            "us_median": 218.79
+          },
           "specials": [
             {
               "x": "0",
@@ -2115,6 +2237,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 84101.2,
+            "us_median": 199.488
+          },
           "specials": [
             {
               "x": "0",
@@ -2166,6 +2293,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 88581.1,
+            "spread_pct": 7.5,
+            "us_median": 189.399
           },
           "specials": [
             {
@@ -2221,6 +2354,11 @@
             "flushed": 396,
             "inexact": 734
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12021.8,
+            "us_median": 1395.572
+          },
           "specials": [
             {
               "x": "0",
@@ -2272,6 +2410,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 84212.2,
+            "us_median": 199.225
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -2326,6 +2469,11 @@
           "outcomes": {
             "exact": 65026
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13463.9,
+            "us_median": 1246.089
+          },
           "specials": [
             {
               "x": "0",
@@ -2377,6 +2525,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 84127.4,
+            "us_median": 199.426
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -2430,6 +2583,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13443.6,
+            "us_median": 1247.967
           },
           "specials": [
             {
@@ -2485,6 +2643,11 @@
             "inexact": 6989,
             "mismatch": 21274
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 64722.5,
+            "us_median": 259.218
+          },
           "specials": [
             {
               "x": "0",
@@ -2539,6 +2702,11 @@
             "inexact": 6581,
             "mismatch": 21275
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 19163.1,
+            "us_median": 875.496
+          },
           "specials": [
             {
               "x": "0",
@@ -2592,6 +2760,11 @@
             "exact": 33890,
             "inexact": 4
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 59823.3,
+            "us_median": 280.446
+          },
           "specials": [
             {
               "x": "0",
@@ -2644,6 +2817,11 @@
           "outcomes": {
             "exact": 33892,
             "mismatch": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4817.7,
+            "us_median": 3482.376
           },
           "specials": [
             {
@@ -2700,6 +2878,11 @@
             "inexact": 31272,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 84008.2,
+            "us_median": 199.709
+          },
           "specials": [
             {
               "x": "0",
@@ -2753,6 +2936,11 @@
             "exact": 8485,
             "inexact": 40924,
             "mismatch": 127
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43825.9,
+            "us_median": 382.815
           },
           "specials": [
             {
@@ -2810,6 +2998,11 @@
             "overflow": 15874,
             "zeroed": 257
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4812.9,
+            "us_median": 3485.904
+          },
           "specials": [
             {
               "x": "0",
@@ -2863,6 +3056,11 @@
             "exact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60625.3,
+            "us_median": 276.736
+          },
           "specials": [
             {
               "x": "0",
@@ -2914,6 +3112,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3086.4,
+            "us_median": 5435.785
           },
           "specials": [
             {
@@ -2967,6 +3170,11 @@
           "outcomes": {
             "exact": 65026
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 23148.9,
+            "us_median": 724.752
+          },
           "specials": [
             {
               "x": "0",
@@ -3019,6 +3227,11 @@
           "outcomes": {
             "exact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60550.9,
+            "us_median": 277.076
           },
           "rationale": "upstream never attached a golden",
           "specials": [
@@ -3074,6 +3287,11 @@
             "exact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60747.5,
+            "us_median": 276.179
+          },
           "specials": [
             {
               "x": "0",
@@ -3125,6 +3343,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 87149.2,
+            "spread_pct": 5.1,
+            "us_median": 192.512
           },
           "specials": [
             {
@@ -3180,6 +3404,11 @@
             "flushed": 396,
             "inexact": 734
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12035.8,
+            "us_median": 1393.947
+          },
           "specials": [
             {
               "x": "0",
@@ -3232,6 +3461,12 @@
           "outcomes": {
             "exact": 47388,
             "inexact": 17636
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 84605.9,
+            "spread_pct": 6.7,
+            "us_median": 198.298
           },
           "specials": [
             {
@@ -3287,6 +3522,11 @@
             "flushed": 394,
             "inexact": 1548
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13569.2,
+            "us_median": 1236.416
+          },
           "specials": [
             {
               "x": "0",
@@ -3341,6 +3581,11 @@
             "flushed": 198,
             "inexact": 32438
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 55436.2,
+            "us_median": 302.64
+          },
           "specials": [
             {
               "x": "0",
@@ -3394,6 +3639,11 @@
             "exact": 63082,
             "flushed": 394,
             "inexact": 1548
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13599.1,
+            "us_median": 1233.704
           },
           "specials": [
             {
@@ -3450,6 +3700,11 @@
             "inexact": 1700,
             "zeroed": 29424
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 45497.6,
+            "us_median": 368.749
+          },
           "specials": [
             {
               "x": "0",
@@ -3502,6 +3757,11 @@
           "outcomes": {
             "exact": 31594,
             "inexact": 662
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4200.2,
+            "us_median": 3994.412
           },
           "specials": [
             {
@@ -3557,6 +3817,11 @@
             "flushed": 396,
             "inexact": 1153
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81458.1,
+            "us_median": 205.961
+          },
           "specials": [
             {
               "x": "0",
@@ -3608,6 +3873,11 @@
             "exact": 15383,
             "flushed": 396,
             "inexact": 33679
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82141.7,
+            "us_median": 204.247
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -3664,6 +3934,11 @@
             "flushed": 394,
             "inexact": 1239
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 71501.4,
+            "us_median": 234.642
+          },
           "specials": [
             {
               "x": "0",
@@ -3719,6 +3994,11 @@
             "inexact": 2713,
             "mismatch": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 18828.8,
+            "us_median": 891.038
+          },
           "specials": [
             {
               "x": "0",
@@ -3773,6 +4053,12 @@
             "flushed": 396,
             "inexact": 1153
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 25415.1,
+            "spread_pct": 9.3,
+            "us_median": 660.128
+          },
           "specials": [
             {
               "x": "0",
@@ -3824,6 +4110,12 @@
           "n_inputs": 49458,
           "outcomes": {
             "exact": 49458
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 58281.3,
+            "spread_pct": 6.3,
+            "us_median": 287.866
           },
           "specials": [
             {
@@ -3879,6 +4171,11 @@
             "inexact": 626,
             "zeroed": 331
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 17794.3,
+            "us_median": 942.845
+          },
           "specials": [
             {
               "x": "0",
@@ -3930,6 +4227,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82194.8,
+            "us_median": 204.115
           },
           "specials": [
             {
@@ -3985,6 +4287,11 @@
             "inexact": 64564,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13062.4,
+            "us_median": 1284.389
+          },
           "specials": [
             {
               "x": "0",
@@ -4039,6 +4346,12 @@
             "inexact": 60080,
             "undefined": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 57368.6,
+            "spread_pct": 5.2,
+            "us_median": 292.446
+          },
           "specials": [
             {
               "x": "0",
@@ -4091,6 +4404,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82291.2,
+            "us_median": 203.876
+          },
           "specials": [
             {
               "x": "0",
@@ -4142,6 +4460,12 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60560.9,
+            "spread_pct": 6.6,
+            "us_median": 277.03
           },
           "specials": [
             {
@@ -4198,6 +4522,11 @@
             "inexact": 67,
             "zeroed": 86
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 50627.5,
+            "us_median": 331.386
+          },
           "specials": [
             {
               "x": "0",
@@ -4250,6 +4579,12 @@
             "flushed": 254,
             "inexact": 32196,
             "zeroed": 198
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82170.6,
+            "spread_pct": 8.7,
+            "us_median": 204.175
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -4306,6 +4641,11 @@
             "flushed": 197,
             "inexact": 118
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 23667.8,
+            "us_median": 708.862
+          },
           "specials": [
             {
               "x": "0",
@@ -4357,6 +4697,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60515.5,
+            "us_median": 277.238
           },
           "specials": [
             {
@@ -4411,6 +4756,11 @@
             "exact": 62437,
             "inexact": 2587
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82264.9,
+            "us_median": 203.941
+          },
           "specials": [
             {
               "x": "0",
@@ -4463,6 +4813,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82008.4,
+            "us_median": 204.579
+          },
           "specials": [
             {
               "x": "0",
@@ -4514,6 +4869,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 19768.3,
+            "us_median": 848.691
           },
           "specials": [
             {
@@ -4568,6 +4928,11 @@
             "exact": 61998,
             "inexact": 3026
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81951.1,
+            "us_median": 204.722
+          },
           "specials": [
             {
               "x": "0",
@@ -4619,6 +4984,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12800.6,
+            "us_median": 1310.66
           },
           "specials": [
             {
@@ -4675,6 +5045,11 @@
             "inexact": 3256,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 79365.7,
+            "us_median": 211.391
+          },
           "specials": [
             {
               "x": "0",
@@ -4728,6 +5103,11 @@
             "exact": 64540,
             "inexact": 484
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 9051.5,
+            "us_median": 1853.531
+          },
           "specials": [
             {
               "x": "0",
@@ -4779,6 +5159,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81749.8,
+            "us_median": 205.226
           },
           "specials": [
             {
@@ -4832,6 +5217,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 15063.2,
+            "us_median": 1113.79
+          },
           "specials": [
             {
               "x": "0",
@@ -4883,6 +5273,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81458.9,
+            "us_median": 205.959
           },
           "rationale": "torch's convention at x = 0",
           "specials": [
@@ -4939,6 +5334,11 @@
             "mismatch": 16384,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 57938.9,
+            "us_median": 289.567
+          },
           "specials": [
             {
               "x": "0",
@@ -4993,6 +5393,11 @@
             "inexact": 48640,
             "mismatch": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 9788.2,
+            "us_median": 1714.031
+          },
           "specials": [
             {
               "x": "0",
@@ -5045,6 +5450,11 @@
           "outcomes": {
             "exact": 32260,
             "inexact": 1644
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 56572.5,
+            "us_median": 296.561
           },
           "specials": [
             {
@@ -5101,6 +5511,11 @@
             "inexact": 224,
             "zeroed": 4
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 18833.4,
+            "us_median": 890.823
+          },
           "specials": [
             {
               "x": "0",
@@ -5156,6 +5571,12 @@
             "inexact": 224,
             "zeroed": 4
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 38298.2,
+            "spread_pct": 9.1,
+            "us_median": 438.068
+          },
           "specials": [
             {
               "x": "0",
@@ -5207,6 +5628,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81985.9,
+            "us_median": 204.635
           },
           "specials": [
             {
@@ -5261,6 +5687,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60554.6,
+            "us_median": 277.059
+          },
           "specials": [
             {
               "x": "0",
@@ -5313,6 +5744,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 59685.4,
+            "us_median": 281.094
           },
           "specials": [
             {
@@ -5367,6 +5803,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 59693.0,
+            "us_median": 281.058
+          },
           "specials": [
             {
               "x": "0",
@@ -5419,6 +5860,11 @@
           "outcomes": {
             "inexact": 65026
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12907.8,
+            "us_median": 1299.778
+          },
           "specials": [
             {
               "x": "0",
@@ -5470,6 +5916,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60404.6,
+            "us_median": 277.748
           },
           "specials": [
             {
@@ -5525,6 +5976,11 @@
             "flushed": 840,
             "inexact": 15341
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81607.5,
+            "us_median": 205.584
+          },
           "rationale": "torch's default slope",
           "specials": [
             {
@@ -5577,6 +6033,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 17662.4,
+            "us_median": 949.883
           },
           "specials": [
             {
@@ -5632,6 +6093,11 @@
             "inexact": 2267,
             "undefined": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 45930.2,
+            "us_median": 365.276
+          },
           "specials": [
             {
               "x": "0",
@@ -5683,6 +6149,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "inexact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 11668.8,
+            "us_median": 1437.783
           },
           "specials": [
             {
@@ -5738,6 +6209,11 @@
             "inexact": 11708,
             "overflow": 127
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 20094.3,
+            "us_median": 834.924
+          },
           "specials": [
             {
               "x": "0",
@@ -5792,6 +6268,11 @@
             "inexact": 40924,
             "mismatch": 127
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 19660.0,
+            "us_median": 853.367
+          },
           "specials": [
             {
               "x": "0",
@@ -5844,6 +6325,11 @@
           "outcomes": {
             "exact": 32449,
             "inexact": 63
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 69213.6,
+            "us_median": 242.398
           },
           "specials": [
             {
@@ -5898,6 +6384,11 @@
             "exact": 32454,
             "inexact": 58
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 65870.6,
+            "us_median": 254.7
+          },
           "specials": [
             {
               "x": "0",
@@ -5951,6 +6442,11 @@
             "exact": 32604,
             "inexact": 31586
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6227.3,
+            "us_median": 2694.121
+          },
           "specials": [
             {
               "x": "0",
@@ -6003,6 +6499,11 @@
           "outcomes": {
             "exact": 48531,
             "inexact": 109
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 64404.0,
+            "us_median": 260.5
           },
           "specials": [
             {
@@ -6059,6 +6560,11 @@
             "overflow": 1,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6248.2,
+            "us_median": 2685.11
+          },
           "specials": [
             {
               "x": "0",
@@ -6111,6 +6617,11 @@
           "outcomes": {
             "exact": 32453,
             "inexact": 59
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 65585.8,
+            "us_median": 255.806
           },
           "specials": [
             {
@@ -6166,6 +6677,11 @@
             "inexact": 27720,
             "mismatch": 116
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6208.1,
+            "us_median": 2702.459
+          },
           "specials": [
             {
               "x": "0",
@@ -6218,6 +6734,11 @@
           "outcomes": {
             "exact": 64512,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 8161.0,
+            "us_median": 2055.782
           },
           "specials": [
             {
@@ -6273,6 +6794,11 @@
             "flushed": 396,
             "inexact": 2747
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 76929.3,
+            "us_median": 218.086
+          },
           "specials": [
             {
               "x": "0",
@@ -6326,6 +6852,11 @@
             "exact": 62596,
             "flushed": 396,
             "inexact": 2032
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5673.5,
+            "us_median": 2957.101
           },
           "specials": [
             {
@@ -6382,6 +6913,11 @@
             "mismatch": 15566,
             "overflow": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 55102.5,
+            "us_median": 304.473
+          },
           "specials": [
             {
               "x": "0",
@@ -6436,6 +6972,11 @@
             "inexact": 49369,
             "mismatch": 15488,
             "overflow": 1
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 45081.4,
+            "us_median": 372.154
           },
           "specials": [
             {
@@ -6492,6 +7033,12 @@
             "mismatch": 15488,
             "overflow": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44450.7,
+            "spread_pct": 11.6,
+            "us_median": 377.434
+          },
           "specials": [
             {
               "x": "0",
@@ -6544,6 +7091,11 @@
           "outcomes": {
             "exact": 29952,
             "inexact": 35074
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6139.6,
+            "us_median": 2732.629
           },
           "specials": [
             {
@@ -6600,6 +7152,11 @@
             "mismatch": 15566,
             "overflow": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 55352.4,
+            "us_median": 303.098
+          },
           "specials": [
             {
               "x": "0",
@@ -6653,6 +7210,11 @@
             "exact": 29185,
             "inexact": 35841
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 7016.0,
+            "us_median": 2391.276
+          },
           "specials": [
             {
               "x": "0",
@@ -6705,6 +7267,11 @@
           "outcomes": {
             "exact": 16129
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 83029.9,
+            "us_median": 202.062
+          },
           "specials": [
             {
               "x": "0",
@@ -6756,6 +7323,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 59934.8,
+            "us_median": 279.924
           },
           "specials": [
             {
@@ -6810,6 +7382,12 @@
             "exact": 15879,
             "inexact": 249
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 51872.2,
+            "spread_pct": 8.2,
+            "us_median": 323.434
+          },
           "specials": [
             {
               "x": "0",
@@ -6862,6 +7440,11 @@
           "outcomes": {
             "exact": 15726,
             "inexact": 402
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4693.8,
+            "us_median": 3574.367
           },
           "specials": [
             {
@@ -6916,6 +7499,11 @@
             "exact": 15726,
             "inexact": 402
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3950.6,
+            "us_median": 4246.747
+          },
           "specials": [
             {
               "x": "0",
@@ -6967,6 +7555,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60541.9,
+            "us_median": 277.117
           },
           "specials": [
             {
@@ -7022,6 +7615,11 @@
             "inexact": 32130,
             "undefined": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 45830.6,
+            "us_median": 366.07
+          },
           "specials": [
             {
               "x": "0",
@@ -7074,6 +7672,11 @@
           "outcomes": {
             "exact": 63234,
             "inexact": 1792
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5978.9,
+            "us_median": 2806.068
           },
           "specials": [
             {
@@ -7128,6 +7731,11 @@
             "exact": 65025,
             "overflow": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60555.3,
+            "us_median": 277.056
+          },
           "specials": [
             {
               "x": "0",
@@ -7181,6 +7789,11 @@
             "exact": 63234,
             "inexact": 1792
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5984.7,
+            "us_median": 2803.359
+          },
           "specials": [
             {
               "x": "0",
@@ -7233,6 +7846,11 @@
           "outcomes": {
             "exact": 65025,
             "overflow": 1
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 61525.0,
+            "us_median": 272.689
           },
           "specials": [
             {
@@ -7289,6 +7907,11 @@
             "inexact": 786,
             "zeroed": 11
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 67461.3,
+            "us_median": 248.694
+          },
           "specials": [
             {
               "x": "0",
@@ -7343,6 +7966,11 @@
             "inexact": 49214,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 61553.0,
+            "us_median": 272.566
+          },
           "specials": [
             {
               "x": "0",
@@ -7394,6 +8022,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 22861.6,
+            "us_median": 733.859
           },
           "specials": [
             {
@@ -7451,6 +8084,11 @@
             "overflow": 18692,
             "zeroed": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3481.8,
+            "us_median": 4818.574
+          },
           "specials": [
             {
               "x": "0",
@@ -7505,6 +8143,11 @@
             "inexact": 23118,
             "mismatch": 18692
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4097.7,
+            "us_median": 4094.312
+          },
           "specials": [
             {
               "x": "0",
@@ -7557,6 +8200,11 @@
           "outcomes": {
             "exact": 65024,
             "mismatch": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60244.1,
+            "us_median": 278.487
           },
           "specials": [
             {
@@ -7611,6 +8259,11 @@
             "exact": 65024,
             "mismatch": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60288.5,
+            "us_median": 278.282
+          },
           "specials": [
             {
               "x": "0",
@@ -7662,6 +8315,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81790.9,
+            "us_median": 205.123
           },
           "specials": [
             {
@@ -7716,6 +8374,11 @@
             "exact": 36352,
             "inexact": 28672,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10299.5,
+            "us_median": 1628.94
           },
           "specials": [
             {
@@ -7772,6 +8435,11 @@
             "mismatch": 6,
             "overflow": 15874,
             "zeroed": 257
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 50401.3,
+            "us_median": 332.873
           },
           "rationale": "trigamma, the first order in use",
           "specials": [
@@ -7831,6 +8499,11 @@
             "overflow": 21406,
             "zeroed": 75
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4722.0,
+            "us_median": 3552.959
+          },
           "rationale": "trigamma; swept above -1024, where torch can still compute the reference",
           "specials": [
             {
@@ -7885,6 +8558,11 @@
             "exact": 18360,
             "inexact": 46666
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43429.3,
+            "us_median": 386.311
+          },
           "specials": [
             {
               "x": "0",
@@ -7936,6 +8614,11 @@
           "n_inputs": 32384,
           "outcomes": {
             "exact": 32384
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12775.3,
+            "us_median": 1313.257
           },
           "rationale": "squaring",
           "specials": [
@@ -7992,6 +8675,11 @@
             "flushed": 255,
             "zeroed": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81630.5,
+            "us_median": 205.526
+          },
           "rationale": "torch's channel-weight init",
           "specials": [
             {
@@ -8046,6 +8734,11 @@
             "exact": 31758,
             "inexact": 31760
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81867.9,
+            "us_median": 204.93
+          },
           "specials": [
             {
               "x": "0",
@@ -8098,6 +8791,11 @@
           "outcomes": {
             "exact": 64512,
             "zeroed": 258
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82073.0,
+            "us_median": 204.418
           },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
@@ -8156,6 +8854,11 @@
             "overflow": 15980,
             "zeroed": 108
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4780.3,
+            "us_median": 3509.66
+          },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
             {
@@ -8209,6 +8912,11 @@
           "outcomes": {
             "exact": 64512,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81641.7,
+            "us_median": 205.498
           },
           "specials": [
             {
@@ -8266,6 +8974,11 @@
             "overflow": 15874,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6382.2,
+            "us_median": 2628.762
+          },
           "specials": [
             {
               "x": "0",
@@ -8317,6 +9030,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81565.4,
+            "us_median": 205.69
           },
           "specials": [
             {
@@ -8370,6 +9088,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81755.8,
+            "us_median": 205.211
+          },
           "specials": [
             {
               "x": "0",
@@ -8421,6 +9144,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 8259.8,
+            "us_median": 2031.193
           },
           "specials": [
             {
@@ -8474,6 +9202,12 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 25306.0,
+            "spread_pct": 11.4,
+            "us_median": 662.973
+          },
           "specials": [
             {
               "x": "0",
@@ -8525,6 +9259,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81734.3,
+            "us_median": 205.265
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -8578,6 +9317,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81755.4,
+            "us_median": 205.212
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -8633,6 +9377,12 @@
             "inexact": 65024,
             "undefined": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 57468.8,
+            "spread_pct": 19.5,
+            "us_median": 291.936
+          },
           "specials": [
             {
               "x": "0",
@@ -8684,6 +9434,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82260.0,
+            "us_median": 203.953
           },
           "specials": [
             {
@@ -8739,6 +9494,12 @@
             "flushed": 394,
             "inexact": 1239
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44019.8,
+            "spread_pct": 18.6,
+            "us_median": 381.129
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -8793,6 +9554,11 @@
             "exact": 32384,
             "mismatch": 32384
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 11107.5,
+            "us_median": 1510.44
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -8845,6 +9611,12 @@
           "n_inputs": 32512,
           "outcomes": {
             "exact": 32512
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 66953.9,
+            "spread_pct": 19.9,
+            "us_median": 250.579
           },
           "specials": [
             {
@@ -8901,6 +9673,11 @@
             "mismatch": 74,
             "zeroed": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5433.2,
+            "us_median": 3087.902
+          },
           "specials": [
             {
               "x": "0",
@@ -8953,6 +9730,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60604.0,
+            "us_median": 276.833
           },
           "specials": [
             {
@@ -9007,6 +9789,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60469.3,
+            "us_median": 277.45
+          },
           "specials": [
             {
               "x": "0",
@@ -9058,6 +9845,11 @@
           "n_inputs": 65011,
           "outcomes": {
             "exact": 65011
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 85220.5,
+            "us_median": 196.868
           },
           "specials": [
             {
@@ -9114,6 +9906,11 @@
             "inexact": 16510,
             "zeroed": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10451.5,
+            "us_median": 1605.244
+          },
           "specials": [
             {
               "x": "0",
@@ -9168,6 +9965,12 @@
             "flushed": 387,
             "inexact": 482
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 58299.5,
+            "spread_pct": 5.1,
+            "us_median": 287.776
+          },
           "specials": [
             {
               "x": "0",
@@ -9221,6 +10024,12 @@
             "exact": 64155,
             "flushed": 387,
             "inexact": 482
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 58400.4,
+            "spread_pct": 11.6,
+            "us_median": 287.279
           },
           "specials": [
             {
@@ -9277,6 +10086,11 @@
             "inexact": 756,
             "zeroed": 331
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 14032.1,
+            "us_median": 1195.631
+          },
           "specials": [
             {
               "x": "0",
@@ -9328,6 +10142,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81902.2,
+            "us_median": 204.844
           },
           "specials": [
             {
@@ -9384,6 +10203,11 @@
             "inexact": 448,
             "zeroed": 13
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 56247.3,
+            "us_median": 298.276
+          },
           "specials": [
             {
               "x": "0",
@@ -9439,6 +10263,11 @@
             "inexact": 1372,
             "zeroed": 9
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10260.8,
+            "us_median": 1635.087
+          },
           "specials": [
             {
               "x": "0",
@@ -9492,6 +10321,11 @@
             "exact": 37168,
             "inexact": 6581,
             "mismatch": 21275
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 69654.3,
+            "us_median": 240.864
           },
           "specials": [
             {
@@ -9547,6 +10381,11 @@
             "inexact": 6989,
             "mismatch": 21274
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 23418.0,
+            "us_median": 716.425
+          },
           "specials": [
             {
               "x": "0",
@@ -9598,6 +10437,12 @@
           "n_inputs": 33894,
           "outcomes": {
             "exact": 33894
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 59436.3,
+            "spread_pct": 8.1,
+            "us_median": 282.272
           },
           "specials": [
             {
@@ -9653,6 +10498,11 @@
             "inexact": 4,
             "mismatch": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5378.7,
+            "us_median": 3119.217
+          },
           "specials": [
             {
               "x": "0",
@@ -9706,6 +10556,11 @@
             "exact": 63404,
             "inexact": 194,
             "zeroed": 1426
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 71368.8,
+            "us_median": 235.078
           },
           "rationale": "Gemma's logit soft-cap",
           "specials": [
@@ -9763,6 +10618,12 @@
             "inexact": 30015,
             "zeroed": 526
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 66964.3,
+            "spread_pct": 18.3,
+            "us_median": 250.54
+          },
           "specials": [
             {
               "x": "0",
@@ -9817,6 +10678,11 @@
             "flushed": 396,
             "inexact": 1603
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 7494.6,
+            "us_median": 2238.562
+          },
           "specials": [
             {
               "x": "0",
@@ -9870,6 +10736,11 @@
             "exact": 61056,
             "inexact": 3968
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 80061.4,
+            "us_median": 209.554
+          },
           "specials": [
             {
               "x": "0",
@@ -9921,6 +10792,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 15110.5,
+            "us_median": 1110.301
           },
           "specials": [
             {
@@ -9976,6 +10852,11 @@
             "inexact": 21060,
             "zeroed": 512
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81997.6,
+            "us_median": 204.606
+          },
           "specials": [
             {
               "x": "0",
@@ -10029,6 +10910,11 @@
             "exact": 53318,
             "inexact": 11706
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 24481.6,
+            "us_median": 685.299
+          },
           "specials": [
             {
               "x": "0",
@@ -10080,6 +10966,11 @@
           "n_inputs": 32512,
           "outcomes": {
             "exact": 32512
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 71216.6,
+            "us_median": 235.58
           },
           "specials": [
             {
@@ -10133,6 +11024,11 @@
           "outcomes": {
             "exact": 23495,
             "inexact": 9017
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4986.1,
+            "us_median": 3364.812
           },
           "specials": [
             {
@@ -10188,6 +11084,11 @@
             "flushed": 16128,
             "inexact": 13970
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81817.2,
+            "us_median": 205.057
+          },
           "specials": [
             {
               "x": "0",
@@ -10239,6 +11140,11 @@
           "n_inputs": 64768,
           "outcomes": {
             "exact": 64768
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 24751.7,
+            "us_median": 677.821
           },
           "specials": [
             {
@@ -10294,6 +11200,11 @@
             "inexact": 49214,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60388.7,
+            "us_median": 277.82
+          },
           "specials": [
             {
               "x": "0",
@@ -10347,6 +11258,11 @@
             "exact": 15810,
             "inexact": 49214,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60367.7,
+            "us_median": 277.917
           },
           "specials": [
             {
@@ -10402,6 +11318,11 @@
             "inexact": 64896,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 14721.3,
+            "us_median": 1139.657
+          },
           "specials": [
             {
               "x": "0",
@@ -10454,6 +11375,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60565.3,
+            "us_median": 277.01
           },
           "rationale": "2 keeps the op distinct from subtract",
           "specials": [
@@ -10509,6 +11435,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60897.7,
+            "us_median": 275.498
+          },
           "specials": [
             {
               "x": "0",
@@ -10561,6 +11492,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 60481.2,
+            "us_median": 277.395
           },
           "specials": [
             {
@@ -10617,6 +11553,12 @@
             "inexact": 448,
             "zeroed": 13
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 56165.2,
+            "spread_pct": 15.6,
+            "us_median": 298.712
+          },
           "specials": [
             {
               "x": "0",
@@ -10672,6 +11614,11 @@
             "mismatch": 21598,
             "zeroed": 36
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 57167.8,
+            "us_median": 293.473
+          },
           "specials": [
             {
               "x": "0",
@@ -10725,6 +11672,11 @@
             "exact": 35558,
             "inexact": 6707,
             "mismatch": 22759
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 14879.1,
+            "us_median": 1127.572
           },
           "specials": [
             {
@@ -10780,6 +11732,11 @@
             "inexact": 214,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 82077.0,
+            "us_median": 204.408
+          },
           "specials": [
             {
               "x": "0",
@@ -10832,6 +11789,11 @@
           "outcomes": {
             "exact": 64386,
             "inexact": 638
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 26419.8,
+            "us_median": 635.024
           },
           "specials": [
             {
@@ -10886,6 +11848,12 @@
             "exact": 59698,
             "inexact": 5326
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 55734.0,
+            "spread_pct": 8.9,
+            "us_median": 301.023
+          },
           "specials": [
             {
               "x": "0",
@@ -10939,6 +11907,11 @@
             "exact": 52168,
             "inexact": 12856
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 19473.2,
+            "us_median": 861.555
+          },
           "specials": [
             {
               "x": "0",
@@ -10990,6 +11963,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 81870.7,
+            "us_median": 204.923
           },
           "rationale": "domain midpoint, torch's zero fill",
           "specials": [
@@ -11044,6 +12022,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 19713.2,
+            "us_median": 851.064
+          },
           "rationale": "ttnn binds threshold and value as min/max; the golden's *args are unbindable",
           "specials": [
             {
@@ -11097,6 +12080,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 83893.9,
+            "us_median": 199.981
+          },
           "specials": [
             {
               "x": "0",
@@ -11148,6 +12136,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 46544.0,
+            "us_median": 360.459
           },
           "rationale": "the attached golden demands a bool condition",
           "specials": [
@@ -11205,6 +12198,11 @@
             "inexact": 50,
             "zeroed": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 40188.9,
+            "us_median": 417.458
+          },
           "specials": [
             {
               "x": "0",
@@ -11258,6 +12256,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 59909.4,
+            "us_median": 280.043
+          },
           "specials": [
             {
               "x": "0",
@@ -11309,6 +12312,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "inexact": 65026
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3656.3,
+            "us_median": 4588.602
           },
           "specials": [
             {
@@ -11364,6 +12372,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44237.4,
+            "us_median": 379.254
+          },
           "specials": [
             {
               "x": "0",
@@ -11415,6 +12428,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13333.1,
+            "us_median": 1258.314
           },
           "specials": [
             {
@@ -11469,6 +12487,11 @@
             "exact": 27022,
             "inexact": 5236
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 36065.8,
+            "us_median": 465.183
+          },
           "specials": [
             {
               "x": "0",
@@ -11522,6 +12545,11 @@
             "exact": 29938,
             "inexact": 2318
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2214.9,
+            "us_median": 7574.577
+          },
           "specials": [
             {
               "x": "0",
@@ -11573,6 +12601,11 @@
           "n_inputs": 16384,
           "outcomes": {
             "inexact": 16384
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 38035.7,
+            "us_median": 441.091
           },
           "specials": [
             {
@@ -11628,6 +12661,11 @@
             "mismatch": 32256,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 1936.3,
+            "us_median": 8664.537
+          },
           "specials": [
             {
               "x": "0",
@@ -11679,6 +12717,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 32283.9,
+            "us_median": 519.678
           },
           "specials": [
             {
@@ -11732,6 +12775,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 32378.9,
+            "us_median": 518.153
+          },
           "specials": [
             {
               "x": "0",
@@ -11783,6 +12831,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 32225.1,
+            "us_median": 520.625
           },
           "rationale": "2 keeps the op distinct from add",
           "specials": [
@@ -11837,6 +12890,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 23982.0,
+            "us_median": 699.576
+          },
           "specials": [
             {
               "x": "0",
@@ -11889,6 +12947,11 @@
           "outcomes": {
             "exact": 928,
             "inexact": 64096
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 24024.4,
+            "us_median": 698.34
           },
           "specials": [
             {
@@ -11943,6 +13006,11 @@
             "exact": 30134,
             "inexact": 2124
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37497.8,
+            "us_median": 447.418
+          },
           "specials": [
             {
               "x": "0",
@@ -11996,6 +13064,11 @@
             "exact": 29938,
             "inexact": 2318
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2257.4,
+            "us_median": 7431.996
+          },
           "specials": [
             {
               "x": "0",
@@ -12048,6 +13121,11 @@
           "outcomes": {
             "exact": 29918,
             "inexact": 35106
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 28798.2,
+            "us_median": 582.578
           },
           "specials": [
             {
@@ -12103,6 +13181,11 @@
             "inexact": 18684,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12730.2,
+            "us_median": 1317.912
+          },
           "specials": [
             {
               "x": "0",
@@ -12156,6 +13239,11 @@
             "exact": 57400,
             "inexact": 7624
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 36874.6,
+            "us_median": 454.98
+          },
           "specials": [
             {
               "x": "0",
@@ -12207,6 +13295,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31425.2,
+            "us_median": 533.878
           },
           "specials": [
             {
@@ -12260,6 +13353,11 @@
           "outcomes": {
             "flushed": 16640,
             "inexact": 48384
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3084.8,
+            "us_median": 5438.716
           },
           "specials": [
             {
@@ -12315,6 +13413,11 @@
             "inexact": 19040,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13249.3,
+            "us_median": 1266.27
+          },
           "specials": [
             {
               "x": "0",
@@ -12367,6 +13470,11 @@
           "outcomes": {
             "exact": 26612,
             "inexact": 5644
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 27803.2,
+            "us_median": 603.428
           },
           "specials": [
             {
@@ -12422,6 +13530,11 @@
             "inexact": 18696,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2001.8,
+            "us_median": 8381.237
+          },
           "specials": [
             {
               "x": "0",
@@ -12474,6 +13587,11 @@
           "outcomes": {
             "exact": 29732,
             "inexact": 35292
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 32204.4,
+            "us_median": 520.96
           },
           "specials": [
             {
@@ -12528,6 +13646,11 @@
             "exact": 29732,
             "inexact": 35292
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 32306.5,
+            "us_median": 519.314
+          },
           "specials": [
             {
               "x": "0",
@@ -12579,6 +13702,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 40842.5,
+            "us_median": 410.779
           },
           "specials": [
             {
@@ -12632,6 +13760,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44289.0,
+            "us_median": 378.812
+          },
           "specials": [
             {
               "x": "0",
@@ -12684,6 +13817,11 @@
           "outcomes": {
             "exact": 62154,
             "inexact": 2870
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 39247.7,
+            "us_median": 427.47
           },
           "specials": [
             {
@@ -12739,6 +13877,11 @@
             "flushed": 395,
             "inexact": 2706
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6071.0,
+            "us_median": 2763.524
+          },
           "specials": [
             {
               "x": "0",
@@ -12790,6 +13933,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44305.4,
+            "us_median": 378.672
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -12844,6 +13992,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6939.2,
+            "us_median": 2417.75
+          },
           "specials": [
             {
               "x": "0",
@@ -12895,6 +14048,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44272.8,
+            "us_median": 378.951
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -12948,6 +14106,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6947.5,
+            "us_median": 2414.87
           },
           "specials": [
             {
@@ -13003,6 +14166,11 @@
             "inexact": 18292,
             "mismatch": 18190
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 40069.4,
+            "us_median": 418.704
+          },
           "specials": [
             {
               "x": "0",
@@ -13057,6 +14225,11 @@
             "inexact": 16702,
             "mismatch": 18190
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10116.6,
+            "us_median": 1658.387
+          },
           "specials": [
             {
               "x": "0",
@@ -13109,6 +14282,11 @@
           "outcomes": {
             "exact": 29928,
             "inexact": 3966
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 38179.7,
+            "us_median": 439.428
           },
           "specials": [
             {
@@ -13164,6 +14342,11 @@
             "inexact": 6574,
             "mismatch": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2487.8,
+            "us_median": 6743.798
+          },
           "specials": [
             {
               "x": "0",
@@ -13217,6 +14400,11 @@
             "flushed": 1482,
             "inexact": 63542
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44240.0,
+            "us_median": 379.232
+          },
           "specials": [
             {
               "x": "0",
@@ -13269,6 +14457,11 @@
           "outcomes": {
             "inexact": 50757,
             "undefined": 827
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 23554.1,
+            "us_median": 712.286
           },
           "specials": [
             {
@@ -13324,6 +14517,11 @@
             "overflow": 15872,
             "zeroed": 257
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2334.0,
+            "us_median": 7188.056
+          },
           "specials": [
             {
               "x": "0",
@@ -13375,6 +14573,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31998.2,
+            "us_median": 524.318
           },
           "specials": [
             {
@@ -13428,6 +14631,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 1597.4,
+            "us_median": 10502.837
+          },
           "specials": [
             {
               "x": "0",
@@ -13480,6 +14688,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 9513.5,
+            "us_median": 1763.516
+          },
           "specials": [
             {
               "x": "0",
@@ -13531,6 +14744,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31885.2,
+            "us_median": 526.176
           },
           "rationale": "upstream never attached a golden",
           "specials": [
@@ -13585,6 +14803,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 32081.7,
+            "us_median": 522.953
+          },
           "specials": [
             {
               "x": "0",
@@ -13637,6 +14860,12 @@
           "outcomes": {
             "exact": 62154,
             "inexact": 2870
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 39372.2,
+            "spread_pct": 5.5,
+            "us_median": 426.118
           },
           "specials": [
             {
@@ -13692,6 +14921,11 @@
             "flushed": 395,
             "inexact": 2706
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6083.3,
+            "us_median": 2757.903
+          },
           "specials": [
             {
               "x": "0",
@@ -13744,6 +14978,11 @@
           "outcomes": {
             "exact": 31936,
             "inexact": 33088
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31500.8,
+            "us_median": 532.597
           },
           "specials": [
             {
@@ -13799,6 +15038,11 @@
             "flushed": 392,
             "inexact": 4166
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6882.1,
+            "us_median": 2437.802
+          },
           "specials": [
             {
               "x": "0",
@@ -13852,6 +15096,11 @@
             "exact": 16147,
             "flushed": 198,
             "inexact": 48679
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 28371.8,
+            "us_median": 591.335
           },
           "specials": [
             {
@@ -13907,6 +15156,11 @@
             "flushed": 392,
             "inexact": 4166
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6856.0,
+            "us_median": 2447.083
+          },
           "specials": [
             {
               "x": "0",
@@ -13961,6 +15215,11 @@
             "inexact": 2802,
             "zeroed": 29420
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44130.9,
+            "us_median": 380.169
+          },
           "specials": [
             {
               "x": "0",
@@ -14013,6 +15272,11 @@
           "outcomes": {
             "exact": 29280,
             "inexact": 2976
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2241.2,
+            "us_median": 7485.804
           },
           "specials": [
             {
@@ -14068,6 +15332,11 @@
             "flushed": 395,
             "inexact": 5447
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 36986.5,
+            "us_median": 453.604
+          },
           "specials": [
             {
               "x": "0",
@@ -14119,6 +15388,11 @@
             "exact": 15174,
             "flushed": 395,
             "inexact": 33889
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43623.5,
+            "us_median": 384.591
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -14175,6 +15449,11 @@
             "flushed": 393,
             "inexact": 6044
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 39748.8,
+            "us_median": 422.082
+          },
           "specials": [
             {
               "x": "0",
@@ -14230,6 +15509,11 @@
             "inexact": 6680,
             "mismatch": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10028.7,
+            "us_median": 1672.915
+          },
           "specials": [
             {
               "x": "0",
@@ -14284,6 +15568,11 @@
             "flushed": 395,
             "inexact": 5447
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12579.8,
+            "us_median": 1333.664
+          },
           "specials": [
             {
               "x": "0",
@@ -14336,6 +15625,11 @@
           "outcomes": {
             "exact": 44201,
             "inexact": 5257
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 36839.5,
+            "us_median": 455.414
           },
           "specials": [
             {
@@ -14391,6 +15685,11 @@
             "inexact": 5431,
             "zeroed": 138
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 9748.7,
+            "us_median": 1720.963
+          },
           "specials": [
             {
               "x": "0",
@@ -14442,6 +15741,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43791.7,
+            "spread_pct": 9.9,
+            "us_median": 383.114
           },
           "specials": [
             {
@@ -14496,6 +15801,11 @@
             "exact": 3805,
             "inexact": 61219
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6760.9,
+            "us_median": 2481.489
+          },
           "specials": [
             {
               "x": "0",
@@ -14549,6 +15859,12 @@
             "exact": 1024,
             "inexact": 64000
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30795.6,
+            "spread_pct": 8.7,
+            "us_median": 544.792
+          },
           "specials": [
             {
               "x": "0",
@@ -14601,6 +15917,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42741.2,
+            "us_median": 392.53
+          },
           "specials": [
             {
               "x": "0",
@@ -14652,6 +15973,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30957.5,
+            "us_median": 541.944
           },
           "specials": [
             {
@@ -14708,6 +16034,12 @@
             "inexact": 6001,
             "zeroed": 83
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 41771.5,
+            "spread_pct": 19.6,
+            "us_median": 401.643
+          },
           "specials": [
             {
               "x": "0",
@@ -14760,6 +16092,12 @@
             "flushed": 254,
             "inexact": 32494,
             "zeroed": 197
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42524.2,
+            "spread_pct": 5.1,
+            "us_median": 394.534
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -14816,6 +16154,11 @@
             "flushed": 196,
             "inexact": 5420
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 18086.3,
+            "us_median": 927.619
+          },
           "specials": [
             {
               "x": "0",
@@ -14867,6 +16210,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31661.4,
+            "us_median": 529.895
           },
           "specials": [
             {
@@ -14920,6 +16268,12 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43745.5,
+            "spread_pct": 9.1,
+            "us_median": 383.519
+          },
           "specials": [
             {
               "x": "0",
@@ -14972,6 +16326,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43588.9,
+            "us_median": 384.897
+          },
           "specials": [
             {
               "x": "0",
@@ -15023,6 +16382,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10211.0,
+            "us_median": 1643.046
           },
           "specials": [
             {
@@ -15077,6 +16441,12 @@
             "exact": 61098,
             "inexact": 3926
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42562.3,
+            "spread_pct": 8.2,
+            "us_median": 394.18
+          },
           "specials": [
             {
               "x": "0",
@@ -15128,6 +16498,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6582.0,
+            "us_median": 2548.963
           },
           "specials": [
             {
@@ -15183,6 +16558,12 @@
             "flushed": 254,
             "inexact": 5226
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 41408.4,
+            "spread_pct": 16.1,
+            "us_median": 405.165
+          },
           "specials": [
             {
               "x": "0",
@@ -15236,6 +16617,11 @@
             "exact": 60329,
             "inexact": 4695
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4654.0,
+            "us_median": 3604.872
+          },
           "specials": [
             {
               "x": "0",
@@ -15287,6 +16673,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43514.2,
+            "us_median": 385.557
           },
           "specials": [
             {
@@ -15340,6 +16731,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 7751.0,
+            "us_median": 2164.519
+          },
           "specials": [
             {
               "x": "0",
@@ -15391,6 +16787,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42826.5,
+            "us_median": 391.749
           },
           "rationale": "torch's convention at x = 0",
           "specials": [
@@ -15446,6 +16847,11 @@
             "inexact": 48640,
             "mismatch": 16384
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30770.6,
+            "us_median": 545.235
+          },
           "specials": [
             {
               "x": "0",
@@ -15499,6 +16905,11 @@
             "inexact": 48640,
             "zeroed": 16384
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5064.9,
+            "us_median": 3312.471
+          },
           "specials": [
             {
               "x": "0",
@@ -15551,6 +16962,11 @@
           "outcomes": {
             "exact": 30548,
             "inexact": 3356
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37467.6,
+            "us_median": 447.779
           },
           "specials": [
             {
@@ -15606,6 +17022,11 @@
             "flushed": 254,
             "inexact": 4144
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 11680.3,
+            "us_median": 1436.363
+          },
           "specials": [
             {
               "x": "0",
@@ -15660,6 +17081,11 @@
             "flushed": 254,
             "inexact": 4144
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 29477.6,
+            "us_median": 569.151
+          },
           "specials": [
             {
               "x": "0",
@@ -15711,6 +17137,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43266.2,
+            "us_median": 387.767
           },
           "specials": [
             {
@@ -15764,6 +17195,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31214.5,
+            "us_median": 537.482
+          },
           "specials": [
             {
               "x": "0",
@@ -15815,6 +17251,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31108.9,
+            "us_median": 539.306
           },
           "specials": [
             {
@@ -15868,6 +17309,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30715.7,
+            "us_median": 546.21
+          },
           "specials": [
             {
               "x": "0",
@@ -15920,6 +17366,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 7047.8,
+            "us_median": 2380.483
+          },
           "specials": [
             {
               "x": "0",
@@ -15971,6 +17422,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31156.2,
+            "us_median": 538.487
           },
           "specials": [
             {
@@ -16026,6 +17482,11 @@
             "flushed": 840,
             "inexact": 31672
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43579.0,
+            "us_median": 384.984
+          },
           "rationale": "torch's default slope",
           "specials": [
             {
@@ -16078,6 +17539,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 9142.9,
+            "us_median": 1835.001
           },
           "specials": [
             {
@@ -16132,6 +17598,11 @@
             "exact": 132,
             "inexact": 64892
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 23633.4,
+            "us_median": 709.895
+          },
           "specials": [
             {
               "x": "0",
@@ -16184,6 +17655,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6004.9,
+            "us_median": 2793.905
+          },
           "specials": [
             {
               "x": "0",
@@ -16235,6 +17711,11 @@
           "n_inputs": 50757,
           "outcomes": {
             "inexact": 50757
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12550.8,
+            "us_median": 1336.74
           },
           "specials": [
             {
@@ -16289,6 +17770,11 @@
             "inexact": 50757,
             "undefined": 827
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10412.4,
+            "us_median": 1611.278
+          },
           "specials": [
             {
               "x": "0",
@@ -16340,6 +17826,11 @@
           "n_inputs": 32512,
           "outcomes": {
             "inexact": 32512
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37894.8,
+            "us_median": 442.731
           },
           "specials": [
             {
@@ -16393,6 +17884,12 @@
           "outcomes": {
             "inexact": 32512
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37177.5,
+            "spread_pct": 9.6,
+            "us_median": 451.273
+          },
           "specials": [
             {
               "x": "0",
@@ -16444,6 +17941,11 @@
           "n_inputs": 64190,
           "outcomes": {
             "inexact": 64190
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3216.3,
+            "us_median": 5216.292
           },
           "specials": [
             {
@@ -16497,6 +17999,12 @@
           "outcomes": {
             "exact": 28529,
             "inexact": 20111
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37580.8,
+            "spread_pct": 5.3,
+            "us_median": 446.431
           },
           "specials": [
             {
@@ -16552,6 +18060,11 @@
             "inexact": 37440,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3214.1,
+            "us_median": 5219.944
+          },
           "specials": [
             {
               "x": "0",
@@ -16603,6 +18116,12 @@
           "n_inputs": 32512,
           "outcomes": {
             "inexact": 32512
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37136.1,
+            "spread_pct": 9.9,
+            "us_median": 451.777
           },
           "specials": [
             {
@@ -16657,6 +18176,11 @@
             "inexact": 64514,
             "mismatch": 112
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3218.0,
+            "us_median": 5213.52
+          },
           "specials": [
             {
               "x": "0",
@@ -16709,6 +18233,11 @@
           "outcomes": {
             "inexact": 64512,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4245.2,
+            "us_median": 3952.038
           },
           "specials": [
             {
@@ -16764,6 +18293,12 @@
             "flushed": 395,
             "inexact": 33560
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 35152.8,
+            "spread_pct": 9.7,
+            "us_median": 477.266
+          },
           "specials": [
             {
               "x": "0",
@@ -16817,6 +18352,11 @@
             "exact": 58028,
             "flushed": 395,
             "inexact": 6601
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2876.0,
+            "us_median": 5833.476
           },
           "specials": [
             {
@@ -16872,6 +18412,11 @@
             "inexact": 49453,
             "mismatch": 15566
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 28641.6,
+            "us_median": 585.763
+          },
           "specials": [
             {
               "x": "0",
@@ -16925,6 +18470,11 @@
             "exact": 108,
             "inexact": 49428,
             "mismatch": 15488
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30538.2,
+            "us_median": 549.385
           },
           "specials": [
             {
@@ -16980,6 +18530,11 @@
             "inexact": 49428,
             "mismatch": 15488
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30257.8,
+            "us_median": 554.476
+          },
           "specials": [
             {
               "x": "0",
@@ -17032,6 +18587,11 @@
           "outcomes": {
             "exact": 29282,
             "inexact": 35742
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3268.9,
+            "us_median": 5132.312
           },
           "specials": [
             {
@@ -17087,6 +18647,12 @@
             "inexact": 49453,
             "mismatch": 15566
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 28482.7,
+            "spread_pct": 11.6,
+            "us_median": 589.031
+          },
           "specials": [
             {
               "x": "0",
@@ -17140,6 +18706,11 @@
             "exact": 29428,
             "inexact": 35596
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3501.7,
+            "us_median": 4791.146
+          },
           "specials": [
             {
               "x": "0",
@@ -17191,6 +18762,11 @@
           "n_inputs": 16129,
           "outcomes": {
             "exact": 16129
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43813.8,
+            "us_median": 382.921
           },
           "specials": [
             {
@@ -17244,6 +18820,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31374.4,
+            "us_median": 534.743
+          },
           "specials": [
             {
               "x": "0",
@@ -17295,6 +18876,12 @@
           "n_inputs": 16128,
           "outcomes": {
             "inexact": 16128
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 39486.7,
+            "spread_pct": 9.1,
+            "us_median": 424.882
           },
           "specials": [
             {
@@ -17348,6 +18935,11 @@
           "outcomes": {
             "inexact": 16128
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2389.0,
+            "us_median": 7022.584
+          },
           "specials": [
             {
               "x": "0",
@@ -17399,6 +18991,11 @@
           "n_inputs": 16128,
           "outcomes": {
             "inexact": 16128
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2016.8,
+            "us_median": 8318.899
           },
           "specials": [
             {
@@ -17452,6 +19049,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31725.1,
+            "us_median": 528.831
+          },
           "specials": [
             {
               "x": "0",
@@ -17503,6 +19105,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 23676.4,
+            "us_median": 708.604
           },
           "specials": [
             {
@@ -17557,6 +19164,11 @@
             "exact": 63057,
             "inexact": 1967
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3089.5,
+            "us_median": 5430.352
+          },
           "specials": [
             {
               "x": "0",
@@ -17608,6 +19220,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31633.3,
+            "us_median": 530.366
           },
           "specials": [
             {
@@ -17662,6 +19279,11 @@
             "exact": 63057,
             "inexact": 1967
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3085.2,
+            "us_median": 5437.978
+          },
           "specials": [
             {
               "x": "0",
@@ -17713,6 +19335,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31604.1,
+            "us_median": 530.856
           },
           "specials": [
             {
@@ -17769,6 +19396,11 @@
             "inexact": 6188,
             "zeroed": 9
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 28358.0,
+            "us_median": 591.621
+          },
           "specials": [
             {
               "x": "0",
@@ -17822,6 +19454,12 @@
             "exact": 23863,
             "inexact": 41161
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31583.7,
+            "spread_pct": 8.7,
+            "us_median": 531.199
+          },
           "specials": [
             {
               "x": "0",
@@ -17873,6 +19511,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 11903.8,
+            "us_median": 1409.402
           },
           "specials": [
             {
@@ -17928,6 +19571,11 @@
             "mismatch": 7422,
             "overflow": 18562
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2018.3,
+            "us_median": 8312.345
+          },
           "specials": [
             {
               "x": "0",
@@ -17982,6 +19630,11 @@
             "mismatch": 18560,
             "undefined": 699
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2129.0,
+            "us_median": 7880.244
+          },
           "specials": [
             {
               "x": "0",
@@ -18033,6 +19686,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31483.2,
+            "us_median": 532.894
           },
           "specials": [
             {
@@ -18086,6 +19744,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31621.1,
+            "us_median": 530.57
+          },
           "specials": [
             {
               "x": "0",
@@ -18137,6 +19800,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43461.8,
+            "us_median": 386.022
           },
           "specials": [
             {
@@ -18191,6 +19859,11 @@
             "exact": 32512,
             "inexact": 32512
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5289.7,
+            "us_median": 3171.667
+          },
           "specials": [
             {
               "x": "0",
@@ -18244,6 +19917,11 @@
             "inexact": 48640,
             "overflow": 15872,
             "zeroed": 257
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 16366.5,
+            "us_median": 1025.097
           },
           "rationale": "trigamma, the first order in use",
           "specials": [
@@ -18302,6 +19980,11 @@
             "overflow": 21398,
             "zeroed": 75
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2313.3,
+            "us_median": 7252.585
+          },
           "rationale": "trigamma; swept above -1024, where torch can still compute the reference",
           "specials": [
             {
@@ -18357,6 +20040,11 @@
             "inexact": 32516,
             "undefined": 16385
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 25804.4,
+            "us_median": 650.169
+          },
           "specials": [
             {
               "x": "0",
@@ -18408,6 +20096,11 @@
           "n_inputs": 32384,
           "outcomes": {
             "exact": 32384
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 6645.3,
+            "us_median": 2524.691
           },
           "rationale": "squaring",
           "specials": [
@@ -18463,6 +20156,11 @@
             "exact": 64769,
             "flushed": 255
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43177.5,
+            "us_median": 388.564
+          },
           "rationale": "torch's channel-weight init",
           "specials": [
             {
@@ -18516,6 +20214,12 @@
           "outcomes": {
             "inexact": 63518
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43594.5,
+            "spread_pct": 5.2,
+            "us_median": 384.847
+          },
           "specials": [
             {
               "x": "0",
@@ -18568,6 +20272,11 @@
           "outcomes": {
             "inexact": 64512,
             "zeroed": 258
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42786.2,
+            "us_median": 392.118
           },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
@@ -18625,6 +20334,11 @@
             "overflow": 15980,
             "zeroed": 106
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2467.9,
+            "us_median": 6798.271
+          },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
             {
@@ -18678,6 +20392,11 @@
           "outcomes": {
             "inexact": 64512,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43262.6,
+            "us_median": 387.8
           },
           "specials": [
             {
@@ -18734,6 +20453,11 @@
             "overflow": 15874,
             "zeroed": 2
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3308.0,
+            "us_median": 5071.77
+          },
           "specials": [
             {
               "x": "0",
@@ -18785,6 +20509,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43612.4,
+            "us_median": 384.689
           },
           "specials": [
             {
@@ -18838,6 +20567,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43475.2,
+            "us_median": 385.903
+          },
           "specials": [
             {
               "x": "0",
@@ -18889,6 +20623,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 4199.7,
+            "us_median": 3994.885
           },
           "specials": [
             {
@@ -18942,6 +20681,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13157.6,
+            "us_median": 1275.092
+          },
           "specials": [
             {
               "x": "0",
@@ -18993,6 +20737,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43685.6,
+            "us_median": 384.045
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -19046,6 +20795,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43688.3,
+            "us_median": 384.021
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -19101,6 +20855,11 @@
             "exact": 1024,
             "inexact": 64000
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30873.6,
+            "us_median": 543.417
+          },
           "specials": [
             {
               "x": "0",
@@ -19152,6 +20911,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43510.5,
+            "us_median": 385.59
           },
           "specials": [
             {
@@ -19208,6 +20972,12 @@
             "inexact": 5624,
             "mismatch": 1536
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 26666.1,
+            "spread_pct": 8.9,
+            "us_median": 629.159
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -19262,6 +21032,11 @@
             "exact": 32384,
             "mismatch": 32384
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5802.8,
+            "us_median": 2891.232
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -19314,6 +21089,11 @@
           "n_inputs": 32512,
           "outcomes": {
             "inexact": 32512
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 39750.1,
+            "us_median": 422.068
           },
           "specials": [
             {
@@ -19368,6 +21148,11 @@
             "inexact": 21591,
             "mismatch": 75
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2910.7,
+            "us_median": 5764.039
+          },
           "specials": [
             {
               "x": "0",
@@ -19419,6 +21204,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31588.7,
+            "us_median": 531.114
           },
           "specials": [
             {
@@ -19472,6 +21262,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31290.4,
+            "us_median": 536.177
+          },
           "specials": [
             {
               "x": "0",
@@ -19523,6 +21318,11 @@
           "n_inputs": 65012,
           "outcomes": {
             "inexact": 65012
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 38750.0,
+            "us_median": 432.96
           },
           "specials": [
             {
@@ -19579,6 +21379,11 @@
             "inexact": 49455,
             "zeroed": 1
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5349.5,
+            "us_median": 3136.212
+          },
           "specials": [
             {
               "x": "0",
@@ -19633,6 +21438,12 @@
             "flushed": 386,
             "inexact": 6239
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 38971.9,
+            "spread_pct": 5.3,
+            "us_median": 430.495
+          },
           "specials": [
             {
               "x": "0",
@@ -19686,6 +21497,12 @@
             "exact": 58399,
             "flushed": 386,
             "inexact": 6239
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 38542.9,
+            "spread_pct": 8.6,
+            "us_median": 435.287
           },
           "specials": [
             {
@@ -19742,6 +21559,11 @@
             "inexact": 4033,
             "zeroed": 140
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 7638.9,
+            "us_median": 2196.284
+          },
           "specials": [
             {
               "x": "0",
@@ -19793,6 +21615,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42699.4,
+            "spread_pct": 12.2,
+            "us_median": 392.915
           },
           "specials": [
             {
@@ -19849,6 +21677,11 @@
             "inexact": 6633,
             "zeroed": 9
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 38653.1,
+            "us_median": 434.045
+          },
           "specials": [
             {
               "x": "0",
@@ -19904,6 +21737,11 @@
             "inexact": 6813,
             "zeroed": 9
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 5447.4,
+            "us_median": 3079.845
+          },
           "specials": [
             {
               "x": "0",
@@ -19957,6 +21795,12 @@
             "exact": 30132,
             "inexact": 16702,
             "mismatch": 18190
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 39533.9,
+            "spread_pct": 10.4,
+            "us_median": 424.375
           },
           "specials": [
             {
@@ -20012,6 +21856,11 @@
             "inexact": 18292,
             "mismatch": 18190
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 12854.6,
+            "us_median": 1305.155
+          },
           "specials": [
             {
               "x": "0",
@@ -20064,6 +21913,11 @@
           "outcomes": {
             "exact": 27316,
             "inexact": 6578
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 36310.6,
+            "us_median": 462.047
           },
           "specials": [
             {
@@ -20118,6 +21972,11 @@
             "exact": 29930,
             "inexact": 3962,
             "mismatch": 2
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2801.9,
+            "us_median": 5987.756
           },
           "specials": [
             {
@@ -20174,6 +22033,11 @@
             "inexact": 33522,
             "mismatch": 30
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 40885.0,
+            "us_median": 410.352
+          },
           "specials": [
             {
               "x": "0",
@@ -20228,6 +22092,11 @@
             "flushed": 395,
             "inexact": 6602
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 3812.0,
+            "us_median": 4401.112
+          },
           "specials": [
             {
               "x": "0",
@@ -20280,6 +22149,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42529.2,
+            "us_median": 394.487
+          },
           "specials": [
             {
               "x": "0",
@@ -20331,6 +22205,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 7759.8,
+            "us_median": 2162.068
           },
           "specials": [
             {
@@ -20386,6 +22265,11 @@
             "inexact": 37708,
             "zeroed": 512
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43552.0,
+            "us_median": 385.223
+          },
           "specials": [
             {
               "x": "0",
@@ -20439,6 +22323,11 @@
             "exact": 42560,
             "inexact": 22464
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13009.8,
+            "us_median": 1289.578
+          },
           "specials": [
             {
               "x": "0",
@@ -20491,6 +22380,11 @@
           "outcomes": {
             "inexact": 32512
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 40715.4,
+            "us_median": 412.061
+          },
           "specials": [
             {
               "x": "0",
@@ -20542,6 +22436,11 @@
           "n_inputs": 32512,
           "outcomes": {
             "inexact": 32512
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 2601.3,
+            "us_median": 6449.431
           },
           "specials": [
             {
@@ -20596,6 +22495,12 @@
             "exact": 32512,
             "flushed": 16128
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 42318.8,
+            "spread_pct": 5.3,
+            "us_median": 396.449
+          },
           "specials": [
             {
               "x": "0",
@@ -20647,6 +22552,11 @@
           "n_inputs": 64768,
           "outcomes": {
             "exact": 64768
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 13209.1,
+            "us_median": 1270.123
           },
           "specials": [
             {
@@ -20701,6 +22611,11 @@
             "exact": 23863,
             "inexact": 41161
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30988.3,
+            "us_median": 541.405
+          },
           "specials": [
             {
               "x": "0",
@@ -20754,6 +22669,11 @@
             "exact": 23863,
             "inexact": 41161
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31039.1,
+            "us_median": 540.519
+          },
           "specials": [
             {
               "x": "0",
@@ -20806,6 +22726,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 7749.5,
+            "us_median": 2164.936
+          },
           "specials": [
             {
               "x": "0",
@@ -20857,6 +22782,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31517.7,
+            "us_median": 532.311
           },
           "rationale": "2 keeps the op distinct from subtract",
           "specials": [
@@ -20911,6 +22841,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30927.9,
+            "us_median": 542.462
+          },
           "specials": [
             {
               "x": "0",
@@ -20962,6 +22897,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30994.7,
+            "us_median": 541.294
           },
           "specials": [
             {
@@ -21018,6 +22958,12 @@
             "inexact": 6633,
             "zeroed": 9
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37656.8,
+            "spread_pct": 6.2,
+            "us_median": 445.529
+          },
           "specials": [
             {
               "x": "0",
@@ -21071,6 +23017,12 @@
             "exact": 30396,
             "inexact": 14518,
             "mismatch": 20110
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 35049.8,
+            "spread_pct": 8.4,
+            "us_median": 478.668
           },
           "specials": [
             {
@@ -21126,6 +23078,11 @@
             "inexact": 14420,
             "mismatch": 20376
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 8001.1,
+            "us_median": 2096.874
+          },
           "specials": [
             {
               "x": "0",
@@ -21178,6 +23135,11 @@
           "outcomes": {
             "exact": 61162,
             "inexact": 3862
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 37405.2,
+            "us_median": 448.526
           },
           "specials": [
             {
@@ -21232,6 +23194,11 @@
             "exact": 31390,
             "inexact": 33634
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 17932.1,
+            "us_median": 935.596
+          },
           "specials": [
             {
               "x": "0",
@@ -21284,6 +23251,12 @@
           "outcomes": {
             "exact": 53646,
             "inexact": 11378
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 30763.8,
+            "spread_pct": 10.9,
+            "us_median": 545.356
           },
           "specials": [
             {
@@ -21338,6 +23311,11 @@
             "exact": 48092,
             "inexact": 16932
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 9816.2,
+            "us_median": 1709.133
+          },
           "specials": [
             {
               "x": "0",
@@ -21389,6 +23367,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 43596.0,
+            "us_median": 384.834
           },
           "rationale": "domain midpoint, torch's zero fill",
           "specials": [
@@ -21443,6 +23426,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 10227.2,
+            "us_median": 1640.445
+          },
           "rationale": "ttnn binds threshold and value as min/max; the golden's *args are unbindable",
           "specials": [
             {
@@ -21496,6 +23484,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 44230.4,
+            "us_median": 379.314
+          },
           "specials": [
             {
               "x": "0",
@@ -21547,6 +23540,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 24018.0,
+            "us_median": 698.528
           },
           "rationale": "the attached golden demands a bool condition",
           "specials": [
@@ -21603,6 +23601,11 @@
             "flushed": 127,
             "inexact": 42264
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 40414.0,
+            "us_median": 415.134
+          },
           "specials": [
             {
               "x": "0",
@@ -21655,6 +23658,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 31911.4,
+            "us_median": 525.744
+          },
           "specials": [
             {
               "x": "0",
@@ -21706,6 +23714,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "yyzo-bh-26-special-ijankowski-for-reservation-207161",
+            "melem_per_s": 1877.3,
+            "us_median": 8936.741
           },
           "specials": [
             {
@@ -23104,23 +25117,6 @@
           "ulp_clipped": 30210,
           "usable_to": "\u2014",
           "verdict": "worst pairing 1.14e+36 ULP; mean 4.5e+34"
-        }
-      },
-      "bias_gelu_bw": {
-        "default": {
-          "max_abs": "0.000947",
-          "max_ulp": "2.45e+05",
-          "mean_ulp": "93.8",
-          "n_inputs": 65026,
-          "outcomes": {
-            "exact": 30207,
-            "inexact": 34817,
-            "mismatch": 2
-          },
-          "specials": [],
-          "ulp_clipped": 663,
-          "usable_to": "\u2014",
-          "verdict": "worst pairing 2.45e+05 ULP; mean 93.8"
         }
       },
       "cbrt": {

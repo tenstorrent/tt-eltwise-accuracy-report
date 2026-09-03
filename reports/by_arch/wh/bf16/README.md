@@ -32,7 +32,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [atanh_bw](atanh_bw.md) | `default` | 8 | 1.16 | 0.82 | 0.5 | 7344 |
 | [bias_gelu](bias_gelu.md) | `default` | 1.14e+36 ⚠ | 4.5e+34 | n/a | 1.33e+36 | 460 |
 | [bias_gelu_](bias_gelu_.md) | `default` | 1.14e+36 ⚠ | 4.5e+34 | n/a | 1.33e+36 | 454 |
-| [bias_gelu_bw](bias_gelu_bw.md) | `default` | 2.45e+05 ⚠ | 93.8 | n/a | 0.000947 | — |
 | [cbrt](cbrt.md) | `default` | 1 | 1 | 3.39e+38 | 3.44e+10 | 378 ±12% |
 | [ceil](ceil.md) | `default` | 0 | — | 3.39e+38 | 0 | 355 |
 | [celu](celu.md) | `default` | 0 | — | 3.39e+38 | 0 | 462 ±18% |
@@ -312,10 +311,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [bias_gelu_](bias_gelu_.md)
 
 ![bias_gelu_ default](../../../charts/wh/bf16/bias_gelu__default_ulp.svg)
-
-### [bias_gelu_bw](bias_gelu_bw.md)
-
-![bias_gelu_bw default](../../../charts/wh/bf16/bias_gelu_bw_default_ulp.svg)
 
 ### [cbrt](cbrt.md)
 
