@@ -163,7 +163,14 @@ def _why_missing(manifest: dict, name: str, arch: str) -> str:
         return f"{qualified}: {arch} rejected every dtype and layout probed — {why}"
     if qualified in manifest["ops"]:
         return f"{qualified}: excluded by the category filter"
-    return f"unknown op: {name} — not eltwise, or ttnn does not register it"
+    # Ask ttnn before saying "unknown": a typo and a genuinely new op are the two things a
+    # newcomer hits, and they need opposite answers. The manifest keeps no record of what
+    # discover rejected as non-eltwise, so the second case cannot be narrowed further here.
+    try:
+        introspect.resolve(qualified)
+    except AttributeError:
+        return f"unknown op: {name} — ttnn does not register it under that name"
+    return f"{qualified}: ttnn has it, this manifest does not — either not elementwise, or added since the manifest was built. `ttnn-accuracy discover` says which"
 
 
 def _golden(golden: Callable, backward: bool, operands: int) -> Callable:

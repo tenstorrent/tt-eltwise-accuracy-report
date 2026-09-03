@@ -50,8 +50,13 @@ def test_a_device_rejected_op_never_reaches_the_plan(monkeypatch):
         ),
         ("exp", _manifest(rejected={"ttnn.exp": "TT_FATAL"}), "rejected every dtype"),
         ("exp", _manifest(), "category filter"),
-        ("matmul", _manifest(), "unknown op"),
+        ("matmul", _manifest(), "ttnn has it, this manifest does not"),
     ],
 )
 def test_a_missing_op_is_answered_with_its_recorded_reason(name, manifest, expected):
     assert expected in plan._why_missing(manifest, name, "wh")
+
+
+def test_a_typo_is_named_as_one_rather_than_called_not_eltwise():
+    """The two things a newcomer hits — a typo and a genuinely new op — need opposite answers."""
+    assert "does not register it" in plan._why_missing(_manifest(), "reul", "wh")

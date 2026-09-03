@@ -80,6 +80,44 @@ covering a new op is one entry. Everything uncovered, with reasons and sketches:
 | binary bf16 / fp32 | 4.2e9 | ~70 s |
 | ternary bf16 | 1.1e9 | ~45 s |
 
+## Validating a kernel you changed
+
+One command. It measures only the ops you name, scores them exactly as the published
+report does, and diffs against it — the baseline is read from git, because accuracy is
+deterministic and re-measuring it would only reproduce the same numbers.
+
+```bash
+ttnn-accuracy check --arch wh --ops exp,gelu --dtype both
+```
+
+```
+regressed   bf16/exp/default: 15566 of 65026 points returned inf or zero where a value exists
+2 variant(s) measured — 1 regressed
+```
+
+Exit is non-zero when something got worse, so it scripts. Add `--perf` to time the same
+ops; timings are compared only when the published ones came from this same host, because
+a number from another machine measures that machine.
+
+```bash
+ttnn-accuracy check --arch wh --ops exp --dtype both --perf
+```
+
+To try a parameter the report does not carry, without touching it:
+
+```bash
+ttnn-accuracy check --arch wh --ops relu_max --params relu_max=6
+```
+
+An op ttnn has gained since the manifest was built is not in scope yet — `discover`,
+`derive` and `probe` bring it in, and `check` says so if you hit one.
+
+## Comparing two builds
+
+Accuracy needs no second build: the published index is the baseline. Timing does, because
+it is not reproducible across machines or days — so both sides are built and measured in
+one run, on one host, by the `perf-report` workflow with `commit` and `against` set.
+
 ## Reading the numbers
 
 | ULP error | Assessment |

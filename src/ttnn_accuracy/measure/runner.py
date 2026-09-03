@@ -105,8 +105,10 @@ def check(
             getattr(logger, "error" if name == "regressed" else "info")(
                 "{} {}: {}", name, where, (now or {}).get("verdict", "—")
             )
-    if not any(buckets.values()):
-        logger.success("{} variant(s) measured, nothing moved", len(measured))
+    # One line, last: a kernel author wants the answer, not to read a diff for it.
+    moved = ", ".join(f"{len(rows)} {name}" for name, rows in buckets.items() if rows)
+    say = logger.error if buckets["regressed"] else logger.success
+    say("{} variant(s) measured — {}", len(measured), moved or "nothing moved")
     return empty + timing + len(buckets["regressed"])
 
 
