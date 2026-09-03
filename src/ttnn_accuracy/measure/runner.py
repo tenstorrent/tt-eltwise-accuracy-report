@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 from loguru import logger
 
-from ttnn_accuracy.measure.device import open_device, reason
+from ttnn_accuracy.measure.device import open_device, reason, session
 from ttnn_accuracy.measure.schema import check_arch, describe_run
 from ttnn_accuracy.measure.store import measured_at, write_failures, write_result, write_run
 from ttnn_accuracy.measure.sweeps import SWEEPS, specials
@@ -23,6 +23,7 @@ def measure(
     out_root: Path,
     device_id: int = 0,
     archive: bool = True,
+    device=None,
 ) -> int:
     """Returns the number of variants that produced no CSV — the process exit code.
 
@@ -32,7 +33,7 @@ def measure(
     failures: dict[str, dict[str, str]] = {}
     names = sorted({spec.name for spec in specs})
 
-    with open_device(device_id) as device:
+    with session(device_id, device) as device:
         check_arch(device, arch)
         meta = describe_run(device, arch, names, dtypes)
         done = measured_at(out_root, arch, dtypes, meta.tt_metal_commit)
@@ -55,7 +56,9 @@ def measure(
     return failed
 
 
-def check(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0) -> int:
+def check(
+    specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0, perf: bool = False
+) -> int:
     """Measure these ops now and say what moved against the published report.
 
     The kernel author's loop. Accuracy is deterministic, so the baseline is read from git
@@ -71,8 +74,10 @@ def check(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0)
         raise SystemExit(f"no baseline at {INDEX_FILE} — nothing to check against")
     baseline = json.loads(INDEX_FILE.read_text())
 
-    with TemporaryDirectory(prefix="ttnn-check-") as tmp:
-        empty = measure(specs, dtypes, arch, Path(tmp), device_id, archive=False)
+    # One device for both passes: opening it costs about as long as measuring one op.
+    with open_device(device_id) as device, TemporaryDirectory(prefix="ttnn-check-") as tmp:
+        empty = measure(specs, dtypes, arch, Path(tmp), device_id, archive=False, device=device)
+        timing = _check_perf(specs, dtypes, arch, device) if perf else 0
         candidate = {arch: {}}
         for csv in sorted(Path(tmp).glob(f"{arch}/*/*/*.csv")):
             dtype, op, variant = csv.parts[-3], csv.parts[-2], csv.stem
@@ -102,7 +107,32 @@ def check(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0)
             )
     if not any(buckets.values()):
         logger.success("{} variant(s) measured, nothing moved", len(measured))
-    return empty + len(buckets["regressed"])
+    return empty + timing + len(buckets["regressed"])
+
+
+def _check_perf(specs: list[OpSpec], dtypes: list[str], arch: str, device) -> int:
+    """Time the same ops, and diff against the published timings when this is their host.
+
+    Unlike accuracy, a published timing from another machine is not a baseline, so when the
+    hosts differ the numbers are printed and nothing is compared.
+    """
+    from tempfile import TemporaryDirectory
+
+    from ttnn_accuracy.measure.perf import measure_perf, perf_diff
+    from ttnn_accuracy.paths import PERF_DIR
+
+    with TemporaryDirectory(prefix="ttnn-perf-") as tmp:
+        now = Path(tmp) / "now.json"
+        untimed = measure_perf(specs, dtypes, arch, out=now, device=device)
+        published = PERF_DIR / f"{arch}.json"
+        if not published.exists():
+            logger.info("no published timings for {} — nothing to compare against", arch)
+            return untimed
+        try:
+            return untimed + perf_diff(published, now)
+        except SystemExit as exc:  # different host: the guard in perf_diff, not an error here
+            logger.warning("{}", exc)
+            return untimed
 
 
 def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:

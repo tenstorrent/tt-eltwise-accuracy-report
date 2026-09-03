@@ -20,7 +20,7 @@ from time import perf_counter_ns
 import torch
 from loguru import logger
 
-from ttnn_accuracy.measure.device import open_device
+from ttnn_accuracy.measure.device import session
 from ttnn_accuracy.measure.schema import check_arch, describe_run
 from ttnn_accuracy.measure.sweeps import DTYPE, LAYOUT
 from ttnn_accuracy.ops.plan import OpSpec
@@ -105,6 +105,7 @@ def measure_perf(
     arch: str,
     device_id: int = 0,
     out: Path | None = None,
+    device=None,
 ) -> int:
     """Returns the number of variants that produced no timing — the process exit code."""
     results: dict = {}
@@ -113,7 +114,7 @@ def measure_perf(
     path = out or PERF_DIR / f"{arch}.json"
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    with open_device(device_id) as device:
+    with session(device_id, device) as device:
         check_arch(device, arch)
         meta = describe_run(device, arch, sorted({s.name for s in specs}), dtypes)
         # The host is part of the measurement: only this field says two rows are comparable.

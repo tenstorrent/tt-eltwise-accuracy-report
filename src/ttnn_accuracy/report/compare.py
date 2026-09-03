@@ -48,15 +48,27 @@ def diff(old: dict, new: dict) -> dict[str, list]:
             buckets["added"].append((key, None, b))
         elif b is None:
             buckets["removed"].append((key, a, None))
-        # .get throughout: an index predating a field is still a valid baseline.
-        elif any(_num(a.get(m)) != _num(b.get(m)) for m in SCORED) or a.get("usable_to") != b.get(
-            "usable_to"
-        ):
-            worse = any(_num(b.get(m)) > _num(a.get(m)) for m in SCORED)
-            better = any(_num(b.get(m)) < _num(a.get(m)) for m in SCORED)
-            bucket = "regressed" if worse else "improved" if better else "changed"
+        elif bucket := _bucket(a, b):
             buckets[bucket].append((key, a, b))
     return buckets
+
+
+def _bucket(a: dict, b: dict) -> str:
+    """Where this pair belongs, or "" when nothing worth saying moved.
+
+    Only metrics both sides carry are scored: a field the baseline predates cannot have
+    regressed. Treating `defects` as 0 where it was simply absent put 93 entries in
+    `regressed` the night it was added, not one of which had moved a ULP. Its arrival is
+    still news, so it lands in `changed`.
+    """
+    scored = [m for m in SCORED if m in a and m in b]
+    if any(_num(b[m]) > _num(a[m]) for m in scored):
+        return "regressed"
+    if any(_num(b[m]) < _num(a[m]) for m in scored):
+        return "improved"
+    # A metric appearing as 0 says nothing; appearing with a count is the finding itself.
+    appeared = [m for m in SCORED if m not in a and _num(b.get(m))]
+    return "changed" if appeared or a.get("usable_to") != b.get("usable_to") else ""
 
 
 def _moves(a: dict, b: dict) -> str:

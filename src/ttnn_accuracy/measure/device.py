@@ -21,6 +21,19 @@ def open_device(device_id: int = 0) -> Iterator[object]:
         ttnn.close_device(device)
 
 
+@contextmanager
+def session(device_id: int = 0, device=None) -> Iterator[object]:
+    """The caller's device if it has one, else a fresh one.
+
+    Opening costs about two minutes here, and `check` makes two passes over the same ops.
+    """
+    if device is not None:
+        yield device
+    else:
+        with open_device(device_id) as opened:
+            yield opened
+
+
 def reason(exc: Exception, limit: int = 200) -> str:
     """Why the device refused, as one publishable line."""
     line = next(iter(str(exc).strip().splitlines()), "")

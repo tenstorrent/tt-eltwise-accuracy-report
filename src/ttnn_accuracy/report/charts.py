@@ -22,7 +22,7 @@ from ttnn_accuracy.measure.schema import COLUMNS
 from ttnn_accuracy.measure.store import RUN_STAMP
 from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, variant_slug
 from ttnn_accuracy.ops.plan import describe
-from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, REPO_ROOT, RUNS_KEY
+from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, PERF_DIR, REPO_ROOT, RUNS_KEY
 
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
@@ -121,6 +121,30 @@ def _subdirs(parent: Path, only: str | None) -> list[Path]:
         child = parent / only
         return [child] if child.is_dir() else []
     return sorted(d for d in parent.iterdir() if d.is_dir())
+
+
+def _record_perf(index: dict, arch: str) -> None:
+    """Attach `stats/perf/{arch}.json` to the entries it describes.
+
+    Carried with its host, because a timing belongs to the machine that took it, and never
+    added to `compare`'s SCORED — unlike accuracy, a difference here can be the room.
+    """
+    path = PERF_DIR / f"{arch}.json"
+    if not path.exists():
+        return
+    timings = json.loads(path.read_text())
+    host = timings.get(RUNS_KEY, {}).get("host")
+    attached = 0
+    for dtype, ops in timings.items():
+        if dtype == RUNS_KEY:
+            continue
+        for op, variants in ops.items():
+            for variant, row in variants.items():
+                entry = index.get(arch, {}).get(dtype, {}).get(op, {}).get(variant)
+                if entry is not None:
+                    entry["perf"] = row | {"host": host}
+                    attached += 1
+    logger.info("{} timings from {} attached to the index", attached, path.name)
 
 
 def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
@@ -267,6 +291,8 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                         stats
                     )
                     plotted += 1
+        # After the dtypes, so every entry this arch owns exists to attach a timing to.
+        _record_perf(index, arch_dir.name)
 
     if not plotted:
         logger.error("no CSVs matched arch={} dtype={} op={}", arch_filter, dtype_filter, op_filter)

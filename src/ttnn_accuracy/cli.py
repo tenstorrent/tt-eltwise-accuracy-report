@@ -45,6 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
     check.add_argument("--dtype", default="both", choices=["bf16", "fp32", "both"])
     check.add_argument("--params", help="measure at a different scalar, e.g. relu_max=6")
     check.add_argument("--device-id", type=int, default=0)
+    check.add_argument("--perf", action="store_true", help="also time them, and diff if same host")
     check.set_defaults(category=None)
 
     perf = sub.add_parser("perf", help="time each op on a device; never scored, host-specific")
@@ -145,7 +146,7 @@ def main(argv: list[str] | None = None) -> int:
             specs, dtypes, problems = _selection(args)
             if not specs:
                 return 1
-            return problems + check(specs, dtypes, args.arch, args.device_id)
+            return problems + check(specs, dtypes, args.arch, args.device_id, args.perf)
 
         case "perf":
             from ttnn_accuracy.measure.perf import measure_perf

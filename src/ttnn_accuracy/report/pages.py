@@ -317,8 +317,8 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
         "## Operations Summary\n\n",
         "_Accurate to \\|x\\|: the largest \\|x\\| within 2 ULP. `n/a` for ops of more than one "
         "operand, where a bound on x would describe its sampled partner instead._\n\n",
-        "| Op | Parameters | Max ULP | Mean ULP | Accurate to \\|x\\| | Max abs error |\n",
-        "|----|------------|---------|----------|-----------------|---------------|\n",
+        "| Op | Parameters | Max ULP | Mean ULP | Accurate to \\|x\\| | Max abs error | µs |\n",
+        "|----|------------|---------|----------|-----------------|---------------|----|\n",
     ]
 
     for display_name, entries in groups.items():
@@ -337,9 +337,12 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
             else:
                 usable = _usable_text(summary)
             max_abs = summary["max_abs"] if summary else "—"
+            perf = (summary or {}).get("perf", {})
+            us = f"{perf['us_median']:.0f}" if perf else "—"
             op_cell = f"[{display_name}]({display_name}.md)" if i == 0 else ""
             lines.append(
-                f"| {op_cell} | `{params}` | {max_ulp} | {mean_ulp} | {usable} | {max_abs} |\n"
+                f"| {op_cell} | `{params}` | {max_ulp} | {mean_ulp} | {usable} | {max_abs} "
+                f"| {us} |\n"
             )
 
     lines.append("\n")
@@ -620,9 +623,20 @@ Everything needed to answer is below: the definitions, then every measured resul
 
 Answering rules, in force for whoever reads this: quote the `Verdict` column rather than
 judging the numbers yourself, name the architecture and dtype in every answer, and if a
-variant is not in the table say so instead of extrapolating from a neighbouring one.
+variant is not in the table say so instead of extrapolating from a neighbouring one. A timing
+is only comparable to another taken on the same host, which the "Measured against" table names.
 
 """
+
+
+def _ask_row(arch: str, dtype: str, op: str, variant: str, s: dict) -> str:
+    perf = s.get("perf")
+    us, rate = (f"{perf['us_median']:.0f}", f"{perf['melem_per_s']:.0f}") if perf else ("—", "—")
+    return (
+        f"| {arch} | {dtype} | `{op}` | `{params_desc(op, variant)}` | {s.get('verdict', '—')} "
+        f"| {s.get('max_ulp', '—')} | {s.get('mean_ulp', '—')} | {s.get('usable_to', '—')} "
+        f"| {us} | {rate} |"
+    )
 
 
 def ask_page() -> str:
@@ -634,8 +648,7 @@ def ask_page() -> str:
     """
     index = _get_index()
     rows = [
-        f"| {arch} | {dtype} | `{op}` | `{params_desc(op, variant)}` | {s.get('verdict', '—')} "
-        f"| {s.get('max_ulp', '—')} | {s.get('mean_ulp', '—')} | {s.get('usable_to', '—')} |"
+        _ask_row(arch, dtype, op, variant, s)
         for arch in sorted(k for k in index if k != RUNS_KEY)
         for dtype, ops in sorted(index[arch].items())
         for op, variants in sorted(ops.items())
@@ -657,8 +670,9 @@ def ask_page() -> str:
             CONTRACT_FILE.read_text().partition("\n")[2].strip(),
             "",
             f"## Results — {len(rows)} variants\n",
-            "| Arch | Dtype | Op | Parameters | Verdict | Max ULP | Mean ULP | Usable to |",
-            "|---|---|---|---|---|---|---|---|",
+            "| Arch | Dtype | Op | Parameters | Verdict | Max ULP | Mean ULP | Usable to "
+            "| µs | Melem/s |",
+            "|---|---|---|---|---|---|---|---|---|---|",
             *rows,
             "",
         ]

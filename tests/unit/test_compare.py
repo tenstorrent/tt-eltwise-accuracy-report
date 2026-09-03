@@ -89,3 +89,17 @@ def test_coverage_changes_are_named_not_scored():
     assert [k for k, *_ in buckets["added"]] == [("wh", "bf16", "sinh", "default")]
     assert [k for k, *_ in buckets["removed"]] == [("wh", "bf16", "exp", "default")]
     assert not buckets["regressed"]
+
+
+def test_a_metric_the_baseline_predates_is_not_a_regression():
+    """`defects` arriving put 93 entries in `regressed`; none had moved a ULP."""
+    old = _index()
+    del old["wh"]["bf16"]["exp"]["default"]["defects"]
+    buckets = diff(old, _index(defects=15566))
+    assert not buckets["regressed"]
+    assert [k for k, *_ in buckets["changed"]] == [("wh", "bf16", "exp", "default")]
+
+
+def test_a_metric_both_sides_carry_still_scores():
+    assert diff(_index(defects=0), _index(defects=7))["regressed"]
+    assert diff(_index(defects=7), _index(defects=0))["improved"]
