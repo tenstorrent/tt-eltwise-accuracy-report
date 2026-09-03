@@ -61,6 +61,10 @@ jobs:
           else echo "any=false" >> "$GITHUB_OUTPUT"
           fi
 
+          # Always, and here rather than in Publish: a quiet night and a broken job both
+          # showed an empty page, and the difference is the whole point of reading it.
+          cat analyze-report/findings.md >> "$GITHUB_STEP_SUMMARY"
+
       - name: Add a model's note, when one is configured
         if: steps.moved.outputs.any == 'true' && env.ANTHROPIC_API_KEY != ''
         # Only what the tables cannot say: which movement deserves a human today. The
@@ -95,7 +99,6 @@ jobs:
       - name: Publish
         if: steps.moved.outputs.any == 'true'
         run: |
-          cat analyze-report/findings.md >> "$GITHUB_STEP_SUMMARY"
           git add analyze-report/findings.md
           git diff --cached --quiet && { echo "nothing new to say"; exit 0; }
           git -c user.name=analyze-report -c user.email=analyze@users.noreply.github.com \

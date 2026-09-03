@@ -5,7 +5,7 @@ from __future__ import annotations
 from ttnn_accuracy.measure.device import reason
 
 FATAL = (
-    "TT_FATAL @ /localdev/ijankowski/tt-metal/ttnn/cpp/ttnn/operations/eltwise/unary/"
+    "TT_FATAL @ /localdev/someone/tt-metal/ttnn/cpp/ttnn/operations/eltwise/unary/"
     "device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
 )
 
@@ -13,7 +13,7 @@ FATAL = (
 def test_the_builders_home_directory_is_stripped(monkeypatch):
     monkeypatch.delenv("TT_METAL_HOME", raising=False)
     out = reason(Exception(FATAL))
-    assert "ijankowski" not in out and "/localdev" not in out
+    assert "someone" not in out and "/localdev" not in out
     assert out.startswith("TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise")
     assert "unary_device_operation.cpp:71" in out  # the useful half survives
 
