@@ -103,3 +103,19 @@ def test_a_metric_the_baseline_predates_is_not_a_regression():
 def test_a_metric_both_sides_carry_still_scores():
     assert diff(_index(defects=0), _index(defects=7))["regressed"]
     assert diff(_index(defects=7), _index(defects=0))["improved"]
+
+
+@pytest.mark.parametrize(
+    ("stats", "bar", "failures"),
+    [
+        ({"max_ulp": "1", "defects": 0}, 2.0, 0),
+        ({"max_ulp": "3", "defects": 0}, 2.0, 1),
+        ({"max_ulp": "2", "defects": 0}, 2.0, 0),  # the bar is inclusive
+        ({"max_ulp": "0", "defects": 329}, 2.0, 1),  # a defect is over any bar
+        ({"max_ulp": "—", "defects": 0}, 2.0, 0),  # nothing scorable is not a failure
+    ],
+)
+def test_the_absolute_bar_is_independent_of_the_baseline(stats, bar, failures):
+    from ttnn_accuracy.measure.runner import _over_bar
+
+    assert _over_bar({"bf16": {"exp": {"default": stats}}}, bar) == failures

@@ -109,8 +109,9 @@ To try a parameter the report does not carry, without touching it:
 ttnn-accuracy check --arch wh --ops relu_max --params relu_max=6
 ```
 
-An op ttnn has gained since the manifest was built is not in scope yet — `discover`,
-`derive` and `probe` bring it in, and `check` says so if you hit one.
+An op ttnn has gained since the manifest was built is not in scope yet. `check` brings it
+in for you — `discover`, `derive` and `probe` run first, before the device is taken — so
+the manifest it updates is a real change to commit, not a side effect to discard.
 
 ## Comparing two builds
 

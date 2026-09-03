@@ -57,7 +57,12 @@ def measure(
 
 
 def check(
-    specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0, perf: bool = False
+    specs: list[OpSpec],
+    dtypes: list[str],
+    arch: str,
+    device_id: int = 0,
+    perf: bool = False,
+    max_ulp: float | None = None,
 ) -> int:
     """Measure these ops now and say what moved against the published report.
 
@@ -105,11 +110,41 @@ def check(
             getattr(logger, "error" if name == "regressed" else "info")(
                 "{} {}: {}", name, where, (now or {}).get("verdict", "—")
             )
+    over = _over_bar(candidate[arch], max_ulp) if max_ulp is not None else 0
     # One line, last: a kernel author wants the answer, not to read a diff for it.
     moved = ", ".join(f"{len(rows)} {name}" for name, rows in buckets.items() if rows)
-    say = logger.error if buckets["regressed"] else logger.success
+    say = logger.error if buckets["regressed"] or over else logger.success
     say("{} variant(s) measured — {}", len(measured), moved or "nothing moved")
-    return empty + timing + len(buckets["regressed"])
+    return empty + timing + over + len(buckets["regressed"])
+
+
+def _over_bar(measured: dict, max_ulp: float) -> int:
+    """Variants failing an absolute bar, so a generator can loop on the tool.
+
+    Separate from the diff: `check` answers "did I change it", this answers "is it good
+    enough", and a kernel that was always wrong moves nothing while failing the bar.
+    A defect is over any bar — those points carry no ULP to compare.
+    """
+    failed = 0
+    for dtype, ops in measured.items():
+        for op, variants in ops.items():
+            for variant, s in variants.items():
+                worst, defects = s.get("max_ulp"), s.get("defects", 0)
+                try:
+                    exceeds = float(worst) > max_ulp
+                except (TypeError, ValueError):
+                    exceeds = False  # no scorable point is not a failure to be under a bar
+                if exceeds or defects:
+                    failed += 1
+                    logger.error(
+                        "over the {} ULP bar  {}/{}/{}: {}",
+                        max_ulp,
+                        dtype,
+                        op,
+                        variant,
+                        s.get("verdict", worst),
+                    )
+    return failed
 
 
 def _check_perf(specs: list[OpSpec], dtypes: list[str], arch: str, device) -> int:

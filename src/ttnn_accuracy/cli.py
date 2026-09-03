@@ -46,6 +46,9 @@ def build_parser() -> argparse.ArgumentParser:
     check.add_argument("--params", help="measure at a different scalar, e.g. relu_max=6")
     check.add_argument("--device-id", type=int, default=0)
     check.add_argument("--perf", action="store_true", help="also time them, and diff if same host")
+    check.add_argument(
+        "--max-ulp", type=float, help="fail any variant worse than this, whatever the baseline says"
+    )
     check.set_defaults(category=None)
 
     perf = sub.add_parser("perf", help="time each op on a device; never scored, host-specific")
@@ -113,6 +116,34 @@ def _selection(args) -> tuple[list, list[str], int]:
     return specs, dtypes, len(problems)
 
 
+def _onboard(args) -> int:
+    """Bring ops ttnn has but the manifest does not into scope, before the device is taken.
+
+    Someone validating a new kernel should not have to know that three commands come
+    first. Ordered before `check` opens the device because `probe` spawns a child that
+    opens its own, and two openers on one device is a hang, not an error.
+    """
+    from ttnn_accuracy.ops.manifest import derive_domains, discover, load, probe_layouts
+
+    known = {e["name"] for e in load()["ops"].values()}
+    missing = [o.strip() for o in args.ops.split(",") if o.strip() not in known]
+    if not missing:
+        return 0
+
+    logger.info("{} not in the manifest — discovering, deriving, probing", ", ".join(missing))
+    for step in (discover, derive_domains):
+        if rc := step():
+            return rc
+    if rc := probe_layouts(args.device_id):
+        return rc
+
+    from ttnn_accuracy.ops import plan
+
+    plan._manifest.cache_clear()  # resolve() would otherwise read the pre-onboarding copy
+    plan.describe.cache_clear()
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
 
@@ -143,10 +174,14 @@ def main(argv: list[str] | None = None) -> int:
         case "check":
             from ttnn_accuracy.measure.runner import check
 
+            if rc := _onboard(args):
+                return rc
             specs, dtypes, problems = _selection(args)
             if not specs:
                 return 1
-            return problems + check(specs, dtypes, args.arch, args.device_id, args.perf)
+            return problems + check(
+                specs, dtypes, args.arch, args.device_id, args.perf, args.max_ulp
+            )
 
         case "perf":
             from ttnn_accuracy.measure.perf import measure_perf
