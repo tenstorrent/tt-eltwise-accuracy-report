@@ -610,8 +610,8 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260902T135808",
-        "tt_metal_commit": "812427269cb",
+        "run_id": "20260903T124708",
+        "tt_metal_commit": "71e0727d990",
         "ttnn_version": "0.1.dev30578+g5b8d933"
       },
       "fp32": {
@@ -813,8 +813,8 @@
           "xlogy",
           "xlogy_bw"
         ],
-        "run_id": "20260902T135808",
-        "tt_metal_commit": "812427269cb",
+        "run_id": "20260903T124708",
+        "tt_metal_commit": "71e0727d990",
         "ttnn_version": "0.1.dev30578+g5b8d933"
       }
     }
@@ -21763,6 +21763,12 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48620.7,
+            "spread_pct": 7.8,
+            "us_median": 345.063
+          },
           "specials": [
             {
               "x": "0",
@@ -21815,6 +21821,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14929.6,
+            "us_median": 1123.759
+          },
           "specials": [
             {
               "x": "0",
@@ -21866,6 +21877,12 @@
           "n_inputs": 32258,
           "outcomes": {
             "exact": 32258
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22370.6,
+            "spread_pct": 9.0,
+            "us_median": 749.966
           },
           "specials": [
             {
@@ -21920,6 +21937,11 @@
             "exact": 32116,
             "inexact": 140
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2551.0,
+            "us_median": 6576.744
+          },
           "specials": [
             {
               "x": "0",
@@ -21972,6 +21994,11 @@
           "outcomes": {
             "exact": 15939,
             "inexact": 445
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 20611.6,
+            "us_median": 813.97
           },
           "specials": [
             {
@@ -22028,6 +22055,11 @@
             "mismatch": 32258,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2213.6,
+            "us_median": 7579.05
+          },
           "specials": [
             {
               "x": "0",
@@ -22080,6 +22112,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36477.1,
+            "us_median": 459.938
           },
           "specials": [
             {
@@ -22134,6 +22171,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36696.5,
+            "us_median": 457.189
+          },
           "specials": [
             {
               "x": "0",
@@ -22186,6 +22228,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36483.9,
+            "us_median": 459.853
           },
           "rationale": "2 keeps the op distinct from add",
           "specials": [
@@ -22242,6 +22289,11 @@
             "inexact": 36375,
             "undefined": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27019.8,
+            "us_median": 620.923
+          },
           "specials": [
             {
               "x": "0",
@@ -22296,6 +22348,11 @@
             "inexact": 2413,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27589.8,
+            "us_median": 608.094
+          },
           "specials": [
             {
               "x": "0",
@@ -22348,6 +22405,12 @@
           "outcomes": {
             "exact": 32256,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22235.0,
+            "spread_pct": 14.1,
+            "us_median": 754.541
           },
           "specials": [
             {
@@ -22402,6 +22465,11 @@
             "exact": 31984,
             "inexact": 272
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2545.6,
+            "us_median": 6590.668
+          },
           "specials": [
             {
               "x": "0",
@@ -22454,6 +22522,11 @@
           "outcomes": {
             "exact": 64468,
             "inexact": 556
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13473.2,
+            "us_median": 1245.229
           },
           "specials": [
             {
@@ -22509,6 +22582,12 @@
             "inexact": 4012,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13811.4,
+            "spread_pct": 7.4,
+            "us_median": 1214.733
+          },
           "specials": [
             {
               "x": "0",
@@ -22563,6 +22642,12 @@
             "inexact": 28,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27743.0,
+            "spread_pct": 13.8,
+            "us_median": 604.738
+          },
           "specials": [
             {
               "x": "0",
@@ -22616,6 +22701,11 @@
             "exact": 2,
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35285.1,
+            "us_median": 475.476
+          },
           "specials": [
             {
               "x": "0",
@@ -22668,6 +22758,11 @@
           "outcomes": {
             "exact": 16642,
             "inexact": 48384
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3488.8,
+            "us_median": 4808.86
           },
           "specials": [
             {
@@ -22723,6 +22818,12 @@
             "inexact": 7052,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14403.2,
+            "spread_pct": 6.2,
+            "us_median": 1164.824
+          },
           "specials": [
             {
               "x": "0",
@@ -22776,6 +22877,12 @@
             "exact": 2388,
             "inexact": 29866,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22437.6,
+            "spread_pct": 12.2,
+            "us_median": 747.727
           },
           "specials": [
             {
@@ -22832,6 +22939,11 @@
             "overflow": 2,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2284.4,
+            "us_median": 7344.233
+          },
           "specials": [
             {
               "x": "0",
@@ -22887,6 +22999,11 @@
             "overflow": 1,
             "undefined": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36503.6,
+            "us_median": 459.605
+          },
           "specials": [
             {
               "x": "0",
@@ -22941,6 +23058,11 @@
             "inexact": 64768,
             "overflow": 1,
             "undefined": 1
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36960.6,
+            "us_median": 453.921
           },
           "specials": [
             {
@@ -23012,6 +23134,12 @@
             "exact": 64178,
             "inexact": 846
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 44361.4,
+            "spread_pct": 11.9,
+            "us_median": 378.194
+          },
           "specials": [
             {
               "x": "0",
@@ -23064,6 +23192,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47217.3,
+            "us_median": 355.319
+          },
           "specials": [
             {
               "x": "0",
@@ -23115,6 +23248,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36282.9,
+            "spread_pct": 18.2,
+            "us_median": 462.4
           },
           "specials": [
             {
@@ -23170,6 +23309,11 @@
             "flushed": 396,
             "inexact": 734
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7074.4,
+            "us_median": 2371.546
+          },
           "specials": [
             {
               "x": "0",
@@ -23221,6 +23365,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48220.7,
+            "spread_pct": 7.1,
+            "us_median": 347.926
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -23275,6 +23425,11 @@
           "outcomes": {
             "exact": 65026
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7862.8,
+            "us_median": 2133.744
+          },
           "specials": [
             {
               "x": "0",
@@ -23326,6 +23481,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48544.1,
+            "spread_pct": 6.0,
+            "us_median": 345.607
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -23379,6 +23540,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7879.0,
+            "us_median": 2129.348
           },
           "specials": [
             {
@@ -23434,6 +23600,12 @@
             "inexact": 6989,
             "mismatch": 21274
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 40541.5,
+            "spread_pct": 12.3,
+            "us_median": 413.828
+          },
           "specials": [
             {
               "x": "0",
@@ -23488,6 +23660,11 @@
             "inexact": 6581,
             "mismatch": 21275
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 11098.4,
+            "us_median": 1511.675
+          },
           "specials": [
             {
               "x": "0",
@@ -23539,6 +23716,12 @@
           "n_inputs": 33894,
           "outcomes": {
             "exact": 33894
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35442.6,
+            "spread_pct": 6.4,
+            "us_median": 473.362
           },
           "specials": [
             {
@@ -23592,6 +23775,11 @@
           "outcomes": {
             "exact": 33892,
             "mismatch": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2822.4,
+            "us_median": 5944.32
           },
           "specials": [
             {
@@ -23648,6 +23836,12 @@
             "inexact": 31272,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47970.3,
+            "spread_pct": 5.2,
+            "us_median": 349.742
+          },
           "specials": [
             {
               "x": "0",
@@ -23701,6 +23895,11 @@
             "exact": 8485,
             "inexact": 40924,
             "mismatch": 127
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 16048.8,
+            "us_median": 1045.387
           },
           "specials": [
             {
@@ -23758,6 +23957,11 @@
             "overflow": 15874,
             "zeroed": 257
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1581.2,
+            "us_median": 10610.275
+          },
           "specials": [
             {
               "x": "0",
@@ -23811,6 +24015,11 @@
             "exact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35436.2,
+            "us_median": 473.448
+          },
           "specials": [
             {
               "x": "0",
@@ -23862,6 +24071,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "inexact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1806.5,
+            "us_median": 9287.393
           },
           "specials": [
             {
@@ -23915,6 +24129,11 @@
           "outcomes": {
             "exact": 65026
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13433.4,
+            "us_median": 1248.919
+          },
           "specials": [
             {
               "x": "0",
@@ -23967,6 +24186,11 @@
           "outcomes": {
             "exact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35467.7,
+            "us_median": 473.028
           },
           "rationale": "upstream never attached a golden",
           "specials": [
@@ -24022,6 +24246,11 @@
             "exact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35677.2,
+            "us_median": 470.251
+          },
           "specials": [
             {
               "x": "0",
@@ -24073,6 +24302,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 37094.1,
+            "spread_pct": 13.9,
+            "us_median": 452.289
           },
           "specials": [
             {
@@ -24128,6 +24363,11 @@
             "flushed": 396,
             "inexact": 734
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 6978.3,
+            "us_median": 2404.207
+          },
           "specials": [
             {
               "x": "0",
@@ -24180,6 +24420,12 @@
           "outcomes": {
             "exact": 47388,
             "inexact": 17636
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 29291.4,
+            "spread_pct": 20.1,
+            "us_median": 572.769
           },
           "specials": [
             {
@@ -24235,6 +24481,11 @@
             "flushed": 394,
             "inexact": 1548
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7857.9,
+            "us_median": 2135.074
+          },
           "specials": [
             {
               "x": "0",
@@ -24289,6 +24540,11 @@
             "flushed": 198,
             "inexact": 32354
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22941.6,
+            "us_median": 731.301
+          },
           "specials": [
             {
               "x": "0",
@@ -24342,6 +24598,11 @@
             "exact": 63082,
             "flushed": 394,
             "inexact": 1548
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7835.1,
+            "us_median": 2141.285
           },
           "specials": [
             {
@@ -24398,6 +24659,11 @@
             "inexact": 1700,
             "zeroed": 29424
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 20698.4,
+            "us_median": 810.558
+          },
           "specials": [
             {
               "x": "0",
@@ -24450,6 +24716,11 @@
           "outcomes": {
             "exact": 31594,
             "inexact": 662
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2427.8,
+            "us_median": 6910.45
           },
           "specials": [
             {
@@ -24505,6 +24776,12 @@
             "flushed": 396,
             "inexact": 1153
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 45436.9,
+            "spread_pct": 10.4,
+            "us_median": 369.242
+          },
           "specials": [
             {
               "x": "0",
@@ -24556,6 +24833,11 @@
             "exact": 15383,
             "flushed": 396,
             "inexact": 33679
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47595.5,
+            "us_median": 352.496
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -24612,6 +24894,12 @@
             "flushed": 394,
             "inexact": 1239
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 43824.7,
+            "spread_pct": 11.5,
+            "us_median": 382.825
+          },
           "specials": [
             {
               "x": "0",
@@ -24667,6 +24955,11 @@
             "inexact": 2713,
             "mismatch": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 11349.9,
+            "us_median": 1478.184
+          },
           "specials": [
             {
               "x": "0",
@@ -24721,6 +25014,11 @@
             "flushed": 396,
             "inexact": 1153
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14652.0,
+            "us_median": 1145.045
+          },
           "specials": [
             {
               "x": "0",
@@ -24772,6 +25070,12 @@
           "n_inputs": 49458,
           "outcomes": {
             "exact": 49458
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35195.7,
+            "spread_pct": 15.6,
+            "us_median": 476.683
           },
           "specials": [
             {
@@ -24827,6 +25131,11 @@
             "inexact": 626,
             "zeroed": 331
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 10713.1,
+            "us_median": 1566.042
+          },
           "specials": [
             {
               "x": "0",
@@ -24878,6 +25187,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47956.5,
+            "spread_pct": 6.0,
+            "us_median": 349.843
           },
           "specials": [
             {
@@ -24933,6 +25248,11 @@
             "inexact": 64564,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7657.8,
+            "us_median": 2190.879
+          },
           "specials": [
             {
               "x": "0",
@@ -24987,6 +25307,11 @@
             "inexact": 60414,
             "undefined": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 28168.3,
+            "us_median": 595.606
+          },
           "specials": [
             {
               "x": "0",
@@ -25039,6 +25364,12 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48195.1,
+            "spread_pct": 5.8,
+            "us_median": 348.11
+          },
           "specials": [
             {
               "x": "0",
@@ -25090,6 +25421,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36672.9,
+            "us_median": 457.482
           },
           "specials": [
             {
@@ -25146,6 +25482,11 @@
             "inexact": 67,
             "zeroed": 86
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 23302.3,
+            "us_median": 719.981
+          },
           "specials": [
             {
               "x": "0",
@@ -25198,6 +25539,11 @@
             "flushed": 254,
             "inexact": 32196,
             "zeroed": 198
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47957.3,
+            "us_median": 349.837
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -25254,6 +25600,11 @@
             "flushed": 197,
             "inexact": 118
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 10772.6,
+            "us_median": 1557.391
+          },
           "specials": [
             {
               "x": "0",
@@ -25305,6 +25656,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36695.3,
+            "us_median": 457.203
           },
           "specials": [
             {
@@ -25359,6 +25715,12 @@
             "exact": 62437,
             "inexact": 2587
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48253.6,
+            "spread_pct": 5.5,
+            "us_median": 347.689
+          },
           "specials": [
             {
               "x": "0",
@@ -25411,6 +25773,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48429.8,
+            "us_median": 346.424
+          },
           "specials": [
             {
               "x": "0",
@@ -25462,6 +25829,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 11516.0,
+            "us_median": 1456.865
           },
           "specials": [
             {
@@ -25516,6 +25888,11 @@
             "exact": 61998,
             "inexact": 3026
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48420.8,
+            "us_median": 346.488
+          },
           "specials": [
             {
               "x": "0",
@@ -25567,6 +25944,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7621.5,
+            "us_median": 2201.3
           },
           "specials": [
             {
@@ -25623,6 +26005,12 @@
             "inexact": 3256,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 46774.1,
+            "spread_pct": 9.7,
+            "us_median": 358.686
+          },
           "specials": [
             {
               "x": "0",
@@ -25676,6 +26064,11 @@
             "exact": 64540,
             "inexact": 484
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5415.9,
+            "us_median": 3097.773
+          },
           "specials": [
             {
               "x": "0",
@@ -25727,6 +26120,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48079.4,
+            "us_median": 348.948
           },
           "specials": [
             {
@@ -25780,6 +26178,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 8977.7,
+            "us_median": 1868.76
+          },
           "specials": [
             {
               "x": "0",
@@ -25831,6 +26234,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47224.5,
+            "spread_pct": 10.6,
+            "us_median": 355.265
           },
           "rationale": "torch's convention at x = 0",
           "specials": [
@@ -25887,6 +26296,11 @@
             "mismatch": 16384,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 34827.2,
+            "us_median": 481.727
+          },
           "specials": [
             {
               "x": "0",
@@ -25941,6 +26355,11 @@
             "inexact": 48640,
             "mismatch": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5735.3,
+            "us_median": 2925.276
+          },
           "specials": [
             {
               "x": "0",
@@ -25993,6 +26412,12 @@
           "outcomes": {
             "exact": 32260,
             "inexact": 1644
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35197.6,
+            "spread_pct": 13.8,
+            "us_median": 476.657
           },
           "specials": [
             {
@@ -26049,6 +26474,11 @@
             "inexact": 224,
             "zeroed": 4
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 9157.6,
+            "us_median": 1832.045
+          },
           "specials": [
             {
               "x": "0",
@@ -26104,6 +26534,11 @@
             "inexact": 224,
             "zeroed": 4
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 15859.0,
+            "us_median": 1057.9
+          },
           "specials": [
             {
               "x": "0",
@@ -26155,6 +26590,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48531.3,
+            "us_median": 345.699
           },
           "specials": [
             {
@@ -26209,6 +26649,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36559.2,
+            "us_median": 458.906
+          },
           "specials": [
             {
               "x": "0",
@@ -26261,6 +26706,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35869.9,
+            "us_median": 467.724
           },
           "specials": [
             {
@@ -26315,6 +26765,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35971.8,
+            "us_median": 466.399
+          },
           "specials": [
             {
               "x": "0",
@@ -26367,6 +26822,11 @@
           "outcomes": {
             "inexact": 65026
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7004.5,
+            "us_median": 2395.214
+          },
           "specials": [
             {
               "x": "0",
@@ -26418,6 +26878,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36641.9,
+            "us_median": 457.87
           },
           "specials": [
             {
@@ -26473,6 +26938,11 @@
             "flushed": 840,
             "inexact": 15341
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47790.6,
+            "us_median": 351.057
+          },
           "rationale": "torch's default slope",
           "specials": [
             {
@@ -26525,6 +26995,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 10470.0,
+            "us_median": 1602.412
           },
           "specials": [
             {
@@ -26580,6 +27055,11 @@
             "inexact": 2267,
             "undefined": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27559.0,
+            "us_median": 608.774
+          },
           "specials": [
             {
               "x": "0",
@@ -26631,6 +27111,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "inexact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 6918.9,
+            "us_median": 2424.842
           },
           "specials": [
             {
@@ -26686,6 +27171,11 @@
             "inexact": 11708,
             "overflow": 127
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7777.2,
+            "us_median": 2157.227
+          },
           "specials": [
             {
               "x": "0",
@@ -26740,6 +27230,11 @@
             "inexact": 40924,
             "mismatch": 127
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 9192.4,
+            "us_median": 1825.112
+          },
           "specials": [
             {
               "x": "0",
@@ -26792,6 +27287,12 @@
           "outcomes": {
             "exact": 32449,
             "inexact": 63
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 41502.6,
+            "spread_pct": 13.2,
+            "us_median": 404.245
           },
           "specials": [
             {
@@ -26846,6 +27347,12 @@
             "exact": 32454,
             "inexact": 58
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 42067.6,
+            "spread_pct": 12.5,
+            "us_median": 398.815
+          },
           "specials": [
             {
               "x": "0",
@@ -26899,6 +27406,11 @@
             "exact": 33608,
             "inexact": 30582
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3637.1,
+            "us_median": 4612.835
+          },
           "specials": [
             {
               "x": "0",
@@ -26951,6 +27463,12 @@
           "outcomes": {
             "exact": 48531,
             "inexact": 109
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 42044.5,
+            "spread_pct": 14.5,
+            "us_median": 399.035
           },
           "specials": [
             {
@@ -27007,6 +27525,11 @@
             "overflow": 1,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3666.1,
+            "us_median": 4576.261
+          },
           "specials": [
             {
               "x": "0",
@@ -27059,6 +27582,12 @@
           "outcomes": {
             "exact": 32453,
             "inexact": 59
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 42722.6,
+            "spread_pct": 14.1,
+            "us_median": 392.701
           },
           "specials": [
             {
@@ -27114,6 +27643,11 @@
             "inexact": 27216,
             "mismatch": 116
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3640.0,
+            "us_median": 4609.121
+          },
           "specials": [
             {
               "x": "0",
@@ -27167,6 +27701,11 @@
             "exact": 63504,
             "inexact": 1008,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4821.3,
+            "us_median": 3479.835
           },
           "specials": [
             {
@@ -27222,6 +27761,12 @@
             "flushed": 396,
             "inexact": 2747
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 26207.1,
+            "spread_pct": 14.8,
+            "us_median": 640.178
+          },
           "specials": [
             {
               "x": "0",
@@ -27275,6 +27820,11 @@
             "exact": 62374,
             "flushed": 396,
             "inexact": 2254
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3285.0,
+            "us_median": 5107.198
           },
           "specials": [
             {
@@ -27331,6 +27881,11 @@
             "mismatch": 15566,
             "overflow": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 23692.2,
+            "us_median": 708.132
+          },
           "specials": [
             {
               "x": "0",
@@ -27385,6 +27940,11 @@
             "inexact": 49369,
             "mismatch": 15488,
             "overflow": 1
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 20853.5,
+            "us_median": 804.526
           },
           "specials": [
             {
@@ -27441,6 +28001,11 @@
             "mismatch": 15488,
             "overflow": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 20910.1,
+            "us_median": 802.35
+          },
           "specials": [
             {
               "x": "0",
@@ -27493,6 +28058,11 @@
           "outcomes": {
             "exact": 29952,
             "inexact": 35074
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3315.5,
+            "us_median": 5060.298
           },
           "specials": [
             {
@@ -27549,6 +28119,11 @@
             "mismatch": 15566,
             "overflow": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 23792.9,
+            "us_median": 705.137
+          },
           "specials": [
             {
               "x": "0",
@@ -27602,6 +28177,11 @@
             "exact": 29185,
             "inexact": 35841
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4092.5,
+            "us_median": 4099.462
+          },
           "specials": [
             {
               "x": "0",
@@ -27654,6 +28234,11 @@
           "outcomes": {
             "exact": 16129
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 49134.0,
+            "us_median": 341.458
+          },
           "specials": [
             {
               "x": "0",
@@ -27705,6 +28290,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36304.2,
+            "us_median": 462.129
           },
           "specials": [
             {
@@ -27759,6 +28349,11 @@
             "exact": 15879,
             "inexact": 249
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21543.5,
+            "us_median": 778.758
+          },
           "specials": [
             {
               "x": "0",
@@ -27811,6 +28406,11 @@
           "outcomes": {
             "exact": 15491,
             "inexact": 637
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2759.6,
+            "us_median": 6079.619
           },
           "specials": [
             {
@@ -27865,6 +28465,11 @@
             "exact": 15491,
             "inexact": 637
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2329.1,
+            "us_median": 7203.331
+          },
           "specials": [
             {
               "x": "0",
@@ -27916,6 +28521,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 37290.8,
+            "us_median": 449.902
           },
           "specials": [
             {
@@ -27971,6 +28581,11 @@
             "inexact": 32130,
             "undefined": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27926.4,
+            "us_median": 600.765
+          },
           "specials": [
             {
               "x": "0",
@@ -28023,6 +28638,11 @@
           "outcomes": {
             "exact": 63234,
             "inexact": 1792
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3538.6,
+            "us_median": 4741.215
           },
           "specials": [
             {
@@ -28077,6 +28697,11 @@
             "exact": 65025,
             "overflow": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36963.9,
+            "us_median": 453.881
+          },
           "specials": [
             {
               "x": "0",
@@ -28130,6 +28755,11 @@
             "exact": 63234,
             "inexact": 1792
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3539.2,
+            "us_median": 4740.439
+          },
           "specials": [
             {
               "x": "0",
@@ -28182,6 +28812,11 @@
           "outcomes": {
             "exact": 65025,
             "overflow": 1
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 37036.4,
+            "us_median": 452.993
           },
           "specials": [
             {
@@ -28238,6 +28873,12 @@
             "inexact": 800,
             "zeroed": 11
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27322.2,
+            "spread_pct": 15.4,
+            "us_median": 614.05
+          },
           "specials": [
             {
               "x": "0",
@@ -28292,6 +28933,11 @@
             "inexact": 49214,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 37109.5,
+            "us_median": 452.101
+          },
           "specials": [
             {
               "x": "0",
@@ -28343,6 +28989,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13709.5,
+            "us_median": 1223.763
           },
           "specials": [
             {
@@ -28400,6 +29051,11 @@
             "overflow": 18692,
             "zeroed": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1507.4,
+            "us_median": 11129.809
+          },
           "specials": [
             {
               "x": "0",
@@ -28454,6 +29110,11 @@
             "inexact": 23118,
             "mismatch": 18692
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1975.2,
+            "us_median": 8493.762
+          },
           "specials": [
             {
               "x": "0",
@@ -28506,6 +29167,11 @@
           "outcomes": {
             "exact": 65024,
             "mismatch": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36755.7,
+            "us_median": 456.452
           },
           "specials": [
             {
@@ -28560,6 +29226,11 @@
             "exact": 65024,
             "mismatch": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 37190.7,
+            "us_median": 451.113
+          },
           "specials": [
             {
               "x": "0",
@@ -28611,6 +29282,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48737.7,
+            "us_median": 344.235
           },
           "specials": [
             {
@@ -28665,6 +29341,11 @@
             "exact": 36352,
             "inexact": 28672,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 6206.1,
+            "us_median": 2703.323
           },
           "specials": [
             {
@@ -28721,6 +29402,11 @@
             "mismatch": 6,
             "overflow": 15874,
             "zeroed": 257
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3395.5,
+            "us_median": 4940.957
           },
           "rationale": "trigamma, the first order in use",
           "specials": [
@@ -28780,6 +29466,11 @@
             "overflow": 21406,
             "zeroed": 75
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1587.0,
+            "us_median": 10571.716
+          },
           "rationale": "trigamma; swept above -1024, where torch can still compute the reference",
           "specials": [
             {
@@ -28834,6 +29525,11 @@
             "exact": 18360,
             "inexact": 46666
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19061.1,
+            "us_median": 880.179
+          },
           "specials": [
             {
               "x": "0",
@@ -28885,6 +29581,11 @@
           "n_inputs": 32384,
           "outcomes": {
             "exact": 32384
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7546.6,
+            "us_median": 2223.138
           },
           "rationale": "squaring",
           "specials": [
@@ -28941,6 +29642,11 @@
             "flushed": 255,
             "zeroed": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48071.5,
+            "us_median": 349.005
+          },
           "rationale": "torch's channel-weight init",
           "specials": [
             {
@@ -28995,6 +29701,11 @@
             "exact": 31758,
             "inexact": 31760
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48076.2,
+            "us_median": 348.971
+          },
           "specials": [
             {
               "x": "0",
@@ -29048,6 +29759,12 @@
             "exact": 63504,
             "inexact": 1008,
             "zeroed": 258
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47604.9,
+            "spread_pct": 9.8,
+            "us_median": 352.427
           },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
@@ -29106,6 +29823,11 @@
             "overflow": 15980,
             "zeroed": 108
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2795.4,
+            "us_median": 6001.643
+          },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
             {
@@ -29160,6 +29882,12 @@
             "exact": 63504,
             "inexact": 1008,
             "zeroed": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47678.1,
+            "spread_pct": 6.5,
+            "us_median": 351.885
           },
           "specials": [
             {
@@ -29217,6 +29945,11 @@
             "overflow": 15874,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3721.1,
+            "us_median": 4508.73
+          },
           "specials": [
             {
               "x": "0",
@@ -29268,6 +30001,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48231.5,
+            "us_median": 347.848
           },
           "specials": [
             {
@@ -29321,6 +30059,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48130.3,
+            "us_median": 348.579
+          },
           "specials": [
             {
               "x": "0",
@@ -29372,6 +30115,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4842.1,
+            "us_median": 3464.853
           },
           "specials": [
             {
@@ -29425,6 +30173,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14902.5,
+            "us_median": 1125.796
+          },
           "specials": [
             {
               "x": "0",
@@ -29476,6 +30229,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48542.3,
+            "spread_pct": 5.3,
+            "us_median": 345.62
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -29529,6 +30288,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47689.7,
+            "us_median": 351.8
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -29584,6 +30348,11 @@
             "inexact": 65024,
             "undefined": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27364.4,
+            "us_median": 613.104
+          },
           "specials": [
             {
               "x": "0",
@@ -29635,6 +30404,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47873.1,
+            "us_median": 350.452
           },
           "specials": [
             {
@@ -29690,6 +30464,11 @@
             "flushed": 394,
             "inexact": 1239
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19758.2,
+            "us_median": 849.128
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -29744,6 +30523,11 @@
             "exact": 32384,
             "mismatch": 32384
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 6533.0,
+            "us_median": 2568.076
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -29796,6 +30580,12 @@
           "n_inputs": 32512,
           "outcomes": {
             "exact": 32512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 41814.9,
+            "spread_pct": 19.1,
+            "us_median": 401.226
           },
           "specials": [
             {
@@ -29852,6 +30642,11 @@
             "mismatch": 74,
             "zeroed": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3056.5,
+            "us_median": 5489.042
+          },
           "specials": [
             {
               "x": "0",
@@ -29904,6 +30699,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36593.4,
+            "us_median": 458.477
           },
           "specials": [
             {
@@ -29958,6 +30758,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36827.9,
+            "us_median": 455.558
+          },
           "specials": [
             {
               "x": "0",
@@ -30009,6 +30814,12 @@
           "n_inputs": 65011,
           "outcomes": {
             "exact": 65011
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 33770.1,
+            "spread_pct": 18.9,
+            "us_median": 496.807
           },
           "specials": [
             {
@@ -30065,6 +30876,11 @@
             "inexact": 16510,
             "zeroed": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 6185.6,
+            "us_median": 2712.289
+          },
           "specials": [
             {
               "x": "0",
@@ -30119,6 +30935,12 @@
             "flushed": 387,
             "inexact": 505
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36507.9,
+            "spread_pct": 16.7,
+            "us_median": 459.551
+          },
           "specials": [
             {
               "x": "0",
@@ -30172,6 +30994,12 @@
             "exact": 64132,
             "flushed": 387,
             "inexact": 505
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35612.3,
+            "spread_pct": 9.7,
+            "us_median": 471.107
           },
           "specials": [
             {
@@ -30228,6 +31056,11 @@
             "inexact": 757,
             "zeroed": 329
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 8353.2,
+            "us_median": 2008.479
+          },
           "specials": [
             {
               "x": "0",
@@ -30279,6 +31112,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48644.2,
+            "us_median": 344.896
           },
           "specials": [
             {
@@ -30335,6 +31173,12 @@
             "inexact": 454,
             "zeroed": 13
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35628.5,
+            "spread_pct": 12.3,
+            "us_median": 470.894
+          },
           "specials": [
             {
               "x": "0",
@@ -30390,6 +31234,11 @@
             "inexact": 1359,
             "zeroed": 9
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 6087.9,
+            "us_median": 2755.828
+          },
           "specials": [
             {
               "x": "0",
@@ -30443,6 +31292,12 @@
             "exact": 37168,
             "inexact": 6581,
             "mismatch": 21275
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 42967.3,
+            "spread_pct": 14.4,
+            "us_median": 390.465
           },
           "specials": [
             {
@@ -30498,6 +31353,11 @@
             "inexact": 6989,
             "mismatch": 21274
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14349.1,
+            "us_median": 1169.219
+          },
           "specials": [
             {
               "x": "0",
@@ -30549,6 +31409,12 @@
           "n_inputs": 33894,
           "outcomes": {
             "exact": 33894
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 32728.4,
+            "spread_pct": 11.4,
+            "us_median": 512.619
           },
           "specials": [
             {
@@ -30602,6 +31468,11 @@
           "outcomes": {
             "exact": 33892,
             "mismatch": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3190.0,
+            "us_median": 5259.378
           },
           "specials": [
             {
@@ -30658,6 +31529,12 @@
             "inexact": 30015,
             "zeroed": 526
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 37068.5,
+            "spread_pct": 12.0,
+            "us_median": 452.6
+          },
           "specials": [
             {
               "x": "0",
@@ -30712,6 +31589,11 @@
             "flushed": 396,
             "inexact": 1660
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4411.3,
+            "us_median": 3803.252
+          },
           "specials": [
             {
               "x": "0",
@@ -30765,6 +31647,11 @@
             "exact": 61056,
             "inexact": 3968
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48048.4,
+            "us_median": 349.174
+          },
           "specials": [
             {
               "x": "0",
@@ -30816,6 +31703,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 8960.4,
+            "us_median": 1872.373
           },
           "specials": [
             {
@@ -30871,6 +31763,12 @@
             "inexact": 15776,
             "zeroed": 510
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 43415.4,
+            "spread_pct": 11.7,
+            "us_median": 386.435
+          },
           "specials": [
             {
               "x": "0",
@@ -30924,6 +31822,12 @@
             "exact": 53508,
             "inexact": 11516
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14316.6,
+            "spread_pct": 5.5,
+            "us_median": 1171.873
+          },
           "specials": [
             {
               "x": "0",
@@ -30975,6 +31879,12 @@
           "n_inputs": 32512,
           "outcomes": {
             "exact": 32512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 42833.5,
+            "spread_pct": 6.5,
+            "us_median": 391.685
           },
           "specials": [
             {
@@ -31028,6 +31938,11 @@
           "outcomes": {
             "exact": 23368,
             "inexact": 9144
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2939.3,
+            "us_median": 5707.901
           },
           "specials": [
             {
@@ -31083,6 +31998,11 @@
             "flushed": 16128,
             "inexact": 13970
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48087.5,
+            "us_median": 348.889
+          },
           "specials": [
             {
               "x": "0",
@@ -31134,6 +32054,11 @@
           "n_inputs": 64768,
           "outcomes": {
             "exact": 64768
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14990.3,
+            "us_median": 1119.206
           },
           "specials": [
             {
@@ -31189,6 +32114,11 @@
             "inexact": 49214,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36516.5,
+            "us_median": 459.442
+          },
           "specials": [
             {
               "x": "0",
@@ -31242,6 +32172,11 @@
             "exact": 15810,
             "inexact": 49214,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36790.6,
+            "us_median": 456.019
           },
           "specials": [
             {
@@ -31297,6 +32232,11 @@
             "inexact": 64896,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 8908.0,
+            "us_median": 1883.38
+          },
           "specials": [
             {
               "x": "0",
@@ -31349,6 +32289,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36520.7,
+            "us_median": 459.389
           },
           "rationale": "2 keeps the op distinct from subtract",
           "specials": [
@@ -31404,6 +32349,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36605.0,
+            "us_median": 458.332
+          },
           "specials": [
             {
               "x": "0",
@@ -31456,6 +32406,11 @@
           "outcomes": {
             "inexact": 65024,
             "overflow": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 36747.5,
+            "us_median": 456.554
           },
           "specials": [
             {
@@ -31512,6 +32467,12 @@
             "inexact": 454,
             "zeroed": 13
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35333.8,
+            "spread_pct": 19.2,
+            "us_median": 474.821
+          },
           "specials": [
             {
               "x": "0",
@@ -31567,6 +32528,12 @@
             "mismatch": 11017,
             "zeroed": 10617
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 28446.5,
+            "spread_pct": 11.2,
+            "us_median": 589.782
+          },
           "specials": [
             {
               "x": "0",
@@ -31620,6 +32587,12 @@
             "exact": 35950,
             "inexact": 16896,
             "mismatch": 12178
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 8299.2,
+            "spread_pct": 7.6,
+            "us_median": 2021.536
           },
           "specials": [
             {
@@ -31675,6 +32648,12 @@
             "inexact": 214,
             "zeroed": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 47720.4,
+            "spread_pct": 7.7,
+            "us_median": 351.573
+          },
           "specials": [
             {
               "x": "0",
@@ -31727,6 +32706,11 @@
           "outcomes": {
             "exact": 64386,
             "inexact": 638
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 12896.5,
+            "us_median": 1300.913
           },
           "specials": [
             {
@@ -31781,6 +32765,12 @@
             "exact": 59698,
             "inexact": 5326
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 34953.9,
+            "spread_pct": 7.0,
+            "us_median": 479.981
+          },
           "specials": [
             {
               "x": "0",
@@ -31834,6 +32824,11 @@
             "exact": 52168,
             "inexact": 12856
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 11491.9,
+            "us_median": 1459.915
+          },
           "specials": [
             {
               "x": "0",
@@ -31885,6 +32880,12 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48521.4,
+            "spread_pct": 5.7,
+            "us_median": 345.77
           },
           "rationale": "domain midpoint, torch's zero fill",
           "specials": [
@@ -31939,6 +32940,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 11660.4,
+            "us_median": 1438.823
+          },
           "rationale": "ttnn binds threshold and value as min/max; the golden's *args are unbindable",
           "specials": [
             {
@@ -31992,6 +32998,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 48040.2,
+            "us_median": 349.233
+          },
           "specials": [
             {
               "x": "0",
@@ -32043,6 +33054,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "exact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 27493.4,
+            "us_median": 610.226
           },
           "rationale": "the attached golden demands a bool condition",
           "specials": [
@@ -32100,6 +33116,11 @@
             "inexact": 50,
             "zeroed": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18777.7,
+            "us_median": 893.465
+          },
           "specials": [
             {
               "x": "0",
@@ -32153,6 +33174,11 @@
             "inexact": 65024,
             "overflow": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 35686.9,
+            "us_median": 470.123
+          },
           "specials": [
             {
               "x": "0",
@@ -32204,6 +33230,11 @@
           "n_inputs": 65026,
           "outcomes": {
             "inexact": 65026
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2159.8,
+            "us_median": 7768.096
           },
           "specials": [
             {
@@ -32259,6 +33290,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24456.9,
+            "us_median": 685.992
+          },
           "specials": [
             {
               "x": "0",
@@ -32310,6 +33346,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7581.1,
+            "us_median": 2213.019
           },
           "specials": [
             {
@@ -32364,6 +33405,11 @@
             "exact": 27022,
             "inexact": 5236
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17700.2,
+            "us_median": 947.856
+          },
           "specials": [
             {
               "x": "0",
@@ -32417,6 +33463,11 @@
             "exact": 29938,
             "inexact": 2318
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1238.6,
+            "us_median": 13544.892
+          },
           "specials": [
             {
               "x": "0",
@@ -32468,6 +33519,12 @@
           "n_inputs": 16384,
           "outcomes": {
             "inexact": 16384
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14580.9,
+            "spread_pct": 21.6,
+            "us_median": 1150.631
           },
           "specials": [
             {
@@ -32523,6 +33580,11 @@
             "mismatch": 32256,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1085.3,
+            "us_median": 15458.784
+          },
           "specials": [
             {
               "x": "0",
@@ -32574,6 +33636,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19058.9,
+            "us_median": 880.285
           },
           "specials": [
             {
@@ -32627,6 +33694,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19104.1,
+            "us_median": 878.2
+          },
           "specials": [
             {
               "x": "0",
@@ -32678,6 +33750,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18983.3,
+            "us_median": 883.79
           },
           "rationale": "2 keeps the op distinct from add",
           "specials": [
@@ -32732,6 +33809,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13376.7,
+            "us_median": 1254.215
+          },
           "specials": [
             {
               "x": "0",
@@ -32784,6 +33866,11 @@
           "outcomes": {
             "exact": 928,
             "inexact": 64096
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13327.5,
+            "us_median": 1258.839
           },
           "specials": [
             {
@@ -32838,6 +33925,11 @@
             "exact": 30134,
             "inexact": 2124
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17975.0,
+            "us_median": 933.362
+          },
           "specials": [
             {
               "x": "0",
@@ -32891,6 +33983,11 @@
             "exact": 29938,
             "inexact": 2318
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1260.6,
+            "us_median": 13309.125
+          },
           "specials": [
             {
               "x": "0",
@@ -32943,6 +34040,11 @@
           "outcomes": {
             "exact": 29918,
             "inexact": 35106
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 10566.8,
+            "us_median": 1587.727
           },
           "specials": [
             {
@@ -32998,6 +34100,11 @@
             "inexact": 18684,
             "zeroed": 15874
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7245.4,
+            "us_median": 2315.564
+          },
           "specials": [
             {
               "x": "0",
@@ -33051,6 +34158,11 @@
             "exact": 57400,
             "inexact": 7624
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 20766.6,
+            "us_median": 807.893
+          },
           "specials": [
             {
               "x": "0",
@@ -33102,6 +34214,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18247.8,
+            "us_median": 919.412
           },
           "specials": [
             {
@@ -33156,6 +34273,11 @@
             "flushed": 16640,
             "inexact": 48384
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1769.5,
+            "us_median": 9481.219
+          },
           "specials": [
             {
               "x": "0",
@@ -33208,6 +34330,11 @@
           "outcomes": {
             "exact": 29346,
             "inexact": 19040
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7345.0,
+            "us_median": 2284.156
           },
           "specials": [
             {
@@ -33262,6 +34389,12 @@
             "exact": 26590,
             "inexact": 5666
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17534.2,
+            "spread_pct": 14.2,
+            "us_median": 956.826
+          },
           "specials": [
             {
               "x": "0",
@@ -33314,6 +34447,11 @@
           "outcomes": {
             "exact": 29674,
             "inexact": 18712
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1139.9,
+            "us_median": 14717.657
           },
           "specials": [
             {
@@ -33368,6 +34506,11 @@
             "exact": 29732,
             "inexact": 35292
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19059.5,
+            "us_median": 880.257
+          },
           "specials": [
             {
               "x": "0",
@@ -33421,6 +34564,11 @@
             "exact": 29732,
             "inexact": 35292
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19127.5,
+            "us_median": 877.127
+          },
           "specials": [
             {
               "x": "0",
@@ -33472,6 +34620,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22158.9,
+            "us_median": 757.131
           },
           "specials": [
             {
@@ -33525,6 +34678,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24262.7,
+            "us_median": 691.482
+          },
           "specials": [
             {
               "x": "0",
@@ -33577,6 +34735,11 @@
           "outcomes": {
             "exact": 62154,
             "inexact": 2870
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19975.3,
+            "us_median": 839.898
           },
           "specials": [
             {
@@ -33632,6 +34795,11 @@
             "flushed": 395,
             "inexact": 2706
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3383.1,
+            "us_median": 4959.193
+          },
           "specials": [
             {
               "x": "0",
@@ -33683,6 +34851,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24462.7,
+            "us_median": 685.829
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -33737,6 +34910,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4048.4,
+            "us_median": 4144.189
+          },
           "specials": [
             {
               "x": "0",
@@ -33788,6 +34966,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24472.3,
+            "us_median": 685.558
           },
           "rationale": "the symmetric unit interval",
           "specials": [
@@ -33841,6 +35024,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4048.6,
+            "us_median": 4143.988
           },
           "specials": [
             {
@@ -33896,6 +35084,11 @@
             "inexact": 18292,
             "mismatch": 18190
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21862.4,
+            "us_median": 767.402
+          },
           "specials": [
             {
               "x": "0",
@@ -33950,6 +35143,11 @@
             "inexact": 16702,
             "mismatch": 18190
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5685.6,
+            "us_median": 2950.835
+          },
           "specials": [
             {
               "x": "0",
@@ -34002,6 +35200,11 @@
           "outcomes": {
             "exact": 29890,
             "inexact": 4004
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19271.4,
+            "us_median": 870.574
           },
           "specials": [
             {
@@ -34057,6 +35260,11 @@
             "inexact": 6574,
             "mismatch": 2
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1374.2,
+            "us_median": 12208.287
+          },
           "specials": [
             {
               "x": "0",
@@ -34110,6 +35318,11 @@
             "flushed": 1482,
             "inexact": 63542
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24387.1,
+            "us_median": 687.956
+          },
           "specials": [
             {
               "x": "0",
@@ -34162,6 +35375,11 @@
           "outcomes": {
             "inexact": 50757,
             "undefined": 827
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7191.9,
+            "us_median": 2332.793
           },
           "specials": [
             {
@@ -34218,6 +35436,11 @@
             "overflow": 15872,
             "zeroed": 255
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1050.0,
+            "us_median": 15978.254
+          },
           "specials": [
             {
               "x": "0",
@@ -34269,6 +35492,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18655.4,
+            "us_median": 899.324
           },
           "specials": [
             {
@@ -34322,6 +35550,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 901.3,
+            "us_median": 18613.759
+          },
           "specials": [
             {
               "x": "0",
@@ -34374,6 +35607,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5423.0,
+            "us_median": 3093.688
+          },
           "specials": [
             {
               "x": "0",
@@ -34425,6 +35663,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18616.5,
+            "us_median": 901.201
           },
           "rationale": "upstream never attached a golden",
           "specials": [
@@ -34479,6 +35722,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18700.7,
+            "us_median": 897.143
+          },
           "specials": [
             {
               "x": "0",
@@ -34531,6 +35779,11 @@
           "outcomes": {
             "exact": 62154,
             "inexact": 2870
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19992.1,
+            "us_median": 839.194
           },
           "specials": [
             {
@@ -34586,6 +35839,11 @@
             "flushed": 395,
             "inexact": 2706
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3415.6,
+            "us_median": 4911.882
+          },
           "specials": [
             {
               "x": "0",
@@ -34638,6 +35896,12 @@
           "outcomes": {
             "exact": 31936,
             "inexact": 33088
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17152.1,
+            "spread_pct": 19.2,
+            "us_median": 978.145
           },
           "specials": [
             {
@@ -34693,6 +35957,11 @@
             "flushed": 392,
             "inexact": 4166
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3857.0,
+            "us_median": 4349.854
+          },
           "specials": [
             {
               "x": "0",
@@ -34746,6 +36015,12 @@
             "exact": 16148,
             "flushed": 198,
             "inexact": 48678
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18016.1,
+            "spread_pct": 12.6,
+            "us_median": 931.234
           },
           "specials": [
             {
@@ -34801,6 +36076,11 @@
             "flushed": 392,
             "inexact": 4166
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3855.6,
+            "us_median": 4351.361
+          },
           "specials": [
             {
               "x": "0",
@@ -34855,6 +36135,12 @@
             "inexact": 2802,
             "zeroed": 29420
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17439.7,
+            "spread_pct": 17.1,
+            "us_median": 962.013
+          },
           "specials": [
             {
               "x": "0",
@@ -34907,6 +36193,11 @@
           "outcomes": {
             "exact": 29280,
             "inexact": 2976
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1225.4,
+            "us_median": 13690.957
           },
           "specials": [
             {
@@ -34962,6 +36253,11 @@
             "flushed": 395,
             "inexact": 5447
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21209.0,
+            "us_median": 791.044
+          },
           "specials": [
             {
               "x": "0",
@@ -35013,6 +36309,11 @@
             "exact": 15174,
             "flushed": 395,
             "inexact": 33889
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24467.1,
+            "us_median": 685.706
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -35069,6 +36370,11 @@
             "flushed": 393,
             "inexact": 6044
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22341.2,
+            "us_median": 750.956
+          },
           "specials": [
             {
               "x": "0",
@@ -35124,6 +36430,11 @@
             "inexact": 6680,
             "mismatch": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5664.6,
+            "us_median": 2961.764
+          },
           "specials": [
             {
               "x": "0",
@@ -35178,6 +36489,11 @@
             "flushed": 395,
             "inexact": 5447
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7227.1,
+            "us_median": 2321.424
+          },
           "specials": [
             {
               "x": "0",
@@ -35230,6 +36546,11 @@
           "outcomes": {
             "exact": 44201,
             "inexact": 5257
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18253.6,
+            "us_median": 919.118
           },
           "specials": [
             {
@@ -35285,6 +36606,11 @@
             "inexact": 5431,
             "zeroed": 138
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5360.2,
+            "us_median": 3129.94
+          },
           "specials": [
             {
               "x": "0",
@@ -35336,6 +36662,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24286.8,
+            "us_median": 690.796
           },
           "specials": [
             {
@@ -35390,6 +36721,11 @@
             "exact": 3865,
             "inexact": 61159
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3846.1,
+            "us_median": 4362.098
+          },
           "specials": [
             {
               "x": "0",
@@ -35443,6 +36779,11 @@
             "exact": 722,
             "inexact": 64302
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18272.4,
+            "us_median": 918.172
+          },
           "specials": [
             {
               "x": "0",
@@ -35495,6 +36836,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24384.7,
+            "us_median": 688.023
+          },
           "specials": [
             {
               "x": "0",
@@ -35546,6 +36892,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19094.8,
+            "us_median": 878.625
           },
           "specials": [
             {
@@ -35602,6 +36953,12 @@
             "inexact": 6001,
             "zeroed": 83
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 16885.7,
+            "spread_pct": 17.2,
+            "us_median": 993.576
+          },
           "specials": [
             {
               "x": "0",
@@ -35654,6 +37011,11 @@
             "flushed": 254,
             "inexact": 32494,
             "zeroed": 197
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24511.6,
+            "us_median": 684.462
           },
           "rationale": "the approximation mode models opt into for speed",
           "specials": [
@@ -35710,6 +37072,11 @@
             "flushed": 196,
             "inexact": 5420
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 8947.1,
+            "us_median": 1875.154
+          },
           "specials": [
             {
               "x": "0",
@@ -35761,6 +37128,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19124.6,
+            "us_median": 877.259
           },
           "specials": [
             {
@@ -35814,6 +37186,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24457.0,
+            "us_median": 685.987
+          },
           "specials": [
             {
               "x": "0",
@@ -35866,6 +37243,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24408.3,
+            "us_median": 687.356
+          },
           "specials": [
             {
               "x": "0",
@@ -35917,6 +37299,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5816.7,
+            "us_median": 2884.331
           },
           "specials": [
             {
@@ -35971,6 +37358,11 @@
             "exact": 61098,
             "inexact": 3926
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24404.2,
+            "us_median": 687.473
+          },
           "specials": [
             {
               "x": "0",
@@ -36022,6 +37414,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3697.5,
+            "us_median": 4537.458
           },
           "specials": [
             {
@@ -36077,6 +37474,11 @@
             "flushed": 256,
             "inexact": 5226
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22950.6,
+            "us_median": 731.014
+          },
           "specials": [
             {
               "x": "0",
@@ -36130,6 +37532,11 @@
             "exact": 60329,
             "inexact": 4695
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2606.5,
+            "us_median": 6436.69
+          },
           "specials": [
             {
               "x": "0",
@@ -36181,6 +37588,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24493.6,
+            "us_median": 684.962
           },
           "specials": [
             {
@@ -36234,6 +37646,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4381.5,
+            "us_median": 3829.075
+          },
           "specials": [
             {
               "x": "0",
@@ -36285,6 +37702,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24232.6,
+            "us_median": 692.341
           },
           "rationale": "torch's convention at x = 0",
           "specials": [
@@ -36340,6 +37762,11 @@
             "inexact": 48640,
             "mismatch": 16384
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18305.1,
+            "us_median": 916.534
+          },
           "specials": [
             {
               "x": "0",
@@ -36393,6 +37820,11 @@
             "inexact": 48640,
             "zeroed": 16384
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2941.3,
+            "us_median": 5703.998
+          },
           "specials": [
             {
               "x": "0",
@@ -36445,6 +37877,11 @@
           "outcomes": {
             "exact": 30548,
             "inexact": 3356
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21187.2,
+            "us_median": 791.856
           },
           "specials": [
             {
@@ -36500,6 +37937,11 @@
             "flushed": 256,
             "inexact": 4130
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5468.6,
+            "us_median": 3067.905
+          },
           "specials": [
             {
               "x": "0",
@@ -36554,6 +37996,11 @@
             "flushed": 256,
             "inexact": 4130
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 10811.7,
+            "us_median": 1551.767
+          },
           "specials": [
             {
               "x": "0",
@@ -36605,6 +38052,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24503.8,
+            "us_median": 684.679
           },
           "specials": [
             {
@@ -36658,6 +38110,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19047.8,
+            "us_median": 880.798
+          },
           "specials": [
             {
               "x": "0",
@@ -36709,6 +38166,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18720.8,
+            "us_median": 896.18
           },
           "specials": [
             {
@@ -36762,6 +38224,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18720.5,
+            "us_median": 896.196
+          },
           "specials": [
             {
               "x": "0",
@@ -36814,6 +38281,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3571.9,
+            "us_median": 4696.946
+          },
           "specials": [
             {
               "x": "0",
@@ -36865,6 +38337,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19106.0,
+            "us_median": 878.115
           },
           "specials": [
             {
@@ -36920,6 +38397,11 @@
             "flushed": 840,
             "inexact": 31672
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24489.3,
+            "us_median": 685.083
+          },
           "rationale": "torch's default slope",
           "specials": [
             {
@@ -36972,6 +38454,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5114.5,
+            "us_median": 3280.301
           },
           "specials": [
             {
@@ -37026,6 +38513,11 @@
             "exact": 132,
             "inexact": 64892
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13456.1,
+            "us_median": 1246.811
+          },
           "specials": [
             {
               "x": "0",
@@ -37077,6 +38569,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3489.4,
+            "us_median": 4808.036
           },
           "specials": [
             {
@@ -37130,6 +38627,11 @@
           "outcomes": {
             "inexact": 50757
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4997.3,
+            "us_median": 3357.274
+          },
           "specials": [
             {
               "x": "0",
@@ -37167,7 +38669,7 @@
               "y_ref": "87.34"
             }
           ],
-          "ulp_clipped": 314,
+          "ulp_clipped": 313,
           "usable_to": "0.108",
           "verdict": "accurate to |x| <= 0.108; up to 3.27e+07 ULP beyond"
         }
@@ -37182,6 +38684,11 @@
           "outcomes": {
             "inexact": 50757,
             "undefined": 827
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4344.6,
+            "us_median": 3861.641
           },
           "specials": [
             {
@@ -37235,6 +38742,11 @@
           "outcomes": {
             "inexact": 32512
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21603.5,
+            "us_median": 776.596
+          },
           "specials": [
             {
               "x": "0",
@@ -37287,6 +38799,11 @@
           "outcomes": {
             "inexact": 32512
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21392.8,
+            "us_median": 784.246
+          },
           "specials": [
             {
               "x": "0",
@@ -37338,6 +38855,11 @@
           "n_inputs": 64190,
           "outcomes": {
             "inexact": 64190
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1815.8,
+            "us_median": 9239.777
           },
           "specials": [
             {
@@ -37392,6 +38914,11 @@
             "exact": 28529,
             "inexact": 20111
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21059.5,
+            "us_median": 796.658
+          },
           "specials": [
             {
               "x": "0",
@@ -37445,6 +38972,11 @@
             "exact": 26947,
             "inexact": 37567
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1809.7,
+            "us_median": 9270.586
+          },
           "specials": [
             {
               "x": "0",
@@ -37496,6 +39028,11 @@
           "n_inputs": 32512,
           "outcomes": {
             "inexact": 32512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 21372.6,
+            "us_median": 784.987
           },
           "specials": [
             {
@@ -37550,6 +39087,11 @@
             "inexact": 64514,
             "mismatch": 112
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1813.8,
+            "us_median": 9249.554
+          },
           "specials": [
             {
               "x": "0",
@@ -37602,6 +39144,11 @@
           "outcomes": {
             "exact": 2,
             "inexact": 64512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2386.4,
+            "us_median": 7030.443
           },
           "specials": [
             {
@@ -37657,6 +39204,11 @@
             "flushed": 395,
             "inexact": 33560
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17757.4,
+            "us_median": 944.799
+          },
           "specials": [
             {
               "x": "0",
@@ -37710,6 +39262,11 @@
             "exact": 58013,
             "flushed": 395,
             "inexact": 6616
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1631.3,
+            "us_median": 10284.434
           },
           "specials": [
             {
@@ -37765,6 +39322,11 @@
             "inexact": 49453,
             "mismatch": 15566
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 12457.4,
+            "us_median": 1346.765
+          },
           "specials": [
             {
               "x": "0",
@@ -37818,6 +39380,11 @@
             "exact": 108,
             "inexact": 49428,
             "mismatch": 15488
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14402.4,
+            "us_median": 1164.887
           },
           "specials": [
             {
@@ -37873,6 +39440,11 @@
             "inexact": 49428,
             "mismatch": 15488
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 14426.9,
+            "us_median": 1162.909
+          },
           "specials": [
             {
               "x": "0",
@@ -37925,6 +39497,11 @@
           "outcomes": {
             "exact": 29336,
             "inexact": 35688
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1664.1,
+            "us_median": 10081.632
           },
           "specials": [
             {
@@ -37980,6 +39557,11 @@
             "inexact": 49453,
             "mismatch": 15566
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 12483.6,
+            "us_median": 1343.936
+          },
           "specials": [
             {
               "x": "0",
@@ -38033,6 +39615,11 @@
             "exact": 29495,
             "inexact": 35529
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1992.5,
+            "us_median": 8420.086
+          },
           "specials": [
             {
               "x": "0",
@@ -38084,6 +39671,11 @@
           "n_inputs": 16129,
           "outcomes": {
             "exact": 16129
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24820.9,
+            "us_median": 675.931
           },
           "specials": [
             {
@@ -38137,6 +39729,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18815.2,
+            "us_median": 891.684
+          },
           "specials": [
             {
               "x": "0",
@@ -38188,6 +39785,11 @@
           "n_inputs": 16128,
           "outcomes": {
             "inexact": 16128
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18284.8,
+            "us_median": 917.55
           },
           "specials": [
             {
@@ -38241,6 +39843,11 @@
           "outcomes": {
             "inexact": 16128
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1340.2,
+            "us_median": 12518.279
+          },
           "specials": [
             {
               "x": "0",
@@ -38292,6 +39899,11 @@
           "n_inputs": 16128,
           "outcomes": {
             "inexact": 16128
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1126.8,
+            "us_median": 14889.363
           },
           "specials": [
             {
@@ -38345,6 +39957,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19266.7,
+            "us_median": 870.788
+          },
           "specials": [
             {
               "x": "0",
@@ -38396,6 +40013,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13384.7,
+            "us_median": 1253.458
           },
           "specials": [
             {
@@ -38450,6 +40072,11 @@
             "exact": 63057,
             "inexact": 1967
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1787.4,
+            "us_median": 9386.252
+          },
           "specials": [
             {
               "x": "0",
@@ -38501,6 +40128,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19177.9,
+            "us_median": 874.822
           },
           "specials": [
             {
@@ -38555,6 +40187,11 @@
             "exact": 63057,
             "inexact": 1967
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1787.9,
+            "us_median": 9383.775
+          },
           "specials": [
             {
               "x": "0",
@@ -38606,6 +40243,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19216.9,
+            "us_median": 873.046
           },
           "specials": [
             {
@@ -38662,6 +40304,12 @@
             "inexact": 6129,
             "zeroed": 9
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17025.4,
+            "spread_pct": 7.3,
+            "us_median": 985.421
+          },
           "specials": [
             {
               "x": "0",
@@ -38715,6 +40363,11 @@
             "exact": 23863,
             "inexact": 41161
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19249.7,
+            "us_median": 871.559
+          },
           "specials": [
             {
               "x": "0",
@@ -38766,6 +40419,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 6999.8,
+            "us_median": 2396.826
           },
           "specials": [
             {
@@ -38821,6 +40479,11 @@
             "mismatch": 7422,
             "overflow": 18562
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 897.9,
+            "us_median": 18684.662
+          },
           "specials": [
             {
               "x": "0",
@@ -38858,7 +40521,7 @@
               "y_ref": "inf"
             }
           ],
-          "ulp_clipped": 2989,
+          "ulp_clipped": 2987,
           "usable_to": "5.55e-17",
           "verdict": "7422 of 50376 points returned inf or zero where a value exists"
         }
@@ -38874,6 +40537,12 @@
             "inexact": 32197,
             "mismatch": 18560,
             "undefined": 699
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 931.9,
+            "spread_pct": 5.9,
+            "us_median": 18003.605
           },
           "specials": [
             {
@@ -38927,6 +40596,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19152.8,
+            "us_median": 875.966
+          },
           "specials": [
             {
               "x": "0",
@@ -38978,6 +40652,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19249.1,
+            "us_median": 871.585
           },
           "specials": [
             {
@@ -39031,6 +40710,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24679.0,
+            "us_median": 679.818
+          },
           "specials": [
             {
               "x": "0",
@@ -39083,6 +40767,11 @@
           "outcomes": {
             "exact": 32512,
             "inexact": 32512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3007.5,
+            "us_median": 5578.542
           },
           "specials": [
             {
@@ -39138,6 +40827,11 @@
             "inexact": 48641,
             "overflow": 15872,
             "zeroed": 255
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3302.0,
+            "us_median": 5080.86
           },
           "rationale": "trigamma, the first order in use",
           "specials": [
@@ -39196,6 +40890,11 @@
             "overflow": 21398,
             "zeroed": 75
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1035.7,
+            "us_median": 16199.622
+          },
           "rationale": "trigamma; swept above -1024, where torch can still compute the reference",
           "specials": [
             {
@@ -39251,6 +40950,11 @@
             "inexact": 32516,
             "undefined": 16385
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 8680.0,
+            "us_median": 1932.867
+          },
           "specials": [
             {
               "x": "0",
@@ -39302,6 +41006,11 @@
           "n_inputs": 32384,
           "outcomes": {
             "exact": 32384
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3792.0,
+            "us_median": 4424.342
           },
           "rationale": "squaring",
           "specials": [
@@ -39357,6 +41066,11 @@
             "exact": 64768,
             "flushed": 256
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24435.7,
+            "us_median": 686.587
+          },
           "rationale": "torch's channel-weight init",
           "specials": [
             {
@@ -39409,6 +41123,11 @@
           "n_inputs": 63518,
           "outcomes": {
             "inexact": 63518
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24448.0,
+            "us_median": 686.24
           },
           "specials": [
             {
@@ -39463,6 +41182,11 @@
             "exact": 2,
             "inexact": 64512,
             "zeroed": 256
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 23532.6,
+            "us_median": 712.936
           },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
@@ -39521,6 +41245,11 @@
             "overflow": 15980,
             "zeroed": 104
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1404.2,
+            "us_median": 11947.988
+          },
           "rationale": "2 keeps the op distinct from reciprocal",
           "specials": [
             {
@@ -39574,6 +41303,11 @@
           "outcomes": {
             "exact": 2,
             "inexact": 64512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 23740.0,
+            "us_median": 706.706
           },
           "specials": [
             {
@@ -39630,6 +41364,11 @@
             "mismatch": 254,
             "overflow": 15874
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1856.9,
+            "us_median": 9035.161
+          },
           "specials": [
             {
               "x": "0",
@@ -39681,6 +41420,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24518.7,
+            "us_median": 684.263
           },
           "specials": [
             {
@@ -39734,6 +41478,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24489.3,
+            "us_median": 685.083
+          },
           "specials": [
             {
               "x": "0",
@@ -39785,6 +41534,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2352.1,
+            "us_median": 7132.874
           },
           "specials": [
             {
@@ -39838,6 +41592,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7575.0,
+            "us_median": 2214.819
+          },
           "specials": [
             {
               "x": "0",
@@ -39889,6 +41648,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24435.0,
+            "us_median": 686.607
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -39942,6 +41706,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24437.0,
+            "us_median": 686.55
           },
           "rationale": "unit clamp, the registry's midpoint",
           "specials": [
@@ -39997,6 +41766,11 @@
             "exact": 266,
             "inexact": 64758
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18186.8,
+            "us_median": 922.496
+          },
           "specials": [
             {
               "x": "0",
@@ -40048,6 +41822,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24388.8,
+            "us_median": 687.906
           },
           "specials": [
             {
@@ -40104,6 +41883,11 @@
             "inexact": 5624,
             "mismatch": 1536
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 10336.2,
+            "us_median": 1623.144
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -40158,6 +41942,11 @@
             "exact": 32384,
             "mismatch": 32384
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3290.4,
+            "us_median": 5098.761
+          },
           "rationale": "squaring",
           "specials": [
             {
@@ -40210,6 +41999,11 @@
           "n_inputs": 32512,
           "outcomes": {
             "inexact": 32512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22241.8,
+            "us_median": 754.309
           },
           "specials": [
             {
@@ -40264,6 +42058,11 @@
             "inexact": 21591,
             "mismatch": 75
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1581.8,
+            "us_median": 10606.153
+          },
           "specials": [
             {
               "x": "0",
@@ -40315,6 +42114,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19067.8,
+            "us_median": 879.872
           },
           "specials": [
             {
@@ -40368,6 +42172,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19094.4,
+            "us_median": 878.644
+          },
           "specials": [
             {
               "x": "0",
@@ -40419,6 +42228,11 @@
           "n_inputs": 65012,
           "outcomes": {
             "inexact": 65012
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19480.1,
+            "us_median": 861.248
           },
           "specials": [
             {
@@ -40475,6 +42289,11 @@
             "inexact": 49455,
             "zeroed": 1
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2990.0,
+            "us_median": 5611.086
+          },
           "specials": [
             {
               "x": "0",
@@ -40529,6 +42348,11 @@
             "flushed": 386,
             "inexact": 6171
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17774.7,
+            "us_median": 943.883
+          },
           "specials": [
             {
               "x": "0",
@@ -40582,6 +42406,11 @@
             "exact": 58467,
             "flushed": 386,
             "inexact": 6171
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17885.6,
+            "us_median": 938.032
           },
           "specials": [
             {
@@ -40638,6 +42467,11 @@
             "inexact": 3735,
             "zeroed": 140
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4183.8,
+            "us_median": 4010.041
+          },
           "specials": [
             {
               "x": "0",
@@ -40689,6 +42523,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24387.8,
+            "us_median": 687.935
           },
           "specials": [
             {
@@ -40745,6 +42584,11 @@
             "inexact": 6627,
             "zeroed": 9
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17675.9,
+            "us_median": 949.157
+          },
           "specials": [
             {
               "x": "0",
@@ -40800,6 +42644,11 @@
             "inexact": 6813,
             "zeroed": 9
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 3019.3,
+            "us_median": 5556.647
+          },
           "specials": [
             {
               "x": "0",
@@ -40853,6 +42702,11 @@
             "exact": 30132,
             "inexact": 16702,
             "mismatch": 18190
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22324.0,
+            "us_median": 751.534
           },
           "specials": [
             {
@@ -40908,6 +42762,11 @@
             "inexact": 18292,
             "mismatch": 18190
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7304.0,
+            "us_median": 2296.986
+          },
           "specials": [
             {
               "x": "0",
@@ -40960,6 +42819,11 @@
           "outcomes": {
             "exact": 27316,
             "inexact": 6578
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17535.0,
+            "us_median": 956.786
           },
           "specials": [
             {
@@ -41014,6 +42878,11 @@
             "exact": 29892,
             "inexact": 4000,
             "mismatch": 2
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1556.3,
+            "us_median": 10780.019
           },
           "specials": [
             {
@@ -41070,6 +42939,12 @@
             "inexact": 33522,
             "mismatch": 30
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 15692.5,
+            "spread_pct": 13.8,
+            "us_median": 1069.121
+          },
           "specials": [
             {
               "x": "0",
@@ -41124,6 +42999,11 @@
             "flushed": 395,
             "inexact": 6602
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 2140.0,
+            "us_median": 7839.67
+          },
           "specials": [
             {
               "x": "0",
@@ -41176,6 +43056,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24435.8,
+            "us_median": 686.583
+          },
           "specials": [
             {
               "x": "0",
@@ -41227,6 +43112,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4378.4,
+            "us_median": 3831.843
           },
           "specials": [
             {
@@ -41282,6 +43172,11 @@
             "inexact": 37708,
             "zeroed": 510
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 23119.1,
+            "us_median": 725.687
+          },
           "specials": [
             {
               "x": "0",
@@ -41335,6 +43230,11 @@
             "exact": 42560,
             "inexact": 22464
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7293.4,
+            "us_median": 2300.316
+          },
           "specials": [
             {
               "x": "0",
@@ -41387,6 +43287,11 @@
           "outcomes": {
             "inexact": 32512
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 22776.5,
+            "us_median": 736.603
+          },
           "specials": [
             {
               "x": "0",
@@ -41438,6 +43343,11 @@
           "n_inputs": 32512,
           "outcomes": {
             "inexact": 32512
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1482.6,
+            "us_median": 11316.373
           },
           "specials": [
             {
@@ -41492,6 +43402,11 @@
             "exact": 32512,
             "flushed": 16128
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24438.8,
+            "us_median": 686.499
+          },
           "specials": [
             {
               "x": "0",
@@ -41543,6 +43458,11 @@
           "n_inputs": 64768,
           "outcomes": {
             "exact": 64768
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 7512.1,
+            "us_median": 2233.361
           },
           "specials": [
             {
@@ -41597,6 +43517,11 @@
             "exact": 23863,
             "inexact": 41161
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19067.0,
+            "us_median": 879.908
+          },
           "specials": [
             {
               "x": "0",
@@ -41650,6 +43575,11 @@
             "exact": 23863,
             "inexact": 41161
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19122.9,
+            "us_median": 877.334
+          },
           "specials": [
             {
               "x": "0",
@@ -41702,6 +43632,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4445.5,
+            "us_median": 3773.957
+          },
           "specials": [
             {
               "x": "0",
@@ -41753,6 +43688,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19029.4,
+            "us_median": 881.646
           },
           "rationale": "2 keeps the op distinct from subtract",
           "specials": [
@@ -41807,6 +43747,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19019.2,
+            "us_median": 882.119
+          },
           "specials": [
             {
               "x": "0",
@@ -41858,6 +43803,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 19113.7,
+            "us_median": 877.757
           },
           "specials": [
             {
@@ -41914,6 +43864,11 @@
             "inexact": 6627,
             "zeroed": 9
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 17640.4,
+            "us_median": 951.069
+          },
           "specials": [
             {
               "x": "0",
@@ -41967,6 +43922,12 @@
             "exact": 30396,
             "inexact": 14518,
             "mismatch": 20110
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 16728.3,
+            "spread_pct": 5.9,
+            "us_median": 1002.925
           },
           "specials": [
             {
@@ -42022,6 +43983,11 @@
             "inexact": 14420,
             "mismatch": 20376
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 4329.9,
+            "us_median": 3874.772
+          },
           "specials": [
             {
               "x": "0",
@@ -42074,6 +44040,11 @@
           "outcomes": {
             "exact": 61086,
             "inexact": 3938
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 20161.2,
+            "us_median": 832.153
           },
           "specials": [
             {
@@ -42128,6 +44099,11 @@
             "exact": 31390,
             "inexact": 33634
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 10573.0,
+            "us_median": 1586.797
+          },
           "specials": [
             {
               "x": "0",
@@ -42173,13 +44149,19 @@
       "tanhshrink": {
         "default": {
           "defects": 0,
-          "max_abs": "2",
+          "max_abs": "4.77e-07",
           "max_ulp": "4.19e+06",
-          "mean_ulp": "9.11e+04",
+          "mean_ulp": "1.23e+05",
           "n_inputs": 65024,
           "outcomes": {
-            "exact": 51056,
-            "inexact": 13968
+            "exact": 53646,
+            "inexact": 11378
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 16540.1,
+            "spread_pct": 11.4,
+            "us_median": 1014.335
           },
           "specials": [
             {
@@ -42218,7 +44200,7 @@
               "y_ref": "0"
             }
           ],
-          "ulp_clipped": 1984,
+          "ulp_clipped": 1798,
           "usable_to": "1.34e-08",
           "verdict": "accurate to |x| <= 1.34e-08; up to 4.19e+06 ULP beyond"
         }
@@ -42233,6 +44215,11 @@
           "outcomes": {
             "exact": 48020,
             "inexact": 17004
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5527.3,
+            "us_median": 3035.358
           },
           "specials": [
             {
@@ -42285,6 +44272,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24506.6,
+            "us_median": 684.6
           },
           "rationale": "domain midpoint, torch's zero fill",
           "specials": [
@@ -42339,6 +44331,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 5783.9,
+            "us_median": 2900.673
+          },
           "rationale": "ttnn binds threshold and value as min/max; the golden's *args are unbindable",
           "specials": [
             {
@@ -42392,6 +44389,11 @@
           "outcomes": {
             "exact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 24487.1,
+            "us_median": 685.146
+          },
           "specials": [
             {
               "x": "0",
@@ -42443,6 +44445,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "exact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 13374.7,
+            "us_median": 1254.398
           },
           "rationale": "the attached golden demands a bool condition",
           "specials": [
@@ -42499,6 +44506,12 @@
             "flushed": 128,
             "inexact": 42264
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 15333.8,
+            "spread_pct": 15.0,
+            "us_median": 1094.13
+          },
           "specials": [
             {
               "x": "0",
@@ -42551,6 +44564,11 @@
           "outcomes": {
             "inexact": 65024
           },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 18730.5,
+            "us_median": 895.718
+          },
           "specials": [
             {
               "x": "0",
@@ -42602,6 +44620,11 @@
           "n_inputs": 65024,
           "outcomes": {
             "inexact": 65024
+          },
+          "perf": {
+            "host": "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+            "melem_per_s": 1065.8,
+            "us_median": 15741.975
           },
           "specials": [
             {
