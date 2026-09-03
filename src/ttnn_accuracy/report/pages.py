@@ -168,6 +168,15 @@ def _usable_text(summary: dict) -> str:
     return summary.get("usable_to") or "—" if summary.get("usable_to") != "—" else "nowhere"
 
 
+def _us(perf: dict | None) -> str:
+    """Microseconds, and the spread when the row bounced — charts attaches it only then,
+    so a reader is told which timings not to trust rather than having to know."""
+    if not perf:
+        return "—"
+    spread = perf.get("spread_pct")
+    return f"{perf['us_median']:.0f}" + (f" ±{spread:.0f}%" if spread else "")
+
+
 def _specials_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
     """Raw outputs at ±0, ±inf, NaN and the smallest normals, device beside golden.
 
@@ -337,8 +346,7 @@ def arch_dtype_index(arch: str, dtype: str, ops: dict[str, list[str]]) -> str:
             else:
                 usable = _usable_text(summary)
             max_abs = summary["max_abs"] if summary else "—"
-            perf = (summary or {}).get("perf", {})
-            us = f"{perf['us_median']:.0f}" if perf else "—"
+            us = _us((summary or {}).get("perf"))
             op_cell = f"[{display_name}]({display_name}.md)" if i == 0 else ""
             lines.append(
                 f"| {op_cell} | `{params}` | {max_ulp} | {mean_ulp} | {usable} | {max_abs} "
@@ -665,7 +673,7 @@ is only comparable to another taken on the same host, which the "Measured agains
 
 def _ask_row(arch: str, dtype: str, op: str, variant: str, s: dict) -> str:
     perf = s.get("perf")
-    us, rate = (f"{perf['us_median']:.0f}", f"{perf['melem_per_s']:.0f}") if perf else ("—", "—")
+    us, rate = _us(perf), f"{perf['melem_per_s']:.0f}" if perf else "—"
     return (
         f"| {arch} | {dtype} | `{op}` | `{params_desc(op, variant)}` | {s.get('verdict', '—')} "
         f"| {s.get('max_ulp', '—')} | {s.get('mean_ulp', '—')} | {s.get('usable_to', '—')} "

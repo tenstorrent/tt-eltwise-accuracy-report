@@ -129,6 +129,8 @@ def _record_perf(index: dict, arch: str) -> None:
     Carried with its host, because a timing belongs to the machine that took it, and never
     added to `compare`'s SCORED — unlike accuracy, a difference here can be the room.
     """
+    from ttnn_accuracy.measure.perf import NOISE_PCT  # here so `charts` need not import ttnn
+
     path = PERF_DIR / f"{arch}.json"
     if not path.exists():
         return
@@ -142,7 +144,16 @@ def _record_perf(index: dict, arch: str) -> None:
             for variant, row in variants.items():
                 entry = index.get(arch, {}).get(dtype, {}).get(op, {}).get(variant)
                 if entry is not None:
-                    entry["perf"] = row | {"host": host}
+                    # The two figures a page renders, and the host that makes them mean
+                    # anything. us_min and us_p90 stay in stats/perf — perf-diff reads them,
+                    # a page does not, and they would rewrite two more lines per variant
+                    # every night for jitter. `spread_pct` only when the row bounced past
+                    # the harness's own reproducibility, which is the one case a reader
+                    # needs it: relu bf16 came back 351 us at a spread of 46%.
+                    entry["perf"] = {k: row[k] for k in ("us_median", "melem_per_s")}
+                    entry["perf"]["host"] = host
+                    if row["spread_pct"] > NOISE_PCT:
+                        entry["perf"]["spread_pct"] = row["spread_pct"]
                     attached += 1
     logger.info("{} timings from {} attached to the index", attached, path.name)
 

@@ -160,6 +160,15 @@ jobs:
               echo "::warning::$cat died with signal $((status - 128)), resuming"
             done
           done
+          # Here, not in perf-report: that one builds two commits to compare them and keeps
+          # its answer as an artifact, so nothing it measures may overwrite the published
+          # baseline. These timings are taken on the build just measured, which is the only
+          # way a page's microseconds and its ULP figures describe the same kernel.
+          # Non-zero counts variants that produced no timing, or is 128+ a signal; perf
+          # rewrites its file per op, so either way what was timed is on disk and charts.
+          status=0
+          ttnn-accuracy perf --arch "${{ matrix.arch }}" || status=$?
+          [ "$status" -eq 0 ] || echo "::warning::perf exited $status — see the log for which"
           ttnn-accuracy charts
           ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
           [ "$empty" -eq 0 ] || echo "::warning::$empty variant(s) produced no data — see the report"
@@ -186,7 +195,9 @@ jobs:
         # The other architecture may have pushed while this job measured, so rebase onto
         # it rather than racing; nothing to commit is a success, not a failure.
         run: |
-          git add -A reports/ report_index.json stats/
+          # ask.md too: `report` regenerates it every night, analyze-report/README.md
+          # publishes its raw URL, and leaving it out of the commit made that link a 404.
+          git add -A reports/ report_index.json stats/ analyze-report/ask.md
           git diff --cached --quiet && { echo "no change to publish"; exit 0; }
           git -c user.name=nightly-report -c user.email=nightly@users.noreply.github.com \
             commit -m "data(${{ matrix.arch }}): nightly report at ${{ needs.pin.outputs.sha }}"

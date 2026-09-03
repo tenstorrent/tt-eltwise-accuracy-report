@@ -85,5 +85,7 @@ jobs:
         # clone, and cannot delete the one still checked out here.
         if: always()
         run: |
-          git checkout -- reports/ report_index.json
+          # ask.md as well: `report` rewrites it from this run's parameters, and left
+          # behind it would be swept into the next nightly's commit as the published page.
+          git checkout -- reports/ report_index.json analyze-report/ask.md
           git checkout --detach 2>/dev/null || true
