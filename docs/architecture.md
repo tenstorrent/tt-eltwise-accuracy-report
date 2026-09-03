@@ -67,7 +67,11 @@ flowchart TD
     R1["measure"] -->|on device| CSV[("data/**.csv")]
     R1 --> PROV[("runs/{id}.json")]
 
+    M1 --> R2["perf"]
+    R2 -->|on device, one resident tensor| PRF[("stats/perf/{arch}.json")]
+
     CSV --> C1["charts"] --> SVG[("**.svg")]
+    PRF --> C1
     C1 --> IDX[("report_index.json")]
 
     SVG --> P1["report"]
@@ -77,7 +81,10 @@ flowchart TD
     style R1 fill:#0b6e7a,color:#fff
 ```
 
-Only `probe` and `measure` need silicon; everything else runs from the goldens on CPU.
+Only `probe`, `measure` and `perf` need silicon; everything else runs from the goldens on
+CPU. Accuracy is deterministic, so it may be compared across machines and days; a timing
+belongs to the host that took it, which is why `perf` records one and `compare` never
+scores the field.
 
 ## Modules
 
@@ -103,6 +110,7 @@ flowchart TB
         DEV["device"]
         STO["store"]
         RUN["runner"]
+        PRF["perf"]
     end
 
     subgraph rep["report/ — publish"]
@@ -111,9 +119,10 @@ flowchart TB
         CMP["compare"]
     end
 
-    CLI --> MAN & RUN & CHT & PAG & CMP
+    CLI --> MAN & RUN & PRF & CHT & PAG & CMP
     MAN --> ARI & DER & OVR
-    RUN --> DEV & SWP & STO & SCH
+    RUN --> DEV & SWP & STO & SCH & PRF
+    PRF --> DEV & SCH & PLN
     SWP --> MET
     STO --> SCH
     DER --> MET
@@ -179,6 +188,8 @@ Reserved axes are null columns in every run record — free now, unbackfillable 
 | `ULP_CLIP` | 1000 | chart clamp; clipped points counted |
 | `USABLE_ULP` | 2 | what "accurate to \|x\| ≤ B" means |
 | `SPECIAL_VALUES` | ±0, ±inf, NaN, ±min | measured per op, no ULP, printed device-vs-golden |
+| `ELEMENTS` | 2²⁴ | one timed dispatch; at 2²⁰ the op costs ~65 µs and host jitter moved it 70% |
+| `NOISE_PCT` | 5 | `us_min` moved 3.1% between two runs of one build — inside this is the harness |
 
 ## Artifacts
 
@@ -187,6 +198,7 @@ Reserved axes are null columns in every run record — free now, unbackfillable 
 | `stats/ops_manifest.json` | yes | discover, derive, probe | classification with reasons, derived domains, per-arch layouts. No timestamps — a diff means ttnn changed |
 | `ops/overrides.py` | yes | hand-edited | every editorial decision: scalars, variants, supplied goldens, exclusions |
 | `stats/runs/{id}.json` | yes | measure | tt-metal commit, versions, device |
+| `stats/perf/{arch}.json` | yes | perf | µs per variant with the host that took them; the full row, of which a page shows two figures |
 | `data/**.csv` | no | measure | per-input rows; symlink to local disk |
 | `report_index.json` | yes | charts | stats, verdict and rationale per arch/dtype/op/variant — what an LLM consumes, under `analyze-report/contract.md` |
 | `reports/**` | yes | charts, report | SVGs and markdown |
