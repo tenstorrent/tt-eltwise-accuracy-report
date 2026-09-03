@@ -18,7 +18,7 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | `specials` | device vs golden at ±0, ±inf, NaN, ±min-normal — printed values, no ULP |
 | `defects` | points where the device returned inf or zero and the reference is a representable value — wrong answers that carry no ULP, so no other field counts them. A `mismatch` against a NaN reference is a disagreement about the domain, not a defect, and is excluded |
 | `verdict` | one of the seven phrases below, precomputed |
-| `perf` | `us_median` and `melem_per_s` for one dispatch over 2²⁴ resident elements, plus the `host` that took them and, only when the row bounced past the harness's own reproducibility, `spread_pct`. Never an accuracy figure and never scored: two timings may be compared only when their `host` matches, and a `±N%` on a page means that row is not to be trusted |
+| `perf` | `us_median` and `melem_per_s` for one dispatch over 2²⁴ resident elements, with the `host` that took them; `spread_pct` only when the row is not to be trusted. Never scored |
 | `rationale` | why this variant's parameters have these values (from `ops/overrides.py`) |
 | `_runs.{arch}.{dtype}` | provenance: tt-metal commit, device, versions — every claim is per this build |
 
@@ -52,7 +52,6 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 - Cite the entry (arch/dtype/op/variant) and its tt-metal commit; never average across archs
   or dtypes, and never extrapolate to an unmeasured cell.
 - A sampled sweep's maximum (fp32 pairs, ternary) is a lower bound — the page says so.
-- Never compare a timing to one from another `host`, and never call a timing difference a
-  regression: it can be the room. Accuracy is deterministic; timing is not.
+- Never compare a timing across hosts, and never call a timing difference a regression.
 - Not in the index → say it is not measured, and read the reason from the manifest's
   exclusions and refusals, or `analyze-report/uncovered.md`.

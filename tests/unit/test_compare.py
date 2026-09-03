@@ -122,7 +122,7 @@ def test_the_absolute_bar_is_independent_of_the_baseline(stats, bar, failures):
 
 
 def test_a_new_defect_count_outranks_a_metric_that_improved():
-    """bh/fp32/multigammaln gained 7,422 defects while ulp_clipped fell by two."""
+    """multigammaln gained 7,422 defects while ulp_clipped fell by two."""
     old = _index(ulp_clipped=2989)
     del old["wh"]["bf16"]["exp"]["default"]["defects"]
     buckets = diff(old, _index(ulp_clipped=2987, defects=7422))

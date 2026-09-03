@@ -75,8 +75,7 @@ jobs:
             cd "$TT_METAL_HOME"
             # By URL, not by remote name: a runner's origin may be a personal fork where
             # the SHA does not exist.
-            # A 40-character SHA or a branch fetches directly; an abbreviation does not,
-            # so fall back to the default branch and resolve the ref against it.
+            # An abbreviation cannot be fetched: fall back to main and resolve against it.
             git fetch --recurse-submodules=no https://github.com/tenstorrent/tt-metal.git "$ref" \
               && git checkout --force FETCH_HEAD \
               || { git fetch --recurse-submodules=no \

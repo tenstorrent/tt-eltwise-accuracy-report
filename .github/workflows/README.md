@@ -7,9 +7,7 @@
 | [perf-report.yml](perf-report.yml) | dispatch | one arch | artifact only — timings for one commit, or the diff between two |
 | [custom-report.yml](custom-report.yml) | dispatch | one arch | artifact only — a report at parameters you name |
 
-Only the nightly writes to the repository. The other two device workflows answer a
-question and hand back an artifact, so neither can overwrite a published baseline.
-
+Only the nightly writes to the repository, so no other run can overwrite a baseline.
 Runners labelled `wh` and `bh` are registered; the cron is live.
 
 ## One night
@@ -54,5 +52,5 @@ flowchart LR
     N -->|reports/**| G["GitHub-browsable pages"]
 ```
 
-The findings page is produced by rules, not by a model: `compare`'s buckets already are
-the classification. The model is optional and only adds a note.
+Produced by rules, not by a model: `compare`'s buckets are the classification. The model
+is optional and adds one note.

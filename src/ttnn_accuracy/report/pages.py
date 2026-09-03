@@ -169,8 +169,7 @@ def _usable_text(summary: dict) -> str:
 
 
 def _us(perf: dict | None) -> str:
-    """Microseconds, and the spread when the row bounced — charts attaches it only then,
-    so a reader is told which timings not to trust rather than having to know."""
+    """Microseconds, plus the spread when charts flagged the row as not worth trusting."""
     if not perf:
         return "—"
     spread = perf.get("spread_pct")

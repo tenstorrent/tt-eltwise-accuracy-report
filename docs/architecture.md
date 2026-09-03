@@ -82,9 +82,8 @@ flowchart TD
 ```
 
 Only `probe`, `measure` and `perf` need silicon; everything else runs from the goldens on
-CPU. Accuracy is deterministic, so it may be compared across machines and days; a timing
-belongs to the host that took it, which is why `perf` records one and `compare` never
-scores the field.
+CPU. Accuracy is deterministic and comparable anywhere; a timing belongs to its host, so
+`perf` records one and `compare` never scores the field.
 
 ## Modules
 
@@ -188,8 +187,8 @@ Reserved axes are null columns in every run record — free now, unbackfillable 
 | `ULP_CLIP` | 1000 | chart clamp; clipped points counted |
 | `USABLE_ULP` | 2 | what "accurate to \|x\| ≤ B" means |
 | `SPECIAL_VALUES` | ±0, ±inf, NaN, ±min | measured per op, no ULP, printed device-vs-golden |
-| `ELEMENTS` | 2²⁴ | one timed dispatch; at 2²⁰ the op costs ~65 µs and host jitter moved it 70% |
-| `NOISE_PCT` | 5 | `us_min` moved 3.1% between two runs of one build — inside this is the harness |
+| `ELEMENTS` | 2²⁴ | one timed dispatch; at 2²⁰ host jitter moved it 70% |
+| `NOISE_PCT` | 5 | `us_min` moved 3.1% between two runs of one build |
 
 ## Artifacts
 
@@ -198,7 +197,7 @@ Reserved axes are null columns in every run record — free now, unbackfillable 
 | `stats/ops_manifest.json` | yes | discover, derive, probe | classification with reasons, derived domains, per-arch layouts. No timestamps — a diff means ttnn changed |
 | `ops/overrides.py` | yes | hand-edited | every editorial decision: scalars, variants, supplied goldens, exclusions |
 | `stats/runs/{id}.json` | yes | measure | tt-metal commit, versions, device |
-| `stats/perf/{arch}.json` | yes | perf | µs per variant with the host that took them; the full row, of which a page shows two figures |
+| `stats/perf/{arch}.json` | yes | perf | µs per variant with its host; the full row, of which a page shows two figures |
 | `data/**.csv` | no | measure | per-input rows; symlink to local disk |
 | `report_index.json` | yes | charts | stats, verdict and rationale per arch/dtype/op/variant — what an LLM consumes, under `analyze-report/contract.md` |
 | `reports/**` | yes | charts, report | SVGs and markdown |

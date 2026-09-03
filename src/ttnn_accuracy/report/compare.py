@@ -57,16 +57,12 @@ def _bucket(a: dict, b: dict) -> str:
     """Where this pair belongs, or "" when nothing worth saying moved.
 
     Only metrics both sides carry are scored: a field the baseline predates cannot have
-    regressed. Treating `defects` as 0 where it was simply absent put 93 entries in
-    `regressed` the night it was added, not one of which had moved a ULP. Its arrival is
-    still news, so it lands in `changed`.
+    regressed, so its arrival lands in `changed` instead.
     """
     scored = [m for m in SCORED if m in a and m in b]
     if any(_num(b[m]) > _num(a[m]) for m in scored):
         return "regressed"
-    # Before `improved`, not after: multigammaln gained 7,422 defects while ulp_clipped
-    # ticked down by two, and calling that an improvement is the wrong headline.
-    # A metric appearing as 0 says nothing; appearing with a count is the finding itself.
+    # Before `improved`: a first count of defects outranks a scored metric ticking down.
     if [m for m in SCORED if m not in a and _num(b.get(m))]:
         return "changed"
     if any(_num(b[m]) < _num(a[m]) for m in scored):

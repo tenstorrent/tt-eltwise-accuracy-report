@@ -7,6 +7,7 @@ reports/charts/{arch}/{dtype}/{op}_{variant}_ulp.svg.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import matplotlib
@@ -26,6 +27,7 @@ from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, PERF_DIR, REPO
 
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
+plt.rcParams["svg.hashsalt"] = "ttnn-accuracy"  # else ids are random and every chart churns
 
 ULP_CLIP = 1000.0
 USABLE_ULP = 2.0  # what "still accurate here" means for the usable-range figure
@@ -124,11 +126,7 @@ def _subdirs(parent: Path, only: str | None) -> list[Path]:
 
 
 def _record_perf(index: dict, arch: str) -> None:
-    """Attach `stats/perf/{arch}.json` to the entries it describes.
-
-    Carried with its host, because a timing belongs to the machine that took it, and never
-    added to `compare`'s SCORED — unlike accuracy, a difference here can be the room.
-    """
+    """Attach `stats/perf/{arch}.json` to its entries, with the host that took it."""
     from ttnn_accuracy.measure.perf import NOISE_PCT  # here so `charts` need not import ttnn
 
     path = PERF_DIR / f"{arch}.json"
@@ -140,19 +138,13 @@ def _record_perf(index: dict, arch: str) -> None:
     for dtype, ops in timings.items():
         if dtype == RUNS_KEY:
             continue
-        # On the run record too, not only on each row: "Measured against" is where the ask
-        # page tells a reader which timings may be subtracted from which, and it could not.
+        # On the run record too: "Measured against" names the host, and could not.
         index.setdefault(RUNS_KEY, {}).setdefault(arch, {}).setdefault(dtype, {})["host"] = host
         for op, variants in ops.items():
             for variant, row in variants.items():
                 entry = index.get(arch, {}).get(dtype, {}).get(op, {}).get(variant)
                 if entry is not None:
-                    # The two figures a page renders, and the host that makes them mean
-                    # anything. us_min and us_p90 stay in stats/perf — perf-diff reads them,
-                    # a page does not, and they would rewrite two more lines per variant
-                    # every night for jitter. `spread_pct` only when the row bounced past
-                    # the harness's own reproducibility, which is the one case a reader
-                    # needs it: relu bf16 came back 351 us at a spread of 46%.
+                    # What a page shows; us_min and us_p90 stay in stats/perf for perf-diff.
                     entry["perf"] = {k: row[k] for k in ("us_median", "melem_per_s")}
                     entry["perf"]["host"] = host
                     if row["spread_pct"] > NOISE_PCT:
@@ -259,9 +251,10 @@ def plot_ulp_chart(df: pd.DataFrame, op: str, variant: str, arch: str, dtype: st
 
     fig.tight_layout()
     out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, format="svg", bbox_inches="tight")
+    # Date suppressed: matplotlib stamps one, and it rewrote every chart nightly.
+    fig.savefig(out, format="svg", bbox_inches="tight", metadata={"Date": None})
     plt.close(fig)
-    logger.success("{}", out.relative_to(REPO_ROOT))
+    logger.success("{}", os.path.relpath(out, REPO_ROOT))  # relative_to raises off-tree
 
 
 def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
