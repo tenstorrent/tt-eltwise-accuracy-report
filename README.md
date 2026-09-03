@@ -12,7 +12,8 @@ goldens — per architecture (WH, BH) and dtype (bf16, fp32).
 
 ```
 src/ttnn_accuracy/
-  cli.py                # discover | derive | probe | measure | charts | report | compare
+  cli.py                # discover | derive | probe | measure | check | perf | perf-diff
+                        # | charts | report | compare
   ops/
     introspect.py       # what ttnn registers
     arity.py            # operand count, elementwise, real-valued — by asking the golden
@@ -23,7 +24,7 @@ src/ttnn_accuracy/
   measure/              # metrics · sweeps · schema · store · runner · device
   report/               # charts (CSV → SVG + report_index.json) · pages · compare
 
-.github/workflows/      # the periodic regenerate-and-publish workflow, with its diagrams
+.github/workflows/      # nightly publish · findings · perf A/B · custom parameters
 analyze-report/         # LLM consumption: workflows, interpretation contract, uncovered-op backlog
 stats/ops_manifest.json # what discover, derive and probe learned (committed)
 stats/runs/             # one provenance record per measurement run (committed)
@@ -49,7 +50,8 @@ ln -s /localdev/$USER/data data             # data/ grows fast
 | `derive` | per-dtype input bounds from each unary golden, in fp64 | no |
 | `probe` | which dtype/layout each op accepts, keyed per arch | **yes** |
 | `measure` | the sweeps → one CSV per op variant | **yes** |
-| `charts` | CSV → SVG + `report_index.json` | no |
+| `perf` | one resident tensor per op, timed → `stats/perf/{arch}.json` | **yes** |
+| `charts` | CSV → SVG + `report_index.json`, timings attached | no |
 | `report` | index + SVG → markdown tree | no |
 | `compare` | two indexes → what moved; exit 1 on regression | no |
 
@@ -58,6 +60,7 @@ ttnn-accuracy discover && ttnn-accuracy derive && ttnn-accuracy probe
 for cat in unary unary_bw binary binary_bw ternary ternary_bw; do
   ttnn-accuracy measure --arch wh --category $cat --dtype both
 done
+ttnn-accuracy perf --arch wh
 ttnn-accuracy charts
 ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
 ```

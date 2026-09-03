@@ -99,7 +99,7 @@ SECTIONS = (
 
 
 def digest(old: dict, new: dict) -> str:
-    """The diff as one markdown page — the file a reader opens instead of 754."""
+    """The diff as one markdown page — the file a reader opens instead of every page."""
     buckets = diff(old, new)
     out = ["# Findings", "", f"_{_commits(old)} → {_commits(new)}_", ""]
     for key, title, why in SECTIONS:

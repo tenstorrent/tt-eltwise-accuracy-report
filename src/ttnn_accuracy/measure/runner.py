@@ -89,8 +89,8 @@ def check(
             if scored := score_csv(csv, op, variant):
                 candidate[arch].setdefault(dtype, {}).setdefault(op, {})[variant] = scored[0]
 
-    # Only what was just measured: the baseline holds 766 variants and all but these are
-    # unchanged by construction, so diffing the whole thing would bury the answer.
+    # Only what was just measured: the baseline holds every variant ever measured and all
+    # but these are unchanged by construction, so diffing it whole would bury the answer.
     measured = {
         (d, o, v) for d, ops in candidate[arch].items() for o, vs in ops.items() for v in vs
     }
