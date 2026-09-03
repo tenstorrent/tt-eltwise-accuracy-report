@@ -43,10 +43,17 @@ jobs:
           BASE: ${{ github.event.workflow_run.head_sha || 'HEAD~1' }}
           LOGURU_FORMAT: "{message}"
         run: |
+          # The only dependency `compare` has beyond the standard library. Installing the
+          # package would drag in torch and matplotlib for a diff over two JSON files.
+          python3 -m pip install --quiet loguru
+
           git show "$BASE:report_index.json" > "$RUNNER_TEMP/previous.json"
           status=0
           PYTHONPATH=src python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" \
             --findings analyze-report/findings.md || status=$?
+          # compare exits 1 for a regression and also for a crash. No page means it never
+          # ran, which is this job being broken rather than the kernels.
+          [ -f analyze-report/findings.md ] || { echo "::error::compare wrote no page"; exit 1; }
           echo "regressed=$status" >> "$GITHUB_OUTPUT"
           # Every run writes the page; only a bucket means there is something to publish.
           if grep -q '^## ' analyze-report/findings.md
@@ -97,7 +104,9 @@ jobs:
           git push origin HEAD:"${{ github.event.repository.default_branch }}"
 
       - name: Raise an issue when something got worse
-        if: steps.moved.outputs.regressed != '0'
+        # `any` too: without a page there is nothing to put in the body, and the exit code
+        # alone cannot tell a regression from a compare that failed to run.
+        if: steps.moved.outputs.any == 'true' && steps.moved.outputs.regressed != '0'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
