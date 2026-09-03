@@ -697,7 +697,8 @@ def ask_page() -> str:
         for variant, s in sorted(variants.items())
     ]
     builds = [
-        f"| {arch} | {dtype} | `{run.get('tt_metal_commit')}` | {run.get('ttnn_version')} |"
+        f"| {arch} | {dtype} | `{run.get('tt_metal_commit')}` | {run.get('ttnn_version')} "
+        f"| {run.get('host', '—')} |"
         for arch, dtypes in sorted(index.get(RUNS_KEY, {}).items())
         for dtype, run in sorted(dtypes.items())
     ]
@@ -705,8 +706,8 @@ def ask_page() -> str:
         [
             ASK_HEADER,
             "## Measured against\n",
-            "| Arch | Dtype | tt-metal | ttnn |",
-            "|---|---|---|---|",
+            "| Arch | Dtype | tt-metal | ttnn | Timed on |",
+            "|---|---|---|---|---|",
             *builds,
             "",
             CONTRACT_FILE.read_text().partition("\n")[2].strip(),

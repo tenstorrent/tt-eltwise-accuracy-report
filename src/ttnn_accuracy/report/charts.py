@@ -140,6 +140,9 @@ def _record_perf(index: dict, arch: str) -> None:
     for dtype, ops in timings.items():
         if dtype == RUNS_KEY:
             continue
+        # On the run record too, not only on each row: "Measured against" is where the ask
+        # page tells a reader which timings may be subtracted from which, and it could not.
+        index.setdefault(RUNS_KEY, {}).setdefault(arch, {}).setdefault(dtype, {})["host"] = host
         for op, variants in ops.items():
             for variant, row in variants.items():
                 entry = index.get(arch, {}).get(dtype, {}).get(op, {}).get(variant)
