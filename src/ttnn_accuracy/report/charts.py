@@ -21,8 +21,8 @@ from loguru import logger
 from ttnn_accuracy.measure.metrics import MIN_NORMAL
 from ttnn_accuracy.measure.schema import COLUMNS
 from ttnn_accuracy.measure.store import RUN_STAMP
-from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, variant_slug
-from ttnn_accuracy.ops.plan import describe
+from ttnn_accuracy.ops.overrides import OVERRIDES, variant_slug
+from ttnn_accuracy.ops.plan import describe, resolve
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, PERF_DIR, REPO_ROOT, RUNS_KEY
 
 plt.rcParams["svg.fonttype"] = "none"
@@ -263,14 +263,28 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
         return 1
 
     index = json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
-    # charts only visits ops with CSVs, so an op that left scope would keep its entry.
+    # An op that left scope keeps its CSV, and the index is rebuilt from CSVs, so its last
+    # measurement goes on publishing as a current one: bias_gelu_bw crashed the wh probe in
+    # August and a page still carried its numbers. Excluded ops never reach the manifest,
+    # so one scope check covers those too.
+    scope = {
+        arch: {(s.name, s.variant) for s in resolve(None, None, arch)[0]}
+        for arch in sorted({d.name for d in DATA_DIR.iterdir() if d.is_dir()} | index.keys())
+        if arch != RUNS_KEY
+    }
+    dropped = []
     for arch, dtypes in index.items():
         if arch == RUNS_KEY:
             continue
-        for ops in dtypes.values():
-            for gone in [op for op in ops if f"ttnn.{op}" in EXCLUDED]:
-                del ops[gone]
-                logger.info("dropped {} from the index — excluded from scope", gone)
+        for dtype, ops in dtypes.items():
+            for op in list(ops):
+                for gone in [v for v in ops[op] if (op, v) not in scope[arch]]:
+                    del ops[op][gone]
+                    dropped.append(f"{arch}/{dtype}/{op}/{gone}")
+                if not ops[op]:
+                    del ops[op]
+    if dropped:
+        logger.info("dropped, no longer in scope: {}", ", ".join(dropped))
     plotted = stale = 0
 
     for arch_dir in _subdirs(DATA_DIR, arch_filter):
@@ -280,6 +294,8 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                 arch, dtype, op = arch_dir.name, dtype_dir.name, op_dir.name
                 for csv_path in sorted(op_dir.glob("*.csv")):
                     variant = csv_path.stem
+                    if (op, variant) not in scope[arch]:  # else the purge above is undone
+                        continue
                     scored = score_csv(csv_path, op, variant)
                     if scored is None:
                         stale += 1

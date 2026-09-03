@@ -47,7 +47,12 @@ jobs:
           # package would drag in torch and matplotlib for a diff over two JSON files.
           python3 -m pip install --quiet loguru
 
-          git show "$BASE:report_index.json" > "$RUNNER_TEMP/previous.json"
+          # The triggering commit can stop being reachable — a force-push rewrote it, and
+          # every run after that died here. The file's own previous version is the same
+          # baseline, because the nightly is what last changed it.
+          git show "$BASE:report_index.json" > "$RUNNER_TEMP/previous.json" 2>/dev/null || \
+            git show "$(git log -2 --format=%H -- report_index.json | tail -1):report_index.json" \
+              > "$RUNNER_TEMP/previous.json"
           status=0
           PYTHONPATH=src python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" \
             --findings analyze-report/findings.md || status=$?

@@ -80,7 +80,8 @@ jobs:
               && git checkout --force FETCH_HEAD \
               || { git fetch --recurse-submodules=no \
                      https://github.com/tenstorrent/tt-metal.git main; \
-                   git checkout --force "$ref"; }
+                   git checkout --force "$ref" \
+                     || { echo "::error::$ref is not a commit on tenstorrent/tt-metal"; exit 1; }; }
             git submodule update --init --recursive
             ./build_metal.sh
             # Kernels compiled against the previous build segfault under new host code,
