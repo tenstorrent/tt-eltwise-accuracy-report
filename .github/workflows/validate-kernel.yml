@@ -81,6 +81,13 @@ jobs:
           MAX_ULP: ${{ inputs.max_ulp }}
           PARAMS: ${{ inputs.params }}
           LOGURU_FORMAT: "{message}"
+          # The summary is the product, so it carries findings and nothing else. loguru's
+          # DEBUG default prints ttnn's config banner twice; tt-metal's C++ logger colours
+          # its own output, which reaches a markdown code fence as literal escape codes.
+          # Both names: tt-metal reads TT_LOGGER_LEVEL now and TT_METAL_LOGGER_LEVEL before.
+          LOGURU_LEVEL: INFO
+          TT_LOGGER_LEVEL: error
+          TT_METAL_LOGGER_LEVEL: error
         run: |
           source "$PYTHON_ENV/bin/activate"
           export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
