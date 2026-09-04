@@ -12,7 +12,9 @@ name: nightly-report
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    # Not on the hour: GitHub drops scheduled runs at :00 under load, and this one never
+    # fired once — every report so far has been a button press.
+    - cron: "37 2 * * *"
   workflow_dispatch:
     inputs:
       arch:

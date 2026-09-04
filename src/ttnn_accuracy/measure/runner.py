@@ -119,7 +119,13 @@ def check(
     return empty + broken + timing + over + len(buckets["regressed"])
 
 
-def refine(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0) -> int:
+def refine(
+    specs: list[OpSpec],
+    dtypes: list[str],
+    arch: str,
+    device_id: int = 0,
+    findings: Path | None = None,
+) -> int:
     """Search exhaustively around each sampled worst point; returns how many got worse.
 
     A sampled sweep reports a lower bound, and every page says so. This turns the hedge
@@ -131,6 +137,7 @@ def refine(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0
     from ttnn_accuracy.paths import DATA_DIR
 
     loosened = 0
+    rows_out: list[str] = []
     with open_device(device_id) as device:
         check_arch(device, arch)
         for spec in specs:
@@ -155,6 +162,7 @@ def refine(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0
                 )
                 tighter = now > was
                 loosened += tighter
+                at = ", ".join(f"{v:.6g}" for v in where)
                 getattr(logger, "error" if tighter else "success")(
                     "{}/{}/{}: sampled {:.6g} → exhaustive {:.6g} at {}",
                     dtype,
@@ -162,8 +170,28 @@ def refine(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0
                     spec.variant,
                     was,
                     now,
-                    ", ".join(f"{v:.6g}" for v in where),
+                    at,
                 )
+                if tighter:
+                    rows_out.append(
+                        f"| `{arch}/{dtype}/{spec.name}/{spec.variant}` | {was:.6g} | "
+                        f"{now:.6g} | {now / was:.2f}x | `{at}` |"
+                    )
+
+    if findings:
+        page = ["# Sampled maxima", ""]
+        page += [
+            "Binary fp32 and every ternary sweep sample their operands, so the published "
+            "`max_ulp` is a lower bound. Each row below is a variant whose worst point holds "
+            "a worse answer than the sample drew.",
+            "",
+        ]
+        page += ["| Variant | Published | Exhaustive | Ratio | At |", "|---|---|---|---|---|"]
+        page += rows_out or ["| _none — every sampled bound was tight_ | | | | |"]
+        page.append("")
+        findings.parent.mkdir(parents=True, exist_ok=True)
+        findings.write_text("\n".join(page))
+        logger.success("findings → {}", findings)
     return loosened
 
 

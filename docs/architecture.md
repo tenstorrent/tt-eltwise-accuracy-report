@@ -55,7 +55,7 @@ op, which is why architecture is an axis.
 ```mermaid
 flowchart TD
     T["ttnn runtime<br/>~500 registered ops"] --> D1["discover<br/>classify, keep eltwise"]
-    D1 --> M1[("ops_manifest.json<br/>196 eltwise + refusal reasons")]
+    D1 --> M1[("ops_manifest.json<br/>217 eltwise + 88 refusals")]
     M1 --> D2["derive"]
     D2 -->|fp64 sweep| M1
     M1 --> D3["probe"]
@@ -172,12 +172,14 @@ sequenceDiagram
 | Architecture | WH, BH | active |
 | Data type | bf16 exhaustive, fp32 in blocks | active |
 | Op variant | `overrides.py`: `exp`/`gelu` `fast_approx`, per-op scalars | active |
-| Layout | per op, from `probe` | active |
+| Layout | every accepted layout recorded by `probe`; sweeps take tile | recorded, not varied |
 | Shape | one tile-aligned block, `TILE_WIDTH` columns | active, not varied |
 | Math fidelity | HiFi4 | fixed by the kernel |
 | `fp32_dest_acc_en` | follows the dtype | not free |
 
-The last two are not axes for eltwise, whatever they are for matmul. `unary_program_factory.cpp`
+160 of 215 wh ops accept row-major and none is measured in it — the largest untested
+surface in the report. The last two rows are not axes for eltwise, whatever they are for
+matmul. `unary_program_factory.cpp`
 hardcodes `.math_fidelity = MathFidelity::HiFi4`, and `unary.cpp` derives
 `fp32_dest_acc_en` from `preserve_fp32_precision = (input_dtype == FLOAT32)` — so varying
 the dtype, which this report already does, is the only way either one moves. No eltwise op

@@ -53,5 +53,12 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
   or dtypes, and never extrapolate to an unmeasured cell.
 - A sampled sweep's maximum (fp32 pairs, ternary) is a lower bound — the page says so.
 - Never compare a timing across hosts, and never call a timing difference a regression.
+- A sampled maximum (binary fp32, every ternary) is a lower bound. `ttnn-accuracy refine`
+  sweeps the cell the sample drew from: `fp32/pow` publishes 5,918 ULP and holds 8,300.
+- Some wrongness carries no ULP and is not in these fields. `ttnn-accuracy check` also
+  requires, of the ops it is given, that the answer not change with the tiling, that an
+  in-place op write to its own operand, that aliased operands agree with distinct ones,
+  and that an op commute wherever its reference does. A page cannot report these; only a
+  check run can.
 - Not in the index → say it is not measured, and read the reason from the manifest's
   exclusions and refusals, or `analyze-report/uncovered.md`.

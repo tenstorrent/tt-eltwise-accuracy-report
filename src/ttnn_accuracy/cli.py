@@ -85,6 +85,7 @@ def build_parser() -> argparse.ArgumentParser:
     refine.add_argument("--category", choices=CATEGORIES, help="filter when --ops=all")
     refine.add_argument("--dtype", default="both", choices=["bf16", "fp32", "both"])
     refine.add_argument("--device-id", type=int, default=0)
+    refine.add_argument("--findings", type=Path, help="also write the looser bounds as a page")
     refine.set_defaults(params=None)
 
     hist = sub.add_parser("history", help="when each number moved, from the index's git history")
@@ -227,7 +228,7 @@ def main(argv: list[str] | None = None) -> int:
             specs, dtypes, problems = _selection(args)
             if not specs:
                 return 1
-            return problems + refine(specs, dtypes, args.arch, args.device_id)
+            return problems + refine(specs, dtypes, args.arch, args.device_id, args.findings)
 
         case "history":
             from ttnn_accuracy.report.compare import history
