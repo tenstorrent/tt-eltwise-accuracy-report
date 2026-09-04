@@ -168,13 +168,20 @@ ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternar
 | `perf` | one resident tensor per op, timed → `stats/perf/{arch}.json` | **yes** |
 | `charts` | CSV → SVG + `report_index.json`, timings attached | no |
 | `report` | index + SVG → markdown tree | no |
+| `refine` | sweep a sampled worst point exhaustively; exit counts looser bounds | **yes** |
 | `compare` | two indexes → what moved; exit 1 on regression | no |
 | `history` | every published index → which build moved a number | no |
 | `perf-diff` | two timing files → what got slower; refuses two hosts | no |
 
 ```bash
 ttnn-accuracy history --op sin        # when did it break, and on whose commit
+ttnn-accuracy refine --arch wh --ops pow --dtype fp32   # how loose is a sampled maximum
 ```
+
+Binary fp32 and every ternary sweep are sampled, so their maxima are lower bounds and the
+pages say so. `refine` holds the other operands at a variant's worst point and sweeps one
+across its whole space — `fp32/pow` published 5,918 ULP and the cell it was drawn from
+holds 8,300.
 
 Run sweeps in `tmux`; a kill mid-dispatch wedges the device (`tt-smi -glx_reset`).
 
@@ -186,7 +193,7 @@ Run sweeps in `tmux`; a kill mid-dispatch wedges the device (`tt-smi -glx_reset`
 ```
 src/ttnn_accuracy/
   cli.py                # discover | derive | probe | measure | check | perf | perf-diff
-                        # | charts | report | compare | history
+                        # | refine | charts | report | compare | history
   ops/
     introspect.py       # what ttnn registers
     arity.py            # operand count, elementwise, real-valued — by asking the golden

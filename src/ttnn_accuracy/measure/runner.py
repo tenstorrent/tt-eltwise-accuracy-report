@@ -6,6 +6,7 @@ import json
 import warnings
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from loguru import logger
 
@@ -82,7 +83,7 @@ def check(
     # One device for both passes: opening it costs about as long as measuring one op.
     with open_device(device_id) as device, TemporaryDirectory(prefix="ttnn-check-") as tmp:
         empty = measure(specs, dtypes, arch, Path(tmp), device_id, archive=False, device=device)
-        tiling = _check_shapes(specs, dtypes, device)
+        broken = _check_properties(specs, dtypes, device)
         timing = _check_perf(specs, dtypes, arch, device) if perf else 0
         candidate = {arch: {}}
         for csv in sorted(Path(tmp).glob(f"{arch}/*/*/*.csv")):
@@ -115,7 +116,55 @@ def check(
     moved = ", ".join(f"{len(rows)} {name}" for name, rows in buckets.items() if rows)
     say = logger.error if buckets["regressed"] or over else logger.success
     say("{} variant(s) measured — {}", len(measured), moved or "nothing moved")
-    return empty + tiling + timing + over + len(buckets["regressed"])
+    return empty + broken + timing + over + len(buckets["regressed"])
+
+
+def refine(specs: list[OpSpec], dtypes: list[str], arch: str, device_id: int = 0) -> int:
+    """Search exhaustively around each sampled worst point; returns how many got worse.
+
+    A sampled sweep reports a lower bound, and every page says so. This turns the hedge
+    into a number for the one point that sets it, reading the point from the measured CSV
+    rather than sweeping again.
+    """
+    from ttnn_accuracy.measure.sweeps import refine as refine_point
+    from ttnn_accuracy.measure.sweeps import sampled
+    from ttnn_accuracy.paths import DATA_DIR
+
+    loosened = 0
+    with open_device(device_id) as device:
+        check_arch(device, arch)
+        for spec in specs:
+            for dtype in (d for d in dtypes if d in spec.layouts):
+                if not sampled(spec.operands, dtype):
+                    continue
+                csv = DATA_DIR / arch / dtype / spec.name / f"{spec.variant}.csv"
+                if not csv.exists():
+                    logger.warning("no measurement at {} — run `measure` first", csv)
+                    continue
+                rows = pd.read_csv(csv)
+                # The point that sets the reported maximum, so finite: an inf row is a
+                # defect carrying no ULP, and `max_ulp` excludes it too.
+                rows = rows[np.isfinite(rows["ulp_error"])]
+                if rows.empty:
+                    continue
+                row = rows.loc[rows["ulp_error"].idxmax()]
+                point = [row[c] for c in ("x", "x2", "x3") if c in rows.columns]
+                was = float(row["ulp_error"])
+                now, where = refine_point(
+                    spec.ttnn_fn, spec.golden_fn, point, dtype, spec.layouts[dtype], device
+                )
+                tighter = now > was
+                loosened += tighter
+                getattr(logger, "error" if tighter else "success")(
+                    "{}/{}/{}: sampled {:.6g} → exhaustive {:.6g} at {}",
+                    dtype,
+                    spec.name,
+                    spec.variant,
+                    was,
+                    now,
+                    ", ".join(f"{v:.6g}" for v in where),
+                )
+    return loosened
 
 
 def _over_bar(measured: dict, max_ulp: float) -> int:
@@ -147,21 +196,41 @@ def _over_bar(measured: dict, max_ulp: float) -> int:
     return failed
 
 
-def _check_shapes(specs: list[OpSpec], dtypes: list[str], device) -> int:
-    """Variants whose answer changed with the tiling — a bug no golden can see."""
-    from ttnn_accuracy.measure.sweeps import shape_invariance
+def _properties(spec: OpSpec, dtype: str, device) -> dict[str, int]:
+    """What must hold whatever the reference says, and how far each one is violated.
 
+    These catch wrongness ULP cannot express: the harness scores what an op returns, so an
+    in-place op that never wrote to its operand still reads as bit-exact.
+    """
+    from ttnn_accuracy.measure import sweeps
+
+    args = (spec.bounds[dtype], spec.operands, dtype, spec.layouts[dtype], device)
+    checks = {"tiling changed the answer": sweeps.shape_invariance(spec.ttnn_fn, *args)}
+    # Not in place: one operand cannot overlap itself, and `add_(a, a)` — one buffer as
+    # both destination and source — hung the device for the full 900s timeout. Writing
+    # into a buffer you are also reading is undefined by contract, not a defect to report.
+    if spec.operands > 1 and not spec.name.endswith("_"):
+        checks["aliased operands changed the answer"] = sweeps.aliased_operands(spec.ttnn_fn, *args)
+    if spec.name.endswith("_"):
+        checks["did not write in place"] = sweeps.writes_in_place(spec.ttnn_fn, *args)
+    if spec.operands == 2:
+        checks["stopped commuting"] = sweeps.commutes(
+            spec.ttnn_fn, spec.golden_fn, spec.bounds[dtype], dtype, spec.layouts[dtype], device
+        )
+    return {why: n for why, n in checks.items() if n}
+
+
+def _check_properties(specs: list[OpSpec], dtypes: list[str], device) -> int:
+    """Variants violating at least one property, counted once each."""
     failed = 0
     for spec in specs:
         for dtype in (d for d in dtypes if d in spec.layouts):
-            moved = shape_invariance(
-                spec.ttnn_fn, spec.bounds[dtype], spec.operands, dtype, spec.layouts[dtype], device
-            )
-            if moved:
+            if broken := _properties(spec, dtype, device):
                 failed += 1
-                logger.error(
-                    "tiling changed {} results  {}/{}/{}", moved, dtype, spec.name, spec.variant
-                )
+                for why, n in broken.items():
+                    logger.error(
+                        "{}: {} elements  {}/{}/{}", why, n, dtype, spec.name, spec.variant
+                    )
     return failed
 
 

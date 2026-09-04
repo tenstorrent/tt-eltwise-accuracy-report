@@ -77,6 +77,16 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--dtype")
     report.add_argument("--categories", default="unary", help="comma-separated")
 
+    refine = sub.add_parser(
+        "refine", help="search exhaustively around a sampled worst point; exit counts looser bounds"
+    )
+    refine.add_argument("--arch", required=True, choices=["wh", "bh"])
+    refine.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
+    refine.add_argument("--category", choices=CATEGORIES, help="filter when --ops=all")
+    refine.add_argument("--dtype", default="both", choices=["bf16", "fp32", "both"])
+    refine.add_argument("--device-id", type=int, default=0)
+    refine.set_defaults(params=None)
+
     hist = sub.add_parser("history", help="when each number moved, from the index's git history")
     hist.add_argument("--op", help="one op name (default every op)")
     hist.add_argument("--findings", type=Path, help="also write the history as a markdown page")
@@ -210,6 +220,14 @@ def main(argv: list[str] | None = None) -> int:
 
             cats = [c.strip() for c in args.categories.split(",")]
             return generate_reports(args.arch, args.dtype, cats)
+
+        case "refine":
+            from ttnn_accuracy.measure.runner import refine
+
+            specs, dtypes, problems = _selection(args)
+            if not specs:
+                return 1
+            return problems + refine(specs, dtypes, args.arch, args.device_id)
 
         case "history":
             from ttnn_accuracy.report.compare import history

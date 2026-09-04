@@ -36,3 +36,19 @@ def test_the_same_answer_in_both_tilings_is_no_finding(monkeypatch):
         lambda fn, *ops, dtype, layout, device: torch.arange(ops[0].numel(), dtype=torch.float32),
     )
     assert sweeps.shape_invariance(None, (-1.0, 1.0), 1, "bf16", "tile", None) == 0
+
+
+def test_only_the_sampled_sweeps_have_anything_to_refine():
+    """Unary is exhaustive in both dtypes and binary bf16 covers every pair."""
+    assert not sweeps.sampled(1, "bf16") and not sweeps.sampled(1, "fp32")
+    assert not sweeps.sampled(2, "bf16")
+    assert sweeps.sampled(2, "fp32")  # _fp32_sample draws one value per bf16 cell
+    assert sweeps.sampled(3, "bf16") and sweeps.sampled(3, "fp32")  # operands 2,3 strided
+
+
+def test_the_candidates_are_the_cell_the_sample_drew_from():
+    """fp32/pow published 5918 ULP; sweeping this cell found 8300 at the same point."""
+    fp32 = sweeps._neighbours(1.5, "fp32")
+    assert fp32.numel() == 2**16
+    assert float(fp32.min()) == 1.5 and float(fp32.max()) < 1.508
+    assert sweeps._neighbours(1.5, "bf16").numel() == 2**16  # the whole bf16 space
