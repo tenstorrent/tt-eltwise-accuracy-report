@@ -33,3 +33,17 @@ def test_operand_stays_inside_a_bounded_domain():
 def test_operand_is_finite_when_the_domain_is_not():
     x = _operand((float("-inf"), float("inf")), "bf16")
     assert x.isfinite().all()
+
+
+def test_the_host_is_the_machine_not_the_reservation(monkeypatch):
+    """A re-reservation renamed the box mid-project and every timing stopped comparing."""
+    from ttnn_accuracy.measure import perf
+
+    for booked in (
+        "wh-glx6u-02-special-ijankowski-for-reservation-207113",
+        "wh-glx6u-02-special-ijankowski-for-reservation-208357",
+    ):
+        monkeypatch.setattr(perf.platform, "node", lambda b=booked: b)
+        assert perf._host() == "wh-glx6u-02"
+    monkeypatch.setattr(perf.platform, "node", lambda: "plain-hostname")
+    assert perf._host() == "plain-hostname"

@@ -35,6 +35,12 @@ FINITE = (-10.0, 10.0)  # timing range for an op whose derived domain is unbound
 NOISE_PCT = 5.0  # `us_min` moved 3.1% between two runs of one build; inside this is noise
 
 
+def _host() -> str:
+    """The machine, not the booking — a reservation id renames the host under you, and
+    every published timing then refuses to compare against one taken the week before."""
+    return platform.node().split("-special-")[0]
+
+
 def _stats(samples: list[float]) -> dict[str, float | int]:
     """Median, not mean, and `spread_pct` says how much to trust the rest of the row."""
     ordered = sorted(samples)
@@ -118,7 +124,7 @@ def measure_perf(
         check_arch(device, arch)
         meta = describe_run(device, arch, sorted({s.name for s in specs}), dtypes)
         # The host is part of the measurement: only this field says two rows are comparable.
-        results[RUNS_KEY] = asdict(meta) | {"host": platform.node()}
+        results[RUNS_KEY] = asdict(meta) | {"host": _host()}
         for spec in specs:
             for dtype in dtypes:
                 if dtype not in spec.layouts:  # the probe found this arch rejects it

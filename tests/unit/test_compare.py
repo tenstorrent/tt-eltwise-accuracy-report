@@ -132,3 +132,28 @@ def test_a_new_defect_count_outranks_a_metric_that_improved():
 
 def test_an_improvement_with_no_new_metric_is_still_an_improvement():
     assert diff(_index(ulp_clipped=5), _index(ulp_clipped=2))["improved"]
+
+
+def _build(sha: str, commit: str, **stats) -> tuple[str, str, dict]:
+    index = _index(**stats)
+    index["_runs"]["wh"]["bf16"]["tt_metal_commit"] = commit
+    return sha, "2026-09-04", index
+
+
+def test_history_separates_a_kernel_change_from_a_measurement_change():
+    """`sin` jumped to 3.38e+38 the night the bf16 baseline grew to 180 ops — the sweep
+    widened, the kernel did not. Reading that as a regression sends someone bisecting ttnn."""
+    from ttnn_accuracy.report.compare import _changes
+
+    ours = _changes([_build("a", "tt1"), _build("b", "tt1", max_ulp="9")])
+    theirs = _changes([_build("a", "tt1"), _build("b", "tt2", max_ulp="9")])
+    assert "our change" in ours[-1][4]
+    assert "our change" not in theirs[-1][4]
+
+
+def test_history_says_what_a_variant_looked_like_when_it_first_appeared():
+    from ttnn_accuracy.report.compare import _changes
+
+    (row,) = _changes([_build("a", "tt1")])
+    assert row[4].startswith("first measured")
+    assert row[3] == "tt1"

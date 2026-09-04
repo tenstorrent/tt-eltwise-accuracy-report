@@ -173,10 +173,16 @@ sequenceDiagram
 | Data type | bf16 exhaustive, fp32 in blocks | active |
 | Op variant | `overrides.py`: `exp`/`gelu` `fast_approx`, per-op scalars | active |
 | Layout | per op, from `probe` | active |
-| Math fidelity | LoFi … HiFi4 | reserved, not varied |
-| `fp32_dest_acc_en` | on/off | reserved, not varied |
+| Shape | one tile-aligned block, `TILE_WIDTH` columns | active, not varied |
+| Math fidelity | HiFi4 | fixed by the kernel |
+| `fp32_dest_acc_en` | follows the dtype | not free |
 
-Reserved axes are null columns in every run record — free now, unbackfillable later.
+The last two are not axes for eltwise, whatever they are for matmul. `unary_program_factory.cpp`
+hardcodes `.math_fidelity = MathFidelity::HiFi4`, and `unary.cpp` derives
+`fp32_dest_acc_en` from `preserve_fp32_precision = (input_dtype == FLOAT32)` — so varying
+the dtype, which this report already does, is the only way either one moves. No eltwise op
+takes a `compute_kernel_config`. Every number here is therefore HiFi4, with fp32
+accumulation on exactly when the input is fp32.
 
 | Constant | Value | Meaning |
 |---|---|---|

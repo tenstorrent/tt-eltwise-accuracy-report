@@ -1,4 +1,4 @@
-"""Two report indexes → what moved between two tt-metal builds.
+"""Two report indexes → what moved between two tt-metal builds, and `history` over all of them.
 
 Measurement is deterministic, so any difference is real and there is no tolerance to tune.
 `usable_to` is reported but never scored: its "—" means both "never within 2 ULP" and
@@ -8,11 +8,13 @@ Measurement is deterministic, so any difference is real and there is no toleranc
 from __future__ import annotations
 
 import json
+import subprocess
+from collections.abc import Iterator
 from pathlib import Path
 
 from loguru import logger
 
-from ttnn_accuracy.paths import RUNS_KEY
+from ttnn_accuracy.paths import INDEX_FILE, REPO_ROOT, RUNS_KEY
 
 # `defects` is scored like an error figure: inf or zero where a value exists is the worst
 # answer an op can give, and it is the one the ULP columns cannot see.
@@ -116,6 +118,74 @@ def _commits(index: dict) -> str:
     runs = index.get(RUNS_KEY, {})
     shas = {run.get("tt_metal_commit") for arch in runs.values() for run in arch.values()}
     return ", ".join(sorted(str(s) for s in shas)) or "unknown"
+
+
+def _verdict(stats: dict) -> str:
+    """Indexes older than the verdict column still have to say something."""
+    return stats.get("verdict") or f"max_ulp {stats.get('max_ulp', '—')}"
+
+
+def _committed(path: Path) -> Iterator[tuple[str, str, dict]]:
+    """Every committed version of the index, oldest first — the nightly is its own archive."""
+    rel = str(path.relative_to(REPO_ROOT))
+    log = subprocess.run(
+        ["git", "-C", str(REPO_ROOT), "log", "--format=%H %cs", "--reverse", "--", rel],
+        capture_output=True,
+        text=True,
+    )
+    for line in log.stdout.splitlines():
+        sha, _, date = line.partition(" ")
+        blob = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "show", f"{sha}:{rel}"], capture_output=True, text=True
+        )
+        if blob.returncode == 0:
+            yield sha[:11], date, json.loads(blob.stdout)
+
+
+def history(op: str | None = None, findings: Path | None = None) -> int:
+    """When each number moved, not merely that tonight differs from last night.
+
+    `compare` answers "did this change"; over 23 committed indexes the same buckets answer
+    "which build changed it", which is the question a bisect starts from.
+    """
+    builds = list(_committed(INDEX_FILE))
+    rows = _changes(builds, op)
+    title = f"# History — `{op}`" if op else "# History"
+    page = [title, "", f"_{len(rows)} changes across {len(builds)} published indexes_", ""]
+    page += ["| Build | Date | Variant | tt-metal | Moved |", "|---|---|---|---|---|"]
+    page += [
+        f"| `{sha}` | {date} | `{'/'.join(key)}` | `{built or '—'}` | {moved} |"
+        for date, sha, key, built, moved in rows
+    ]
+    page.append("")
+    text = "\n".join(page)
+    logger.info("\n{}", text)
+    if findings:
+        findings.parent.mkdir(parents=True, exist_ok=True)
+        findings.write_text(text)
+        logger.success("history → {}", findings)
+    return 0
+
+
+def _changes(builds: list[tuple[str, str, dict]], op: str | None = None) -> list[tuple]:
+    """One row per moved metric, oldest first — pure, so git is not needed to test it."""
+    seen: dict[tuple, tuple[dict, str | None]] = {}
+    rows: list[tuple] = []
+    for sha, date, index in builds:
+        for key, stats in _variants(index).items():
+            if op and key[2] != op:
+                continue
+            arch, dtype = key[0], key[1]
+            built = index.get(RUNS_KEY, {}).get(arch, {}).get(dtype, {}).get("tt_metal_commit")
+            before = seen.get(key)
+            if before is None:
+                rows.append((date, sha, key, built, f"first measured — {_verdict(stats)}"))
+            elif moved := _moves(before[0], stats):
+                # The number moved on the same tt-metal, so this report changed, not ttnn.
+                same = built and built == before[1]
+                rows.append((date, sha, key, built, moved + (" — **our change**" if same else "")))
+            seen[key] = (stats, built)
+    return rows
 
 
 def compare(old_path: Path, new_path: Path, findings: Path | None = None) -> int:

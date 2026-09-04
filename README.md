@@ -169,7 +169,12 @@ ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternar
 | `charts` | CSV → SVG + `report_index.json`, timings attached | no |
 | `report` | index + SVG → markdown tree | no |
 | `compare` | two indexes → what moved; exit 1 on regression | no |
+| `history` | every published index → which build moved a number | no |
 | `perf-diff` | two timing files → what got slower; refuses two hosts | no |
+
+```bash
+ttnn-accuracy history --op sin        # when did it break, and on whose commit
+```
 
 Run sweeps in `tmux`; a kill mid-dispatch wedges the device (`tt-smi -glx_reset`).
 
@@ -181,7 +186,7 @@ Run sweeps in `tmux`; a kill mid-dispatch wedges the device (`tt-smi -glx_reset`
 ```
 src/ttnn_accuracy/
   cli.py                # discover | derive | probe | measure | check | perf | perf-diff
-                        # | charts | report | compare
+                        # | charts | report | compare | history
   ops/
     introspect.py       # what ttnn registers
     arity.py            # operand count, elementwise, real-valued — by asking the golden

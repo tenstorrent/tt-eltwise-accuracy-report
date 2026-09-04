@@ -77,6 +77,10 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--dtype")
     report.add_argument("--categories", default="unary", help="comma-separated")
 
+    hist = sub.add_parser("history", help="when each number moved, from the index's git history")
+    hist.add_argument("--op", help="one op name (default every op)")
+    hist.add_argument("--findings", type=Path, help="also write the history as a markdown page")
+
     compare = sub.add_parser("compare", help="diff two report indexes; exit 1 on regression")
     compare.add_argument(
         "baseline", type=Path, help="report_index.json measured on the older build"
@@ -206,6 +210,11 @@ def main(argv: list[str] | None = None) -> int:
 
             cats = [c.strip() for c in args.categories.split(",")]
             return generate_reports(args.arch, args.dtype, cats)
+
+        case "history":
+            from ttnn_accuracy.report.compare import history
+
+            return history(args.op, args.findings)
 
         case "compare":
             from ttnn_accuracy.report.compare import compare
