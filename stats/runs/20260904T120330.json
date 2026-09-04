@@ -1,0 +1,26 @@
+{
+  "arch": "wh",
+  "device_arch": "WORMHOLE_B0",
+  "device_id": 1,
+  "dtypes": [
+    "bf16",
+    "fp32"
+  ],
+  "ops": [
+    "atan2_bw",
+    "div_bw",
+    "hypot_bw",
+    "ldexp_bw",
+    "logaddexp2_bw",
+    "logaddexp_bw",
+    "max_bw",
+    "min_bw",
+    "mul_bw",
+    "squared_difference_bw",
+    "xlogy_bw"
+  ],
+  "run_id": "20260904T120330",
+  "torch_version": "2.11.0+cpu",
+  "tt_metal_commit": "f6deef232f7",
+  "ttnn_version": "0.1.dev30578+g5b8d933"
+}
