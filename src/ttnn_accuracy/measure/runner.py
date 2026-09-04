@@ -82,6 +82,7 @@ def check(
     # One device for both passes: opening it costs about as long as measuring one op.
     with open_device(device_id) as device, TemporaryDirectory(prefix="ttnn-check-") as tmp:
         empty = measure(specs, dtypes, arch, Path(tmp), device_id, archive=False, device=device)
+        tiling = _check_shapes(specs, dtypes, device)
         timing = _check_perf(specs, dtypes, arch, device) if perf else 0
         candidate = {arch: {}}
         for csv in sorted(Path(tmp).glob(f"{arch}/*/*/*.csv")):
@@ -114,7 +115,7 @@ def check(
     moved = ", ".join(f"{len(rows)} {name}" for name, rows in buckets.items() if rows)
     say = logger.error if buckets["regressed"] or over else logger.success
     say("{} variant(s) measured — {}", len(measured), moved or "nothing moved")
-    return empty + timing + over + len(buckets["regressed"])
+    return empty + tiling + timing + over + len(buckets["regressed"])
 
 
 def _over_bar(measured: dict, max_ulp: float) -> int:
@@ -143,6 +144,24 @@ def _over_bar(measured: dict, max_ulp: float) -> int:
                         variant,
                         s.get("verdict", worst),
                     )
+    return failed
+
+
+def _check_shapes(specs: list[OpSpec], dtypes: list[str], device) -> int:
+    """Variants whose answer changed with the tiling — a bug no golden can see."""
+    from ttnn_accuracy.measure.sweeps import shape_invariance
+
+    failed = 0
+    for spec in specs:
+        for dtype in (d for d in dtypes if d in spec.layouts):
+            moved = shape_invariance(
+                spec.ttnn_fn, spec.bounds[dtype], spec.operands, dtype, spec.layouts[dtype], device
+            )
+            if moved:
+                failed += 1
+                logger.error(
+                    "tiling changed {} results  {}/{}/{}", moved, dtype, spec.name, spec.variant
+                )
     return failed
 
 

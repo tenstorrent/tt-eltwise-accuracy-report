@@ -110,6 +110,28 @@ def capabilities(ttnn_fn: Callable, operands: int, device) -> tuple[dict[str, st
     return found, why
 
 
+# Neither dim a multiple of 32, so it pads to 512x160 — 80 tiles over a 64-core grid,
+# where every sweep here is 64 tiles, one per core, and splits evenly by construction.
+RAGGED = (500, 130)
+
+
+def shape_invariance(ttnn_fn, bounds, operands: int, dtype: str, layout: str, device) -> int:
+    """Elements whose value moved when only the tiling changed. Needs no golden.
+
+    Eltwise has no cross-element interaction, so a result that depends on how the tensor
+    was split across cores is a bug in the op, whatever the reference says.
+    """
+    lo, hi = max(bounds[0], -1e4), min(bounds[1], 1e4)  # finite, and inside every domain
+    n = RAGGED[0] * RAGGED[1]
+    x = torch.linspace(lo, hi, n, dtype=getattr(torch, DTYPE[dtype]))
+    others = [torch.ones_like(x)] * (operands - 1)
+    uneven = [t.reshape(*RAGGED) for t in (x, *others)]
+    even = [_tile(t) for t in (x, *others)]
+    a = _on_device(ttnn_fn, *uneven, dtype=dtype, layout=layout, device=device).flatten()[:n]
+    b = _on_device(ttnn_fn, *even, dtype=dtype, layout=layout, device=device).flatten()[:n]
+    return int((~((a == b) | (a.isnan() & b.isnan()))).sum())
+
+
 SPECIAL_VALUES = (0.0, -0.0, float("inf"), float("-inf"), float("nan"), MIN_NORMAL, -MIN_NORMAL)
 
 
