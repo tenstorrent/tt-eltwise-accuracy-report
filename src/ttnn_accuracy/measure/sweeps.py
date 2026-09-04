@@ -104,8 +104,9 @@ def capabilities(ttnn_fn: Callable, operands: int, device) -> tuple[dict[str, st
             except Exception as exc:
                 why = why or reason(exc)
                 continue
-            found[dtype] = layout
-            break
+            # Every layout, not the first: row-major is a different kernel path, and
+            # stopping at tile meant nothing ever recorded whether it exists.
+            found.setdefault(dtype, []).append(layout)
     return found, why
 
 

@@ -42,6 +42,15 @@ UNBOUNDED = dict.fromkeys(DTYPES, (-float("inf"), float("inf")))
 TILED = dict.fromkeys(DTYPES, "tile")  # the default until `probe` finds otherwise
 
 
+def _preferred(accepts: dict) -> dict[str, str]:
+    """One layout per dtype, tile first — the probe records every layout that works.
+
+    A bare string is an arch probed before that record became a list; it re-probes on its
+    own schedule, and indexing the string would silently sweep the layout `"t"`.
+    """
+    return {d: ls[0] if isinstance(ls, list) else ls for d, ls in accepts.items()}
+
+
 @cache
 def _manifest() -> dict:
     """Read once: describe() is called per op per page and the file is large."""
@@ -144,7 +153,7 @@ def resolve(
                     golden_fn=_golden(golden, backward, operands),
                     bounds=ov.bounds if ov and ov.bounds else bounds,
                     # The probe's record wins: a dtype it rejected must not reach the device.
-                    layouts=accepts or TILED,
+                    layouts=_preferred(accepts) if accepts else TILED,
                 )
             )
 
