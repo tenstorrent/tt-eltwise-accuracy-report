@@ -522,6 +522,24 @@
         "n_valid": 258515
       }
     },
+    "ttnn.eqz": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.erf": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
@@ -808,6 +826,42 @@
         "n_overflow": 0,
         "n_undefined": 0,
         "n_valid": 259309
+      }
+    },
+    "ttnn.gez": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.gtz": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
       }
     },
     "ttnn.hardmish": {
@@ -1098,6 +1152,24 @@
         "n_valid": 260097
       }
     },
+    "ttnn.lez": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.lgamma": {
       "bf16": {
         "hi": 4.0499915496571656e+36,
@@ -1314,6 +1386,24 @@
         "n_valid": 258515
       }
     },
+    "ttnn.logical_not": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.logical_not_": {
       "bf16": {
         "hi": 1.0,
@@ -1386,6 +1476,24 @@
         "n_valid": 64512
       }
     },
+    "ttnn.ltz": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
     "ttnn.mish": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
@@ -1441,6 +1549,24 @@
       }
     },
     "ttnn.neg": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.nez": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
         "lo": -3.3895313892515355e+38,
@@ -1909,6 +2035,24 @@
       }
     },
     "ttnn.sign": {
+      "bf16": {
+        "hi": 3.3895313892515355e+38,
+        "lo": -3.3895313892515355e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 65026
+      },
+      "fp32": {
+        "hi": 3.4028234663852886e+38,
+        "lo": -3.4028234663852886e+38,
+        "n_flushed": 0,
+        "n_overflow": 0,
+        "n_undefined": 0,
+        "n_valid": 260097
+      }
+    },
+    "ttnn.signbit": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
         "lo": -3.3895313892515355e+38,
@@ -4361,6 +4505,30 @@
       "operands": 1,
       "signature": "(grad, input, alpha=1.0, *args, **kwargs)"
     },
+    "ttnn.eq": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "eq",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.eq_": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "eq_",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.eqz": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "eqz",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+    },
     "ttnn.erf": {
       "category": "unary",
       "is_cpp": true,
@@ -4489,6 +4657,14 @@
       "operands": 1,
       "signature": "(input_tensor_a, *args, **kwargs)"
     },
+    "ttnn.ge": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "ge",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
     "ttnn.ge_": {
       "category": "binary",
       "is_cpp": true,
@@ -4513,6 +4689,22 @@
       "operands": 1,
       "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
     },
+    "ttnn.gez": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "gez",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+    },
+    "ttnn.gt": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "gt",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
     "ttnn.gt_": {
       "category": "binary",
       "is_cpp": true,
@@ -4520,6 +4712,14 @@
       "name": "gt_",
       "operands": 2,
       "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.gtz": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "gtz",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.hardmish": {
       "category": "unary",
@@ -4649,6 +4849,14 @@
       "operands": 1,
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
+    "ttnn.isclose": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "isclose",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, rtol=1e-05, atol=1e-08, equal_nan=False, **kwargs)"
+    },
     "ttnn.l1_loss": {
       "category": "binary",
       "is_cpp": true,
@@ -4680,6 +4888,14 @@
       "name": "ldexp_bw",
       "operands": 2,
       "signature": "(grad, a, b, *args, **kwargs)"
+    },
+    "ttnn.le": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "le",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.le_": {
       "category": "binary",
@@ -4720,6 +4936,14 @@
       "name": "lerp_bw",
       "operands": 3,
       "signature": "(grad_tensor, input_tensor, end_tensor, weight, *args, **kwargs)"
+    },
+    "ttnn.lez": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "lez",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.lgamma": {
       "category": "unary",
@@ -4865,6 +5089,30 @@
       "operands": 2,
       "signature": "(grad, a, b, *args, **kwargs)"
     },
+    "ttnn.logical_and": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "logical_and",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.logical_and_": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "logical_and_",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.logical_not": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "logical_not",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+    },
     "ttnn.logical_not_": {
       "category": "unary",
       "is_cpp": true,
@@ -4872,6 +5120,22 @@
       "name": "logical_not_",
       "operands": 1,
       "signature": "(input_tensor_a, *args, **kwargs)"
+    },
+    "ttnn.logical_or": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "logical_or",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.logical_or_": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "logical_or_",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.logical_xor_": {
       "category": "binary",
@@ -4905,6 +5169,14 @@
       "operands": 1,
       "signature": "(grad, input, alpha=None, *args, **kwargs)"
     },
+    "ttnn.lt": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "lt",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
     "ttnn.lt_": {
       "category": "binary",
       "is_cpp": true,
@@ -4912,6 +5184,14 @@
       "name": "lt_",
       "operands": 2,
       "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.ltz": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "ltz",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.mac": {
       "category": "ternary",
@@ -5009,6 +5289,22 @@
       "operands": 2,
       "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
     },
+    "ttnn.ne": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "ne",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.ne_": {
+      "category": "binary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "ne_",
+      "operands": 2,
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
     "ttnn.neg": {
       "category": "unary",
       "is_cpp": true,
@@ -5024,6 +5320,14 @@
       "name": "nextafter",
       "operands": 2,
       "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
+    },
+    "ttnn.nez": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "nez",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.polygamma": {
       "category": "unary",
@@ -5262,6 +5566,14 @@
       "is_cpp": true,
       "is_experimental": false,
       "name": "sign",
+      "operands": 1,
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
+    },
+    "ttnn.signbit": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "signbit",
       "operands": 1,
       "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },

@@ -60,3 +60,30 @@ def test_a_missing_op_is_answered_with_its_recorded_reason(name, manifest, expec
 def test_a_typo_is_named_as_one_rather_than_called_not_eltwise():
     """The two things a newcomer hits — a typo and a genuinely new op — need opposite answers."""
     assert "does not register it" in plan._why_missing(_manifest(), "reul", "wh")
+
+
+def test_a_predicate_golden_is_scoreable():
+    """`logical_xor_` was measured and `logical_xor` was not, because the in-place form
+    writes into a float tensor and the other returns bool. 21 ops sat outside the report."""
+    import torch
+
+    from ttnn_accuracy.ops.arity import call_golden
+
+    out = call_golden(
+        lambda a, b: a > b, [torch.tensor([1.0, 0.0]), torch.tensor([0.0, 1.0])], False
+    )
+    assert out.is_floating_point()
+    assert out.tolist() == [1.0, 0.0]
+
+
+def test_a_predicate_is_seen_to_depend_on_its_input():
+    """Every probe range was strictly positive, so `gtz` answered the same everywhere and
+    read as a constant like `zeros_like`. Zero is the only place it changes its mind."""
+    import torch
+
+    from ttnn_accuracy.ops.arity import _same
+
+    gtz = lambda a: (a > 0).to(a.dtype)  # noqa: E731
+    base = torch.rand(8, dtype=torch.float64) * 0.8 + 0.1
+    assert all(_same(gtz(base), gtz(f(base))) for f in (lambda a: a + 10.0, lambda a: -a * 0 + 1))
+    assert not _same(gtz(base), gtz(base * 0.0))

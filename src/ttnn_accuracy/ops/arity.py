@@ -57,6 +57,10 @@ def call_golden(golden, args: list[torch.Tensor], backward: bool) -> torch.Tenso
     else:
         out = golden(*args, **kwargs)
     out = out[0] if isinstance(out, (list, tuple)) else out
+    if isinstance(out, torch.Tensor) and out.dtype == torch.bool:
+        # A predicate answers 0 or 1 exactly, so scoring it as a float needs no second
+        # path — which is how in-place `logical_xor_` has always been measured.
+        out = out.to(args[0].dtype)
     return out.detach() if isinstance(out, torch.Tensor) else out
 
 
@@ -98,8 +102,9 @@ def probe(op: DiscoveredOp) -> tuple[Probe | None, str]:
         after = call_golden(op.golden, bumped, op.is_backward)
         elsewhere = [
             call_golden(op.golden, [f(a) for a in base], op.is_backward)
-            # +10 clears relu6 and friends, negation catches `sign`: both look flat otherwise.
-            for f in (lambda a: a + 10.0, lambda a: -a)
+            # +10 clears relu6 and friends, negation catches `sign`, zero is the only place
+            # a predicate changes its mind: all three look flat across (0.1, 0.9) otherwise.
+            for f in (lambda a: a + 10.0, lambda a: -a, lambda a: a * 0.0)
         ]
     except Exception as exc:
         msg = str(exc).strip().splitlines()[0][:200] if str(exc).strip() else ""
