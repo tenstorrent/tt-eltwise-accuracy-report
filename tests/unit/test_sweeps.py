@@ -39,11 +39,10 @@ def test_the_same_answer_in_both_tilings_is_no_finding(monkeypatch):
 
 
 def test_only_the_sampled_sweeps_have_anything_to_refine():
-    """Unary is exhaustive in both dtypes and binary bf16 covers every pair."""
-    assert not sweeps.sampled(1, "bf16") and not sweeps.sampled(1, "fp32")
-    assert not sweeps.sampled(2, "bf16")
-    assert sweeps.sampled(2, "fp32")  # _fp32_sample draws one value per bf16 cell
-    assert sweeps.sampled(3, "bf16") and sweeps.sampled(3, "fp32")  # operands 2,3 strided
+    """`refine` reads the same table the pages print, so neither can claim the other's coverage."""
+    assert set(sweeps.SAMPLED) == {(2, "fp32"), (3, "bf16"), (3, "fp32")}
+    assert all((1, d) not in sweeps.SAMPLED for d in ("bf16", "fp32"))  # unary is exhaustive
+    assert (2, "bf16") not in sweeps.SAMPLED  # every bf16 pair is measured
 
 
 def test_the_candidates_are_the_cell_the_sample_drew_from():

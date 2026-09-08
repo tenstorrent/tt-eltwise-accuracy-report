@@ -1,8 +1,4 @@
-"""Operand count and elementwise-ness, decided by asking the golden rather than by name.
-
-A backward golden takes the incoming gradient first, so its measurable operand count is
-one lower than its signature suggests: `exp_bw(grad, x)` is a unary op under test.
-"""
+"""Operand count and elementwise-ness asked of the golden; a backward one eats the gradient first."""
 
 from __future__ import annotations
 
@@ -58,8 +54,7 @@ def call_golden(golden, args: list[torch.Tensor], backward: bool) -> torch.Tenso
         out = golden(*args, **kwargs)
     out = out[0] if isinstance(out, (list, tuple)) else out
     if isinstance(out, torch.Tensor) and out.dtype == torch.bool:
-        # A predicate answers 0 or 1 exactly, so scoring it as a float needs no second
-        # path — which is how in-place `logical_xor_` has always been measured.
+        # A predicate answers 0 or 1 exactly, so a float needs no second scoring path.
         out = out.to(args[0].dtype)
     return out.detach() if isinstance(out, torch.Tensor) else out
 
@@ -78,14 +73,7 @@ class Probe:
 
 
 def probe(op: DiscoveredOp) -> tuple[Probe | None, str]:
-    """Probe the golden, and say why when it refuses — 108 of 379 do, each for its own reason.
-
-    `elementwise`: perturbing one input must move only its own output, which excludes
-    softmax where a permutation test would not. `real_valued`: ULP between booleans is not
-    a quantity, asked of the output dtype so a new predicate needs no code change.
-    `depends_on_input`: `zeros_like` would otherwise score flawlessly, and two probes are
-    needed because `sign` is flat across any two positive ranges.
-    """
+    """Probe the golden for elementwise-ness, a real output and input dependence; say why it refused."""
     n = operands(op)
     if n is None:
         return None, "takes no tensor operands"
@@ -102,9 +90,15 @@ def probe(op: DiscoveredOp) -> tuple[Probe | None, str]:
         after = call_golden(op.golden, bumped, op.is_backward)
         elsewhere = [
             call_golden(op.golden, [f(a) for a in base], op.is_backward)
-            # +10 clears relu6 and friends, negation catches `sign`, zero is the only place
-            # a predicate changes its mind: all three look flat across (0.1, 0.9) otherwise.
-            for f in (lambda a: a + 10.0, lambda a: -a, lambda a: a * 0.0)
+            # +10 clears relu6, negation catches `sign`, and zero/inf/NaN catch predicates.
+            for f in (
+                lambda a: a + 10.0,
+                lambda a: -a,
+                lambda a: a * 0.0,
+                lambda a: a * float("inf"),
+                lambda a: a * float("-inf"),  # the base is positive, so +inf never makes one
+                lambda a: a * float("nan"),
+            )
         ]
     except Exception as exc:
         msg = str(exc).strip().splitlines()[0][:200] if str(exc).strip() else ""

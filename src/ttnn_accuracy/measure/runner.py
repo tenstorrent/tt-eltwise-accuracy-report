@@ -26,11 +26,7 @@ def measure(
     archive: bool = True,
     device=None,
 ) -> int:
-    """Returns the number of variants that produced no CSV — the process exit code.
-
-    Each is recorded beside the data with its reason, and anything already measured on
-    this build is skipped, so a device reset at op 150 costs one op rather than the night.
-    """
+    """Variants that produced no CSV — each recorded with its reason, measured ones skipped."""
     failures: dict[str, dict[str, str]] = {}
     names = sorted({spec.name for spec in specs})
 
@@ -65,11 +61,7 @@ def check(
     perf: bool = False,
     max_ulp: float | None = None,
 ) -> int:
-    """Measure these ops now and say what moved against the published report.
-
-    The kernel author's loop. Accuracy is deterministic, so the baseline is read from git
-    rather than re-measured, and only the ops named here go near the device.
-    """
+    """The author's loop: measure these ops and diff them against the baseline read from git."""
     from tempfile import TemporaryDirectory
 
     from ttnn_accuracy.paths import INDEX_FILE
@@ -126,14 +118,9 @@ def refine(
     device_id: int = 0,
     findings: Path | None = None,
 ) -> int:
-    """Search exhaustively around each sampled worst point; returns how many got worse.
-
-    A sampled sweep reports a lower bound, and every page says so. This turns the hedge
-    into a number for the one point that sets it, reading the point from the measured CSV
-    rather than sweeping again.
-    """
+    """Sampled bounds that a search around their own worst point proved loose."""
+    from ttnn_accuracy.measure.sweeps import SAMPLED
     from ttnn_accuracy.measure.sweeps import refine as refine_point
-    from ttnn_accuracy.measure.sweeps import sampled
     from ttnn_accuracy.paths import DATA_DIR
 
     loosened = 0
@@ -142,15 +129,14 @@ def refine(
         check_arch(device, arch)
         for spec in specs:
             for dtype in (d for d in dtypes if d in spec.layouts):
-                if not sampled(spec.operands, dtype):
+                if (spec.operands, dtype) not in SAMPLED:  # exhaustive already, nothing to tighten
                     continue
                 csv = DATA_DIR / arch / dtype / spec.name / f"{spec.variant}.csv"
                 if not csv.exists():
                     logger.warning("no measurement at {} — run `measure` first", csv)
                     continue
                 rows = pd.read_csv(csv)
-                # The point that sets the reported maximum, so finite: an inf row is a
-                # defect carrying no ULP, and `max_ulp` excludes it too.
+                # Finite: an inf row is a defect carrying no ULP, which `max_ulp` excludes too.
                 rows = rows[np.isfinite(rows["ulp_error"])]
                 if rows.empty:
                     continue
@@ -196,12 +182,7 @@ def refine(
 
 
 def _over_bar(measured: dict, max_ulp: float) -> int:
-    """Variants failing an absolute bar, so a generator can loop on the tool.
-
-    Separate from the diff: `check` answers "did I change it", this answers "is it good
-    enough", and a kernel that was always wrong moves nothing while failing the bar.
-    A defect is over any bar — those points carry no ULP to compare.
-    """
+    """Variants over an absolute bar — a kernel always wrong moves nothing but still fails."""
     failed = 0
     for dtype, ops in measured.items():
         for op, variants in ops.items():
@@ -225,18 +206,12 @@ def _over_bar(measured: dict, max_ulp: float) -> int:
 
 
 def _properties(spec: OpSpec, dtype: str, device) -> dict[str, int]:
-    """What must hold whatever the reference says, and how far each one is violated.
-
-    These catch wrongness ULP cannot express: the harness scores what an op returns, so an
-    in-place op that never wrote to its operand still reads as bit-exact.
-    """
+    """What must hold whatever the reference says — wrongness ULP cannot express."""
     from ttnn_accuracy.measure import sweeps
 
     args = (spec.bounds[dtype], spec.operands, dtype, spec.layouts[dtype], device)
     checks = {"tiling changed the answer": sweeps.shape_invariance(spec.ttnn_fn, *args)}
-    # Not in place: one operand cannot overlap itself, and `add_(a, a)` — one buffer as
-    # both destination and source — hung the device for the full 900s timeout. Writing
-    # into a buffer you are also reading is undefined by contract, not a defect to report.
+    # Not in place: `add_(a, a)` is one buffer as destination and source, and hung the device.
     if spec.operands > 1 and not spec.name.endswith("_"):
         checks["aliased operands changed the answer"] = sweeps.aliased_operands(spec.ttnn_fn, *args)
     if spec.name.endswith("_"):
@@ -263,11 +238,7 @@ def _check_properties(specs: list[OpSpec], dtypes: list[str], device) -> int:
 
 
 def _check_perf(specs: list[OpSpec], dtypes: list[str], arch: str, device) -> int:
-    """Time the same ops, and diff against the published timings when this is their host.
-
-    Unlike accuracy, a published timing from another machine is not a baseline, so when the
-    hosts differ the numbers are printed and nothing is compared.
-    """
+    """Time the same ops, diffing only when the published timings came from this host."""
     from tempfile import TemporaryDirectory
 
     from ttnn_accuracy.measure.perf import measure_perf, perf_diff
@@ -288,8 +259,7 @@ def _check_perf(specs: list[OpSpec], dtypes: list[str], arch: str, device) -> in
 
 
 def _measure(spec: OpSpec, dtype: str, arch: str, out_root: Path, device) -> str:
-    """Empty when the CSV was written, else why it was not. Never raises: one variant
-    must not end the run."""
+    """Empty when the CSV was written, else why not — never raises, one variant is not the run."""
     try:
         return _measure_one(spec, dtype, arch, out_root, device)
     except Exception as exc:

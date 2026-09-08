@@ -1,11 +1,4 @@
-"""Every editorial decision the pipeline cannot derive, in one table.
-
-Discovery learns what ttnn exposes and what each golden refuses; it cannot choose the
-slope leaky_relu is measured at, supply the reference ttnn never attached to divide, or
-rule that `clone` computes nothing worth scoring. Those calls are made here and nowhere
-else — an op is covered, parameterised or excluded by adding one entry, which is also
-the entire surface a future automated pipeline needs to write to.
-"""
+"""Every editorial decision discovery cannot derive: scalars, supplied goldens, exclusions."""
 
 from __future__ import annotations
 
@@ -14,11 +7,7 @@ from dataclasses import dataclass
 
 
 def bw_fn(ttnn_bw_op):
-    """Backward call: gradient of ones, take the gradient w.r.t. the first operand.
-
-    The gradient tensor and the grads not under test are freed before returning — an
-    fp32 sweep makes a thousand of each per op, faster than GC keeps up with.
-    """
+    """Gradient of ones, w.r.t. the first operand; the rest are freed faster than GC would."""
     import ttnn
 
     def call(*operands, **params):
@@ -34,13 +23,7 @@ def bw_fn(ttnn_bw_op):
 
 @dataclass(frozen=True, slots=True)
 class Override:
-    """Scalar parameters an op needs before it is measurable.
-
-    The values are editorial: discovery learns that leaky_relu refuses two tensors, not
-    that it wants torch's default slope. Binding with partial stops the argument counting
-    as an operand, so the op reclassifies and every later stage runs unchanged. `golden`
-    replaces the attached one where keyword binding cannot reach, or none was ever given.
-    """
+    """Scalars an op needs to be measurable; binding them stops the argument counting as an operand."""
 
     ttnn_kwargs: dict
     golden_kwargs: dict
@@ -99,20 +82,50 @@ OVERRIDES: dict[str, tuple[Override, ...]] = {
     ),
     "ttnn.exp": (_override({}), _FAST),
     "ttnn.gelu": (_override({}), _FAST),
-    "ttnn.leaky_relu": (_override({"negative_slope": 0.01}, why="torch's default slope"),),
-    "ttnn.heaviside": (_override({"value": 0.5}, why="torch's convention at x = 0"),),
-    "ttnn.relu_max": (_override({"upper_limit": 1.0}, why="unit clamp, the registry's midpoint"),),
-    "ttnn.relu_min": (_override({"lower_limit": 1.0}, why="unit clamp, the registry's midpoint"),),
-    "ttnn.rpow": (_override({"exponent": 2.0}, {"dim": 2.0}, why="squaring"),),
+    # A scalar's boundaries are where the op degenerates and a kernel special-cases.
+    "ttnn.leaky_relu": (
+        _override({"negative_slope": 0.01}, why="torch's default slope"),
+        _override({"negative_slope": 0.0}, why="degenerates to relu"),
+        _override({"negative_slope": 1.0}, why="degenerates to identity"),
+    ),
+    "ttnn.heaviside": (
+        _override({"value": 0.5}, why="torch's convention at x = 0"),
+        _override({"value": 0.0}, why="the other convention at x = 0"),
+        _override({"value": 1.0}, why="the third convention at x = 0"),
+    ),
+    "ttnn.relu_max": (
+        _override({"upper_limit": 1.0}, why="unit clamp, the registry's midpoint"),
+        _override({"upper_limit": 6.0}, why="relu6, the clamp models actually use"),
+        _override({"upper_limit": 0.0}, why="degenerates to a constant zero"),
+    ),
+    "ttnn.relu_min": (
+        _override({"lower_limit": 1.0}, why="unit clamp, the registry's midpoint"),
+        _override({"lower_limit": 0.0}, why="degenerates to relu"),
+    ),
+    "ttnn.rpow": (
+        _override({"exponent": 2.0}, {"dim": 2.0}, why="squaring"),
+        _override({"exponent": 0.5}, {"dim": 0.5}, why="the square-root path, a half-integer"),
+        _override({"exponent": 1.0}, {"dim": 1.0}, why="degenerates to identity"),
+    ),
     "ttnn.rpow_bw": (_override({"exponent": 2.0}, {"alpha": 2.0}, why="squaring"),),
     "ttnn.softcap": (_override({"beta": 50.0}, why="Gemma's logit soft-cap"),),
     "ttnn.div_no_nan_bw": (
         _override({"scalar": 2.0}, {"alpha": 2.0}, why="2 keeps the op distinct from assign"),
     ),
-    "ttnn.clamp": (_override({"min": -1.0, "max": 1.0}, why="the symmetric unit interval"),),
-    "ttnn.clip": (_override({"min": -1.0, "max": 1.0}, why="the symmetric unit interval"),),
+    # Corners, not a grid: a midpoint never reaches an empty or collapsed interval.
+    "ttnn.clamp": (
+        _override({"min": -1.0, "max": 1.0}, why="the symmetric unit interval"),
+        _override({"min": 0.0, "max": 0.0}, why="collapsed interval — every output is 0"),
+        _override({"min": 1.0, "max": -1.0}, why="empty interval, min above max"),
+    ),
+    "ttnn.clip": (
+        _override({"min": -1.0, "max": 1.0}, why="the symmetric unit interval"),
+        _override({"min": 0.0, "max": 0.0}, why="collapsed interval — every output is 0"),
+        _override({"min": 1.0, "max": -1.0}, why="empty interval, min above max"),
+    ),
     "ttnn.threshold": (
         _override({"threshold": 0.5, "value": 0.0}, why="domain midpoint, torch's zero fill"),
+        _override({"threshold": 0.0, "value": 1.0}, why="threshold at zero, non-zero fill"),
     ),
     "ttnn.threshold_bw": (
         _override(
@@ -130,7 +143,11 @@ OVERRIDES: dict[str, tuple[Override, ...]] = {
     "ttnn.rdiv_bw": (
         _override({"scalar": 2.0}, {"value": 2.0}, why="2 keeps the op distinct from reciprocal"),
     ),
-    "ttnn.polygamma": (_override({"k": 1}, why="trigamma, the first order in use"),),
+    "ttnn.polygamma": (
+        _override({"k": 1}, why="trigamma, the first order in use"),
+        _override({"k": 2}, why="tetragamma; the order changes the series, not just a constant"),
+        _override({"k": 4}, why="high enough that the reference and the kernel can diverge"),
+    ),
     "ttnn.polygamma_bw": (
         Override(
             {"n": 1},
@@ -185,12 +202,7 @@ EXCLUDED = (
 
 
 def with_value(ov: Override, value: float | int) -> Override:
-    """The same override at a different value, for a one-off measurement.
-
-    Only the number is supplied: the table keeps both spellings, and six goldens name
-    their scalar differently from the binding they belong to (`rpow`'s exponent is `dim`
-    in its golden), which a caller cannot be expected to know.
-    """
+    """The same override at another value; the table keeps both spellings, which differ for six goldens."""
     if len(ov.ttnn_kwargs) != 1:
         takes = "no scalar to set" if not ov.ttnn_kwargs else f"more than one: {ov.params_desc}"
         raise ValueError(f"takes {takes} — edit overrides.py for this one")
