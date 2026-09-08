@@ -55,7 +55,7 @@ op, which is why architecture is an axis.
 ```mermaid
 flowchart TD
     T["ttnn runtime<br/>~500 registered ops"] --> D1["discover<br/>classify, keep eltwise"]
-    D1 --> M1[("ops_manifest.json<br/>217 eltwise + 88 refusals")]
+    D1 --> M1[("ops_manifest.json<br/>222 eltwise + 91 refusals")]
     M1 --> D2["derive"]
     D2 -->|fp64 sweep| M1
     M1 --> D3["probe"]
@@ -177,14 +177,14 @@ sequenceDiagram
 | Math fidelity | HiFi4 | fixed by the kernel |
 | `fp32_dest_acc_en` | follows the dtype | not free |
 
-160 of 215 wh ops accept row-major and none is measured in it — the largest untested
-surface in the report. The last two rows are not axes for eltwise, whatever they are for
-matmul. `unary_program_factory.cpp`
-hardcodes `.math_fidelity = MathFidelity::HiFi4`, and `unary.cpp` derives
-`fp32_dest_acc_en` from `preserve_fp32_precision = (input_dtype == FLOAT32)` — so varying
-the dtype, which this report already does, is the only way either one moves. No eltwise op
-takes a `compute_kernel_config`. Every number here is therefore HiFi4, with fp32
-accumulation on exactly when the input is fp32.
+160 of 215 wh ops accept row-major and none is measured in it — the largest untested surface
+in the report.
+
+The last two rows are not axes for eltwise, whatever they are for matmul.
+`unary_program_factory.cpp` hardcodes `.math_fidelity = MathFidelity::HiFi4` and `unary.cpp`
+derives `fp32_dest_acc_en` from `preserve_fp32_precision = (input_dtype == FLOAT32)`, so
+varying the dtype is the only way either moves and no eltwise op takes a
+`compute_kernel_config`.
 
 | Constant | Value | Meaning |
 |---|---|---|

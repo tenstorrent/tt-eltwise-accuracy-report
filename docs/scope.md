@@ -1,6 +1,6 @@
 # Scope and sweep strategy
 
-217 eltwise ops (see `analyze-report/uncovered.md` for everything else). Per op, per
+222 eltwise ops (see `analyze-report/uncovered.md` for everything else). Per op, per
 architecture, per dtype:
 
 | Arity | Ops | bf16 | fp32 |

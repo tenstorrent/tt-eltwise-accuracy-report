@@ -12,9 +12,9 @@ against fp64 torch goldens — per architecture (WH, BH) and dtype (bf16, fp32).
 
 | | |
 |---|---|
-| Ops in scope | 217 — 87 unary · 56 unary_bw · 54 binary · 12 binary_bw · 5 ternary · 3 ternary_bw |
-| Measured | 785 variants — 2 architectures × 2 dtypes, every one also timed |
-| Bit-exact | 232 |
+| Ops in scope | 222 — 92 unary · 56 unary_bw · 54 binary · 12 binary_bw · 5 ternary · 3 ternary_bw, in 44 measured variants |
+| Measured | 827 variants — 2 architectures × 2 dtypes, every one also timed |
+| Bit-exact | 274 |
 | Within 2 ULP | 165 |
 | Returning inf or zero where a value exists | 192 variants across 55 ops |
 | Points per op | bf16 6.6e4 exhaustive · fp32 4.3e9 in blocks · binary 4.2e9 pairs |
