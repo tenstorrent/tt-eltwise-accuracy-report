@@ -1,11 +1,4 @@
-"""The committed op manifest — eltwise ops only.
-
-`discover` rebuilds `ops` and `unprobeable` wholesale; `domains`/`refused` come from
-derivation and `layouts`/`rejected` from probing, per architecture. The latter cost far
-more than a rebuild and outlive one, so a rebuild keeps them for every unchanged op.
-
-No timestamps: an unchanged ttnn must produce an unchanged file, so a diff means ttnn moved.
-"""
+"""The committed eltwise manifest; a rebuild keeps derivation and probing for unchanged ops."""
 
 from __future__ import annotations
 
@@ -22,11 +15,7 @@ from ttnn_accuracy.paths import MANIFEST_FILE
 
 
 def build(include_experimental: bool = False) -> dict:
-    """Eltwise facts only; `domains` is filled by derive_domains, not here.
-
-    Anything not real-valued elementwise is dropped at the door rather than flagged, and
-    `unprobeable` keeps every refusal — that list is the queue for extending coverage.
-    """
+    """Eltwise facts only; `unprobeable` keeps every refusal, which is the coverage queue."""
     ops, unprobeable = {}, {}
     for op in introspect.discover(include_experimental):
         probe, why = arity.probe(op) if op.has_golden else (None, "")
@@ -119,11 +108,7 @@ def derive_domains() -> int:
 
 
 def probe_layouts(device_id: int = 0) -> int:
-    """Probe every op, outliving any that kills the process.
-
-    A segfault cannot be caught, only outlived, so each pass runs in its own process
-    having named the op it is about to probe: one crash costs one op, not the run.
-    """
+    """Probe every op in a child process, naming it first, so one segfault costs one op."""
     import multiprocessing
 
     context = multiprocessing.get_context("spawn")  # a fresh interpreter, no shared device

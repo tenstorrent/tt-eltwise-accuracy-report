@@ -1,10 +1,4 @@
-"""Each op's real input bounds, computed from its golden instead of typed by hand.
-
-Evaluating the golden in float64 across a dtype's own grid says where the op leaves its
-mathematical domain, where the result stops being representable, and where it collapses
-into the subnormals the hardware flushes to zero. Those three edges differ per dtype,
-which a single hand-written constant can never express.
-"""
+"""Input bounds from each golden in float64: domain, representability and subnormals, per dtype."""
 
 from __future__ import annotations
 

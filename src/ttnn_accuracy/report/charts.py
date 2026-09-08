@@ -1,8 +1,4 @@
-"""SVG accuracy charts from measured CSVs, plus the report_index.json summary cache.
-
-Scans data/{arch}/{dtype}/{op}/{variant}.csv and produces
-reports/charts/{arch}/{dtype}/{op}_{variant}_ulp.svg.
-"""
+"""data/{arch}/{dtype}/{op}/{variant}.csv → SVG charts and the report_index.json summary."""
 
 from __future__ import annotations
 
@@ -34,11 +30,7 @@ USABLE_ULP = 2.0  # what "still accurate here" means for the usable-range figure
 
 
 def _defects(df: pd.DataFrame) -> pd.Series:
-    """Wrong answers that carry no ULP: inf or zero where a representable value exists.
-
-    `mismatch` also covers the device answering where the reference is NaN — a disagreement
-    about the domain, not about precision — so it counts only where y_ref is finite.
-    """
+    """inf or zero where a value exists; a NaN reference is a domain disagreement, not this."""
     return (df["outcome"] == "zeroed") | (
         (df["outcome"] == "mismatch") & df["y_ref"].notna() & np.isfinite(df["y_ref"])
     )
@@ -62,13 +54,9 @@ def _num(v) -> float | None:
 def verdict(
     max_ulp: str, mean_ulp: str, usable_to: str, operands: int | None, defects: int, points: int
 ) -> str:
-    """One of seven fixed phrases, so no reader invents the judgment.
-
-    The rules live here alone; analyze-report/contract.md is their twin and moves with them.
-    """
+    """One of seven fixed phrases; analyze-report/contract.md is their twin and moves with them."""
     mx = _num(max_ulp)
-    # First, and whatever the ULP says: an op that returns inf or zero where a value
-    # exists is not accurate to anything, and every other figure here excludes those points.
+    # First, whatever the ULP says: every other figure here excludes those points.
     if defects:
         return f"{defects} of {points} points returned inf or zero where a value exists"
     if mx is None:
@@ -100,21 +88,15 @@ def _specials_rows(specials: pd.DataFrame) -> list[dict]:
 
 
 def _usable_to(df: pd.DataFrame) -> float:
-    """Largest finite |x| below which no point yet exceeds USABLE_ULP; NaN when none does.
-
-    One maximum hides a cliff: `sin` holds to 2 ULP out to 2.6e5 and collapses past it.
-    Unary only — with a sampled partner one bad pair would latch the running maximum.
-    """
+    """Where a cliff starts: `sin` holds 2 ULP to 2.6e5 then collapses. Unary only."""
     if "x2" in df.columns:
         return float("nan")
     finite = df[_finite(df["x"]).notna()]
     ordered = finite.reindex(finite["x"].abs().sort_values().index)
-    # NaN ULP means unscorable, which a flush is and a defect is not: 0.0 would let an
-    # infinity extend the usable range it ends.
+    # NaN ULP is unscorable; 0.0 would let an infinity extend the range it ends.
     ulp = _finite(ordered["ulp_error"]).fillna(0.0)
     within = ulp.mask(_defects(ordered), float("inf")).cummax() <= USABLE_ULP
-    # `or nan`: a bound of 0 means only x=0 held, and "accurate to |x| <= 0" reads as a
-    # range where there is none — the no-usable-range phrase is the honest one.
+    # `or nan`: a bound of 0 held only at x=0, which is no range at all.
     return (abs(ordered["x"][within].iloc[-1]) or float("nan")) if within.any() else float("nan")
 
 
@@ -164,11 +146,7 @@ def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
 
 
 def compute_stats(df: pd.DataFrame) -> dict:
-    """Summary stats for one variant; `df` must already have subnormals removed.
-
-    ULP covers only defined, non-trivial points: the mean would be diluted by ops that
-    return zero across most of their range, the max produced 1e24 readings.
-    """
+    """One variant's stats over defined, non-trivial points; subnormals already removed."""
     ulp = _finite(df["ulp_error"])
     return {
         "max_ulp": _fmt(ulp.max()),
@@ -183,10 +161,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
 
 
 def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | None:
-    """One measured CSV → its index entry and the rows worth plotting, or None.
-
-    Shared with `check`, so a developer's numbers are produced exactly as the report's are.
-    """
+    """One CSV → its index entry and plottable rows; shared with `check`, so both score alike."""
     raw = pd.read_csv(path, index_col="index")
     if missing := set(COLUMNS) - set(raw.columns):
         logger.error("{} predates the schema, missing {} — re-measure", path, sorted(missing))
@@ -217,11 +192,7 @@ def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | 
 
 
 def _aggregate(df: pd.DataFrame, group_size: int = 128) -> tuple[np.ndarray, np.ndarray]:
-    """Collapse per-input rows into exponent groups for a lightweight SVG.
-
-    bf16 has 128 mantissa values per exponent, so grouping 128 consecutive sorted values
-    aligns with exponent boundaries. Turns 65k scatter dots into ~500 line segments.
-    """
+    """Group 128 sorted values, one bf16 exponent, turning 65k dots into ~500 segments."""
     ordered = df.sort_values("x").reset_index(drop=True)
     if len(ordered) <= group_size:
         return ordered["x"].values, ordered["ulp_error"].values
@@ -263,10 +234,7 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
         return 1
 
     index = json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
-    # An op that left scope keeps its CSV, and the index is rebuilt from CSVs, so its last
-    # measurement goes on publishing as a current one: bias_gelu_bw crashed the wh probe in
-    # August and a page still carried its numbers. Excluded ops never reach the manifest,
-    # so one scope check covers those too.
+    # An op that left scope keeps its CSV, so the index would republish its last measurement.
     scope = {
         arch: {(s.name, s.variant) for s in resolve(None, None, arch)[0]}
         for arch in sorted({d.name for d in DATA_DIR.iterdir() if d.is_dir()} | index.keys())

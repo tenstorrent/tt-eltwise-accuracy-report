@@ -1,12 +1,4 @@
-"""Kernel timing, beside kernel accuracy.
-
-Timing is not reproducible across machines, so every record carries its host, only rows
-from one host may be subtracted, and `compare` never scores these fields. The accuracy
-sweep would time PCIe, so this dispatches one resident tensor instead.
-
-Between two runs of the same build on an idle host `us_median` moved 7.7% and `us_min`
-3.1%: the report leads with the median, the diff compares the minima.
-"""
+"""Kernel timing over one resident tensor; every record carries its host, and only one host subtracts."""
 
 from __future__ import annotations
 
@@ -36,8 +28,7 @@ NOISE_PCT = 5.0  # `us_min` moved 3.1% between two runs of one build; inside thi
 
 
 def _host() -> str:
-    """The machine, not the booking — a reservation id renames the host under you, and
-    every published timing then refuses to compare against one taken the week before."""
+    """The machine, not the booking — a reservation id renames the host under you."""
     return platform.node().split("-special-")[0]
 
 
@@ -76,9 +67,7 @@ def time_op(spec: OpSpec, dtype: str, device) -> dict[str, float | int]:
         for _ in range(spec.operands)
     ]
 
-    # By buffer, not by object: an in-place op returns a fresh Python wrapper around an
-    # operand's buffer, so `is` misses it, the operand is freed under the next iteration,
-    # and the allocator segfaults a few ops later.
+    # By buffer, not object: `is` misses an in-place result and the allocator segfaults.
     operands = {t.buffer_address() for t in tensors}
 
     def release(t) -> None:
@@ -136,8 +125,7 @@ def measure_perf(
                     failed += 1
                     continue
                 results.setdefault(dtype, {}).setdefault(spec.name, {})[spec.variant] = row
-                # Rewritten per op: a segfault cannot be caught, only outlived, and the
-                # timings taken before it still answer part of the question.
+                # Rewritten per op: a segfault is outlived, and earlier timings still count.
                 path.write_text(json.dumps(results, indent=2, sort_keys=True) + "\n")
                 logger.info(
                     "{} [{}] {}: {} us, {} Melem/s (spread {}%)",

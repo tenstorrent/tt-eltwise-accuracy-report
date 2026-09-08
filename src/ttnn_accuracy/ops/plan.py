@@ -1,8 +1,4 @@
-"""What to measure, resolved from the manifest into one OpSpec per variant.
-
-Bounds are per dtype because that is what derivation produces: exp overflows at 88.5 in
-bf16 and 88.67 in fp32.
-"""
+"""The manifest resolved into one OpSpec per variant, with bounds per dtype."""
 
 from __future__ import annotations
 
@@ -43,11 +39,7 @@ TILED = dict.fromkeys(DTYPES, "tile")  # the default until `probe` finds otherwi
 
 
 def _preferred(accepts: dict) -> dict[str, str]:
-    """One layout per dtype, tile first — the probe records every layout that works.
-
-    A bare string is an arch probed before that record became a list; it re-probes on its
-    own schedule, and indexing the string would silently sweep the layout `"t"`.
-    """
+    """One layout per dtype, tile first; a bare string is an arch that has not re-probed yet."""
     return {d: ls[0] if isinstance(ls, list) else ls for d, ls in accepts.items()}
 
 
@@ -172,9 +164,7 @@ def _why_missing(manifest: dict, name: str, arch: str) -> str:
         return f"{qualified}: {arch} rejected every dtype and layout probed — {why}"
     if qualified in manifest["ops"]:
         return f"{qualified}: excluded by the category filter"
-    # Ask ttnn before saying "unknown": a typo and a genuinely new op are the two things a
-    # newcomer hits, and they need opposite answers. The manifest keeps no record of what
-    # discover rejected as non-eltwise, so the second case cannot be narrowed further here.
+    # Ask ttnn first: a typo and a genuinely new op need opposite answers.
     try:
         introspect.resolve(qualified)
     except AttributeError:

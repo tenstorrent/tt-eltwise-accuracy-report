@@ -31,10 +31,7 @@ def write_result(
 
 
 def write_run(meta: RunMeta, out_root: Path, archive: bool = True) -> None:
-    """Archive the run, and leave a copy beside the data so charts can attribute it.
-
-    `check` measures into a temp directory and is not a run of record: it archives nothing.
-    """
+    """Archive the run and copy it beside the data; `check` is not a run of record."""
     if archive:
         RUNS_DIR.mkdir(parents=True, exist_ok=True)
         (RUNS_DIR / f"{meta.run_id}.json").write_text(
@@ -49,10 +46,7 @@ def write_run(meta: RunMeta, out_root: Path, archive: bool = True) -> None:
 
 
 def measured_at(out_root: Path, arch: str, dtypes: list[str], commit: str | None) -> set[tuple]:
-    """(dtype, op, variant) already measured on this build, so a stopped run can resume.
-
-    Keyed on the commit: data from another build is not this run's to keep.
-    """
+    """What this build already measured, keyed on the commit, so a stopped run resumes."""
     done = set()
     for dtype in dtypes:
         stamp = out_root / arch / dtype / RUN_STAMP
@@ -65,10 +59,7 @@ def measured_at(out_root: Path, arch: str, dtypes: list[str], commit: str | None
 
 
 def write_failures(failures: dict[str, dict[str, str]], out_root: Path, arch: str) -> None:
-    """Which variants produced no data, and why, in the stamp the report already reads.
-
-    Written even when empty, to clear last run's failures once an op starts working.
-    """
+    """Which variants produced no data; written even when empty, to clear last run's."""
     for dtype in set(failures) | {p.name for p in (out_root / arch).glob("*") if p.is_dir()}:
         stamp = out_root / arch / dtype / RUN_STAMP
         if not stamp.exists():
@@ -79,10 +70,7 @@ def write_failures(failures: dict[str, dict[str, str]], out_root: Path, arch: st
 
 
 def _stamp(stamp: Path, meta: RunMeta) -> str:
-    """Accumulate ops across partial runs of one build; a new build supersedes the old.
-
-    Overwriting instead made the earlier categories' pages read as untracked.
-    """
+    """Accumulate ops across partial runs of one build; a new build supersedes the old."""
     data = asdict(meta)
     if stamp.exists():
         prev = json.loads(stamp.read_text())

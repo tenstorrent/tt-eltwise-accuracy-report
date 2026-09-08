@@ -1,8 +1,4 @@
-"""The result contract: what a measured row holds, and what produced it.
-
-Imported by `measure` and `report` so the two cannot drift. An axis earns a column when
-it starts being varied — it cannot be backfilled into runs that already exist.
-"""
+"""The result contract, imported by `measure` and `report` so the two cannot drift."""
 
 from __future__ import annotations
 
@@ -50,10 +46,7 @@ def _commit_from_version(version: str) -> str | None:
 
 
 def _tt_metal_commit(version: str) -> str | None:
-    """The tt-metal SHA actually being run: the checkout wins over package metadata.
-
-    `build_metal.sh` rebuilds without reinstalling ttnn, so importlib was 52 commits stale.
-    """
+    """The SHA actually running: `build_metal.sh` rebuilds without reinstalling ttnn."""
     home = os.environ.get("TT_METAL_HOME")
     if home:
         head = subprocess.run(

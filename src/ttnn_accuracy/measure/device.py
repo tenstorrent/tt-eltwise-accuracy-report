@@ -5,8 +5,7 @@ import re
 from collections.abc import Iterator
 from contextlib import contextmanager
 
-# A TT_FATAL quotes the absolute path it was built from. The file and line are the useful
-# part; the prefix is whoever's home directory built tt-metal, and this text is published.
+# A TT_FATAL quotes the build path; only file and line are useful, and this text is published.
 _BUILD_PATH = re.compile(r"/\S+?/(?=(?:ttnn|tt_metal)/)")
 
 
@@ -23,10 +22,7 @@ def open_device(device_id: int = 0) -> Iterator[object]:
 
 @contextmanager
 def session(device_id: int = 0, device=None) -> Iterator[object]:
-    """The caller's device if it has one, else a fresh one.
-
-    Opening costs about two minutes here, and `check` makes two passes over the same ops.
-    """
+    """The caller's device or a fresh one — opening costs two minutes and `check` passes twice."""
     if device is not None:
         yield device
     else:

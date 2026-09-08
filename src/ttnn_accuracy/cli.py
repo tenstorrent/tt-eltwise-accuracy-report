@@ -103,10 +103,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _values(params: str | None) -> dict[str, float | int]:
-    """`relu_max=6,polygamma=2` → {"relu_max": 6, "polygamma": 2}, int where written int.
-
-    Typed into a web form, so a mistake answers itself rather than raising a traceback.
-    """
+    """`relu_max=6` → {"relu_max": 6}; typed into a web form, so a mistake answers itself."""
     values: dict[str, float | int] = {}
     for pair in (p.strip() for p in (params or "").split(",") if p.strip()):
         op, _, raw = pair.partition("=")
@@ -132,12 +129,7 @@ def _selection(args) -> tuple[list, list[str], int]:
 
 
 def _onboard(args) -> int:
-    """Bring ops ttnn has but the manifest does not into scope, before the device is taken.
-
-    Someone validating a new kernel should not have to know that three commands come
-    first. Ordered before `check` opens the device because `probe` spawns a child that
-    opens its own, and two openers on one device is a hang, not an error.
-    """
+    """Onboard ops the manifest lacks, before `check` takes the device — `probe` opens its own."""
     from ttnn_accuracy.ops.manifest import derive_domains, discover, load, probe_layouts
 
     known = {e["name"] for e in load()["ops"].values()}

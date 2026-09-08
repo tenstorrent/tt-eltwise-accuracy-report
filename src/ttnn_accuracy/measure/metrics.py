@@ -71,10 +71,7 @@ def compare(
     calculated: torch.Tensor,
     group_size: int,
 ) -> pd.DataFrame:
-    """One row per `group_size` inputs: the worst-defined-ULP point, every column from it.
-
-    Per-column extrema built rows whose x, error and outcome came from four points.
-    """
+    """One row per `group_size` inputs, every column from the worst-defined-ULP point."""
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
         e = errors(golden, calculated)

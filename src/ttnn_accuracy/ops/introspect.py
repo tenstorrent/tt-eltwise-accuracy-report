@@ -1,9 +1,4 @@
-"""What ttnn actually exposes, asked of ttnn itself.
-
-`query_registered_operations` is ttnn's own registry, so an op added upstream appears
-here without anyone editing a list. Nothing is read from the tt-metal source tree:
-that is test layout, not API, and it is absent from a wheel install.
-"""
+"""ttnn's own registry, so an op added upstream appears without anyone editing a list."""
 
 from __future__ import annotations
 
@@ -42,12 +37,7 @@ POSITIONAL = (inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR
 
 
 def _signature(golden) -> tuple[str | None, int | None]:
-    """The golden's signature, and how many operands it takes.
-
-    Only positional parameters count. Several ttnn goldens declare a keyword-only
-    `device` with no default — `asin` is `(input_tensor_a, *args, device, **kwargs)` —
-    and counting that as an operand made unary ops look binary.
-    """
+    """The golden's signature and its positional count; a keyword-only `device` is not an operand."""
     try:
         sig = inspect.signature(golden)
     except (TypeError, ValueError):

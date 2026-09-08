@@ -1,9 +1,4 @@
-"""Two report indexes → what moved between two tt-metal builds, and `history` over all of them.
-
-Measurement is deterministic, so any difference is real and there is no tolerance to tune.
-`usable_to` is reported but never scored: its "—" means both "never within 2 ULP" and
-"not applicable here". `mean_ulp`'s "—" is unambiguous, so it scores as 0.
-"""
+"""What moved between two indexes, and `history` across every one; no tolerance, measurement is exact."""
 
 from __future__ import annotations
 
@@ -16,8 +11,7 @@ from loguru import logger
 
 from ttnn_accuracy.paths import INDEX_FILE, REPO_ROOT, RUNS_KEY
 
-# `defects` is scored like an error figure: inf or zero where a value exists is the worst
-# answer an op can give, and it is the one the ULP columns cannot see.
+# `defects` scores like an error figure: the worst answer, and the one ULP cannot see.
 SCORED = ("max_ulp", "mean_ulp", "ulp_clipped", "defects")
 
 
@@ -56,11 +50,7 @@ def diff(old: dict, new: dict) -> dict[str, list]:
 
 
 def _bucket(a: dict, b: dict) -> str:
-    """Where this pair belongs, or "" when nothing worth saying moved.
-
-    Only metrics both sides carry are scored: a field the baseline predates cannot have
-    regressed, so its arrival lands in `changed` instead.
-    """
+    """Which bucket, or "" — a field the baseline predates cannot have regressed."""
     scored = [m for m in SCORED if m in a and m in b]
     if any(_num(b[m]) > _num(a[m]) for m in scored):
         return "regressed"
@@ -143,11 +133,7 @@ def _committed(path: Path) -> Iterator[tuple[str, str, dict]]:
 
 
 def history(op: str | None = None, findings: Path | None = None) -> int:
-    """When each number moved, not merely that tonight differs from last night.
-
-    `compare` answers "did this change"; over 23 committed indexes the same buckets answer
-    "which build changed it", which is the question a bisect starts from.
-    """
+    """Which build moved each number — where a bisect starts, not just that tonight differs."""
     builds = list(_committed(INDEX_FILE))
     rows = _changes(builds, op)
     title = f"# History — `{op}`" if op else "# History"
