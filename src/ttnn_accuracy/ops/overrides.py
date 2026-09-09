@@ -34,6 +34,17 @@ class Override:
     why: str = ""  # carried into the index, so "why 0.01?" is answered from the record
 
 
+def _polygamma(k: int, why: str) -> Override:
+    """One order, swept above -1024 where torch can still compute the reference."""
+    return Override(
+        {"k": k},
+        {"k": k},
+        f"k={k}",
+        bounds=dict.fromkeys(("bf16", "fp32"), (-1024.0, float("inf"))),
+        why=why,
+    )
+
+
 def _where_golden(condition, x, y):
     # Device truth is bitwise-nonzero, IEEE's is != 0: they differ at -0.0, which is a finding.
     import torch
@@ -144,9 +155,11 @@ OVERRIDES: dict[str, tuple[Override, ...]] = {
         _override({"scalar": 2.0}, {"value": 2.0}, why="2 keeps the op distinct from reciprocal"),
     ),
     "ttnn.polygamma": (
-        _override({"k": 1}, why="trigamma, the first order in use"),
-        _override({"k": 2}, why="tetragamma; the order changes the series, not just a constant"),
-        _override({"k": 4}, why="high enough that the reference and the kernel can diverge"),
+        # Bounded like polygamma_bw: torch's reference costs O(|x|) below zero, and the
+        # unbounded fp32 tail at k=2 ran for hours without finishing a single variant.
+        _polygamma(1, "trigamma, the first order in use"),
+        _polygamma(2, "tetragamma; the order changes the series, not just a constant"),
+        _polygamma(4, "high enough that the reference and the kernel can diverge"),
     ),
     "ttnn.polygamma_bw": (
         Override(
