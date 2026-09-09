@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from collections import defaultdict
 from functools import cache
 from pathlib import Path
@@ -127,7 +128,7 @@ def chart_rel_path(arch: str, dtype: str, op_key: str, variant: str, from_dir: P
 def write(path: Path, content: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
-    logger.info("wrote {}", path.relative_to(REPO_ROOT))
+    logger.info("wrote {}", os.path.relpath(path, REPO_ROOT))  # relative_to raises off-tree
 
 
 def _unmeasured_table(arch: str, dtype: str) -> str:

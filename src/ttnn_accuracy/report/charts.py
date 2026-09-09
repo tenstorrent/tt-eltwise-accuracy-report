@@ -235,8 +235,9 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
 
     index = json.loads(INDEX_FILE.read_text()) if INDEX_FILE.exists() else {}
     # An op that left scope keeps its CSV, so the index would republish its last measurement.
+    # By op, not by variant: `custom-report` measures at a parameter the plan does not carry.
     scope = {
-        arch: {(s.name, s.variant) for s in resolve(None, None, arch)[0]}
+        arch: {s.name for s in resolve(None, None, arch)[0]}
         for arch in sorted({d.name for d in DATA_DIR.iterdir() if d.is_dir()} | index.keys())
         if arch != RUNS_KEY
     }
@@ -245,12 +246,9 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
         if arch == RUNS_KEY:
             continue
         for dtype, ops in dtypes.items():
-            for op in list(ops):
-                for gone in [v for v in ops[op] if (op, v) not in scope[arch]]:
-                    del ops[op][gone]
-                    dropped.append(f"{arch}/{dtype}/{op}/{gone}")
-                if not ops[op]:
-                    del ops[op]
+            for gone in [op for op in ops if op not in scope[arch]]:
+                del ops[gone]
+                dropped.append(f"{arch}/{dtype}/{gone}")
     if dropped:
         logger.info("dropped, no longer in scope: {}", ", ".join(dropped))
     plotted = stale = 0
@@ -262,7 +260,7 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
                 arch, dtype, op = arch_dir.name, dtype_dir.name, op_dir.name
                 for csv_path in sorted(op_dir.glob("*.csv")):
                     variant = csv_path.stem
-                    if (op, variant) not in scope[arch]:  # else the purge above is undone
+                    if op not in scope[arch]:  # else the purge above is undone
                         continue
                     scored = score_csv(csv_path, op, variant)
                     if scored is None:
@@ -290,7 +288,7 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
         return 1
 
     INDEX_FILE.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
-    logger.success("{} charts, updated {}", plotted, INDEX_FILE.relative_to(REPO_ROOT))
+    logger.success("{} charts, updated {}", plotted, os.path.relpath(INDEX_FILE, REPO_ROOT))
     if stale:
         logger.error("{} CSV(s) skipped as stale", stale)
     return 1 if stale else 0
