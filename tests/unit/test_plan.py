@@ -87,3 +87,22 @@ def test_a_predicate_is_seen_to_depend_on_its_input():
     base = torch.rand(8, dtype=torch.float64) * 0.8 + 0.1
     assert all(_same(gtz(base), gtz(f(base))) for f in (lambda a: a + 10.0, lambda a: -a * 0 + 1))
     assert not _same(gtz(base), gtz(base * 0.0))
+
+
+def _entry(**over) -> dict:
+    base = {"name": "exp", "category": "unary", "operands": 1, "signature": "(x, **_)"}
+    return {"ops": {"ttnn.exp": base | over}}
+
+
+def test_a_cosmetic_signature_change_does_not_invalidate_a_probe():
+    """ttnn rendering `**_` as `*args, **_` cost 69 derived domains and 85 layout records."""
+    from ttnn_accuracy.ops.manifest import diff
+
+    assert diff(_entry(), _entry(signature="(x, *args, **_)"))[2] == []
+
+
+def test_a_changed_arity_does_invalidate_it():
+    from ttnn_accuracy.ops.manifest import diff
+
+    assert diff(_entry(), _entry(operands=2))[2] == ["ttnn.exp"]
+    assert diff(_entry(), _entry(category="unary_bw"))[2] == ["ttnn.exp"]

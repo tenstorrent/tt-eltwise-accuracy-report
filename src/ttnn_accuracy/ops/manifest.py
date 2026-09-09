@@ -66,11 +66,17 @@ def save(manifest: dict) -> None:
     MANIFEST_FILE.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
 
 
+MEASURED = ("name", "category", "operands")
+
 def diff(old: dict, new: dict) -> tuple[list[str], list[str], list[str]]:
     before, after = old["ops"], new["ops"]
     added = sorted(after.keys() - before.keys())
     removed = sorted(before.keys() - after.keys())
-    changed = sorted(k for k in before.keys() & after.keys() if before[k] != after[k])
+    changed = sorted(
+        k
+        for k in before.keys() & after.keys()
+        if any(before[k].get(f) != after[k].get(f) for f in MEASURED)
+    )
     return added, removed, changed
 
 
