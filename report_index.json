@@ -418,224 +418,18 @@
         "failed": {},
         "host": "wh-glx6u-02",
         "ops": [
-          "abs",
-          "abs_bw",
-          "acos",
-          "acos_bw",
-          "acosh",
-          "acosh_bw",
-          "add",
-          "add_",
-          "addalpha",
-          "addcdiv",
-          "addcmul",
-          "asin",
-          "asin_bw",
-          "asinh",
-          "asinh_bw",
-          "atan",
-          "atan2",
-          "atan2_bw",
-          "atan_bw",
-          "atanh",
-          "atanh_bw",
-          "bias_gelu",
-          "bias_gelu_",
-          "cbrt",
-          "ceil",
-          "celu",
-          "celu_bw",
           "clamp",
-          "clamp_bw",
           "clip",
-          "clip_bw",
-          "cos",
-          "cos_bw",
-          "cosh",
-          "cosh_bw",
-          "deg2rad",
-          "digamma",
-          "digamma_bw",
-          "div",
-          "div_bw",
-          "div_no_nan",
-          "divide",
-          "divide_",
-          "elu",
-          "elu_bw",
-          "eq",
-          "eq_",
-          "eqz",
-          "erf",
-          "erf_bw",
-          "erfc",
-          "erfc_bw",
-          "erfinv",
-          "erfinv_bw",
-          "exp",
-          "exp2",
-          "exp2_bw",
-          "exp_bw",
-          "expm1",
-          "expm1_bw",
-          "floor",
-          "floor_div",
-          "fmod",
-          "frac",
-          "ge",
-          "ge_",
-          "gelu",
-          "gelu_bw",
-          "gez",
-          "gt",
-          "gt_",
-          "gtz",
-          "hardmish",
-          "hardshrink",
-          "hardshrink_bw",
-          "hardsigmoid",
-          "hardsigmoid_bw",
-          "hardswish",
-          "hardswish_bw",
-          "hardtanh",
-          "hardtanh_bw",
           "heaviside",
-          "hypot",
-          "hypot_bw",
-          "i0",
-          "i0_bw",
-          "i1",
-          "identity",
-          "isclose",
-          "l1_loss",
-          "ldexp",
-          "ldexp_",
-          "ldexp_bw",
-          "le",
-          "le_",
           "leaky_relu",
-          "leaky_relu_bw",
-          "lerp",
-          "lerp_bw",
-          "lez",
-          "lgamma",
-          "lgamma_bw",
-          "log",
-          "log10",
-          "log10_bw",
-          "log1p",
-          "log1p_bw",
-          "log2",
-          "log2_bw",
-          "log_bw",
-          "log_sigmoid",
-          "log_sigmoid_bw",
-          "logaddexp",
-          "logaddexp2",
-          "logaddexp2_",
-          "logaddexp2_bw",
-          "logaddexp_",
-          "logaddexp_bw",
-          "logical_and",
-          "logical_and_",
-          "logical_not",
-          "logical_not_",
-          "logical_or",
-          "logical_or_",
-          "logical_xor_",
-          "logit",
-          "logit_bw",
-          "logiteps_bw",
-          "lt",
-          "lt_",
-          "ltz",
-          "mac",
-          "max_bw",
-          "maximum",
-          "min_bw",
-          "minimum",
-          "mish",
-          "mse_loss",
-          "mul_bw",
-          "multigammaln",
-          "multigammaln_bw",
-          "multiply",
-          "multiply_",
-          "ne",
-          "ne_",
-          "neg",
-          "nextafter",
-          "nez",
           "polygamma",
-          "polygamma_bw",
-          "pow",
-          "pow_bw",
-          "prelu",
-          "rad2deg",
-          "rdiv",
-          "rdiv_bw",
-          "reciprocal",
-          "reciprocal_bw",
-          "relu",
-          "relu6",
-          "relu6_bw",
-          "relu_bw",
           "relu_max",
           "relu_min",
-          "remainder",
-          "round",
           "rpow",
-          "rpow_bw",
-          "rsqrt",
-          "rsqrt_bw",
-          "rsub",
-          "rsub_",
-          "selu",
-          "selu_bw",
-          "sigmoid",
-          "sigmoid_accurate",
-          "sigmoid_bw",
-          "sign",
-          "signbit",
-          "silu",
-          "silu_bw",
-          "sin",
-          "sin_bw",
-          "sinh",
-          "sinh_bw",
-          "softplus",
-          "softplus_bw",
-          "softshrink",
-          "softshrink_bw",
-          "softsign",
-          "softsign_bw",
-          "sqrt",
-          "sqrt_bw",
-          "square",
-          "square_bw",
-          "squared_difference",
-          "squared_difference_",
-          "squared_difference_bw",
-          "subalpha",
-          "subtract",
-          "subtract_",
-          "swish",
-          "tan",
-          "tan_bw",
-          "tanh",
-          "tanh_bw",
-          "tanhshrink",
-          "tanhshrink_bw",
-          "threshold",
-          "threshold_bw",
-          "trunc",
-          "where",
-          "xielu",
-          "xlogy",
-          "xlogy_bw"
+          "threshold"
         ],
-        "run_id": "20260904T120341",
-        "tt_metal_commit": "f6deef232f7",
+        "run_id": "20260909T072150",
+        "tt_metal_commit": "5b8d933",
         "ttnn_version": "0.1.dev30578+g5b8d933"
       },
       "fp32": {
@@ -24350,43 +24144,7 @@
             "melem_per_s": 27195.5,
             "us_median": 616.912
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 5800,
           "usable_to": "\u2014",
           "verdict": "worst pairing 2.11e+06 ULP; mean 2.32e+03"
@@ -24409,43 +24167,7 @@
             "melem_per_s": 27709.4,
             "us_median": 605.471
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 126 ULP; mean 19.6"
@@ -24820,43 +24542,7 @@
             "melem_per_s": 3485.5,
             "us_median": 4813.438
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 248 ULP; mean 4.92"
@@ -25450,6 +25136,108 @@
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
+        },
+        "min0.0_max0.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "collapsed interval \u2014 every output is 0",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
+        "min1.0_max-1.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "empty interval, min above max",
+          "specials": [
+            {
+              "x": "0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "-1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
         }
       },
       "clamp_bw": {
@@ -25467,43 +25255,7 @@
             "melem_per_s": 7885.1,
             "us_median": 2127.711
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -25565,6 +25317,108 @@
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
+        },
+        "min0.0_max0.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "collapsed interval \u2014 every output is 0",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
+        "min1.0_max-1.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "empty interval, min above max",
+          "specials": [
+            {
+              "x": "0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-0",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-inf",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "nan",
+              "y": "-1",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1",
+              "y_ref": "-1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
         }
       },
       "clip_bw": {
@@ -25582,43 +25436,7 @@
             "melem_per_s": 7882.5,
             "us_median": 2128.412
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -26112,43 +25930,7 @@
             "melem_per_s": 1803.7,
             "us_median": 9301.315
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "nan",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -28429,67 +28211,6 @@
           "verdict": "bit-exact"
         }
       },
-      "hardswish": {
-        "default": {
-          "defects": 2,
-          "max_abs": "0.0156",
-          "max_ulp": "2",
-          "mean_ulp": "1.01",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 61512,
-            "flushed": 254,
-            "inexact": 3256,
-            "zeroed": 2
-          },
-          "perf": {
-            "host": "wh-glx6u-02",
-            "melem_per_s": 48174.3,
-            "spread_pct": 11.0,
-            "us_median": 348.26
-          },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "nan"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "5.877e-39"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "-5.877e-39"
-            }
-          ],
-          "ulp_clipped": 0,
-          "usable_to": "2.33e-38",
-          "verdict": "2 of 65024 points returned inf or zero where a value exists"
-        }
-      },
       "hardswish_bw": {
         "default": {
           "defects": 0,
@@ -28663,6 +28384,57 @@
         }
       },
       "heaviside": {
+        "value0.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "the other convention at x = 0",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
         "value0.5": {
           "defects": 0,
           "max_abs": "0",
@@ -28688,6 +28460,57 @@
               "x": "-0",
               "y": "0",
               "y_ref": "0.5"
+            },
+            {
+              "x": "inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "1",
+              "y_ref": "0"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
+        "value1.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "the third convention at x = 0",
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "1"
             },
             {
               "x": "inf",
@@ -28796,43 +28619,7 @@
             "melem_per_s": 5738.1,
             "us_median": 2923.838
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "nan"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "nan"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1.175e-38",
-              "y_ref": "1.175e-38"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1.175e-38",
-              "y_ref": "-1.175e-38"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 75 ULP; mean 2.44"
@@ -29321,43 +29108,7 @@
             "melem_per_s": 6986.3,
             "us_median": 2401.457
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "2",
-              "y_ref": "2"
-            },
-            {
-              "x": "-0",
-              "y": "2",
-              "y_ref": "2"
-            },
-            {
-              "x": "inf",
-              "y": "2",
-              "y_ref": "2"
-            },
-            {
-              "x": "-inf",
-              "y": "2",
-              "y_ref": "2"
-            },
-            {
-              "x": "nan",
-              "y": "2",
-              "y_ref": "2"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "2",
-              "y_ref": "2"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "2",
-              "y_ref": "2"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -29478,6 +29229,57 @@
         }
       },
       "leaky_relu": {
+        "negative_slope0.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "degenerates to relu",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "-0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
         "negative_slope0.01": {
           "defects": 0,
           "max_abs": "2.08e+34",
@@ -29535,6 +29337,57 @@
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "within 2 ULP everywhere"
+        },
+        "negative_slope1.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "degenerates to identity",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "-1.175e-38",
+              "y_ref": "-1.175e-38"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
         }
       },
       "leaky_relu_bw": {
@@ -29611,43 +29464,7 @@
             "melem_per_s": 27740.0,
             "us_median": 604.802
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "-inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "-inf",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 2,
           "usable_to": "\u2014",
           "verdict": "worst pairing 1.77e+03 ULP; mean 40"
@@ -29668,43 +29485,7 @@
             "melem_per_s": 6920.0,
             "us_median": 2424.455
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -30672,43 +30453,7 @@
             "melem_per_s": 3308.5,
             "us_median": 5070.968
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0.334",
-              "y_ref": "0.3333"
-            },
-            {
-              "x": "-0",
-              "y": "0.334",
-              "y_ref": "0.3333"
-            },
-            {
-              "x": "inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "1",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0.334",
-              "y_ref": "0.3333"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0.334",
-              "y_ref": "0.3333"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 41 ULP; mean 3.82"
@@ -30790,43 +30535,7 @@
             "melem_per_s": 4080.6,
             "us_median": 4111.413
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0.2695",
-              "y_ref": "0.2689"
-            },
-            {
-              "x": "-0",
-              "y": "0.2695",
-              "y_ref": "0.2689"
-            },
-            {
-              "x": "inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "1",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0.2695",
-              "y_ref": "0.2689"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0.2695",
-              "y_ref": "0.2689"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 62 ULP; mean 4.88"
@@ -31477,43 +31186,7 @@
             "melem_per_s": 36695.8,
             "us_median": 457.197
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -31593,43 +31266,7 @@
             "melem_per_s": 27708.5,
             "us_median": 605.489
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 64 ULP; mean 26.4"
@@ -31651,43 +31288,7 @@
             "melem_per_s": 3530.7,
             "us_median": 4751.851
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 64 ULP; mean 64"
@@ -31709,43 +31310,7 @@
             "melem_per_s": 36528.3,
             "us_median": 459.293
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -31767,43 +31332,7 @@
             "melem_per_s": 3528.7,
             "us_median": 4754.49
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "1"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 64 ULP; mean 64"
@@ -31825,43 +31354,7 @@
             "melem_per_s": 36571.2,
             "us_median": 458.755
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "1",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1.175e-38",
-              "y_ref": "1.175e-38"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1.175e-38",
-              "y_ref": "-1.175e-38"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -31945,43 +31438,7 @@
             "melem_per_s": 36669.0,
             "us_median": 457.532
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -32002,43 +31459,7 @@
             "melem_per_s": 13620.8,
             "us_median": 1231.737
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "nan",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -32180,43 +31601,7 @@
             "melem_per_s": 36260.1,
             "us_median": 462.69
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1.175e-38",
-              "y_ref": "1.175e-38"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1.175e-38",
-              "y_ref": "-1.175e-38"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -32238,43 +31623,7 @@
             "melem_per_s": 36584.0,
             "us_median": 458.594
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1.175e-38",
-              "y_ref": "1.175e-38"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1.175e-38",
-              "y_ref": "-1.175e-38"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -32468,43 +31817,7 @@
             "melem_per_s": 6192.1,
             "us_median": 2709.439
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "-1.192e-07",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "-1.192e-07",
-              "y_ref": "0"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "-1.192e-07",
-              "y_ref": "1.175e-38"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1.192e-07",
-              "y_ref": "-1.175e-38"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 25856,
           "usable_to": "\u2014",
           "verdict": "worst pairing 1.3e+33 ULP; mean 2.32e+31"
@@ -32627,6 +31940,118 @@
           "ulp_clipped": 20,
           "usable_to": "0.996",
           "verdict": "263 of 64769 points returned inf or zero where a value exists"
+        },
+        "k2": {
+          "defects": 75,
+          "max_abs": "1.33e+36",
+          "max_ulp": "3.57e+08",
+          "mean_ulp": "6.81e+05",
+          "n_inputs": 64769,
+          "outcomes": {
+            "exact": 18527,
+            "flushed": 8064,
+            "inexact": 1088,
+            "mismatch": 15609,
+            "overflow": 21406,
+            "zeroed": 75
+          },
+          "rationale": "tetragamma; the order changes the series, not just a constant",
+          "specials": [
+            {
+              "x": "0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "inf",
+              "y_ref": "inf"
+            }
+          ],
+          "ulp_clipped": 32,
+          "usable_to": "4.47",
+          "verdict": "75 of 64769 points returned inf or zero where a value exists"
+        },
+        "k4": {
+          "defects": 142,
+          "max_abs": "1.33e+36",
+          "max_ulp": "3.22e+09",
+          "mean_ulp": "1.09e+07",
+          "n_inputs": 64769,
+          "outcomes": {
+            "exact": 10364,
+            "flushed": 12019,
+            "inexact": 709,
+            "mismatch": 15609,
+            "overflow": 25926,
+            "zeroed": 142
+          },
+          "rationale": "high enough that the reference and the kernel can diverge",
+          "specials": [
+            {
+              "x": "0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-0",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "-inf",
+              "y_ref": "-inf"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "inf",
+              "y_ref": "inf"
+            }
+          ],
+          "ulp_clipped": 36,
+          "usable_to": "4.47",
+          "verdict": "142 of 64769 points returned inf or zero where a value exists"
         }
       },
       "polygamma_bw": {
@@ -32708,43 +32133,7 @@
             "melem_per_s": 18918.3,
             "us_median": 886.825
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1.175e-38",
-              "y_ref": "1.175e-38"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1.175e-38",
-              "y_ref": "-1.175e-38"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 12,
           "usable_to": "\u2014",
           "verdict": "worst pairing 4.86e+18 ULP; mean 2.08e+14"
@@ -33400,6 +32789,57 @@
         }
       },
       "relu_max": {
+        "upper_limit0.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "degenerates to a constant zero",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
         "upper_limit1.0": {
           "defects": 0,
           "max_abs": "0",
@@ -33455,9 +32895,111 @@
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
+        },
+        "upper_limit6.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "relu6, the clamp models actually use",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "-0"
+            },
+            {
+              "x": "inf",
+              "y": "6",
+              "y_ref": "6"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "6",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
         }
       },
       "relu_min": {
+        "lower_limit0.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "degenerates to relu",
+          "specials": [
+            {
+              "x": "0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-0",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "0",
+              "y_ref": "0"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
         "lower_limit1.0": {
           "defects": 0,
           "max_abs": "0",
@@ -33531,43 +33073,7 @@
             "melem_per_s": 27398.5,
             "us_median": 612.341
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "-inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "-inf",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "nan",
-              "y": "-inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1.175e-38",
-              "y_ref": "1.175e-38"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 58386,
           "usable_to": "\u2014",
           "verdict": "worst pairing 6.65e+35 ULP; mean 1.06e+35"
@@ -33632,6 +33138,112 @@
         }
       },
       "rpow": {
+        "exponent0.5": {
+          "defects": 0,
+          "max_abs": "7.21e+16",
+          "max_ulp": "1",
+          "mean_ulp": "0.843",
+          "n_inputs": 49536,
+          "outcomes": {
+            "exact": 32806,
+            "flushed": 3,
+            "inexact": 1239,
+            "mismatch": 2816,
+            "overflow": 12672
+          },
+          "rationale": "the square-root path, a half-integer",
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "0",
+              "y_ref": "0"
+            },
+            {
+              "x": "-inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "nan",
+              "y": "0",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "within 2 ULP everywhere"
+        },
+        "exponent1.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 49536,
+          "outcomes": {
+            "exact": 49536
+          },
+          "rationale": "degenerates to identity",
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "1"
+            },
+            {
+              "x": "-inf",
+              "y": "0",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "1"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
         "exponent2.0": {
           "defects": 0,
           "max_abs": "7.21e+16",
@@ -33884,43 +33496,7 @@
             "melem_per_s": 36532.0,
             "us_median": 459.247
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "-inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "nan",
-              "y": "-inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -33942,43 +33518,7 @@
             "melem_per_s": 36878.1,
             "us_median": 454.937
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "-inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "nan",
-              "y": "-inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -35357,43 +34897,7 @@
             "melem_per_s": 36724.7,
             "us_median": 456.838
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -35416,43 +34920,7 @@
             "melem_per_s": 36928.0,
             "us_median": 454.323
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -35475,43 +34943,7 @@
             "melem_per_s": 8895.5,
             "us_median": 1886.036
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "-2",
-              "y_ref": "-2"
-            },
-            {
-              "x": "-0",
-              "y": "-2",
-              "y_ref": "-2"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "-2",
-              "y_ref": "-2"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-2",
-              "y_ref": "-2"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -35534,43 +34966,7 @@
             "us_median": 458.762
           },
           "rationale": "2 keeps the op distinct from subtract",
-          "specials": [
-            {
-              "x": "0",
-              "y": "-2",
-              "y_ref": "-2"
-            },
-            {
-              "x": "-0",
-              "y": "-2",
-              "y_ref": "-2"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "-2",
-              "y_ref": "-2"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-2",
-              "y_ref": "-2"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 254 ULP; mean 2.42"
@@ -35592,43 +34988,7 @@
             "melem_per_s": 36758.3,
             "us_median": 456.42
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "-1",
-              "y_ref": "-1"
-            },
-            {
-              "x": "-0",
-              "y": "-1",
-              "y_ref": "-1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "-1",
-              "y_ref": "-1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1",
-              "y_ref": "-1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -35650,43 +35010,7 @@
             "melem_per_s": 36750.5,
             "us_median": 456.517
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "-1",
-              "y_ref": "-1"
-            },
-            {
-              "x": "-0",
-              "y": "-1",
-              "y_ref": "-1"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "-inf"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "-1",
-              "y_ref": "-1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "-1",
-              "y_ref": "-1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -36108,6 +35432,57 @@
         }
       },
       "threshold": {
+        "threshold0.0_value1.0": {
+          "defects": 0,
+          "max_abs": "0",
+          "max_ulp": "0",
+          "mean_ulp": "\u2014",
+          "n_inputs": 65024,
+          "outcomes": {
+            "exact": 65024
+          },
+          "rationale": "threshold at zero, non-zero fill",
+          "specials": [
+            {
+              "x": "0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "-0",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "inf",
+              "y": "inf",
+              "y_ref": "inf"
+            },
+            {
+              "x": "-inf",
+              "y": "1",
+              "y_ref": "1"
+            },
+            {
+              "x": "nan",
+              "y": "inf",
+              "y_ref": "nan"
+            },
+            {
+              "x": "1.175e-38",
+              "y": "1.175e-38",
+              "y_ref": "1.175e-38"
+            },
+            {
+              "x": "-1.175e-38",
+              "y": "1",
+              "y_ref": "1"
+            }
+          ],
+          "ulp_clipped": 0,
+          "usable_to": "3.39e+38",
+          "verdict": "bit-exact"
+        },
         "threshold0.5_value0.0": {
           "defects": 0,
           "max_abs": "0",
@@ -36298,43 +35673,7 @@
             "us_median": 607.432
           },
           "rationale": "the attached golden demands a bool condition",
-          "specials": [
-            {
-              "x": "0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-0",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-inf",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "nan",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "1",
-              "y_ref": "1"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "bit-exact"
@@ -36342,15 +35681,16 @@
       },
       "xielu": {
         "default": {
-          "defects": 1,
-          "max_abs": "6.65e+35",
-          "max_ulp": "1",
-          "mean_ulp": "1",
+          "defects": 2,
+          "max_abs": "2.05e+38",
+          "max_ulp": "1.87e+38",
+          "mean_ulp": "3.67e+36",
           "n_inputs": 56847,
           "outcomes": {
-            "exact": 56669,
+            "exact": 56664,
             "flushed": 127,
-            "inexact": 50,
+            "inexact": 54,
+            "mismatch": 1,
             "zeroed": 1
           },
           "perf": {
@@ -36395,9 +35735,9 @@
               "y_ref": "-8e-07"
             }
           ],
-          "ulp_clipped": 0,
+          "ulp_clipped": 1,
           "usable_to": "2.33e-38",
-          "verdict": "1 of 56847 points returned inf or zero where a value exists"
+          "verdict": "2 of 56847 points returned inf or zero where a value exists"
         }
       },
       "xlogy": {
@@ -36416,43 +35756,7 @@
             "melem_per_s": 35884.5,
             "us_median": 467.534
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "-inf",
-              "y": "-inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "nan",
-              "y": "inf",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "-0"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "worst pairing 897 ULP; mean 655"
@@ -36473,43 +35777,7 @@
             "melem_per_s": 2150.9,
             "us_median": 7799.988
           },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-inf",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "nan",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "0"
-            }
-          ],
+          "specials": [],
           "ulp_clipped": 0,
           "usable_to": "\u2014",
           "verdict": "within 2 ULP everywhere"
@@ -41096,65 +40364,6 @@
           "ulp_clipped": 0,
           "usable_to": "3.39e+38",
           "verdict": "bit-exact"
-        }
-      },
-      "hardswish": {
-        "default": {
-          "defects": 0,
-          "max_abs": "2.38e-07",
-          "max_ulp": "7.34e+06",
-          "mean_ulp": "1.41e+03",
-          "n_inputs": 65024,
-          "outcomes": {
-            "exact": 59542,
-            "flushed": 256,
-            "inexact": 5226
-          },
-          "perf": {
-            "host": "wh-glx6u-02",
-            "melem_per_s": 23050.3,
-            "us_median": 727.852
-          },
-          "specials": [
-            {
-              "x": "0",
-              "y": "0",
-              "y_ref": "0"
-            },
-            {
-              "x": "-0",
-              "y": "0",
-              "y_ref": "-0"
-            },
-            {
-              "x": "inf",
-              "y": "inf",
-              "y_ref": "inf"
-            },
-            {
-              "x": "-inf",
-              "y": "nan",
-              "y_ref": "nan"
-            },
-            {
-              "x": "nan",
-              "y": "nan",
-              "y_ref": "nan"
-            },
-            {
-              "x": "1.175e-38",
-              "y": "0",
-              "y_ref": "5.877e-39"
-            },
-            {
-              "x": "-1.175e-38",
-              "y": "0",
-              "y_ref": "-5.877e-39"
-            }
-          ],
-          "ulp_clipped": 1,
-          "usable_to": "2.36",
-          "verdict": "accurate to |x| <= 2.36; up to 7.34e+06 ULP beyond"
         }
       },
       "hardswish_bw": {

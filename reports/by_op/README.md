@@ -84,7 +84,7 @@ Total: 216 ops measured
 | [hardshrink_bw](hardshrink_bw/README.md) | unary_bw | [0](hardshrink_bw/README.md) | [0](hardshrink_bw/README.md) | [0](hardshrink_bw/README.md) | [0](hardshrink_bw/README.md) |
 | [hardsigmoid](hardsigmoid/README.md) | unary | [1](hardsigmoid/README.md) | [4.89e+06](hardsigmoid/README.md) | [1](hardsigmoid/README.md) | [4.89e+06](hardsigmoid/README.md) |
 | [hardsigmoid_bw](hardsigmoid_bw/README.md) | unary_bw | [0](hardsigmoid_bw/README.md) | [0](hardsigmoid_bw/README.md) | [0](hardsigmoid_bw/README.md) | [0](hardsigmoid_bw/README.md) |
-| [hardswish](hardswish/README.md) | unary | [2](hardswish/README.md) | [7.34e+06](hardswish/README.md) | [2](hardswish/README.md) | [7.34e+06](hardswish/README.md) |
+| [hardswish](hardswish/README.md) | unary | — | — | [2](hardswish/README.md) | [7.34e+06](hardswish/README.md) |
 | [hardswish_bw](hardswish_bw/README.md) | unary_bw | [85](hardswish_bw/README.md) | [1.41e+10](hardswish_bw/README.md) | [85](hardswish_bw/README.md) | [1.41e+10](hardswish_bw/README.md) |
 | [hardtanh](hardtanh/README.md) | unary | [0](hardtanh/README.md) | [0](hardtanh/README.md) | [0](hardtanh/README.md) | [0](hardtanh/README.md) |
 | [hardtanh_bw](hardtanh_bw/README.md) | unary_bw | [0](hardtanh_bw/README.md) | [0](hardtanh_bw/README.md) | [0](hardtanh_bw/README.md) | [0](hardtanh_bw/README.md) |
@@ -102,7 +102,7 @@ Total: 216 ops measured
 | [ldexp_bw](ldexp_bw/README.md) | binary_bw | [1](ldexp_bw/README.md) | [1](ldexp_bw/README.md) | [1](ldexp_bw/README.md) | [1](ldexp_bw/README.md) |
 | [le](le/README.md) | binary | [0](le/README.md) | [0](le/README.md) | — | — |
 | [le_](le_/README.md) | binary | [0](le_/README.md) | [0](le_/README.md) | [0](le_/README.md) | [0](le_/README.md) |
-| [leaky_relu](leaky_relu/README.md) | unary | [1](leaky_relu/README.md) | [1](leaky_relu/README.md) | [1](leaky_relu/README.md) | [1](leaky_relu/README.md) |
+| [leaky_relu](leaky_relu/README.md) | unary | [0](leaky_relu/README.md) | [1](leaky_relu/README.md) | [1](leaky_relu/README.md) | [1](leaky_relu/README.md) |
 | [leaky_relu_bw](leaky_relu_bw/README.md) | unary_bw | [0](leaky_relu_bw/README.md) | [0](leaky_relu_bw/README.md) | [0](leaky_relu_bw/README.md) | [0](leaky_relu_bw/README.md) |
 | [lerp](lerp/README.md) | ternary | [1.77e+03](lerp/README.md) | [1.46e+08](lerp/README.md) | [1.77e+03](lerp/README.md) | [1.46e+08](lerp/README.md) |
 | [lerp_bw](lerp_bw/README.md) | ternary_bw | [1](lerp_bw/README.md) | [0](lerp_bw/README.md) | [1](lerp_bw/README.md) | [0](lerp_bw/README.md) |
@@ -220,6 +220,6 @@ Total: 216 ops measured
 | [threshold_bw](threshold_bw/README.md) | unary_bw | [0](threshold_bw/README.md) | [0](threshold_bw/README.md) | [0](threshold_bw/README.md) | [0](threshold_bw/README.md) |
 | [trunc](trunc/README.md) | unary | [0](trunc/README.md) | [0](trunc/README.md) | [0](trunc/README.md) | [0](trunc/README.md) |
 | [where](where/README.md) | ternary | [0](where/README.md) | [0](where/README.md) | [0](where/README.md) | [0](where/README.md) |
-| [xielu](xielu/README.md) | unary | [1](xielu/README.md) | [1.08e+07](xielu/README.md) | [1](xielu/README.md) | [1.08e+07](xielu/README.md) |
+| [xielu](xielu/README.md) | unary | [1.87e+38](xielu/README.md) | [1.08e+07](xielu/README.md) | [1](xielu/README.md) | [1.08e+07](xielu/README.md) |
 | [xlogy](xlogy/README.md) | binary | [897](xlogy/README.md) | [8.84e+07](xlogy/README.md) | [897](xlogy/README.md) | [8.84e+07](xlogy/README.md) |
 | [xlogy_bw](xlogy_bw/README.md) | binary_bw | [1](xlogy_bw/README.md) | [1](xlogy_bw/README.md) | [1](xlogy_bw/README.md) | [1](xlogy_bw/README.md) |

@@ -25,14 +25,14 @@ Charts show ULP (units in last place) error across the full input range.
 | Unique ops measured | 216 |
 | Blackhole (BH) bfloat16 ops | 195 |
 | Blackhole (BH) float32 ops | 194 |
-| Wormhole (WH) bfloat16 ops | 215 |
-| Wormhole (WH) float32 ops | 215 |
+| Wormhole (WH) bfloat16 ops | 214 |
+| Wormhole (WH) float32 ops | 214 |
 
 ---
 
 ## Returning inf or zero where a value exists
 
-192 variants across 55 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+193 variants across 55 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -145,6 +145,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`gelu`](by_op/gelu/README.md) | `fast_approx` | wh fp32 | 197 of 65,024 | 0.3% |
 | [`expm1_bw`](by_op/expm1_bw/README.md) | `default` | bh fp32 | 138 of 49,458 | 0.3% |
 | [`expm1_bw`](by_op/expm1_bw/README.md) | `default` | wh fp32 | 138 of 49,458 | 0.3% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh bf16 | 142 of 64,769 | 0.2% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | bh fp32 | 140 of 65,024 | 0.2% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | wh fp32 | 140 of 65,024 | 0.2% |
 | [`log2_bw`](by_op/log2_bw/README.md) | `default` | bh bf16 | 116 of 64,626 | 0.2% |
@@ -159,6 +160,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`gelu`](by_op/gelu/README.md) | `default` | wh bf16 | 86 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | bh fp32 | 83 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | wh fp32 | 83 of 65,024 | 0.1% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh bf16 | 75 of 64,769 | 0.1% |
 | [`softplus`](by_op/softplus/README.md) | `default` | bh fp32 | 30 of 65,024 | 0.0% |
 | [`softplus`](by_op/softplus/README.md) | `default` | wh fp32 | 30 of 65,024 | 0.0% |
 | [`silu`](by_op/silu/README.md) | `default` | bh bf16 | 13 of 65,024 | 0.0% |
@@ -199,6 +201,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`atanh_bw`](by_op/atanh_bw/README.md) | `default` | bh bf16 | 2 of 48,386 | 0.0% |
 | [`atanh_bw`](by_op/atanh_bw/README.md) | `default` | bh fp32 | 2 of 48,386 | 0.0% |
 | [`atanh_bw`](by_op/atanh_bw/README.md) | `default` | wh bf16 | 2 of 48,386 | 0.0% |
+| [`xielu`](by_op/xielu/README.md) | `default` | wh bf16 | 2 of 56,847 | 0.0% |
 | [`log1p_bw`](by_op/log1p_bw/README.md) | `default` | bh bf16 | 2 of 64,514 | 0.0% |
 | [`log1p_bw`](by_op/log1p_bw/README.md) | `default` | bh fp32 | 2 of 64,514 | 0.0% |
 | [`log1p_bw`](by_op/log1p_bw/README.md) | `default` | wh bf16 | 2 of 64,514 | 0.0% |
@@ -213,7 +216,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`deg2rad`](by_op/deg2rad/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
 | [`deg2rad`](by_op/deg2rad/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`hardswish`](by_op/hardswish/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
-| [`hardswish`](by_op/hardswish/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`tanh`](by_op/tanh/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
 | [`tanh`](by_op/tanh/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | bh bf16 | 1 of 49,537 | 0.0% |
@@ -221,7 +223,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh bf16 | 1 of 49,537 | 0.0% |
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh fp32 | 1 of 49,537 | 0.0% |
 | [`xielu`](by_op/xielu/README.md) | `default` | bh bf16 | 1 of 56,847 | 0.0% |
-| [`xielu`](by_op/xielu/README.md) | `default` | wh bf16 | 1 of 56,847 | 0.0% |
 | [`prelu`](by_op/prelu/README.md) | `weight=0.25` | bh bf16 | 1 of 65,024 | 0.0% |
 | [`prelu`](by_op/prelu/README.md) | `weight=0.25` | wh bf16 | 1 of 65,024 | 0.0% |
 | [`selu_bw`](by_op/selu_bw/README.md) | `default` | bh bf16 | 1 of 65,024 | 0.0% |

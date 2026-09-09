@@ -68,6 +68,7 @@ def save(manifest: dict) -> None:
 
 MEASURED = ("name", "category", "operands")
 
+
 def diff(old: dict, new: dict) -> tuple[list[str], list[str], list[str]]:
     before, after = old["ops"], new["ops"]
     added = sorted(after.keys() - before.keys())

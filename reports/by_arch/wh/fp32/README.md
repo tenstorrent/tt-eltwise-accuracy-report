@@ -88,7 +88,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [hardshrink_bw](hardshrink_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 2885 |
 | [hardsigmoid](hardsigmoid.md) | `default` | 4.89e+06 ⚠ | 1.25e+03 | 2.61 | 5.96e-08 | 685 |
 | [hardsigmoid_bw](hardsigmoid_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 4535 |
-| [hardswish](hardswish.md) | `default` | 7.34e+06 ⚠ | 1.41e+03 | 2.36 | 2.38e-07 | 728 |
 | [hardswish_bw](hardswish_bw.md) | `default` | 1.41e+10 ⚠ | 6e+06 | 0.00179 | 0.5 | 6431 |
 | [hardtanh](hardtanh.md) | `default` | 0 | — | 3.39e+38 | 0 | 687 |
 | [hardtanh_bw](hardtanh_bw.md) | `default` | 0 | — | 3.39e+38 | 0 | 3827 |
@@ -234,6 +233,7 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
+| `hardswish` | TT_THROW @ tt_metal/impl/program/program.cpp:338: tt::exception |
 | `softcap` | TT_FATAL @ ttnnttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE |
 
 
@@ -552,10 +552,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [hardsigmoid_bw](hardsigmoid_bw.md)
 
 ![hardsigmoid_bw default](../../../charts/wh/fp32/hardsigmoid_bw_default_ulp.svg)
-
-### [hardswish](hardswish.md)
-
-![hardswish default](../../../charts/wh/fp32/hardswish_default_ulp.svg)
 
 ### [hardswish_bw](hardswish_bw.md)
 
