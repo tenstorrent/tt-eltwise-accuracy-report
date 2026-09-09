@@ -1,4 +1,4 @@
-# eltwise-accuracy-report
+# tt-eltwise-accuracy-report
 
 ULP accuracy and kernel timing for every TT-Metal eltwise op, measured exhaustively
 against fp64 torch goldens — per architecture (WH, BH) and dtype (bf16, fp32).
