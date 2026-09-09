@@ -16,7 +16,7 @@ is only comparable to another taken on the same host, which the "Measured agains
 |---|---|---|---|---|
 | bh | bf16 | `fbf7d27db93` | 0.75.0rc10.dev916+ga5cd86212e1 | yyzo-bh-26-special-ijankowski-for-reservation-207161 |
 | bh | fp32 | `fbf7d27db93` | 0.75.0rc10.dev916+ga5cd86212e1 | yyzo-bh-26-special-ijankowski-for-reservation-207161 |
-| wh | bf16 | `f6deef232f7` | 0.1.dev30578+g5b8d933 | wh-glx6u-02 |
+| wh | bf16 | `5b8d933` | 0.1.dev30578+g5b8d933 | wh-glx6u-02 |
 | wh | fp32 | `f6deef232f7` | 0.1.dev30578+g5b8d933 | wh-glx6u-02 |
 
 The definitions behind every number in `report_index.json` and the report pages. An LLM
@@ -72,10 +72,17 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
   or dtypes, and never extrapolate to an unmeasured cell.
 - A sampled sweep's maximum (fp32 pairs, ternary) is a lower bound — the page says so.
 - Never compare a timing across hosts, and never call a timing difference a regression.
+- A sampled maximum (binary fp32, every ternary) is a lower bound. `ttnn-accuracy refine`
+  sweeps the cell the sample drew from: `fp32/pow` publishes 5,918 ULP and holds 8,300.
+- Some wrongness carries no ULP and is not in these fields. `ttnn-accuracy check` also
+  requires, of the ops it is given, that the answer not change with the tiling, that an
+  in-place op write to its own operand, that aliased operands agree with distinct ones,
+  and that an op commute wherever its reference does. A page cannot report these; only a
+  check run can.
 - Not in the index → say it is not measured, and read the reason from the manifest's
   exclusions and refusals, or `analyze-report/uncovered.md`.
 
-## Results — 827 variants
+## Results — 841 variants
 
 | Arch | Dtype | Op | Parameters | Verdict | Max ULP | Mean ULP | Usable to | µs | Melem/s |
 |---|---|---|---|---|---|---|---|---|---|
@@ -500,8 +507,12 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | wh | bf16 | `celu` | `default` | bit-exact | 0 | — | 3.39e+38 | 466 ±20% | 35982 |
 | wh | bf16 | `celu_bw` | `default` | within 2 ULP everywhere | 1 | 0.776 | 3.39e+38 | 2386 | 7030 |
 | wh | bf16 | `clamp` | `min=-1.0,max=1.0` | bit-exact | 0 | — | 3.39e+38 | 346 | 48460 |
+| wh | bf16 | `clamp` | `min=0.0,max=0.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
+| wh | bf16 | `clamp` | `min=1.0,max=-1.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `clamp_bw` | `default` | bit-exact | 0 | — | — | 2128 | 7885 |
 | wh | bf16 | `clip` | `min=-1.0,max=1.0` | bit-exact | 0 | — | 3.39e+38 | 349 | 48041 |
+| wh | bf16 | `clip` | `min=0.0,max=0.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
+| wh | bf16 | `clip` | `min=1.0,max=-1.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `clip_bw` | `default` | bit-exact | 0 | — | — | 2128 | 7882 |
 | wh | bf16 | `cos` | `default` | 21274 of 65024 points returned inf or zero where a value exists | 2.96e+38 | 2.71e+36 | 1.31e+05 | 402 ±16% | 41699 |
 | wh | bf16 | `cos_bw` | `default` | 21275 of 65024 points returned inf or zero where a value exists | 3.38e+38 | 2.53e+36 | 2.62e+05 | 1514 | 11081 |
@@ -551,11 +562,12 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | wh | bf16 | `hardshrink_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 1465 | 11453 |
 | wh | bf16 | `hardsigmoid` | `default` | within 2 ULP everywhere | 1 | 0.661 | 3.39e+38 | 349 | 48032 |
 | wh | bf16 | `hardsigmoid_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 2213 | 7580 |
-| wh | bf16 | `hardswish` | `default` | 2 of 65024 points returned inf or zero where a value exists | 2 | 1.01 | 2.33e-38 | 348 ±11% | 48174 |
 | wh | bf16 | `hardswish_bw` | `default` | accurate to |x| <= 1.13; up to 85 ULP beyond | 85 | 2.36 | 1.13 | 3101 | 5410 |
 | wh | bf16 | `hardtanh` | `default` | bit-exact | 0 | — | 3.39e+38 | 348 | 48273 |
 | wh | bf16 | `hardtanh_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 1875 | 8947 |
+| wh | bf16 | `heaviside` | `value=0.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `heaviside` | `value=0.5` | bit-exact | 0 | — | 3.39e+38 | 347 | 48292 |
+| wh | bf16 | `heaviside` | `value=1.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `hypot` | `default` | 16384 of 65026 points returned inf or zero where a value exists | 53 | 1.46 | — | 481 | 34863 |
 | wh | bf16 | `hypot_bw` | `default` | worst pairing 75 ULP; mean 2.44 | 75 | 2.44 | — | 2924 | 5738 |
 | wh | bf16 | `i0` | `default` | accurate to |x| <= 13.9; up to 255 ULP beyond | 255 | 56.4 | 13.9 | 474 ±13% | 35403 |
@@ -569,7 +581,9 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | wh | bf16 | `ldexp_bw` | `default` | within 2 ULP everywhere | 1 | 1 | — | 2401 | 6986 |
 | wh | bf16 | `le` | `default` | bit-exact | 0 | — | — | 459 | 36538 |
 | wh | bf16 | `le_` | `default` | bit-exact | 0 | — | — | 459 | 36564 |
+| wh | bf16 | `leaky_relu` | `negative_slope=0.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `leaky_relu` | `negative_slope=0.01` | within 2 ULP everywhere | 1 | 1 | 3.39e+38 | 351 | 47753 |
+| wh | bf16 | `leaky_relu` | `negative_slope=1.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `leaky_relu_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 1609 | 10427 |
 | wh | bf16 | `lerp` | `default` | worst pairing 1.77e+03 ULP; mean 40 | 1.77e+03 | 40 | — | 605 | 27740 |
 | wh | bf16 | `lerp_bw` | `default` | within 2 ULP everywhere | 1 | 1 | — | 2424 | 6920 |
@@ -623,6 +637,8 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | wh | bf16 | `nextafter` | `default` | worst pairing 1.3e+33 ULP; mean 2.32e+31 | 1.3e+33 | 2.32e+31 | — | 2709 | 6192 |
 | wh | bf16 | `nez` | `default` | bit-exact | 0 | — | 3.39e+38 | 353 | 47591 |
 | wh | bf16 | `polygamma` | `k=1` | 263 of 64769 points returned inf or zero where a value exists | 1.02e+08 | 1.32e+04 | 0.996 | 4948 | 3391 |
+| wh | bf16 | `polygamma` | `k=2` | 75 of 64769 points returned inf or zero where a value exists | 3.57e+08 | 6.81e+05 | 4.47 | — | — |
+| wh | bf16 | `polygamma` | `k=4` | 142 of 64769 points returned inf or zero where a value exists | 3.22e+09 | 1.09e+07 | 4.47 | — | — |
 | wh | bf16 | `polygamma_bw` | `n=1` | 75 of 49922 points returned inf or zero where a value exists | 3.57e+08 | 6.81e+05 | 4.47 | 10579 | 1586 |
 | wh | bf16 | `pow` | `default` | worst pairing 4.86e+18 ULP; mean 2.08e+14 | 4.86e+18 | 2.08e+14 | — | 887 | 18918 |
 | wh | bf16 | `pow_bw` | `exponent=2.0` | bit-exact | 0 | — | 1.69e+38 | 2226 | 7536 |
@@ -636,10 +652,15 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | wh | bf16 | `relu6` | `default` | bit-exact | 0 | — | 3.39e+38 | 349 | 48061 |
 | wh | bf16 | `relu6_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 3462 | 4846 |
 | wh | bf16 | `relu_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 1130 | 14846 |
+| wh | bf16 | `relu_max` | `upper_limit=0.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `relu_max` | `upper_limit=1.0` | bit-exact | 0 | — | 3.39e+38 | 351 | 47844 |
+| wh | bf16 | `relu_max` | `upper_limit=6.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
+| wh | bf16 | `relu_min` | `lower_limit=0.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `relu_min` | `lower_limit=1.0` | bit-exact | 0 | — | 3.39e+38 | 347 | 48295 |
 | wh | bf16 | `remainder` | `default` | worst pairing 6.65e+35 ULP; mean 1.06e+35 | 6.65e+35 | 1.06e+35 | — | 612 | 27398 |
 | wh | bf16 | `round` | `default` | bit-exact | 0 | — | 3.39e+38 | 347 ±6% | 48330 |
+| wh | bf16 | `rpow` | `exponent=0.5` | within 2 ULP everywhere | 1 | 0.843 | 3.39e+38 | — | — |
+| wh | bf16 | `rpow` | `exponent=1.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `rpow` | `exponent=2.0` | within 2 ULP everywhere | 1 | 0.843 | 3.39e+38 | 849 | 19763 |
 | wh | bf16 | `rpow_bw` | `exponent=2.0` | 32384 of 64768 points returned inf or zero where a value exists | 0 | — | 1.18e-38 | 2573 | 6521 |
 | wh | bf16 | `rsqrt` | `default` | bit-exact | 0 | — | 3.39e+38 | 400 ±13% | 41910 |
@@ -682,11 +703,12 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | wh | bf16 | `tanh_bw` | `default` | accurate to |x| <= 17.2; up to 55.5 ULP beyond | 55.5 | 2.23 | 17.2 | 1303 | 12871 |
 | wh | bf16 | `tanhshrink` | `default` | accurate to |x| <= 1.35e-08; up to 63.5 ULP beyond | 63.5 | 9.5 | 1.35e-08 | 486 ±10% | 34554 |
 | wh | bf16 | `tanhshrink_bw` | `default` | accurate to |x| <= 7.45e-09; up to 63 ULP beyond | 63 | 3.71 | 7.45e-09 | 1467 | 11438 |
+| wh | bf16 | `threshold` | `threshold=0.0,value=1.0` | bit-exact | 0 | — | 3.39e+38 | — | — |
 | wh | bf16 | `threshold` | `threshold=0.5,value=0.0` | bit-exact | 0 | — | 3.39e+38 | 347 ±5% | 48291 |
 | wh | bf16 | `threshold_bw` | `min=0.5,max=0.0` | bit-exact | 0 | — | 3.39e+38 | 1442 | 11634 |
 | wh | bf16 | `trunc` | `default` | bit-exact | 0 | — | 3.39e+38 | 349 ±5% | 48089 |
 | wh | bf16 | `where` | `default` | bit-exact | 0 | — | — | 607 | 27620 |
-| wh | bf16 | `xielu` | `default` | 1 of 56847 points returned inf or zero where a value exists | 1 | 1 | 2.33e-38 | 894 | 18771 |
+| wh | bf16 | `xielu` | `default` | 2 of 56847 points returned inf or zero where a value exists | 1.87e+38 | 3.67e+36 | 2.33e-38 | 894 | 18771 |
 | wh | bf16 | `xlogy` | `default` | worst pairing 897 ULP; mean 655 | 897 | 655 | — | 468 | 35884 |
 | wh | bf16 | `xlogy_bw` | `default` | within 2 ULP everywhere | 1 | 1 | — | 7800 | 2151 |
 | wh | fp32 | `abs` | `default` | bit-exact | 0 | — | 3.39e+38 | 687 | 24411 |
@@ -768,7 +790,6 @@ verdict rules is `report/charts.py::verdict`, and the two must change together.
 | wh | fp32 | `hardshrink_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 2885 | 5814 |
 | wh | fp32 | `hardsigmoid` | `default` | accurate to |x| <= 2.61; up to 4.89e+06 ULP beyond | 4.89e+06 | 1.25e+03 | 2.61 | 685 | 24486 |
 | wh | fp32 | `hardsigmoid_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 4535 | 3699 |
-| wh | fp32 | `hardswish` | `default` | accurate to |x| <= 2.36; up to 7.34e+06 ULP beyond | 7.34e+06 | 1.41e+03 | 2.36 | 728 | 23050 |
 | wh | fp32 | `hardswish_bw` | `default` | accurate to |x| <= 0.00179; up to 1.41e+10 ULP beyond | 1.41e+10 | 6e+06 | 0.00179 | 6431 | 2609 |
 | wh | fp32 | `hardtanh` | `default` | bit-exact | 0 | — | 3.39e+38 | 687 | 24414 |
 | wh | fp32 | `hardtanh_bw` | `default` | bit-exact | 0 | — | 3.39e+38 | 3827 | 4384 |
