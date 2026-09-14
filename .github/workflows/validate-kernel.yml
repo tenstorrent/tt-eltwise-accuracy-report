@@ -1,9 +1,3 @@
-# Is a kernel someone changed correct, and is it still fast?
-#
-# Name a tt-metal commit and the ops it touches. The run builds it, measures those ops on
-# the device and diffs them against the published report, times them against the published
-# timings, and fails when something got worse. Nothing is committed; the report is the
-# baseline, never the output. Runner contract as in nightly-report.yml.
 name: validate-kernel
 
 on:
@@ -34,14 +28,14 @@ on:
 jobs:
   validate:
     runs-on: ${{ inputs.arch == 'wh' && 'tt-ubuntu-2204-n300-stable' || 'tt-ubuntu-2204-p150b-stable' }}
-    # The build image, not the release one: validating a commit means building it.
     container:
       image: ghcr.io/tenstorrent/tt-metal/tt-metalium/ubuntu-22.04-ci-build-amd64:latest
       options: --device /dev/tenstorrent
+      volumes:
+        - /dev/hugepages-1G:/dev/hugepages-1G
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    # Shared with the nightly: one device, one sweep at a time.
     concurrency:
       group: nightly-report-${{ inputs.arch }}
       cancel-in-progress: false
@@ -54,17 +48,13 @@ jobs:
 
       - uses: ./.github/actions/tt-metal-env
         with:
-          fetch-depth: '0'      # it checks out the commit it was given
-          submodules: recursive
+          builds: 'true'
 
       - name: Build the candidate
-        # Inputs arrive as environment variables, never interpolated into the script.
         env:
           COMMIT: ${{ inputs.commit }}
         run: |
           cd "$TT_METAL_HOME"
-          # By URL, not remote name: a runner's origin may be a fork without this SHA.
-          # An abbreviation cannot be fetched: fall back to main and resolve against it.
           git fetch --recurse-submodules=no https://github.com/tenstorrent/tt-metal.git "$COMMIT" \
             && git checkout --force FETCH_HEAD \
             || { git fetch --recurse-submodules=no \
@@ -73,7 +63,6 @@ jobs:
                    || { echo "::error::$COMMIT is not a commit on tenstorrent/tt-metal"; exit 1; }; }
           git submodule update --init --recursive
           ./build_metal.sh
-          # Kernels compiled against the previous build segfault under new host code.
           rm -rf "$TT_METAL_CACHE"
           echo "SHA=$(git rev-parse --short=11 HEAD)" >> "$GITHUB_ENV"
 
@@ -85,23 +74,16 @@ jobs:
           MAX_ULP: ${{ inputs.max_ulp }}
           PARAMS: ${{ inputs.params }}
           LOGURU_FORMAT: "{message}"
-          # The summary is the product, so it carries findings and nothing else. loguru's
-          # DEBUG default prints ttnn's config banner twice; tt-metal's C++ logger colours
-          # its own output, which reaches a markdown code fence as literal escape codes.
-          # Both names: tt-metal reads TT_LOGGER_LEVEL now and TT_METAL_LOGGER_LEVEL before.
           LOGURU_LEVEL: INFO
           TT_LOGGER_LEVEL: error
           TT_METAL_LOGGER_LEVEL: error
         run: |
-          # The image also ships a ttnn; this job must measure the one it just built.
           python3 -c "
           import pathlib, ttnn
           p = pathlib.Path(ttnn.__file__)
           assert p.is_relative_to('$TT_METAL_HOME'), f'ttnn came from {p}, not $TT_METAL_HOME'
           print('ttnn', p)"
 
-          # Exit counts findings: variants that produced no data, timings that got slower,
-          # variants over the bar, and regressions. Non-zero is the answer, so let it stand.
           status=0
           python3 -m ttnn_accuracy.cli check --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" --perf \
             ${MAX_ULP:+--max-ulp "$MAX_ULP"} ${PARAMS:+--params "$PARAMS"} \
@@ -113,20 +95,16 @@ jobs:
             cat "$RUNNER_TEMP/check.log"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-          # check's last line already says what moved; this puts it on the run's face.
           [ "$status" -eq 0 ] || echo "::error::$status finding(s) — see the summary"
           exit "$status"
 
       - uses: actions/upload-artifact@v4
-        # Even after a failure: the log is the answer to the question that was asked.
         if: always()
         with:
           name: validate-${{ inputs.arch }}-${{ github.run_id }}
-          path: ${{ runner.temp }}/check.log
+          path: ${{ env.RUNNER_TEMP }}/check.log
           retention-days: 14
 
       - name: Leave the checkout clean
-        # `check` onboards an op the manifest lacks, which rewrites it; that belongs in a
-        # commit someone makes deliberately, not in a validation run's workspace.
         if: always()
         run: git checkout -- stats/ 2>/dev/null || true

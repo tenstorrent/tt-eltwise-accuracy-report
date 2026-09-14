@@ -5,63 +5,50 @@ inputs:
   ref:
     description: tt-metal ref to check out; empty takes the default branch
     default: ""
-  fetch-depth:
-    description: 1 to read `models`, 0 when the job will build a commit it names
-    default: "1"
-  submodules:
-    description: recursive when the job will build
+  builds:
+    description: true when the job builds tt-metal itself, in the ci-build image
     default: "false"
 
 runs:
   using: composite
   steps:
-    # The image ships a compiled ttnn, but `models` resolves onto the source tree and
-    # metrics.py imports tt-metal's own ULP from it rather than reimplementing it.
     - uses: actions/checkout@v4
       with:
         repository: tenstorrent/tt-metal
         ref: ${{ inputs.ref }}
         path: tt-metal
-        fetch-depth: ${{ inputs.fetch-depth }}
-        submodules: ${{ inputs.submodules }}
+        fetch-depth: ${{ inputs.builds == 'true' && '0' || '1' }}
+        submodules: ${{ inputs.builds == 'true' && 'recursive' || 'false' }}
 
     - shell: bash
       run: |
-        # The workspace belongs to the runner user and the container runs as root.
         git config --global --add safe.directory "$GITHUB_WORKSPACE"
         git config --global --add safe.directory "$GITHUB_WORKSPACE/tt-metal"
         echo "TT_METAL_HOME=$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
         echo "TT_METAL_CACHE=$RUNNER_TEMP/kernel-cache" >> "$GITHUB_ENV"
         echo "DATA_DIR=$RUNNER_TEMP/data" >> "$GITHUB_ENV"
         echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
-        # uv, never pip: the image's /opt/venv is built by `uv venv` and ships no pip, so
-        # a bare pip is some other interpreter and installs where python3 cannot see it.
-        # uv is copied in a builder stage, so it may not survive into every image.
         command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
-        export PATH="$HOME/.local/bin:$PATH"        # this step
-        echo "$HOME/.local/bin" >> "$GITHUB_PATH"   # and every step after it
-        # `--python` targets the interpreter that will import, whatever the layout is.
-        # torch is pinned to tt-metal's own version so the fp64 golden cannot drift from
-        # the one the report was measured against; the image ships ttnn, not torch.
+        export PATH="$HOME/.local/bin:$PATH"
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
         uv pip install --quiet --python "$(command -v python3)" \
           torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
-        # The project itself, so pyproject declares its dependencies once instead of here.
-        # pytest and typing_extensions are tt-metal's: utility_functions imports both at
-        # module scope, so importing its ULP drags them in and the image ships neither.
         uv pip install --quiet --python "$(command -v python3)" \
           -e "$GITHUB_WORKSPACE" pytest typing-extensions
 
     - shell: bash
-      # Every stage module, because cli.py imports them lazily per subcommand: a missing
-      # dependency must fail here, not six hours into a sweep that already took the device.
-      # No PYTHONPATH of its own — it has to fail on the same environment later steps get.
+      run: python3 -c "import sys, torch; print(sys.executable, torch.__version__)"
+
+    - if: inputs.builds != 'true'
+      shell: bash
       run: |
         python3 -c "
-        import sys, ttnn, torch, pathlib
+        import pathlib, ttnn
         import models.common.utility_functions as golden
-        import ttnn_accuracy.ops.manifest, ttnn_accuracy.measure.runner, ttnn_accuracy.measure.perf
-        import ttnn_accuracy.report.charts, ttnn_accuracy.report.pages, ttnn_accuracy.report.compare
-        print('python', sys.executable)
+        import ttnn_accuracy.ops.manifest, ttnn_accuracy.measure.runner
+        import ttnn_accuracy.measure.perf, ttnn_accuracy.report.charts
+        import ttnn_accuracy.report.pages, ttnn_accuracy.report.compare
         print('ttnn  ', pathlib.Path(ttnn.__file__).parent)
         print('golden', pathlib.Path(golden.__file__).parent)
-        print('torch ', torch.__version__)"
+        ttnn.close_device(ttnn.open_device(device_id=0))
+        print('device open/close ok')"

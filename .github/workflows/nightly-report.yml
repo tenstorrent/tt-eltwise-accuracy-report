@@ -1,16 +1,7 @@
-# Periodic report regeneration, no human intervention (the epic's automation bullet).
-#
-# Runs on the shared org runner pool, in tt-metal's own release image, so nothing is
-# assumed about the machine: `ttnn` comes from the image and `models` (tt-metal's ULP,
-# which this report imports rather than reimplements) from a shallow checkout at the same
-# tag. DATA_DIR is the runner's scratch and does not survive the job, so every night
-# re-measures from zero — `measured_at` can only resume within one run.
 name: nightly-report
 
 on:
   schedule:
-    # Not on the hour: GitHub drops scheduled runs at :00 under load, and this one never
-    # fired once — every report so far has been a button press.
     - cron: "37 2 * * *"
   workflow_dispatch:
     inputs:
@@ -20,22 +11,17 @@ on:
         options: [both, wh, bh]
         default: both
 
-
 permissions:
   contents: write
 
 jobs:
   pin:
-    # One release for the whole night. The bh job starts hours after wh, so resolving
-    # separately per job would measure the two architectures on different tt-metal.
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.tt.outputs.version }}
       targets: ${{ steps.targets.outputs.list }}
     steps:
       - id: tt
-        # A published tag, not main's SHA: the image and the `models` checkout have to be
-        # one version, and only releases have an image built for them.
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -44,8 +30,6 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - id: targets
-        # arch carries its runner label: the shared pool names a flavour per card, and a
-        # matrix over arch alone cannot say which flavour each one needs.
         run: |
           wh='{"arch":"wh","runner":"tt-ubuntu-2204-n300-stable"}'
           bh='{"arch":"bh","runner":"tt-ubuntu-2204-p150b-stable"}'
@@ -61,21 +45,17 @@ jobs:
     strategy:
       matrix:
         target: ${{ fromJSON(needs.pin.outputs.targets) }}
-      # Serial, because both jobs regenerate report_index.json and reports/: git cannot
-      # merge those textually, and a rebase conflict poisons the tree for every retry.
-      # A nightly has all night, and one writer at a time is cheaper than teaching two
-      # jobs to merge generated JSON.
       max-parallel: 1
-      fail-fast: false  # one architecture failing must not cancel the other
+      fail-fast: false
     runs-on: ${{ matrix.target.runner }}
     container:
       image: ghcr.io/tenstorrent/tt-metal/tt-metalium-ubuntu-22.04-release-amd64:${{ needs.pin.outputs.version }}
       options: --device /dev/tenstorrent
+      volumes:
+        - /dev/hugepages-1G:/dev/hugepages-1G
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    # Per architecture, not per workflow: the two use different machines and devices, and
-    # the only thing they share is the push, which rebases and retries.
     concurrency:
       group: nightly-report-${{ matrix.target.arch }}
       cancel-in-progress: false
@@ -86,43 +66,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # the publish step rebases; a shallow clone cannot
+          fetch-depth: 0
 
       - uses: ./.github/actions/tt-metal-env
         with:
           ref: ${{ needs.pin.outputs.version }}
 
       - name: Measure and regenerate
-        # DATA_DIR is read by every stage, so measure writes where charts will look.
         run: |
           ttnn-accuracy() { python3 -m ttnn_accuracy.cli "$@"; }
           ttnn-accuracy discover
           ttnn-accuracy derive
-          ttnn-accuracy probe   # outlives a crashing op on its own; see probe_layouts
-          # measure exits with the number of variants that produced no data, which is a
-          # finding the report carries — not a reason to discard the categories after it,
-          # nor the charts and pages built from everything that did measure.
-          # Measuring is hours of device time and the device can go away under it — a
-          # reset, a bus error, an expiring reservation. A second attempt resumes from
-          # the CSVs the first one wrote, so an interruption costs one op, not the night.
+          ttnn-accuracy probe
           empty=0
           for cat in unary unary_bw binary binary_bw ternary ternary_bw; do
             for attempt in 1 2; do
-              # `|| status=$?`, never a bare call: the shell runs with -e, so a non-zero
-              # exit — which here is a count of findings, not an error — would kill the
-              # step and abandon every category after this one.
               status=0
               ttnn-accuracy measure --arch "${{ matrix.target.arch }}" --category "$cat" --dtype both ||
                 status=$?
-              if [ "$status" -lt 128 ]; then   # a count of empty variants, not a signal
+              if [ "$status" -lt 128 ]; then
                 empty=$((empty + status))
                 break
               fi
               echo "::warning::$cat died with signal $((status - 128)), resuming"
             done
           done
-          # Timed on the build just measured, so a page's µs and its ULP are one kernel.
-          # Non-zero is a count or a signal; perf writes per op, so partial results stand.
           status=0
           ttnn-accuracy perf --arch "${{ matrix.target.arch }}" || status=$?
           [ "$status" -eq 0 ] || echo "::warning::perf exited $status — see the log for which"
@@ -131,11 +99,7 @@ jobs:
           [ "$empty" -eq 0 ] || echo "::warning::$empty variant(s) produced no data — see the report"
 
       - name: Say what moved
-        # The run page is where someone looks, so the diff against last night's committed
-        # index is written there. Never gating: a change is news, not a failure.
         env:
-          # loguru's default format carries colour markup and a timestamp/level/module
-          # prefix, both of which reach the summary as literal escape codes.
           LOGURU_FORMAT: "{message}"
         run: |
           git show HEAD:report_index.json > "$RUNNER_TEMP/previous.json" 2>/dev/null || exit 0
@@ -147,17 +111,12 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publish
-        # The other architecture may have pushed while this job measured, so rebase onto
-        # it rather than racing; nothing to commit is a success, not a failure.
         run: |
-          # ask.md too: its raw URL is published, and leaving it out made that link a 404.
           git add -A reports/ report_index.json stats/ analyze-report/ask.md
           git diff --cached --quiet && { echo "no change to publish"; exit 0; }
           git -c user.name=nightly-report -c user.email=nightly@users.noreply.github.com \
             commit -m "data(${{ matrix.target.arch }}): nightly report at ${{ needs.pin.outputs.version }}"
           for attempt in 1 2 3; do
-            # Abort first: a conflicted rebase left by the previous attempt makes every
-            # later pull fail with "unmerged files" rather than retrying anything.
             git rebase --abort 2>/dev/null || true
             git pull --rebase origin "$GITHUB_REF_NAME" &&
               git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
@@ -167,9 +126,6 @@ jobs:
           exit 1
 
       - name: Leave the workspace detached
-        # The next run's checkout deletes every local branch before reusing the clone, and
-        # cannot delete the one still checked out here — it then re-clones the whole
-        # history instead. A rebase left in progress blocks its detach for the same reason.
         if: always()
         run: |
           git rebase --abort 2>/dev/null || true
