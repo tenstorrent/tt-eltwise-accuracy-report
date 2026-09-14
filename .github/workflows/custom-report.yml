@@ -63,7 +63,6 @@ jobs:
         # arbitrary shell on the runner.
         env:
           DATA_DIR: ${{ runner.temp }}/custom-data
-          PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}/tt-metal
           OPS: ${{ inputs.ops }}
           PARAMS: ${{ inputs.params }}
           ARCH: ${{ inputs.arch }}

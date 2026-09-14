@@ -54,12 +54,14 @@ runs:
     - shell: bash
       # Every stage module, because cli.py imports them lazily per subcommand: a missing
       # dependency must fail here, not six hours into a sweep that already took the device.
+      # No PYTHONPATH of its own — it has to fail on the same environment later steps get.
       run: |
-        PYTHONPATH="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" python3 -c "
+        python3 -c "
         import sys, ttnn, torch, pathlib
-        from models.common.utility_functions import ulp
+        import models.common.utility_functions as golden
         import ttnn_accuracy.ops.manifest, ttnn_accuracy.measure.runner, ttnn_accuracy.measure.perf
         import ttnn_accuracy.report.charts, ttnn_accuracy.report.pages, ttnn_accuracy.report.compare
         print('python', sys.executable)
         print('ttnn  ', pathlib.Path(ttnn.__file__).parent)
+        print('golden', pathlib.Path(golden.__file__).parent)
         print('torch ', torch.__version__)"
