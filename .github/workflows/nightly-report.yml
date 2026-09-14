@@ -1,13 +1,10 @@
 # Periodic report regeneration, no human intervention (the epic's automation bullet).
 #
-# Runner contract — a self-hosted runner labelled `wh` or `bh`, on a machine with that
-# device, whose environment provides:
-#   TT_METAL_HOME  a tt-metal checkout the runner may rebuild (any remote layout)
-#   PYTHON_ENV     its venv, with ttnn and torch importable
-#   DATA_DIR       a large local disk for the raw CSVs (hundreds of GB, never committed)
-#
-# Nothing else is assumed: not where the venv sits relative to tt-metal, not which
-# remote the checkout tracks, not that the machines have separate home directories.
+# Runs on the shared org runner pool, in tt-metal's own release image, so nothing is
+# assumed about the machine: `ttnn` comes from the image and `models` (tt-metal's ULP,
+# which this report imports rather than reimplements) from a shallow checkout at the same
+# tag. DATA_DIR is the runner's scratch and does not survive the job, so every night
+# re-measures from zero — `measured_at` can only resume within one run.
 name: nightly-report
 
 on:
@@ -29,30 +26,34 @@ permissions:
 
 jobs:
   pin:
-    # One SHA for the whole night. The bh job starts hours after wh, so resolving main
-    # separately per job would measure the two architectures on different builds.
+    # One release for the whole night. The bh job starts hours after wh, so resolving
+    # separately per job would measure the two architectures on different tt-metal.
     runs-on: ubuntu-latest
     outputs:
-      sha: ${{ steps.tt.outputs.sha }}
-      archs: ${{ steps.archs.outputs.list }}
+      version: ${{ steps.tt.outputs.version }}
+      targets: ${{ steps.targets.outputs.list }}
     steps:
       - id: tt
-        # The fully qualified ref: tt-metal also has branches like `bliu/main`, and a
-        # bare `main` matches them too, putting two SHAs in the output.
+        # A published tag, not main's SHA: the image and the `models` checkout have to be
+        # one version, and only releases have an image built for them.
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          set -euo pipefail
-          sha=$(git ls-remote https://github.com/tenstorrent/tt-metal.git refs/heads/main | awk '{print $1}')
-          [ ${#sha} -eq 40 ] || { echo "resolved '$sha', not one SHA"; exit 1; }
-          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          version=$(gh release list --repo tenstorrent/tt-metal --limit 1 --json tagName \
+            --jq '.[0].tagName' | sed 's/^v//')
+          [ -n "$version" ] || { echo "no tt-metal release resolved"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - id: archs
-        # Only measure what has a runner today: a job for an unregistered label queues
-        # for hours and then times out, which reads as a failure rather than a choice.
+      - id: targets
+        # arch carries its runner label: the shared pool names a flavour per card, and a
+        # matrix over arch alone cannot say which flavour each one needs.
         run: |
+          wh='{"arch":"wh","runner":"tt-ubuntu-2204-n300-stable"}'
+          bh='{"arch":"bh","runner":"tt-ubuntu-2204-p150b-stable"}'
           case "${{ inputs.arch || 'both' }}" in
-            wh) list='["wh"]' ;;
-            bh) list='["bh"]' ;;
-            *)  list='["wh","bh"]' ;;
+            wh) list="[$wh]" ;;
+            bh) list="[$bh]" ;;
+            *)  list="[$wh,$bh]" ;;
           esac
           echo "list=$list" >> "$GITHUB_OUTPUT"
 
@@ -60,18 +61,21 @@ jobs:
     needs: pin
     strategy:
       matrix:
-        arch: ${{ fromJSON(needs.pin.outputs.archs) }}
+        target: ${{ fromJSON(needs.pin.outputs.targets) }}
       # Serial, because both jobs regenerate report_index.json and reports/: git cannot
       # merge those textually, and a rebase conflict poisons the tree for every retry.
       # A nightly has all night, and one writer at a time is cheaper than teaching two
       # jobs to merge generated JSON.
       max-parallel: 1
       fail-fast: false  # one architecture failing must not cancel the other
-    runs-on: [self-hosted, "${{ matrix.arch }}"]
+    runs-on: ${{ matrix.target.runner }}
+    container:
+      image: ghcr.io/tenstorrent/tt-metal/tt-metalium-ubuntu-22.04-release-amd64:${{ needs.pin.outputs.version }}
+      options: --device /dev/tenstorrent
     # Per architecture, not per workflow: the two use different machines and devices, and
     # the only thing they share is the push, which rebases and retries.
     concurrency:
-      group: nightly-report-${{ matrix.arch }}
+      group: nightly-report-${{ matrix.target.arch }}
       cancel-in-progress: false
     timeout-minutes: 720
     defaults:
@@ -82,61 +86,36 @@ jobs:
         with:
           fetch-depth: 0   # the publish step rebases; a shallow clone cannot
 
-      - name: Check the runner contract
-        run: |
-          for var in TT_METAL_HOME PYTHON_ENV DATA_DIR; do
-            [ -n "${!var:-}" ] || { echo "$var is unset — see the runner contract above"; exit 1; }
-          done
-          [ -x "$TT_METAL_HOME/build_metal.sh" ] || { echo "no tt-metal at $TT_METAL_HOME"; exit 1; }
-          [ -f "$PYTHON_ENV/bin/activate" ] || { echo "no venv at $PYTHON_ENV"; exit 1; }
-          command -v uv >/dev/null || { echo "uv is not on PATH — the venv has no pip"; exit 1; }
-          mkdir -p "$DATA_DIR"
-          # Kernel cache on the machine's own disk, one per architecture. The default
-          # lives under $HOME, which these runners share over NFS: both jobs would then
-          # compile into one directory, and neither could clear it while the other holds
-          # files open. Written through GITHUB_ENV because the runner's environment is
-          # visible to the shell, never to the `env` expression context.
-          echo "TT_METAL_CACHE=$DATA_DIR/kernel-cache-${{ matrix.arch }}" >> "$GITHUB_ENV"
+      - name: tt-metal source for `models`
+        # The image ships a compiled ttnn but `models` resolves through a .pth onto the
+        # source tree, and metrics.py imports tt-metal's own ULP from it. Same tag as the
+        # image, so the reference cannot drift from the kernels it scores.
+        uses: actions/checkout@v4
+        with:
+          repository: tenstorrent/tt-metal
+          ref: v${{ needs.pin.outputs.version }}
+          path: tt-metal
+          fetch-depth: 1
 
-      - name: Build tt-metal at the pinned SHA
-        # Fetched by URL, not by remote name: a runner's checkout may have `origin` on a
-        # personal fork, where the SHA the pin job resolved upstream does not exist.
-        # cd in the shell, never `working-directory: ${{ env.TT_METAL_HOME }}`: the env
-        # context holds only what the workflow file declares, so that expression is
-        # empty and every command below would run in this repo's checkout — which once
-        # overwrote it with tt-metal and repointed the venv at it.
+      - name: Check what the image provides
         run: |
-          cd "$TT_METAL_HOME"
-          git fetch --recurse-submodules=no \
-            https://github.com/tenstorrent/tt-metal.git ${{ needs.pin.outputs.sha }}
-          git checkout --force ${{ needs.pin.outputs.sha }}
-          git submodule update --init --recursive
-          ./build_metal.sh
-          # Kernels compiled against the previous build segfault when dispatched against
-          # new host code, and the cache key does not capture that. This cache belongs to
-          # this architecture on this disk, so nothing else can be holding it open.
-          rm -rf "$TT_METAL_CACHE"
+          echo "DATA_DIR=$RUNNER_TEMP/data" >> "$GITHUB_ENV"
+          echo "TT_METAL_CACHE=$RUNNER_TEMP/kernel-cache" >> "$GITHUB_ENV"
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal:${PYTHONPATH:-}" \
+            >> "$GITHUB_ENV"
+          pip install --quiet matplotlib pandas numpy loguru
+          # Named one by one: "no module named ttnn" three layers into a sweep is the
+          # expensive way to learn the image changed.
+          PYTHONPATH="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" python3 -c "
+          import ttnn, torch, pathlib
+          from models.common.utility_functions import ulp
+          print('ttnn ', pathlib.Path(ttnn.__file__).parent)
+          print('torch', torch.__version__)"
 
       - name: Measure and regenerate
         # DATA_DIR is read by every stage, so measure writes where charts will look.
-        # uv, not pip: tt-metal's venv is built by uv and has no pip of its own, so
-        # `pip install` would silently fall through to the system one.
         run: |
-          source "$PYTHON_ENV/bin/activate"
-          # Never install: the venv is shared with whoever uses this machine, and
-          # `pip install -e .` rebinds their editable checkout to this workspace. Running
-          # from source needs no install and mutates nothing.
-          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
           ttnn-accuracy() { python3 -m ttnn_accuracy.cli "$@"; }
-          # The venv reaches ttnn through a .pth of absolute paths, so a build run from
-          # the wrong directory silently repoints it. Importing the wrong ttnn against a
-          # freshly built libttnn segfaults, so refuse to measure rather than crash.
-          python3 -c "
-          import pathlib, ttnn, ttnn_accuracy
-          for mod, root in ((ttnn, '$TT_METAL_HOME'), (ttnn_accuracy, '$GITHUB_WORKSPACE')):
-              p = pathlib.Path(mod.__file__)
-              assert p.is_relative_to(root), f'{mod.__name__} came from {p}, not {root}'
-              print(mod.__name__, p)"
           ttnn-accuracy discover
           ttnn-accuracy derive
           ttnn-accuracy probe   # outlives a crashing op on its own; see probe_layouts
@@ -153,7 +132,7 @@ jobs:
               # exit — which here is a count of findings, not an error — would kill the
               # step and abandon every category after this one.
               status=0
-              ttnn-accuracy measure --arch "${{ matrix.arch }}" --category "$cat" --dtype both ||
+              ttnn-accuracy measure --arch "${{ matrix.target.arch }}" --category "$cat" --dtype both ||
                 status=$?
               if [ "$status" -lt 128 ]; then   # a count of empty variants, not a signal
                 empty=$((empty + status))
@@ -165,7 +144,7 @@ jobs:
           # Timed on the build just measured, so a page's µs and its ULP are one kernel.
           # Non-zero is a count or a signal; perf writes per op, so partial results stand.
           status=0
-          ttnn-accuracy perf --arch "${{ matrix.arch }}" || status=$?
+          ttnn-accuracy perf --arch "${{ matrix.target.arch }}" || status=$?
           [ "$status" -eq 0 ] || echo "::warning::perf exited $status — see the log for which"
           ttnn-accuracy charts
           ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
@@ -179,11 +158,9 @@ jobs:
           # prefix, both of which reach the summary as literal escape codes.
           LOGURU_FORMAT: "{message}"
         run: |
-          source "$PYTHON_ENV/bin/activate"
-          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
           git show HEAD:report_index.json > "$RUNNER_TEMP/previous.json" 2>/dev/null || exit 0
           {
-            echo "## ${{ matrix.arch }} at ${{ needs.pin.outputs.sha }}"
+            echo "## ${{ matrix.target.arch }} at ${{ needs.pin.outputs.version }}"
             echo '```'
             python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" 2>&1 || true
             echo '```'
@@ -197,7 +174,7 @@ jobs:
           git add -A reports/ report_index.json stats/ analyze-report/ask.md
           git diff --cached --quiet && { echo "no change to publish"; exit 0; }
           git -c user.name=nightly-report -c user.email=nightly@users.noreply.github.com \
-            commit -m "data(${{ matrix.arch }}): nightly report at ${{ needs.pin.outputs.sha }}"
+            commit -m "data(${{ matrix.target.arch }}): nightly report at ${{ needs.pin.outputs.version }}"
           for attempt in 1 2 3; do
             # Abort first: a conflicted rebase left by the previous attempt makes every
             # later pull fail with "unmerged files" rather than retrying anything.

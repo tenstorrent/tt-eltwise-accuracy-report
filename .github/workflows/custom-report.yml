@@ -22,8 +22,26 @@ on:
         default: bf16
 
 jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tt.outputs.version }}
+    steps:
+      - id: tt
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(gh release list --repo tenstorrent/tt-metal --limit 1 --json tagName \
+            --jq '.[0].tagName' | sed 's/^v//')
+          [ -n "$version" ] || { echo "no tt-metal release resolved"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
   measure:
-    runs-on: [self-hosted, "${{ inputs.arch }}"]
+    needs: resolve
+    runs-on: ${{ inputs.arch == 'wh' && 'tt-ubuntu-2204-n300-stable' || 'tt-ubuntu-2204-p150b-stable' }}
+    container:
+      image: ghcr.io/tenstorrent/tt-metal/tt-metalium-ubuntu-22.04-release-amd64:${{ needs.resolve.outputs.version }}
+      options: --device /dev/tenstorrent
     timeout-minutes: 240
     defaults:
       run:
@@ -31,11 +49,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check the runner contract
+      - name: tt-metal source for `models`
+        uses: actions/checkout@v4
+        with:
+          repository: tenstorrent/tt-metal
+          ref: v${{ needs.resolve.outputs.version }}
+          path: tt-metal
+          fetch-depth: 1
+
+      - name: Check what the image provides
         run: |
-          for var in TT_METAL_HOME PYTHON_ENV DATA_DIR; do
-            [ -n "${!var:-}" ] || { echo "$var is unset"; exit 1; }
-          done
+          pip install --quiet matplotlib pandas numpy loguru
+          PYTHONPATH="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" python3 -c "
+          import ttnn, torch
+          from models.common.utility_functions import ulp
+          print('ttnn and torch', torch.__version__)"
 
       - name: Measure at the requested parameters
         # Its own DATA_DIR and no build: this measures whatever tt-metal the runner
@@ -45,13 +73,12 @@ jobs:
         # arbitrary shell on the runner.
         env:
           DATA_DIR: ${{ runner.temp }}/custom-data
+          PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}/tt-metal
           OPS: ${{ inputs.ops }}
           PARAMS: ${{ inputs.params }}
           ARCH: ${{ inputs.arch }}
           DTYPE: ${{ inputs.dtype }}
         run: |
-          source "$PYTHON_ENV/bin/activate"
-          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
           # `|| status=$?`, never a bare call: the shell runs with -e, and measure exits
           # with the number of variants that produced no data. Someone trying a parameter
           # that does not work is the likeliest user of this form, and the report of what

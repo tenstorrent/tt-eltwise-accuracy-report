@@ -31,13 +31,14 @@ mistaken for a broken op. Sampled sweeps say so on every page — their maxima a
 
 ## Workflows
 
-Everything runs from the Actions tab; no machine of your own. Only the nightly writes to the
-repository, so no other run can overwrite a published baseline.
+Everything runs from the Actions tab on the shared org runner pool, in tt-metal's own
+container images — no machine of your own, nothing to provision. Only the nightly writes to
+the repository, so no other run can overwrite a published baseline.
 
 | Workflow | Trigger | Answers | Output |
 |---|---|---|---|
 | [validate-kernel](.github/workflows/validate-kernel.yml) | dispatch | did my change break or slow anything? | pass/fail + log |
-| [nightly-report](.github/workflows/nightly-report.yml) | 02:00 cron, dispatch | what does every op do today? | commits the report |
+| [nightly-report](.github/workflows/nightly-report.yml) | 02:37 cron, dispatch | what does every op do today? | commits the report |
 | [analyze-report](.github/workflows/analyze-report.yml) | after a nightly | what moved last night? | commits findings, opens an issue |
 | [perf-report](.github/workflows/perf-report.yml) | dispatch | how fast, and what did this commit cost? | timings artifact |
 | [custom-report](.github/workflows/custom-report.yml) | dispatch | what happens at a parameter the report lacks? | report artifact |
@@ -71,9 +72,9 @@ that produced no data — so it gates a generated-kernel loop directly.
 <details>
 <summary><b>nightly-report</b> — regenerate and publish, no human</summary>
 
-One tt-metal SHA is pinned for the whole night so both architectures measure the same build.
-Each runner then discovers, derives domains, probes layouts, measures six categories in both
-dtypes, times every variant, and rebuilds the charts and pages.
+One tt-metal release tag is pinned for the whole night so both architectures measure the
+same version. Each job then discovers, derives domains, probes layouts, measures six
+categories in both dtypes, times every variant, and rebuilds the charts and pages.
 
 `arch` selects `both` (default), `wh` or `bh`. 12 h per architecture, run one at a time
 because both push the same branch. Commits `reports/`, `report_index.json`, `stats/` and
@@ -107,9 +108,8 @@ Timings never enter the accuracy score: a difference here can be the room.
 <details>
 <summary><b>custom-report</b> — parameters the published report does not carry</summary>
 
-`ops` plus `params` (e.g. `relu_max=6,leaky_relu=0.2`). No rebuild — it measures whatever
-tt-metal the runner already has, and hands back the full report tree as an artifact. Nothing
-is committed.
+`ops` plus `params` (e.g. `relu_max=6,leaky_relu=0.2`). No build — it measures the pinned
+tt-metal release and hands back the full report tree as an artifact. Nothing is committed.
 
 </details>
 

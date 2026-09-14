@@ -2,14 +2,25 @@
 
 | Workflow | Trigger | Device | Publishes |
 |---|---|---|---|
-| [nightly-report.yml](nightly-report.yml) | cron 02:00, dispatch | `wh` + `bh` | commits `reports/`, `report_index.json`, `stats/` |
+| [nightly-report.yml](nightly-report.yml) | cron 02:37, dispatch | `wh` + `bh` | commits `reports/`, `report_index.json`, `stats/` |
 | [analyze-report.yml](analyze-report.yml) | after a nightly | none | commits `analyze-report/findings.md`, opens an issue on a regression |
 | [validate-kernel.yml](validate-kernel.yml) | dispatch | one arch | artifact only — builds a commit you name, checks the ops it touches, fails on a finding |
 | [perf-report.yml](perf-report.yml) | dispatch | one arch | artifact only — timings for one commit, or the diff between two |
 | [custom-report.yml](custom-report.yml) | dispatch | one arch | artifact only — a report at parameters you name |
 
 Only the nightly writes to the repository, so no other run can overwrite a baseline.
-Runners labelled `wh` and `bh` are registered; the cron is live.
+
+Every device job runs on the shared org pool in a tt-metal container image, so nothing is
+assumed about the machine. Two shapes, because the workflows need different things:
+
+| | Image | Runner | Why |
+|---|---|---|---|
+| nightly, custom-report | `tt-metalium-ubuntu-22.04-release-amd64:<tag>` | `tt-ubuntu-2204-n300-stable` / `-p150b-stable` | they need *a* tt-metal, so a released one serves and no build is needed |
+| perf-report, validate-kernel | `tt-metalium/ubuntu-22.04-ci-build-amd64` | same | building the commit you name *is* the feature, and a release image only answers for commits already released |
+
+`ttnn` comes from the image; `models` — tt-metal's own ULP, which this report imports
+rather than reimplements — from a shallow checkout at the same tag. `DATA_DIR` is the
+runner's scratch and does not survive the job, so a night cannot resume from the last one.
 
 ## Validating a change
 
@@ -30,9 +41,9 @@ is read from git rather than re-measured.
 
 ```mermaid
 flowchart LR
-    CRON["cron 02:00<br/>or manual dispatch"] --> WH
+    CRON["cron 02:37<br/>or manual dispatch"] --> WH
     subgraph serial["one job at a time — both push the same branch"]
-        WH["measure on wh runner"] --> BH["measure on bh runner"]
+        WH["measure on n300"] --> BH["measure on p150b"]
     end
     BH --> DONE["report updated,<br/>no human involved"]
 ```
@@ -41,7 +52,7 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A["checkout"] --> B["rebuild tt-metal at the night's<br/>pinned SHA — both archs, one build"]
+    A["checkout + tt-metal source at the pinned tag"] --> B["release image supplies ttnn"]
     B --> C["discover · derive · probe<br/>manifest refreshed, per-arch layouts"]
     C --> D["measure: 6 categories × both dtypes"]
     D --> P["perf: time every variant<br/>on the build just measured"]
@@ -52,10 +63,10 @@ flowchart TD
 | Property | Choice |
 |---|---|
 | trigger | nightly cron + `workflow_dispatch` |
-| runners | `[self-hosted, wh]` / `[self-hosted, bh]`, matrix `max-parallel: 1` |
-| tt-metal version | `main`'s SHA resolved once per night, both archs build it — recorded in `stats/runs/` |
+| runners | `tt-ubuntu-2204-n300-stable` / `-p150b-stable`, matrix `max-parallel: 1` |
+| tt-metal version | the latest release tag, resolved once per night so both archs measure one version — recorded in `stats/runs/` |
 | gate | none — regenerate and publish; `compare` exists as a manual tool |
-| runner provides | `TT_METAL_HOME` (built checkout), `PYTHON_ENV`, `DATA_DIR` |
+| image provides | `ttnn` and `torch`; `models` from a checkout at the same tag |
 | timeout | 12 h per arch |
 
 ## After it lands

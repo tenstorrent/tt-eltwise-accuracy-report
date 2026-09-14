@@ -33,7 +33,11 @@ on:
 
 jobs:
   validate:
-    runs-on: [self-hosted, "${{ inputs.arch }}"]
+    runs-on: ${{ inputs.arch == 'wh' && 'tt-ubuntu-2204-n300-stable' || 'tt-ubuntu-2204-p150b-stable' }}
+    # The build image, not the release one: validating a commit means building it.
+    container:
+      image: ghcr.io/tenstorrent/tt-metal/tt-metalium/ubuntu-22.04-ci-build-amd64:latest
+      options: --device /dev/tenstorrent
     # Shared with the nightly: one device, one sweep at a time.
     concurrency:
       group: nightly-report-${{ inputs.arch }}
@@ -45,13 +49,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check the runner contract
+      - name: tt-metal to build
+        uses: actions/checkout@v4
+        with:
+          repository: tenstorrent/tt-metal
+          path: tt-metal
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Where this job puts things
         run: |
-          for var in TT_METAL_HOME PYTHON_ENV DATA_DIR; do
-            [ -n "${!var:-}" ] || { echo "$var is unset — see the runner contract"; exit 1; }
-          done
-          [ -x "$TT_METAL_HOME/build_metal.sh" ] || { echo "no tt-metal at $TT_METAL_HOME"; exit 1; }
-          echo "TT_METAL_CACHE=$DATA_DIR/kernel-cache-${{ inputs.arch }}" >> "$GITHUB_ENV"
+          echo "TT_METAL_HOME=$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
+          echo "TT_METAL_CACHE=$RUNNER_TEMP/kernel-cache" >> "$GITHUB_ENV"
+          echo "DATA_DIR=$RUNNER_TEMP/data" >> "$GITHUB_ENV"
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
+          pip install --quiet matplotlib pandas numpy loguru
 
       - name: Build the candidate
         # Inputs arrive as environment variables, never interpolated into the script.
@@ -89,10 +101,7 @@ jobs:
           TT_LOGGER_LEVEL: error
           TT_METAL_LOGGER_LEVEL: error
         run: |
-          source "$PYTHON_ENV/bin/activate"
-          export PYTHONPATH="$GITHUB_WORKSPACE/src:${PYTHONPATH:-}"
-          # The venv reaches ttnn through a .pth of absolute paths, so a build run from the
-          # wrong directory silently repoints it, and the wrong ttnn segfaults on the new lib.
+          # The image also ships a ttnn; this job must measure the one it just built.
           python3 -c "
           import pathlib, ttnn
           p = pathlib.Path(ttnn.__file__)
@@ -128,6 +137,4 @@ jobs:
         # `check` onboards an op the manifest lacks, which rewrites it; that belongs in a
         # commit someone makes deliberately, not in a validation run's workspace.
         if: always()
-        run: |
-          git checkout -- stats/ 2>/dev/null || true
-          git checkout --detach 2>/dev/null || true
+        run: git checkout -- stats/ 2>/dev/null || true
