@@ -1,7 +1,7 @@
 # tt-eltwise-accuracy-report
 
-ULP accuracy and kernel timing for every TT-Metal eltwise op, measured exhaustively
-against fp64 torch goldens — per architecture (WH, BH) and dtype (bf16, fp32).
+ULP accuracy and kernel timing for every TT-Metal eltwise op, measured exhaustively against
+fp64 torch goldens, per architecture (WH, BH) and dtype (bf16, fp32).
 
 [Browse the report](reports/README.md) ·
 [Ask an assistant](analyze-report/README.md) ·
@@ -12,12 +12,12 @@ against fp64 torch goldens — per architecture (WH, BH) and dtype (bf16, fp32).
 
 | | |
 |---|---|
-| Ops in scope | 222 — 92 unary · 56 unary_bw · 54 binary · 12 binary_bw · 5 ternary · 3 ternary_bw, in 44 measured variants |
-| Measured | 827 variants — 2 architectures × 2 dtypes, every one also timed |
+| Ops in scope | 222, in 44 measured variants: 92 unary, 56 unary_bw, 54 binary, 12 binary_bw, 5 ternary, 3 ternary_bw |
+| Measured | 827 variants: 2 architectures × 2 dtypes, every one also timed |
 | Bit-exact | 274 |
 | Within 2 ULP | 165 |
 | Returning inf or zero where a value exists | 192 variants across 55 ops |
-| Points per op | bf16 6.6e4 exhaustive · fp32 4.3e9 in blocks · binary 4.2e9 pairs |
+| Points per op | bf16 6.6e4 exhaustive, fp32 4.3e9 in blocks, binary 4.2e9 pairs |
 
 | ULP error | Assessment |
 |---|---|
@@ -27,34 +27,36 @@ against fp64 torch goldens — per architecture (WH, BH) and dtype (bf16, fp32).
 | > 10 | poor |
 
 `usable_to` states how far an op stays within 2 ULP, so a cliff (`sin` past 2.6e5) is not
-mistaken for a broken op. Sampled sweeps say so on every page — their maxima are lower bounds.
+mistaken for a broken op. Sampled sweeps say so on every page: their maxima are lower bounds.
 
 ## Workflows
 
 Everything runs from the Actions tab on the shared org runner pool, in tt-metal's own
-container images — no machine of your own, nothing to provision. Only the nightly writes to
+container images. No machine of your own, nothing to provision. Only the nightly writes to
 the repository, so no other run can overwrite a published baseline.
 
 | Workflow | Trigger | Answers | Output |
 |---|---|---|---|
-| [validate-kernel](.github/workflows/validate-kernel.yml) | dispatch | did my change break or slow anything? | pass/fail + log |
+| [validate-kernel](.github/workflows/validate-kernel.yml) | dispatch | did my change break or slow anything? | pass/fail and a log |
 | [nightly-report](.github/workflows/nightly-report.yml) | 02:37 cron, dispatch | what does every op do today? | commits the report |
 | [analyze-report](.github/workflows/analyze-report.yml) | after a nightly | what moved last night? | commits findings, opens an issue |
 | [perf-report](.github/workflows/perf-report.yml) | dispatch | how fast, and what did this commit cost? | timings artifact |
 | [custom-report](.github/workflows/custom-report.yml) | dispatch | what happens at a parameter the report lacks? | report artifact |
 
+Details and the container contract: [.github/workflows/README.md](.github/workflows/README.md).
+
 <details>
-<summary><b>validate-kernel</b> — the one to reach for</summary>
+<summary><b>validate-kernel</b>: the one to reach for</summary>
 
 Name a tt-metal commit and the ops your change touches. It builds that commit, measures those
 ops, diffs them against the published report, times them, and **fails when something got
-worse**. Nothing is committed — the report is the baseline, never the output.
+worse**. Nothing is committed. The report is the baseline, never the output.
 
 | Input | |
 |---|---|
 | `commit` | tt-metal commit or branch to validate |
 | `ops` | ops the change touches, comma separated |
-| `arch` · `dtype` | `wh`/`bh` · `bf16`/`fp32`/`both` |
+| `arch`, `dtype` | `wh`/`bh`, `bf16`/`fp32`/`both` |
 | `max_ulp` | optional absolute bar, independent of the baseline |
 | `params` | optional scalar, e.g. `relu_max=6` |
 
@@ -64,17 +66,17 @@ gelu [fast_approx] fp32: 687.075 us, 24418.3 Melem/s (spread 0.9%)
 8 variant(s) measured — nothing moved
 ```
 
-The exit code counts findings — regressions, variants over the bar, slower timings, variants
-that produced no data — so it gates a generated-kernel loop directly.
+The exit code counts findings: regressions, variants over the bar, slower timings, variants
+that produced no data. So it gates a generated-kernel loop directly.
 
 </details>
 
 <details>
-<summary><b>nightly-report</b> — regenerate and publish, no human</summary>
+<summary><b>nightly-report</b>: regenerate and publish, no human</summary>
 
-One tt-metal release tag is pinned for the whole night so both architectures measure the
-same version. Each job then discovers, derives domains, probes layouts, measures six
-categories in both dtypes, times every variant, and rebuilds the charts and pages.
+One tt-metal release tag is pinned for the whole night so both architectures measure the same
+version. Each job then discovers, derives domains, probes layouts, measures six categories in
+both dtypes, times every variant, and rebuilds the charts and pages.
 
 `arch` selects `both` (default), `wh` or `bh`. 12 h per architecture, run one at a time
 because both push the same branch. Commits `reports/`, `report_index.json`, `stats/` and
@@ -83,22 +85,22 @@ because both push the same branch. Commits `reports/`, `report_index.json`, `sta
 </details>
 
 <details>
-<summary><b>analyze-report</b> — what moved last night</summary>
+<summary><b>analyze-report</b>: what moved last night</summary>
 
 Runs on ubuntu-latest with no device: `compare` is pure JSON over two indexes. Buckets every
-change into regressed / improved / expected / new / removed, writes
+change into regressed, improved, expected, new or removed, writes
 [findings.md](analyze-report/findings.md), and opens an issue when something regressed.
 
-The page is produced by rules, not by a model — the buckets already are the classification, so
-the nightly needs no API key. Set `ANTHROPIC_API_KEY` and a model adds one short note on top.
+The page is produced by rules, not by a model, because the buckets already are the
+classification. Set `ANTHROPIC_API_KEY` and a model adds one short note on top.
 
 </details>
 
 <details>
-<summary><b>perf-report</b> — timing, and the A/B between two builds</summary>
+<summary><b>perf-report</b>: timing, and the A/B between two builds</summary>
 
 `commit` alone times that build. Add `against` and both are built and timed **on the same
-host, back to back**, and the run reports what moved — because a timing is a property of the
+host, back to back**, and the run reports what moved, because a timing is a property of the
 machine as much as of the kernel. `ops` and `dtype` narrow it.
 
 Timings never enter the accuracy score: a difference here can be the room.
@@ -106,9 +108,9 @@ Timings never enter the accuracy score: a difference here can be the room.
 </details>
 
 <details>
-<summary><b>custom-report</b> — parameters the published report does not carry</summary>
+<summary><b>custom-report</b>: parameters the published report does not carry</summary>
 
-`ops` plus `params` (e.g. `relu_max=6,leaky_relu=0.2`). No build — it measures the pinned
+`ops` plus `params`, e.g. `relu_max=6,leaky_relu=0.2`. No build: it measures the pinned
 tt-metal release and hands back the full report tree as an artifact. Nothing is committed.
 
 </details>
@@ -116,7 +118,7 @@ tt-metal release and hands back the full report tree as an artifact. Nothing is 
 ## CLI
 
 <details>
-<summary><b>Setup</b> — once per machine</summary>
+<summary><b>Setup</b>: once per machine</summary>
 
 ```bash
 source <tt-metal>/python_env/bin/activate   # missing? run <tt-metal>/create_venv.sh
@@ -128,7 +130,7 @@ ln -s /localdev/$USER/data data             # data/ grows fast
 </details>
 
 <details>
-<summary><b>check</b> — validate a kernel locally</summary>
+<summary><b>check</b>: validate a kernel locally</summary>
 
 What `validate-kernel` runs, against the tt-metal you already have built.
 
@@ -147,7 +149,7 @@ before the device is taken.
 </details>
 
 <details>
-<summary><b>The full pipeline</b> — what the nightly runs</summary>
+<summary><b>The full pipeline</b>: what the nightly runs</summary>
 
 ```bash
 ttnn-accuracy discover && ttnn-accuracy derive && ttnn-accuracy probe
@@ -161,17 +163,17 @@ ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternar
 
 | Command | Does | Device |
 |---|---|---|
-| `discover` | ttnn registry → classified eltwise manifest, refusal reasons recorded | no |
+| `discover` | ttnn registry to a classified eltwise manifest, refusal reasons recorded | no |
 | `derive` | per-dtype input bounds from each unary golden, in fp64 | no |
-| `probe` | which dtype/layout each op accepts, keyed per arch | **yes** |
-| `measure` | the sweeps → one CSV per op variant | **yes** |
-| `perf` | one resident tensor per op, timed → `stats/perf/{arch}.json` | **yes** |
-| `charts` | CSV → SVG + `report_index.json`, timings attached | no |
-| `report` | index + SVG → markdown tree | no |
+| `probe` | which dtype and layout each op accepts, keyed per arch | **yes** |
+| `measure` | the sweeps, to one CSV per op variant | **yes** |
+| `perf` | one resident tensor per op, timed, to `stats/perf/{arch}.json` | **yes** |
+| `charts` | CSV to SVG and `report_index.json`, timings attached | no |
+| `report` | index and SVG to a markdown tree | no |
 | `refine` | sweep a sampled worst point exhaustively; exit counts looser bounds | **yes** |
-| `compare` | two indexes → what moved; exit 1 on regression | no |
-| `history` | every published index → which build moved a number | no |
-| `perf-diff` | two timing files → what got slower; refuses two hosts | no |
+| `compare` | two indexes to what moved; exit 1 on regression | no |
+| `history` | every published index to which build moved a number | no |
+| `perf-diff` | two timing files to what got slower; refuses two hosts | no |
 
 ```bash
 ttnn-accuracy history --op sin        # when did it break, and on whose commit
@@ -180,15 +182,15 @@ ttnn-accuracy refine --arch wh --ops pow --dtype fp32   # how loose is a sampled
 
 Binary fp32 and every ternary sweep are sampled, so their maxima are lower bounds and the
 pages say so. `refine` holds the other operands at a variant's worst point and sweeps one
-across its whole space — `fp32/pow` published 5,918 ULP and the cell it was drawn from
-holds 8,300.
+across its whole space: `fp32/pow` published 5,918 ULP and the cell it was drawn from holds
+8,300.
 
-Run sweeps in `tmux`; a kill mid-dispatch wedges the device (`tt-smi -glx_reset`).
+Run sweeps in `tmux`. A kill mid-dispatch wedges the device, recovered with `tt-smi -glx_reset`.
 
 </details>
 
 <details>
-<summary><b>Layout</b> — where things live</summary>
+<summary><b>Layout</b>: where things live</summary>
 
 ```
 src/ttnn_accuracy/
@@ -196,20 +198,20 @@ src/ttnn_accuracy/
                         # | refine | charts | report | compare | history
   ops/
     introspect.py       # what ttnn registers
-    arity.py            # operand count, elementwise, real-valued — by asking the golden
+    arity.py            # operand count, elementwise, real-valued, by asking the golden
     manifest.py         # builds and holds stats/ops_manifest.json
-    plan.py             # manifest → one OpSpec per variant
+    plan.py             # manifest to one OpSpec per variant
     overrides.py        # every editorial decision: scalars, variants, supplied goldens, exclusions
   domain/derive.py      # per-dtype input bounds from the golden in float64
   measure/              # metrics · sweeps · schema · store · runner · device · perf
-  report/               # charts (CSV → SVG + report_index.json) · pages · compare
+  report/               # charts (CSV to SVG and report_index.json) · pages · compare
 
-analyze-report/         # LLM consumption: interpretation contract, ask page, uncovered backlog
+analyze-report/         # how an assistant reads it: contract, ask page, uncovered backlog
 stats/ops_manifest.json # what discover, derive and probe learned (committed)
 stats/runs/             # one provenance record per measurement run (committed)
 stats/perf/             # µs per variant, with the host that took them (committed)
-data/                   # raw CSVs — gitignored; symlink to a fast local disk
-reports/                # generated markdown + SVG (committed): by_arch · by_op · by_dtype
+data/                   # raw CSVs, gitignored; symlink to a fast local disk
+reports/                # generated markdown and SVG (committed): by_arch · by_op · by_dtype
 report_index.json       # summary stats per arch/dtype/op/variant (committed)
 ```
 
@@ -221,6 +223,6 @@ with reasons in [uncovered.md](analyze-report/uncovered.md).
 
 ## Based on
 
-[ttnn-eltwise-op-tester](https://github.com/nmauriceTT/ttnn-eltwise-op-tester), extended
-with automatic discovery, derived domains, per-arch probing, variants, timing, provenance,
-and the cross-navigable report tree.
+[ttnn-eltwise-op-tester](https://github.com/nmauriceTT/ttnn-eltwise-op-tester), extended with
+automatic discovery, derived domains, per-arch probing, variants, timing, provenance, and the
+cross-navigable report tree.

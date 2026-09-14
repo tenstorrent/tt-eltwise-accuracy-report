@@ -1,5 +1,7 @@
 # Findings
 
+**Status: measured.** Every row below is a published result that changed.
+
 _71e0727d990, fbf7d27db93 → f6deef232f7, fbf7d27db93_
 
 ## New coverage (42)
