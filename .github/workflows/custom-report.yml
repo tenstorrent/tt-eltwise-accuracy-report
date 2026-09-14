@@ -51,21 +51,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: tt-metal source for `models`
-        uses: actions/checkout@v4
+      - uses: ./.github/actions/tt-metal-env
         with:
-          repository: tenstorrent/tt-metal
           ref: ${{ needs.resolve.outputs.version }}
-          path: tt-metal
-          fetch-depth: 1
-
-      - name: Check what the image provides
-        run: |
-          pip install --quiet matplotlib pandas numpy loguru
-          PYTHONPATH="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" python3 -c "
-          import ttnn, torch
-          from models.common.utility_functions import ulp
-          print('ttnn and torch', torch.__version__)"
 
       - name: Measure at the requested parameters
         # Its own DATA_DIR and no build: this measures whatever tt-metal the runner

@@ -88,31 +88,9 @@ jobs:
         with:
           fetch-depth: 0   # the publish step rebases; a shallow clone cannot
 
-      - name: tt-metal source for `models`
-        # The image ships a compiled ttnn but `models` resolves through a .pth onto the
-        # source tree, and metrics.py imports tt-metal's own ULP from it. Same tag as the
-        # image, so the reference cannot drift from the kernels it scores.
-        uses: actions/checkout@v4
+      - uses: ./.github/actions/tt-metal-env
         with:
-          repository: tenstorrent/tt-metal
           ref: ${{ needs.pin.outputs.version }}
-          path: tt-metal
-          fetch-depth: 1
-
-      - name: Check what the image provides
-        run: |
-          echo "DATA_DIR=$RUNNER_TEMP/data" >> "$GITHUB_ENV"
-          echo "TT_METAL_CACHE=$RUNNER_TEMP/kernel-cache" >> "$GITHUB_ENV"
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal:${PYTHONPATH:-}" \
-            >> "$GITHUB_ENV"
-          pip install --quiet matplotlib pandas numpy loguru
-          # Named one by one: "no module named ttnn" three layers into a sweep is the
-          # expensive way to learn the image changed.
-          PYTHONPATH="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" python3 -c "
-          import ttnn, torch, pathlib
-          from models.common.utility_functions import ulp
-          print('ttnn ', pathlib.Path(ttnn.__file__).parent)
-          print('torch', torch.__version__)"
 
       - name: Measure and regenerate
         # DATA_DIR is read by every stage, so measure writes where charts will look.

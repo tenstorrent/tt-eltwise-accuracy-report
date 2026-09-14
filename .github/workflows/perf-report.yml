@@ -54,21 +54,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: tt-metal to build
-        uses: actions/checkout@v4
+      - uses: ./.github/actions/tt-metal-env
         with:
-          repository: tenstorrent/tt-metal
-          path: tt-metal
-          fetch-depth: 0
+          fetch-depth: '0'      # it checks out the commit it was given
           submodules: recursive
-
-      - name: Where this job puts things
-        run: |
-          echo "TT_METAL_HOME=$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
-          echo "TT_METAL_CACHE=$RUNNER_TEMP/kernel-cache" >> "$GITHUB_ENV"
-          echo "DATA_DIR=$RUNNER_TEMP/data" >> "$GITHUB_ENV"
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
-          pip install --quiet matplotlib pandas numpy loguru
 
       - name: Build and time each commit
         # Inputs arrive as environment variables, never interpolated into the script: a
