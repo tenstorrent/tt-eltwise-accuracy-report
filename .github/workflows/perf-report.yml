@@ -81,6 +81,8 @@ jobs:
             elif [ "$status" -ne 0 ]; then
               echo "::warning::$sha: $status variant(s) produced no timing"
             fi
+            grep -q "Melem/s" "$RUNNER_TEMP/$sha.log" ||
+              { echo "::error::$sha timed nothing — see the log"; exit 1; }
             echo "$sha" >> timings/order.txt
 
             {

@@ -54,7 +54,8 @@ ci-build image has no compiled ttnn yet.
 |---|---|
 | `${{ github.workspace }}` and `${{ runner.temp }}` are **host** paths | inside a container job use `$GITHUB_WORKSPACE` and `$RUNNER_TEMP`, or `${{ env.RUNNER_TEMP }}` where an action input needs one. A step-level `env:` outranks `GITHUB_ENV`, so a wrong value here silently wins |
 | the release image's `/opt/venv` has no pip | it is built by `uv venv`, so a bare `pip` is a different interpreter installing where `python3` cannot see it. Use `uv pip install --python "$(command -v python3)"` |
-| the CLI exit code is a **count**, not an error | `measure`, `perf` and `check` return how many variants produced no data or how many findings there were. Under `set -e` a bare call kills the step, so always `|| status=$?`. A status of 128 or more is a signal |
+| the CLI exit code is a **count**, not an error | `measure`, `perf` and `check` return how many variants produced no data or how many findings there were. Under `set -e` a bare call kills the step, so always `|| status=$?`. A status of 128 or more is a signal. Tolerating the count is not the same as tolerating zero results: a job that produced nothing must still fail |
+| `$TT_METAL_HOME/ttnn` has no `__init__.py` | it is the C++ source directory, so `PYTHONPATH=$TT_METAL_HOME` alone makes `import ttnn` a namespace package whose `__file__` is `None`. The release image gets away with it because a real package in site-packages outranks a namespace portion. A building job has no such package, so `builds: 'true'` also puts `$TT_METAL_HOME/ttnn` on the path |
 
 ## Validating a change
 

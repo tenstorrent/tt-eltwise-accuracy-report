@@ -80,6 +80,7 @@ jobs:
         run: |
           python3 -c "
           import pathlib, ttnn
+          assert ttnn.__file__, 'ttnn is a namespace package; the built one is not on PYTHONPATH'
           p = pathlib.Path(ttnn.__file__)
           assert p.is_relative_to('$TT_METAL_HOME'), f'ttnn came from {p}, not $TT_METAL_HOME'
           print('ttnn', p)"

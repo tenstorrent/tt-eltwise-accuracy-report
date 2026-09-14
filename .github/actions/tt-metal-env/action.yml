@@ -27,7 +27,11 @@ runs:
         echo "TT_METAL_HOME=$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
         echo "TT_METAL_CACHE=$RUNNER_TEMP/kernel-cache" >> "$GITHUB_ENV"
         echo "DATA_DIR=$RUNNER_TEMP/data" >> "$GITHUB_ENV"
-        echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
+        python_path="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal"
+        if [ "${{ inputs.builds }}" = true ]; then
+          python_path="$python_path:$GITHUB_WORKSPACE/tt-metal/ttnn"
+        fi
+        echo "PYTHONPATH=$python_path" >> "$GITHUB_ENV"
         command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
         export PATH="$HOME/.local/bin:$PATH"
         echo "$HOME/.local/bin" >> "$GITHUB_PATH"
