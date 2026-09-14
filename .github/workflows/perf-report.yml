@@ -69,6 +69,7 @@ jobs:
                      || { echo "::error::$ref is not a commit on tenstorrent/tt-metal"; exit 1; }; }
             git submodule update --init --recursive
             ./build_metal.sh
+            uv pip install --quiet --python "$(command -v python3)" -e "$TT_METAL_HOME"
             rm -rf "$TT_METAL_CACHE"
             sha=$(git rev-parse --short=11 HEAD)
 
