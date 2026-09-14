@@ -70,9 +70,16 @@ def describe(op_key: str) -> OpInfo | None:
 
 def params_desc(op_key: str, variant: str) -> str:
     """The human-readable form of a variant slug, recovered from the overrides table."""
-    for ov in OVERRIDES.get(f"ttnn.{op_key}", ()):
+    overrides = OVERRIDES.get(f"ttnn.{op_key}", ())
+    for ov in overrides:
         if variant_slug(ov.params_desc) == variant:
             return ov.params_desc
+    # A value measured only in this run is in no table, but its slug still opens with the
+    # kwarg name, so the `=` the slug dropped goes back where it was.
+    for ov in overrides:
+        for name in ov.ttnn_kwargs:
+            if variant.startswith(name) and variant != name:
+                return f"{name}={variant[len(name) :]}"
     return variant
 
 

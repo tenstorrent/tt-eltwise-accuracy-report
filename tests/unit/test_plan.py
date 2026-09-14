@@ -106,3 +106,20 @@ def test_a_changed_arity_does_invalidate_it():
 
     assert diff(_entry(), _entry(operands=2))[2] == ["ttnn.exp"]
     assert diff(_entry(), _entry(category="unary_bw"))[2] == ["ttnn.exp"]
+
+
+def test_an_integer_scalar_lands_on_the_op_s_own_spelling():
+    """`--params relu_max=6` published a second `upper_limit6` beside `upper_limit=6.0`."""
+    from ttnn_accuracy.ops.overrides import OVERRIDES, variant_slug, with_value
+
+    base = OVERRIDES["ttnn.relu_max"][0]
+    assert with_value(base, 6).params_desc == "upper_limit=6.0"
+    assert variant_slug(with_value(base, 6).params_desc) == "upper_limit6.0"
+    assert with_value(OVERRIDES["ttnn.polygamma"][0], 2).ttnn_kwargs == {"k": 2}
+
+
+def test_a_value_measured_only_in_this_run_still_reads_as_a_parameter():
+    from ttnn_accuracy.ops.plan import params_desc
+
+    assert params_desc("relu_max", "upper_limit3.0") == "upper_limit=3.0"
+    assert params_desc("relu_max", "upper_limit6.0") == "upper_limit=6.0"

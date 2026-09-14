@@ -219,6 +219,11 @@ def with_value(ov: Override, value: float | int) -> Override:
     if len(ov.ttnn_kwargs) != 1:
         takes = "no scalar to set" if not ov.ttnn_kwargs else f"more than one: {ov.params_desc}"
         raise ValueError(f"takes {takes} — edit overrides.py for this one")
+    # To the op's own spelling: 6 against a float scalar is 6.0, or it becomes a second
+    # variant of one measurement, while polygamma's k must stay an int.
+    current = next(iter(ov.ttnn_kwargs.values()))
+    if isinstance(current, int | float) and not isinstance(current, bool):
+        value = type(current)(value)
     return Override(
         dict.fromkeys(ov.ttnn_kwargs, value),
         dict.fromkeys(ov.golden_kwargs, value),
