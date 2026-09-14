@@ -39,8 +39,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          version=$(gh release view --repo tenstorrent/tt-metal --json tagName \
-            --jq .tagName | sed 's/^v//')
+          version=$(gh release view --repo tenstorrent/tt-metal --json tagName --jq .tagName)
           [ -n "$version" ] || { echo "no tt-metal release resolved"; exit 1; }
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
@@ -96,7 +95,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: tenstorrent/tt-metal
-          ref: v${{ needs.pin.outputs.version }}
+          ref: ${{ needs.pin.outputs.version }}
           path: tt-metal
           fetch-depth: 1
 
