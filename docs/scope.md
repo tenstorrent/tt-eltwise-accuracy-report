@@ -9,9 +9,9 @@ Per op, per architecture, per dtype:
 
 | Arity | Ops | bf16 | fp32 |
 |---|---|---|---|
-| unary | 79 | exhaustive, all 2¹⁶ | exhaustive, all 2³² in 1,024 blocks |
+| unary | 92 | exhaustive, all 2¹⁶ | exhaustive, all 2³² in 1,024 blocks |
 | unary_bw | 56 | exhaustive | exhaustive |
-| binary | 41 | **exhaustive, all 2¹⁶ × 2¹⁶** | sampled, 2¹⁶ cells × 2¹⁶ cells |
+| binary | 54 | **exhaustive, all 2¹⁶ × 2¹⁶** | sampled, 2¹⁶ cells × 2¹⁶ cells |
 | binary_bw | 12 | exhaustive | sampled |
 | ternary | 5 | first operand exhaustive, others strided | sampled and strided |
 | ternary_bw | 3 | same | same |
