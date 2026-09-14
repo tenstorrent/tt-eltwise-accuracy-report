@@ -36,15 +36,18 @@ runs:
         echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
         # The image has ttnn but no torch. Pinned to tt-metal's own version, so the fp64
         # golden cannot drift from the one the published report was measured against.
-        pip install --quiet torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
-        pip install --quiet matplotlib pandas numpy loguru
+        # `python3 -m pip`, never bare `pip`: they are different interpreters here, and a
+        # bare pip reported success while `python3 -c "import torch"` still found nothing.
+        python3 -m pip install --quiet torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
+        python3 -m pip install --quiet matplotlib pandas numpy loguru
 
     - shell: bash
       # Named one by one: "no module named torch" three layers into a sweep is the
       # expensive way to learn what the image stopped shipping.
       run: |
         PYTHONPATH="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" python3 -c "
-        import ttnn, torch, pathlib
+        import sys, ttnn, torch, pathlib
         from models.common.utility_functions import ulp
-        print('ttnn ', pathlib.Path(ttnn.__file__).parent)
-        print('torch', torch.__version__)"
+        print('python', sys.executable)
+        print('ttnn  ', pathlib.Path(ttnn.__file__).parent)
+        print('torch ', torch.__version__)"
