@@ -111,7 +111,10 @@ Timings never enter the accuracy score: a difference here can be the room.
 <summary><b>custom-report</b>: parameters the published report does not carry</summary>
 
 `ops` plus `params`, e.g. `relu_max=6,leaky_relu=0.2`. No build: it measures the pinned
-tt-metal release and hands back the full report tree as an artifact. Nothing is committed.
+tt-metal release. Nothing is committed.
+
+The measured pages go straight onto the run page, so you read the answer without downloading
+anything. The full report tree is attached as an artifact as well.
 
 </details>
 

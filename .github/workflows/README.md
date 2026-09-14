@@ -6,7 +6,7 @@
 | [analyze-report.yml](analyze-report.yml) | after a nightly | none | commits `analyze-report/findings.md`, opens an issue on a regression |
 | [validate-kernel.yml](validate-kernel.yml) | dispatch | one arch | artifact only. Builds a commit you name, checks the ops it touches, fails on a finding |
 | [perf-report.yml](perf-report.yml) | dispatch | one arch | artifact only. Timings for one commit, or the diff between two |
-| [custom-report.yml](custom-report.yml) | dispatch | one arch | artifact only. A report at parameters you name |
+| [custom-report.yml](custom-report.yml) | dispatch | one arch | run page and artifact. A report at parameters you name |
 
 Only the nightly writes to the repository, so no other run can overwrite a baseline.
 

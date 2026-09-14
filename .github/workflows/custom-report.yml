@@ -73,6 +73,30 @@ jobs:
           python3 -m ttnn_accuracy.cli report \
             --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
 
+      - name: Put the measurements on the run page
+        if: always()
+        env:
+          OPS: ${{ inputs.ops }}
+          PARAMS: ${{ inputs.params }}
+          ARCH: ${{ inputs.arch }}
+          DTYPE: ${{ inputs.dtype }}
+        run: |
+          [ "$DTYPE" = both ] && dtypes="bf16 fp32" || dtypes="$DTYPE"
+          {
+            echo "## \`$OPS\` on $ARCH at \`${PARAMS:-defaults}\`"
+            echo
+            for op in ${OPS//,/ }; do
+              for d in $dtypes; do
+                page="reports/by_arch/$ARCH/$d/$op.md"
+                [ -f "$page" ] || { echo "No page for $ARCH/$d/$op."; echo; continue; }
+                sed '/^_Measured on/q' "$page" |
+                  grep -v '^\[← \|^_This page is auto-generated\|^---$' |
+                  sed 's/^# /### /'
+                echo
+              done
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
