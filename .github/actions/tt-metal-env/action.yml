@@ -34,12 +34,18 @@ runs:
         echo "TT_METAL_CACHE=$RUNNER_TEMP/kernel-cache" >> "$GITHUB_ENV"
         echo "DATA_DIR=$RUNNER_TEMP/data" >> "$GITHUB_ENV"
         echo "PYTHONPATH=$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" >> "$GITHUB_ENV"
-        # The image has ttnn but no torch. Pinned to tt-metal's own version, so the fp64
-        # golden cannot drift from the one the published report was measured against.
-        # `python3 -m pip`, never bare `pip`: they are different interpreters here, and a
-        # bare pip reported success while `python3 -c "import torch"` still found nothing.
-        python3 -m pip install --quiet torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
-        python3 -m pip install --quiet matplotlib pandas numpy loguru
+        # uv, never pip: the image's /opt/venv is built by `uv venv` and ships no pip, so
+        # a bare pip is some other interpreter and installs where python3 cannot see it.
+        # uv is copied in a builder stage, so it may not survive into every image.
+        command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
+        export PATH="$HOME/.local/bin:$PATH"        # this step
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"   # and every step after it
+        # `--python` targets the interpreter that will import, whatever the layout is.
+        # torch is pinned to tt-metal's own version so the fp64 golden cannot drift from
+        # the one the report was measured against; the image ships ttnn, not torch.
+        uv pip install --quiet --python "$(command -v python3)" \
+          torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
+        uv pip install --quiet --python "$(command -v python3)" matplotlib pandas numpy loguru
 
     - shell: bash
       # Named one by one: "no module named torch" three layers into a sweep is the
