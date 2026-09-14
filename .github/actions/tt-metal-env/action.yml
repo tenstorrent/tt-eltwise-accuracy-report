@@ -45,15 +45,21 @@ runs:
         # the one the report was measured against; the image ships ttnn, not torch.
         uv pip install --quiet --python "$(command -v python3)" \
           torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
-        uv pip install --quiet --python "$(command -v python3)" matplotlib pandas numpy loguru
+        # The project itself, so pyproject declares its dependencies once instead of here.
+        # pytest and typing_extensions are tt-metal's: utility_functions imports both at
+        # module scope, so importing its ULP drags them in and the image ships neither.
+        uv pip install --quiet --python "$(command -v python3)" \
+          -e "$GITHUB_WORKSPACE" pytest typing-extensions
 
     - shell: bash
-      # Named one by one: "no module named torch" three layers into a sweep is the
-      # expensive way to learn what the image stopped shipping.
+      # Every stage module, because cli.py imports them lazily per subcommand: a missing
+      # dependency must fail here, not six hours into a sweep that already took the device.
       run: |
         PYTHONPATH="$GITHUB_WORKSPACE/src:$GITHUB_WORKSPACE/tt-metal" python3 -c "
         import sys, ttnn, torch, pathlib
         from models.common.utility_functions import ulp
+        import ttnn_accuracy.ops.manifest, ttnn_accuracy.measure.runner, ttnn_accuracy.measure.perf
+        import ttnn_accuracy.report.charts, ttnn_accuracy.report.pages, ttnn_accuracy.report.compare
         print('python', sys.executable)
         print('ttnn  ', pathlib.Path(ttnn.__file__).parent)
         print('torch ', torch.__version__)"
