@@ -39,8 +39,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          version=$(gh release list --repo tenstorrent/tt-metal --limit 1 --json tagName \
-            --jq '.[0].tagName' | sed 's/^v//')
+          version=$(gh release view --repo tenstorrent/tt-metal --json tagName \
+            --jq .tagName | sed 's/^v//')
           [ -n "$version" ] || { echo "no tt-metal release resolved"; exit 1; }
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
@@ -72,6 +72,9 @@ jobs:
     container:
       image: ghcr.io/tenstorrent/tt-metal/tt-metalium-ubuntu-22.04-release-amd64:${{ needs.pin.outputs.version }}
       options: --device /dev/tenstorrent
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     # Per architecture, not per workflow: the two use different machines and devices, and
     # the only thing they share is the push, which rebases and retries.
     concurrency:

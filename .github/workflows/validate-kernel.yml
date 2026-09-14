@@ -38,6 +38,9 @@ jobs:
     container:
       image: ghcr.io/tenstorrent/tt-metal/tt-metalium/ubuntu-22.04-ci-build-amd64:latest
       options: --device /dev/tenstorrent
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     # Shared with the nightly: one device, one sweep at a time.
     concurrency:
       group: nightly-report-${{ inputs.arch }}
