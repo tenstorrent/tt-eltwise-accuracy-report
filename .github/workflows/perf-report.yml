@@ -35,7 +35,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     concurrency:
-      group: nightly-report-${{ inputs.arch }}
+      group: device-${{ inputs.arch }}
       cancel-in-progress: false
     timeout-minutes: 360
     defaults:

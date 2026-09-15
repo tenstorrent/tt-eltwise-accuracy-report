@@ -2,7 +2,7 @@ name: analyze-report
 
 on:
   workflow_run:
-    workflows: [nightly-report]
+    workflows: [accuracy-report]
     types: [completed]
   workflow_dispatch:
 

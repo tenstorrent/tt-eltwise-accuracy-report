@@ -32,16 +32,16 @@ mistaken for a broken op. Sampled sweeps say so on every page: their maxima are 
 ## Workflows
 
 Everything runs from the Actions tab on the shared org runner pool, in tt-metal's own
-container images. No machine of your own, nothing to provision. Only the nightly writes to
-the repository, so no other run can overwrite a published baseline.
+container images. No machine of your own, nothing to provision. Only a complete
+`accuracy-report` sweep writes to the repository, so no other run can overwrite a published
+baseline.
 
 | Workflow | Trigger | Answers | Output |
 |---|---|---|---|
 | [validate-kernel](.github/workflows/validate-kernel.yml) | dispatch | did my change break or slow anything? | pass/fail and a log |
-| [nightly-report](.github/workflows/nightly-report.yml) | 02:37 cron, dispatch | what does every op do today? | commits the report |
-| [analyze-report](.github/workflows/analyze-report.yml) | after a nightly | what moved last night? | commits findings, opens an issue |
+| [accuracy-report](.github/workflows/accuracy-report.yml) | Sun cron, nightly cron, dispatch | what does every op do, and what happens at a parameter the report lacks? | commits the report, or an artifact |
+| [analyze-report](.github/workflows/analyze-report.yml) | after an accuracy-report | what moved? | commits findings, opens an issue |
 | [perf-report](.github/workflows/perf-report.yml) | dispatch | how fast, and what did this commit cost? | timings artifact |
-| [custom-report](.github/workflows/custom-report.yml) | dispatch | what happens at a parameter the report lacks? | report artifact |
 
 Details and the container contract: [.github/workflows/README.md](.github/workflows/README.md).
 
@@ -72,20 +72,30 @@ that produced no data. So it gates a generated-kernel loop directly.
 </details>
 
 <details>
-<summary><b>nightly-report</b>: regenerate and publish, no human</summary>
+<summary><b>accuracy-report</b>: the whole report weekly, an early warning nightly, an answer on demand</summary>
 
-One tt-metal release tag is pinned for the whole night so both architectures measure the same
-version. Each job then discovers, derives domains, probes layouts, measures six categories in
-both dtypes, times every variant, and rebuilds the charts and pages.
+One workflow, because the three uses differ only in how much they measure.
 
-`arch` selects `both` (default), `wh` or `bh`. 12 h per architecture, run one at a time
-because both push the same branch. Commits `reports/`, `report_index.json`, `stats/` and
-`analyze-report/ask.md`.
+| Use | How | Scope | Output |
+|---|---|---|---|
+| the report | cron Sunday 02:37 | six categories × both dtypes × wh and bh | commits |
+| the early warning | cron Mon–Sat 02:37 | unary, bf16 | `compare` on the run page |
+| a question | dispatch `ops` + `params`, e.g. `relu_max=6` | what you name | run page and artifact |
+
+One tt-metal release tag is pinned per run, so both architectures measure the same version.
+A complete sweep also discovers, derives domains, probes layouts and times every variant;
+12 h per architecture, one at a time because both push the same branch.
+
+**Publishing is derived, not requested.** A run commits only when it measured everything —
+`ops` and `params` empty, `dtype: both`, all six categories — because `charts` merges into
+the published index, and a partial run would leave it half at one tt-metal commit and half
+at another. `publish: false` can withhold publication from a full sweep; nothing can force
+it onto a partial one.
 
 </details>
 
 <details>
-<summary><b>analyze-report</b>: what moved last night</summary>
+<summary><b>analyze-report</b>: what moved</summary>
 
 Runs on ubuntu-latest with no device: `compare` is pure JSON over two indexes. Buckets every
 change into regressed, improved, expected, new or removed, writes
@@ -104,17 +114,6 @@ host, back to back**, and the run reports what moved, because a timing is a prop
 machine as much as of the kernel. `ops` and `dtype` narrow it.
 
 Timings never enter the accuracy score: a difference here can be the room.
-
-</details>
-
-<details>
-<summary><b>custom-report</b>: parameters the published report does not carry</summary>
-
-`ops` plus `params`, e.g. `relu_max=6,leaky_relu=0.2`. No build: it measures the pinned
-tt-metal release. Nothing is committed.
-
-The measured pages go straight onto the run page, so you read the answer without downloading
-anything. The full report tree is attached as an artifact as well.
 
 </details>
 
@@ -152,7 +151,7 @@ before the device is taken.
 </details>
 
 <details>
-<summary><b>The full pipeline</b>: what the nightly runs</summary>
+<summary><b>The full pipeline</b>: what a complete sweep runs</summary>
 
 ```bash
 ttnn-accuracy discover && ttnn-accuracy derive && ttnn-accuracy probe

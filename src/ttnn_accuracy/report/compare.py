@@ -128,7 +128,7 @@ def _verdict(stats: dict) -> str:
 
 
 def _committed(path: Path) -> Iterator[tuple[str, str, dict]]:
-    """Every committed version of the index, oldest first — the nightly is its own archive."""
+    """Every committed version of the index, oldest first — a published run is its own archive."""
     rel = str(path.relative_to(REPO_ROOT))
     log = subprocess.run(
         ["git", "-C", str(REPO_ROOT), "log", "--format=%H %cs", "--reverse", "--", rel],
