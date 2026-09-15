@@ -52,13 +52,22 @@ def _num(v) -> float | None:
 
 
 def verdict(
-    max_ulp: str, mean_ulp: str, usable_to: str, operands: int | None, defects: int, points: int
+    max_ulp: str,
+    mean_ulp: str,
+    usable_to: str,
+    operands: int | None,
+    defects: int,
+    points: int,
+    unflushed: int,
 ) -> str:
-    """One of seven fixed phrases; analyze-report/contract.md is their twin and moves with them."""
+    """One of eight fixed phrases; analyze-report/contract.md is their twin and moves with them."""
     mx = _num(max_ulp)
     # First, whatever the ULP says: every other figure here excludes those points.
     if defects:
         return f"{defects} of {points} points returned inf or zero where a value exists"
+    # Also unscorable, and otherwise invisible: the ULP of these points would be bit-exact.
+    if unflushed:
+        return f"{unflushed} of {points} points returned a value where the reference is zero"
     if mx is None:
         return "no scorable points"
     if mx == 0:
@@ -148,15 +157,23 @@ def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
 def compute_stats(df: pd.DataFrame) -> dict:
     """One variant's stats over defined, non-trivial points; subnormals already removed."""
     ulp = _finite(df["ulp_error"])
+    rel = _finite(df["rel_error"])
+    bits = -np.log2(rel[rel > 0])  # over inexact points, like mean_ulp: an exact point is exact
+    outcomes = {k: int(v) for k, v in df["outcome"].value_counts().items()}
     return {
         "max_ulp": _fmt(ulp.max()),
         "mean_ulp": _fmt(ulp[ulp > 0].mean()),
         "usable_to": _fmt(_usable_to(df)),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
+        "max_rel": _fmt(rel.max()),
+        "median_rel": _fmt(rel.median()),
+        "bits_worst": _fmt(bits.min()),
+        "bits_median": _fmt(bits.median()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
         "defects": int(_defects(df).sum()),
+        "unflushed": outcomes.get("unflushed", 0),
         "n_inputs": len(df),
-        "outcomes": {k: int(v) for k, v in df["outcome"].value_counts().items()},
+        "outcomes": outcomes,
     }
 
 
@@ -181,6 +198,7 @@ def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | 
         info.operands if info else None,
         stats["defects"],
         stats["n_inputs"],
+        stats["unflushed"],
     )
     ov = next(
         (o for o in OVERRIDES.get(f"ttnn.{op}", ()) if variant_slug(o.params_desc) == variant),

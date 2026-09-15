@@ -213,6 +213,7 @@ def specials(ttnn_fn, golden_fn, operands: int, dtype: str, layout: str, device)
             "y_ref": y_ref.flatten()[:k].to(torch.float32).numpy(),
             "ulp_error": np.nan,
             "abs_error": np.nan,
+            "rel_error": np.nan,
             "outcome": "special",
         }
     )
@@ -303,6 +304,7 @@ def _multi_operand(
             "y_ref": worst["y_ref"],
             "ulp_error": worst["ulp_error"],
             "abs_error": worst["abs_error"],
+            "rel_error": worst["rel_error"],
             "outcome": np.take(metrics.OUTCOMES, worst["outcome"]),
         }
     )

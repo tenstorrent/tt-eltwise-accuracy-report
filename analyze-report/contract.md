@@ -1,6 +1,8 @@
 # Interpretation contract
 
-**Status: in force.** Every field below exists in `report_index.json` today.
+**Status: in force.** Every field below exists in `report_index.json` today, except
+`max_rel`, `median_rel`, `bits_worst`, `bits_median` and `unflushed`, which appear on
+entries measured after they were added.
 
 The definitions behind every number in the report. An assistant answering from it uses
 these and no others. The verdict rules have a code twin in `report/charts.py::verdict`;
@@ -14,6 +16,9 @@ the two change together.
 | `mean_ulp` | mean over points with a defined, non-zero ULP. `—` means every point was exact |
 | `usable_to` | largest \|x\| below which no point exceeds 2 ULP and none is a defect. Unary only; `—` elsewhere, where x alone does not determine the output |
 | `max_abs` | worst absolute error |
+| `max_rel`, `median_rel` | relative error `\|y_ref − y\| / \|y_ref\|` in fp64, over the points ULP is defined for. The only figures comparable between bf16 and fp32 |
+| `bits_worst`, `bits_median` | bits of precision, `−log2(rel)`, over points with a non-zero relative error, like `mean_ulp` |
+| `unflushed` | device returned a normal value where the reference underflows to zero: `exp(-100)` answering −4.3e33. Carries no ULP, so no other field counts it |
 | `ulp_clipped` | points past the chart clamp of 1000 ULP |
 | `n_inputs` | measured points. An fp32 row is the worst point of 2¹⁶ consecutive codes |
 | `outcomes` | count per label, below |
@@ -32,6 +37,7 @@ the two change together.
 | `inexact` | differs, ULP defined |
 | `flushed` | reference is subnormal, the dtype cannot hold it |
 | `zeroed` | hardware returned 0 for a representable reference. Real, but ULP cannot express it |
+| `unflushed` | reference underflows to zero, hardware returned a normal value. ULP over the subnormal gap would read 1e73 |
 | `overflow` | true result exceeds the dtype |
 | `undefined` | reference is NaN, outside the mathematical domain |
 | `mismatch` | one side finite, the other not. A defect |
@@ -44,6 +50,7 @@ Computed, never inferred. First match wins.
 | Verdict | Rule |
 |---|---|
 | `N of M points returned inf or zero where a value exists` | defects > 0. Takes precedence, because those points carry no ULP and the figures below exclude them |
+| `N of M points returned a value where the reference is zero` | unflushed > 0. Also unscorable, and otherwise invisible: those points would read bit-exact |
 | `bit-exact` | max_ulp = 0 |
 | `within 2 ULP everywhere` | max_ulp ≤ 2 |
 | `accurate to \|x\| <= B; up to M ULP beyond` | unary, usable_to = B defined |

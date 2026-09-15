@@ -187,12 +187,13 @@ def _over_bar(measured: dict, max_ulp: float) -> int:
     for dtype, ops in measured.items():
         for op, variants in ops.items():
             for variant, s in variants.items():
-                worst, defects = s.get("max_ulp"), s.get("defects", 0)
+                worst = s.get("max_ulp")
+                unscorable = s.get("defects", 0) + s.get("unflushed", 0)
                 try:
                     exceeds = float(worst) > max_ulp
                 except (TypeError, ValueError):
                     exceeds = False  # no scorable point is not a failure to be under a bar
-                if exceeds or defects:
+                if exceeds or unscorable:
                     failed += 1
                     logger.error(
                         "over the {} ULP bar  {}/{}/{}: {}",

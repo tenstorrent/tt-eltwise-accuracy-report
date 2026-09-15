@@ -12,7 +12,16 @@ from models.common.utility_functions import ulp as tt_metal_ulp
 MIN_NORMAL = 2**-126  # smallest normal bf16 and fp32 value; below it hardware returns zero
 
 # Ordered by severity: a group is labelled by the worst outcome it contains.
-OUTCOMES = ("exact", "inexact", "flushed", "zeroed", "overflow", "undefined", "mismatch")
+OUTCOMES = (
+    "exact",
+    "inexact",
+    "flushed",
+    "zeroed",
+    "unflushed",
+    "overflow",
+    "undefined",
+    "mismatch",
+)
 
 
 def ulp(x: torch.Tensor) -> torch.Tensor:
@@ -33,6 +42,9 @@ def classify(raw_golden: np.ndarray, gold: np.ndarray, calc: np.ndarray, dtype) 
     outcome[(gold == 0) & (raw_golden != 0)] = OUTCOMES.index("flushed")  # underflowed
     # Representable, and zeroed anyway: a defect, but 128 ULP in bf16 by construction.
     outcome[(calc == 0) & (gold != 0)] = OUTCOMES.index("zeroed")
+    # Subnormals are already flushed, so a survivor here is a normal value where zero is
+    # the answer: exp(-100) returning -4.3e33. ULP divided by the subnormal gap reads 1e73.
+    outcome[(gold == 0) & (raw_golden != 0) & (calc != 0)] = OUTCOMES.index("unflushed")
     outcome[np.abs(raw_golden) > limits.max] = OUTCOMES.index("overflow")
     outcome[np.isnan(raw_golden)] = OUTCOMES.index("undefined")
     outcome[np.isfinite(gold) != np.isfinite(calc)] = OUTCOMES.index("mismatch")
@@ -61,6 +73,10 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
             "y_ref": gold,
             "abs_error": abs_err,
             "ulp_error": np.where(defined, abs_err / unit, np.nan),
+            # fp64: a large error over the smallest normal is 1e76, which fp32 would call inf.
+            "rel_error": np.where(
+                defined & (gold != 0), abs_err / np.abs(gold).astype(np.float64), np.nan
+            ),
             "outcome": outcome,
         }
 
@@ -88,6 +104,7 @@ def compare(
                 "y_ref": g["y_ref"][col, pos],
                 "ulp_error": g["ulp_error"][col, pos],
                 "abs_error": g["abs_error"][col, pos],
+                "rel_error": g["rel_error"][col, pos],
                 "outcome": np.take(OUTCOMES, g["outcome"][col, pos]),
             }
         )

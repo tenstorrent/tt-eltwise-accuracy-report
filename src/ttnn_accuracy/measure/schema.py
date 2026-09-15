@@ -16,6 +16,7 @@ COLUMNS = (
     "y_ref",
     "ulp_error",
     "abs_error",
+    "rel_error",
     "outcome",
     "op",
     "variant",

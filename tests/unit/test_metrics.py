@@ -129,12 +129,40 @@ def test_ulp_is_undefined_when_the_reference_is_zero():
     assert df["abs_error"].item() == pytest.approx(2**-100)
 
 
+def test_a_normal_answer_where_the_reference_underflows_is_its_own_outcome():
+    """What `exp(-100)` does on quasar with dest_acc: −4.3e33 where the answer is zero.
+
+    The LLK harness scores this by dividing by the subnormal gap and reads −4.68e73 ULP.
+    Ours cannot: the point would otherwise land in `flushed` and count as no defect.
+    """
+    df = _compare([-100.0], [float(torch.finfo(torch.bfloat16).tiny) / 2], [-4.3e33])
+    assert df["outcome"].item() == "unflushed"
+    assert np.isnan(df["ulp_error"].item())
+    assert np.isnan(df["rel_error"].item())
+    assert df["abs_error"].item() == pytest.approx(4.3e33)
+
+
+def test_relative_error_is_the_error_over_the_reference():
+    df = _compare([1.0, 2.0], [1.0, 4.0], [1.0 + 2**-7, 4.0])
+    assert df["rel_error"].tolist() == pytest.approx([2**-7, 0.0])
+
+
+def test_relative_error_survives_a_ratio_fp32_would_call_infinite():
+    """1e38 over the smallest normal is 1e76: computed in fp32 it is inf, and inf is dropped."""
+    tiny = float(torch.finfo(torch.bfloat16).tiny)
+    df = _compare([1.0], [tiny], [1e38])
+    assert df["rel_error"].item() == pytest.approx(1e38 / tiny, rel=1e-3)
+
+
 def test_outcomes_are_labelled():
     nan = float("nan")
     assert _compare([1.0], [1.0], [1.0])["outcome"].item() == "exact"
     assert _compare([1.0], [1.0], [1.0 + 2**-7])["outcome"].item() == "inexact"
     assert _compare([1.0], [nan], [nan])["outcome"].item() == "undefined"
     assert _compare([1.0], [1e40], [float("inf")])["outcome"].item() == "overflow"
+    tiny = float(torch.finfo(torch.bfloat16).tiny)
+    assert _compare([1.0], [tiny / 2], [0.0])["outcome"].item() == "flushed"
+    assert _compare([1.0], [tiny / 2], [1.0])["outcome"].item() == "unflushed"
     # A finite answer where the reference is NaN is a defect, not an unscorable point.
     assert _compare([1.0], [nan], [1.0])["outcome"].item() == "mismatch"
 

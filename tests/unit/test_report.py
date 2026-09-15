@@ -43,9 +43,9 @@ def test_a_custom_parameter_variant_still_charts(tmp_path, monkeypatch):
     csv = tmp_path / "data" / "wh" / "bf16" / "relu_max" / "upper_limit6.0.csv"
     csv.parent.mkdir(parents=True)
     csv.write_text(
-        "index,x,y,y_ref,ulp_error,abs_error,outcome,op,variant,dtype,layout\n"
+        "index,x,y,y_ref,ulp_error,abs_error,rel_error,outcome,op,variant,dtype,layout\n"
         + "".join(
-            f"{i},{i + 1.0},{i + 1.0},{i + 1.0},0.0,0.0,exact,relu_max,upper_limit6.0,bf16,tile\n"
+            f"{i},{i + 1.0},{i + 1.0},{i + 1.0},0.0,0.0,0.0,exact,relu_max,upper_limit6.0,bf16,tile\n"
             for i in range(4)
         )
     )

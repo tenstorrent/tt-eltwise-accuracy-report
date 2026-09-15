@@ -197,6 +197,26 @@ def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str
     return "**Outcomes**\n\n" + head + rule + "".join(rows) + "\n"
 
 
+PRECISION = ("max_rel", "median_rel", "bits_worst", "bits_median")
+
+
+def _precision_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """Relative error and its log2, the only figures comparable between bf16 and fp32."""
+    counted = [(k, v, load_summary(arch, dtype, k, v)) for k, v in entries]
+    counted = [(k, v, s) for k, v, s in counted if s and any(f in s for f in PRECISION)]
+    if not counted:
+        return ""
+    rows = [
+        f"| `{params_desc(k, v)}` | " + " | ".join(s.get(f, "—") for f in PRECISION) + " |\n"
+        for k, v, s in counted
+    ]
+    return (
+        "**Precision**\n\n"
+        "| Parameters | Max rel error | Median rel error | Bits (worst) | Bits (median) |\n"
+        "|---|---|---|---|---|\n" + "".join(rows) + "\n"
+    )
+
+
 def _sampling_note(dtype: str, entries: list[tuple[str, str]]) -> str:
     """A sampled maximum is a lower bound; arity and dtype say which sweeps sample."""
     info = describe(entries[0][0])
@@ -271,6 +291,7 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
             why = f" · _{s['rationale']}_" if s.get("rationale") else ""
             lines.append(f"**{params_desc(op_key, variant)}** — {s['verdict']}{why}  \n")
     lines.append("\n")
+    lines.append(_precision_table(arch, dtype, entries))
     lines.append(_outcome_table(arch, dtype, entries))
     lines.append(_specials_table(arch, dtype, entries))
     lines.append(_sampling_note(dtype, entries))

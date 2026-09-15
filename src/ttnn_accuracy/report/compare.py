@@ -11,8 +11,8 @@ from loguru import logger
 
 from ttnn_accuracy.paths import INDEX_FILE, REPO_ROOT, RUNS_KEY
 
-# `defects` scores like an error figure: the worst answer, and the one ULP cannot see.
-SCORED = ("max_ulp", "mean_ulp", "ulp_clipped", "defects")
+# `defects` and `unflushed` score like an error figure: the answers ULP cannot see.
+SCORED = ("max_ulp", "mean_ulp", "ulp_clipped", "defects", "unflushed")
 
 
 def _num(value) -> float:

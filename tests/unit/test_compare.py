@@ -17,6 +17,7 @@ STATS = {
     "mean_ulp": "1",
     "ulp_clipped": 0,
     "defects": 0,
+    "unflushed": 0,
     "usable_to": "3.39e+38",
     "max_abs": "0.25",
     "n_inputs": 65024,
@@ -38,6 +39,8 @@ def _index(**stats) -> dict:
         ({"ulp_clipped": 3}, "regressed"),
         # The logaddexp class: no ULP moves, because these points never had one.
         ({"defects": 15566}, "regressed"),
+        # Nor here: every one of these points reads bit-exact on the ULP it does not have.
+        ({"unflushed": 396}, "regressed"),
         ({"mean_ulp": "—"}, "improved"),  # no inexact points left: errors vanished
         ({"usable_to": "1"}, "changed"),  # reported, never scored: its "—" is ambiguous
         ({}, None),
@@ -49,21 +52,22 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
 
 
 @pytest.mark.parametrize(
-    ("max_ulp", "mean_ulp", "usable_to", "operands", "defects", "expected"),
+    ("max_ulp", "mean_ulp", "usable_to", "operands", "defects", "unflushed", "expected"),
     [
-        ("0", "—", "3.39e+38", 1, 0, "bit-exact"),
-        ("2", "1.1", "3.39e+38", 1, 0, "within 2 ULP everywhere"),
+        ("0", "—", "3.39e+38", 1, 0, 0, "bit-exact"),
+        ("2", "1.1", "3.39e+38", 1, 0, 0, "within 2 ULP everywhere"),
         (
             "3.38e+38",
             "2.5e+36",
             "2.62e+05",
             1,
             0,
+            0,
             "accurate to |x| <= 2.62e+05; up to 3.38e+38 ULP beyond",
         ),
-        ("1.14e+36", "4.5e+34", "—", 1, 0, "never within 2 ULP; mean 4.5e+34, worst 1.14e+36"),
-        ("254", "2.42", "—", 2, 0, "worst pairing 254 ULP; mean 2.42"),
-        ("—", "—", "—", 1, 0, "no scorable points"),
+        ("1.14e+36", "4.5e+34", "—", 1, 0, 0, "never within 2 ULP; mean 4.5e+34, worst 1.14e+36"),
+        ("254", "2.42", "—", 2, 0, 0, "worst pairing 254 ULP; mean 2.42"),
+        ("—", "—", "—", 1, 0, 0, "no scorable points"),
         # rpow_bw at exponent 2.0: every scorable point exact, half of them infinite.
         (
             "0",
@@ -71,14 +75,27 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
             "3.39e+38",
             1,
             32384,
+            0,
             "32384 of 64777 points returned inf or zero where a value exists",
+        ),
+        # The quasar exp case: bit-exact everywhere the reference is a number.
+        (
+            "0",
+            "—",
+            "3.39e+38",
+            1,
+            0,
+            396,
+            "396 of 64777 points returned a value where the reference is zero",
         ),
     ],
 )
-def test_verdicts_follow_the_contract(max_ulp, mean_ulp, usable_to, operands, defects, expected):
+def test_verdicts_follow_the_contract(
+    max_ulp, mean_ulp, usable_to, operands, defects, unflushed, expected
+):
     from ttnn_accuracy.report.charts import verdict
 
-    assert verdict(max_ulp, mean_ulp, usable_to, operands, defects, 64777) == expected
+    assert verdict(max_ulp, mean_ulp, usable_to, operands, defects, 64777, unflushed) == expected
 
 
 def test_coverage_changes_are_named_not_scored():
