@@ -209,7 +209,7 @@ def main(argv: list[str] | None = None) -> int:
             return generate_charts(args.arch, args.dtype, args.op)
 
         case "report":
-            from ttnn_accuracy.report.pages import generate_reports
+            from ttnn_accuracy.report.tree import generate_reports
 
             cats = [c.strip() for c in args.categories.split(",")]
             return generate_reports(args.arch, args.dtype, cats)

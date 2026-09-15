@@ -115,22 +115,31 @@ flowchart TB
     end
 
     subgraph rep["report/ · publish"]
+        SCO["score"]
         CHT["charts"]
+        TRE["tree"]
         PAG["pages"]
+        NAV["navigation"]
+        ASK["ask"]
+        IDX["index"]
         CMP["compare"]
     end
 
-    CLI --> MAN & RUN & PRF & CHT & PAG & CMP
+    CFG["config"]
+    CLI --> MAN & RUN & PRF & CHT & TRE & CMP
     MAN --> ARI & DER & OVR
-    RUN --> DEV & SWP & STO & SCH & PRF
+    RUN --> DEV & SWP & STO & SCH & PRF & SCO
     PRF --> DEV & SCH & PLN
-    SWP --> MET
     STO --> SCH
-    DER --> MET
-    CHT --> MET & PLN & OVR
-    PAG --> PLN
+    CHT --> SCO
+    SCO --> SCH & PLN & OVR
+    TRE --> PAG & NAV & ASK & IDX
+    PAG & NAV & ASK --> IDX
+    IDX --> PLN
     PLN --> MAN & OVR
+    CFG --> MET & SWP & PRF & DER & SCO & CHT & PAG
     TTM["tt-metal ulp"] --> MET
+    SWP --> MET
 ```
 
 `schema.py` is the only definition of a result row. `metrics.py` is pure numerics and
@@ -193,14 +202,20 @@ FLOAT32)`. Varying the dtype is the only way either one moves, and no eltwise op
 
 ## Constants
 
+Every tunable number lives in [config.py](../src/ttnn_accuracy/config.py). Structure — the
+outcome labels, the CSV columns, which sweep each arity takes — stays with its own code.
+
 | Constant | Value | Meaning |
 |---|---|---|
 | `TILE_WIDTH` | 128 | columns per row, a multiple of the 32-wide tile |
 | `FP32_BLOCK` | 2²² | fp32 values per round-trip, so 1,024 blocks |
 | `FP32_GROUP` | 2¹⁶ | an fp32 CSV row is the worst of a group. bf16 rows are per input |
 | `MIN_NORMAL` | 2⁻¹²⁶ | subnormal boundary |
-| `ULP_CLIP` | 1000 | chart clamp. Clipped points are counted |
+| `ULP_CLIP` | 1000 | chart clamp, and the CDF's right edge. Clipped points are counted |
 | `USABLE_ULP` | 2 | what "accurate to \|x\| ≤ B" means |
+| `ULP_LINES` | 1, 3, 10, 100 | chart reference lines, drawn once the data reaches the one before |
+| `N_BINS`, `MIN_BIN` | 32, 8 | per-bin percentile panel; a bin under 8 points is hidden, not believed |
+| `CDF_POINTS` | 200 | log grid for the CDF, so an fp32 sweep's 65k distinct ULPs draw as 200 |
 | `SPECIAL_VALUES` | ±0, ±inf, NaN, ±min | measured per op, no ULP, printed device vs golden |
 | `ELEMENTS` | 2²⁴ | one timed dispatch. At 2²⁰ host jitter moved it 70% |
 | `NOISE_PCT` | 5 | `us_min` moved 3.1% between two runs of one build |

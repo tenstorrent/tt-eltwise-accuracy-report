@@ -139,7 +139,8 @@ def test_a_normal_answer_where_the_reference_underflows_is_its_own_outcome():
     assert df["outcome"].item() == "unflushed"
     assert np.isnan(df["ulp_error"].item())
     assert np.isnan(df["rel_error"].item())
-    assert df["abs_error"].item() == pytest.approx(4.3e33)
+    # bf16 holds -4.3e33 as -4.29987084e33, the value their quasar CSV records.
+    assert df["abs_error"].item() == pytest.approx(4.29987084e33)
 
 
 def test_relative_error_is_the_error_over_the_reference():
@@ -151,7 +152,9 @@ def test_relative_error_survives_a_ratio_fp32_would_call_infinite():
     """1e38 over the smallest normal is 1e76: computed in fp32 it is inf, and inf is dropped."""
     tiny = float(torch.finfo(torch.bfloat16).tiny)
     df = _compare([1.0], [tiny], [1e38])
-    assert df["rel_error"].item() == pytest.approx(1e38 / tiny, rel=1e-3)
+    rel = df["rel_error"].item()
+    assert np.isfinite(rel)
+    assert rel == pytest.approx(df["abs_error"].item() / tiny)
 
 
 def test_outcomes_are_labelled():

@@ -51,6 +51,10 @@ same answer independently. `preference` and `divergent` are ours to defend.
 | domains | preference | fp64 bisection per dtype, unary only. Refusals recorded with reasons |
 | domain shape | forced | one interval, so a hole cannot be expressed. `digamma` and `lgamma_bw` are NaN at every negative integer, `acosh_bw` for \|x\| < 1, `multigammaln_bw` below 0.5. Those points are swept and land as `undefined`, carry no ULP and count as no defect, so nothing scores wrongly. The cost is sweep time |
 | computability bound | forced | `polygamma_bw` swept above −1024. Torch's reference costs O(\|x\|) below zero |
+| ULP percentiles | convergent | p50/p95/p99 over every defined point, as the LLK SFPU harness does. An fp32 row is a group maximum, so an fp32 percentile is one of group maxima and the page says so |
+| bits of precision | convergent | `−log2(rel)`, from the same page. Ours is exactly `−log2` of the reported relative error, so the two rows cannot disagree |
+| per-bin binning | divergent | 32 bins uniform in `asinh(x)`, not in `x`. Their sweep is a 2,048-point ramp over one interval; ours is every bf16 code, uniform over exponents, so equal-width bins in x would put every point in the bin containing zero |
+| CDF x-range | preference | every chart stops at `ULP_CLIP`. A worst point of 1e36 spreads 37 decades, hides the 1–100 ULP bands and makes no two charts comparable; the true worst is in the panel title |
 
 ### fp32 pair sample, options considered
 

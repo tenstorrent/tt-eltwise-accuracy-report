@@ -93,7 +93,7 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
 def test_verdicts_follow_the_contract(
     max_ulp, mean_ulp, usable_to, operands, defects, unflushed, expected
 ):
-    from ttnn_accuracy.report.charts import verdict
+    from ttnn_accuracy.report.score import verdict
 
     assert verdict(max_ulp, mean_ulp, usable_to, operands, defects, 64777, unflushed) == expected
 

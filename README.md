@@ -207,7 +207,14 @@ src/ttnn_accuracy/
     overrides.py        # every editorial decision: scalars, variants, supplied goldens, exclusions
   domain/derive.py      # per-dtype input bounds from the golden in float64
   measure/              # metrics · sweeps · schema · store · runner · device · perf
-  report/               # charts (CSV to SVG and report_index.json) · pages · compare
+  config.py             # every tunable number: sweep sizing, timing samples, chart thresholds
+  report/
+    score.py            # one CSV to its index entry: stats, percentiles, verdict
+    charts.py           # score to SVG (error, CDF, per-bin percentiles) and report_index.json
+    index.py            # report_index.json as the pages read it, and every display name
+    pages.py            # one op's page · navigation.py: the index pages · ask.py: the ask page
+    tree.py             # writes the whole reports/ tree
+    compare.py          # two indexes to what moved
 
 analyze-report/         # how an assistant reads it: contract, ask page, uncovered backlog
 stats/ops_manifest.json # what discover, derive and probe learned (committed)

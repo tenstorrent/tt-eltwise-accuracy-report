@@ -6,10 +6,9 @@ from dataclasses import asdict, dataclass
 
 import torch
 
-from ttnn_accuracy.measure.metrics import MIN_NORMAL
+from ttnn_accuracy.config import FP32_MANTISSA_SAMPLES, MIN_NORMAL
 
 DTYPES = {"bf16": torch.bfloat16, "fp32": torch.float32}
-FP32_MANTISSA_SAMPLES = 512
 
 
 @dataclass(frozen=True, slots=True)

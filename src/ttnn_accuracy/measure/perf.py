@@ -12,19 +12,14 @@ from time import perf_counter_ns
 import torch
 from loguru import logger
 
+from ttnn_accuracy.config import BATCH, FINITE, NOISE_PCT, REPEATS, SIDE, WARMUP
 from ttnn_accuracy.measure.device import session
 from ttnn_accuracy.measure.schema import check_arch, describe_run
 from ttnn_accuracy.measure.sweeps import DTYPE, LAYOUT
 from ttnn_accuracy.ops.plan import OpSpec
 from ttnn_accuracy.paths import PERF_DIR, RUNS_KEY
 
-SIDE = 2**12  # at 2**20 elements the op costs ~65us and host jitter moved it 70% per run
 ELEMENTS = SIDE**2
-WARMUP = 5  # the first dispatches pay kernel lookup and cache population
-BATCH = 5  # one synchronize per dispatch times the host's scheduler as much as the kernel
-REPEATS = 10  # samples of the batch mean, so the median has something to choose between
-FINITE = (-10.0, 10.0)  # timing range for an op whose derived domain is unbounded
-NOISE_PCT = 5.0  # `us_min` moved 3.1% between two runs of one build; inside this is noise
 
 
 def _host() -> str:

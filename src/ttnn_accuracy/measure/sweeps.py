@@ -9,17 +9,18 @@ import pandas as pd
 import torch
 from loguru import logger
 
+from ttnn_accuracy.config import (
+    B_CHUNK,
+    FP32_BLOCK,
+    FP32_GROUP,
+    FP32_SAMPLE_SEED,
+    MIN_NORMAL,
+    TERNARY_STRIDE,
+    TILE_WIDTH,
+)
 from ttnn_accuracy.measure import metrics
 from ttnn_accuracy.measure.device import reason
-from ttnn_accuracy.measure.metrics import MIN_NORMAL
 
-TILE_WIDTH = 2**7
-FP32_BLOCK = 2**6 * 2**9 * TILE_WIDTH
-# Worst-of-group per row: keeps the max exact and an fp32 op the weight of a bf16 one.
-FP32_GROUP = 2**16
-B_CHUNK = 2**7  # second operands per dispatch, matching ttnn-eltwise-op-tester's batch
-TERNARY_STRIDE = 2**9  # keeps a 3-operand sweep the same size as a 2-operand one
-FP32_SAMPLE_SEED = 0  # fixed: the fp32 pair sample must not move between releases
 DTYPE = {"bf16": "bfloat16", "fp32": "float32"}  # ttnn and torch spell these identically
 LAYOUT = {"tile": "TILE_LAYOUT", "row_major": "ROW_MAJOR_LAYOUT"}
 

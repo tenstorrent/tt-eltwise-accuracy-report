@@ -14,99 +14,22 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from ttnn_accuracy.measure.metrics import MIN_NORMAL
-from ttnn_accuracy.measure.schema import COLUMNS
+from ttnn_accuracy.config import (
+    CDF_POINTS,
+    MIN_BIN,
+    N_BINS,
+    NOISE_PCT,
+    ULP_CLIP,
+    ULP_LINES,
+)
 from ttnn_accuracy.measure.store import RUN_STAMP
-from ttnn_accuracy.ops.overrides import OVERRIDES, variant_slug
-from ttnn_accuracy.ops.plan import describe, resolve
+from ttnn_accuracy.ops.plan import resolve
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, PERF_DIR, REPO_ROOT, RUNS_KEY
+from ttnn_accuracy.report.score import _finite, score_csv
 
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
 plt.rcParams["svg.hashsalt"] = "ttnn-accuracy"  # else ids are random and every chart churns
-
-ULP_CLIP = 1000.0
-USABLE_ULP = 2.0  # what "still accurate here" means for the usable-range figure
-
-
-def _defects(df: pd.DataFrame) -> pd.Series:
-    """inf or zero where a value exists; a NaN reference is a domain disagreement, not this."""
-    return (df["outcome"] == "zeroed") | (
-        (df["outcome"] == "mismatch") & df["y_ref"].notna() & np.isfinite(df["y_ref"])
-    )
-
-
-def _finite(s: pd.Series) -> pd.Series:
-    return s.replace([float("inf"), float("-inf")], float("nan"))
-
-
-def _fmt(v) -> str:
-    return "—" if v != v else f"{float(v):.3g}"
-
-
-def _num(v) -> float | None:
-    try:
-        return float(v)
-    except (TypeError, ValueError):
-        return None
-
-
-def verdict(
-    max_ulp: str,
-    mean_ulp: str,
-    usable_to: str,
-    operands: int | None,
-    defects: int,
-    points: int,
-    unflushed: int,
-) -> str:
-    """One of eight fixed phrases; analyze-report/contract.md is their twin and moves with them."""
-    mx = _num(max_ulp)
-    # First, whatever the ULP says: every other figure here excludes those points.
-    if defects:
-        return f"{defects} of {points} points returned inf or zero where a value exists"
-    # Also unscorable, and otherwise invisible: the ULP of these points would be bit-exact.
-    if unflushed:
-        return f"{unflushed} of {points} points returned a value where the reference is zero"
-    if mx is None:
-        return "no scorable points"
-    if mx == 0:
-        return "bit-exact"
-    if mx <= USABLE_ULP:
-        return f"within {USABLE_ULP:g} ULP everywhere"
-    if operands == 1:
-        if _num(usable_to) is not None:
-            return f"accurate to |x| <= {usable_to}; up to {max_ulp} ULP beyond"
-        return f"never within {USABLE_ULP:g} ULP; mean {mean_ulp}, worst {max_ulp}"
-    return f"worst pairing {max_ulp} ULP; mean {mean_ulp}"
-
-
-def _special_fmt(v: float) -> str:
-    if v != v:
-        return "nan"
-    if v == 0:
-        return "-0" if np.signbit(v) else "0"
-    return f"{v:.4g}"
-
-
-def _specials_rows(specials: pd.DataFrame) -> list[dict]:
-    """Display strings: NaN and ±inf are not JSON numbers, and the sign of zero is the point."""
-    return [
-        {c: _special_fmt(row[c]) for c in ("x", "y", "y_ref")} for _, row in specials.iterrows()
-    ]
-
-
-def _usable_to(df: pd.DataFrame) -> float:
-    """Where a cliff starts: `sin` holds 2 ULP to 2.6e5 then collapses. Unary only."""
-    if "x2" in df.columns:
-        return float("nan")
-    finite = df[_finite(df["x"]).notna()]
-    ordered = finite.reindex(finite["x"].abs().sort_values().index)
-    # NaN ULP is unscorable; 0.0 would let an infinity extend the range it ends.
-    ulp = _finite(ordered["ulp_error"]).fillna(0.0)
-    within = ulp.mask(_defects(ordered), float("inf")).cummax() <= USABLE_ULP
-    # `or nan`: a bound of 0 held only at x=0, which is no range at all.
-    return (abs(ordered["x"][within].iloc[-1]) or float("nan")) if within.any() else float("nan")
 
 
 def _subdirs(parent: Path, only: str | None) -> list[Path]:
@@ -118,8 +41,6 @@ def _subdirs(parent: Path, only: str | None) -> list[Path]:
 
 def _record_perf(index: dict, arch: str) -> None:
     """Attach `stats/perf/{arch}.json` to its entries, with the host that took it."""
-    from ttnn_accuracy.measure.perf import NOISE_PCT  # here so `charts` need not import ttnn
-
     path = PERF_DIR / f"{arch}.json"
     if not path.exists():
         return
@@ -154,61 +75,6 @@ def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
     } | {"failed": run.get("failed", {})}
 
 
-def compute_stats(df: pd.DataFrame) -> dict:
-    """One variant's stats over defined, non-trivial points; subnormals already removed."""
-    ulp = _finite(df["ulp_error"])
-    rel = _finite(df["rel_error"])
-    bits = -np.log2(rel[rel > 0])  # over inexact points, like mean_ulp: an exact point is exact
-    outcomes = {k: int(v) for k, v in df["outcome"].value_counts().items()}
-    return {
-        "max_ulp": _fmt(ulp.max()),
-        "mean_ulp": _fmt(ulp[ulp > 0].mean()),
-        "usable_to": _fmt(_usable_to(df)),
-        "max_abs": _fmt(_finite(df["abs_error"]).max()),
-        "max_rel": _fmt(rel.max()),
-        "median_rel": _fmt(rel.median()),
-        "bits_worst": _fmt(bits.min()),
-        "bits_median": _fmt(bits.median()),
-        "ulp_clipped": int((ulp > ULP_CLIP).sum()),
-        "defects": int(_defects(df).sum()),
-        "unflushed": outcomes.get("unflushed", 0),
-        "n_inputs": len(df),
-        "outcomes": outcomes,
-    }
-
-
-def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | None:
-    """One CSV → its index entry and plottable rows; shared with `check`, so both score alike."""
-    raw = pd.read_csv(path, index_col="index")
-    if missing := set(COLUMNS) - set(raw.columns):
-        logger.error("{} predates the schema, missing {} — re-measure", path, sorted(missing))
-        return None
-    special = raw[raw["outcome"] == "special"]
-    df = raw[(raw["outcome"] != "special") & (raw["x"].abs() >= MIN_NORMAL)]
-    if df.empty:
-        logger.warning("no normal-range rows in {}", path)
-        return None
-
-    info = describe(op)
-    stats = compute_stats(df) | {"specials": _specials_rows(special)}
-    stats["verdict"] = verdict(
-        stats["max_ulp"],
-        stats["mean_ulp"],
-        stats["usable_to"],
-        info.operands if info else None,
-        stats["defects"],
-        stats["n_inputs"],
-        stats["unflushed"],
-    )
-    ov = next(
-        (o for o in OVERRIDES.get(f"ttnn.{op}", ()) if variant_slug(o.params_desc) == variant),
-        None,
-    )
-    if ov and ov.why:
-        stats["rationale"] = ov.why
-    return stats, df
-
-
 def _aggregate(df: pd.DataFrame, group_size: int = 128) -> tuple[np.ndarray, np.ndarray]:
     """Group 128 sorted values, one bf16 exponent, turning 65k dots into ~500 segments."""
     ordered = df.sort_values("x").reset_index(drop=True)
@@ -219,24 +85,116 @@ def _aggregate(df: pd.DataFrame, group_size: int = 128) -> tuple[np.ndarray, np.
     return agg["x"].values, agg["ulp"].values
 
 
-def plot_ulp_chart(df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str, out: Path):
-    n_clipped = int((df["ulp_error"].values > ULP_CLIP).sum())
-    x, ulp = _aggregate(df)
+def _scored(df: pd.DataFrame) -> pd.DataFrame:
+    """x against |ULP|, unscorable points dropped — what every distribution panel reads."""
+    scored = pd.DataFrame({"x": _finite(df["x"]), "ulp": _finite(df["ulp_error"])}).dropna()
+    return scored[scored["x"].abs() > 0]
 
-    fig, ax = plt.subplots(figsize=(10, 5))
+
+def _cdf(ulp: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Fraction of points at or below each threshold. Zero cannot sit on a log axis, so the
+    curve starts at the exact-match fraction instead of at 0."""
+    positive = np.sort(ulp[ulp > 0])
+    if not positive.size:
+        return np.array([]), np.array([])
+    grid = np.geomspace(positive[0], positive[-1], CDF_POINTS)
+    below = ulp.size - positive.size + np.searchsorted(positive, grid, side="right")
+    return grid, below / ulp.size
+
+
+def _bins(scored: pd.DataFrame) -> pd.DataFrame:
+    """Bins uniform in asinh(x), not in x: an exhaustive sweep is uniform over exponents,
+    so 32 bins of equal width in x would put every point in the one containing zero."""
+    spaced = np.arcsinh(scored["x"].values)
+    edges = np.linspace(spaced.min(), spaced.max(), N_BINS + 1)
+    at = np.clip(np.searchsorted(edges, spaced, side="right") - 1, 0, N_BINS - 1)
+    binned = scored.groupby(at).agg(
+        x=("x", "min"),
+        n=("ulp", "size"),
+        p50=("ulp", lambda s: s.quantile(0.50)),
+        p95=("ulp", lambda s: s.quantile(0.95)),
+        p99=("ulp", lambda s: s.quantile(0.99)),
+        worst=("ulp", "max"),
+    )
+    return binned[binned["n"] >= MIN_BIN]
+
+
+def _reference_lines(ax, reach: float, horizontal: bool) -> None:
+    """A 100-ULP rule under data that never leaves 1 ULP only compresses the interesting part."""
+    draw = ax.axhline if horizontal else ax.axvline
+    for line, colour in zip(ULP_LINES, ("#27ae60", "#e67e22", "#c0392b", "#8e44ad"), strict=True):
+        if reach >= line:
+            draw(line, color=colour, linestyle="--", linewidth=0.8, alpha=0.6, zorder=1)
+
+
+def _plot_error(ax, df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str) -> None:
+    """ULP against x, clamped: a 1e36 outlier would flatten every other point to the axis."""
+    x, ulp = _aggregate(df)
     ax.plot(x, np.clip(ulp, 0, ULP_CLIP), color="#e67e22", linewidth=1.5, zorder=3)
     ax.set_xscale("symlog", linthresh=1e-3)
     ax.set_yscale("asinh", linear_width=0.01)
     ax.set_ylim(bottom=0, top=ULP_CLIP * 1.1)
     ax.set_xlabel("Input x", fontsize=11)
     ax.set_ylabel("ULP Error", fontsize=11)
-
     suffix = "" if variant == "default" else f" [{variant}]"
     title = f"ttnn.{op}{suffix} — ULP error  [{arch.upper()}, {dtype}]"
-    if n_clipped:
+    if n_clipped := int((df["ulp_error"].values > ULP_CLIP).sum()):
         title += f"\n({n_clipped} inputs clipped at {ULP_CLIP:.0f} — see abs error in report)"
     ax.set_title(title, fontsize=11)
-    ax.grid(True, alpha=0.3, which="both")
+
+
+def _plot_cdf(ax, scored: pd.DataFrame, reach: float) -> None:
+    """What fraction of points sit within N ULP — the question a max cannot answer."""
+    thresholds, fractions = _cdf(scored["ulp"].values)
+    ax.step(thresholds, fractions, where="post", color="#2980b9", linewidth=1.5, zorder=3)
+    if len(thresholds):
+        ax.set_xscale("log")
+        # Every chart stops at the chart clamp: a worst point of 1e36 would otherwise spread
+        # 37 decades and hide the bands anyone reads, and no two charts would compare.
+        ax.set_xlim(min(thresholds[0], 1.0), ULP_CLIP)
+    _reference_lines(ax, min(reach, ULP_CLIP), horizontal=False)
+    ax.set_ylim(bottom=0, top=1.02)
+    ax.set_xlabel("|ULP| threshold", fontsize=11)
+    ax.set_ylabel("Fraction of points within", fontsize=11)
+    exact = float((scored["ulp"] == 0).mean()) if len(scored) else 0.0
+    ax.set_title(f"Within N ULP — {exact:.1%} of points are exact, worst {reach:.3g}", fontsize=11)
+
+
+def _plot_bins(ax, scored: pd.DataFrame) -> None:
+    """Where in the domain the error lives, which the whole-sweep percentiles cannot say."""
+    binned = _bins(scored)
+    for column, colour, marker in (
+        ("p50", "#27ae60", "o"),
+        ("p95", "#e67e22", "s"),
+        ("p99", "#c0392b", "^"),
+        ("worst", "#8e44ad", "v"),
+    ):
+        ax.plot(
+            binned["x"], binned[column], marker, color=colour, markersize=4, label=column, zorder=3
+        )
+    ax.set_xscale("symlog", linthresh=1e-3)
+    ax.set_yscale("symlog", linthresh=1e-3)
+    ax.set_xlabel("Input x", fontsize=11)
+    ax.set_ylabel("|ULP| per bin", fontsize=11)
+    hidden = N_BINS - len(binned)
+    ax.set_title(
+        f"Percentiles over {N_BINS} bins uniform in asinh(x)"
+        + (f" — {hidden} under {MIN_BIN} samples, hidden" if hidden else ""),
+        fontsize=11,
+    )
+    ax.legend(fontsize=9, loc="upper left")
+
+
+def plot_ulp_chart(df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str, out: Path):
+    scored = _scored(df)
+    reach = scored["ulp"].max() if len(scored) else 0.0
+
+    fig, (error_ax, cdf_ax, bin_ax) = plt.subplots(3, 1, figsize=(10, 13))
+    _plot_error(error_ax, df, op, variant, arch, dtype)
+    _plot_cdf(cdf_ax, scored, reach)
+    _plot_bins(bin_ax, scored)
+    for panel in (error_ax, cdf_ax, bin_ax):
+        panel.grid(True, alpha=0.3, which="both")
 
     fig.tight_layout()
     out.parent.mkdir(parents=True, exist_ok=True)

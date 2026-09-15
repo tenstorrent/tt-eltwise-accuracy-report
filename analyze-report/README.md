@@ -53,7 +53,7 @@ sequenceDiagram
 ```
 
 No judgment is required at answer time. Each index entry carries a `verdict` (one of seven
-fixed phrases, computed in `report/charts.py::verdict`) and a `rationale`.
+fixed phrases, computed in `report/score.py::verdict`) and a `rationale`.
 [contract.md](contract.md) defines every metric, threshold and answering rule.
 
 ## Cover an op that is not measured yet

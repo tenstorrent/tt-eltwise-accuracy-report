@@ -65,8 +65,8 @@ def check(
     from tempfile import TemporaryDirectory
 
     from ttnn_accuracy.paths import INDEX_FILE
-    from ttnn_accuracy.report.charts import score_csv
     from ttnn_accuracy.report.compare import diff
+    from ttnn_accuracy.report.score import score_csv
 
     if not INDEX_FILE.exists():
         raise SystemExit(f"no baseline at {INDEX_FILE} — nothing to check against")

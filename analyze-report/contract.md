@@ -5,7 +5,7 @@
 entries measured after they were added.
 
 The definitions behind every number in the report. An assistant answering from it uses
-these and no others. The verdict rules have a code twin in `report/charts.py::verdict`;
+these and no others. The verdict rules have a code twin in `report/score.py::verdict`;
 the two change together.
 
 ## Fields, per arch/dtype/op/variant
@@ -14,10 +14,13 @@ the two change together.
 |---|---|
 | `max_ulp` | worst defined ULP error: `\|y_ref − y\| / ULP(y_ref)`, reference in fp64, ULP by tt-metal's definition at the compute dtype |
 | `mean_ulp` | mean over points with a defined, non-zero ULP. `—` means every point was exact |
+| `p50_ulp`, `p95_ulp`, `p99_ulp` | percentiles over every point with a defined ULP, exact ones included. An fp32 row is a group maximum, so an fp32 percentile is a percentile of group maxima |
+| `exact_frac` | share of defined points that were bit-identical. `flushed`, `zeroed` and `unflushed` points carry no ULP and are in neither the numerator nor the denominator |
 | `usable_to` | largest \|x\| below which no point exceeds 2 ULP and none is a defect. Unary only; `—` elsewhere, where x alone does not determine the output |
 | `max_abs` | worst absolute error |
-| `max_rel`, `median_rel` | relative error `\|y_ref − y\| / \|y_ref\|` in fp64, over the points ULP is defined for. The only figures comparable between bf16 and fp32 |
-| `bits_worst`, `bits_median` | bits of precision, `−log2(rel)`, over points with a non-zero relative error, like `mean_ulp` |
+| `max_rel` | worst relative error `\|y_ref − y\| / \|y_ref\|`, in fp64, over the points ULP is defined for. The only figure comparable between bf16 and fp32 |
+| `median_rel` | median relative error over points where it is non-zero, like `mean_ulp`. Read it beside `exact_frac`, which is the rest of the distribution |
+| `bits_worst`, `bits_median` | `−log2` of the two above, so bits and relative error always agree. Negative means the error exceeds the value itself |
 | `unflushed` | device returned a normal value where the reference underflows to zero: `exp(-100)` answering −4.3e33. Carries no ULP, so no other field counts it |
 | `ulp_clipped` | points past the chart clamp of 1000 ULP |
 | `n_inputs` | measured points. An fp32 row is the worst point of 2¹⁶ consecutive codes |

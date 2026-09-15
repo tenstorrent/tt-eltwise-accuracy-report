@@ -9,7 +9,7 @@ from __future__ import annotations
 import pandas as pd
 
 from ttnn_accuracy.report.charts import plot_ulp_chart
-from ttnn_accuracy.report.pages import GENERATED_NOTE, _us
+from ttnn_accuracy.report.index import GENERATED_NOTE, _us
 
 
 def test_a_chart_is_byte_identical_on_identical_data(tmp_path):
@@ -38,7 +38,7 @@ def test_a_custom_parameter_variant_still_charts(tmp_path, monkeypatch):
     """`custom-report` measures at a parameter the plan lacks; a per-variant scope dropped
     every one and `charts` exited 1 with "no CSVs matched"."""
     from ttnn_accuracy.ops.plan import OpSpec
-    from ttnn_accuracy.report import charts
+    from ttnn_accuracy.report import charts, score
 
     csv = tmp_path / "data" / "wh" / "bf16" / "relu_max" / "upper_limit6.0.csv"
     csv.parent.mkdir(parents=True)
@@ -54,7 +54,7 @@ def test_a_custom_parameter_variant_still_charts(tmp_path, monkeypatch):
     monkeypatch.setattr(charts, "CHARTS_DIR", tmp_path / "charts")
     monkeypatch.setattr(charts, "INDEX_FILE", tmp_path / "index.json")
     monkeypatch.setattr(charts, "resolve", lambda *a, **k: ([planned], []))
-    monkeypatch.setattr(charts, "describe", lambda op: None)
+    monkeypatch.setattr(score, "describe", lambda op: None)
 
     assert charts.generate_charts(None, None, None) == 0
     assert (tmp_path / "charts" / "wh" / "bf16" / "relu_max_upper_limit6.0_ulp.svg").exists()
