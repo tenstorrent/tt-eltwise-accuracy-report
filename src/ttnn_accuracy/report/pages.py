@@ -114,6 +114,101 @@ def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str
     return "**Outcomes**\n\n" + head + rule + "".join(rows) + "\n"
 
 
+def _rows_of(arch: str, dtype: str, entries: list[tuple[str, str]], field: str) -> list[tuple]:
+    """(params, value) for every variant that carries `field`, so an empty section is dropped."""
+    found = [
+        (params_desc(k, v), (load_summary(arch, dtype, k, v) or {}).get(field)) for k, v in entries
+    ]
+    return [(params, value) for params, value in found if value]
+
+
+def _operand_headers(rows: list[dict]) -> list[str]:
+    """`x`, plus the partner columns a pair or triple sweep recorded in the same row."""
+    return [c for c in ("x", "x2", "x3") if any(c in row for row in rows)]
+
+
+def _offenders_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """The worst points by value. A maximum tells you how bad; this tells you where to look."""
+    found = _rows_of(arch, dtype, entries, "offenders")
+    if not found:
+        return ""
+    inputs = _operand_headers([row for _, rows in found for row in rows])
+    head = "| Parameters | " + " | ".join(inputs) + " | golden | device | ULP |\n"
+    rule = "|---" * (len(inputs) + 4) + "|\n"
+    body = "".join(
+        f"| `{params}` | " + " | ".join(row.get(c, "—") for c in inputs) + f" | {row['y_ref']} "
+        f"| {row['y']} | {row['ulp']} |\n"
+        for params, rows in found
+        for row in rows
+    )
+    return "**Worst points**\n\n" + head + rule + body + "\n"
+
+
+def _monotonic_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """Ordering is not accuracy: an op can sit within 1 ULP and still step backwards."""
+    found = _rows_of(arch, dtype, entries, "monotonic")
+    if not found:
+        return ""
+    head = "| Parameters | Pairs | Violations | Rate | Worst \\|Δy\\| |\n|---|---|---|---|---|\n"
+    body = "".join(
+        f"| `{params}` | {m['pairs']:,} | {m['violations']:,} | {m['rate']} | {m['worst_dy']} |\n"
+        for params, m in found
+    )
+    worst = "".join(
+        f"| `{params}` | {row['x_from']} → {row['x_to']} | {row['y_from']} → {row['y_to']} "
+        f"| {row['dy']} |\n"
+        for params, m in found
+        for row in m["top"]
+    )
+    if worst:
+        worst = (
+            "\n_Worst violations — the device output moved against the reference's own "
+            "direction between these neighbouring inputs._\n\n"
+            "| Parameters | x | device | \\|Δy\\| |\n|---|---|---|---|\n" + worst
+        )
+    return (
+        "**Monotonicity**\n\n_Checked only where the reference is itself ordered, and never "
+        "across a discontinuity._\n\n" + head + body + worst + "\n"
+    )
+
+
+def _nonfinite_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """Which side went non-finite. These points carry no ULP, so no other figure counts them."""
+    found = _rows_of(arch, dtype, entries, "nonfinite")
+    if not found:
+        return ""
+    head = (
+        "| Parameters | Points | Both | Device only | Golden only | Device inf | Device nan "
+        "| Golden inf | Golden nan |\n" + "|---" * 9 + "|\n"
+    )
+    body = "".join(
+        f"| `{params}` | {n['total']:,} | {n['both']:,} | {n['device_only']:,} "
+        f"| {n['golden_only']:,} | {n['device_inf']:,} | {n['device_nan']:,} "
+        f"| {n['golden_inf']:,} | {n['golden_nan']:,} |\n"
+        for params, n in found
+    )
+    inputs = _operand_headers([row for _, n in found for row in n["detail"]])
+    detail = "".join(
+        f"| `{params}` | "
+        + " | ".join(row.get(c, "—") for c in inputs)
+        + f" | {row['y_ref']} | {row['y']} |\n"
+        for params, n in found
+        for row in n["detail"]
+    )
+    return (
+        "**Non-finite outputs**\n\n"
+        + head
+        + body
+        + "\n| Parameters | "
+        + " | ".join(inputs)
+        + " | golden | device |\n"
+        + "|---" * (len(inputs) + 3)
+        + "|\n"
+        + detail
+        + "\n"
+    )
+
+
 def _sampling_note(dtype: str, entries: list[tuple[str, str]]) -> str:
     """A sampled maximum is a lower bound; arity and dtype say which sweeps sample."""
     info = describe(entries[0][0])
@@ -169,6 +264,9 @@ def op_detail_page(arch: str, dtype: str, display_name: str, entries: list[tuple
             lines.append(f"**{params_desc(op_key, variant)}** — {s['verdict']}{why}  \n")
     lines.append("\n")
     lines.append(_outcome_table(arch, dtype, entries))
+    lines.append(_offenders_table(arch, dtype, entries))
+    lines.append(_monotonic_table(arch, dtype, entries))
+    lines.append(_nonfinite_table(arch, dtype, entries))
     lines.append(_specials_table(arch, dtype, entries))
     lines.append(_sampling_note(dtype, entries))
     lines.append(_provenance(arch, dtype, entries))

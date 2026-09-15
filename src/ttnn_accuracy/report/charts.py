@@ -91,15 +91,19 @@ def _scored(df: pd.DataFrame) -> pd.DataFrame:
     return scored[scored["x"].abs() > 0]
 
 
-def _cdf(ulp: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Fraction of points at or below each threshold. Zero cannot sit on a log axis, so the
-    curve starts at the exact-match fraction instead of at 0."""
+def _cdf(ulp: np.ndarray, baseline: float) -> tuple[np.ndarray, np.ndarray]:
+    """Fraction of points at or below each threshold, starting from `baseline`.
+
+    Zero cannot sit on a log axis, so the curve opens at the exact-match fraction. Without
+    that opening level an op whose every error is exactly 1 ULP has one distinct threshold
+    and draws a single invisible point instead of a rise."""
     positive = np.sort(ulp[ulp > 0])
     if not positive.size:
         return np.array([]), np.array([])
+    exact = (ulp.size - positive.size) / ulp.size
     grid = np.geomspace(positive[0], positive[-1], CDF_POINTS)
     below = ulp.size - positive.size + np.searchsorted(positive, grid, side="right")
-    return grid, below / ulp.size
+    return np.insert(grid, 0, baseline), np.insert(below / ulp.size, 0, exact)
 
 
 def _bins(scored: pd.DataFrame) -> pd.DataFrame:
@@ -145,13 +149,22 @@ def _plot_error(ax, df: pd.DataFrame, op: str, variant: str, arch: str, dtype: s
 
 def _plot_cdf(ax, scored: pd.DataFrame, reach: float) -> None:
     """What fraction of points sit within N ULP — the question a max cannot answer."""
-    thresholds, fractions = _cdf(scored["ulp"].values)
-    ax.step(thresholds, fractions, where="post", color="#2980b9", linewidth=1.5, zorder=3)
-    if len(thresholds):
+    values = scored["ulp"].values if len(scored) else np.array([])
+    positive = values[values > 0]
+    if positive.size:
+        # Normally stop at the chart clamp: a worst point of 1e36 would otherwise spread 37
+        # decades and hide the bands anyone reads, and no two charts would compare. But when
+        # even the smallest error is past the clamp there are no bands left to read, and
+        # clamping would put the whole curve off the panel — then the data's own range is it.
+        first = positive.min()
+        if first > ULP_CLIP:
+            lo, hi = first / 2, positive.max() * 2
+        else:
+            lo, hi = min(first, 1.0) / 2, ULP_CLIP
+        thresholds, fractions = _cdf(values, lo)
+        ax.step(thresholds, fractions, where="post", color="#2980b9", linewidth=1.5, zorder=3)
         ax.set_xscale("log")
-        # Every chart stops at the chart clamp: a worst point of 1e36 would otherwise spread
-        # 37 decades and hide the bands anyone reads, and no two charts would compare.
-        ax.set_xlim(min(thresholds[0], 1.0), ULP_CLIP)
+        ax.set_xlim(lo, hi)
     _reference_lines(ax, min(reach, ULP_CLIP), horizontal=False)
     ax.set_ylim(bottom=0, top=1.02)
     ax.set_xlabel("|ULP| threshold", fontsize=11)

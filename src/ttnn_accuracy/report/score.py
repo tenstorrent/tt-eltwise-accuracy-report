@@ -8,7 +8,14 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from ttnn_accuracy.config import MIN_NORMAL, ULP_CLIP, USABLE_ULP
+from ttnn_accuracy.config import (
+    MIN_NORMAL,
+    MONOTONIC_TOP,
+    NONFINITE_DETAIL,
+    OFFENDERS,
+    ULP_CLIP,
+    USABLE_ULP,
+)
 from ttnn_accuracy.measure.schema import COLUMNS
 from ttnn_accuracy.ops.overrides import OVERRIDES, variant_slug
 from ttnn_accuracy.ops.plan import describe
@@ -99,6 +106,113 @@ def _usable_to(df: pd.DataFrame) -> float:
     return (abs(ordered["x"][within].iloc[-1]) or float("nan")) if within.any() else float("nan")
 
 
+def _operands(df: pd.DataFrame) -> list[str]:
+    """The input columns of a row: `x`, plus the partners a pair or triple sweep recorded."""
+    return [c for c in ("x", "x2", "x3") if c in df.columns]
+
+
+def _offenders(df: pd.DataFrame) -> list[dict]:
+    """The worst-ULP points by value. The maximum says how bad; these say at which inputs."""
+    ranked = df.assign(ulp=_finite(df["ulp_error"])).nlargest(OFFENDERS, "ulp")
+    return [
+        {c: _special_fmt(row[c]) for c in _operands(df)}
+        | {"y_ref": _fmt(row["y_ref"]), "y": _fmt(row["y"]), "ulp": _fmt(row["ulp"])}
+        for _, row in ranked.iterrows()
+        if row["ulp"] > 0
+    ]
+
+
+def _monotonic(df: pd.DataFrame) -> dict:
+    """Neighbour ordering of the device output, wherever the reference itself is ordered.
+
+    The expected direction is read from the measured reference rather than a table of op
+    names, so an op nobody classified is still checked and a non-monotonic one (`sin`,
+    `gelu`) is silently skipped. A segment ends at any unscorable point and wherever x
+    crosses zero, so `reciprocal` is checked on each side of its pole and never across it."""
+    if "x2" in df.columns:  # x alone does not determine y, so ordering says nothing
+        return {}
+    ordered = df.sort_values("x")
+    sign = np.sign(ordered["x"].values)
+    # An interval ends only at a real discontinuity — x crossing zero. An unscorable point
+    # is a hole in an interval, not a new one: splitting there would chop a non-monotonic
+    # reference into short runs that each look ordered, and `sin` would report a rate.
+    intervals = np.cumsum(np.r_[True, sign[1:] != sign[:-1]])
+
+    pairs = violations = 0
+    worst: list[tuple[float, dict]] = []
+    for _, block in ordered.assign(_interval=intervals).groupby("_interval", sort=False):
+        ok = block["outcome"].isin(("exact", "inexact")).values
+        ref, hw, xs = block["y_ref"].values, block["y"].values, block["x"].values
+        if ok.sum() < 2:
+            continue
+        step = np.diff(ref[ok])
+        # Non-strict: equal neighbours are expected when the dtype cannot separate them.
+        if np.all(step >= 0):
+            direction = 1.0
+        elif np.all(step <= 0):
+            direction = -1.0
+        else:
+            continue  # the reference is not ordered here, so the device need not be either
+        # Only neighbours in the sweep, and only where neither end was unscorable.
+        comparable = np.flatnonzero(ok[:-1] & ok[1:])
+        moved = (np.diff(hw) * direction)[comparable]
+        pairs += len(moved)
+        for i in comparable[moved < 0]:
+            violations += 1
+            worst.append(
+                (
+                    abs(float(hw[i + 1] - hw[i])),
+                    {
+                        # 4 digits, not 3: neighbouring bf16 codes are 0.4% apart and a
+                        # violation between two inputs that print alike cannot be read.
+                        "x_from": _special_fmt(xs[i]),
+                        "x_to": _special_fmt(xs[i + 1]),
+                        "y_from": _special_fmt(hw[i]),
+                        "y_to": _special_fmt(hw[i + 1]),
+                        "dy": _fmt(abs(float(hw[i + 1] - hw[i]))),
+                    },
+                )
+            )
+    if not pairs:
+        return {}
+    worst.sort(key=lambda w: w[0], reverse=True)
+    return {
+        "pairs": pairs,
+        "violations": violations,
+        "rate": _fmt(violations / pairs),
+        "worst_dy": _fmt(worst[0][0]) if worst else "0",
+        "top": [w for _, w in worst[:MONOTONIC_TOP]],
+    }
+
+
+def _nonfinite(df: pd.DataFrame) -> dict:
+    """Which side went non-finite, and at which inputs.
+
+    The `mismatch` outcome says the two sides disagree about finiteness; this says which way,
+    and separates an infinity from a NaN. Points where both sides agree on an infinity carry
+    no ULP either, so they appear here and in no other figure."""
+    ref, hw = df["y_ref"].values, df["y"].values
+    ref_bad, hw_bad = ~np.isfinite(ref), ~np.isfinite(hw)
+    if not (total := int((ref_bad | hw_bad).sum())):
+        return {}
+    listed = df[ref_bad | hw_bad].head(NONFINITE_DETAIL)
+    return {
+        "total": total,
+        "both": int((ref_bad & hw_bad).sum()),
+        "device_only": int((hw_bad & ~ref_bad).sum()),
+        "golden_only": int((ref_bad & ~hw_bad).sum()),
+        "device_inf": int(np.isinf(hw).sum()),
+        "device_nan": int(np.isnan(hw).sum()),
+        "golden_inf": int(np.isinf(ref).sum()),
+        "golden_nan": int(np.isnan(ref).sum()),
+        "detail": [
+            {c: _fmt(row[c]) for c in _operands(df)}
+            | {"y_ref": _special_fmt(row["y_ref"]), "y": _special_fmt(row["y"])}
+            for _, row in listed.iterrows()
+        ],
+    }
+
+
 def compute_stats(df: pd.DataFrame) -> dict:
     """One variant's stats over defined, non-trivial points; subnormals already removed."""
     ulp = _finite(df["ulp_error"])
@@ -124,6 +238,9 @@ def compute_stats(df: pd.DataFrame) -> dict:
         "unflushed": outcomes.get("unflushed", 0),
         "n_inputs": len(df),
         "outcomes": outcomes,
+        "offenders": _offenders(df),
+        "monotonic": _monotonic(df),
+        "nonfinite": _nonfinite(df),
     }
 
 

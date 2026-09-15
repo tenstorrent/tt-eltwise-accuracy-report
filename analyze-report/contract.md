@@ -1,8 +1,8 @@
 # Interpretation contract
 
 **Status: in force.** Every field below exists in `report_index.json` today, except
-`max_rel`, `median_rel`, `bits_worst`, `bits_median` and `unflushed`, which appear on
-entries measured after they were added.
+`max_rel`, `median_rel`, `bits_worst`, `bits_median`, `unflushed`, `offenders`,
+`monotonic` and `nonfinite`, which appear on entries measured after they were added.
 
 The definitions behind every number in the report. An assistant answering from it uses
 these and no others. The verdict rules have a code twin in `report/score.py::verdict`;
@@ -26,6 +26,9 @@ the two change together.
 | `n_inputs` | measured points. An fp32 row is the worst point of 2¹⁶ consecutive codes |
 | `outcomes` | count per label, below |
 | `specials` | device vs golden at ±0, ±inf, NaN, ±min-normal. Printed values, no ULP |
+| `offenders` | the ten worst points by ULP, with their inputs, reference and device value. The maximum says how bad; these say where |
+| `monotonic` | `pairs`, `violations`, `rate`, `worst_dy` and the five worst, for neighbouring inputs whose device outputs move against the reference's own direction. Present only where the reference is itself ordered across a domain interval, so a non-monotonic op (`sin`, `gelu` below zero) has no entry. Intervals end where x crosses zero, so `reciprocal` is never compared across its pole, and no pair spans an unscorable point. Ordering is not accuracy: an op can sit within 1 ULP and still step backwards |
+| `nonfinite` | `total` and the split by side — `both`, `device_only`, `golden_only`, `device_inf`, `device_nan`, `golden_inf`, `golden_nan` — plus up to ten points. These carry no ULP, so no other field counts them. Absent when every point was finite |
 | `defects` | device returned inf or zero where the reference is representable. These carry no ULP, so no other field counts them. A `mismatch` against a NaN reference is a domain disagreement, not a defect |
 | `verdict` | one of the seven phrases below, precomputed |
 | `perf` | `us_median` and `melem_per_s` for one dispatch over 2²⁴ resident elements, with the `host` that took them. `spread_pct` appears only when the row is not trustworthy. Never scored |
