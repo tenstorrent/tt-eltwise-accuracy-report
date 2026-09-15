@@ -1,10 +1,4 @@
-"""Measured CSVs in the tt-llk SFPU harness's own schema, so its dashboard can render ours.
-
-GitHub strips scripts from the markdown report, so zoom and pan cannot live in `reports/`.
-The LLK dashboard already aggregates any harness CSV in the browser, so the cheapest
-interactive view of our sweeps is to speak its input format: one file per op, every variant
-inside it, keyed by the columns it groups on.
-"""
+"""Measured CSVs in the tt-llk SFPU harness's schema, so its dashboard renders ours with zoom."""
 
 from __future__ import annotations
 
@@ -16,7 +10,7 @@ from loguru import logger
 
 from ttnn_accuracy.config import MIN_NORMAL
 from ttnn_accuracy.ops.plan import describe
-from ttnn_accuracy.paths import DATA_DIR, REPO_ROOT
+from ttnn_accuracy.paths import DATA_DIR
 
 # Their 19 columns, in their order. `to_csv.py` writes floats as %.9g and booleans as T/F.
 COLUMNS = (
@@ -50,18 +44,10 @@ def _interval(op: str, dtype: str, xs: pd.Series) -> str:
 
 
 def _variant(df: pd.DataFrame, op: str, arch: str, dtype: str, variant: str) -> pd.DataFrame:
-    """One of our measured variants as their rows.
-
-    `fast_approx` is their `approx_mode`; `dest_acc` follows the dtype because that is how
-    ttnn derives `fp32_dest_acc_en`, and no eltwise op exposes it separately. `fast_mode` is
-    always 0: it is an LLK knob with no ttnn equivalent. Their aggregator trusts the error
-    columns, so a point we consider unscorable is written blank for it to skip rather than
-    divided by a subnormal-scale spacing and reported as 1e73 ULP."""
+    """One measured variant as their rows; `dest_acc` follows the dtype, as ttnn derives it."""
     signed = df["y"] - df["y_ref"]
-    approx = int("approx" in variant)
-    # Their variant key is formats plus three flags, with no field for a scalar parameter, so
-    # `relu_max` at 6 and at 1 would collide into one variant and be averaged together. A
-    # variant their key cannot hold becomes its own op instead.
+    approx = int("approx" in variant)  # `fast_mode` has no ttnn equivalent and stays 0
+    # Their key holds no scalar, so `relu_max` at 6 and at 1 would collide: give it its own op.
     named = op if approx or variant == "default" else f"{op}[{variant}]"
     return pd.DataFrame(
         {
@@ -69,7 +55,8 @@ def _variant(df: pd.DataFrame, op: str, arch: str, dtype: str, variant: str) -> 
             "input_format": dtype,
             "output_format": dtype,
             "chip_arch": arch,
-            "distribution": "exhaustive" if len(df) >= 2**16 else "sampled",
+            # Only unary sweeps reach here, and those are exhaustive over the interval below.
+            "distribution": "exhaustive",
             "intervals": _interval(op, dtype, df["x"]),
             "seed": "",
             "sample_index": np.arange(len(df)),
@@ -101,13 +88,11 @@ def export_llk(out_dir: Path, arch=None, dtype=None, op=None) -> int:
         frames = []
         for csv in sorted(op_dir.glob("*.csv")):
             raw = pd.read_csv(csv, index_col="index")
-            # Their schema carries one `test_value`, so a pair or triple would export with
-            # its partner dropped and be drawn as f(x) when it is f(x, worst partner).
+            # One `test_value` in their schema: a pair would be drawn as f(x), partner dropped.
             if "x2" in raw.columns:
                 logger.info("skipping {}/{}: their schema has no second operand", this_op, csv.stem)
                 continue
-            # The same population our own pages score, so a reader comparing their summary
-            # against ours is looking at one set of points.
+            # The population our own pages score, so their summary and ours describe one set.
             rows = raw[(raw["outcome"] != "special") & (raw["x"].abs() >= MIN_NORMAL)]
             if rows.empty:
                 continue
@@ -123,9 +108,5 @@ def export_llk(out_dir: Path, arch=None, dtype=None, op=None) -> int:
     if not written:
         logger.error("nothing matched arch={} dtype={} op={}", arch, dtype, op)
         return 1
-    logger.success(
-        "{} op file(s) → {}  ·  load them with the dashboard's Load CSV",
-        written,
-        out_dir if out_dir.is_absolute() else out_dir.relative_to(REPO_ROOT),
-    )
+    logger.success("{} op file(s) → {} · load with the dashboard's Load CSV", written, out_dir)
     return 0

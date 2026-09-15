@@ -35,7 +35,7 @@ def test_a_page_flags_the_timings_it_should_not_trust():
 
 
 def test_a_custom_parameter_variant_still_charts(tmp_path, monkeypatch):
-    """`custom-report` measures at a parameter the plan lacks; a per-variant scope dropped
+    """A dispatch measures at a parameter the plan lacks; a per-variant scope dropped
     every one and `charts` exited 1 with "no CSVs matched"."""
     from ttnn_accuracy.ops.plan import OpSpec
     from ttnn_accuracy.report import charts, score

@@ -62,64 +62,26 @@ def _cell(summary: dict, key: str) -> str:
     return value + " ⚠" if key == "max_ulp" and summary.get("ulp_clipped") else value
 
 
-def _stats_table(arch: str, dtype: str, entries: list[tuple[str, str]], unary: bool) -> str:
-    """A column per parameter set: twelve figures against three variants does not fit as rows.
-
-    A row absent from every summary is dropped, so an index measured before a figure existed
-    reads as a shorter table rather than a wall of em dashes."""
-    summaries = [(params_desc(k, v), load_summary(arch, dtype, k, v) or {}) for k, v in entries]
-    rows = [
-        f"| {label} | " + " | ".join(_cell(s, key) for _, s in summaries) + " |\n"
-        for label, key in STATS_ROWS
-        if (unary or key != "usable_to") and any(key in s for _, s in summaries)
-    ]
-    head = "| | " + " | ".join(f"`{p}`" for p, _ in summaries) + " |\n"
-    rule = "|---" * (len(summaries) + 1) + "|\n"
-    return head + rule + "".join(rows) + "\n"
-
-
-def _specials_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
-    """Device beside golden at ±0, ±inf, NaN and the smallest normals; no ULP exists there."""
-    rows = []
-    for op_key, variant in entries:
-        summary = load_summary(arch, dtype, op_key, variant)
-        for r in (summary or {}).get("specials", []):
-            mark = "agree" if r["y"] == r["y_ref"] else "**differ**"
-            rows.append(
-                f"| `{params_desc(op_key, variant)}` | {r['x']} | {r['y']} | {r['y_ref']} | {mark} |\n"
-            )
-    if not rows:
-        return ""
+def _table(headers: list[str], rows: list[list[str]]) -> str:
+    """A markdown table, so no builder writes its own header rule and miscounts the columns."""
     return (
-        "### Special values\n\n"
-        "| Variant | x | device | golden | |\n|---|---|---|---|---|\n" + "".join(rows) + "\n"
+        "| "
+        + " | ".join(headers)
+        + " |\n"
+        + "|---" * len(headers)
+        + "|\n"
+        + "".join("| " + " | ".join(cells) + " |\n" for cells in rows)
     )
 
 
-def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
-    """What each measured point demonstrated. Only `exact` and `inexact` carry a ULP."""
-    counted = [(k, v, load_summary(arch, dtype, k, v)) for k, v in entries]
-    counted = [(k, v, s) for k, v, s in counted if s and s.get("outcomes")]
-    if not counted:
-        return ""
-    kinds = sorted({k for _, _, s in counted for k in s["outcomes"]})
-    head = "| Parameters | " + " | ".join(kinds) + " |\n"
-    rule = "|------------" + "|------" * len(kinds) + "|\n"
-    rows = [
-        f"| `{params_desc(k, v)}` | "
-        + " | ".join(f"{s['outcomes'].get(kind, 0):,}" for kind in kinds)
-        + " |\n"
-        for k, v, s in counted
-    ]
-    return "**Outcomes**\n\n" + head + rule + "".join(rows) + "\n"
+def _summaries(arch: str, dtype: str, entries: list[tuple[str, str]]) -> list[tuple[str, dict]]:
+    """(parameters, stats) per variant on this page, in the order the page lists them."""
+    return [(params_desc(k, v), load_summary(arch, dtype, k, v) or {}) for k, v in entries]
 
 
-def _rows_of(arch: str, dtype: str, entries: list[tuple[str, str]], field: str) -> list[tuple]:
-    """(params, value) for every variant that carries `field`, so an empty section is dropped."""
-    found = [
-        (params_desc(k, v), (load_summary(arch, dtype, k, v) or {}).get(field)) for k, v in entries
-    ]
-    return [(params, value) for params, value in found if value]
+def _carrying(summaries: list[tuple[str, dict]], field: str) -> list[tuple[str, dict]]:
+    """Only the variants holding `field`, so a section absent from the index is dropped whole."""
+    return [(params, s[field]) for params, s in summaries if s.get(field)]
 
 
 def _operand_headers(rows: list[dict]) -> list[str]:
@@ -127,86 +89,124 @@ def _operand_headers(rows: list[dict]) -> list[str]:
     return [c for c in ("x", "x2", "x3") if any(c in row for row in rows)]
 
 
+def _point_rows(listed: list[tuple[str, dict]], tail: tuple[tuple[str, str], ...] = ()) -> tuple:
+    """Headers and cells for stored points: parameters, the inputs, both answers, then `tail`."""
+    inputs = _operand_headers([row for _, row in listed])
+    headers = ["Parameters", *inputs, "golden", "device", *(header for _, header in tail)]
+    return headers, [
+        [f"`{params}`", *(row.get(c, "—") for c in inputs), row["y_ref"], row["y"]]
+        + [row[key] for key, _ in tail]
+        for params, row in listed
+    ]
+
+
+def _stats_table(arch: str, dtype: str, entries: list[tuple[str, str]], unary: bool) -> str:
+    """A column per parameter set: twelve figures against three variants does not fit as rows."""
+    summaries = _summaries(arch, dtype, entries)
+    # A row no summary carries is dropped: an older index reads short, not as em dashes.
+    rows = [
+        [label, *(_cell(s, key) for _, s in summaries)]
+        for label, key in STATS_ROWS
+        if (unary or key != "usable_to") and any(key in s for _, s in summaries)
+    ]
+    return _table(["", *(f"`{p}`" for p, _ in summaries)], rows) + "\n"
+
+
+def _specials_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """Device beside golden at ±0, ±inf, NaN and the smallest normals; no ULP exists there."""
+    rows = [
+        [
+            f"`{params}`",
+            r["x"],
+            r["y"],
+            r["y_ref"],
+            "agree" if r["y"] == r["y_ref"] else "**differ**",
+        ]
+        for params, specials in _carrying(_summaries(arch, dtype, entries), "specials")
+        for r in specials
+    ]
+    if not rows:
+        return ""
+    return "### Special values\n\n" + _table(["Variant", "x", "device", "golden", ""], rows) + "\n"
+
+
+def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
+    """What each measured point demonstrated. Only `exact` and `inexact` carry a ULP."""
+    counted = _carrying(_summaries(arch, dtype, entries), "outcomes")
+    if not counted:
+        return ""
+    kinds = sorted({kind for _, outcomes in counted for kind in outcomes})
+    rows = [
+        [f"`{params}`", *(f"{outcomes.get(kind, 0):,}" for kind in kinds)]
+        for params, outcomes in counted
+    ]
+    return "**Outcomes**\n\n" + _table(["Parameters", *kinds], rows) + "\n"
+
+
 def _offenders_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
     """The worst points by value. A maximum tells you how bad; this tells you where to look."""
-    found = _rows_of(arch, dtype, entries, "offenders")
+    found = _carrying(_summaries(arch, dtype, entries), "offenders")
     if not found:
         return ""
-    inputs = _operand_headers([row for _, rows in found for row in rows])
-    head = "| Parameters | " + " | ".join(inputs) + " | golden | device | ULP |\n"
-    rule = "|---" * (len(inputs) + 4) + "|\n"
-    body = "".join(
-        f"| `{params}` | " + " | ".join(row.get(c, "—") for c in inputs) + f" | {row['y_ref']} "
-        f"| {row['y']} | {row['ulp']} |\n"
-        for params, rows in found
-        for row in rows
-    )
-    return "**Worst points**\n\n" + head + rule + body + "\n"
+    listed = [(params, row) for params, rows in found for row in rows]
+    return "**Worst points**\n\n" + _table(*_point_rows(listed, (("ulp", "ULP"),))) + "\n"
 
 
 def _monotonic_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
     """Ordering is not accuracy: an op can sit within 1 ULP and still step backwards."""
-    found = _rows_of(arch, dtype, entries, "monotonic")
+    found = _carrying(_summaries(arch, dtype, entries), "monotonic")
     if not found:
         return ""
-    head = "| Parameters | Pairs | Violations | Rate | Worst \\|Δy\\| |\n|---|---|---|---|---|\n"
-    body = "".join(
-        f"| `{params}` | {m['pairs']:,} | {m['violations']:,} | {m['rate']} | {m['worst_dy']} |\n"
-        for params, m in found
+    summary = _table(
+        ["Parameters", "Pairs", "Violations", "Rate", "Worst \\|Δy\\|"],
+        [
+            [f"`{params}`", f"{m['pairs']:,}", f"{m['violations']:,}", m["rate"], m["worst_dy"]]
+            for params, m in found
+        ],
     )
-    worst = "".join(
-        f"| `{params}` | {row['x_from']} → {row['x_to']} | {row['y_from']} → {row['y_to']} "
-        f"| {row['dy']} |\n"
+    violations = [
+        [
+            f"`{params}`",
+            f"{row['x_from']} → {row['x_to']}",
+            f"{row['y_from']} → {row['y_to']}",
+            row["dy"],
+        ]
         for params, m in found
         for row in m["top"]
+    ]
+    worst = (
+        "\n_Worst violations — the device output moved against the reference's own direction "
+        "between these neighbouring inputs._\n\n"
+        + _table(["Parameters", "x", "device", "\\|Δy\\|"], violations)
+        if violations
+        else ""
     )
-    if worst:
-        worst = (
-            "\n_Worst violations — the device output moved against the reference's own "
-            "direction between these neighbouring inputs._\n\n"
-            "| Parameters | x | device | \\|Δy\\| |\n|---|---|---|---|\n" + worst
-        )
     return (
         "**Monotonicity**\n\n_Checked only where the reference is itself ordered, and never "
-        "across a discontinuity._\n\n" + head + body + worst + "\n"
+        "across a discontinuity._\n\n" + summary + worst + "\n"
     )
 
 
 def _nonfinite_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
     """Which side went non-finite. These points carry no ULP, so no other figure counts them."""
-    found = _rows_of(arch, dtype, entries, "nonfinite")
+    found = _carrying(_summaries(arch, dtype, entries), "nonfinite")
     if not found:
         return ""
-    head = (
-        "| Parameters | Points | Both | Device only | Golden only | Device inf | Device nan "
-        "| Golden inf | Golden nan |\n" + "|---" * 9 + "|\n"
+    sides = ("total", "both", "device_only", "golden_only")
+    kinds = ("device_inf", "device_nan", "golden_inf", "golden_nan")
+    summary = _table(
+        [
+            "Parameters",
+            "Points",
+            "Both",
+            "Device only",
+            "Golden only",
+            *(k.replace("_", " ").capitalize() for k in kinds),
+        ],
+        [[f"`{params}`", *(f"{n[k]:,}" for k in (*sides, *kinds))] for params, n in found],
     )
-    body = "".join(
-        f"| `{params}` | {n['total']:,} | {n['both']:,} | {n['device_only']:,} "
-        f"| {n['golden_only']:,} | {n['device_inf']:,} | {n['device_nan']:,} "
-        f"| {n['golden_inf']:,} | {n['golden_nan']:,} |\n"
-        for params, n in found
-    )
-    inputs = _operand_headers([row for _, n in found for row in n["detail"]])
-    detail = "".join(
-        f"| `{params}` | "
-        + " | ".join(row.get(c, "—") for c in inputs)
-        + f" | {row['y_ref']} | {row['y']} |\n"
-        for params, n in found
-        for row in n["detail"]
-    )
-    return (
-        "**Non-finite outputs**\n\n"
-        + head
-        + body
-        + "\n| Parameters | "
-        + " | ".join(inputs)
-        + " | golden | device |\n"
-        + "|---" * (len(inputs) + 3)
-        + "|\n"
-        + detail
-        + "\n"
-    )
+    listed = [(params, row) for params, n in found for row in n["detail"]]
+    return "**Non-finite outputs**\n\n" + summary + "\n" + _table(*_point_rows(listed, ())) + "\n"
 
 
 def _sampling_note(dtype: str, entries: list[tuple[str, str]]) -> str:

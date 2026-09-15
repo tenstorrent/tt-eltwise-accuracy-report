@@ -74,8 +74,7 @@ def params_desc(op_key: str, variant: str) -> str:
     for ov in overrides:
         if variant_slug(ov.params_desc) == variant:
             return ov.params_desc
-    # A value measured only in this run is in no table, but its slug still opens with the
-    # kwarg name, so the `=` the slug dropped goes back where it was.
+    # A value measured only in this run is in no table, but its slug still opens with the kwarg.
     for ov in overrides:
         for name in ov.ttnn_kwargs:
             if variant.startswith(name) and variant != name:

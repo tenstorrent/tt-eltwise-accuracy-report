@@ -155,8 +155,7 @@ OVERRIDES: dict[str, tuple[Override, ...]] = {
         _override({"scalar": 2.0}, {"value": 2.0}, why="2 keeps the op distinct from reciprocal"),
     ),
     "ttnn.polygamma": (
-        # Bounded like polygamma_bw: torch's reference costs O(|x|) below zero, and the
-        # unbounded fp32 tail at k=2 ran for hours without finishing a single variant.
+        # Bounded like polygamma_bw: torch costs O(|x|) below zero and k=2 ran for hours.
         _polygamma(1, "trigamma, the first order in use"),
         _polygamma(2, "tetragamma; the order changes the series, not just a constant"),
         _polygamma(4, "high enough that the reference and the kernel can diverge"),
@@ -219,8 +218,7 @@ def with_value(ov: Override, value: float | int) -> Override:
     if len(ov.ttnn_kwargs) != 1:
         takes = "no scalar to set" if not ov.ttnn_kwargs else f"more than one: {ov.params_desc}"
         raise ValueError(f"takes {takes} — edit overrides.py for this one")
-    # To the op's own spelling: 6 against a float scalar is 6.0, or it becomes a second
-    # variant of one measurement, while polygamma's k must stay an int.
+    # The op's own spelling: 6 beside a float scalar is 6.0, but polygamma's k stays an int.
     current = next(iter(ov.ttnn_kwargs.values()))
     if isinstance(current, int | float) and not isinstance(current, bool):
         value = type(current)(value)

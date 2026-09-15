@@ -51,8 +51,7 @@ def diff(old: dict, new: dict) -> dict[str, list]:
 
 def _bucket(a: dict, b: dict) -> str:
     """Which bucket, or "" — a field the baseline predates cannot have regressed."""
-    # A different point count means a different domain, so the two are not comparable:
-    # narrowing `polygamma` to |x| <= 1024 read as a regression it had nothing to do with.
+    # A different point count is a different domain: narrowing `polygamma` read as a regression.
     if _num(a.get("n_inputs")) != _num(b.get("n_inputs")):
         return "changed"
     scored = [m for m in SCORED if m in a and m in b]

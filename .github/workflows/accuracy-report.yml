@@ -200,13 +200,9 @@ jobs:
       # but the LLK dashboard loads a harness CSV in the browser.
       - name: Export for the LLK dashboard
         if: needs.scope.outputs.ops != ''
-        env:
-          ARCH: ${{ matrix.target.arch }}
-          OPS: ${{ needs.scope.outputs.ops }}
         run: |
-          for op in ${OPS//,/ }; do
-            python3 -m ttnn_accuracy.cli export --arch "$ARCH" --op "$op" --out export
-          done
+          # DATA_DIR holds only what this run measured, and a run of pair ops exports nothing.
+          python3 -m ttnn_accuracy.cli export --arch "${{ matrix.target.arch }}" --out export || true
 
       - uses: actions/upload-artifact@v4
         if: always() && needs.scope.outputs.ops != ''

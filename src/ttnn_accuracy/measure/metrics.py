@@ -69,8 +69,7 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
             "y": calc,
             "y_ref": gold,
             "abs_error": abs_err,
-            # fp64 for the same reason as rel_error: an error over the subnormal-scale spacing
-            # of a min-normal reference exceeds 1e38, and in fp32 that inf is dropped unscored.
+            # fp64: at a min-normal reference this ratio passes 1e38, which fp32 calls inf.
             "ulp_error": np.where(defined, abs_err / unit.astype(np.float64), np.nan),
             # fp64: a large error over the smallest normal is 1e76, which fp32 would call inf.
             "rel_error": np.where(

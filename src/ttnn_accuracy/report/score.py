@@ -116,37 +116,34 @@ def _offenders(df: pd.DataFrame) -> list[dict]:
     ranked = df.assign(ulp=_finite(df["ulp_error"])).nlargest(OFFENDERS, "ulp")
     return [
         {c: _special_fmt(row[c]) for c in _operands(df)}
-        | {"y_ref": _fmt(row["y_ref"]), "y": _fmt(row["y"]), "ulp": _fmt(row["ulp"])}
+        | {
+            "y_ref": _special_fmt(row["y_ref"]),
+            "y": _special_fmt(row["y"]),
+            "ulp": _fmt(row["ulp"]),
+        }
         for _, row in ranked.iterrows()
         if row["ulp"] > 0
     ]
 
 
 def _monotonic(df: pd.DataFrame) -> dict:
-    """Neighbour ordering of the device output, wherever the reference itself is ordered.
-
-    The expected direction is read from the measured reference rather than a table of op
-    names, so an op nobody classified is still checked and a non-monotonic one (`sin`,
-    `gelu`) is silently skipped. A segment ends at any unscorable point and wherever x
-    crosses zero, so `reciprocal` is checked on each side of its pole and never across it."""
+    """Ordering of the device output wherever the reference is itself ordered, per interval."""
     if "x2" in df.columns:  # x alone does not determine y, so ordering says nothing
         return {}
     ordered = df.sort_values("x")
     sign = np.sign(ordered["x"].values)
-    # An interval ends only at a real discontinuity — x crossing zero. An unscorable point
-    # is a hole in an interval, not a new one: splitting there would chop a non-monotonic
-    # reference into short runs that each look ordered, and `sin` would report a rate.
+    # Only x crossing zero ends one: splitting at holes makes short runs that all look ordered.
     intervals = np.cumsum(np.r_[True, sign[1:] != sign[:-1]])
 
     pairs = violations = 0
     worst: list[tuple[float, dict]] = []
     for _, block in ordered.assign(_interval=intervals).groupby("_interval", sort=False):
         ok = block["outcome"].isin(("exact", "inexact")).values
-        ref, hw, xs = block["y_ref"].values, block["y"].values, block["x"].values
         if ok.sum() < 2:
             continue
-        step = np.diff(ref[ok])
+        ref, hw, xs = block["y_ref"].values, block["y"].values, block["x"].values
         # Non-strict: equal neighbours are expected when the dtype cannot separate them.
+        step = np.diff(ref[ok])
         if np.all(step >= 0):
             direction = 1.0
         elif np.all(step <= 0):
@@ -159,17 +156,17 @@ def _monotonic(df: pd.DataFrame) -> dict:
         pairs += len(moved)
         for i in comparable[moved < 0]:
             violations += 1
+            dy = abs(float(hw[i + 1] - hw[i]))
+            # 4 digits: neighbouring bf16 codes are 0.4% apart and would otherwise print alike.
             worst.append(
                 (
-                    abs(float(hw[i + 1] - hw[i])),
+                    dy,
                     {
-                        # 4 digits, not 3: neighbouring bf16 codes are 0.4% apart and a
-                        # violation between two inputs that print alike cannot be read.
                         "x_from": _special_fmt(xs[i]),
                         "x_to": _special_fmt(xs[i + 1]),
                         "y_from": _special_fmt(hw[i]),
                         "y_to": _special_fmt(hw[i + 1]),
-                        "dy": _fmt(abs(float(hw[i + 1] - hw[i]))),
+                        "dy": _fmt(dy),
                     },
                 )
             )
@@ -180,17 +177,13 @@ def _monotonic(df: pd.DataFrame) -> dict:
         "pairs": pairs,
         "violations": violations,
         "rate": _fmt(violations / pairs),
-        "worst_dy": _fmt(worst[0][0]) if worst else "0",
-        "top": [w for _, w in worst[:MONOTONIC_TOP]],
+        "worst_dy": _fmt(worst[0][0] if worst else 0.0),
+        "top": [row for _, row in worst[:MONOTONIC_TOP]],
     }
 
 
 def _nonfinite(df: pd.DataFrame) -> dict:
-    """Which side went non-finite, and at which inputs.
-
-    The `mismatch` outcome says the two sides disagree about finiteness; this says which way,
-    and separates an infinity from a NaN. Points where both sides agree on an infinity carry
-    no ULP either, so they appear here and in no other figure."""
+    """Which side went non-finite and where; `mismatch` says they differ, this says which way."""
     ref, hw = df["y_ref"].values, df["y"].values
     ref_bad, hw_bad = ~np.isfinite(ref), ~np.isfinite(hw)
     if not (total := int((ref_bad | hw_bad).sum())):
@@ -206,7 +199,7 @@ def _nonfinite(df: pd.DataFrame) -> dict:
         "golden_inf": int(np.isinf(ref).sum()),
         "golden_nan": int(np.isnan(ref).sum()),
         "detail": [
-            {c: _fmt(row[c]) for c in _operands(df)}
+            {c: _special_fmt(row[c]) for c in _operands(df)}
             | {"y_ref": _special_fmt(row["y_ref"]), "y": _special_fmt(row["y"])}
             for _, row in listed.iterrows()
         ],

@@ -99,7 +99,8 @@ def write(path: Path, content: str):
 
 def _usable_text(summary: dict) -> str:
     """`—` reads as a gap in the measurement, which it never is: say which case it is."""
-    return summary.get("usable_to") or "—" if summary.get("usable_to") != "—" else "nowhere"
+    bound = summary.get("usable_to")
+    return "nowhere" if bound == "—" else bound or "—"
 
 
 def _us(perf: dict | None) -> str:
