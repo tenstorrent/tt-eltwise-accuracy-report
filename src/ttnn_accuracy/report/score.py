@@ -84,17 +84,30 @@ def verdict(
 
 
 def _special_fmt(v: float) -> str:
+    """A measured value, at the 9 digits that round-trip fp32: 4 hide a whole fp32 ULP, and a
+    row marked `differ` would print the same on both sides."""
     if v != v:
         return "nan"
     if v == 0:
         return "-0" if np.signbit(v) else "0"
-    return f"{v:.4g}"
+    return f"{v:.9g}"
+
+
+def _agree(y: float, ref: float) -> bool:
+    """Two NaNs agree, two zeros of opposite sign do not, and nothing else is a judgement."""
+    if y != y and ref != ref:
+        return True
+    # bool(), or numpy's own returns and the index will not serialise.
+    return bool(y == ref and np.signbit(y) == np.signbit(ref))
 
 
 def _specials_rows(specials: pd.DataFrame) -> list[dict]:
     """Display strings: NaN and ±inf are not JSON numbers, and the sign of zero is the point."""
     return [
-        {c: _special_fmt(row[c]) for c in ("x", "y", "y_ref")} for _, row in specials.iterrows()
+        {c: _special_fmt(row[c]) for c in ("x", "y", "y_ref")}
+        # Decided on the values, not on their four printed digits, which hide an fp32 ULP.
+        | {"agree": _agree(row["y"], row["y_ref"])}
+        for _, row in specials.iterrows()
     ]
 
 

@@ -205,9 +205,9 @@ def specials(ttnn_fn, golden_fn, operands: int, dtype: str, layout: str, device)
     target = getattr(torch, DTYPE[dtype])
     x = torch.tensor(SPECIAL_VALUES, dtype=target)
     tiled = [_tile(t) for t in (x, *[torch.ones_like(x)] * (operands - 1))]
-    # To the measured dtype, as the sweep does: against fp64, acos(0) differs by the rounding
-    # of pi/2 alone and every op whose answer is irrational reads as a disagreement.
-    y_ref = metrics.flush_subnormals(_golden(golden_fn, *tiled).to(target))
+    # To the measured dtype, or acos(0) differs by the rounding of pi/2 alone. Not flushed,
+    # unlike the sweep: these rows exist to show ±0 and what the device does with a subnormal.
+    y_ref = _golden(golden_fn, *tiled).to(target)
     y = _on_device(ttnn_fn, *tiled, dtype=dtype, layout=layout, device=device)
     k = len(SPECIAL_VALUES)
     return pd.DataFrame(

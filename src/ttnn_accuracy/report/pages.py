@@ -120,7 +120,8 @@ def _specials_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> st
             r["x"],
             r["y"],
             r["y_ref"],
-            "agree" if r["y"] == r["y_ref"] else "**differ**",
+            # An index older than the stored verdict can only be re-read from its own digits.
+            "agree" if r.get("agree", r["y"] == r["y_ref"]) else "**differ**",
         ]
         for params, specials in _carrying(_summaries(arch, dtype, entries), "specials")
         for r in specials
