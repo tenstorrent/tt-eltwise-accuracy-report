@@ -220,7 +220,19 @@ def _plot_cdf(ax, chart: _Chart) -> None:
         ax.step(thresholds, fractions, where="post", color="#2980b9", linewidth=1.5, zorder=3)
         ax.set_xscale("log")
         ax.set_xlim(lo, hi)
-    _reference_lines(ax, min(chart.reach, ULP_CLIP), horizontal=False)
+        _reference_lines(ax, min(chart.reach, ULP_CLIP), horizontal=False)
+    else:
+        # Nothing to plot: a 1-ULP rule and a 0-to-1 threshold axis would both read as a bug.
+        ax.set_xticks([])
+        ax.text(
+            0.5,
+            0.5,
+            "every measured point is bit-exact",
+            ha="center",
+            va="center",
+            transform=ax.transAxes,
+            color=UNSAMPLED,
+        )
     ax.set_ylim(bottom=0, top=1.02)
     ax.set_xlabel("|ULP| threshold", fontsize=11)
     ax.set_ylabel("Fraction of points within", fontsize=11)

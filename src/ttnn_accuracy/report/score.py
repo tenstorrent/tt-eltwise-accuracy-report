@@ -36,6 +36,11 @@ def _fmt(v) -> str:
     return "—" if v != v else f"{float(v):.3g}"
 
 
+def _or_exact(value: float, defined: int) -> str:
+    """A figure over inexact points: 0 when every defined point was exact, `—` when none was."""
+    return _fmt(value if value == value else (0.0 if defined else float("nan")))
+
+
 def _bits(rel: float) -> str:
     """Bits of precision from a relative error. A zero error has no bits to report, not infinite."""
     return _fmt(-np.log2(rel) if rel > 0 else float("nan"))
@@ -215,7 +220,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
     outcomes = {k: int(v) for k, v in df["outcome"].value_counts().items()}
     return {
         "max_ulp": _fmt(ulp.max()),
-        "mean_ulp": _fmt(ulp[ulp > 0].mean()),
+        "mean_ulp": _or_exact(ulp[ulp > 0].mean(), defined),
         "p50_ulp": _fmt(ulp.quantile(0.50)),
         "p95_ulp": _fmt(ulp.quantile(0.95)),
         "p99_ulp": _fmt(ulp.quantile(0.99)),
@@ -223,7 +228,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
         "usable_to": _fmt(_usable_to(df)),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "max_rel": _fmt(rel.max()),
-        "median_rel": _fmt(inexact.median()),
+        "median_rel": _or_exact(inexact.median(), rel.count()),
         "bits_worst": _bits(rel.max()),
         "bits_median": _bits(inexact.median()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
