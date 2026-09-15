@@ -112,10 +112,11 @@ jobs:
 
       - name: Publish
         run: |
+          git config user.name nightly-report
+          git config user.email nightly@users.noreply.github.com
           git add -A reports/ report_index.json stats/ analyze-report/ask.md
           git diff --cached --quiet && { echo "no change to publish"; exit 0; }
-          git -c user.name=nightly-report -c user.email=nightly@users.noreply.github.com \
-            commit -m "data(${{ matrix.target.arch }}): nightly report at ${{ needs.pin.outputs.version }}"
+          git commit -m "data(${{ matrix.target.arch }}): nightly report at ${{ needs.pin.outputs.version }}"
           for attempt in 1 2 3; do
             git rebase --abort 2>/dev/null || true
             git pull --rebase origin "$GITHUB_REF_NAME" &&

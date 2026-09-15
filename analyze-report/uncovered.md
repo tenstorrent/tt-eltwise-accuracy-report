@@ -14,7 +14,7 @@ everything else is here, with what it would take.
 | broken goldens | `topk`, `is_imag`, `is_real`, `bitcast`, `polar` | the golden itself crashes (`NameError: torch`, and others) | file upstream. None is measurable eltwise anyway | upstream |
 | `softcap` | `softcap` | device asserts `arch == BLACKHOLE`, rejected on wh | a BH run | blocked, no BH runner |
 | `bias_gelu_bw` | `bias_gelu_bw` | crashes the process while probing, on both architectures | a device-side fix. `charts` drops its stale entry, so nothing stale is published | upstream |
-| `hardswish` | `hardswish` | TRISC compile fails at tt-metal `9d286803c55`: `hardswish_kernel.cpp:14` reads `get_compile_time_arg_val(0)` and the host passes none | an upstream fix. It measured fine at `f6deef232f7` | upstream regression |
+| `hardswish` | `hardswish` | measured again at tt-metal `9f9cd4fd590`. The TRISC compile failure at `9d286803c55`, where `hardswish_kernel.cpp:14` read `get_compile_time_arg_val(0)` and the host passed none, is fixed upstream | nothing | resolved |
 
 91 goldens refuse the probe, each reason recorded under `unprobeable`. That is not a 91-op
 hole. About 75 are correctly identified as not elementwise: they need a `dim`, a 2-D weight

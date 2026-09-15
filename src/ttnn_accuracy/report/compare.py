@@ -51,6 +51,10 @@ def diff(old: dict, new: dict) -> dict[str, list]:
 
 def _bucket(a: dict, b: dict) -> str:
     """Which bucket, or "" — a field the baseline predates cannot have regressed."""
+    # A different point count means a different domain, so the two are not comparable:
+    # narrowing `polygamma` to |x| <= 1024 read as a regression it had nothing to do with.
+    if _num(a.get("n_inputs")) != _num(b.get("n_inputs")):
+        return "changed"
     scored = [m for m in SCORED if m in a and m in b]
     if any(_num(b[m]) > _num(a[m]) for m in scored):
         return "regressed"
@@ -65,7 +69,7 @@ def _bucket(a: dict, b: dict) -> str:
 def _moves(a: dict, b: dict) -> str:
     return ", ".join(
         f"{m} {a.get(m)} → {b.get(m)}"
-        for m in (*SCORED, "usable_to")
+        for m in (*SCORED, "usable_to", "n_inputs")
         if str(a.get(m)) != str(b.get(m))
     )
 
@@ -77,9 +81,10 @@ SECTIONS = (
     (
         "changed",
         "Expected",
-        "No scored metric got worse. Either `usable_to` moved — a different kernel puts "
-        "the 2 ULP boundary on a neighbouring group — or a metric is reported here for "
-        "the first time, which is news rather than a change in the kernel.",
+        "No scored metric got worse on comparable measurements. Either `usable_to` moved, "
+        "because a different kernel puts the 2 ULP boundary on a neighbouring group; or "
+        "`n_inputs` moved, which means the swept domain changed and the two runs measure "
+        "different populations; or a metric is reported here for the first time.",
     ),
     ("added", "New coverage", "Measured here for the first time."),
     ("removed", "No longer measured", "Present in the baseline, absent now."),

@@ -77,10 +77,11 @@ jobs:
       - name: Publish
         if: steps.moved.outputs.any == 'true'
         run: |
+          git config user.name analyze-report
+          git config user.email analyze@users.noreply.github.com
           git add analyze-report/findings.md
           git diff --cached --quiet && { echo "nothing new to say"; exit 0; }
-          git -c user.name=analyze-report -c user.email=analyze@users.noreply.github.com \
-            commit -m "docs: findings for $(date -u +%Y-%m-%d)"
+          git commit -m "docs: findings for $(date -u +%Y-%m-%d)"
           git pull --rebase origin "${{ github.event.repository.default_branch }}"
           git push origin HEAD:"${{ github.event.repository.default_branch }}"
 

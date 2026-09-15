@@ -89,12 +89,12 @@ jobs:
           status=0
           python3 -m ttnn_accuracy.cli check --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" --perf \
             ${MAX_ULP:+--max-ulp "$MAX_ULP"} ${PARAMS:+--params "$PARAMS"} \
-            2>&1 | tee "$RUNNER_TEMP/check.log" || status=$?
+            2>&1 | tee check.log || status=$?
           {
             echo "## \`$OPS\` on $ARCH at $SHA"
             echo
             echo '```'
-            cat "$RUNNER_TEMP/check.log"
+            cat check.log
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
           [ "$status" -eq 0 ] || echo "::error::$status finding(s) — see the summary"
@@ -104,9 +104,11 @@ jobs:
         if: always()
         with:
           name: validate-${{ inputs.arch }}-${{ github.run_id }}
-          path: ${{ env.RUNNER_TEMP }}/check.log
+          path: check.log
           retention-days: 14
 
       - name: Leave the checkout clean
         if: always()
-        run: git checkout -- stats/ 2>/dev/null || true
+        run: |
+          rm -f check.log
+          git checkout -- stats/ 2>/dev/null || true
