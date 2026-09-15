@@ -16,6 +16,7 @@ from loguru import logger
 
 from ttnn_accuracy.config import (
     CDF_POINTS,
+    MAX_FINITE,
     MIN_BIN,
     N_BINS,
     NOISE_PCT,
@@ -23,7 +24,7 @@ from ttnn_accuracy.config import (
     ULP_LINES,
 )
 from ttnn_accuracy.measure.store import RUN_STAMP
-from ttnn_accuracy.ops.plan import resolve
+from ttnn_accuracy.ops.plan import describe, resolve
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, PERF_DIR, REPO_ROOT, RUNS_KEY
 from ttnn_accuracy.report.score import _finite, score_csv
 
@@ -82,7 +83,12 @@ def _aggregate(df: pd.DataFrame, group_size: int = 128) -> tuple[np.ndarray, np.
         return ordered["x"].values, ordered["ulp_error"].values
     groups = np.arange(len(ordered)) // group_size
     agg = ordered.groupby(groups, sort=False).agg(x=("x", "first"), ulp=("ulp_error", "max"))
-    return agg["x"].values, agg["ulp"].values
+    # Each group is labelled by its first x, so the line would stop up to 128 values short of
+    # the sweep's own edge — which, beside a domain band, reads as a range nobody measured.
+    return (
+        np.append(agg["x"].values, ordered["x"].values[-1]),
+        np.append(agg["ulp"].values, ordered["ulp_error"].values[-1]),
+    )
 
 
 def _scored(df: pd.DataFrame) -> pd.DataFrame:
@@ -124,20 +130,62 @@ def _bins(scored: pd.DataFrame) -> pd.DataFrame:
 
 
 def _reference_lines(ax, reach: float, horizontal: bool) -> None:
-    """A 100-ULP rule under data that never leaves 1 ULP only compresses the interesting part."""
+    """Each rule appears once the data reaches the one before it, so there is always exactly
+    one threshold of headroom above the worst point. A 100-ULP rule over data that never
+    leaves 1 ULP would only compress the part worth reading."""
     draw = ax.axhline if horizontal else ax.axvline
-    for line, colour in zip(ULP_LINES, ("#27ae60", "#e67e22", "#c0392b", "#8e44ad"), strict=True):
-        if reach >= line:
+    colours = ("#27ae60", "#e67e22", "#c0392b", "#8e44ad")
+    for (previous, line), colour in zip(
+        zip((0, *ULP_LINES), ULP_LINES, strict=False), colours, strict=True
+    ):
+        if reach >= previous:
             draw(line, color=colour, linestyle="--", linewidth=0.8, alpha=0.6, zorder=1)
 
 
-def _plot_error(ax, df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str) -> None:
+def _domain_bands(ax, op: str, dtype: str, covered: tuple[float, float]) -> None:
+    """Red where the function itself is undefined, grey where it is defined and unmeasured.
+
+    Without the red band an axis that simply stops reads the same as a domain that ends
+    there: `sqrt` and `log` are plotted over x > 0 either way. The view is widened past a
+    finite edge because a band on the boundary has nowhere to sit."""
+    info = describe(op)
+    if not info or not info.bounds:
+        return
+    lo, hi = info.bounds[dtype]
+    # An edge at the format's own limit says the dtype ran out, not that the function ended.
+    real = [e for e in (lo, hi) if np.isfinite(e) and abs(e) < MAX_FINITE[dtype]]
+    view_lo, view_hi = ax.get_xlim()
+    if real:
+        # In display space, so one rule works on the symlog axis this panel uses.
+        to_display, to_data = ax.transData.transform, ax.transData.inverted().transform
+        width = to_display((view_hi, 0))[0] - to_display((view_lo, 0))[0]
+        if lo in real:
+            view_lo = to_data((to_display((lo, 0))[0] - 0.12 * width, 0))[0]
+        if hi in real:
+            view_hi = to_data((to_display((hi, 0))[0] + 0.12 * width, 0))[0]
+        ax.set_xlim(view_lo, view_hi)
+
+    if lo in real:
+        ax.axvspan(view_lo, lo, color="#c0392b", alpha=0.07, zorder=0)
+    if hi in real:
+        ax.axvspan(hi, view_hi, color="#c0392b", alpha=0.07, zorder=0)
+    # Grey wherever the domain reaches further than the sweep did, whatever bounded it.
+    for edge, measured in zip((lo, hi), covered, strict=True):
+        if np.isfinite(edge) and edge != measured:
+            ax.axvspan(*sorted((edge, measured)), color="#7f8c8d", alpha=0.10, zorder=0)
+
+
+def _plot_error(
+    ax, df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str, covered: tuple
+) -> None:
     """ULP against x, clamped: a 1e36 outlier would flatten every other point to the axis."""
     x, ulp = _aggregate(df)
     ax.plot(x, np.clip(ulp, 0, ULP_CLIP), color="#e67e22", linewidth=1.5, zorder=3)
     ax.set_xscale("symlog", linthresh=1e-3)
     ax.set_yscale("asinh", linear_width=0.01)
     ax.set_ylim(bottom=0, top=ULP_CLIP * 1.1)
+    _reference_lines(ax, min(float(np.nanmax(ulp, initial=0.0)), ULP_CLIP), horizontal=True)
+    _domain_bands(ax, op, dtype, covered)
     ax.set_xlabel("Input x", fontsize=11)
     ax.set_ylabel("ULP Error", fontsize=11)
     suffix = "" if variant == "default" else f" [{variant}]"
@@ -173,7 +221,7 @@ def _plot_cdf(ax, scored: pd.DataFrame, reach: float) -> None:
     ax.set_title(f"Within N ULP — {exact:.1%} of points are exact, worst {reach:.3g}", fontsize=11)
 
 
-def _plot_bins(ax, scored: pd.DataFrame) -> None:
+def _plot_bins(ax, scored: pd.DataFrame, op: str, dtype: str, reach: float, covered: tuple) -> None:
     """Where in the domain the error lives, which the whole-sweep percentiles cannot say."""
     binned = _bins(scored)
     for column, colour, marker in (
@@ -187,6 +235,8 @@ def _plot_bins(ax, scored: pd.DataFrame) -> None:
         )
     ax.set_xscale("symlog", linthresh=1e-3)
     ax.set_yscale("symlog", linthresh=1e-3)
+    _reference_lines(ax, reach, horizontal=True)
+    _domain_bands(ax, op, dtype, covered)
     ax.set_xlabel("Input x", fontsize=11)
     ax.set_ylabel("|ULP| per bin", fontsize=11)
     hidden = N_BINS - len(binned)
@@ -201,11 +251,15 @@ def _plot_bins(ax, scored: pd.DataFrame) -> None:
 def plot_ulp_chart(df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str, out: Path):
     scored = _scored(df)
     reach = scored["ulp"].max() if len(scored) else 0.0
+    # What the sweep covered, from every row it wrote: the aggregated series keeps one x per
+    # 128 values, so its extremes would read as a domain the sweep never reached.
+    swept = _finite(df["x"]).dropna()
+    covered = (float(swept.min()), float(swept.max()))
 
     fig, (error_ax, cdf_ax, bin_ax) = plt.subplots(3, 1, figsize=(10, 13))
-    _plot_error(error_ax, df, op, variant, arch, dtype)
+    _plot_error(error_ax, df, op, variant, arch, dtype, covered)
     _plot_cdf(cdf_ax, scored, reach)
-    _plot_bins(bin_ax, scored)
+    _plot_bins(bin_ax, scored, op, dtype, reach, covered)
     for panel in (error_ax, cdf_ax, bin_ax):
         panel.grid(True, alpha=0.3, which="both")
 

@@ -171,6 +171,7 @@ ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternar
 | `measure` | the sweeps, to one CSV per op variant | **yes** |
 | `perf` | one resident tensor per op, timed, to `stats/perf/{arch}.json` | **yes** |
 | `charts` | CSV to SVG and `report_index.json`, timings attached | no |
+| `export` | measured data in the tt-llk harness schema, for its dashboard's Load CSV | no |
 | `report` | index and SVG to a markdown tree | no |
 | `refine` | sweep a sampled worst point exhaustively; exit counts looser bounds | **yes** |
 | `compare` | two indexes to what moved; exit 1 on regression | no |
@@ -180,7 +181,15 @@ ttnn-accuracy report --categories unary,unary_bw,binary,binary_bw,ternary,ternar
 ```bash
 ttnn-accuracy history --op sin        # when did it break, and on whose commit
 ttnn-accuracy refine --arch wh --ops pow --dtype fp32   # how loose is a sampled maximum
+ttnn-accuracy export --arch wh --op exp                 # then drag into the LLK dashboard
 ```
+
+The charts are static SVG because GitHub strips scripts from markdown, so `export` writes the
+measurements in [tt-llk](https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/tests/python_tests/accuracy)'s
+own 19-column schema and the [SFPU dashboard](https://github.com/tenstorrent/llk-sfpu-dashboard)
+renders them with zoom, pan and sub-range recompute. Its aggregator reports the same max ULP
+and exact fraction our pages do, from the same points. One op is about 10 MB, so export the
+ops you are looking at rather than the tree.
 
 Binary fp32 and every ternary sweep are sampled, so their maxima are lower bounds and the
 pages say so. `refine` holds the other operands at a variant's worst point and sweeps one

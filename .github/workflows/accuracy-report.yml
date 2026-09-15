@@ -195,6 +195,26 @@ jobs:
           python3 -m ttnn_accuracy.cli report \
             --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
 
+      # Named ops only: one op is 10 MB in their schema, so a whole sweep would be gigabytes.
+      # This is how a measurement gets zoom and pan — GitHub strips scripts from `reports/`,
+      # but the LLK dashboard loads a harness CSV in the browser.
+      - name: Export for the LLK dashboard
+        if: needs.scope.outputs.ops != ''
+        env:
+          ARCH: ${{ matrix.target.arch }}
+          OPS: ${{ needs.scope.outputs.ops }}
+        run: |
+          for op in ${OPS//,/ }; do
+            python3 -m ttnn_accuracy.cli export --arch "$ARCH" --op "$op" --out export
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: always() && needs.scope.outputs.ops != ''
+        with:
+          name: llk-csv-${{ matrix.target.arch }}-${{ github.run_id }}
+          path: export/
+          retention-days: 14
+
       # Always: for a published sweep this is the night's diff, and for a subset run it is
       # the whole point — the early warning, without writing anything.
       - name: Say what moved

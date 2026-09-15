@@ -20,7 +20,7 @@ differed only in how much they measured. Publishing is derived from that, never 
 |---|---|---|---|
 | the weekly report | cron `37 2 * * 0` | 6 categories × both dtypes × wh and bh | commits |
 | the early warning | cron `37 2 * * 1-6` | unary, bf16 | `compare` on the run page |
-| a question | dispatch with `ops` and `params` | what you name | run page and artifact |
+| a question | dispatch with `ops` and `params` | what you name | run page, report artifact, and an `llk-csv` artifact for the SFPU dashboard |
 | a dry run | dispatch with `publish: false` | everything | artifact |
 
 | Input | Default | Meaning |

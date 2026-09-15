@@ -72,6 +72,14 @@ def build_parser() -> argparse.ArgumentParser:
     charts.add_argument("--dtype")
     charts.add_argument("--op")
 
+    export = sub.add_parser(
+        "export", help="measured data in the tt-llk harness schema, for its dashboard"
+    )
+    export.add_argument("--arch")
+    export.add_argument("--dtype")
+    export.add_argument("--op")
+    export.add_argument("--out", type=Path, default=Path("export"))
+
     report = sub.add_parser("report", help="regenerate the markdown report tree")
     report.add_argument("--arch")
     report.add_argument("--dtype")
@@ -207,6 +215,11 @@ def main(argv: list[str] | None = None) -> int:
             from ttnn_accuracy.report.charts import generate_charts
 
             return generate_charts(args.arch, args.dtype, args.op)
+
+        case "export":
+            from ttnn_accuracy.report.export import export_llk
+
+            return export_llk(args.out, args.arch, args.dtype, args.op)
 
         case "report":
             from ttnn_accuracy.report.tree import generate_reports

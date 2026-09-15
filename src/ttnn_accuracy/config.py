@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 MIN_NORMAL = 2**-126  # smallest normal bf16 and fp32 value; below it hardware returns zero
+# Largest value each dtype holds. A domain edge sitting here is the format running out, not
+# the function ending, so it earns no "undefined" band.
+MAX_FINITE = {"bf16": 3.3895313892515355e38, "fp32": 3.4028234663852886e38}
 
 # Sweep sizing
 TILE_WIDTH = 2**7
