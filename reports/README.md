@@ -22,17 +22,17 @@ Charts show ULP (units in last place) error across the full input range.
 | Metric | Count |
 |--------|-------|
 | Architectures measured | 2 |
-| Unique ops measured | 216 |
-| Blackhole (BH) bfloat16 ops | 195 |
-| Blackhole (BH) float32 ops | 194 |
-| Wormhole (WH) bfloat16 ops | 214 |
-| Wormhole (WH) float32 ops | 214 |
+| Unique ops measured | 220 |
+| Blackhole (BH) bfloat16 ops | 194 |
+| Blackhole (BH) float32 ops | 193 |
+| Wormhole (WH) bfloat16 ops | 219 |
+| Wormhole (WH) float32 ops | 219 |
 
 ---
 
 ## Returning inf or zero where a value exists
 
-193 variants across 55 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+194 variants across 54 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -102,6 +102,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`tan_bw`](by_op/tan_bw/README.md) | `default` | wh bf16 | 12,178 of 65,024 | 18.7% |
 | [`multigammaln`](by_op/multigammaln/README.md) | `default` | bh fp32 | 7,422 of 50,376 | 14.7% |
 | [`multigammaln`](by_op/multigammaln/README.md) | `default` | wh fp32 | 7,422 of 50,376 | 14.7% |
+| [`rpow`](by_op/rpow/README.md) | `exponent=1.0` | wh fp32 | 1,536 of 49,536 | 3.1% |
 | [`rpow`](by_op/rpow/README.md) | `exponent=2.0` | bh fp32 | 1,536 of 49,536 | 3.1% |
 | [`rpow`](by_op/rpow/README.md) | `exponent=2.0` | wh fp32 | 1,536 of 49,536 | 3.1% |
 | [`softcap`](by_op/softcap/README.md) | `beta=50.0` | bh bf16 | 1,426 of 65,024 | 2.2% |
@@ -126,7 +127,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`digamma_bw`](by_op/digamma_bw/README.md) | `default` | bh bf16 | 263 of 64,769 | 0.4% |
 | [`digamma_bw`](by_op/digamma_bw/README.md) | `default` | wh bf16 | 263 of 64,769 | 0.4% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=1` | bh bf16 | 263 of 64,769 | 0.4% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=1` | wh bf16 | 263 of 64,769 | 0.4% |
 | [`rdiv`](by_op/rdiv/README.md) | `value=2.0` | bh bf16 | 258 of 64,770 | 0.4% |
 | [`rdiv`](by_op/rdiv/README.md) | `value=2.0` | bh fp32 | 258 of 64,770 | 0.4% |
 | [`rdiv`](by_op/rdiv/README.md) | `value=2.0` | wh bf16 | 258 of 64,770 | 0.4% |
@@ -134,7 +134,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`polygamma`](by_op/polygamma/README.md) | `k=1` | bh fp32 | 257 of 64,769 | 0.4% |
 | [`rdiv`](by_op/rdiv/README.md) | `value=2.0` | wh fp32 | 256 of 64,770 | 0.4% |
 | [`digamma_bw`](by_op/digamma_bw/README.md) | `default` | wh fp32 | 255 of 64,769 | 0.4% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=1` | wh fp32 | 255 of 64,769 | 0.4% |
 | [`rsqrt_bw`](by_op/rsqrt_bw/README.md) | `default` | bh bf16 | 75 of 21,665 | 0.3% |
 | [`rsqrt_bw`](by_op/rsqrt_bw/README.md) | `default` | wh bf16 | 75 of 21,665 | 0.3% |
 | [`rsqrt_bw`](by_op/rsqrt_bw/README.md) | `default` | bh fp32 | 75 of 21,666 | 0.3% |
@@ -143,15 +142,18 @@ Charts show ULP (units in last place) error across the full input range.
 | [`gelu`](by_op/gelu/README.md) | `fast_approx` | wh bf16 | 198 of 65,024 | 0.3% |
 | [`gelu`](by_op/gelu/README.md) | `fast_approx` | bh fp32 | 197 of 65,024 | 0.3% |
 | [`gelu`](by_op/gelu/README.md) | `fast_approx` | wh fp32 | 197 of 65,024 | 0.3% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh bf16 | 142 of 49,922 | 0.3% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh fp32 | 141 of 49,922 | 0.3% |
 | [`expm1_bw`](by_op/expm1_bw/README.md) | `default` | bh fp32 | 138 of 49,458 | 0.3% |
 | [`expm1_bw`](by_op/expm1_bw/README.md) | `default` | wh fp32 | 138 of 49,458 | 0.3% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh bf16 | 142 of 64,769 | 0.2% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | bh fp32 | 140 of 65,024 | 0.2% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | wh fp32 | 140 of 65,024 | 0.2% |
 | [`log2_bw`](by_op/log2_bw/README.md) | `default` | bh bf16 | 116 of 64,626 | 0.2% |
 | [`log2_bw`](by_op/log2_bw/README.md) | `default` | wh bf16 | 116 of 64,626 | 0.2% |
 | [`log2_bw`](by_op/log2_bw/README.md) | `default` | bh fp32 | 112 of 64,626 | 0.2% |
 | [`log2_bw`](by_op/log2_bw/README.md) | `default` | wh fp32 | 112 of 64,626 | 0.2% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh bf16 | 75 of 49,922 | 0.2% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh fp32 | 75 of 49,922 | 0.2% |
 | [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | bh bf16 | 75 of 49,922 | 0.2% |
 | [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | bh fp32 | 75 of 49,922 | 0.2% |
 | [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | wh bf16 | 75 of 49,922 | 0.2% |
@@ -160,7 +162,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`gelu`](by_op/gelu/README.md) | `default` | wh bf16 | 86 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | bh fp32 | 83 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | wh fp32 | 83 of 65,024 | 0.1% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh bf16 | 75 of 64,769 | 0.1% |
 | [`softplus`](by_op/softplus/README.md) | `default` | bh fp32 | 30 of 65,024 | 0.0% |
 | [`softplus`](by_op/softplus/README.md) | `default` | wh fp32 | 30 of 65,024 | 0.0% |
 | [`silu`](by_op/silu/README.md) | `default` | bh bf16 | 13 of 65,024 | 0.0% |
@@ -169,6 +170,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`swish`](by_op/swish/README.md) | `default` | wh bf16 | 13 of 65,024 | 0.0% |
 | [`mish`](by_op/mish/README.md) | `default` | bh bf16 | 11 of 65,024 | 0.0% |
 | [`mish`](by_op/mish/README.md) | `default` | wh bf16 | 11 of 65,024 | 0.0% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=1` | wh bf16 | 7 of 49,922 | 0.0% |
 | [`mish`](by_op/mish/README.md) | `default` | bh fp32 | 9 of 65,024 | 0.0% |
 | [`mish`](by_op/mish/README.md) | `default` | wh fp32 | 9 of 65,024 | 0.0% |
 | [`silu`](by_op/silu/README.md) | `default` | bh fp32 | 9 of 65,024 | 0.0% |
@@ -181,8 +183,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`swish`](by_op/swish/README.md) | `default` | wh fp32 | 9 of 65,024 | 0.0% |
 | [`i0_bw`](by_op/i0_bw/README.md) | `default` | bh bf16 | 4 of 33,904 | 0.0% |
 | [`i0_bw`](by_op/i0_bw/README.md) | `default` | wh bf16 | 4 of 33,904 | 0.0% |
-| [`i1`](by_op/i1/README.md) | `default` | bh bf16 | 4 of 33,904 | 0.0% |
-| [`i1`](by_op/i1/README.md) | `default` | wh bf16 | 4 of 33,904 | 0.0% |
 | [`atanh`](by_op/atanh/README.md) | `default` | bh bf16 | 2 of 32,256 | 0.0% |
 | [`atanh`](by_op/atanh/README.md) | `default` | wh bf16 | 2 of 32,256 | 0.0% |
 | [`asin`](by_op/asin/README.md) | `default` | bh bf16 | 2 of 32,258 | 0.0% |
@@ -216,6 +216,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`deg2rad`](by_op/deg2rad/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
 | [`deg2rad`](by_op/deg2rad/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`hardswish`](by_op/hardswish/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
+| [`hardswish`](by_op/hardswish/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`tanh`](by_op/tanh/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
 | [`tanh`](by_op/tanh/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | bh bf16 | 1 of 49,537 | 0.0% |

@@ -814,18 +814,18 @@
       "bf16": {
         "hi": 3.3895313892515355e+38,
         "lo": -3.3895313892515355e+38,
-        "n_flushed": 17,
+        "n_flushed": 197,
         "n_overflow": 0,
         "n_undefined": 0,
-        "n_valid": 65009
+        "n_valid": 64829
       },
       "fp32": {
         "hi": 3.4028234663852886e+38,
         "lo": -3.4028234663852886e+38,
-        "n_flushed": 69,
+        "n_flushed": 788,
         "n_overflow": 0,
         "n_undefined": 0,
-        "n_valid": 260028
+        "n_valid": 259309
       }
     },
     "ttnn.gez": {
@@ -1078,24 +1078,6 @@
         "n_overflow": 124482,
         "n_undefined": 0,
         "n_valid": 134591
-      }
-    },
-    "ttnn.i1": {
-      "bf16": {
-        "hi": 3.3895313892515355e+38,
-        "lo": -3.3895313892515355e+38,
-        "n_flushed": 256,
-        "n_overflow": 0,
-        "n_undefined": 0,
-        "n_valid": 64770
-      },
-      "fp32": {
-        "hi": 3.4028234663852886e+38,
-        "lo": -3.4028234663852886e+38,
-        "n_flushed": 1024,
-        "n_overflow": 0,
-        "n_undefined": 0,
-        "n_valid": 259073
       }
     },
     "ttnn.identity": {
@@ -2542,18 +2524,18 @@
       "bf16": {
         "hi": 3.3895313892515355e+38,
         "lo": -3.3895313892515355e+38,
-        "n_flushed": 60,
+        "n_flushed": 0,
         "n_overflow": 0,
         "n_undefined": 0,
-        "n_valid": 64966
+        "n_valid": 65026
       },
       "fp32": {
         "hi": 3.4028234663852886e+38,
         "lo": -3.4028234663852886e+38,
-        "n_flushed": 244,
+        "n_flushed": 0,
         "n_overflow": 0,
         "n_undefined": 0,
-        "n_valid": 259853
+        "n_valid": 260097
       }
     },
     "ttnn.tanhshrink": {
@@ -3872,6 +3854,16 @@
           "row_major"
         ]
       },
+      "ttnn.hardswish": {
+        "bf16": [
+          "tile",
+          "row_major"
+        ],
+        "fp32": [
+          "tile",
+          "row_major"
+        ]
+      },
       "ttnn.hardswish_bw": {
         "bf16": [
           "tile"
@@ -3941,16 +3933,6 @@
         ]
       },
       "ttnn.i0_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
-      },
-      "ttnn.i1": {
         "bf16": [
           "tile",
           "row_major"
@@ -4420,10 +4402,12 @@
       },
       "ttnn.mac": {
         "bf16": [
-          "tile"
+          "tile",
+          "row_major"
         ],
         "fp32": [
-          "tile"
+          "tile",
+          "row_major"
         ]
       },
       "ttnn.max_bw": {
@@ -5229,7 +5213,7 @@
       "is_experimental": false,
       "name": "abs",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.abs_bw": {
       "category": "unary_bw",
@@ -5245,7 +5229,7 @@
       "is_experimental": false,
       "name": "acos",
       "operands": 1,
-      "signature": "(input_tensor, *args, _ttnn_input_is_bfloat8_b=False, **kwargs)"
+      "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.acos_bw": {
       "category": "unary_bw",
@@ -5277,7 +5261,7 @@
       "is_experimental": false,
       "name": "add",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, input_tensor_a_activations=None, input_tensor_b_activations=None, _ttnn_input_tensor_a_dtype=None, _ttnn_output_tensor_dtype=None, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.add_": {
       "category": "binary",
@@ -5285,7 +5269,7 @@
       "is_experimental": false,
       "name": "add_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, _ttnn_global_golden=False, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
     },
     "ttnn.addalpha": {
       "category": "binary",
@@ -5309,7 +5293,7 @@
       "is_experimental": false,
       "name": "addcmul",
       "operands": 3,
-      "signature": "(input_a, input_b, input_c, *args, value=1, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, input_tensor_c, *args, value=1, **kwargs)"
     },
     "ttnn.asin": {
       "category": "unary",
@@ -5317,7 +5301,7 @@
       "is_experimental": false,
       "name": "asin",
       "operands": 1,
-      "signature": "(input_tensor, *args, _ttnn_input_is_bfloat8_b=False, **kwargs)"
+      "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.asin_bw": {
       "category": "unary_bw",
@@ -5333,7 +5317,7 @@
       "is_experimental": false,
       "name": "asinh",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.asinh_bw": {
       "category": "unary_bw",
@@ -5349,7 +5333,7 @@
       "is_experimental": false,
       "name": "atan",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.atan2": {
       "category": "binary",
@@ -5421,7 +5405,7 @@
       "is_experimental": false,
       "name": "cbrt",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.ceil": {
       "category": "unary",
@@ -5429,7 +5413,7 @@
       "is_experimental": false,
       "name": "ceil",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.celu": {
       "category": "unary",
@@ -5453,7 +5437,7 @@
       "is_experimental": false,
       "name": "clamp",
       "operands": 1,
-      "signature": "(input_tensor, *, min=-1.0, max=1.0, **kwargs)"
+      "signature": "(input_tensor_a, *, min=-1.0, max=1.0, **kwargs)"
     },
     "ttnn.clamp_bw": {
       "category": "ternary_bw",
@@ -5469,7 +5453,7 @@
       "is_experimental": false,
       "name": "clip",
       "operands": 1,
-      "signature": "(input_tensor, *, min=-1.0, max=1.0, **kwargs)"
+      "signature": "(input_tensor_a, *, min=-1.0, max=1.0, **kwargs)"
     },
     "ttnn.clip_bw": {
       "category": "ternary_bw",
@@ -5485,7 +5469,7 @@
       "is_experimental": false,
       "name": "cos",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.cos_bw": {
       "category": "unary_bw",
@@ -5501,7 +5485,7 @@
       "is_experimental": false,
       "name": "cosh",
       "operands": 1,
-      "signature": "(input_tensor, *args, _ttnn_input_is_bfloat8_b=False, **kwargs)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.cosh_bw": {
       "category": "unary_bw",
@@ -5517,7 +5501,7 @@
       "is_experimental": false,
       "name": "deg2rad",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.digamma": {
       "category": "unary",
@@ -5525,7 +5509,7 @@
       "is_experimental": false,
       "name": "digamma",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.digamma_bw": {
       "category": "unary_bw",
@@ -5541,7 +5525,7 @@
       "is_experimental": false,
       "name": "div",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, rounding_mode=None, fast_and_approximate_mode=False, activations=None, input_tensor_a_activations=None, input_tensor_b_activations=None, _ttnn_input_tensor_a_dtype=None, _ttnn_output_tensor_dtype=None, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, rounding_mode=None, *args, **kwargs)"
     },
     "ttnn.div_bw": {
       "category": "binary_bw",
@@ -5573,7 +5557,7 @@
       "is_experimental": false,
       "name": "divide_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, _ttnn_global_golden=False, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.elu": {
       "category": "unary",
@@ -5613,7 +5597,7 @@
       "is_experimental": false,
       "name": "eqz",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.erf": {
       "category": "unary",
@@ -5621,7 +5605,7 @@
       "is_experimental": false,
       "name": "erf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.erf_bw": {
       "category": "unary_bw",
@@ -5637,7 +5621,7 @@
       "is_experimental": false,
       "name": "erfc",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.erfc_bw": {
       "category": "unary_bw",
@@ -5653,7 +5637,7 @@
       "is_experimental": false,
       "name": "erfinv",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.erfinv_bw": {
       "category": "unary_bw",
@@ -5669,7 +5653,7 @@
       "is_experimental": false,
       "name": "exp",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.exp2": {
       "category": "unary",
@@ -5677,7 +5661,7 @@
       "is_experimental": false,
       "name": "exp2",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.exp2_bw": {
       "category": "unary_bw",
@@ -5701,7 +5685,7 @@
       "is_experimental": false,
       "name": "expm1",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.expm1_bw": {
       "category": "unary_bw",
@@ -5717,7 +5701,7 @@
       "is_experimental": false,
       "name": "floor",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.floor_div": {
       "category": "binary",
@@ -5733,7 +5717,7 @@
       "is_experimental": false,
       "name": "fmod",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, device=None, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
     },
     "ttnn.frac": {
       "category": "unary",
@@ -5765,7 +5749,7 @@
       "is_experimental": false,
       "name": "gelu",
       "operands": 1,
-      "signature": "(input_tensor, *args, variant=None, fast_and_approximate_mode=False, _ttnn_skip_comparison=False, **kwargs)"
+      "signature": "(input_tensor, *args, variant=None, fast_and_approximate_mode=False, **kwargs)"
     },
     "ttnn.gelu_bw": {
       "category": "unary_bw",
@@ -5773,7 +5757,7 @@
       "is_experimental": false,
       "name": "gelu_bw",
       "operands": 1,
-      "signature": "(grad_tensor, input_tensor, *args, approximate='none', **kwargs)"
+      "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
     },
     "ttnn.gez": {
       "category": "unary",
@@ -5781,7 +5765,7 @@
       "is_experimental": false,
       "name": "gez",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.gt": {
       "category": "binary",
@@ -5805,7 +5789,7 @@
       "is_experimental": false,
       "name": "gtz",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.hardmish": {
       "category": "unary",
@@ -5813,7 +5797,7 @@
       "is_experimental": false,
       "name": "hardmish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.hardshrink": {
       "category": "unary",
@@ -5837,7 +5821,7 @@
       "is_experimental": false,
       "name": "hardsigmoid",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.hardsigmoid_bw": {
       "category": "unary_bw",
@@ -5853,7 +5837,7 @@
       "is_experimental": false,
       "name": "hardswish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.hardswish_bw": {
       "category": "unary_bw",
@@ -5909,7 +5893,7 @@
       "is_experimental": false,
       "name": "i0",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.i0_bw": {
       "category": "unary_bw",
@@ -5919,21 +5903,13 @@
       "operands": 1,
       "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
     },
-    "ttnn.i1": {
-      "category": "unary",
-      "is_cpp": true,
-      "is_experimental": false,
-      "name": "i1",
-      "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
-    },
     "ttnn.identity": {
       "category": "unary",
       "is_cpp": true,
       "is_experimental": false,
       "name": "identity",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.isclose": {
       "category": "binary",
@@ -5949,7 +5925,7 @@
       "is_experimental": false,
       "name": "isfinite",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.isinf": {
       "category": "unary",
@@ -5957,7 +5933,7 @@
       "is_experimental": false,
       "name": "isinf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.isnan": {
       "category": "unary",
@@ -5965,7 +5941,7 @@
       "is_experimental": false,
       "name": "isnan",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.isneginf": {
       "category": "unary",
@@ -5973,7 +5949,7 @@
       "is_experimental": false,
       "name": "isneginf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.isposinf": {
       "category": "unary",
@@ -5981,7 +5957,7 @@
       "is_experimental": false,
       "name": "isposinf",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.l1_loss": {
       "category": "binary",
@@ -6037,7 +6013,7 @@
       "is_experimental": false,
       "name": "leaky_relu",
       "operands": 1,
-      "signature": "(input_tensor, *args, negative_slope=0.01, **kwargs)"
+      "signature": "(input_tensor_a, *args, negative_slope=0.01, **kwargs)"
     },
     "ttnn.leaky_relu_bw": {
       "category": "unary_bw",
@@ -6069,7 +6045,7 @@
       "is_experimental": false,
       "name": "lez",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.lgamma": {
       "category": "unary",
@@ -6077,7 +6053,7 @@
       "is_experimental": false,
       "name": "lgamma",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.lgamma_bw": {
       "category": "unary_bw",
@@ -6093,7 +6069,7 @@
       "is_experimental": false,
       "name": "log",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.log10": {
       "category": "unary",
@@ -6101,7 +6077,7 @@
       "is_experimental": false,
       "name": "log10",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.log10_bw": {
       "category": "unary_bw",
@@ -6117,7 +6093,7 @@
       "is_experimental": false,
       "name": "log1p",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.log1p_bw": {
       "category": "unary_bw",
@@ -6133,7 +6109,7 @@
       "is_experimental": false,
       "name": "log2",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.log2_bw": {
       "category": "unary_bw",
@@ -6157,7 +6133,7 @@
       "is_experimental": false,
       "name": "log_sigmoid",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.log_sigmoid_bw": {
       "category": "unary_bw",
@@ -6237,7 +6213,7 @@
       "is_experimental": false,
       "name": "logical_not",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.logical_not_": {
       "category": "unary",
@@ -6245,7 +6221,7 @@
       "is_experimental": false,
       "name": "logical_not_",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "signature": "(input_tensor_a, *args, **kwargs)"
     },
     "ttnn.logical_or": {
       "category": "binary",
@@ -6317,7 +6293,7 @@
       "is_experimental": false,
       "name": "ltz",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.mac": {
       "category": "ternary",
@@ -6365,7 +6341,7 @@
       "is_experimental": false,
       "name": "mish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.mse_loss": {
       "category": "binary",
@@ -6389,7 +6365,7 @@
       "is_experimental": false,
       "name": "multigammaln",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.multigammaln_bw": {
       "category": "unary_bw",
@@ -6405,7 +6381,7 @@
       "is_experimental": false,
       "name": "multiply",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, input_tensor_a_activations=None, input_tensor_b_activations=None, _ttnn_input_tensor_a_dtype=None, _ttnn_output_tensor_dtype=None, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.multiply_": {
       "category": "binary",
@@ -6413,7 +6389,7 @@
       "is_experimental": false,
       "name": "multiply_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, _ttnn_global_golden=False, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
     },
     "ttnn.ne": {
       "category": "binary",
@@ -6437,7 +6413,7 @@
       "is_experimental": false,
       "name": "neg",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.nextafter": {
       "category": "binary",
@@ -6453,7 +6429,7 @@
       "is_experimental": false,
       "name": "nez",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.polygamma": {
       "category": "unary",
@@ -6477,7 +6453,7 @@
       "is_experimental": false,
       "name": "pow",
       "operands": 2,
-      "signature": "(input_tensor, exponent, *args, **kwargs)"
+      "signature": "(input_tensor_a, exponent, *args, **kwargs)"
     },
     "ttnn.pow_bw": {
       "category": "unary_bw",
@@ -6501,7 +6477,7 @@
       "is_experimental": false,
       "name": "rad2deg",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.rdiv": {
       "category": "unary",
@@ -6525,7 +6501,7 @@
       "is_experimental": false,
       "name": "reciprocal",
       "operands": 1,
-      "signature": "(input_tensor, *args, device=None, **kwargs)"
+      "signature": "(input_tensor_a, *args, device, **kwargs)"
     },
     "ttnn.reciprocal_bw": {
       "category": "unary_bw",
@@ -6541,7 +6517,7 @@
       "is_experimental": false,
       "name": "relu",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.relu6": {
       "category": "unary",
@@ -6549,7 +6525,7 @@
       "is_experimental": false,
       "name": "relu6",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.relu6_bw": {
       "category": "unary_bw",
@@ -6573,7 +6549,7 @@
       "is_experimental": false,
       "name": "relu_max",
       "operands": 1,
-      "signature": "(input_tensor, *, upper_limit=1.0, **kwargs)"
+      "signature": "(input_tensor_a, *, upper_limit=1.0, **kwargs)"
     },
     "ttnn.relu_min": {
       "category": "unary",
@@ -6581,7 +6557,7 @@
       "is_experimental": false,
       "name": "relu_min",
       "operands": 1,
-      "signature": "(input_tensor, *, lower_limit=1.0, **kwargs)"
+      "signature": "(input_tensor_a, *, lower_limit=1.0, **kwargs)"
     },
     "ttnn.remainder": {
       "category": "binary",
@@ -6589,7 +6565,7 @@
       "is_experimental": false,
       "name": "remainder",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, device=None, activations=None, input_tensor_a_activations=None, input_tensor_b_activations=None, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, device, **kwargs)"
     },
     "ttnn.round": {
       "category": "unary",
@@ -6605,7 +6581,7 @@
       "is_experimental": false,
       "name": "rpow",
       "operands": 1,
-      "signature": "(input_tensor, *, dim=2.0, **kwargs)"
+      "signature": "(input_tensor_a, *, dim=2.0, **kwargs)"
     },
     "ttnn.rpow_bw": {
       "category": "unary_bw",
@@ -6621,7 +6597,7 @@
       "is_experimental": false,
       "name": "rsqrt",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.rsqrt_bw": {
       "category": "unary_bw",
@@ -6637,7 +6613,7 @@
       "is_experimental": false,
       "name": "rsub",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, input_tensor_a_activations=None, input_tensor_b_activations=None, _ttnn_input_tensor_a_dtype=None, _ttnn_output_tensor_dtype=None, **kwargs)"
+      "signature": "(input_tensor_a, value, *args, **kwargs)"
     },
     "ttnn.rsub_": {
       "category": "binary",
@@ -6645,7 +6621,7 @@
       "is_experimental": false,
       "name": "rsub_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, _ttnn_global_golden=False, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
     },
     "ttnn.selu": {
       "category": "unary",
@@ -6669,7 +6645,7 @@
       "is_experimental": false,
       "name": "sigmoid",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.sigmoid_accurate": {
       "category": "unary",
@@ -6677,7 +6653,7 @@
       "is_experimental": false,
       "name": "sigmoid_accurate",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.sigmoid_bw": {
       "category": "unary_bw",
@@ -6693,7 +6669,7 @@
       "is_experimental": false,
       "name": "sign",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.signbit": {
       "category": "unary",
@@ -6701,7 +6677,7 @@
       "is_experimental": false,
       "name": "signbit",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.silu": {
       "category": "unary",
@@ -6709,7 +6685,7 @@
       "is_experimental": false,
       "name": "silu",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.silu_bw": {
       "category": "unary_bw",
@@ -6725,7 +6701,7 @@
       "is_experimental": false,
       "name": "sin",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.sin_bw": {
       "category": "unary_bw",
@@ -6741,7 +6717,7 @@
       "is_experimental": false,
       "name": "sinh",
       "operands": 1,
-      "signature": "(input_tensor, *args, _ttnn_input_is_bfloat8_b=False, **kwargs)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.sinh_bw": {
       "category": "unary_bw",
@@ -6765,7 +6741,7 @@
       "is_experimental": false,
       "name": "softplus",
       "operands": 1,
-      "signature": "(input_tensor, *args, beta=1.0, threshold=20.0, **kwargs)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.softplus_bw": {
       "category": "unary_bw",
@@ -6797,7 +6773,7 @@
       "is_experimental": false,
       "name": "softsign",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.softsign_bw": {
       "category": "unary_bw",
@@ -6813,7 +6789,7 @@
       "is_experimental": false,
       "name": "sqrt",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.sqrt_bw": {
       "category": "unary_bw",
@@ -6829,7 +6805,7 @@
       "is_experimental": false,
       "name": "square",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.square_bw": {
       "category": "unary_bw",
@@ -6845,7 +6821,7 @@
       "is_experimental": false,
       "name": "squared_difference",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, input_tensor_a_activations=None, input_tensor_b_activations=None, _ttnn_input_tensor_a_dtype=None, _ttnn_output_tensor_dtype=None, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.squared_difference_": {
       "category": "binary",
@@ -6853,7 +6829,7 @@
       "is_experimental": false,
       "name": "squared_difference_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, _ttnn_global_golden=False, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.squared_difference_bw": {
       "category": "binary_bw",
@@ -6877,7 +6853,7 @@
       "is_experimental": false,
       "name": "subtract",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, input_tensor_a_activations=None, input_tensor_b_activations=None, _ttnn_input_tensor_a_dtype=None, _ttnn_output_tensor_dtype=None, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, **kwargs)"
     },
     "ttnn.subtract_": {
       "category": "binary",
@@ -6885,7 +6861,7 @@
       "is_experimental": false,
       "name": "subtract_",
       "operands": 2,
-      "signature": "(input_tensor_a, input_tensor_b, *args, _ttnn_global_golden=False, **kwargs)"
+      "signature": "(input_tensor_a, input_tensor_b, *args, activations=None, **kwargs)"
     },
     "ttnn.swish": {
       "category": "unary",
@@ -6893,7 +6869,7 @@
       "is_experimental": false,
       "name": "swish",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.tan": {
       "category": "unary",
@@ -6901,7 +6877,7 @@
       "is_experimental": false,
       "name": "tan",
       "operands": 1,
-      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, *args, **_)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.tan_bw": {
       "category": "unary_bw",
@@ -6917,7 +6893,7 @@
       "is_experimental": false,
       "name": "tanh",
       "operands": 1,
-      "signature": "(input_tensor, *args, **kwargs)"
+      "signature": "(input_tensor: ttnn._ttnn.tensor.Tensor, **_)"
     },
     "ttnn.tanh_bw": {
       "category": "unary_bw",
@@ -6949,7 +6925,7 @@
       "is_experimental": false,
       "name": "threshold",
       "operands": 1,
-      "signature": "(input_tensor, *, threshold=0.5, value=0.0, **kwargs)"
+      "signature": "(input_tensor_a, *, threshold=0.5, value=0.0, **kwargs)"
     },
     "ttnn.threshold_bw": {
       "category": "unary_bw",
@@ -7008,101 +6984,73 @@
     },
     "wh": {
       "ttnn.bias_gelu_bw": "crashed the process while probing \u2014 see the run log",
-      "ttnn.hardswish": "TT_THROW @ tt_metal/impl/program/program.cpp:338: tt::exception",
-      "ttnn.softcap": "TT_FATAL @ ttnnttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
+      "ttnn.softcap": "TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
     }
   },
   "unprobeable": {
     "ttnn.adaptive_avg_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.adaptive_max_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.addmm": "RuntimeError: mat1 must be a matrix, got 1-D tensor",
-    "ttnn.all_to_all_combine": "IndexError: too many indices for tensor of dimension 1",
-    "ttnn.all_to_all_dispatch": "IndexError: too many indices for tensor of dimension 1",
     "ttnn.angle_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
-    "ttnn.arange": "takes no tensor operands",
-    "ttnn.assign": "takes no tensor operands",
+    "ttnn.arange": "TypeError: arange() received an invalid combination of arguments - got (Tensor, Tensor, Tensor), but expected one of:",
     "ttnn.avg_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.bcast": "AssertionError: Invalid bcast dimension",
-    "ttnn.bitcast": "TypeError: register_ttnn_cpp_unary_function.<locals>._golden_function.<locals>.torch_bitcast() missing 1 required positional argument: 'dtype'",
+    "ttnn.bitcast": "TypeError: register_ttnn_cpp_unary_function.<locals>._golden_function.<locals>.<lambda>() missing 1 required positional argument: 'dtype'",
     "ttnn.bitwise_and": "NotImplementedError: \"bitwise_and_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_left_shift": "NotImplementedError: \"lshift_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_not": "NotImplementedError: \"bitwise_not_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_or": "NotImplementedError: \"bitwise_or_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_right_shift": "NotImplementedError: \"rshift_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_xor": "NotImplementedError: \"bitwise_xor_cpu\" not implemented for 'Double'",
-    "ttnn.chunk": "TypeError: chunk(): argument 'chunks' (position 2) must be int, not Tensor",
     "ttnn.concat": "TypeError: concat() received an invalid combination of arguments - got (Tensor, int), but expected one of:",
     "ttnn.concat_bw": "RuntimeError: Mismatch in shape: grad_output[0] has a shape of torch.Size([64]) and output[0] has a shape of torch.Size([128]).",
     "ttnn.conj_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.conv2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.embedding": "RuntimeError: 'weight' must be 2-D",
-    "ttnn.expand": "TypeError: expand(): argument 'size' (position 1) must be tuple of ints, but found element of type Tensor at pos 0",
+    "ttnn.empty": "TypeError: empty(): argument 'size' (position 1) must be tuple of ints, not Tensor",
+    "ttnn.empty_like": "TypeError: _golden_function() missing 1 required keyword-only argument: 'fill_value'",
     "ttnn.fill": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
-    "ttnn.fill_cache": "IndexError: tuple index out of range",
-    "ttnn.fill_ones_rm": "TypeError: zeros() received an invalid combination of arguments - got (tuple, dtype=torch.dtype), but expected one of:",
-    "ttnn.fill_rm": "ValueError: only one element tensors can be converted to Python scalars",
-    "ttnn.fold": "ValueError: not enough values to unpack (expected 4, got 1)",
-    "ttnn.from_buffer": "KeyError: tensor([0.1283, 0.1632, 0.6565, 0.1946, 0.4607, 0.8058, 0.3305, 0.1859, 0.2745,",
     "ttnn.full": "TypeError: full(): argument 'size' (position 1) must be tuple of ints, not Tensor",
-    "ttnn.full_like": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
-    "ttnn.gather": "TypeError: gather() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, out=NoneType, sparse_grad=bool), but expected one of:",
+    "ttnn.full_like": "TypeError: _golden_function() missing 1 required keyword-only argument: 'fill_value'",
     "ttnn.gcd": "NotImplementedError: \"gcd_cpu\" not implemented for 'Double'",
+    "ttnn.geglu": "AssertionError: dim must be an integer",
+    "ttnn.glu": "TypeError: glu(): argument 'dim' (position 2) must be int, not Tensor",
     "ttnn.grid_sample": "ValueError: not enough values to unpack (expected 4, got 1)",
     "ttnn.group_norm": "TypeError: _golden_function() missing 1 required keyword-only argument: 'num_groups'",
     "ttnn.imag": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.imag_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
-    "ttnn.index_fill": "TypeError: index_fill() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
-    "ttnn.indexed_fill": "OverflowError: cannot convert float infinity to integer",
     "ttnn.interleaved_to_sharded_partial": "TypeError: only integer tensors of a single element can be converted to an index",
     "ttnn.is_imag": "AttributeError: module 'torch' has no attribute 'is_imag'",
     "ttnn.is_real": "AttributeError: module 'torch' has no attribute 'is_real'",
-    "ttnn.kv_cache.fill_cache_for_user_": "IndexError: tuple index out of range",
-    "ttnn.kv_cache.update_cache_for_token_": "IndexError: too many indices for tensor of dimension 1",
     "ttnn.lcm": "NotImplementedError: \"lcm_cpu\" not implemented for 'Double'",
     "ttnn.logical_left_shift": "NotImplementedError: \"lshift_cpu\" not implemented for 'Double'",
     "ttnn.logical_right_shift": "NotImplementedError: \"rshift_cpu\" not implemented for 'Double'",
     "ttnn.max_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
-    "ttnn.moe": "RuntimeError: The size of tensor a (32) must match the size of tensor b (64) at non-singleton dimension 0",
-    "ttnn.moe_expert_token_remap": "IndexError: too many indices for tensor of dimension 1",
-    "ttnn.narrow": "TypeError: narrow() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
     "ttnn.normalize_global": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)",
     "ttnn.normalize_hw": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got -2)",
-    "ttnn.ones": "TypeError: ones() received an invalid combination of arguments - got (Tensor, dtype=torch.dtype), but expected one of:",
-    "ttnn.pad": "IndexError: tuple index out of range",
+    "ttnn.ones": "TypeError: ones(): argument 'size' (position 1) must be tuple of ints, not Tensor",
+    "ttnn.pad": "IndexError: invalid index of a 0-dim tensor. Use `tensor.item()` in Python or `tensor.item<T>()` in C++ to convert a 0-dim tensor to a number",
     "ttnn.permute": "TypeError: permute(): argument 'dims' (position 2) must be tuple of ints, not Tensor",
     "ttnn.polar": "TypeError: polar() missing 1 required positional arguments: \"angle\"",
     "ttnn.polar_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.real_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
-    "ttnn.repeat": "RuntimeError: Storage size calculation overflowed with sizes=[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, ",
+    "ttnn.reglu": "AssertionError: dim must be an integer",
+    "ttnn.repeat": "TypeError: repeat() takes 1 positional argument but 4 were given",
     "ttnn.repeat_bw": "TypeError: repeat(): argument 'repeats' (position 1) must be tuple of ints, not Tensor",
     "ttnn.repeat_interleave": "NotImplementedError: \"repeat_interleave_cpu\" not implemented for 'Double'",
     "ttnn.reshape": "TypeError: reshape(): argument 'shape' (position 1) must be tuple of ints, not Tensor",
-    "ttnn.reshape_on_device": "ValueError: only one element tensors can be converted to Python scalars",
-    "ttnn.roll": "TypeError: roll(): argument 'shifts' (position 2) must be tuple of ints, but found element of type Tensor at pos 0",
-    "ttnn.rotate": "RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 1 is not equal to len(dims) = 4",
-    "ttnn.scatter": "TypeError: scatter() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
-    "ttnn.scatter_add": "TypeError: scatter_add() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.rotate": "ModuleNotFoundError: No module named 'torchvision'",
     "ttnn.sharded_to_interleaved_partial": "TypeError: only integer tensors of a single element can be converted to an index",
-    "ttnn.slice": "TypeError: object of type 'NoneType' has no len()",
-    "ttnn.split": "TypeError: split_with_sizes(): argument 'split_sizes' (position 2) must be tuple of ints, not Tensor",
-    "ttnn.stack": "TypeError: stack(): argument 'dim' (position 2) must be int, not Tensor",
-    "ttnn.topk": "TypeError: topk(): argument 'k' (position 2) must be int, not Tensor",
-    "ttnn.tosa_gather": "ValueError: not enough values to unpack (expected 3, got 1)",
-    "ttnn.tosa_scatter": "ValueError: not enough values to unpack (expected 3, got 1)",
+    "ttnn.swiglu": "AssertionError: dim must be an integer",
+    "ttnn.topk": "NameError: name 'torch' is not defined",
     "ttnn.transformer.attention_softmax": "TypeError: _golden_function() missing 2 required keyword-only arguments: 'head_size' and 'attention_mask'",
     "ttnn.transformer.attention_softmax_": "TypeError: _golden_function() missing 2 required keyword-only arguments: 'head_size' and 'attention_mask'",
     "ttnn.transformer.concatenate_heads": "ValueError: not enough values to unpack (expected 4, got 1)",
     "ttnn.transformer.split_query_key_value_and_split_heads": "TypeError: _golden_function() missing 1 required keyword-only argument: 'num_heads'",
-    "ttnn.transpose": "TypeError: transpose() received an invalid combination of arguments - got (Tensor, Tensor, Tensor), but expected one of:",
     "ttnn.tril": "RuntimeError: tril: input tensor must have at least 2 dimensions",
     "ttnn.triu": "RuntimeError: triu: input tensor must have at least 2 dimensions",
-    "ttnn.typecast": "TypeError: ttnn.typecast golden requires an output dtype",
-    "ttnn.unsqueeze": "TypeError: unsqueeze(): argument 'dim' (position 2) must be int, not Tensor",
-    "ttnn.untilize_with_unpadding": "IndexError: too many indices for tensor of dimension 1",
-    "ttnn.update_cache": "IndexError: too many indices for tensor of dimension 1",
     "ttnn.upsample": "RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 1 is not equal to len(dims) = 4",
-    "ttnn.view": "TypeError: reshape(): argument 'shape' (position 1) must be tuple of ints, but found element of type Tensor at pos 0",
     "ttnn.where_bw": "RuntimeError: where expected condition to be a boolean tensor, but got a tensor with dtype Double",
-    "ttnn.zeros": "TypeError: zeros() received an invalid combination of arguments - got (Tensor, dtype=torch.dtype), but expected one of:"
+    "ttnn.zeros": "TypeError: zeros(): argument 'size' (position 1) must be tuple of ints, not Tensor"
   }
 }

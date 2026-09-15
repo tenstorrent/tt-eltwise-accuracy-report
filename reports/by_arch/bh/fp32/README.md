@@ -90,7 +90,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [hypot_bw](hypot_bw.md) | `default` | 4.86e+06 ⚠ | 4.48e+04 | n/a | 1 | 3312 |
 | [i0](i0.md) | `default` | 1.68e+07 ⚠ | 2.19e+06 | 2.56 | 3.09e+38 | 448 |
 | [i0_bw](i0_bw.md) | `default` | 1.56e+07 ⚠ | 4.1e+04 | 0.00664 | 2.96e+38 | 1436 |
-| [i1](i1.md) | `default` | 1.56e+07 ⚠ | 4.1e+04 | 0.00664 | 2.96e+38 | 569 |
 | [identity](identity.md) | `default` | 0 | — | 3.39e+38 | 0 | 388 |
 | [l1_loss](l1_loss.md) | `default` | 0 | — | n/a | 0 | 537 |
 | [ldexp](ldexp.md) | `default` | 2 | 1.5 | n/a | 4.06e+31 | 539 |
@@ -538,10 +537,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [i0_bw](i0_bw.md)
 
 ![i0_bw default](../../../charts/bh/fp32/i0_bw_default_ulp.svg)
-
-### [i1](i1.md)
-
-![i1 default](../../../charts/bh/fp32/i1_default_ulp.svg)
 
 ### [identity](identity.md)
 
