@@ -27,7 +27,9 @@ NOISE_PCT = 5.0  # `us_min` moved 3.1% between two runs of one build; inside thi
 # Scoring and charts
 USABLE_ULP = 2.0  # what "still accurate here" means for the usable-range figure
 ULP_CLIP = 1000.0  # chart clamp, and the CDF's right edge, so every chart compares
-ULP_LINES = (1, 3, 10, 100)  # reference lines, drawn only once the data reaches the one before
+# Reference lines, drawn only once the data reaches the one before. 0.5 is the whole point of
+# measuring against a wider reference: at or below it the device is correctly rounded.
+ULP_LINES = (0.5, 1, 3, 10, 100)
 N_BINS = 32
 MIN_BIN = 8  # a bin of fewer points cannot carry a p99, so it is hidden rather than believed
 CDF_POINTS = 200  # a log grid: an fp32 sweep holds 65k distinct ULP values, and draws as 200

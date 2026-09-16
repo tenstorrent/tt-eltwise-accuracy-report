@@ -45,6 +45,14 @@ def _polygamma(k: int, why: str) -> Override:
     )
 
 
+def _reduced(why: str) -> Override:
+    """Swept only where the kernel's argument reduction holds; beyond it the input is out of spec.
+
+    1e6 is the generous end of that limit, so the 2 ULP cliff this report measures at 2.6e5
+    still falls inside the sweep and `usable_to` keeps reporting it."""
+    return Override({}, {}, "default", bounds=dict.fromkeys(("bf16", "fp32"), (-1e6, 1e6)), why=why)
+
+
 def _where_golden(condition, x, y):
     # Device truth is bitwise-nonzero, IEEE's is != 0: they differ at -0.0, which is a finding.
     import torch
@@ -57,6 +65,13 @@ def _divide_golden(x, y):
     import torch
 
     return torch.divide(x, y)
+
+
+def _gelu_golden(x):
+    # From the definition: torch's gelu has carried accuracy bugs, and erf in fp64 has not.
+    import torch
+
+    return x * 0.5 * (1.0 + torch.erf(x / 2.0**0.5))
 
 
 def _threshold_bw_golden(grad, x):
@@ -92,7 +107,14 @@ OVERRIDES: dict[str, tuple[Override, ...]] = {
         _override({}, {}, golden=_divide_golden, why="upstream never attached a golden"),
     ),
     "ttnn.exp": (_override({}), _FAST),
-    "ttnn.gelu": (_override({}), _FAST),
+    "ttnn.gelu": (
+        _override({}, {}, golden=_gelu_golden, why="built from the definition, not torch's gelu"),
+        _FAST,
+    ),
+    # Periodic, so accuracy past the reduction's range says nothing about the kernel in use.
+    "ttnn.sin": (_reduced("the kernel's argument reduction holds to about 1e6"),),
+    "ttnn.cos": (_reduced("the kernel's argument reduction holds to about 1e6"),),
+    "ttnn.tan": (_reduced("the kernel's argument reduction holds to about 1e6"),),
     # A scalar's boundaries are where the op degenerates and a kernel special-cases.
     "ttnn.leaky_relu": (
         _override({"negative_slope": 0.01}, why="torch's default slope"),

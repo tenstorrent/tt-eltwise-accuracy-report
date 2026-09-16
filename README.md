@@ -21,10 +21,16 @@ fp64 torch goldens, per architecture (WH, BH) and dtype (bf16, fp32).
 
 | ULP error | Assessment |
 |---|---|
-| ≤ 1 | bit-accurate |
+| ≤ 0.5 | correctly rounded — the best the dtype can hold |
+| ≤ 1 | bit-accurate: the wrong neighbour, but never by a whole step |
 | ≤ 3 | accurate |
 | ≤ 10 | approximate |
 | > 10 | poor |
+
+The error is fractional because the reference is one step wider than the measurement — fp32
+for a bf16 sweep, fp64 for fp32. Rounding it to the dtype first would put both sides on the
+same grid and quantise every error to a whole ULP, hiding whether a value is correctly
+rounded or merely close.
 
 `usable_to` states how far an op stays within 2 ULP, so a cliff (`sin` past 2.6e5) is not
 mistaken for a broken op. Sampled sweeps say so on every page: their maxima are lower bounds.

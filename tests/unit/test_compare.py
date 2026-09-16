@@ -52,10 +52,12 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
 
 
 @pytest.mark.parametrize(
-    ("max_ulp", "mean_ulp", "usable_to", "operands", "defects", "unflushed", "expected"),
+    ("max_ulp", "mean_ulp", "usable_to", "operands", "defects", "unflushed", "inexact", "expected"),
     [
-        ("0", "—", "3.39e+38", 1, 0, 0, "bit-exact"),
-        ("2", "1.1", "3.39e+38", 1, 0, 0, "within 2 ULP everywhere"),
+        # Half a ULP is what a correctly rounded answer costs against a wider reference, so
+        # `bit-exact` is decided by the outcome counts and never by the maximum.
+        ("0.5", "—", "3.39e+38", 1, 0, 0, 0, "bit-exact"),
+        ("2", "1.1", "3.39e+38", 1, 0, 0, 1153, "within 2 ULP everywhere"),
         (
             "3.38e+38",
             "2.5e+36",
@@ -63,39 +65,54 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
             1,
             0,
             0,
+            9364,
             "accurate to |x| <= 2.62e+05; up to 3.38e+38 ULP beyond",
         ),
-        ("1.14e+36", "4.5e+34", "—", 1, 0, 0, "never within 2 ULP; mean 4.5e+34, worst 1.14e+36"),
-        ("254", "2.42", "—", 2, 0, 0, "worst pairing 254 ULP; mean 2.42"),
-        ("—", "—", "—", 1, 0, 0, "no scorable points"),
+        (
+            "1.14e+36",
+            "4.5e+34",
+            "—",
+            1,
+            0,
+            0,
+            33679,
+            "never within 2 ULP; mean 4.5e+34, worst 1.14e+36",
+        ),
+        ("254", "2.42", "—", 2, 0, 0, 65024, "worst pairing 254 ULP; mean 2.42"),
+        ("—", "—", "—", 1, 0, 0, 0, "no scorable points"),
         # rpow_bw at exponent 2.0: every scorable point exact, half of them infinite.
         (
-            "0",
+            "0.5",
             "—",
             "3.39e+38",
             1,
             32384,
             0,
+            0,
             "32384 of 64777 points returned inf or zero where a value exists",
         ),
         # The quasar exp case: bit-exact everywhere the reference is a number.
         (
-            "0",
+            "0.5",
             "—",
             "3.39e+38",
             1,
             0,
             396,
+            0,
             "396 of 64777 points returned a value where the reference is zero",
         ),
     ],
 )
 def test_verdicts_follow_the_contract(
-    max_ulp, mean_ulp, usable_to, operands, defects, unflushed, expected
+    max_ulp, mean_ulp, usable_to, operands, defects, unflushed, inexact, expected
 ):
     from ttnn_accuracy.report.score import verdict
 
-    assert verdict(max_ulp, mean_ulp, usable_to, operands, defects, 64777, unflushed) == expected
+    assert (
+        verdict(max_ulp, mean_ulp, usable_to, operands, defects, 64777, unflushed, inexact)
+        == expected
+    )
 
 
 def test_coverage_changes_are_named_not_scored():

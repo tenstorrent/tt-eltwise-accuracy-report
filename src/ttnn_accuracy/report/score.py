@@ -61,6 +61,7 @@ def verdict(
     defects: int,
     points: int,
     unflushed: int,
+    inexact: int,
 ) -> str:
     """One of eight fixed phrases; analyze-report/contract.md is their twin and moves with them."""
     mx = _num(max_ulp)
@@ -72,7 +73,9 @@ def verdict(
         return f"{unflushed} of {points} points returned a value where the reference is zero"
     if mx is None:
         return "no scorable points"
-    if mx == 0:
+    # By outcome: against a wider reference the maximum is half a ULP even when every point
+    # carries the dtype's own correctly rounded answer.
+    if not inexact:
         return "bit-exact"
     if mx <= USABLE_ULP:
         return f"within {USABLE_ULP:g} ULP everywhere"
@@ -228,22 +231,24 @@ def compute_stats(df: pd.DataFrame) -> dict:
     """One variant's stats over defined, non-trivial points; subnormals already removed."""
     ulp = _finite(df["ulp_error"])
     rel = _finite(df["rel_error"])
-    inexact = rel[rel > 0]  # like mean_ulp: an exact point has no error to summarise
+    # By outcome, not by a non-zero error: against a wider reference a correctly rounded point
+    # still carries up to half a ULP, so `ulp > 0` no longer names the points it got wrong.
+    wrong = df["outcome"] == "inexact"
     defined = ulp.count()  # an unscorable point is not a point the percentiles may average
     outcomes = {k: int(v) for k, v in df["outcome"].value_counts().items()}
     return {
         "max_ulp": _fmt(ulp.max()),
-        "mean_ulp": _or_exact(ulp[ulp > 0].mean(), defined),
+        "mean_ulp": _or_exact(ulp[wrong].mean(), defined),
         "p50_ulp": _fmt(ulp.quantile(0.50)),
         "p95_ulp": _fmt(ulp.quantile(0.95)),
         "p99_ulp": _fmt(ulp.quantile(0.99)),
-        "exact_frac": _fmt((ulp == 0).sum() / defined if defined else float("nan")),
+        "exact_frac": _fmt(outcomes.get("exact", 0) / defined if defined else float("nan")),
         "usable_to": _fmt(_usable_to(df)),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "max_rel": _fmt(rel.max()),
-        "median_rel": _or_exact(inexact.median(), rel.count()),
+        "median_rel": _or_exact(rel[wrong].median(), rel.count()),
         "bits_worst": _bits(rel.max()),
-        "bits_median": _bits(inexact.median()),
+        "bits_median": _bits(rel[wrong].median()),
         "ulp_clipped": int((ulp > ULP_CLIP).sum()),
         "defects": int(_defects(df).sum()),
         "unflushed": outcomes.get("unflushed", 0),
@@ -277,6 +282,7 @@ def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | 
         stats["defects"],
         stats["n_inputs"],
         stats["unflushed"],
+        stats["outcomes"].get("inexact", 0),
     )
     ov = next(
         (o for o in OVERRIDES.get(f"ttnn.{op}", ()) if variant_slug(o.params_desc) == variant),

@@ -9,6 +9,9 @@ import pandas as pd
 import torch
 from models.common.utility_functions import ulp as tt_metal_ulp
 
+# One step wider than the measurement, so a correctly rounded answer reads below half a ULP.
+WIDER = {torch.bfloat16: torch.float32, torch.float32: torch.float64}
+
 # Ordered by severity: a group is labelled by the worst outcome it contains.
 OUTCOMES = (
     "exact",
@@ -53,14 +56,20 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
         dtype = calculated.dtype
-        # The reference is flushed too, so both sides are values the hardware could produce.
-        calc = flush_subnormals(calculated.to(dtype)).to(torch.float32).flatten().numpy()
-        gold = flush_subnormals(golden.to(dtype)).to(torch.float32).flatten().numpy()
-        unit = ulp(flush_subnormals(golden.to(dtype))).flatten().numpy()
+        device = flush_subnormals(calculated.to(dtype))
+        # The reference as the dtype holds it, which is what `exact` can mean at all.
+        rounded = flush_subnormals(golden.to(dtype))
+        calc = device.to(torch.float32).flatten().numpy()
+        gold = rounded.to(torch.float32).flatten().numpy()
+        # Measured against a reference wider than the dtype: rounding it first puts both sides
+        # on one grid, so every error is a whole multiple of the spacing and a correctly
+        # rounded answer cannot be told from an exact one.
+        precise = golden.to(WIDER[dtype]).to(torch.float64).flatten().numpy()
+        unit = ulp(rounded).flatten().numpy().astype(np.float64)
         raw = golden.to(torch.float64).flatten().numpy()
 
         outcome = classify(raw, gold, calc, dtype)
-        abs_err = np.abs(gold - calc)
+        abs_err = np.abs(precise - calc.astype(np.float64))
         # Spacing around zero is what read 1e24 ULP for a 0.003 absolute error.
         defined = (outcome == OUTCOMES.index("exact")) | (
             (outcome == OUTCOMES.index("inexact")) & (gold != 0)
@@ -69,12 +78,8 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
             "y": calc,
             "y_ref": gold,
             "abs_error": abs_err,
-            # fp64: at a min-normal reference this ratio passes 1e38, which fp32 calls inf.
-            "ulp_error": np.where(defined, abs_err / unit.astype(np.float64), np.nan),
-            # fp64: a large error over the smallest normal is 1e76, which fp32 would call inf.
-            "rel_error": np.where(
-                defined & (gold != 0), abs_err / np.abs(gold).astype(np.float64), np.nan
-            ),
+            "ulp_error": np.where(defined, abs_err / unit, np.nan),
+            "rel_error": np.where(defined & (gold != 0), abs_err / np.abs(precise), np.nan),
             "outcome": outcome,
         }
 

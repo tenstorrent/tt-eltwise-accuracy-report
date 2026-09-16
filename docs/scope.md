@@ -39,6 +39,9 @@ same answer independently. `preference` and `divergent` are ours to defend.
 | Decision | Class | Choice |
 |---|---|---|
 | ULP definition | forced | tt-metal's own, so the org measures one thing. Only the fp32-wide return is ours |
+| reference width | adopted | one step wider than the measurement: fp32 for bf16, fp64 for fp32. Rounding it to the dtype first made every error a whole multiple of the spacing, so 0.5 ULP — the correctly rounded answer — could not be seen. Raised in review by the LLK team |
+| gelu golden | adopted | built from `x·0.5·(1+erf(x/√2))` in fp64 rather than torch's `gelu`, which has carried accuracy bugs. It agrees with torch today; the override is insurance, and it moved no number |
+| sin, cos, tan range | adopted | swept only over \|x\| ≤ 1e6, where the kernel's argument reduction holds. Beyond it the input is out of spec, and the report was publishing 7.4e42 ULP and a third of the domain returning inf as though they were defects. 1e6 keeps the measured 2.6e5 cliff inside the sweep |
 | subnormals | forced | flushed on both sides, because the hardware flushes them |
 | outcome per point | forced | `exact`, `inexact`, `flushed`, `zeroed`, `overflow`, `undefined`, `mismatch`, `special`. ULP is NaN where undefined |
 | max and mean | convergent | over defined, non-trivial points only. Otherwise `tanh_bw` reads 1e24 for an absolute error of 0.003 |

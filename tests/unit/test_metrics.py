@@ -100,11 +100,15 @@ def test_one_ulp_off_reads_as_one_ulp():
 
 
 def test_underflowed_golden_is_reported_as_flushed_not_as_zero_error():
-    """The dtype cannot hold the reference, so there is nothing to score — say so."""
-    df = _compare([1.0], [float(torch.finfo(torch.bfloat16).tiny) / 2], [0.0])
+    """The dtype cannot hold the reference, so there is nothing to score — say so.
+
+    The absolute error is the distance to the reference itself, not to the zero the dtype
+    rounded it to, because the reference is never rounded before it is measured against."""
+    tiny = float(torch.finfo(torch.bfloat16).tiny)
+    df = _compare([1.0], [tiny / 2], [0.0])
     assert df["outcome"].item() == "flushed"
     assert np.isnan(df["ulp_error"].item())
-    assert df["abs_error"].item() == 0.0
+    assert df["abs_error"].item() == pytest.approx(tiny / 2)
 
 
 def test_hardware_zeroing_a_representable_value_is_not_a_128_ulp_error():

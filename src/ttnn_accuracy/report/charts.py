@@ -33,7 +33,8 @@ plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
 plt.rcParams["svg.hashsalt"] = "ttnn-accuracy"  # else ids are random and every chart churns
 
-REFERENCE_COLOURS = ("#27ae60", "#e67e22", "#c0392b", "#8e44ad")  # 1, 3, 10, 100 ULP
+RULE_COLOURS = ("#16a085", "#27ae60", "#e67e22", "#c0392b", "#8e44ad")  # 0.5, 1, 3, 10, 100 ULP
+SERIES_COLOURS = ("#27ae60", "#e67e22", "#c0392b", "#8e44ad")  # p50, p95, p99, worst
 UNDEFINED = "#c0392b"  # beyond the op's domain
 UNSAMPLED = "#7f8c8d"  # inside it, and never measured
 
@@ -92,7 +93,7 @@ class _Chart:
     arch: str
     dtype: str
     reach: float  # worst scorable |ULP|
-    exact: float  # share of scorable points that were bit-identical
+    rounded: float  # share of scorable points within half a ULP, so correctly rounded
     covered: tuple[float, float]  # the least and greatest x the sweep wrote
 
 
@@ -108,7 +109,7 @@ def _chart(df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str) -> _C
         arch=arch,
         dtype=dtype,
         reach=float(scored["ulp"].max()) if len(scored) else 0.0,
-        exact=float((scored["ulp"] == 0).mean()) if len(scored) else 0.0,
+        rounded=float((scored["ulp"] <= 0.5).mean()) if len(scored) else 0.0,
         covered=(float(swept.min()), float(swept.max())),
     )
 
@@ -155,7 +156,7 @@ def _reference_lines(ax, reach: float, horizontal: bool) -> None:
     """Each rule appears once the data reaches the one before, leaving one band of headroom."""
     draw = ax.axhline if horizontal else ax.axvline
     shown = 1 + sum(reach >= line for line in ULP_LINES)
-    for line, colour in zip(ULP_LINES[:shown], REFERENCE_COLOURS, strict=False):
+    for line, colour in zip(ULP_LINES[:shown], RULE_COLOURS, strict=False):
         draw(line, color=colour, linestyle="--", linewidth=0.8, alpha=0.6, zorder=1)
 
 
@@ -227,7 +228,7 @@ def _plot_cdf(ax, chart: _Chart) -> None:
         ax.text(
             0.5,
             0.5,
-            "every measured point is bit-exact",
+            "every measured point matches the reference exactly",
             ha="center",
             va="center",
             transform=ax.transAxes,
@@ -237,7 +238,7 @@ def _plot_cdf(ax, chart: _Chart) -> None:
     ax.set_xlabel("|ULP| threshold", fontsize=11)
     ax.set_ylabel("Fraction of points within", fontsize=11)
     ax.set_title(
-        f"Within N ULP — {chart.exact:.1%} of points are exact, worst {chart.reach:.3g}",
+        f"Within N ULP — {chart.rounded:.1%} correctly rounded, worst {chart.reach:.3g}",
         fontsize=11,
     )
 
@@ -247,7 +248,7 @@ def _plot_bins(ax, chart: _Chart) -> None:
     binned = _bins(chart.scored)
     for (column, marker), colour in zip(
         (("p50", "o"), ("p95", "s"), ("p99", "^"), ("worst", "v")),
-        REFERENCE_COLOURS,
+        SERIES_COLOURS,
         strict=True,
     ):
         ax.plot(
