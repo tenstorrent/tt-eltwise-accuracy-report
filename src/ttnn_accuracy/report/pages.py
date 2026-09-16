@@ -18,6 +18,7 @@ from ttnn_accuracy.report.index import (
 
 STATS_ROWS = (
     ("Max ULP", "max_ulp"),
+    ("Min ULP", "min_ulp"),
     ("Mean ULP", "mean_ulp"),
     ("Signed bias (ULP)", "bias_ulp"),
     ("p50 ULP", "p50_ulp"),

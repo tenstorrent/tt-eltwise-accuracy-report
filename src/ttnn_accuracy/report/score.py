@@ -238,6 +238,8 @@ def compute_stats(df: pd.DataFrame) -> dict:
     outcomes = {k: int(v) for k, v in df["outcome"].value_counts().items()}
     return {
         "max_ulp": _fmt(ulp.max()),
+        # Per input in bf16, worst-of-block in fp32: above 0.5 names every block, not every input.
+        "min_ulp": _fmt(ulp.min()),
         "mean_ulp": _or_exact(ulp[wrong].mean(), defined),
         # Signed, so a one-sided approximation is visible: a mean near ±mean_ulp is a constant
         # a kernel can absorb, one near zero is a precision shortfall needing another step.
