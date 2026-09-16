@@ -239,6 +239,9 @@ def compute_stats(df: pd.DataFrame) -> dict:
     return {
         "max_ulp": _fmt(ulp.max()),
         "mean_ulp": _or_exact(ulp[wrong].mean(), defined),
+        # Signed, so a one-sided approximation is visible: a mean near ±mean_ulp is a constant
+        # a kernel can absorb, one near zero is a precision shortfall needing another step.
+        "bias_ulp": _or_exact(_finite(df["ulp_signed"])[wrong].mean(), defined),
         "p50_ulp": _fmt(ulp.quantile(0.50)),
         "p95_ulp": _fmt(ulp.quantile(0.95)),
         "p99_ulp": _fmt(ulp.quantile(0.99)),

@@ -15,6 +15,7 @@ COLUMNS = (
     "y",
     "y_ref",
     "ulp_error",
+    "ulp_signed",
     "abs_error",
     "rel_error",
     "outcome",

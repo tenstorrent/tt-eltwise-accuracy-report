@@ -69,7 +69,8 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
         raw = golden.to(torch.float64).flatten().numpy()
 
         outcome = classify(raw, gold, calc, dtype)
-        abs_err = np.abs(precise - calc.astype(np.float64))
+        signed = precise - calc.astype(np.float64)
+        abs_err = np.abs(signed)
         # Spacing around zero is what read 1e24 ULP for a 0.003 absolute error.
         defined = (outcome == OUTCOMES.index("exact")) | (
             (outcome == OUTCOMES.index("inexact")) & (gold != 0)
@@ -79,6 +80,9 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
             "y_ref": gold,
             "abs_error": abs_err,
             "ulp_error": np.where(defined, abs_err / unit, np.nan),
+            # Signed too: a mean that is not zero is a one-sided approximation, which a tuned
+            # constant can remove, rather than a precision shortfall needing another step.
+            "ulp_signed": np.where(defined, signed / unit, np.nan),
             "rel_error": np.where(defined & (gold != 0), abs_err / np.abs(precise), np.nan),
             "outcome": outcome,
         }
@@ -106,6 +110,7 @@ def compare(
                 "y": g["y"][col, pos],
                 "y_ref": g["y_ref"][col, pos],
                 "ulp_error": g["ulp_error"][col, pos],
+                "ulp_signed": g["ulp_signed"][col, pos],
                 "abs_error": g["abs_error"][col, pos],
                 "rel_error": g["rel_error"][col, pos],
                 "outcome": np.take(OUTCOMES, g["outcome"][col, pos]),
