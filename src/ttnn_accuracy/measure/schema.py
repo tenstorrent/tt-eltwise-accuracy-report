@@ -14,6 +14,8 @@ COLUMNS = (
     "x",
     "y",
     "y_ref",
+    "n_defined",
+    "n_rounded",
     "ulp_error",
     "ulp_signed",
     "abs_error",

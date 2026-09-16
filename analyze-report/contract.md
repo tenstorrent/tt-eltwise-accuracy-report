@@ -13,9 +13,10 @@ the two change together.
 | Field | Definition |
 |---|---|
 | `max_ulp` | worst defined ULP error: `\|reference − y\| / ULP(y_ref)`, ULP by tt-metal's definition at the compute dtype. **The reference is one step wider than the measurement** — fp32 for a bf16 sweep, fp64 for fp32 — so the error is fractional: at or below **0.5** the device returned the dtype's correctly rounded answer, and only past 0.5 did it pick the wrong neighbour. Rounding the reference to the dtype first would put both sides on one grid and quantise every error to a whole ULP |
-| `mean_ulp` | mean over the points whose outcome is `inexact`, so it answers how wrong it is when it is wrong; `0` when no point was inexact, `—` when none was scorable |
+| `mean_ulp` | mean over the points whose outcome is `faithful` or `inexact`, so it answers how wrong it is when it is not the correctly rounded answer; `0` when every defined point was exact, `—` when none was scorable |
 | `p50_ulp`, `p95_ulp`, `p99_ulp` | percentiles over every point with a defined ULP, exact ones included. An fp32 row is a group maximum, so an fp32 percentile is a percentile of group maxima |
 | `exact_frac` | share of defined points whose outcome is `exact`, meaning the device returned the dtype's correctly rounded answer. `flushed`, `zeroed` and `unflushed` points carry no ULP and are in neither the numerator nor the denominator |
+| `rounded_frac` | share of **inputs** within half a ULP, counted before the group reduction, so unlike every other fp32 field it is a per-point rate rather than a statistic over group maxima. On bf16 a row is one input and it equals the share of rows within half a ULP |
 | `usable_to` | largest \|x\| below which no point exceeds 2 ULP and none is a defect. Unary only; `—` elsewhere, where x alone does not determine the output |
 | `max_abs` | worst absolute error |
 | `max_rel` | worst relative error `\|y_ref − y\| / \|y_ref\|`, in fp64, over the points ULP is defined for. The only figure comparable between bf16 and fp32 |
@@ -40,6 +41,7 @@ the two change together.
 | Label | Meaning |
 |---|---|
 | `exact` | bit-identical to the reference |
+| `faithful` | differs by exactly one representable step, within 1 ULP: the device took the reference's other neighbour. Both are within half a ULP of the true value, so this is a tie-breaking rule that differs from the reference's, not an accuracy shortfall. Wormhole and Blackhole break ties away from zero (`RoundMode::Nearest` is `NearestAway`), PyTorch breaks them to even |
 | `inexact` | differs, ULP defined |
 | `flushed` | reference is subnormal, the dtype cannot hold it |
 | `zeroed` | hardware returned 0 for a representable reference. Real, but ULP cannot express it |
@@ -57,7 +59,8 @@ Computed, never inferred. First match wins.
 |---|---|
 | `N of M points returned inf or zero where a value exists` | defects > 0. Takes precedence, because those points carry no ULP and the figures below exclude them |
 | `N of M points returned a value where the reference is zero` | unflushed > 0. Also unscorable, and otherwise invisible: those points would read bit-exact |
-| `bit-exact` | no point is `inexact`, so every scorable one is the dtype's correctly rounded answer. Not `max_ulp = 0`: against a wider reference such a variant still reads up to 0.5 ULP |
+| `bit-exact` | no point is `faithful` or `inexact`, so every scorable one is the dtype's correctly rounded answer. Not `max_ulp = 0`: against a wider reference such a variant still reads up to 0.5 ULP |
+| `faithfully rounded; N of M points took the other neighbour` | no point is `inexact`, but N are `faithful`. The device is never more than one step out and both steps are within half a ULP of the truth; it breaks ties the other way |
 | `within 2 ULP everywhere` | max_ulp ≤ 2 |
 | `accurate to \|x\| <= B; up to M ULP beyond` | unary, usable_to = B defined |
 | `never within 2 ULP; mean X, worst M` | unary, no point within 2 ULP |

@@ -279,6 +279,9 @@ def _multi_operand(
     col = np.arange(n)
     best = np.full(n, -np.inf)  # -inf, not NaN, so the first comparison always takes
     worst: dict[str, np.ndarray] = {}
+    # Every pairing counts toward the rate, not just the one the row keeps.
+    n_defined = np.zeros(n, dtype=np.int64)
+    n_rounded = np.zeros(n, dtype=np.int64)
 
     for i, (rows, operands) in enumerate(batches, start=1):
         tiled = [_tile(o) for o in operands]
@@ -291,6 +294,8 @@ def _multi_operand(
         for k, operand in enumerate(operands[1:], start=2):
             e[f"x{k}"] = operand[: rows * n].to(torch.float32).numpy().reshape(rows, n)
 
+        n_defined += np.isfinite(e["ulp_error"]).sum(axis=0)
+        n_rounded += (e["ulp_error"] <= 0.5).sum(axis=0)  # NaN compares false
         scored = np.nan_to_num(e["ulp_error"], nan=-np.inf)  # a defined point always wins
         pos = scored.argmax(axis=0)
         top = scored[pos, col]
@@ -307,6 +312,8 @@ def _multi_operand(
             **{k: v for k, v in worst.items() if k.startswith("x")},
             "y": worst["y"],
             "y_ref": worst["y_ref"],
+            "n_defined": n_defined,
+            "n_rounded": n_rounded,
             "ulp_error": worst["ulp_error"],
             "ulp_signed": worst["ulp_signed"],
             "abs_error": worst["abs_error"],

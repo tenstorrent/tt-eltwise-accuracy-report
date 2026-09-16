@@ -15,6 +15,7 @@ WIDER = {torch.bfloat16: torch.float32, torch.float32: torch.float64}
 # Ordered by severity: a group is labelled by the worst outcome it contains.
 OUTCOMES = (
     "exact",
+    "faithful",
     "inexact",
     "flushed",
     "zeroed",
@@ -32,6 +33,13 @@ def ulp(x: torch.Tensor) -> torch.Tensor:
 
 def flush_subnormals(t: torch.Tensor) -> torch.Tensor:
     return torch.where(t.abs() < torch.finfo(t.dtype).tiny, torch.zeros_like(t), t)
+
+
+def adjacent(a: torch.Tensor, b: torch.Tensor) -> np.ndarray:
+    """One representable step apart, read off the bit patterns — IEEE neighbours differ by one."""
+    ints = {torch.bfloat16: torch.int16, torch.float32: torch.int32}[a.dtype]
+    wide = [t.contiguous().view(ints).to(torch.int64) for t in (a, b)]
+    return ((wide[0] - wide[1]).abs() == 1).flatten().numpy()
 
 
 def classify(raw_golden: np.ndarray, gold: np.ndarray, calc: np.ndarray, dtype) -> np.ndarray:
@@ -71,10 +79,16 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
         outcome = classify(raw, gold, calc, dtype)
         signed = precise - calc.astype(np.float64)
         abs_err = np.abs(signed)
-        # Spacing around zero is what read 1e24 ULP for a 0.003 absolute error.
-        defined = (outcome == OUTCOMES.index("exact")) | (
-            (outcome == OUTCOMES.index("inexact")) & (gold != 0)
+        # Faithful, not wrong: the true value falls strictly between the device's answer and the
+        # correctly rounded one, so both are neighbours of it and only the tie-break differs.
+        # Strictly, so a representable reference the device missed by a step stays `inexact`.
+        straddles = (precise - gold) * (calc.astype(np.float64) - precise) > 0
+        outcome[(outcome == OUTCOMES.index("inexact")) & adjacent(device, rounded) & straddles] = (
+            OUTCOMES.index("faithful")
         )
+        # Spacing around zero is what read 1e24 ULP for a 0.003 absolute error.
+        missed = np.isin(outcome, [OUTCOMES.index(k) for k in ("faithful", "inexact")])
+        defined = (outcome == OUTCOMES.index("exact")) | (missed & (gold != 0))
         return {
             "y": calc,
             "y_ref": gold,
@@ -109,6 +123,10 @@ def compare(
                 "x": x.to(torch.float32).flatten().numpy().reshape(shape)[col, pos],
                 "y": g["y"][col, pos],
                 "y_ref": g["y_ref"][col, pos],
+                # Counted before the argmax throws the group away: a worst point cannot carry
+                # a rate, and (1 - p)**65536 reads 0% for any p above about 1e-5.
+                "n_defined": np.isfinite(g["ulp_error"]).sum(axis=-1),
+                "n_rounded": (g["ulp_error"] <= 0.5).sum(axis=-1),  # NaN compares false
                 "ulp_error": g["ulp_error"][col, pos],
                 "ulp_signed": g["ulp_signed"][col, pos],
                 "abs_error": g["abs_error"][col, pos],

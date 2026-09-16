@@ -14,7 +14,14 @@ from ttnn_accuracy.report.index import GENERATED_NOTE, _us
 
 def test_a_chart_is_byte_identical_on_identical_data(tmp_path):
     """matplotlib stamps a date and randomises every element id."""
-    df = pd.DataFrame({"x": [0.5, 1.0, 2.0], "ulp_error": [0.0, 1.5, 3.0]})
+    df = pd.DataFrame(
+        {
+            "x": [0.5, 1.0, 2.0],
+            "ulp_error": [0.0, 1.5, 3.0],
+            "n_defined": [1, 1, 1],
+            "n_rounded": [1, 0, 0],
+        }
+    )
     first, second = tmp_path / "a.svg", tmp_path / "b.svg"
     for out in (first, second):
         plot_ulp_chart(df, "exp", "default", "wh", "bf16", out)
@@ -43,9 +50,11 @@ def test_a_custom_parameter_variant_still_charts(tmp_path, monkeypatch):
     csv = tmp_path / "data" / "wh" / "bf16" / "relu_max" / "upper_limit6.0.csv"
     csv.parent.mkdir(parents=True)
     csv.write_text(
-        "index,x,y,y_ref,ulp_error,ulp_signed,abs_error,rel_error,outcome,op,variant,dtype,layout\n"
+        "index,x,y,y_ref,n_defined,n_rounded,ulp_error,ulp_signed,abs_error,rel_error,"
+        "outcome,op,variant,dtype,layout\n"
         + "".join(
-            f"{i},{i + 1.0},{i + 1.0},{i + 1.0},0.0,0.0,0.0,0.0,exact,relu_max,upper_limit6.0,bf16,tile\n"
+            f"{i},{i + 1.0},{i + 1.0},{i + 1.0},1,1,0.0,0.0,0.0,0.0,"
+            "exact,relu_max,upper_limit6.0,bf16,tile\n"
             for i in range(4)
         )
     )

@@ -25,6 +25,7 @@ STATS_ROWS = (
     ("p95 ULP", "p95_ulp"),
     ("p99 ULP", "p99_ulp"),
     ("Exact fraction", "exact_frac"),
+    ("Correctly rounded", "rounded_frac"),
     ("Accurate to \\|x\\|", "usable_to"),
     ("Max abs error", "max_abs"),
     ("Max rel error", "max_rel"),
@@ -134,7 +135,7 @@ def _specials_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> st
 
 
 def _outcome_table(arch: str, dtype: str, entries: list[tuple[str, str]]) -> str:
-    """What each measured point demonstrated. Only `exact` and `inexact` carry a ULP."""
+    """What each measured point demonstrated. Only `exact`, `faithful` and `inexact` carry a ULP."""
     counted = _carrying(_summaries(arch, dtype, entries), "outcomes")
     if not counted:
         return ""

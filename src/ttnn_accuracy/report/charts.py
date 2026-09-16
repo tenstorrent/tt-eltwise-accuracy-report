@@ -27,7 +27,7 @@ from ttnn_accuracy.config import (
 from ttnn_accuracy.measure.store import RUN_STAMP
 from ttnn_accuracy.ops.plan import describe, resolve
 from ttnn_accuracy.paths import CHARTS_DIR, DATA_DIR, INDEX_FILE, PERF_DIR, REPO_ROOT, RUNS_KEY
-from ttnn_accuracy.report.score import _finite, score_csv
+from ttnn_accuracy.report.score import _finite, _rounded_frac, score_csv
 
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["figure.dpi"] = 100
@@ -93,7 +93,7 @@ class _Chart:
     arch: str
     dtype: str
     reach: float  # worst scorable |ULP|
-    rounded: float  # share of scorable points within half a ULP, so correctly rounded
+    rounded: float  # share of inputs within half a ULP, counted before the group reduction
     covered: tuple[float, float]  # the least and greatest x the sweep wrote
 
 
@@ -109,7 +109,7 @@ def _chart(df: pd.DataFrame, op: str, variant: str, arch: str, dtype: str) -> _C
         arch=arch,
         dtype=dtype,
         reach=float(scored["ulp"].max()) if len(scored) else 0.0,
-        rounded=float((scored["ulp"] <= 0.5).mean()) if len(scored) else 0.0,
+        rounded=_rounded_frac(df),
         covered=(float(swept.min()), float(swept.max())),
     )
 

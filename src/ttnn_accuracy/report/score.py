@@ -32,6 +32,12 @@ def _finite(s: pd.Series) -> pd.Series:
     return s.replace([float("inf"), float("-inf")], float("nan"))
 
 
+def _rounded_frac(df: pd.DataFrame) -> float:
+    """Correctly rounded per input, not per row: an fp32 row is the worst of 65536 points."""
+    defined = df["n_defined"].sum()
+    return float(df["n_rounded"].sum() / defined) if defined else 0.0
+
+
 def _fmt(v) -> str:
     return "—" if v != v else f"{float(v):.3g}"
 
@@ -61,9 +67,10 @@ def verdict(
     defects: int,
     points: int,
     unflushed: int,
+    faithful: int,
     inexact: int,
 ) -> str:
-    """One of eight fixed phrases; analyze-report/contract.md is their twin and moves with them."""
+    """One of nine fixed phrases; analyze-report/contract.md is their twin and moves with them."""
     mx = _num(max_ulp)
     # First, whatever the ULP says: every other figure here excludes those points.
     if defects:
@@ -75,8 +82,12 @@ def verdict(
         return "no scorable points"
     # By outcome: against a wider reference the maximum is half a ULP even when every point
     # carries the dtype's own correctly rounded answer.
-    if not inexact:
+    if not (faithful or inexact):
         return "bit-exact"
+    # Both neighbours of a tie are within half a ULP, so this is a tie-breaking rule that
+    # differs from the reference's, not an accuracy shortfall.
+    if not inexact:
+        return f"faithfully rounded; {faithful} of {points} points took the other neighbour"
     if mx <= USABLE_ULP:
         return f"within {USABLE_ULP:g} ULP everywhere"
     if operands == 1:
@@ -159,7 +170,7 @@ def _monotonic(df: pd.DataFrame) -> dict:
     pairs = violations = 0
     worst: list[tuple[float, dict]] = []
     for _, block in ordered.assign(_interval=intervals).groupby("_interval", sort=False):
-        ok = block["outcome"].isin(("exact", "inexact")).values
+        ok = block["outcome"].isin(("exact", "faithful", "inexact")).values
         if ok.sum() < 2:
             continue
         ref, hw, xs = block["y_ref"].values, block["y"].values, block["x"].values
@@ -233,7 +244,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
     rel = _finite(df["rel_error"])
     # By outcome, not by a non-zero error: against a wider reference a correctly rounded point
     # still carries up to half a ULP, so `ulp > 0` no longer names the points it got wrong.
-    wrong = df["outcome"] == "inexact"
+    wrong = df["outcome"].isin(("faithful", "inexact"))
     defined = ulp.count()  # an unscorable point is not a point the percentiles may average
     outcomes = {k: int(v) for k, v in df["outcome"].value_counts().items()}
     return {
@@ -248,6 +259,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
         "p95_ulp": _fmt(ulp.quantile(0.95)),
         "p99_ulp": _fmt(ulp.quantile(0.99)),
         "exact_frac": _fmt(outcomes.get("exact", 0) / defined if defined else float("nan")),
+        "rounded_frac": _fmt(_rounded_frac(df)),
         "usable_to": _fmt(_usable_to(df)),
         "max_abs": _fmt(_finite(df["abs_error"]).max()),
         "max_rel": _fmt(rel.max()),
@@ -287,6 +299,7 @@ def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | 
         stats["defects"],
         stats["n_inputs"],
         stats["unflushed"],
+        stats["outcomes"].get("faithful", 0),
         stats["outcomes"].get("inexact", 0),
     )
     ov = next(
