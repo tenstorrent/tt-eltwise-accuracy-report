@@ -259,9 +259,14 @@ jobs:
         run: |
           git config user.name accuracy-report
           git config user.email accuracy-report@users.noreply.github.com
+          # Untracked, so the reset cannot take it: the manifest, this arch's timings and this
+          # run's provenance were measured before this step and charts cannot recreate them.
+          cp -r stats .publish-stats
           for attempt in 1 2 3; do
             git fetch origin "$GITHUB_REF_NAME"
-            git reset --hard "origin/$GITHUB_REF_NAME"
+            git reset --hard FETCH_HEAD
+            # Every name here is this arch's or this run's, so origin's own stats survive.
+            cp -r .publish-stats/. stats/
             python3 -m ttnn_accuracy.cli charts
             python3 -m ttnn_accuracy.cli report \
               --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
@@ -286,7 +291,7 @@ jobs:
       - name: Leave the workspace as it was found
         if: always()
         run: |
-          git rebase --abort 2>/dev/null || true
+          rm -rf .publish-stats
           if [ "${{ needs.scope.outputs.publish }}" != true ]; then
             git checkout -- reports/ report_index.json analyze-report/ask.md stats/ 2>/dev/null || true
           fi
