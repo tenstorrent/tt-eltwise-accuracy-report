@@ -119,7 +119,7 @@ def refine(
     findings: Path | None = None,
 ) -> int:
     """Sampled bounds that a search around their own worst point proved loose."""
-    from ttnn_accuracy.measure.sweeps import SAMPLED
+    from ttnn_accuracy.config import SAMPLED
     from ttnn_accuracy.measure.sweeps import refine as refine_point
     from ttnn_accuracy.paths import DATA_DIR
 

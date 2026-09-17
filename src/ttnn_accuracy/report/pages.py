@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from ttnn_accuracy.config import MIN_NORMAL
-from ttnn_accuracy.measure.sweeps import SAMPLED
+from ttnn_accuracy.config import MIN_NORMAL, SAMPLED
 from ttnn_accuracy.ops.plan import describe, params_desc
 from ttnn_accuracy.paths import REPORTS_DIR, RUNS_KEY
 from ttnn_accuracy.report.index import (

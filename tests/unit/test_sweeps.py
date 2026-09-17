@@ -40,9 +40,11 @@ def test_the_same_answer_in_both_tilings_is_no_finding(monkeypatch):
 
 def test_only_the_sampled_sweeps_have_anything_to_refine():
     """`refine` reads the same table the pages print, so neither can claim the other's coverage."""
-    assert set(sweeps.SAMPLED) == {(2, "fp32"), (3, "bf16"), (3, "fp32")}
-    assert all((1, d) not in sweeps.SAMPLED for d in ("bf16", "fp32"))  # unary is exhaustive
-    assert (2, "bf16") not in sweeps.SAMPLED  # every bf16 pair is measured
+    from ttnn_accuracy.config import SAMPLED
+
+    assert set(SAMPLED) == {(2, "fp32"), (3, "bf16"), (3, "fp32")}
+    assert all((1, d) not in SAMPLED for d in ("bf16", "fp32"))  # unary is exhaustive
+    assert (2, "bf16") not in SAMPLED  # every bf16 pair is measured
 
 
 def test_the_candidates_are_the_cell_the_sample_drew_from():

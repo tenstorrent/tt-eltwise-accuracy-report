@@ -16,6 +16,19 @@ TERNARY_STRIDE = 2**9  # keeps a 3-operand sweep the same size as a 2-operand on
 FP32_SAMPLE_SEED = 0  # fixed: the fp32 pair sample must not move between releases
 FP32_MANTISSA_SAMPLES = 512  # mantissas per exponent when bisecting an fp32 domain
 
+# Incomplete sweeps the pages must disclose. Unary and bf16 pairs are exhaustive.
+SAMPLED = {
+    (2, "fp32"): "both operands take 65,536 of the 2³² fp32 values, drawn once from a fixed seed",
+    (3, "bf16"): (
+        f"the first operand is exhaustive; the second and third take every "
+        f"{TERNARY_STRIDE}th bf16 code, {2**16 // TERNARY_STRIDE} values each"
+    ),
+    (3, "fp32"): (
+        f"the first operand takes 65,536 of the 2³² fp32 values, drawn once from a fixed "
+        f"seed; the second and third take every {TERNARY_STRIDE}th of that sample"
+    ),
+}
+
 # Timing
 SIDE = 2**12  # at 2**20 elements the op costs ~65us and host jitter moved it 70% per run
 WARMUP = 5  # the first dispatches pay kernel lookup and cache population

@@ -382,19 +382,6 @@ def sweep_ternary_fp32(
     return _sweep_triples(ttnn_fn, golden_fn, device, _fp32_sample(lo, hi), "fp32", layout)
 
 
-# How each incomplete sweep samples — one count cannot say, the ternaries mix the two.
-SAMPLED = {
-    (2, "fp32"): "both operands take 65,536 of the 2³² fp32 values, drawn once from a fixed seed",
-    (3, "bf16"): (
-        f"the first operand is exhaustive; the second and third take every "
-        f"{TERNARY_STRIDE}th bf16 code, {2**16 // TERNARY_STRIDE} values each"
-    ),
-    (3, "fp32"): (
-        f"the first operand takes 65,536 of the 2³² fp32 values, drawn once from a fixed "
-        f"seed; the second and third take every {TERNARY_STRIDE}th of that sample"
-    ),
-}
-
 SWEEPS = {
     (1, "bf16"): sweep_bf16,
     (1, "fp32"): sweep_fp32,
