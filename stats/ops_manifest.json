@@ -1080,6 +1080,24 @@
         "n_valid": 134591
       }
     },
+    "ttnn.i1": {
+      "bf16": {
+        "hi": 91.5,
+        "lo": -91.5,
+        "n_flushed": 256,
+        "n_overflow": 31120,
+        "n_undefined": 0,
+        "n_valid": 33650
+      },
+      "fp32": {
+        "hi": 91.8042984008789,
+        "lo": -91.8042984008789,
+        "n_flushed": 1024,
+        "n_overflow": 124482,
+        "n_undefined": 0,
+        "n_valid": 134591
+      }
+    },
     "ttnn.identity": {
       "bf16": {
         "hi": 3.3895313892515355e+38,
@@ -3942,6 +3960,16 @@
           "row_major"
         ]
       },
+      "ttnn.i1": {
+        "bf16": [
+          "tile",
+          "row_major"
+        ],
+        "fp32": [
+          "tile",
+          "row_major"
+        ]
+      },
       "ttnn.identity": {
         "bf16": [
           "tile",
@@ -5749,7 +5777,7 @@
       "is_experimental": false,
       "name": "gelu",
       "operands": 1,
-      "signature": "(input_tensor, *args, variant=None, fast_and_approximate_mode=False, **kwargs)"
+      "signature": "(x)"
     },
     "ttnn.gelu_bw": {
       "category": "unary_bw",
@@ -5902,6 +5930,14 @@
       "name": "i0_bw",
       "operands": 1,
       "signature": "(grad_tensor, input_tensor, *args, **kwargs)"
+    },
+    "ttnn.i1": {
+      "category": "unary",
+      "is_cpp": true,
+      "is_experimental": false,
+      "name": "i1",
+      "operands": 1,
+      "signature": "(input_tensor_a, *args, **kwargs)"
     },
     "ttnn.identity": {
       "category": "unary",
@@ -6992,7 +7028,7 @@
     "ttnn.adaptive_max_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.addmm": "RuntimeError: mat1 must be a matrix, got 1-D tensor",
     "ttnn.angle_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
-    "ttnn.arange": "TypeError: arange() received an invalid combination of arguments - got (Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.arange": "takes no tensor operands",
     "ttnn.avg_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.bcast": "AssertionError: Invalid bcast dimension",
     "ttnn.bitcast": "TypeError: register_ttnn_cpp_unary_function.<locals>._golden_function.<locals>.<lambda>() missing 1 required positional argument: 'dtype'",
@@ -7002,16 +7038,22 @@
     "ttnn.bitwise_or": "NotImplementedError: \"bitwise_or_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_right_shift": "NotImplementedError: \"rshift_cpu\" not implemented for 'Double'",
     "ttnn.bitwise_xor": "NotImplementedError: \"bitwise_xor_cpu\" not implemented for 'Double'",
+    "ttnn.chunk": "TypeError: chunk(): argument 'chunks' (position 2) must be int, not Tensor",
     "ttnn.concat": "TypeError: concat() received an invalid combination of arguments - got (Tensor, int), but expected one of:",
     "ttnn.concat_bw": "RuntimeError: Mismatch in shape: grad_output[0] has a shape of torch.Size([64]) and output[0] has a shape of torch.Size([128]).",
     "ttnn.conj_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.conv2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
     "ttnn.embedding": "RuntimeError: 'weight' must be 2-D",
-    "ttnn.empty": "TypeError: empty(): argument 'size' (position 1) must be tuple of ints, not Tensor",
-    "ttnn.empty_like": "TypeError: _golden_function() missing 1 required keyword-only argument: 'fill_value'",
+    "ttnn.expand": "TypeError: expand(): argument 'size' (position 1) must be tuple of ints, but found element of type Tensor at pos 0",
     "ttnn.fill": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
+    "ttnn.fill_cache": "IndexError: tuple index out of range",
+    "ttnn.fill_ones_rm": "TypeError: zeros() received an invalid combination of arguments - got (tuple, dtype=torch.dtype), but expected one of:",
+    "ttnn.fill_rm": "ValueError: only one element tensors can be converted to Python scalars",
+    "ttnn.fold": "ValueError: not enough values to unpack (expected 4, got 1)",
+    "ttnn.from_buffer": "KeyError: tensor([0.1283, 0.1632, 0.6565, 0.1946, 0.4607, 0.8058, 0.3305, 0.1859, 0.2745,",
     "ttnn.full": "TypeError: full(): argument 'size' (position 1) must be tuple of ints, not Tensor",
-    "ttnn.full_like": "TypeError: _golden_function() missing 1 required keyword-only argument: 'fill_value'",
+    "ttnn.full_like": "TypeError: full_like(): argument 'fill_value' (position 2) must be Number, not Tensor",
+    "ttnn.gather": "TypeError: gather() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, out=NoneType, sparse_grad=bool), but expected one of:",
     "ttnn.gcd": "NotImplementedError: \"gcd_cpu\" not implemented for 'Double'",
     "ttnn.geglu": "AssertionError: dim must be an integer",
     "ttnn.glu": "TypeError: glu(): argument 'dim' (position 2) must be int, not Tensor",
@@ -7019,37 +7061,56 @@
     "ttnn.group_norm": "TypeError: _golden_function() missing 1 required keyword-only argument: 'num_groups'",
     "ttnn.imag": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.imag_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
+    "ttnn.index_fill": "TypeError: index_fill() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.indexed_fill": "OverflowError: cannot convert float infinity to integer",
     "ttnn.interleaved_to_sharded_partial": "TypeError: only integer tensors of a single element can be converted to an index",
     "ttnn.is_imag": "AttributeError: module 'torch' has no attribute 'is_imag'",
     "ttnn.is_real": "AttributeError: module 'torch' has no attribute 'is_real'",
+    "ttnn.kv_cache.fill_cache_for_user_": "IndexError: tuple index out of range",
+    "ttnn.kv_cache.update_cache_for_token_": "IndexError: too many indices for tensor of dimension 1",
     "ttnn.lcm": "NotImplementedError: \"lcm_cpu\" not implemented for 'Double'",
     "ttnn.logical_left_shift": "NotImplementedError: \"lshift_cpu\" not implemented for 'Double'",
     "ttnn.logical_right_shift": "NotImplementedError: \"rshift_cpu\" not implemented for 'Double'",
     "ttnn.max_pool2d": "TypeError: reshape() takes 1 positional argument but 4 were given",
+    "ttnn.narrow": "TypeError: narrow() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
     "ttnn.normalize_global": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)",
     "ttnn.normalize_hw": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got -2)",
     "ttnn.ones": "TypeError: ones(): argument 'size' (position 1) must be tuple of ints, not Tensor",
-    "ttnn.pad": "IndexError: invalid index of a 0-dim tensor. Use `tensor.item()` in Python or `tensor.item<T>()` in C++ to convert a 0-dim tensor to a number",
+    "ttnn.pad": "IndexError: tuple index out of range",
     "ttnn.permute": "TypeError: permute(): argument 'dims' (position 2) must be tuple of ints, not Tensor",
     "ttnn.polar": "TypeError: polar() missing 1 required positional arguments: \"angle\"",
     "ttnn.polar_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.real_bw": "RuntimeError: imag is not implemented for tensors with non-complex dtypes.",
     "ttnn.reglu": "AssertionError: dim must be an integer",
-    "ttnn.repeat": "TypeError: repeat() takes 1 positional argument but 4 were given",
+    "ttnn.repeat": "RuntimeError: Storage size calculation overflowed with sizes=[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, ",
     "ttnn.repeat_bw": "TypeError: repeat(): argument 'repeats' (position 1) must be tuple of ints, not Tensor",
     "ttnn.repeat_interleave": "NotImplementedError: \"repeat_interleave_cpu\" not implemented for 'Double'",
     "ttnn.reshape": "TypeError: reshape(): argument 'shape' (position 1) must be tuple of ints, not Tensor",
+    "ttnn.reshape_on_device": "ValueError: only one element tensors can be converted to Python scalars",
+    "ttnn.roll": "TypeError: roll(): argument 'shifts' (position 2) must be tuple of ints, but found element of type Tensor at pos 0",
     "ttnn.rotate": "ModuleNotFoundError: No module named 'torchvision'",
+    "ttnn.scatter": "TypeError: scatter() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
+    "ttnn.scatter_add": "TypeError: scatter_add() received an invalid combination of arguments - got (Tensor, Tensor, Tensor, Tensor), but expected one of:",
     "ttnn.sharded_to_interleaved_partial": "TypeError: only integer tensors of a single element can be converted to an index",
+    "ttnn.slice": "TypeError: object of type 'NoneType' has no len()",
+    "ttnn.split": "TypeError: split_with_sizes(): argument 'split_sizes' (position 2) must be tuple of ints, not Tensor",
+    "ttnn.stack": "TypeError: stack(): argument 'dim' (position 2) must be int, not Tensor",
     "ttnn.swiglu": "AssertionError: dim must be an integer",
     "ttnn.topk": "NameError: name 'torch' is not defined",
+    "ttnn.tosa_gather": "ValueError: not enough values to unpack (expected 3, got 1)",
+    "ttnn.tosa_scatter": "ValueError: not enough values to unpack (expected 3, got 1)",
     "ttnn.transformer.attention_softmax": "TypeError: _golden_function() missing 2 required keyword-only arguments: 'head_size' and 'attention_mask'",
     "ttnn.transformer.attention_softmax_": "TypeError: _golden_function() missing 2 required keyword-only arguments: 'head_size' and 'attention_mask'",
     "ttnn.transformer.concatenate_heads": "ValueError: not enough values to unpack (expected 4, got 1)",
     "ttnn.transformer.split_query_key_value_and_split_heads": "TypeError: _golden_function() missing 1 required keyword-only argument: 'num_heads'",
+    "ttnn.transpose": "TypeError: transpose() received an invalid combination of arguments - got (Tensor, Tensor, Tensor), but expected one of:",
     "ttnn.tril": "RuntimeError: tril: input tensor must have at least 2 dimensions",
     "ttnn.triu": "RuntimeError: triu: input tensor must have at least 2 dimensions",
+    "ttnn.unsqueeze": "TypeError: unsqueeze(): argument 'dim' (position 2) must be int, not Tensor",
+    "ttnn.untilize_with_unpadding": "IndexError: too many indices for tensor of dimension 1",
+    "ttnn.update_cache": "IndexError: too many indices for tensor of dimension 1",
     "ttnn.upsample": "RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 1 is not equal to len(dims) = 4",
+    "ttnn.view": "TypeError: reshape(): argument 'shape' (position 1) must be tuple of ints, but found element of type Tensor at pos 0",
     "ttnn.where_bw": "RuntimeError: where expected condition to be a boolean tensor, but got a tensor with dtype Double",
     "ttnn.zeros": "TypeError: zeros(): argument 'size' (position 1) must be tuple of ints, not Tensor"
   }

@@ -22,17 +22,17 @@ Charts show ULP (units in last place) error across the full input range.
 | Metric | Count |
 |--------|-------|
 | Architectures measured | 2 |
-| Unique ops measured | 220 |
+| Unique ops measured | 221 |
 | Blackhole (BH) bfloat16 ops | 194 |
 | Blackhole (BH) float32 ops | 193 |
-| Wormhole (WH) bfloat16 ops | 219 |
-| Wormhole (WH) float32 ops | 219 |
+| Wormhole (WH) bfloat16 ops | 220 |
+| Wormhole (WH) float32 ops | 220 |
 
 ---
 
 ## Returning inf or zero where a value exists
 
-194 variants across 54 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+189 variants across 55 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -46,25 +46,19 @@ Charts show ULP (units in last place) error across the full input range.
 | [`rpow_bw`](by_op/rpow_bw/README.md) | `exponent=2.0` | wh fp32 | 32,384 of 64,768 | 50.0% |
 | [`tan_bw`](by_op/tan_bw/README.md) | `default` | bh bf16 | 22,759 of 65,024 | 35.0% |
 | [`tan`](by_op/tan/README.md) | `default` | bh bf16 | 21,634 of 65,024 | 33.3% |
-| [`tan`](by_op/tan/README.md) | `default` | wh bf16 | 21,634 of 65,024 | 33.3% |
 | [`cos_bw`](by_op/cos_bw/README.md) | `default` | bh bf16 | 21,275 of 65,024 | 32.7% |
 | [`cos_bw`](by_op/cos_bw/README.md) | `default` | wh bf16 | 21,275 of 65,024 | 32.7% |
 | [`sin`](by_op/sin/README.md) | `default` | bh bf16 | 21,275 of 65,024 | 32.7% |
-| [`sin`](by_op/sin/README.md) | `default` | wh bf16 | 21,275 of 65,024 | 32.7% |
 | [`cos`](by_op/cos/README.md) | `default` | bh bf16 | 21,274 of 65,024 | 32.7% |
-| [`cos`](by_op/cos/README.md) | `default` | wh bf16 | 21,274 of 65,024 | 32.7% |
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | bh bf16 | 21,274 of 65,024 | 32.7% |
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh bf16 | 21,274 of 65,024 | 32.7% |
 | [`tan_bw`](by_op/tan_bw/README.md) | `default` | bh fp32 | 20,376 of 65,024 | 31.3% |
 | [`tan_bw`](by_op/tan_bw/README.md) | `default` | wh fp32 | 20,376 of 65,024 | 31.3% |
 | [`tan`](by_op/tan/README.md) | `default` | bh fp32 | 20,110 of 65,024 | 30.9% |
-| [`tan`](by_op/tan/README.md) | `default` | wh fp32 | 20,110 of 65,024 | 30.9% |
 | [`cos`](by_op/cos/README.md) | `default` | bh fp32 | 18,190 of 65,024 | 28.0% |
-| [`cos`](by_op/cos/README.md) | `default` | wh fp32 | 18,190 of 65,024 | 28.0% |
 | [`cos_bw`](by_op/cos_bw/README.md) | `default` | bh fp32 | 18,190 of 65,024 | 28.0% |
 | [`cos_bw`](by_op/cos_bw/README.md) | `default` | wh fp32 | 18,190 of 65,024 | 28.0% |
 | [`sin`](by_op/sin/README.md) | `default` | bh fp32 | 18,190 of 65,024 | 28.0% |
-| [`sin`](by_op/sin/README.md) | `default` | wh fp32 | 18,190 of 65,024 | 28.0% |
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | bh fp32 | 18,190 of 65,024 | 28.0% |
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh fp32 | 18,190 of 65,024 | 28.0% |
 | [`hypot`](by_op/hypot/README.md) | `default` | bh fp32 | 16,384 of 65,024 | 25.2% |
@@ -183,6 +177,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`swish`](by_op/swish/README.md) | `default` | wh fp32 | 9 of 65,024 | 0.0% |
 | [`i0_bw`](by_op/i0_bw/README.md) | `default` | bh bf16 | 4 of 33,904 | 0.0% |
 | [`i0_bw`](by_op/i0_bw/README.md) | `default` | wh bf16 | 4 of 33,904 | 0.0% |
+| [`i1`](by_op/i1/README.md) | `default` | wh bf16 | 4 of 33,904 | 0.0% |
 | [`atanh`](by_op/atanh/README.md) | `default` | bh bf16 | 2 of 32,256 | 0.0% |
 | [`atanh`](by_op/atanh/README.md) | `default` | wh bf16 | 2 of 32,256 | 0.0% |
 | [`asin`](by_op/asin/README.md) | `default` | bh bf16 | 2 of 32,258 | 0.0% |
@@ -201,7 +196,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`atanh_bw`](by_op/atanh_bw/README.md) | `default` | bh bf16 | 2 of 48,386 | 0.0% |
 | [`atanh_bw`](by_op/atanh_bw/README.md) | `default` | bh fp32 | 2 of 48,386 | 0.0% |
 | [`atanh_bw`](by_op/atanh_bw/README.md) | `default` | wh bf16 | 2 of 48,386 | 0.0% |
-| [`xielu`](by_op/xielu/README.md) | `default` | wh bf16 | 2 of 56,847 | 0.0% |
 | [`log1p_bw`](by_op/log1p_bw/README.md) | `default` | bh bf16 | 2 of 64,514 | 0.0% |
 | [`log1p_bw`](by_op/log1p_bw/README.md) | `default` | bh fp32 | 2 of 64,514 | 0.0% |
 | [`log1p_bw`](by_op/log1p_bw/README.md) | `default` | wh bf16 | 2 of 64,514 | 0.0% |
@@ -224,6 +218,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh bf16 | 1 of 49,537 | 0.0% |
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh fp32 | 1 of 49,537 | 0.0% |
 | [`xielu`](by_op/xielu/README.md) | `default` | bh bf16 | 1 of 56,847 | 0.0% |
+| [`xielu`](by_op/xielu/README.md) | `default` | wh bf16 | 1 of 56,847 | 0.0% |
 | [`prelu`](by_op/prelu/README.md) | `weight=0.25` | bh bf16 | 1 of 65,024 | 0.0% |
 | [`prelu`](by_op/prelu/README.md) | `weight=0.25` | wh bf16 | 1 of 65,024 | 0.0% |
 | [`selu_bw`](by_op/selu_bw/README.md) | `default` | bh bf16 | 1 of 65,024 | 0.0% |
