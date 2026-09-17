@@ -294,7 +294,7 @@ def _multi_operand(
         for k, operand in enumerate(operands[1:], start=2):
             e[f"x{k}"] = operand[: rows * n].to(torch.float32).numpy().reshape(rows, n)
 
-        n_defined += np.isfinite(e["ulp_error"]).sum(axis=0)
+        n_defined += e["defined"].sum(axis=0)
         n_rounded += (e["ulp_error"] <= 0.5).sum(axis=0)  # NaN compares false
         scored = np.nan_to_num(e["ulp_error"], nan=-np.inf)  # a defined point always wins
         pos = scored.argmax(axis=0)

@@ -35,13 +35,6 @@ def flush_subnormals(t: torch.Tensor) -> torch.Tensor:
     return torch.where(t.abs() < torch.finfo(t.dtype).tiny, torch.zeros_like(t), t)
 
 
-def adjacent(a: torch.Tensor, b: torch.Tensor) -> np.ndarray:
-    """One representable step apart, read off the bit patterns — IEEE neighbours differ by one."""
-    ints = {torch.bfloat16: torch.int16, torch.float32: torch.int32}[a.dtype]
-    wide = [t.contiguous().view(ints).to(torch.int64) for t in (a, b)]
-    return ((wide[0] - wide[1]).abs() == 1).flatten().numpy()
-
-
 def classify(raw_golden: np.ndarray, gold: np.ndarray, calc: np.ndarray, dtype) -> np.ndarray:
     """Index into OUTCOMES per point. `gold` is the fp64 `raw_golden` as the dtype holds it."""
     limits = torch.finfo(dtype)
@@ -80,18 +73,20 @@ def errors(golden: torch.Tensor, calculated: torch.Tensor) -> dict[str, np.ndarr
         signed = precise - calc.astype(np.float64)
         abs_err = np.abs(signed)
         # Faithful, not wrong: the true value falls strictly between the device's answer and the
-        # correctly rounded one, so both are neighbours of it and only the tie-break differs.
-        # Strictly, so a representable reference the device missed by a step stays `inexact`.
-        straddles = (precise - gold) * (calc.astype(np.float64) - precise) > 0
-        outcome[(outcome == OUTCOMES.index("inexact")) & adjacent(device, rounded) & straddles] = (
+        # correctly rounded one, so both are its neighbours and only the tie-break differs.
+        # Strict, so a representable reference missed by a step stays `inexact`; under one ULP,
+        # so does a two-step miss, since the reference is within half a ULP of `gold`.
+        straddles = (precise - gold) * signed < 0  # reuses `signed` rather than widening again
+        outcome[(outcome == OUTCOMES.index("inexact")) & straddles & (abs_err < unit)] = (
             OUTCOMES.index("faithful")
         )
         # Spacing around zero is what read 1e24 ULP for a 0.003 absolute error.
-        missed = np.isin(outcome, [OUTCOMES.index(k) for k in ("faithful", "inexact")])
+        missed = (outcome == OUTCOMES.index("faithful")) | (outcome == OUTCOMES.index("inexact"))
         defined = (outcome == OUTCOMES.index("exact")) | (missed & (gold != 0))
         return {
             "y": calc,
             "y_ref": gold,
+            "defined": defined,
             "abs_error": abs_err,
             "ulp_error": np.where(defined, abs_err / unit, np.nan),
             # Signed too: a mean that is not zero is a one-sided approximation, which a tuned
@@ -125,7 +120,7 @@ def compare(
                 "y_ref": g["y_ref"][col, pos],
                 # Counted before the argmax throws the group away: a worst point cannot carry
                 # a rate, and (1 - p)**65536 reads 0% for any p above about 1e-5.
-                "n_defined": np.isfinite(g["ulp_error"]).sum(axis=-1),
+                "n_defined": g["defined"].sum(axis=-1),
                 "n_rounded": (g["ulp_error"] <= 0.5).sum(axis=-1),  # NaN compares false
                 "ulp_error": g["ulp_error"][col, pos],
                 "ulp_signed": g["ulp_signed"][col, pos],

@@ -128,7 +128,9 @@ jobs:
     concurrency:
       group: device-${{ matrix.target.arch }}
       cancel-in-progress: false
-    timeout-minutes: 720
+    # A full sweep measured 9h49m before per-point counting and 18% under the old 12h cap,
+    # so the cap, not the work, was the thing that broke. Raised with room for both archs.
+    timeout-minutes: 1200
     defaults:
       run:
         shell: bash -euo pipefail {0}
