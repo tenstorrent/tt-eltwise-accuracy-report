@@ -1,0 +1,20 @@
+---
+description: Required improvement cycle for every feature or fix in this repo
+alwaysApply: true
+---
+
+# Cycle
+
+research → propose → wait → branch → implement → review → improve → review → CLAUDE.md + ruff + pytest → commit if asked
+
+Do not skip propose. Do not implement on `main`. Do not commit unless the user asked to commit or to finish the cycle.
+
+Proposal is short: what, why, files you will touch, what you will not create. Wait for approval.
+
+Branch: `feat/`, `fix/`, `perf/`, `docs/`. One concern per branch.
+
+After implement: review for correctness against `analyze-report/contract.md` and `roadmap.md`, then improve, then review again, then style.
+
+Style gate (CLAUDE.md): YAGNI, reuse, stdlib, no unused, Python 3.10 (PEP 604, `match`, `slots`), comments only for uninferable decisions, no decorative banners, no defensive branches for impossible states, no new packages without agreement.
+
+Before stop: `uvx ruff check .`, `uvx ruff format .`, `pytest`.

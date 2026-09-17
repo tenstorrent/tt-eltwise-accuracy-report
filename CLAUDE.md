@@ -2,6 +2,9 @@
 
 Short, precise, functional. Every line earns its place.
 
+Cycle: research → propose → branch → implement → review → improve → review → this file → commit.
+See `AGENTS.md`.
+
 ## Ladder — walk it before writing anything
 
 1. Does this need to exist?   → no: skip it (YAGNI)
