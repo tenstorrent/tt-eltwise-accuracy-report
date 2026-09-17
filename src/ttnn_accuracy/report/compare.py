@@ -11,8 +11,13 @@ from loguru import logger
 
 from ttnn_accuracy.paths import INDEX_FILE, REPO_ROOT, RUNS_KEY
 
-# `defects` and `unflushed` score like an error figure: the answers ULP cannot see.
-SCORED = ("max_ulp", "mean_ulp", "ulp_clipped", "defects", "unflushed")
+# Higher is worse, except `rounded_frac` — a rate of correctly rounded inputs.
+WORSE_UP = ("max_ulp", "mean_ulp", "ulp_clipped", "defects", "unflushed")
+BETTER_UP = ("rounded_frac",)
+SCORED = (*WORSE_UP, *BETTER_UP)
+# Present from the sweep that introduced fractional ULP. Without it, max/mean ULP were
+# scored against a same-width golden and must not be subtracted from a wider-reference run.
+ULP = ("max_ulp", "mean_ulp")
 
 
 def _num(value) -> float:
@@ -49,18 +54,38 @@ def diff(old: dict, new: dict) -> dict[str, list]:
     return buckets
 
 
+def _fields(a: dict, b: dict) -> list[str]:
+    """Metrics both sides carry. Drop ULP when only the candidate used the wider reference."""
+    scored = [m for m in SCORED if m in a and m in b]
+    if "rounded_frac" not in a and "rounded_frac" in b:
+        return [m for m in scored if m not in ULP]
+    return scored
+
+
+def _worse(a: dict, b: dict, m: str) -> bool:
+    if m in BETTER_UP:
+        return _num(b[m]) < _num(a[m])
+    return _num(b[m]) > _num(a[m])
+
+
+def _better(a: dict, b: dict, m: str) -> bool:
+    if m in BETTER_UP:
+        return _num(b[m]) > _num(a[m])
+    return _num(b[m]) < _num(a[m])
+
+
 def _bucket(a: dict, b: dict) -> str:
     """Which bucket, or "" — a field the baseline predates cannot have regressed."""
     # A different point count is a different domain: narrowing `polygamma` read as a regression.
     if _num(a.get("n_inputs")) != _num(b.get("n_inputs")):
         return "changed"
-    scored = [m for m in SCORED if m in a and m in b]
-    if any(_num(b[m]) > _num(a[m]) for m in scored):
+    scored = _fields(a, b)
+    if any(_worse(a, b, m) for m in scored):
         return "regressed"
     # Before `improved`: a first count of defects outranks a scored metric ticking down.
     if [m for m in SCORED if m not in a and _num(b.get(m))]:
         return "changed"
-    if any(_num(b[m]) < _num(a[m]) for m in scored):
+    if any(_better(a, b, m) for m in scored):
         return "improved"
     return "changed" if a.get("usable_to") != b.get("usable_to") else ""
 

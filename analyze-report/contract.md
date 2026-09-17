@@ -1,8 +1,10 @@
 # Interpretation contract
 
-**Status: in force.** Every field below exists in `report_index.json` today, except
-`max_rel`, `median_rel`, `bits_worst`, `bits_median`, `unflushed`, `offenders`,
-`monotonic` and `nonfinite`, which appear on entries measured after they were added.
+**Status: in force.** The committed `report_index.json` carries `max_ulp`, `mean_ulp`,
+`usable_to`, `max_abs`, `ulp_clipped`, `n_inputs`, `outcomes`, `specials`, `defects`,
+`verdict`, `perf`, and `rationale`. Fields below that are missing from an entry appear
+after the next published sweep — the CSVs currently on disk predate `n_rounded` /
+`ulp_signed` / `faithful`, so `charts` cannot backfill them.
 
 The definitions behind every number in the report. An assistant answering from it uses
 these and no others. The verdict rules have a code twin in `report/score.py::verdict`;
@@ -31,7 +33,7 @@ the two change together.
 | `monotonic` | `pairs`, `violations`, `rate`, `worst_dy` and the five worst, for neighbouring inputs whose device outputs move against the reference's own direction. Present only where the reference is itself ordered across a domain interval, so a non-monotonic op (`sin`, `gelu` below zero) has no entry. Intervals end where x crosses zero, so `reciprocal` is never compared across its pole, and no pair spans an unscorable point. Ordering is not accuracy: an op can sit within 1 ULP and still step backwards |
 | `nonfinite` | `total` and the split by side — `both`, `device_only`, `golden_only`, `device_inf`, `device_nan`, `golden_inf`, `golden_nan` — plus up to ten points. These carry no ULP, so no other field counts them. Absent when every point was finite |
 | `defects` | device returned inf or zero where the reference is representable. These carry no ULP, so no other field counts them. A `mismatch` against a NaN reference is a domain disagreement, not a defect |
-| `verdict` | one of the seven phrases below, precomputed |
+| `verdict` | one of the nine phrases below, precomputed |
 | `perf` | `us_median` and `melem_per_s` for one dispatch over 2²⁴ resident elements, with the `host` that took them. `spread_pct` appears only when the row is not trustworthy. Never scored |
 | `rationale` | why this variant has these parameters, from `ops/overrides.py` |
 | `_runs.{arch}.{dtype}` | tt-metal commit, device, versions. Every claim is per build |
@@ -81,3 +83,6 @@ Computed, never inferred. First match wins.
    reference does. Only a check run reports these.
 6. Not in the index means not measured. Read the reason from the manifest's exclusions and
    refusals, or from [uncovered.md](uncovered.md).
+7. Do not subtract `max_ulp` or `mean_ulp` from an index that lacks `rounded_frac` against
+   one that has it. Those ULP figures are different quantities. `ttnn-accuracy compare`
+   already refuses that; a nightly of two pre-`rounded_frac` indexes still scores ULP.

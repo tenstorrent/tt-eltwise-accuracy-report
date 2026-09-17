@@ -25,8 +25,8 @@ def _ask_row(arch: str, dtype: str, op: str, variant: str, s: dict) -> str:
     us, rate = _us(perf), f"{perf['melem_per_s']:.0f}" if perf else "—"
     return (
         f"| {arch} | {dtype} | `{op}` | `{params_desc(op, variant)}` | {s.get('verdict', '—')} "
-        f"| {s.get('max_ulp', '—')} | {s.get('mean_ulp', '—')} | {s.get('usable_to', '—')} "
-        f"| {us} | {rate} |"
+        f"| {s.get('max_ulp', '—')} | {s.get('mean_ulp', '—')} | {s.get('rounded_frac', '—')} "
+        f"| {s.get('usable_to', '—')} | {us} | {rate} |"
     )
 
 
@@ -56,9 +56,9 @@ def ask_page() -> str:
             CONTRACT_FILE.read_text().partition("\n")[2].strip(),
             "",
             f"## Results — {len(rows)} variants\n",
-            "| Arch | Dtype | Op | Parameters | Verdict | Max ULP | Mean ULP | Usable to "
-            "| µs | Melem/s |",
-            "|---|---|---|---|---|---|---|---|---|---|",
+            "| Arch | Dtype | Op | Parameters | Verdict | Max ULP | Mean ULP | Rounded "
+            "| Usable to | µs | Melem/s |",
+            "|---|---|---|---|---|---|---|---|---|---|---|",
             *rows,
             "",
         ]

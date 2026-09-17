@@ -177,6 +177,31 @@ def test_an_improvement_with_no_new_metric_is_still_an_improvement():
     assert diff(_index(ulp_clipped=5), _index(ulp_clipped=2))["improved"]
 
 
+def test_a_drop_in_correctly_rounded_share_is_a_regression():
+    assert diff(_index(rounded_frac="0.997"), _index(rounded_frac="0.990"))["regressed"]
+    assert diff(_index(rounded_frac="0.990"), _index(rounded_frac="0.997"))["improved"]
+
+
+def test_two_pre_fractional_indexes_still_score_ulp():
+    """A nightly against last week's published report, both pre-dating rounded_frac."""
+    assert diff(_index(max_ulp="1"), _index(max_ulp="254"))["regressed"]
+
+
+def test_ulp_against_a_pre_fractional_baseline_is_not_a_kernel_regression():
+    """Published max_ulp=0 meant bit-identical to a same-width golden. Against a wider
+    reference the same kernel reads 0.5 ULP — a definition change, not a worse kernel."""
+    old = _index()
+    buckets = diff(old, _index(max_ulp="0.5", rounded_frac="0.983"))
+    assert not buckets["regressed"]
+    assert [k for k, *_ in buckets["changed"]] == [("wh", "bf16", "exp", "default")]
+
+
+def test_ulp_still_scores_once_both_indexes_use_the_wider_reference():
+    old = _index(rounded_frac="0.983", max_ulp="0.5")
+    assert diff(old, _index(rounded_frac="0.983", max_ulp="2"))["regressed"]
+    assert diff(old, _index(rounded_frac="0.983", max_ulp="0.4"))["improved"]
+
+
 def _build(sha: str, commit: str, **stats) -> tuple[str, str, dict]:
     index = _index(**stats)
     index["_runs"]["wh"]["bf16"]["tt_metal_commit"] = commit

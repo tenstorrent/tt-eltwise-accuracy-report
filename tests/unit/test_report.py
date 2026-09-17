@@ -41,6 +41,16 @@ def test_a_page_flags_the_timings_it_should_not_trust():
     assert _us(None) == "—"
 
 
+def test_ask_page_inlines_the_live_contract_and_a_rounded_column():
+    from ttnn_accuracy.report.ask import ask_page
+
+    text = ask_page()
+    assert "rounded_frac" in text
+    assert "| Rounded |" in text
+    assert "faithful" in text
+    assert "Do not subtract `max_ulp`" in text
+
+
 def test_a_custom_parameter_variant_still_charts(tmp_path, monkeypatch):
     """A dispatch measures at a parameter the plan lacks; a per-variant scope dropped
     every one and `charts` exited 1 with "no CSVs matched"."""
