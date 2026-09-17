@@ -57,7 +57,7 @@ kernels for the same op, so architecture is an axis.
 ```mermaid
 flowchart TD
     T["ttnn runtime<br/>~500 registered ops"] --> D1["discover<br/>classify, keep eltwise"]
-    D1 --> M1[("ops_manifest.json<br/>222 eltwise, 91 refusals")]
+    D1 --> M1[("ops_manifest.json<br/>221 eltwise, 64 refusals")]
     M1 --> D2["derive"]
     D2 -->|fp64 sweep| M1
     M1 --> D3["probe"]
