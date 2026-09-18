@@ -1,0 +1,26 @@
+{
+  "arch": "bh",
+  "device_arch": "BLACKHOLE",
+  "device_id": 1,
+  "dtypes": [
+    "bf16",
+    "fp32"
+  ],
+  "ops": [
+    "atan2_bw",
+    "div_bw",
+    "hypot_bw",
+    "ldexp_bw",
+    "logaddexp2_bw",
+    "logaddexp_bw",
+    "max_bw",
+    "min_bw",
+    "mul_bw",
+    "squared_difference_bw",
+    "xlogy_bw"
+  ],
+  "run_id": "20260918T091013",
+  "torch_version": "2.11.0+cpu",
+  "tt_metal_commit": "a3a9fb4229a",
+  "ttnn_version": "0.78.0"
+}
