@@ -66,7 +66,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `threshold=0.5,value=0.0` | 1.1754944e-38 | 0 | 0 | agree |
 | `threshold=0.5,value=0.0` | -1.1754944e-38 | 0 | 0 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260917T224646`_
+_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260920T190031`_
 
 ### `threshold=0.0,value=1.0`
 

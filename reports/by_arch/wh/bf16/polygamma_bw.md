@@ -90,7 +90,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `n=1` | 1.1754944e-38 | -inf | -inf | agree |
 | `n=1` | -1.1754944e-38 | inf | inf | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260917T224646`_
+_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260920T190031`_
 
 ![ULP error — polygamma_bw n=1](../../../charts/wh/bf16/polygamma_bw_n1_ulp.svg)
 

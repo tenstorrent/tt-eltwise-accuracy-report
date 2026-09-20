@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | -1 | -1 | agree |
 | `default` | -1.1754944e-38 | -1 | -1 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260917T224646`_
+_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260920T190031`_
 
 ![ULP error — acos_bw default](../../../charts/wh/fp32/acos_bw_default_ulp.svg)
 
