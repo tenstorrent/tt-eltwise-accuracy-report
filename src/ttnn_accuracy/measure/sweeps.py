@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Input sweeps per arity and dtype; a row is one point, multi-operand rows the worst pairing."""
 
 from __future__ import annotations

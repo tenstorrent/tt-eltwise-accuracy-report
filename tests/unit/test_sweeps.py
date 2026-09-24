@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Shape invariance, device-free: the dispatch needs silicon, the comparison does not."""
 
 from __future__ import annotations

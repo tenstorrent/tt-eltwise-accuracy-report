@@ -191,7 +191,7 @@ ttnn-accuracy export --arch wh --op exp                 # then drag into the LLK
 
 The charts are static SVG because GitHub strips scripts from markdown, so `export` writes the
 measurements in [tt-llk](https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/tests/python_tests/accuracy)'s
-own 19-column schema and the [SFPU dashboard](https://github.com/tenstorrent/llk-sfpu-dashboard)
+own 19-column schema and the SFPU dashboard (`tenstorrent/llk-sfpu-dashboard`, not yet public)
 renders them with zoom, pan and sub-range recompute. Its aggregator reports the same max ULP
 and exact fraction our pages do, from the same points. One op is about 10 MB, so export the
 ops you are looking at rather than the tree.
@@ -249,3 +249,17 @@ with reasons in [uncovered.md](analyze-report/uncovered.md).
 [ttnn-eltwise-op-tester](https://github.com/nmauriceTT/ttnn-eltwise-op-tester), extended with
 automatic discovery, derived domains, per-arch probing, variants, timing, provenance, and the
 cross-navigable report tree.
+
+## Contributing
+
+Bugs are reported via [GitHub Issues](https://github.com/tenstorrent/tt-eltwise-accuracy-report/issues).
+Bug fixes and new functionality are submitted via Pull Requests, reviewed on a weekly cadence.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details, and our
+[Code of Conduct](CODE_OF_CONDUCT.md) for expected behavior.
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE) — overall license for this
+project, except where specified. See [NOTICE](NOTICE) for third-party attributions, and
+[LICENSE_understanding.txt](LICENSE_understanding.txt) for how the license applies to this
+project specifically.

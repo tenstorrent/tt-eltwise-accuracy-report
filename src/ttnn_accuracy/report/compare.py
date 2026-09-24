@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """What moved between two indexes, and `history` across every one; no tolerance, measurement is exact."""
 
 from __future__ import annotations

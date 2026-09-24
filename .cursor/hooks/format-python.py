@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Format a just-edited Python file. Fail open: a hook crash must not block the edit."""
 
 from __future__ import annotations

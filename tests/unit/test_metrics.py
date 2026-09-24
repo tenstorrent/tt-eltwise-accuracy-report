@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Hand-checked ULP values. These pin the definition every later change is measured against."""
 
 from __future__ import annotations

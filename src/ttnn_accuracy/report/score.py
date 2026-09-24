@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """One measured CSV → the numbers a page and a diff read. No plotting, so `check` skips matplotlib."""
 
 from __future__ import annotations

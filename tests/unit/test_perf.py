@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """The timing statistics. The dispatch loop needs silicon; the arithmetic does not."""
 
 from __future__ import annotations

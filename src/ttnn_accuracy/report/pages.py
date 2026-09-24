@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """One op's page: every figure measured for it, on one arch and dtype, variants side by side."""
 
 from __future__ import annotations

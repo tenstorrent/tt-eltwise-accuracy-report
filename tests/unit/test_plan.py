@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Exclusions must keep an op out of the plan, and naming it must return the reason.
 
 Three times a stage has written an exclusion the planner never read — the `outcome`
