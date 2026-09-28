@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """What the report renders, and that it renders the same thing twice.
 
 The pages are committed nightly, so output that differs from itself on unchanged data

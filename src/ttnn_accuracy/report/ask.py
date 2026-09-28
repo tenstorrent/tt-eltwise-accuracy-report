@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """One page a reader hands to any assistant: the contract inlined beside every number."""
 
 from __future__ import annotations

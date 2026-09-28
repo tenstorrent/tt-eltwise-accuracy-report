@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """The index pages: every way into the tree — by arch, by op, by dtype — and the top README."""
 
 from __future__ import annotations

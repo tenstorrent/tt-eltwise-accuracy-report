@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Measured CSVs in the tt-llk SFPU harness's schema, so its dashboard renders ours with zoom."""
 
 from __future__ import annotations

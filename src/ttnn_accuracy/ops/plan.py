@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """The manifest resolved into one OpSpec per variant, with bounds per dtype."""
 
 from __future__ import annotations

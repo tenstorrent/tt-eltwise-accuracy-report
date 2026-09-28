@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """The committed eltwise manifest; a rebuild keeps derivation and probing for unchanged ops."""
 
 from __future__ import annotations

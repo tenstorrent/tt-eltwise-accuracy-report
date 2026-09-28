@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Every tunable number in one place. Structure lives with its code; only knobs belong here."""
 
 from __future__ import annotations

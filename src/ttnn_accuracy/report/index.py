@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """report_index.json as the pages read it: what was measured, and how each thing is named."""
 
 from __future__ import annotations

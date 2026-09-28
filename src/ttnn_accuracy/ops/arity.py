@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Operand count and elementwise-ness asked of the golden; a backward one eats the gradient first."""
 
 from __future__ import annotations

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Domain derivation against functions whose real bounds are known by hand."""
 
 from __future__ import annotations

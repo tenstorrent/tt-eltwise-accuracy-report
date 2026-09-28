@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Device refusals are published verbatim, so they must not carry whoever built tt-metal."""
 
 from __future__ import annotations

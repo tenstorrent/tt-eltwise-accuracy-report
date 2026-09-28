@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """data/{arch}/{dtype}/{op}/{variant}.csv → SVG charts and the report_index.json summary."""
 
 from __future__ import annotations

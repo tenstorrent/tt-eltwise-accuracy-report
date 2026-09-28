@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Writes the whole reports/ tree: which pages exist, and in what order they are produced."""
 
 from __future__ import annotations

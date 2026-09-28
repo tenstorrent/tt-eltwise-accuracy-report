@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """The diff between two report indexes, device-free.
 
 Mateusz's harness once computed bf16 ULP with the fp32 mantissa and needed a repair

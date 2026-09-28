@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Kernel timing over one resident tensor; every record carries its host, and only one host subtracts."""
 
 from __future__ import annotations

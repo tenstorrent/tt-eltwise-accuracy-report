@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Input bounds from each golden in float64: domain, representability and subnormals, per dtype."""
 
 from __future__ import annotations

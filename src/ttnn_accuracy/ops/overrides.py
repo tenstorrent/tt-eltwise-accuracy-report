@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 """Every editorial decision discovery cannot derive: scalars, supplied goldens, exclusions."""
 
 from __future__ import annotations
