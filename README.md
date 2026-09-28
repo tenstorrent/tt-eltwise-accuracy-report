@@ -3,7 +3,7 @@
 ULP accuracy and kernel timing for every TT-Metal eltwise op, measured exhaustively against
 fp64 torch goldens, per architecture (WH, BH) and dtype (bf16, fp32).
 
-[Browse the report](reports/README.md) ·
+[Browse the report](../../tree/report/reports/README.md) ·
 [Ask an assistant](analyze-report/README.md) ·
 [Design](docs/architecture.md) ·
 
@@ -234,8 +234,8 @@ stats/ops_manifest.json # what discover, derive and probe learned (committed)
 stats/runs/             # one provenance record per measurement run (committed)
 stats/perf/             # µs per variant, with the host that took them (committed)
 data/                   # raw CSVs, gitignored; symlink to a fast local disk
-reports/                # generated markdown and SVG (committed): by_arch · by_op · by_dtype
-report_index.json       # summary stats per arch/dtype/op/variant (committed)
+reports/                # generated markdown and SVG, published to the `report` branch
+report_index.json       # summary stats per arch/dtype/op/variant, same branch
 ```
 
 Ops are discovered from ttnn's own registry, never a hand list. Covering a new one is a single

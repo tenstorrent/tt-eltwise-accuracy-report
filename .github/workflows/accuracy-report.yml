@@ -1,13 +1,13 @@
 name: accuracy-report
 
-# One workflow, three uses, separated only by how much it measures:
+# One workflow, two uses, separated only by how much it measures:
 #   the weekly cron sweeps everything and publishes;
-#   a weeknight cron measures unary bf16 as an early warning and publishes nothing;
 #   a dispatch measures whatever you name, at parameters the published report does not carry.
+# Results land on `report`, never on the default branch: a ruleset there requires a pull
+# request, and the report is 100 MB of generated data that no one reviews.
 on:
   schedule:
-    - cron: "37 2 * * 0" # Sunday: every category, both dtypes, published
-    - cron: "37 2 * * 1-6" # other nights: unary bf16, run page only
+    - cron: "37 2 * * 6" # Saturday: every category, both dtypes, published
   workflow_dispatch:
     inputs:
       arch:
@@ -36,6 +36,10 @@ on:
 permissions:
   contents: write
 
+env:
+  # Data only, and never the default branch: a ruleset there requires a pull request.
+  REPORT_BRANCH: report
+
 jobs:
   scope:
     runs-on: ubuntu-latest
@@ -60,7 +64,6 @@ jobs:
       # Free text reaches the shell through env, never interpolated into the script.
       - id: scope
         env:
-          SCHEDULE: ${{ github.event.schedule }}
           ARCH: ${{ inputs.arch || 'both' }}
           CATEGORIES: ${{ inputs.categories || 'all' }}
           OPS: ${{ inputs.ops }}
@@ -72,12 +75,6 @@ jobs:
           PUBLISH: ${{ inputs.publish }}
         run: |
           ALL=unary,unary_bw,binary,binary_bw,ternary,ternary_bw
-          # Only a cron this recognises is narrowed. If the expression below ever stops
-          # matching `on.schedule`, every scheduled run sweeps everything and publishes —
-          # expensive, but never a silently stale report.
-          case "$SCHEDULE" in
-            "37 2 * * 1-6") CATEGORIES=unary; DTYPE=bf16; OPS=; PARAMS= ;;
-          esac
           if [ "$CATEGORIES" = all ]; then CATEGORIES=$ALL; fi
 
           # Publishing is a property of the run, not a wish: only a whole sweep may overwrite
@@ -114,7 +111,8 @@ jobs:
     strategy:
       matrix:
         target: ${{ fromJSON(needs.scope.outputs.targets) }}
-      max-parallel: 1
+      # Parallel: the two archs are different machines, and `concurrency` below already
+      # keeps one run per device. Serialised, a full sweep took 28h of wall clock.
       fail-fast: false
     runs-on: ${{ matrix.target.runner }}
     container:
@@ -129,7 +127,7 @@ jobs:
       group: device-${{ matrix.target.arch }}
       cancel-in-progress: false
     # A full sweep measured 9h49m before per-point counting and 18% under the old 12h cap,
-    # so the cap, not the work, was the thing that broke. Raised with room for both archs.
+    # so the cap, not the work, was the thing that broke.
     timeout-minutes: 1200
     defaults:
       run:
@@ -138,6 +136,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # The checkout carries code; the last published figures live on `report`. Without this
+      # every run would diff against, and republish, whatever data main happens to still hold.
+      - name: Start from the published report
+        run: |
+          # Not shallow: Publish fetches this ref again, and analyze-report reads its parent.
+          git fetch --no-tags origin \
+            "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" 2>/dev/null || {
+            echo "no $REPORT_BRANCH yet — this run creates it"; exit 0; }
+          git checkout "origin/$REPORT_BRANCH" -- reports report_index.json stats \
+            analyze-report/ask.md
+          git reset --quiet
 
       - uses: ./.github/actions/tt-metal-env
         with:
@@ -219,7 +229,7 @@ jobs:
         env:
           LOGURU_FORMAT: "{message}"
         run: |
-          git show HEAD:report_index.json > previous.json 2>/dev/null || exit 0
+          git show "origin/$REPORT_BRANCH:report_index.json" > previous.json 2>/dev/null || exit 0
           {
             echo "## ${{ matrix.target.arch }} at ${{ needs.scope.outputs.version }}"
             echo '```'
@@ -253,29 +263,38 @@ jobs:
             done
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Regenerated onto whatever landed, never rebased onto it: two runs each rewrite the whole
-      # tree, so every generated file conflicts and no rebase can ever succeed. The CSVs are
-      # still on this runner, so re-running charts re-applies this arch on top of the new index.
+      # Regenerated onto whatever landed, never rebased onto it: two archs each rewrite the
+      # whole tree, so every generated file conflicts and no rebase can ever succeed. The CSVs
+      # are still on this runner, so re-running charts re-applies this arch on top of the other.
+      # The commit is built with a temporary index and pushed by SHA, so `report` carries data
+      # alone and this checkout keeps its code and its HEAD throughout.
       - name: Publish
         if: needs.scope.outputs.publish == 'true'
+        env:
+          DATA: reports report_index.json stats analyze-report/ask.md
         run: |
           git config user.name accuracy-report
           git config user.email accuracy-report@users.noreply.github.com
-          # Untracked, so the reset cannot take it: the manifest, this arch's timings and this
-          # run's provenance were measured before this step and charts cannot recreate them.
-          cp -r stats .publish-stats
           for attempt in 1 2 3; do
-            git fetch origin "$GITHUB_REF_NAME"
-            git reset --hard FETCH_HEAD
-            # Every name here is this arch's or this run's, so origin's own stats survive.
-            cp -r .publish-stats/. stats/
+            git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" || true
+            # Merge into whatever the other arch published, not into this checkout's copy.
+            git show "origin/$REPORT_BRANCH:report_index.json" > report_index.json 2>/dev/null || true
             python3 -m ttnn_accuracy.cli charts
             python3 -m ttnn_accuracy.cli report \
               --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
-            git add -A reports/ report_index.json stats/ analyze-report/ask.md
-            git diff --cached --quiet && { echo "no change to publish"; exit 0; }
-            git commit -m "data(${{ matrix.target.arch }}): accuracy report at ${{ needs.scope.outputs.version }}"
-            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+
+            export GIT_INDEX_FILE="$RUNNER_TEMP/report.index"
+            rm -f "$GIT_INDEX_FILE"
+            git add -A -- $DATA
+            tree=$(git write-tree)
+            parent=$(git rev-parse --verify --quiet "origin/$REPORT_BRANCH" || true)
+            [ "$tree" != "$(git rev-parse --verify --quiet "$parent^{tree}" || true)" ] || {
+              echo "no change to publish"; exit 0; }
+            commit=$(git commit-tree "$tree" ${parent:+-p "$parent"} \
+              -m "data(${{ matrix.target.arch }}): accuracy report at ${{ needs.scope.outputs.version }}")
+            unset GIT_INDEX_FILE
+
+            git push origin "$commit:refs/heads/$REPORT_BRANCH" && exit 0
             echo "someone else published first, regenerating ($attempt)"; sleep $((attempt * 10))
           done
           echo "could not publish; the measurements are on the runner's disk"
@@ -293,8 +312,6 @@ jobs:
       - name: Leave the workspace as it was found
         if: always()
         run: |
-          rm -rf .publish-stats
-          if [ "${{ needs.scope.outputs.publish }}" != true ]; then
-            git checkout -- reports/ report_index.json analyze-report/ask.md stats/ 2>/dev/null || true
-          fi
+          # `report` data was copied in, never committed here, so the checkout is restored whole.
+          git checkout -- reports/ report_index.json analyze-report/ask.md stats/ 2>/dev/null || true
           git checkout --detach 2>/dev/null || true
