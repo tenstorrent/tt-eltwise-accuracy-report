@@ -56,6 +56,17 @@ def measure(
     return failed
 
 
+def _mark(now: dict, moved: bool) -> str:
+    """Movement and state are different questions: unchanged-and-awful must not read green."""
+    from ttnn_accuracy.config import USABLE_ULP
+    from ttnn_accuracy.report.score import _num
+
+    if moved:
+        return "🔴"
+    mx = _num(now.get("max_ulp"))
+    return "⚠️" if now.get("defects") or (mx is not None and mx > USABLE_ULP) else "🟢"
+
+
 def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -> str:
     """One row per variant: what the baseline held, what this build measures, and the move."""
     rows = []
@@ -64,7 +75,7 @@ def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -
             for variant, now in sorted(variants.items()):
                 was = baseline.get(arch, {}).get(dtype, {}).get(op, {}).get(variant, {})
                 before, after = was.get("max_ulp", "—"), now.get("max_ulp", "—")
-                mark = "🔴" if (dtype, op, variant) in regressed else "🟢"
+                mark = _mark(now, (dtype, op, variant) in regressed)
                 moved = "—" if before == after else f"{before} → {after}"
                 rows.append(
                     f"| {mark} | `{op}` | `{variant}` | {arch} | {dtype} | {before} | {after} "

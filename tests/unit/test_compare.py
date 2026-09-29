@@ -92,7 +92,7 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
             32384,
             0,
             0,
-            "32384 of 64777 points returned inf or zero where a value exists",
+            "32384 of 64777 points returned inf or zero where a value exists; the rest reach 0.5 ULP",
         ),
         # The quasar exp case: bit-exact everywhere the reference is a number.
         (
@@ -103,7 +103,7 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
             0,
             396,
             0,
-            "396 of 64777 points returned a value where the reference is zero",
+            "396 of 64777 points returned a value where the reference is zero; the rest reach 0.5 ULP",
         ),
     ],
 )
@@ -228,3 +228,13 @@ def test_history_says_what_a_variant_looked_like_when_it_first_appeared():
     (row,) = _changes([_build("a", "tt1")])
     assert row[4].startswith("first measured")
     assert row[3] == "tt1"
+
+
+def test_a_defect_does_not_hide_how_wrong_the_scorable_points_are():
+    """bh/fp32/log_bw read "2 of 64514 points returned inf or zero" and nothing else, while
+    the other 64,512 were 9.02e+04 ULP out. The defect leads; it must not be the whole line."""
+    from ttnn_accuracy.report.score import verdict
+
+    said = verdict("9.02e+04", "1.72e+03", "—", 1, 2, 64514, 0, 0, 64512)
+    assert said.startswith("2 of 64514 points returned inf or zero")
+    assert "9.02e+04 ULP" in said
