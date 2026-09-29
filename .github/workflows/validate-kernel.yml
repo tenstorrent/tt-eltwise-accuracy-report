@@ -77,19 +77,22 @@ jobs:
           COMMIT: ${{ inputs.commit }}
         run: |
           cd "$TT_METAL_HOME"
-          git fetch --recurse-submodules=no https://github.com/tenstorrent/tt-metal.git "$COMMIT" \
+          git fetch --depth=1 --recurse-submodules=no \
+            https://github.com/tenstorrent/tt-metal.git "$COMMIT" \
             && git checkout --force FETCH_HEAD \
             || { git fetch --recurse-submodules=no \
                    https://github.com/tenstorrent/tt-metal.git main; \
                  git checkout --force "$COMMIT" \
                    || { echo "::error::$COMMIT is not a commit on tenstorrent/tt-metal"; exit 1; }; }
-          git submodule update --init --recursive
-          ./build_metal.sh
+          git submodule update --init --recursive --depth 1
+          # Tracy is on by default and nothing here reads it: the timings are host-side wall
+          # clock. ccache is inert without a warm cache, and costs nothing when it misses.
+          ./build_metal.sh --enable-ccache --disable-profiler
           uv pip install --quiet --python "$(command -v python3)" -e "$TT_METAL_HOME"
           rm -rf "$TT_METAL_CACHE"
           echo "SHA=$(git rev-parse --short=11 HEAD)" >> "$GITHUB_ENV"
 
-      - name: Check the ops it touches
+      - name: Measure them against the published baseline
         env:
           OPS: ${{ inputs.ops }}
           ARCH: ${{ inputs.arch }}
@@ -110,26 +113,25 @@ jobs:
 
           status=0
           python3 -m ttnn_accuracy.cli check --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" --perf \
+            --summary "table-$ARCH.md" \
             ${MAX_ULP:+--max-ulp "$MAX_ULP"} ${PARAMS:+--params "$PARAMS"} \
             2>&1 | tee check.log || status=$?
-          # One short block per arch, for whoever assembles the pull request comment. The
-          # log itself is the artifact; this is the part a reviewer reads in ten seconds.
+
+          verdict=$( [ "$status" -eq 0 ] && echo "nothing moved" || echo "$status finding(s)" )
+          # The table is the answer; the log is the artifact, folded away for whoever wants it.
           {
-            echo "<details><summary><b>$ARCH</b> — $( [ "$status" -eq 0 ] \
-              && echo 'nothing moved' || echo "$status finding(s)" ) at \`$SHA\`</summary>"
+            echo "<details open><summary><b>$ARCH</b> — $verdict at <code>$SHA</code></summary>"
+            echo
+            cat "table-$ARCH.md" 2>/dev/null || echo "_no table; see the log_"
+            echo
+            echo "<details><summary>log</summary>"
             echo
             echo '```'
-            tail -40 check.log
+            tail -60 check.log
             echo '```'
-            echo "</details>"
+            echo "</details></details>"
           } > "result-$ARCH.md"
-          {
-            echo "## \`$OPS\` on $ARCH at $SHA"
-            echo
-            echo '```'
-            cat check.log
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          cat "result-$ARCH.md" >> "$GITHUB_STEP_SUMMARY"
           [ "$status" -eq 0 ] || echo "::error::$status finding(s) — see the summary"
           exit "$status"
 

@@ -17,8 +17,11 @@ runs:
         repository: tenstorrent/tt-metal
         ref: ${{ inputs.ref }}
         path: tt-metal
-        fetch-depth: ${{ inputs.builds == 'true' && '0' || '1' }}
-        submodules: ${{ inputs.builds == 'true' && 'recursive' || 'false' }}
+        # One commit, never the history: a build job fetches the commit it wants straight
+        # afterwards, so cloning all of tt-metal first was three minutes thrown away.
+        fetch-depth: 1
+        # Submodules come with the build job's own fetch, shallow, once the commit is known.
+        submodules: false
 
     - shell: bash
       run: |

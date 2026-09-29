@@ -70,5 +70,7 @@ jobs:
           url=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
             --limit 1 --json url --jq '.[0].url')
 
-          GH_TOKEN=${{ github.token }} gh pr comment "$PR" --body \
+          # `--repo` named, not inferred: this job never checks anything out, so `gh` has no
+          # git repository to read it from.
+          GH_TOKEN=${{ github.token }} gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body \
             "Measuring the eltwise ops this change can affect — [run]($url). Informational: it does not gate this pull request."
