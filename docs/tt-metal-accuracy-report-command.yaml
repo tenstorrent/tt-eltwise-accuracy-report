@@ -1,0 +1,74 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
+# This file is not used by this repository. It is the half that belongs in tt-metal, kept
+# here so the two sides stay in step; copy it to tt-metal as
+# `.github/workflows/accuracy-report-command.yaml`. See docs/pr-command.md.
+#
+# `/accuracy-report` on a tt-metal pull request measures only the eltwise ops that change
+# can affect, on real Wormhole and Blackhole silicon, against a published baseline. It never
+# blocks a merge: it dispatches one run and answers with a link.
+
+name: accuracy-report-command
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  pull-requests: write
+
+env:
+  ORACLE: tenstorrent/tt-eltwise-accuracy-report
+
+jobs:
+  dispatch:
+    # Pull request comments only. On a plain issue there is no diff to select from.
+    if: github.event.issue.pull_request != null
+      && startsWith(github.event.comment.body, '/accuracy-report')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
+    # One in flight per pull request. Every `issue_comment` reports `github.ref` as the
+    # default branch, so the default group would collapse every PR into a single slot.
+    concurrency:
+      group: accuracy-report-command-${{ github.event.issue.number }}
+    steps:
+      # The run occupies silicon the whole org shares, so this is the authorization control.
+      # It mirrors `/test`: anyone who can reach it could already dispatch it by hand.
+      - name: Refuse anyone without write access
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ACTOR: ${{ github.event.comment.user.login }}
+        run: |
+          level=$(gh api "repos/$GITHUB_REPOSITORY/collaborators/$ACTOR/permission" \
+            --jq .permission 2>/dev/null || echo none)
+          case "$level" in
+            admin|maintain|write) echo "$ACTOR may run this" ;;
+            *) echo "::error::$ACTOR has $level access; /accuracy-report needs write"; exit 1 ;;
+          esac
+
+      - name: Start the run and answer with a link
+        env:
+          # A token that may dispatch workflows in ORACLE. Nothing here grants that repository
+          # any access to tt-metal: it reads this pull request through the public API and
+          # reports on its own run page.
+          GH_TOKEN: ${{ secrets.ACCURACY_REPORT_DISPATCH_TOKEN }}
+          PR: ${{ github.event.issue.number }}
+          # Attacker-controlled text, read through the environment and matched against a
+          # fixed shape, never interpolated into this script.
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          ops=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
+          gh workflow run accuracy-command.yml --repo "$ORACLE" \
+            -f pr="$PR" ${ops:+-f ops="$ops"}
+
+          # `gh workflow run` returns no id, so the newest run for this workflow is the one
+          # just started. Worth one poll: a bare "started" with no link is not worth posting.
+          sleep 10
+          url=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
+            --limit 1 --json url --jq '.[0].url')
+
+          GH_TOKEN=${{ github.token }} gh pr comment "$PR" --body \
+            "Measuring the eltwise ops this change can affect — [run]($url). Informational: it does not gate this pull request."
