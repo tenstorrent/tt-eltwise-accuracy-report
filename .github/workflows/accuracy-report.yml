@@ -90,13 +90,28 @@ jobs:
           publish=false
           if [ "$complete" = true ] && [ "$PUBLISH" != false ]; then publish=true; fi
 
-          wh='{"arch":"wh","runner":"tt-ubuntu-2204-n300-stable"}'
-          bh='{"arch":"bh","runner":"tt-ubuntu-2204-p150b-stable"}'
-          case "$ARCH" in
-            wh) targets="[$wh]" ;;
-            bh) targets="[$bh]" ;;
-            *)  targets="[$wh,$bh]" ;;
-          esac
+          # One job per architecture and category. A measured sweep spends 40% of itself in
+          # `binary` and 31% in `unary`, so sharding this way bounds a run at its longest
+          # category rather than the sum of all six — while one job per arch left a dozen
+          # idle runners of each kind. The lead shard also refreshes the manifest and the
+          # timings, which are per architecture and must not run once per shard.
+          runner_for() { [ "$1" = wh ] && echo tt-ubuntu-2204-n300-stable \
+                                       || echo tt-ubuntu-2204-p150b-stable; }
+          case "$ARCH" in wh|bh) want="$ARCH" ;; *) want="wh bh" ;; esac
+          # Named ops are one job per architecture: they are a list, not a category, and
+          # sharding by category would measure the same ops in every shard.
+          shards="${CATEGORIES//,/ }"
+          [ -z "$OPS" ] || shards=named
+          targets=""
+          for arch in $want; do
+            lead=true
+            for category in $shards; do
+              targets="$targets,{\"arch\":\"$arch\",\"runner\":\"$(runner_for "$arch")\""
+              targets="$targets,\"category\":\"$category\",\"lead\":$lead}"
+              lead=false
+            done
+          done
+          targets="[${targets#,}]"
 
           {
             echo "targets=$targets"
@@ -171,7 +186,9 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     concurrency:
-      group: device-${{ matrix.target.arch }}
+      # Per shard, not per architecture: shards are the parallelism, and each lands on its
+      # own runner and its own device. Two runs still queue behind each other shard by shard.
+      group: device-${{ matrix.target.arch }}-${{ matrix.target.category }}
       cancel-in-progress: false
     # A full sweep measured 9h49m before per-point counting and 18% under the old 12h cap,
     # so the cap, not the work, was the thing that broke.
@@ -210,7 +227,7 @@ jobs:
       # Only a whole sweep refreshes the manifest: a named-ops run has no business
       # rewriting what every other op's page says about scope.
       - name: Refresh the manifest
-        if: needs.scope.outputs.complete == 'true'
+        if: needs.scope.outputs.complete == 'true' && matrix.target.lead
         run: |
           python3 -m ttnn_accuracy.cli discover
           python3 -m ttnn_accuracy.cli derive
@@ -219,7 +236,7 @@ jobs:
       - name: Measure
         env:
           ARCH: ${{ matrix.target.arch }}
-          CATEGORIES: ${{ needs.scope.outputs.categories }}
+          CATEGORY: ${{ matrix.target.category }}
           OPS: ${{ needs.scope.outputs.ops }}
           PARAMS: ${{ needs.scope.outputs.params }}
           DTYPE: ${{ needs.scope.outputs.dtype }}
@@ -242,14 +259,13 @@ jobs:
 
           if [ -n "$OPS" ]
           then measure --ops "$OPS" ${PARAMS:+--params "$PARAMS"}
-          else
-            for cat in ${CATEGORIES//,/ }; do measure --category "$cat"; done
+          else measure --category "$CATEGORY"
           fi
 
           [ "$empty" -eq 0 ] || echo "::warning::$empty variant(s) produced no data — see the report"
 
       - name: Time every variant
-        if: needs.scope.outputs.complete == 'true'
+        if: needs.scope.outputs.complete == 'true' && matrix.target.lead
         run: |
           status=0
           python3 -m ttnn_accuracy.cli perf --arch "${{ matrix.target.arch }}" || status=$?
@@ -273,7 +289,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always() && needs.scope.outputs.ops != ''
         with:
-          name: llk-csv-${{ matrix.target.arch }}-${{ github.run_id }}
+          name: llk-csv-${{ matrix.target.arch }}-${{ matrix.target.category }}-${{ github.run_id }}
           path: export/
           retention-days: 14
 
@@ -329,7 +345,8 @@ jobs:
         run: |
           git config user.name accuracy-report
           git config user.email accuracy-report@users.noreply.github.com
-          for attempt in 1 2 3; do
+          # Six shards per architecture now race here, not two.
+          for attempt in 1 2 3 4 5 6; do
             git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH"
             # Merge into whatever the other arch published, not into this checkout's copy.
             # `baseline` guaranteed both the branch and a readable index before any measuring.
@@ -358,7 +375,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always() && needs.scope.outputs.publish != 'true'
         with:
-          name: accuracy-report-${{ matrix.target.arch }}-${{ github.run_id }}
+          name: accuracy-report-${{ matrix.target.arch }}-${{ matrix.target.category }}-${{ github.run_id }}
           path: |
             reports/
             report_index.json
