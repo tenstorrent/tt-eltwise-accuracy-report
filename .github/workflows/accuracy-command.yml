@@ -1,0 +1,127 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
+name: accuracy-command
+
+# Comment `/accuracy-report tt-metal#12345` on any issue or pull request here. The command
+# reads that tt-metal PR's changed files, works out which ops they can affect, and measures
+# only those against the published baseline. Selecting nothing is a valid, expected answer.
+#
+# It lives in this repository rather than in tt-metal on purpose: a comment there could only
+# start a workflow there, which would need a token with write access to this repository held
+# as a tt-metal secret. Nothing here needs anyone else's permission.
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  select:
+    if: startsWith(github.event.comment.body, '/accuracy-report')
+    runs-on: ubuntu-latest
+    outputs:
+      ops: ${{ steps.pick.outputs.ops }}
+      arches: ${{ steps.pick.outputs.arches }}
+      sha: ${{ steps.pr.outputs.sha }}
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
+    # One in flight per thread. `issue_comment` always reports `github.ref` as the default
+    # branch, so the default group would collapse every thread into a single slot.
+    concurrency:
+      group: accuracy-command-${{ github.event.issue.number }}
+    steps:
+      # Measuring occupies a device the whole team shares, so this is the authorization
+      # control, not a formality. Anyone with write could already dispatch it by hand.
+      - name: Refuse anyone without write access
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ACTOR: ${{ github.event.comment.user.login }}
+        run: |
+          level=$(gh api "repos/$GITHUB_REPOSITORY/collaborators/$ACTOR/permission" \
+            --jq .permission 2>/dev/null || echo none)
+          case "$level" in
+            admin|maintain|write) echo "$ACTOR may run this" ;;
+            *) echo "::error::$ACTOR has $level access; /accuracy-report needs write"; exit 1 ;;
+          esac
+
+      - uses: actions/checkout@v4
+
+      - name: Read the tt-metal pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # Attacker-controlled text: passed through the environment, never interpolated
+          # into the script, and matched against a fixed shape rather than parsed loosely.
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          number=$(grep -oE 'tt-metal#[0-9]+' <<<"$BODY" | head -1 | cut -d'#' -f2 || true)
+          [ -n "$number" ] || {
+            echo "::error::name the pull request, e.g. /accuracy-report tt-metal#12345"; exit 1; }
+          gh pr view "$number" --repo tenstorrent/tt-metal --json headRefOid,title \
+            --jq '"sha=\(.headRefOid)"' >> "$GITHUB_OUTPUT"
+          # REST, not `gh pr view --json files`: that returns only the first 100 with no
+          # error, and the paths it drops are invisible to the selector.
+          gh api --paginate "repos/tenstorrent/tt-metal/pulls/$number/files" \
+            --jq '.[].filename' > changed.txt
+          echo "$(wc -l < changed.txt) changed files in tt-metal#$number"
+
+      - name: Work out which ops it can affect
+        id: pick
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          PYTHONPATH=src python3 -m ttnn_accuracy.cli select changed.txt > selection.json
+          cat selection.json
+          # An explicit `ops=` in the comment overrides the selector, for the cases it misses.
+          override=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
+          ops=${override:-$(jq -r '.ops | join(",")' selection.json)}
+          arches=$(jq -c '.arches' selection.json)
+          [ "$arches" != "[]" ] || arches='["wh"]'
+          {
+            echo "ops=$ops"
+            echo "arches=$arches"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Say what was selected
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPS: ${{ steps.pick.outputs.ops }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            if [ -z "$OPS" ]; then
+              echo "**No eltwise op is affected by that change.** Nothing to measure."
+            else
+              echo "Measuring \`$OPS\` on $(jq -r '.arches|join(", ")' selection.json)."
+              echo
+              echo "| Op | Because |"
+              echo "|---|---|"
+              jq -r '.reasons | to_entries[] | "| `\(.key)` | `\(.value)` |"' selection.json
+            fi
+            if [ "$(jq -r '.unresolved|length' selection.json)" != 0 ]; then
+              echo
+              echo "_Headers naming no op, so the wider categories may be worth a manual run:_"
+              jq -r '.unresolved[] | "- `\(.)`"' selection.json
+            fi
+            echo
+            echo "[Run]($RUN)"
+          } > comment.md
+          gh issue comment "${{ github.event.issue.number }}" --body-file comment.md
+
+  measure:
+    needs: select
+    if: needs.select.outputs.ops != ''
+    strategy:
+      matrix:
+        arch: ${{ fromJSON(needs.select.outputs.arches) }}
+      fail-fast: false
+    uses: ./.github/workflows/validate-kernel.yml
+    with:
+      commit: ${{ needs.select.outputs.sha }}
+      ops: ${{ needs.select.outputs.ops }}
+      arch: ${{ matrix.arch }}

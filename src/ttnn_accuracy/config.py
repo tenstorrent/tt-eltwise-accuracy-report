@@ -49,6 +49,8 @@ ULP_LINES = (0.5, 1, 3, 10, 100)
 N_BINS = 32
 MIN_BIN = 8  # a bin of fewer points cannot carry a p99, so it is hidden rather than believed
 CDF_POINTS = 200  # a log grid: an fp32 sweep holds 65k distinct ULP values, and draws as 200
+# Named ops a changed-path selection may ask for before its categories are cheaper to sweep.
+SELECT_CAP = 12
 OFFENDERS = 10  # worst points listed per variant: a maximum says how bad, these say where
 MONOTONIC_TOP = 5  # worst ordering violations listed per variant
 NONFINITE_DETAIL = 10  # non-finite points listed per variant, out of however many there are

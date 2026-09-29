@@ -24,6 +24,28 @@ on:
       params:
         description: measure at a different scalar, e.g. relu_max=6
         required: false
+  # The same job, driven by `accuracy-command` instead of by hand. Inputs are declared twice
+  # because GitHub keeps the two trigger schemas separate; `inputs.*` reads the same either way.
+  workflow_call:
+    inputs:
+      commit:
+        type: string
+        required: true
+      ops:
+        type: string
+        required: true
+      arch:
+        type: string
+        default: wh
+      dtype:
+        type: string
+        default: both
+      max_ulp:
+        type: string
+        required: false
+      params:
+        type: string
+        required: false
 
 jobs:
   validate:
