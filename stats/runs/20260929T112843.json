@@ -7,13 +7,11 @@
     "fp32"
   ],
   "ops": [
-    "addcdiv",
-    "addcmul",
-    "lerp",
-    "mac",
-    "where"
+    "clamp_bw",
+    "clip_bw",
+    "lerp_bw"
   ],
-  "run_id": "20260929T111451",
+  "run_id": "20260929T112843",
   "torch_version": "2.11.0+cpu",
   "tt_metal_commit": "a3a9fb4229a",
   "ttnn_version": "0.78.0"
