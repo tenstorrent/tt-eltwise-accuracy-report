@@ -39,6 +39,9 @@ permissions:
 env:
   # Data only, and never the default branch: a ruleset there requires a pull request.
   REPORT_BRANCH: report
+  # Everything the report branch carries, and nothing else — the seed, the publish and the
+  # branch's own tree are all defined by this one list.
+  DATA: reports report_index.json stats analyze-report/ask.md
 
 jobs:
   scope:
@@ -121,8 +124,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Make sure the report branch exists and can be pushed to
-        env:
-          DATA: reports report_index.json stats analyze-report/ask.md
         run: |
           git config user.name accuracy-report
           git config user.email accuracy-report@users.noreply.github.com
@@ -188,11 +189,18 @@ jobs:
       - name: Start from the published report
         run: |
           # Not shallow: Publish fetches this ref again, and analyze-report reads its parent.
+          # A non-publishing run skipped `baseline`, so the branch is not guaranteed here.
           git fetch --no-tags origin \
             "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" 2>/dev/null || {
-            echo "no $REPORT_BRANCH yet — this run creates it"; exit 0; }
-          git checkout "origin/$REPORT_BRANCH" -- reports report_index.json stats \
-            analyze-report/ask.md
+            echo "no $REPORT_BRANCH yet — measuring against the checkout"; exit 0; }
+          # Data paths only, and only the ones the branch holds. Never its whole tree: a
+          # reseed from the default branch leaves `src` on `report`, and checking that out
+          # would run this job against older code than the commit it was started at.
+          for path in $DATA; do
+            if git cat-file -e "origin/$REPORT_BRANCH:$path" 2>/dev/null; then
+              git checkout "origin/$REPORT_BRANCH" -- "$path"
+            fi
+          done
           git reset --quiet
 
       - uses: ./.github/actions/tt-metal-env
@@ -275,7 +283,9 @@ jobs:
         env:
           LOGURU_FORMAT: "{message}"
         run: |
-          git show "origin/$REPORT_BRANCH:report_index.json" > previous.json 2>/dev/null || exit 0
+          # A non-publishing run never ran `baseline`, so the branch may genuinely be absent.
+          git cat-file -e "origin/$REPORT_BRANCH:report_index.json" 2>/dev/null || exit 0
+          git show "origin/$REPORT_BRANCH:report_index.json" > previous.json
           {
             echo "## ${{ matrix.target.arch }} at ${{ needs.scope.outputs.version }}"
             echo '```'
@@ -316,15 +326,14 @@ jobs:
       # alone and this checkout keeps its code and its HEAD throughout.
       - name: Publish
         if: needs.scope.outputs.publish == 'true'
-        env:
-          DATA: reports report_index.json stats analyze-report/ask.md
         run: |
           git config user.name accuracy-report
           git config user.email accuracy-report@users.noreply.github.com
           for attempt in 1 2 3; do
-            git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" || true
+            git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH"
             # Merge into whatever the other arch published, not into this checkout's copy.
-            git show "origin/$REPORT_BRANCH:report_index.json" > report_index.json 2>/dev/null || true
+            # `baseline` guaranteed both the branch and a readable index before any measuring.
+            git show "origin/$REPORT_BRANCH:report_index.json" > report_index.json
             python3 -m ttnn_accuracy.cli charts
             python3 -m ttnn_accuracy.cli report \
               --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw
