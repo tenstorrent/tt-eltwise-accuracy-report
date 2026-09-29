@@ -2678,14 +2678,8 @@
         ]
       },
       "ttnn.abs_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.acos": {
         "bf16": [
@@ -2698,30 +2692,16 @@
         ]
       },
       "ttnn.acos_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.acosh": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.acosh_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.add": {
         "bf16": [
@@ -2742,22 +2722,12 @@
         ]
       },
       "ttnn.addalpha": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.addcdiv": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.addcmul": {
         "bf16": [
@@ -2778,12 +2748,8 @@
         ]
       },
       "ttnn.asin_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.asinh": {
         "bf16": [
@@ -2796,14 +2762,8 @@
         ]
       },
       "ttnn.asinh_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.atan": {
         "bf16": [
@@ -2816,72 +2776,32 @@
         ]
       },
       "ttnn.atan2": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.atan2_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.atan_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.atanh": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.atanh_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.bias_gelu": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.bias_gelu_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.cbrt": {
         "bf16": [
@@ -2904,22 +2824,12 @@
         ]
       },
       "ttnn.celu": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.celu_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.clamp": {
         "bf16": [
@@ -2932,14 +2842,8 @@
         ]
       },
       "ttnn.clamp_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.clip": {
         "bf16": [
@@ -2952,14 +2856,8 @@
         ]
       },
       "ttnn.clip_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.cos": {
         "bf16": [
@@ -2972,14 +2870,8 @@
         ]
       },
       "ttnn.cos_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.cosh": {
         "bf16": [
@@ -2992,12 +2884,8 @@
         ]
       },
       "ttnn.cosh_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.deg2rad": {
         "bf16": [
@@ -3020,14 +2908,8 @@
         ]
       },
       "ttnn.digamma_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.div": {
         "bf16": [
@@ -3040,32 +2922,16 @@
         ]
       },
       "ttnn.div_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.div_no_nan": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.divide": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.divide_": {
         "bf16": [
@@ -3076,22 +2942,12 @@
         ]
       },
       "ttnn.elu": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.elu_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.eq": {
         "bf16": [
@@ -3132,14 +2988,8 @@
         ]
       },
       "ttnn.erf_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.erfc": {
         "bf16": [
@@ -3152,14 +3002,8 @@
         ]
       },
       "ttnn.erfc_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.erfinv": {
         "bf16": [
@@ -3172,12 +3016,8 @@
         ]
       },
       "ttnn.erfinv_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.exp": {
         "bf16": [
@@ -3200,22 +3040,12 @@
         ]
       },
       "ttnn.exp2_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.exp_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.expm1": {
         "bf16": [
@@ -3228,14 +3058,8 @@
         ]
       },
       "ttnn.expm1_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.floor": {
         "bf16": [
@@ -3248,12 +3072,8 @@
         ]
       },
       "ttnn.floor_div": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.fmod": {
         "bf16": [
@@ -3266,14 +3086,8 @@
         ]
       },
       "ttnn.frac": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.ge": {
         "bf16": [
@@ -3286,12 +3100,8 @@
         ]
       },
       "ttnn.ge_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.gelu": {
         "bf16": [
@@ -3332,12 +3142,8 @@
         ]
       },
       "ttnn.gt_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.gtz": {
         "bf16": [
@@ -3360,24 +3166,12 @@
         ]
       },
       "ttnn.hardshrink": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.hardshrink_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.hardsigmoid": {
         "bf16": [
@@ -3390,14 +3184,8 @@
         ]
       },
       "ttnn.hardsigmoid_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.hardswish": {
         "bf16": [
@@ -3410,62 +3198,28 @@
         ]
       },
       "ttnn.hardswish_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.hardtanh": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.hardtanh_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.heaviside": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.hypot": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.hypot_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.i0": {
         "bf16": [
@@ -3478,14 +3232,8 @@
         ]
       },
       "ttnn.i0_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.i1": {
         "bf16": [
@@ -3568,42 +3316,20 @@
         ]
       },
       "ttnn.l1_loss": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.ldexp": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.ldexp_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.ldexp_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.le": {
         "bf16": [
@@ -3616,12 +3342,8 @@
         ]
       },
       "ttnn.le_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.leaky_relu": {
         "bf16": [
@@ -3634,30 +3356,16 @@
         ]
       },
       "ttnn.leaky_relu_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.lerp": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.lerp_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.lez": {
         "bf16": [
@@ -3680,14 +3388,8 @@
         ]
       },
       "ttnn.lgamma_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.log": {
         "bf16": [
@@ -3710,12 +3412,8 @@
         ]
       },
       "ttnn.log10_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.log1p": {
         "bf16": [
@@ -3728,12 +3426,8 @@
         ]
       },
       "ttnn.log1p_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.log2": {
         "bf16": [
@@ -3746,20 +3440,12 @@
         ]
       },
       "ttnn.log2_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.log_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.log_sigmoid": {
         "bf16": [
@@ -3772,70 +3458,32 @@
         ]
       },
       "ttnn.log_sigmoid_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logaddexp": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logaddexp2": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logaddexp2_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logaddexp2_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logaddexp_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logaddexp_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logical_and": {
         "bf16": [
@@ -3894,38 +3542,20 @@
         ]
       },
       "ttnn.logical_xor_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logit": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logit_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.logiteps_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.lt": {
         "bf16": [
@@ -3938,12 +3568,8 @@
         ]
       },
       "ttnn.lt_": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.ltz": {
         "bf16": [
@@ -3956,52 +3582,24 @@
         ]
       },
       "ttnn.mac": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.max_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.maximum": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.min_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.minimum": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.mish": {
         "bf16": [
@@ -4014,22 +3612,12 @@
         ]
       },
       "ttnn.mse_loss": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.mul_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.multigammaln": {
         "bf16": [
@@ -4042,14 +3630,8 @@
         ]
       },
       "ttnn.multigammaln_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.multiply": {
         "bf16": [
@@ -4098,12 +3680,8 @@
         ]
       },
       "ttnn.nextafter": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.nez": {
         "bf16": [
@@ -4116,24 +3694,12 @@
         ]
       },
       "ttnn.polygamma": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.polygamma_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.pow": {
         "bf16": [
@@ -4146,24 +3712,12 @@
         ]
       },
       "ttnn.pow_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.prelu": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.rad2deg": {
         "bf16": [
@@ -4176,24 +3730,12 @@
         ]
       },
       "ttnn.rdiv": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.rdiv_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.reciprocal": {
         "bf16": [
@@ -4206,12 +3748,8 @@
         ]
       },
       "ttnn.reciprocal_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.relu": {
         "bf16": [
@@ -4234,22 +3772,12 @@
         ]
       },
       "ttnn.relu6_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.relu_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.relu_max": {
         "bf16": [
@@ -4282,14 +3810,8 @@
         ]
       },
       "ttnn.round": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.rpow": {
         "bf16": [
@@ -4302,14 +3824,8 @@
         ]
       },
       "ttnn.rpow_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.rsqrt": {
         "bf16": [
@@ -4322,12 +3838,8 @@
         ]
       },
       "ttnn.rsqrt_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.rsub": {
         "bf16": [
@@ -4348,22 +3860,12 @@
         ]
       },
       "ttnn.selu": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.selu_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.sigmoid": {
         "bf16": [
@@ -4386,14 +3888,8 @@
         ]
       },
       "ttnn.sigmoid_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.sign": {
         "bf16": [
@@ -4426,12 +3922,8 @@
         ]
       },
       "ttnn.silu_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.sin": {
         "bf16": [
@@ -4444,14 +3936,8 @@
         ]
       },
       "ttnn.sin_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.sinh": {
         "bf16": [
@@ -4464,18 +3950,11 @@
         ]
       },
       "ttnn.sinh_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.softcap": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile"
       },
       "ttnn.softplus": {
         "bf16": [
@@ -4488,32 +3967,16 @@
         ]
       },
       "ttnn.softplus_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.softshrink": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.softshrink_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.softsign": {
         "bf16": [
@@ -4526,14 +3989,8 @@
         ]
       },
       "ttnn.softsign_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.sqrt": {
         "bf16": [
@@ -4546,12 +4003,8 @@
         ]
       },
       "ttnn.sqrt_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.square": {
         "bf16": [
@@ -4564,14 +4017,8 @@
         ]
       },
       "ttnn.square_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.squared_difference": {
         "bf16": [
@@ -4592,24 +4039,12 @@
         ]
       },
       "ttnn.squared_difference_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.subalpha": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.subtract": {
         "bf16": [
@@ -4650,14 +4085,8 @@
         ]
       },
       "ttnn.tan_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.tanh": {
         "bf16": [
@@ -4670,32 +4099,16 @@
         ]
       },
       "ttnn.tanh_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.tanhshrink": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.tanhshrink_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.threshold": {
         "bf16": [
@@ -4708,60 +4121,28 @@
         ]
       },
       "ttnn.threshold_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.trunc": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.where": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.xielu": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.xlogy": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       },
       "ttnn.xlogy_bw": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
+        "bf16": "tile",
+        "fp32": "tile"
       }
     },
     "wh": {
