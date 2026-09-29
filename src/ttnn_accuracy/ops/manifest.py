@@ -11,14 +11,17 @@ from functools import partial
 
 from loguru import logger
 
-from ttnn_accuracy.domain.derive import DTYPES, derive
-from ttnn_accuracy.ops import arity, introspect
-from ttnn_accuracy.ops.overrides import EXCLUDED, OVERRIDES, bw_fn
 from ttnn_accuracy.paths import MANIFEST_FILE
+
+# `derive`, `arity` and `overrides` reach torch and ttnn, which building the manifest needs
+# and reading it does not. Imported where they are used so `load` costs a JSON parse.
 
 
 def build(include_experimental: bool = False) -> dict:
     """Eltwise facts only; `unprobeable` keeps every refusal, which is the coverage queue."""
+    from ttnn_accuracy.ops import arity, introspect
+    from ttnn_accuracy.ops.overrides import EXCLUDED
+
     ops, unprobeable = {}, {}
     for op in introspect.discover(include_experimental):
         probe, why = arity.probe(op) if op.has_golden else (None, "")
@@ -85,11 +88,16 @@ def diff(old: dict, new: dict) -> tuple[list[str], list[str], list[str]]:
 
 
 def _single_axis(golden, backward: bool, x):
+    from ttnn_accuracy.ops import arity
+
     return arity.call_golden(golden, [x], backward)
 
 
 def derive_domains() -> int:
     """Per-dtype bounds for every known eltwise op; a golden that refuses is recorded."""
+    from ttnn_accuracy.domain.derive import DTYPES, derive
+    from ttnn_accuracy.ops import introspect
+
     manifest = load()
     discovered = {op.qualified_name: op for op in introspect.discover()}
     # Cleared: a stale domain beside a fresh refusal would leave the op holding both.
@@ -152,6 +160,8 @@ def _probe_pass(device_id: int, probed) -> None:
     from ttnn_accuracy.measure.device import open_device
     from ttnn_accuracy.measure.schema import ARCH_OF_DEVICE
     from ttnn_accuracy.measure.sweeps import capabilities
+    from ttnn_accuracy.ops import introspect
+    from ttnn_accuracy.ops.overrides import OVERRIDES, bw_fn
 
     manifest = load()
     ops = manifest["ops"]
