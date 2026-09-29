@@ -6,11 +6,13 @@
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "clamp_bw",
-          "clip_bw",
-          "lerp_bw"
+          "addcdiv",
+          "addcmul",
+          "lerp",
+          "mac",
+          "where"
         ],
-        "run_id": "20260929T111445",
+        "run_id": "20260929T111504",
         "tt_metal_commit": "a3a9fb4229a",
         "ttnn_version": "0.78.0"
       },
@@ -19,11 +21,13 @@
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "clamp_bw",
-          "clip_bw",
-          "lerp_bw"
+          "addcdiv",
+          "addcmul",
+          "lerp",
+          "mac",
+          "where"
         ],
-        "run_id": "20260929T111445",
+        "run_id": "20260929T111504",
         "tt_metal_commit": "a3a9fb4229a",
         "ttnn_version": "0.78.0"
       }
