@@ -90,7 +90,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | -335872 | -8.507059e+37 | **differ** |
 | `default` | -1.1754944e-38 | -335872 | 8.507059e+37 | **differ** |
 
-_Measured on BLACKHOLE · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260918T102923`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — digamma default](../../../charts/bh/bf16/digamma_default_ulp.svg)
 

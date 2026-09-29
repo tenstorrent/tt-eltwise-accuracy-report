@@ -66,7 +66,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `lower_limit=1.0` | 1.1754944e-38 | 1 | 1 | agree |
 | `lower_limit=1.0` | -1.1754944e-38 | 1 | 1 | agree |
 
-_Measured on BLACKHOLE · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260918T102923`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ### `lower_limit=0.0`
 

@@ -56,7 +56,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 1 | 1 | agree |
 | `default` | -1.1754944e-38 | -1 | -1 | agree |
 
-_Measured on BLACKHOLE · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260918T102923`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — abs_bw default](../../../charts/bh/bf16/abs_bw_default_ulp.svg)
 
