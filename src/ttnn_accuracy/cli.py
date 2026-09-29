@@ -27,6 +27,9 @@ def build_parser() -> argparse.ArgumentParser:
     probe = sub.add_parser("probe", help="record which dtype and layout each op accepts")
     probe.add_argument("--device-id", type=int, default=0)
 
+    select = sub.add_parser("select", help="changed tt-metal paths to the ops worth measuring")
+    select.add_argument("paths", type=Path, help="file of changed paths, one per line, or `-`")
+
     measure = sub.add_parser("measure", help="run accuracy sweeps on a device")
     measure.add_argument("--arch", required=True, choices=["wh", "bh"])
     measure.add_argument("--ops", default="all", help="comma-separated op names, or 'all'")
@@ -175,6 +178,14 @@ def main(argv: list[str] | None = None) -> int:
             from ttnn_accuracy.ops.manifest import derive_domains
 
             return derive_domains()
+
+        case "select":
+            import sys
+
+            from ttnn_accuracy.ops.select import select_paths
+
+            text = sys.stdin.read() if str(args.paths) == "-" else args.paths.read_text()
+            return select_paths([line.strip() for line in text.splitlines() if line.strip()])
 
         case "probe":
             from ttnn_accuracy.ops.manifest import probe_layouts
