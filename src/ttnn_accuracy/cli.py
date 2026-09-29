@@ -55,6 +55,7 @@ def build_parser() -> argparse.ArgumentParser:
     check.add_argument(
         "--max-ulp", type=float, help="fail any variant worse than this, whatever the baseline says"
     )
+    check.add_argument("--summary", type=Path, help="write the result as one markdown table")
     check.set_defaults(category=None)
 
     perf = sub.add_parser("perf", help="time each op on a device; never scored, host-specific")
@@ -209,7 +210,7 @@ def main(argv: list[str] | None = None) -> int:
             if not specs:
                 return 1
             return problems + check(
-                specs, dtypes, args.arch, args.device_id, args.perf, args.max_ulp
+                specs, dtypes, args.arch, args.device_id, args.perf, args.max_ulp, args.summary
             )
 
         case "perf":

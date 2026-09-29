@@ -56,6 +56,27 @@ def measure(
     return failed
 
 
+def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -> str:
+    """One row per variant: what the baseline held, what this build measures, and the move."""
+    rows = []
+    for dtype, ops in sorted(candidate.get(arch, {}).items()):
+        for op, variants in sorted(ops.items()):
+            for variant, now in sorted(variants.items()):
+                was = baseline.get(arch, {}).get(dtype, {}).get(op, {}).get(variant, {})
+                before, after = was.get("max_ulp", "—"), now.get("max_ulp", "—")
+                mark = "🔴" if (dtype, op, variant) in regressed else "🟢"
+                moved = "—" if before == after else f"{before} → {after}"
+                rows.append(
+                    f"| {mark} | `{op}` | `{variant}` | {arch} | {dtype} | {before} | {after} "
+                    f"| {moved} | {now.get('verdict', '—')} |"
+                )
+    head = (
+        "| | Op | Variant | Arch | dtype | Baseline ULP | This build | Moved | Verdict |\n"
+        "|---|---|---|---|---|---|---|---|---|\n"
+    )
+    return head + "\n".join(rows) + "\n"
+
+
 def check(
     specs: list[OpSpec],
     dtypes: list[str],
@@ -63,6 +84,7 @@ def check(
     device_id: int = 0,
     perf: bool = False,
     max_ulp: float | None = None,
+    summary: Path | None = None,
 ) -> int:
     """The author's loop: measure these ops and diff them against the baseline read from git."""
     from tempfile import TemporaryDirectory
@@ -107,6 +129,11 @@ def check(
                 "{} {}: {}", name, where, (now or {}).get("verdict", "—")
             )
     over = _over_bar(candidate[arch], max_ulp) if max_ulp is not None else 0
+    if summary:
+        # A reviewer reads a table, not a log. The same rows the buckets above were built from.
+        regressed = {(d, o, v) for (_, d, o, v), _, _ in buckets["regressed"]}
+        summary.write_text(_summary_table(arch, trimmed, candidate, regressed))
+        logger.info("summary table → {}", summary)
     # One line, last: a kernel author wants the answer, not to read a diff for it.
     moved = ", ".join(f"{len(rows)} {name}" for name, rows in buckets.items() if rows)
     say = logger.error if buckets["regressed"] or over else logger.success
