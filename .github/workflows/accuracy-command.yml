@@ -166,15 +166,13 @@ jobs:
           pattern: validate-*-${{ github.run_id }}
           merge-multiple: true
 
-      - name: Comment on the tt-metal pull request
+      - name: Write the answer
         env:
-          GH_TOKEN: ${{ secrets.TT_METAL_COMMENT_TOKEN }}
           PR: ${{ needs.select.outputs.pr }}
           OPS: ${{ needs.select.outputs.ops }}
           RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           OUTCOME: ${{ needs.measure.result }}
         run: |
-          [ -n "$GH_TOKEN" ] || { echo "no TT_METAL_COMMENT_TOKEN — results are at $RUN"; exit 0; }
           {
             echo "### Eltwise accuracy — \`$OPS\`"
             echo
@@ -188,4 +186,22 @@ jobs:
             echo
             echo "[Full log and charts]($RUN) · informational, this does not gate the pull request."
           } > body.md
+          cat body.md >> "$GITHUB_STEP_SUMMARY"
+
+      # Always back to whoever asked. A comment here needs no secret, so this is the whole
+      # answer until a tt-metal token exists.
+      - name: Answer the thread that asked
+        if: github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --body-file body.md
+
+      # And on the tt-metal pull request itself, when a token allows it. Missing is not a
+      # failure: the answer is already in the thread above and on the run page.
+      - name: Answer the tt-metal pull request
+        env:
+          GH_TOKEN: ${{ secrets.TT_METAL_COMMENT_TOKEN }}
+          PR: ${{ needs.select.outputs.pr }}
+        run: |
+          [ -n "$GH_TOKEN" ] || { echo "no TT_METAL_COMMENT_TOKEN; answered here instead"; exit 0; }
           gh pr comment "$PR" --repo tenstorrent/tt-metal --body-file body.md
