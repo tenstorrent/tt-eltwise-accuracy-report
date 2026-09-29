@@ -94,6 +94,9 @@ jobs:
           BODY: ${{ github.event.comment.body }}
           DISPATCHED_OPS: ${{ inputs.ops }}
         run: |
+          # The only dependency the selector has left: reading the manifest reaches neither
+          # torch nor ttnn, so this job stays a minute on a stock runner.
+          python3 -m pip install --quiet loguru
           PYTHONPATH=src python3 -m ttnn_accuracy.cli select changed.txt > selection.json
           cat selection.json
           # An explicit `ops=` overrides the selector, for the cases it misses.
