@@ -140,19 +140,64 @@
         "failed": {},
         "host": "57e9901fdca0",
         "ops": [
-          "atan2_bw",
-          "div_bw",
-          "hypot_bw",
-          "ldexp_bw",
-          "logaddexp2_bw",
-          "logaddexp_bw",
-          "max_bw",
-          "min_bw",
-          "mul_bw",
-          "squared_difference_bw",
-          "xlogy_bw"
+          "abs_bw",
+          "acos_bw",
+          "acosh_bw",
+          "asin_bw",
+          "asinh_bw",
+          "atan_bw",
+          "atanh_bw",
+          "celu_bw",
+          "cos_bw",
+          "cosh_bw",
+          "digamma_bw",
+          "elu_bw",
+          "erf_bw",
+          "erfc_bw",
+          "erfinv_bw",
+          "exp2_bw",
+          "exp_bw",
+          "expm1_bw",
+          "gelu_bw",
+          "hardshrink_bw",
+          "hardsigmoid_bw",
+          "hardswish_bw",
+          "hardtanh_bw",
+          "i0_bw",
+          "leaky_relu_bw",
+          "lgamma_bw",
+          "log10_bw",
+          "log1p_bw",
+          "log2_bw",
+          "log_bw",
+          "log_sigmoid_bw",
+          "logit_bw",
+          "logiteps_bw",
+          "multigammaln_bw",
+          "polygamma_bw",
+          "pow_bw",
+          "rdiv_bw",
+          "reciprocal_bw",
+          "relu6_bw",
+          "relu_bw",
+          "rpow_bw",
+          "rsqrt_bw",
+          "selu_bw",
+          "sigmoid_bw",
+          "silu_bw",
+          "sin_bw",
+          "sinh_bw",
+          "softplus_bw",
+          "softshrink_bw",
+          "softsign_bw",
+          "sqrt_bw",
+          "square_bw",
+          "tan_bw",
+          "tanh_bw",
+          "tanhshrink_bw",
+          "threshold_bw"
         ],
-        "run_id": "20260929T111356",
+        "run_id": "20260929T111615",
         "tt_metal_commit": "a3a9fb4229a",
         "ttnn_version": "0.78.0"
       },
@@ -161,19 +206,64 @@
         "failed": {},
         "host": "57e9901fdca0",
         "ops": [
-          "atan2_bw",
-          "div_bw",
-          "hypot_bw",
-          "ldexp_bw",
-          "logaddexp2_bw",
-          "logaddexp_bw",
-          "max_bw",
-          "min_bw",
-          "mul_bw",
-          "squared_difference_bw",
-          "xlogy_bw"
+          "abs_bw",
+          "acos_bw",
+          "acosh_bw",
+          "asin_bw",
+          "asinh_bw",
+          "atan_bw",
+          "atanh_bw",
+          "celu_bw",
+          "cos_bw",
+          "cosh_bw",
+          "digamma_bw",
+          "elu_bw",
+          "erf_bw",
+          "erfc_bw",
+          "erfinv_bw",
+          "exp2_bw",
+          "exp_bw",
+          "expm1_bw",
+          "gelu_bw",
+          "hardshrink_bw",
+          "hardsigmoid_bw",
+          "hardswish_bw",
+          "hardtanh_bw",
+          "i0_bw",
+          "leaky_relu_bw",
+          "lgamma_bw",
+          "log10_bw",
+          "log1p_bw",
+          "log2_bw",
+          "log_bw",
+          "log_sigmoid_bw",
+          "logit_bw",
+          "logiteps_bw",
+          "multigammaln_bw",
+          "polygamma_bw",
+          "pow_bw",
+          "rdiv_bw",
+          "reciprocal_bw",
+          "relu6_bw",
+          "relu_bw",
+          "rpow_bw",
+          "rsqrt_bw",
+          "selu_bw",
+          "sigmoid_bw",
+          "silu_bw",
+          "sin_bw",
+          "sinh_bw",
+          "softplus_bw",
+          "softshrink_bw",
+          "softsign_bw",
+          "sqrt_bw",
+          "square_bw",
+          "tan_bw",
+          "tanh_bw",
+          "tanhshrink_bw",
+          "threshold_bw"
         ],
-        "run_id": "20260929T111356",
+        "run_id": "20260929T111615",
         "tt_metal_commit": "a3a9fb4229a",
         "ttnn_version": "0.78.0"
       }
@@ -66442,7 +66532,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "1.03",
-          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists; the rest reach 3.26 ULP"
         }
       },
       "add": {
@@ -67941,7 +68031,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "1.84e+19",
-          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists; the rest reach 1.33 ULP"
         }
       },
       "atan": {
@@ -68544,7 +68634,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "0.23",
-          "verdict": "2 of 48386 points returned inf or zero where a value exists"
+          "verdict": "2 of 48386 points returned inf or zero where a value exists; the rest reach 2.23 ULP"
         }
       },
       "atanh": {
@@ -68859,7 +68949,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "0.82",
-          "verdict": "2 of 48386 points returned inf or zero where a value exists"
+          "verdict": "2 of 48386 points returned inf or zero where a value exists; the rest reach 8.17 ULP"
         }
       },
       "bias_gelu": {
@@ -70760,7 +70850,7 @@
           "ulp_clipped": 4648,
           "unflushed": 0,
           "usable_to": "2.62e+05",
-          "verdict": "21275 of 65024 points returned inf or zero where a value exists"
+          "verdict": "21275 of 65024 points returned inf or zero where a value exists; the rest reach 7.45e+42 ULP"
         }
       },
       "cosh": {
@@ -71075,7 +71165,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "88.5",
-          "verdict": "2 of 33894 points returned inf or zero where a value exists"
+          "verdict": "2 of 33894 points returned inf or zero where a value exists; the rest reach 0.5 ULP"
         }
       },
       "deg2rad": {
@@ -71648,7 +71738,7 @@
           "ulp_clipped": 20,
           "unflushed": 0,
           "usable_to": "1",
-          "verdict": "263 of 64769 points returned inf or zero where a value exists"
+          "verdict": "263 of 64769 points returned inf or zero where a value exists; the rest reach 1.02e+08 ULP"
         }
       },
       "div": {
@@ -74570,7 +74660,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "128",
-          "verdict": "1 of 49537 points returned inf or zero where a value exists"
+          "verdict": "1 of 49537 points returned inf or zero where a value exists; the rest reach 1.89 ULP"
         }
       },
       "exp_bw": {
@@ -75016,7 +75106,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "2.09",
-          "verdict": "331 of 49458 points returned inf or zero where a value exists"
+          "verdict": "331 of 49458 points returned inf or zero where a value exists; the rest reach 125 ULP"
         }
       },
       "floor": {
@@ -78507,7 +78597,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "2.33e-38",
-          "verdict": "4 of 33904 points returned inf or zero where a value exists"
+          "verdict": "4 of 33904 points returned inf or zero where a value exists; the rest reach 218 ULP"
         }
       },
       "i1": {
@@ -82159,7 +82249,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "8.47e+37",
-          "verdict": "2 of 64514 points returned inf or zero where a value exists"
+          "verdict": "2 of 64514 points returned inf or zero where a value exists; the rest reach 1.42 ULP"
         }
       },
       "log2": {
@@ -82517,7 +82607,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "116 of 64626 points returned inf or zero where a value exists"
+          "verdict": "116 of 64626 points returned inf or zero where a value exists; the rest reach 1.51 ULP"
         }
       },
       "log_bw": {
@@ -82665,7 +82755,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "8.47e+37",
-          "verdict": "2 of 64514 points returned inf or zero where a value exists"
+          "verdict": "2 of 64514 points returned inf or zero where a value exists; the rest reach 0.512 ULP"
         }
       },
       "log_sigmoid": {
@@ -88657,7 +88747,7 @@
           "ulp_clipped": 32,
           "unflushed": 0,
           "usable_to": "4.47",
-          "verdict": "75 of 49922 points returned inf or zero where a value exists"
+          "verdict": "75 of 49922 points returned inf or zero where a value exists; the rest reach 3.57e+08 ULP"
         }
       },
       "pow": {
@@ -89496,7 +89586,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "7.67e-20",
-          "verdict": "256 of 48492 points returned inf or zero where a value exists"
+          "verdict": "256 of 48492 points returned inf or zero where a value exists; the rest reach 1.51 ULP"
         }
       },
       "reciprocal": {
@@ -89857,7 +89947,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "5.42e-20",
-          "verdict": "256 of 48386 points returned inf or zero where a value exists"
+          "verdict": "256 of 48386 points returned inf or zero where a value exists; the rest reach 1.51 ULP"
         }
       },
       "relu": {
@@ -91480,7 +91570,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "1.18e-38",
-          "verdict": "32384 of 64768 points returned inf or zero where a value exists"
+          "verdict": "32384 of 64768 points returned inf or zero where a value exists; the rest reach 0 ULP"
         }
       },
       "rsqrt": {
@@ -91838,7 +91928,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "75 of 21665 points returned inf or zero where a value exists"
+          "verdict": "75 of 21665 points returned inf or zero where a value exists; the rest reach 3.23 ULP"
         }
       },
       "rsub": {
@@ -92487,7 +92577,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "0.00443",
-          "verdict": "1 of 65024 points returned inf or zero where a value exists"
+          "verdict": "1 of 65024 points returned inf or zero where a value exists; the rest reach 2.62 ULP"
         }
       },
       "sigmoid": {
@@ -92971,7 +93061,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "1.77",
-          "verdict": "329 of 65024 points returned inf or zero where a value exists"
+          "verdict": "329 of 65024 points returned inf or zero where a value exists; the rest reach 266 ULP"
         }
       },
       "sign": {
@@ -93437,7 +93527,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "0.867",
-          "verdict": "9 of 65024 points returned inf or zero where a value exists"
+          "verdict": "9 of 65024 points returned inf or zero where a value exists; the rest reach 285 ULP"
         }
       },
       "sin": {
@@ -93785,7 +93875,7 @@
           "ulp_clipped": 4661,
           "unflushed": 0,
           "usable_to": "1.31e+05",
-          "verdict": "21274 of 65024 points returned inf or zero where a value exists"
+          "verdict": "21274 of 65024 points returned inf or zero where a value exists; the rest reach 1.94e+42 ULP"
         }
       },
       "sinh": {
@@ -94100,7 +94190,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "88.5",
-          "verdict": "2 of 33894 points returned inf or zero where a value exists"
+          "verdict": "2 of 33894 points returned inf or zero where a value exists; the rest reach 0.5 ULP"
         }
       },
       "softplus": {
@@ -97076,7 +97166,7 @@
           "ulp_clipped": 1282,
           "unflushed": 0,
           "usable_to": "1.13",
-          "verdict": "12178 of 65024 points returned inf or zero where a value exists"
+          "verdict": "12178 of 65024 points returned inf or zero where a value exists; the rest reach 3.1e+40 ULP"
         }
       },
       "tanh": {
@@ -99388,7 +99478,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "0.996",
-          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists; the rest reach 724 ULP"
         }
       },
       "add": {
@@ -100756,7 +100846,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "1.84e+19",
-          "verdict": "15874 of 64514 points returned inf or zero where a value exists"
+          "verdict": "15874 of 64514 points returned inf or zero where a value exists; the rest reach 1.98 ULP"
         }
       },
       "atan": {
@@ -103490,7 +103580,7 @@
           "ulp_clipped": 9970,
           "unflushed": 0,
           "usable_to": "28",
-          "verdict": "18190 of 65024 points returned inf or zero where a value exists"
+          "verdict": "18190 of 65024 points returned inf or zero where a value exists; the rest reach 2.68e+51 ULP"
         }
       },
       "cosh": {
@@ -103837,7 +103927,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "0.0155",
-          "verdict": "2 of 33894 points returned inf or zero where a value exists"
+          "verdict": "2 of 33894 points returned inf or zero where a value exists; the rest reach 2.21 ULP"
         }
       },
       "deg2rad": {
@@ -104411,7 +104501,7 @@
           "ulp_clipped": 15848,
           "unflushed": 0,
           "usable_to": "5.4e-20",
-          "verdict": "255 of 64769 points returned inf or zero where a value exists"
+          "verdict": "255 of 64769 points returned inf or zero where a value exists; the rest reach 7.91e+33 ULP"
         }
       },
       "div": {
@@ -107352,7 +107442,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "128",
-          "verdict": "1 of 49537 points returned inf or zero where a value exists"
+          "verdict": "1 of 49537 points returned inf or zero where a value exists; the rest reach 1.85 ULP"
         }
       },
       "exp_bw": {
@@ -107797,7 +107887,7 @@
           "ulp_clipped": 149,
           "unflushed": 0,
           "usable_to": "1.39",
-          "verdict": "138 of 49458 points returned inf or zero where a value exists"
+          "verdict": "138 of 49458 points returned inf or zero where a value exists; the rest reach 4.91e+06 ULP"
         }
       },
       "floor": {
@@ -114901,7 +114991,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "112 of 64626 points returned inf or zero where a value exists"
+          "verdict": "112 of 64626 points returned inf or zero where a value exists; the rest reach 1.9 ULP"
         }
       },
       "log_bw": {
@@ -120872,7 +120962,7 @@
           "ulp_clipped": 1008,
           "unflushed": 0,
           "usable_to": "1.79e-13",
-          "verdict": "75 of 49922 points returned inf or zero where a value exists"
+          "verdict": "75 of 49922 points returned inf or zero where a value exists; the rest reach 4.45e+30 ULP"
         }
       },
       "pow": {
@@ -121778,7 +121868,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "7.67e-20",
-          "verdict": "252 of 48490 points returned inf or zero where a value exists"
+          "verdict": "252 of 48490 points returned inf or zero where a value exists; the rest reach 1.84 ULP"
         }
       },
       "reciprocal": {
@@ -122136,7 +122226,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "5.42e-20",
-          "verdict": "254 of 48386 points returned inf or zero where a value exists"
+          "verdict": "254 of 48386 points returned inf or zero where a value exists; the rest reach 1.84 ULP"
         }
       },
       "relu": {
@@ -123852,7 +123942,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "1.18e-38",
-          "verdict": "32384 of 64768 points returned inf or zero where a value exists"
+          "verdict": "32384 of 64768 points returned inf or zero where a value exists; the rest reach 0 ULP"
         }
       },
       "rsqrt": {
@@ -124207,7 +124297,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "75 of 21666 points returned inf or zero where a value exists"
+          "verdict": "75 of 21666 points returned inf or zero where a value exists; the rest reach 7.19 ULP"
         }
       },
       "rsub": {
@@ -124803,7 +124893,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "1 of 65024 points returned inf or zero where a value exists"
+          "verdict": "1 of 65024 points returned inf or zero where a value exists; the rest reach 50.7 ULP"
         }
       },
       "sigmoid": {
@@ -125287,7 +125377,7 @@
           "ulp_clipped": 169,
           "unflushed": 0,
           "usable_to": "0.447",
-          "verdict": "140 of 65024 points returned inf or zero where a value exists"
+          "verdict": "140 of 65024 points returned inf or zero where a value exists; the rest reach 8.39e+06 ULP"
         }
       },
       "sign": {
@@ -125752,7 +125842,7 @@
           "ulp_clipped": 1,
           "unflushed": 0,
           "usable_to": "2.98e-07",
-          "verdict": "9 of 65024 points returned inf or zero where a value exists"
+          "verdict": "9 of 65024 points returned inf or zero where a value exists; the rest reach 5.72e+06 ULP"
         }
       },
       "sin": {
@@ -126099,7 +126189,7 @@
           "ulp_clipped": 10226,
           "unflushed": 0,
           "usable_to": "92.4",
-          "verdict": "18190 of 65024 points returned inf or zero where a value exists"
+          "verdict": "18190 of 65024 points returned inf or zero where a value exists; the rest reach 1.56e+53 ULP"
         }
       },
       "sinh": {
@@ -126446,7 +126536,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "88.5",
-          "verdict": "2 of 33894 points returned inf or zero where a value exists"
+          "verdict": "2 of 33894 points returned inf or zero where a value exists; the rest reach 1.35 ULP"
         }
       },
       "softplus": {
@@ -129365,7 +129455,7 @@
           "ulp_clipped": 8039,
           "unflushed": 0,
           "usable_to": "0.882",
-          "verdict": "20376 of 65024 points returned inf or zero where a value exists"
+          "verdict": "20376 of 65024 points returned inf or zero where a value exists; the rest reach 2.85e+45 ULP"
         }
       },
       "tanh": {
