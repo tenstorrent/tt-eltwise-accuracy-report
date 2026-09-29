@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 1 | 1 | agree |
 | `default` | -1.1754944e-38 | 0.010009766 | 0.010009766 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260929T111553`_
 
 ![ULP error — leaky_relu_bw default](../../../charts/bh/bf16/leaky_relu_bw_default_ulp.svg)
 
