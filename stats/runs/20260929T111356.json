@@ -7,11 +7,19 @@
     "fp32"
   ],
   "ops": [
-    "clamp_bw",
-    "clip_bw",
-    "lerp_bw"
+    "atan2_bw",
+    "div_bw",
+    "hypot_bw",
+    "ldexp_bw",
+    "logaddexp2_bw",
+    "logaddexp_bw",
+    "max_bw",
+    "min_bw",
+    "mul_bw",
+    "squared_difference_bw",
+    "xlogy_bw"
   ],
-  "run_id": "20260929T112843",
+  "run_id": "20260929T111356",
   "torch_version": "2.11.0+cpu",
   "tt_metal_commit": "a3a9fb4229a",
   "ttnn_version": "0.78.0"
