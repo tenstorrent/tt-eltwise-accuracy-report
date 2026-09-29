@@ -440,7 +440,7 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `heaviside` | `value=0.5` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 356 ±19% | 47081 |
 | bh | fp32 | `heaviside` | `value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 350 | 47867 |
 | bh | fp32 | `hypot` | `default` | 16384 of 65024 points returned inf or zero where a value exists | 3.44e+06 | 3.28e+04 | 0.965 | — | 512 | 32773 |
-| bh | fp32 | `hypot_bw` | `default` | 16384 of 65024 points returned inf or zero where a value exists | 4.86e+06 | 4.48e+04 | 0.826 | — | 2985 | 5620 |
+| bh | fp32 | `hypot_bw` | `default` | 16384 of 65024 points returned inf or zero where a value exists; the rest reach 4.86e+06 ULP | 4.86e+06 | 4.48e+04 | 0.826 | — | 2985 | 5620 |
 | bh | fp32 | `i0` | `default` | accurate to |x| <= 2.43; up to 1.68e+07 ULP beyond | 1.68e+07 | 2.19e+06 | 0.959 | 2.43 | 403 | 41623 |
 | bh | fp32 | `i0_bw` | `default` | accurate to |x| <= 0.00362; up to 1.56e+07 ULP beyond | 1.56e+07 | 4.1e+04 | 0.928 | 0.00362 | 1357 | 12367 |
 | bh | fp32 | `i1` | `default` | accurate to |x| <= 0.00362; up to 1.56e+07 ULP beyond | 1.56e+07 | 4.1e+04 | 0.928 | 0.00362 | 568 ±7% | 29552 |
