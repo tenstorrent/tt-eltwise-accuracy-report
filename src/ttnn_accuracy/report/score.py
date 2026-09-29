@@ -75,12 +75,14 @@ def verdict(
 ) -> str:
     """One of nine fixed phrases; analyze-report/contract.md is their twin and moves with them."""
     mx = _num(max_ulp)
-    # First, whatever the ULP says: every other figure here excludes those points.
+    # Unscorable points lead, because every figure below excludes them — but they no longer
+    # replace the rest: two defects once hid 9.02e+04 ULP on the other 64,512 points.
+    rest = "" if mx is None else f"; the rest reach {max_ulp} ULP"
     if defects:
-        return f"{defects} of {points} points returned inf or zero where a value exists"
+        return f"{defects} of {points} points returned inf or zero where a value exists{rest}"
     # Also unscorable, and otherwise invisible: the ULP of these points would be bit-exact.
     if unflushed:
-        return f"{unflushed} of {points} points returned a value where the reference is zero"
+        return f"{unflushed} of {points} points returned a value where the reference is zero{rest}"
     if mx is None:
         return "no scorable points"
     # By outcome: against a wider reference the maximum is half a ULP even when every point

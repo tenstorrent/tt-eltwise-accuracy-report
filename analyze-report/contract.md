@@ -59,8 +59,8 @@ Computed, never inferred. First match wins.
 
 | Verdict | Rule |
 |---|---|
-| `N of M points returned inf or zero where a value exists` | defects > 0. Takes precedence, because those points carry no ULP and the figures below exclude them |
-| `N of M points returned a value where the reference is zero` | unflushed > 0. Also unscorable, and otherwise invisible: those points would read bit-exact |
+| `N of M points returned inf or zero where a value exists; the rest reach X ULP` | defects > 0. Leads, because those points carry no ULP and every figure below excludes them — but it no longer replaces the accuracy of the points that do score. Two defects once hid 9.02e+04 ULP on the other 64,512 |
+| `N of M points returned a value where the reference is zero; the rest reach X ULP` | unflushed > 0. Also unscorable, and otherwise invisible: those points would read bit-exact. Carries the scorable points' worst error for the same reason |
 | `bit-exact` | no point is `faithful` or `inexact`, so every scorable one is the dtype's correctly rounded answer. Not `max_ulp = 0`: against a wider reference such a variant still reads up to 0.5 ULP |
 | `faithfully rounded; N of M points took the other neighbour` | no point is `inexact`, but N are `faithful`. The device is never more than one step out and both steps are within half a ULP of the truth; it breaks ties the other way |
 | `within 2 ULP everywhere` | max_ulp ≤ 2 |
