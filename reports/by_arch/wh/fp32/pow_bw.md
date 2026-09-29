@@ -56,7 +56,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `exponent=2.0` | 1.1754944e-38 | 2.3509887e-38 | 2.3509887e-38 | agree |
 | `exponent=2.0` | -1.1754944e-38 | inf | inf | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260929T111615`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — pow_bw exponent=2.0](../../../charts/wh/fp32/pow_bw_exponent2.0_ulp.svg)
 

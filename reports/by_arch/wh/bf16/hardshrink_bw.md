@@ -56,7 +56,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 0 | 0 | agree |
 | `default` | -1.1754944e-38 | 0 | 0 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260929T111615`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — hardshrink_bw default](../../../charts/wh/bf16/hardshrink_bw_default_ulp.svg)
 

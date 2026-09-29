@@ -677,7 +677,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `heaviside` | `value=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 408 ±9% | 41082 |
 | wh | bf16 | `heaviside` | `value=0.5` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 422 ±10% | 39757 |
 | wh | bf16 | `heaviside` | `value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 415 ±14% | 40458 |
-| wh | bf16 | `hypot` | `default` | 16384 of 65026 points returned inf or zero where a value exists | 52.7 | 1.58 | 0.947 | — | 547 | 30698 |
+| wh | bf16 | `hypot` | `default` | 16384 of 65026 points returned inf or zero where a value exists; the rest reach 52.7 ULP | 52.7 | 1.58 | 0.947 | — | 547 | 30698 |
 | wh | bf16 | `hypot_bw` | `default` | worst pairing 74.6 ULP; mean 2.42 | 74.6 | 2.42 | 0.833 | — | 3364 | 4987 |
 | wh | bf16 | `i0` | `default` | accurate to |x| <= 13.6; up to 255 ULP beyond | 255 | 56.3 | 0.952 | 13.6 | 451 ±8% | 37200 |
 | wh | bf16 | `i0_bw` | `default` | 4 of 33904 points returned inf or zero where a value exists; the rest reach 218 ULP | 218 | 8.58 | 0.993 | 2.33e-38 | 2086 | 8042 |
@@ -714,11 +714,11 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `log_bw` | `default` | 2 of 64514 points returned inf or zero where a value exists; the rest reach 0.512 ULP | 0.512 | 0.507 | 0.984 | 8.47e+37 | 3982 | 4213 |
 | wh | bf16 | `log_sigmoid` | `default` | accurate to |x| <= 0.426; up to 6.39 ULP beyond | 6.39 | 1.38 | 0.958 | 0.426 | 588 ±5% | 28554 |
 | wh | bf16 | `log_sigmoid_bw` | `default` | within 2 ULP everywhere | 1.91 | 0.785 | 0.972 | 3.39e+38 | 5904 | 2842 |
-| wh | bf16 | `logaddexp` | `default` | 15566 of 65026 points returned inf or zero where a value exists | 8.39e+06 | 4.85e+03 | 0.858 | — | 814 ±10% | 20603 |
-| wh | bf16 | `logaddexp2` | `default` | 15488 of 65026 points returned inf or zero where a value exists | 3.03e+06 | 4.08e+03 | 0.871 | — | 898 | 18676 |
-| wh | bf16 | `logaddexp2_` | `default` | 15488 of 65026 points returned inf or zero where a value exists | 3.03e+06 | 4.08e+03 | 0.871 | — | 903 | 18579 |
+| wh | bf16 | `logaddexp` | `default` | 15566 of 65026 points returned inf or zero where a value exists; the rest reach 8.39e+06 ULP | 8.39e+06 | 4.85e+03 | 0.858 | — | 814 ±10% | 20603 |
+| wh | bf16 | `logaddexp2` | `default` | 15488 of 65026 points returned inf or zero where a value exists; the rest reach 3.03e+06 ULP | 3.03e+06 | 4.08e+03 | 0.871 | — | 898 | 18676 |
+| wh | bf16 | `logaddexp2_` | `default` | 15488 of 65026 points returned inf or zero where a value exists; the rest reach 3.03e+06 ULP | 3.03e+06 | 4.08e+03 | 0.871 | — | 903 | 18579 |
 | wh | bf16 | `logaddexp2_bw` | `default` | worst pairing 41.4 ULP; mean 3.6 | 41.4 | 3.6 | 0.978 | — | 5812 | 2887 |
-| wh | bf16 | `logaddexp_` | `default` | 15566 of 65026 points returned inf or zero where a value exists | 8.39e+06 | 4.85e+03 | 0.858 | — | 782 | 21462 |
+| wh | bf16 | `logaddexp_` | `default` | 15566 of 65026 points returned inf or zero where a value exists; the rest reach 8.39e+06 ULP | 8.39e+06 | 4.85e+03 | 0.858 | — | 782 | 21462 |
 | wh | bf16 | `logaddexp_bw` | `default` | worst pairing 62.5 ULP; mean 4.9 | 62.5 | 4.9 | 0.979 | — | 4772 ±5% | 3516 |
 | wh | bf16 | `logical_and` | `default` | bit-exact | 0 | 0 | 1 | — | 546 | 30727 |
 | wh | bf16 | `logical_and_` | `default` | bit-exact | 0 | 0 | 1 | — | 562 ±11% | 29835 |
@@ -915,7 +915,7 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `heaviside` | `value=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 790 | 21237 |
 | wh | fp32 | `heaviside` | `value=0.5` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 786 | 21333 |
 | wh | fp32 | `heaviside` | `value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 774 | 21662 |
-| wh | fp32 | `hypot` | `default` | 16384 of 65024 points returned inf or zero where a value exists | 3.44e+06 | 3.28e+04 | 0.965 | — | 1003 | 16731 |
+| wh | fp32 | `hypot` | `default` | 16384 of 65024 points returned inf or zero where a value exists; the rest reach 3.44e+06 ULP | 3.44e+06 | 3.28e+04 | 0.965 | — | 1003 | 16731 |
 | wh | fp32 | `hypot_bw` | `default` | 16384 of 65024 points returned inf or zero where a value exists; the rest reach 4.86e+06 ULP | 4.86e+06 | 4.48e+04 | 0.824 | — | 6337 | 2648 |
 | wh | fp32 | `i0` | `default` | accurate to |x| <= 2.43; up to 1.68e+07 ULP beyond | 1.68e+07 | 2.19e+06 | 0.959 | 2.43 | 897 | 18697 |
 | wh | fp32 | `i0_bw` | `default` | accurate to |x| <= 0.00626; up to 1.56e+07 ULP beyond | 1.56e+07 | 4.11e+04 | 0.929 | 0.00626 | 3440 | 4878 |
@@ -952,11 +952,11 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `log_bw` | `default` | faithfully rounded; 64512 of 64514 points took the other neighbour | 0.892 | 0.714 | 0.902 | 8.51e+37 | 7769 | 2160 |
 | wh | fp32 | `log_sigmoid` | `default` | never within 2 ULP; mean 1.82e+04, worst 4.4e+05 | 4.4e+05 | 1.82e+04 | 0.481 | — | 1091 | 15380 |
 | wh | fp32 | `log_sigmoid_bw` | `default` | accurate to |x| <= 0.00164; up to 2.95 ULP beyond | 2.95 | 1.28 | 0.954 | 0.00164 | 11486 | 1461 |
-| wh | fp32 | `logaddexp` | `default` | 15566 of 65024 points returned inf or zero where a value exists | 5.23e+08 | 7.28e+06 | 0.726 | — | 1486 | 11291 |
-| wh | fp32 | `logaddexp2` | `default` | 15488 of 65024 points returned inf or zero where a value exists | 1.54e+09 | 1.05e+07 | 0.716 | — | 1302 | 12883 |
-| wh | fp32 | `logaddexp2_` | `default` | 15488 of 65024 points returned inf or zero where a value exists | 1.54e+09 | 1.05e+07 | 0.716 | — | 1312 ±5% | 12786 |
+| wh | fp32 | `logaddexp` | `default` | 15566 of 65024 points returned inf or zero where a value exists; the rest reach 5.23e+08 ULP | 5.23e+08 | 7.28e+06 | 0.726 | — | 1486 | 11291 |
+| wh | fp32 | `logaddexp2` | `default` | 15488 of 65024 points returned inf or zero where a value exists; the rest reach 1.54e+09 ULP | 1.54e+09 | 1.05e+07 | 0.716 | — | 1302 | 12883 |
+| wh | fp32 | `logaddexp2_` | `default` | 15488 of 65024 points returned inf or zero where a value exists; the rest reach 1.54e+09 ULP | 1.54e+09 | 1.05e+07 | 0.716 | — | 1312 ±5% | 12786 |
 | wh | fp32 | `logaddexp2_bw` | `default` | worst pairing 45.7 ULP; mean 6.68 | 45.7 | 6.68 | 0.956 | — | 11266 | 1489 |
-| wh | fp32 | `logaddexp_` | `default` | 15566 of 65024 points returned inf or zero where a value exists | 5.23e+08 | 7.28e+06 | 0.726 | — | 1485 | 11296 |
+| wh | fp32 | `logaddexp_` | `default` | 15566 of 65024 points returned inf or zero where a value exists; the rest reach 5.23e+08 ULP | 5.23e+08 | 7.28e+06 | 0.726 | — | 1485 | 11296 |
 | wh | fp32 | `logaddexp_bw` | `default` | worst pairing 65.7 ULP; mean 8.66 | 65.7 | 8.66 | 0.962 | — | 9386 | 1788 |
 | wh | fp32 | `logical_and` | `default` | bit-exact | 0 | 0 | 1 | — | 1005 | 16701 |
 | wh | fp32 | `logical_and_` | `default` | bit-exact | 0 | 0 | 1 | — | 1025 | 16365 |

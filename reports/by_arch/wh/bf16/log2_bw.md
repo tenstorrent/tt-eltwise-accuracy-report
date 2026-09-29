@@ -90,7 +90,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | inf | 1.2295359e+38 | **differ** |
 | `default` | -1.1754944e-38 | inf | -1.2295359e+38 | **differ** |
 
-_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260929T111615`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — log2_bw default](../../../charts/wh/bf16/log2_bw_default_ulp.svg)
 
