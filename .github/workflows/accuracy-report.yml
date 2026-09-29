@@ -188,13 +188,11 @@ jobs:
       - name: Start from the published report
         run: |
           # Not shallow: Publish fetches this ref again, and analyze-report reads its parent.
-          # A non-publishing run skipped `baseline`, so the branch is not guaranteed here.
           git fetch --no-tags origin \
             "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" 2>/dev/null || {
-            echo "no $REPORT_BRANCH yet — measuring against the checkout"; exit 0; }
-          # Whatever the branch holds, nothing more: a path it lacks stays as checked out.
-          git checkout "origin/$REPORT_BRANCH" -- \
-            $(git ls-tree --name-only "origin/$REPORT_BRANCH")
+            echo "no $REPORT_BRANCH yet — this run creates it"; exit 0; }
+          git checkout "origin/$REPORT_BRANCH" -- reports report_index.json stats \
+            analyze-report/ask.md
           git reset --quiet
 
       - uses: ./.github/actions/tt-metal-env
@@ -277,9 +275,7 @@ jobs:
         env:
           LOGURU_FORMAT: "{message}"
         run: |
-          # A non-publishing run never ran `baseline`, so the branch may genuinely be absent.
-          git cat-file -e "origin/$REPORT_BRANCH:report_index.json" 2>/dev/null || exit 0
-          git show "origin/$REPORT_BRANCH:report_index.json" > previous.json
+          git show "origin/$REPORT_BRANCH:report_index.json" > previous.json 2>/dev/null || exit 0
           {
             echo "## ${{ matrix.target.arch }} at ${{ needs.scope.outputs.version }}"
             echo '```'
@@ -326,10 +322,9 @@ jobs:
           git config user.name accuracy-report
           git config user.email accuracy-report@users.noreply.github.com
           for attempt in 1 2 3; do
-            git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH"
+            git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" || true
             # Merge into whatever the other arch published, not into this checkout's copy.
-            # `baseline` guaranteed both the branch and a readable index before any measuring.
-            git show "origin/$REPORT_BRANCH:report_index.json" > report_index.json
+            git show "origin/$REPORT_BRANCH:report_index.json" > report_index.json 2>/dev/null || true
             python3 -m ttnn_accuracy.cli charts
             python3 -m ttnn_accuracy.cli report \
               --categories unary,unary_bw,binary,binary_bw,ternary,ternary_bw

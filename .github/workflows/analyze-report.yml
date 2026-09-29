@@ -37,16 +37,10 @@ jobs:
 
           # Both sides come from `report`: its tip is what accuracy-report just published,
           # and its parent is the state before. The default branch carries no figures.
-          git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" || true
-          # Each blob is tested before it is redirected: `>` truncates its target before git
-          # show runs, so a missing branch or a first commit would leave an empty file behind.
-          git cat-file -e "origin/$REPORT_BRANCH:report_index.json" 2>/dev/null || {
-            echo "nothing published on $REPORT_BRANCH yet"; exit 0; }
+          git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH"
           git show "origin/$REPORT_BRANCH:report_index.json" > report_index.json
-          if git cat-file -e "origin/$REPORT_BRANCH~1:report_index.json" 2>/dev/null
-          then git show "origin/$REPORT_BRANCH~1:report_index.json" > "$RUNNER_TEMP/previous.json"
-          else cp report_index.json "$RUNNER_TEMP/previous.json"
-          fi
+          git show "origin/$REPORT_BRANCH~1:report_index.json" \
+            > "$RUNNER_TEMP/previous.json" 2>/dev/null || cp report_index.json "$RUNNER_TEMP/previous.json"
           status=0
           PYTHONPATH=src python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" \
             --findings analyze-report/findings.md || status=$?
