@@ -81,7 +81,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 0.88622695 | 0.88622695 | agree |
 | `default` | -1.1754944e-38 | 0.88622695 | 0.88622695 | agree |
 
-_Measured on BLACKHOLE · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260929T111553`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — erfinv_bw default](../../../charts/bh/fp32/erfinv_bw_default_ulp.svg)
 

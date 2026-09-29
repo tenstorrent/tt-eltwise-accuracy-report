@@ -75,7 +75,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `exponent=2.0` | 1.1754944e-38 | 2.3509887e-38 | 2.3509887e-38 | agree |
 | `exponent=2.0` | -1.1754944e-38 | inf | -2.3509887e-38 | **differ** |
 
-_Measured on BLACKHOLE · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260929T111553`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — rpow_bw exponent=2.0](../../../charts/bh/bf16/rpow_bw_exponent2.0_ulp.svg)
 
