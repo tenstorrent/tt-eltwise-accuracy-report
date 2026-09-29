@@ -112,6 +112,17 @@ jobs:
           python3 -m ttnn_accuracy.cli check --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" --perf \
             ${MAX_ULP:+--max-ulp "$MAX_ULP"} ${PARAMS:+--params "$PARAMS"} \
             2>&1 | tee check.log || status=$?
+          # One short block per arch, for whoever assembles the pull request comment. The
+          # log itself is the artifact; this is the part a reviewer reads in ten seconds.
+          {
+            echo "<details><summary><b>$ARCH</b> — $( [ "$status" -eq 0 ] \
+              && echo 'nothing moved' || echo "$status finding(s)" ) at \`$SHA\`</summary>"
+            echo
+            echo '```'
+            tail -40 check.log
+            echo '```'
+            echo "</details>"
+          } > "result-$ARCH.md"
           {
             echo "## \`$OPS\` on $ARCH at $SHA"
             echo
@@ -126,7 +137,9 @@ jobs:
         if: always()
         with:
           name: validate-${{ inputs.arch }}-${{ github.run_id }}
-          path: check.log
+          path: |
+            check.log
+            result-${{ inputs.arch }}.md
           retention-days: 14
 
       - name: Leave the checkout clean

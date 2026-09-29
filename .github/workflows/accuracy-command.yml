@@ -13,6 +13,17 @@ name: accuracy-command
 on:
   issue_comment:
     types: [created]
+  # Driven from tt-metal. A comment there can only start a workflow there, so a small
+  # workflow in that repository checks the commenter and dispatches this one. Results stay
+  # on this run's page, which is why nothing here ever needs write access to tt-metal.
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: tt-metal pull request number
+        required: true
+      ops:
+        description: measure these instead of what the change selects
+        default: ""
 
 permissions:
   contents: read
@@ -21,23 +32,28 @@ permissions:
 
 jobs:
   select:
-    if: startsWith(github.event.comment.body, '/accuracy-report')
+    if: github.event_name == 'workflow_dispatch'
+      || startsWith(github.event.comment.body, '/accuracy-report')
     runs-on: ubuntu-latest
     outputs:
       ops: ${{ steps.pick.outputs.ops }}
       arches: ${{ steps.pick.outputs.arches }}
       sha: ${{ steps.pr.outputs.sha }}
+      pr: ${{ steps.pr.outputs.number }}
     defaults:
       run:
         shell: bash -euo pipefail {0}
     # One in flight per thread. `issue_comment` always reports `github.ref` as the default
     # branch, so the default group would collapse every thread into a single slot.
     concurrency:
-      group: accuracy-command-${{ github.event.issue.number }}
+      group: accuracy-command-${{ github.event.issue.number || inputs.pr }}
     steps:
       # Measuring occupies a device the whole team shares, so this is the authorization
       # control, not a formality. Anyone with write could already dispatch it by hand.
+      # A dispatch is already gated: only someone with write here can start one, and the
+      # tt-metal side checks its own commenter before it dispatches.
       - name: Refuse anyone without write access
+        if: github.event_name == 'issue_comment'
         env:
           GH_TOKEN: ${{ github.token }}
           ACTOR: ${{ github.event.comment.user.login }}
@@ -58,10 +74,12 @@ jobs:
           # Attacker-controlled text: passed through the environment, never interpolated
           # into the script, and matched against a fixed shape rather than parsed loosely.
           BODY: ${{ github.event.comment.body }}
+          DISPATCHED: ${{ inputs.pr }}
         run: |
-          number=$(grep -oE 'tt-metal#[0-9]+' <<<"$BODY" | head -1 | cut -d'#' -f2 || true)
+          number=${DISPATCHED:-$(grep -oE 'tt-metal#[0-9]+' <<<"$BODY" | head -1 | cut -d'#' -f2 || true)}
           [ -n "$number" ] || {
             echo "::error::name the pull request, e.g. /accuracy-report tt-metal#12345"; exit 1; }
+          echo "number=$number" >> "$GITHUB_OUTPUT"
           gh pr view "$number" --repo tenstorrent/tt-metal --json headRefOid,title \
             --jq '"sha=\(.headRefOid)"' >> "$GITHUB_OUTPUT"
           # REST, not `gh pr view --json files`: that returns only the first 100 with no
@@ -74,11 +92,12 @@ jobs:
         id: pick
         env:
           BODY: ${{ github.event.comment.body }}
+          DISPATCHED_OPS: ${{ inputs.ops }}
         run: |
           PYTHONPATH=src python3 -m ttnn_accuracy.cli select changed.txt > selection.json
           cat selection.json
-          # An explicit `ops=` in the comment overrides the selector, for the cases it misses.
-          override=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
+          # An explicit `ops=` overrides the selector, for the cases it misses.
+          override=${DISPATCHED_OPS:-$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)}
           ops=${override:-$(jq -r '.ops | join(",")' selection.json)}
           arches=$(jq -c '.arches' selection.json)
           [ "$arches" != "[]" ] || arches='["wh"]'
@@ -111,7 +130,12 @@ jobs:
             echo
             echo "[Run]($RUN)"
           } > comment.md
-          gh issue comment "${{ github.event.issue.number }}" --body-file comment.md
+          cat comment.md >> "$GITHUB_STEP_SUMMARY"
+          # Only a comment in this repository has a thread to answer. A dispatch from
+          # tt-metal reads the same text on the run page its own comment already links to.
+          if [ "${{ github.event_name }}" = issue_comment ]; then
+            gh issue comment "${{ github.event.issue.number }}" --body-file comment.md
+          fi
 
   measure:
     needs: select
@@ -125,3 +149,59 @@ jobs:
       commit: ${{ needs.select.outputs.sha }}
       ops: ${{ needs.select.outputs.ops }}
       arch: ${{ matrix.arch }}
+
+  # The answer, on the pull request that asked. Posting there needs write on tt-metal, which
+  # is why this is the one step holding a token for it; without that secret the run still
+  # measures and still reports on its own page, and only this job is skipped.
+  report:
+    needs: [select, measure]
+    if: always() && needs.select.outputs.ops != '' && needs.select.outputs.pr != ''
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -euo pipefail {0}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: validate-*-${{ github.run_id }}
+          merge-multiple: true
+
+      - name: Write the answer
+        env:
+          PR: ${{ needs.select.outputs.pr }}
+          OPS: ${{ needs.select.outputs.ops }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          OUTCOME: ${{ needs.measure.result }}
+        run: |
+          {
+            echo "### Eltwise accuracy — \`$OPS\`"
+            echo
+            case "$OUTCOME" in
+              success) echo "Nothing moved against the published baseline." ;;
+              failure) echo "Something moved. The blocks below are the diff per architecture." ;;
+              *)       echo "The run did not finish ($OUTCOME)." ;;
+            esac
+            echo
+            cat result-*.md 2>/dev/null || true
+            echo
+            echo "[Full log and charts]($RUN) · informational, this does not gate the pull request."
+          } > body.md
+          cat body.md >> "$GITHUB_STEP_SUMMARY"
+
+      # Always back to whoever asked. A comment here needs no secret, so this is the whole
+      # answer until a tt-metal token exists.
+      - name: Answer the thread that asked
+        if: github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --body-file body.md
+
+      # And on the tt-metal pull request itself, when a token allows it. Missing is not a
+      # failure: the answer is already in the thread above and on the run page.
+      - name: Answer the tt-metal pull request
+        env:
+          GH_TOKEN: ${{ secrets.TT_METAL_COMMENT_TOKEN }}
+          PR: ${{ needs.select.outputs.pr }}
+        run: |
+          [ -n "$GH_TOKEN" ] || { echo "no TT_METAL_COMMENT_TOKEN; answered here instead"; exit 0; }
+          gh pr comment "$PR" --repo tenstorrent/tt-metal --body-file body.md
