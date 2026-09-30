@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
-# Lives in tt-metal as `accuracy-report-command.yaml`; kept here so it cannot drift. Setup: docs/pr-command.md.
+# Copy of tt-metal's `.github/workflows/accuracy-report-command.yaml`; keep the two in step. Setup: docs/pr-command.md.
 
 name: accuracy-report-command
 
@@ -14,7 +14,7 @@ on:
 
 permissions:
   contents: read
-  # A PR conversation comment is an issue comment; `pull-requests` alone is refused.
+  # Creating a PR conversation comment creates an issue comment; `pull-requests` alone is refused.
   issues: write
   pull-requests: write
 
@@ -23,8 +23,10 @@ env:
 
 jobs:
   dispatch:
-    # Gated here like `/test`: an outsider starts no run. Exact, or `/accuracy-reporting` would fire it.
-    if: "github.event.issue.pull_request != null
+    # Forks inherit this file but not the secret; without the repo guard they answer with a failure.
+    # Gated like `/test`: an outsider starts no run. Exact, or `/accuracy-reporting` would fire it.
+    if: "github.repository == 'tenstorrent/tt-metal'
+      && github.event.issue.pull_request != null
       && contains(fromJSON('[\"OWNER\",\"MEMBER\",\"COLLABORATOR\"]'),
                   github.event.comment.author_association)
       && (github.event.comment.body == '/accuracy-report'
@@ -69,8 +71,10 @@ jobs:
           # Attacker-controlled. Via env and matched to a fixed shape; `${{ }}` would inject.
           BODY: ${{ github.event.comment.body }}
         run: |
-          [[ $BODY =~ ops=([A-Za-z0-9_,]+) ]] && ops=${BASH_REMATCH[1]} || ops=
+          # First line only, and anchored: prose below the command, and `foo-ops=`, are not arguments.
+          [[ ${BODY%%$'\n'*} =~ (^|[[:space:]])ops=([A-Za-z0-9_,]+) ]] && ops=${BASH_REMATCH[2]} || ops=
 
+          since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if ! gh workflow run accuracy-command.yml --repo "$ORACLE" \
                  -f pr="$PR" ${ops:+-f ops="$ops"}
           then
@@ -81,12 +85,13 @@ jobs:
           echo "started=true" >> "$GITHUB_OUTPUT"
           workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
 
-          # `gh workflow run` returns no id, so match the oracle's `run-name`. Not `displayTitle`: older `gh` errors.
+          # `gh workflow run` returns no id, so match the oracle's `run-name`. Not `displayTitle`: older `gh`
+          # errors. Newer than `since`, or a repeat on this PR breaks on the previous run and links it.
           for _ in 1 2 3 4 5 6; do
             sleep 5
             id=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
               --limit 20 --json databaseId,createdAt,name \
-              --jq "[.[] | select(.name == \"accuracy-report for tt-metal#$PR\")]
+              --jq "[.[] | select(.name == \"accuracy-report for tt-metal#$PR\" and .createdAt >= \"$since\")]
                     | sort_by(.createdAt) | last | .databaseId // empty" 2>/dev/null || true)
             [ -z "$id" ] || break
           done
