@@ -1,14 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
-# Belongs in tt-metal, as `.github/workflows/accuracy-report-command.yaml`. It lives here
-# because it only works paired with `accuracy-command.yml`, and the two drift apart if kept
-# in separate repositories. What it does and what it needs: docs/pr-command.md.
+# Lives in tt-metal as `accuracy-report-command.yaml`; kept here so it cannot drift. Setup: docs/pr-command.md.
 
 name: accuracy-report-command
 
-# Quoted: an unquoted `#` would start a YAML comment. The Actions list is otherwise the one
-# place a dispatch cannot be traced back to the pull request that asked for it.
+# Quoted: a bare `#` would start a comment.
 run-name: "/accuracy-report on #${{ github.event.issue.number }}"
 
 on:
@@ -16,8 +13,8 @@ on:
     types: [created]
 
 permissions:
-  # A pull request's conversation comment is an issue comment, and `pull-requests` alone is
-  # refused with `addComment`. Nothing here checks out, so `contents` is left at none.
+  contents: read
+  # A PR conversation comment is an issue comment; `pull-requests` alone is refused.
   issues: write
   pull-requests: write
 
@@ -26,10 +23,7 @@ env:
 
 jobs:
   dispatch:
-    # Gated in `if`, the way `/test` is, so a comment from outside starts no run at all
-    # rather than a red cross on the pull request. Matched exactly for the same reason:
-    # `startsWith` alone fires on `/accuracy-reporting is broken`.
-    # A plain issue is excluded because it has no diff to select ops from and no head.
+    # Gated here like `/test`: an outsider starts no run. Exact, or `/accuracy-reporting` would fire it.
     if: "github.event.issue.pull_request != null
       && contains(fromJSON('[\"OWNER\",\"MEMBER\",\"COLLABORATOR\"]'),
                   github.event.comment.author_association)
@@ -37,19 +31,16 @@ jobs:
           || startsWith(github.event.comment.body, '/accuracy-report ')
           || startsWith(github.event.comment.body, '/accuracy-report\n'))"
     runs-on: ubuntu-slim
-    # Everything here is two API calls and a wait. Anything longer is a hung `gh`.
+    # Two API calls and a 30s wait; longer means a hung `gh`.
     timeout-minutes: 10
     defaults:
       run:
         shell: bash -euo pipefail {0}
-    # One in flight per pull request. Every `issue_comment` reports `github.ref` as the
-    # default branch, so the default group would collapse every PR into a single slot.
+    # One per PR. The default group would be shared, since `github.ref` is always `main`.
     concurrency:
       group: accuracy-report-command-${{ github.event.issue.number }}
     steps:
-      # The authorization control, not a formality: a run occupies silicon the whole org
-      # shares. The gate above admits read-only collaborators and every org member, so
-      # effective permission is read here rather than inferred from the event.
+      # The real control: the gate above admits read-only collaborators and all org members.
       - name: Refuse anyone without write access
         env:
           GH_TOKEN: ${{ github.token }}
@@ -58,9 +49,7 @@ jobs:
           if ! level=$(gh api "repos/$GITHUB_REPOSITORY/collaborators/$ACTOR/permission" \
                  --jq .permission 2>"$RUNNER_TEMP/err")
           then
-            # 404 is the only answer meaning "not a collaborator". Reading any other failure
-            # as no access would refuse everyone for as long as a scope stayed wrong, and
-            # each refusal would look like a decision rather than a broken token.
+            # Only 404 means "not a collaborator"; any other failure is the token, not a verdict.
             grep -q 404 "$RUNNER_TEMP/err" || {
               cat "$RUNNER_TEMP/err" >&2
               echo "::error::cannot read $ACTOR's access to $GITHUB_REPOSITORY"; exit 1; }
@@ -74,31 +63,25 @@ jobs:
       - name: Start the run
         id: start
         env:
-          # Scoped to Actions on ORACLE alone. Nothing in this file can reach tt-metal with
-          # it, which is the point: the trust runs one way.
+          # Actions on ORACLE only: nothing here can reach tt-metal with it.
           GH_TOKEN: ${{ secrets.ACCURACY_REPORT_DISPATCH_TOKEN }}
           PR: ${{ github.event.issue.number }}
-          # Anyone may comment, so this is attacker-controlled. Through the environment and
-          # matched against a fixed shape; `${{ }}` here would be a shell injection.
+          # Attacker-controlled. Via env and matched to a fixed shape; `${{ }}` would inject.
           BODY: ${{ github.event.comment.body }}
         run: |
           [[ $BODY =~ ops=([A-Za-z0-9_,]+) ]] && ops=${BASH_REMATCH[1]} || ops=
-          workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
 
           if ! gh workflow run accuracy-command.yml --repo "$ORACLE" \
                  -f pr="$PR" ${ops:+-f ops="$ops"}
           then
-            # Answered on the pull request first and failed afterwards: a missing secret is
-            # the likeliest problem here, and it has to reach both the asker and whoever
-            # maintains this. Neither a silent green run nor a log nobody opens does that.
-            { echo "started=false"; echo "url=$workflow"; } >> "$GITHUB_OUTPUT"
+            # Comment first, fail after: the asker and the maintainer both need to know.
+            echo "started=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           echo "started=true" >> "$GITHUB_OUTPUT"
+          workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
 
-          # `gh workflow run` returns no id, and the newest run may be someone else's. The
-          # called workflow's `run-name` carries this PR number, so the name identifies it.
-          # On `name`, not `displayTitle`: older `gh` lacks that field and errors the query.
+          # `gh workflow run` returns no id, so match the oracle's `run-name`. Not `displayTitle`: older `gh` errors.
           for _ in 1 2 3 4 5 6; do
             sleep 5
             id=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
@@ -107,8 +90,7 @@ jobs:
                     | sort_by(.createdAt) | last | .databaseId // empty" 2>/dev/null || true)
             [ -z "$id" ] || break
           done
-          # The run exists either way; only the link is less precise. Failing here would
-          # report a problem that does not exist.
+          # The run started either way; only the link is less precise.
           if [ -n "$id" ]
           then echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/runs/$id" >> "$GITHUB_OUTPUT"
           else echo "url=$workflow" >> "$GITHUB_OUTPUT"
@@ -121,9 +103,14 @@ jobs:
           URL: ${{ steps.start.outputs.url }}
           STARTED: ${{ steps.start.outputs.started }}
         run: |
-          if [ "$STARTED" = true ]
-          then body="Measuring the eltwise ops this change can affect — [run]($URL). Informational: it does not gate this pull request."
-          else body="\`/accuracy-report\` could not start a run: \`ACCURACY_REPORT_DISPATCH_TOKEN\` is missing or cannot reach [$ORACLE]($URL)."
+          if [ "$STARTED" = true ]; then
+            body="Measuring the eltwise ops this change can affect — [run]($URL)."
+            body="$body Informational: it does not gate this pull request."
+          else
+            # This run's log: the `gh` error is there, not on the oracle.
+            body="\`/accuracy-report\` could not start a run on \`$ORACLE\`, most likely a"
+            body="$body missing \`ACCURACY_REPORT_DISPATCH_TOKEN\`."
+            body="$body [Log]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)."
           fi
           gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
           [ "$STARTED" = true ]
