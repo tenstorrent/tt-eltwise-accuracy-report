@@ -1,11 +1,9 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
-# Not used by this repository. Copy to tt-metal as
-# `.github/workflows/accuracy-report-command.yaml`; kept here so the two halves stay in step.
-# `/accuracy-report` on a tt-metal pull request measures the eltwise ops that change can
-# affect, on real silicon, against a published baseline. It starts the run and links it; the
-# accuracy repository posts the result itself. See docs/pr-command.md.
+# Belongs in tt-metal, as `.github/workflows/accuracy-report-command.yaml`. It lives here
+# because it only works paired with `accuracy-command.yml`, and the two drift apart if kept
+# in separate repositories. What it does and what it needs: docs/pr-command.md.
 
 name: accuracy-report-command
 
@@ -24,7 +22,7 @@ env:
 
 jobs:
   dispatch:
-    # Pull request comments only. On a plain issue there is no diff to select from.
+    # A plain issue has no diff to select ops from, and no head to measure.
     if: github.event.issue.pull_request != null
       && startsWith(github.event.comment.body, '/accuracy-report')
     runs-on: ubuntu-latest
@@ -36,8 +34,9 @@ jobs:
     concurrency:
       group: accuracy-report-command-${{ github.event.issue.number }}
     steps:
-      # The run occupies silicon the whole org shares, so this is the authorization control.
-      # It mirrors `/test`: anyone who can reach it could already dispatch it by hand.
+      # The authorization control, not a formality: a run occupies silicon the whole org
+      # shares. Write mirrors `/test`, and grants nothing a person could not already do by
+      # dispatching the workflow by hand.
       - name: Refuse anyone without write access
         env:
           GH_TOKEN: ${{ github.token }}
@@ -53,11 +52,12 @@ jobs:
       - name: Start the run
         id: start
         env:
-          # Actions read and write on ORACLE, and nothing else. It cannot touch tt-metal.
+          # Scoped to Actions on ORACLE alone. Nothing in this file can reach tt-metal with
+          # it, which is the point: the trust runs one way.
           GH_TOKEN: ${{ secrets.ACCURACY_REPORT_DISPATCH_TOKEN }}
           PR: ${{ github.event.issue.number }}
-          # Attacker-controlled text, matched against a fixed shape through the environment
-          # and never interpolated into this script.
+          # Anyone may comment, so this is attacker-controlled. Through the environment and
+          # matched against a fixed shape; `${{ }}` here would be a shell injection.
           BODY: ${{ github.event.comment.body }}
         run: |
           [[ $BODY =~ ops=([A-Za-z0-9_,]+) ]] && ops=${BASH_REMATCH[1]} || ops=
@@ -66,15 +66,16 @@ jobs:
           if ! gh workflow run accuracy-command.yml --repo "$ORACLE" \
                  -f pr="$PR" ${ops:+-f ops="$ops"}
           then
-            # Silence reads as "nobody is looking at it". Say what is actually wrong.
+            # A missing secret is the likeliest failure and the least visible one. Report it
+            # on the pull request rather than only in a log nobody opens.
             { echo "started=false"; echo "url=$workflow"; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
           echo "started=true" >> "$GITHUB_OUTPUT"
 
-          # `gh workflow run` returns no id, so the run is found by the name it gives itself:
-          # `run-name` over there carries this pull request's number. Matched on `name`,
-          # which every `gh` exposes — `displayTitle` is missing from older ones and errors.
+          # `gh workflow run` returns no id, and the newest run may be someone else's. The
+          # called workflow's `run-name` carries this PR number, so the name identifies it.
+          # On `name`, not `displayTitle`: older `gh` lacks that field and errors the query.
           for _ in 1 2 3 4 5 6; do
             sleep 5
             id=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
@@ -83,7 +84,8 @@ jobs:
                     | sort_by(.createdAt) | last | .databaseId // empty" 2>/dev/null || true)
             [ -z "$id" ] || break
           done
-          # A run that cannot be pinpointed is still running; link the workflow, do not fail.
+          # Still running even if it cannot be pinpointed, so link the workflow. Failing here
+          # would report a problem that does not exist.
           if [ -n "$id" ]
           then echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/runs/$id" >> "$GITHUB_OUTPUT"
           else echo "url=$workflow" >> "$GITHUB_OUTPUT"
