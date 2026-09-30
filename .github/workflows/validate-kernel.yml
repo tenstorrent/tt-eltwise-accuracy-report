@@ -71,10 +71,18 @@ jobs:
       # The baseline this run is measured against. It lives on `report`, not on the default
       # branch, so a plain checkout has nothing for `check` to diff against.
       - name: Fetch the published baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git fetch --no-tags origin "+report:refs/remotes/origin/report" 2>/dev/null &&
-            git show origin/report:report_index.json > report_index.json ||
-            { echo "::error::nothing published on the report branch to compare against"; exit 1; }
+          # Over the API, not git: this checkout is shallow and carries no `report` ref.
+          # Written aside and moved, because a failed redirect leaves an empty file behind
+          # and `charts` reads an empty index as unparseable rather than as absent.
+          gh api "repos/$GITHUB_REPOSITORY/contents/report_index.json?ref=report" \
+            -H "Accept: application/vnd.github.raw" > baseline.json
+          [ -s baseline.json ] || {
+            echo "::error::the report branch carries no report_index.json to compare against"
+            exit 1; }
+          mv baseline.json report_index.json
 
       - uses: ./.github/actions/tt-metal-env
         with:
