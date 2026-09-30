@@ -76,19 +76,14 @@ def test_verdicts_follow_the_contract(
 ):
     from ttnn_accuracy.report.score import verdict
 
-    assert (
-        verdict(max_ulp, usable_to, operands, defects, 64777, unflushed, 0, inexact)
-        == expected
-    )
+    assert verdict(max_ulp, usable_to, operands, defects, 64777, unflushed, 0, inexact) == expected
 
 
 def test_a_tie_broken_the_other_way_is_not_reported_as_an_error():
     """WH breaks ties away from zero, torch to even, so bf16 add misses 4.2 billion pairings."""
     from ttnn_accuracy.report.score import verdict
 
-    assert verdict("0.621", "—", 2, 0, 64777, 0, 64000, 0) == (
-        "faithful; 64000/64777 tie-breaks"
-    )
+    assert verdict("0.621", "—", 2, 0, 64777, 0, 64000, 0) == "faithful; 64000/64777 tie-breaks"
 
 
 def test_coverage_changes_are_named_not_scored():
