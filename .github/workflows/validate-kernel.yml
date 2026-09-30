@@ -72,6 +72,9 @@ jobs:
       # branch, so a plain checkout has nothing for `check` to diff against.
       - name: Fetch the published baseline
         run: |
+          # `checkout` marks the workspace safe in a global config it throws away when the
+          # action ends, so the first git of the job is refused unless this repeats it.
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           # Over git, as the sweep does: this runs in tt-metal's build image, which carries
           # no `gh`. The ref is named because a checkout fetches only the branch it started
           # on, and one commit of it is enough — nothing here reads the branch's history.
