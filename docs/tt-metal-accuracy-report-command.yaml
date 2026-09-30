@@ -60,8 +60,8 @@ jobs:
           # Actions read and write on ORACLE, and nothing else. It cannot touch tt-metal.
           GH_TOKEN: ${{ secrets.ACCURACY_REPORT_DISPATCH_TOKEN }}
           PR: ${{ github.event.issue.number }}
-          # Attacker-controlled text, read through the environment and matched against a
-          # fixed shape, never interpolated into this script.
+          # Attacker-controlled text, matched against a fixed shape through the environment
+          # and never interpolated into this script.
           BODY: ${{ github.event.comment.body }}
         run: |
           ops=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
