@@ -43,10 +43,23 @@ jobs:
           git cat-file -e "origin/$REPORT_BRANCH:report_index.json" 2>/dev/null || {
             echo "nothing published on $REPORT_BRANCH yet"; exit 0; }
           git show "origin/$REPORT_BRANCH:report_index.json" > report_index.json
-          if git cat-file -e "origin/$REPORT_BRANCH~1:report_index.json" 2>/dev/null
-          then git show "origin/$REPORT_BRANCH~1:report_index.json" > "$RUNNER_TEMP/previous.json"
-          else cp report_index.json "$RUNNER_TEMP/previous.json"
-          fi
+
+          # Back to the previous *sweep*, not the previous commit. A sharded sweep publishes
+          # one commit per shard, each holding the whole merged index, so `~1` differs from
+          # the tip by a single category and eleven twelfths of a regression would be missed.
+          # `ci_run` is the same across a sweep's shards and changes between sweeps.
+          ci () { git show "$1:report_index.json" 2>/dev/null |
+                    jq -r '[._runs // {} | .[]? | .[]? | .ci_run? // empty] | first // ""' \
+                    2>/dev/null || true; }
+          mine=$(ci "origin/$REPORT_BRANCH")
+          cp report_index.json "$RUNNER_TEMP/previous.json"
+          for sha in $(git rev-list --max-count=60 "origin/$REPORT_BRANCH" | tail -n +2); do
+            if [ "$(ci "$sha")" != "$mine" ]; then
+              git show "$sha:report_index.json" > "$RUNNER_TEMP/previous.json"
+              echo "comparing against $sha, the last commit of the previous sweep"
+              break
+            fi
+          done
           status=0
           PYTHONPATH=src python3 -m ttnn_accuracy.cli compare "$RUNNER_TEMP/previous.json" \
             --findings analyze-report/findings.md || status=$?

@@ -67,6 +67,19 @@ def _mark(now: dict, moved: bool) -> str:
     return "⚠️" if now.get("defects") or (mx is not None and mx > USABLE_ULP) else "🟢"
 
 
+def _moved(was: dict, now: dict) -> str:
+    """Every scored metric that changed. `max_ulp` alone once read `—` on a row marked
+    regressed, because the figure that moved was `defects`: 16,384 of them down to 512."""
+    from ttnn_accuracy.report.compare import SCORED
+
+    changed = [
+        f"{m} {was.get(m, '—')} → {now.get(m, '—')}"
+        for m in SCORED
+        if str(was.get(m, "")) != str(now.get(m, ""))
+    ]
+    return "<br>".join(changed) if changed else "—"
+
+
 def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -> str:
     """One row per variant: what the baseline held, what this build measures, and the move."""
     rows = []
@@ -74,16 +87,15 @@ def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -
         for op, variants in sorted(ops.items()):
             for variant, now in sorted(variants.items()):
                 was = baseline.get(arch, {}).get(dtype, {}).get(op, {}).get(variant, {})
-                before, after = was.get("max_ulp", "—"), now.get("max_ulp", "—")
                 mark = _mark(now, (dtype, op, variant) in regressed)
-                moved = "—" if before == after else f"{before} → {after}"
                 rows.append(
-                    f"| {mark} | `{op}` | `{variant}` | {arch} | {dtype} | {before} | {after} "
-                    f"| {moved} | {now.get('verdict', '—')} |"
+                    f"| {mark} | `{op}` | `{variant}` | {arch} | {dtype} "
+                    f"| {now.get('max_ulp', '—')} | {_moved(was, now)} "
+                    f"| {now.get('verdict', '—')} |"
                 )
     head = (
-        "| | Op | Variant | Arch | dtype | Baseline ULP | This build | Moved | Verdict |\n"
-        "|---|---|---|---|---|---|---|---|---|\n"
+        "| | Op | Variant | Arch | dtype | Max ULP | Moved against main | Verdict |\n"
+        "|---|---|---|---|---|---|---|---|\n"
     )
     return head + "\n".join(rows) + "\n"
 
