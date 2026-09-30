@@ -162,8 +162,10 @@ jobs:
   # is why this is the one step holding a token for it; without that secret the run still
   # measures and still reports on its own page, and only this job is skipped.
   report:
+    # Not gated on `ops`: a change affecting nothing is an answer, and without this the
+    # tt-metal comment said "measuring" and was never followed by anything at all.
     needs: [select, measure]
-    if: always() && needs.select.outputs.ops != '' && needs.select.outputs.pr != ''
+    if: always() && needs.select.outputs.pr != ''
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -182,15 +184,21 @@ jobs:
           OUTCOME: ${{ needs.measure.result }}
         run: |
           {
-            echo "### Eltwise accuracy — \`$OPS\`"
-            echo
-            case "$OUTCOME" in
-              success) echo "Nothing moved against the published baseline." ;;
-              failure) echo "Something moved. The blocks below are the diff per architecture." ;;
-              *)       echo "The run did not finish ($OUTCOME)." ;;
-            esac
-            echo
-            cat result-*.md 2>/dev/null || true
+            if [ -z "$OPS" ]; then
+              echo "### Eltwise accuracy"
+              echo
+              echo "No eltwise op is affected by this change. Nothing measured."
+            else
+              echo "### Eltwise accuracy — \`$OPS\`"
+              echo
+              case "$OUTCOME" in
+                success) echo "Nothing moved against the published baseline." ;;
+                failure) echo "Something moved. The blocks below are the diff per architecture." ;;
+                *)       echo "The run did not finish ($OUTCOME)." ;;
+              esac
+              echo
+              cat result-*.md 2>/dev/null || true
+            fi
             echo
             echo "[Full log and charts]($RUN) · informational, this does not gate the pull request."
           } > body.md

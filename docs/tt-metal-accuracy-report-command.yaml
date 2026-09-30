@@ -83,18 +83,18 @@ jobs:
           BODY: ${{ github.event.comment.body }}
         run: |
           [[ $BODY =~ ops=([A-Za-z0-9_,]+) ]] && ops=${BASH_REMATCH[1]} || ops=
-          workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
 
           if ! gh workflow run accuracy-command.yml --repo "$ORACLE" \
                  -f pr="$PR" ${ops:+-f ops="$ops"}
           then
-            # Answered on the pull request first and failed afterwards: a missing secret is
-            # the likeliest problem here, and it has to reach both the asker and whoever
-            # maintains this. Neither a silent green run nor a log nobody opens does that.
-            { echo "started=false"; echo "url=$workflow"; } >> "$GITHUB_OUTPUT"
+            # Answered on the pull request first and failed afterwards: it has to reach both
+            # the asker and whoever maintains this, and neither a silent green run nor a log
+            # nobody opens does that. The reason `gh` gave is in this run's own log.
+            echo "started=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           echo "started=true" >> "$GITHUB_OUTPUT"
+          workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
 
           # `gh workflow run` returns no id, and the newest run may be someone else's. The
           # called workflow's `run-name` carries this PR number, so the name identifies it.
@@ -121,9 +121,15 @@ jobs:
           URL: ${{ steps.start.outputs.url }}
           STARTED: ${{ steps.start.outputs.started }}
         run: |
-          if [ "$STARTED" = true ]
-          then body="Measuring the eltwise ops this change can affect — [run]($URL). Informational: it does not gate this pull request."
-          else body="\`/accuracy-report\` could not start a run: \`ACCURACY_REPORT_DISPATCH_TOKEN\` is missing or cannot reach [$ORACLE]($URL)."
+          if [ "$STARTED" = true ]; then
+            body="Measuring the eltwise ops this change can affect — [run]($URL)."
+            body="$body Informational: it does not gate this pull request."
+          else
+            # This run's log, not the oracle's: the reason lives in the step above. Naming
+            # the likely secret without asserting it saves the first round of guessing.
+            body="\`/accuracy-report\` could not start a run on \`$ORACLE\`, most likely a"
+            body="$body missing \`ACCURACY_REPORT_DISPATCH_TOKEN\`."
+            body="$body [Log]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)."
           fi
           gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
           [ "$STARTED" = true ]
