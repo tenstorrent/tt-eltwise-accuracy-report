@@ -67,35 +67,37 @@ def _mark(now: dict, moved: bool) -> str:
     return "⚠️" if now.get("defects") or (mx is not None and mx > USABLE_ULP) else "🟢"
 
 
-def _moved(was: dict, now: dict) -> str:
-    """Every scored metric that changed. `max_ulp` alone once read `—` on a row marked
-    regressed, because the figure that moved was `defects`: 16,384 of them down to 512."""
+def _sides(was: dict, now: dict) -> tuple[str, str, str]:
+    """Metric names and the two sides, stacked so the lines read across. `max_ulp` always:
+    it is the headline figure, and a row that moved on `defects` still has to show its cost."""
     from ttnn_accuracy.report.compare import SCORED
 
-    changed = [
-        f"{m} {was.get(m, '—')} → {now.get(m, '—')}"
-        for m in SCORED
-        if str(was.get(m, "")) != str(now.get(m, ""))
-    ]
-    return "<br>".join(changed) if changed else "—"
+    shown = [m for m in SCORED if m == "max_ulp" or str(was.get(m, "")) != str(now.get(m, ""))]
+    pairs = [(str(was.get(m, "—")), str(now.get(m, "—"))) for m in shown]
+    return (
+        "<br>".join(shown),
+        "<br>".join(v for v, _ in pairs),
+        "<br>".join(v for _, v in pairs),
+    )
 
 
 def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -> str:
-    """One row per variant: what the baseline held, what this build measures, and the move."""
+    """One row per variant, every metric that moved shown on both sides rather than as an
+    arrow: a reader compares down a column, and `main` is the last sweep published for it."""
     rows = []
     for dtype, ops in sorted(candidate.get(arch, {}).items()):
         for op, variants in sorted(ops.items()):
             for variant, now in sorted(variants.items()):
                 was = baseline.get(arch, {}).get(dtype, {}).get(op, {}).get(variant, {})
                 mark = _mark(now, (dtype, op, variant) in regressed)
+                metric, before, after = _sides(was, now)
                 rows.append(
                     f"| {mark} | `{op}` | `{variant}` | {arch} | {dtype} "
-                    f"| {now.get('max_ulp', '—')} | {_moved(was, now)} "
-                    f"| {now.get('verdict', '—')} |"
+                    f"| {metric} | {before} | {after} | {now.get('verdict', '—')} |"
                 )
     head = (
-        "| | Op | Variant | Arch | dtype | Max ULP | Moved against main | Verdict |\n"
-        "|---|---|---|---|---|---|---|---|\n"
+        "| | Op | Variant | Arch | dtype | Metric | main | branch | Verdict |\n"
+        "|---|---|---|---|---|---|---|---|---|\n"
     )
     return head + "\n".join(rows) + "\n"
 
