@@ -19,6 +19,8 @@ on:
     types: [created]
 
 permissions:
+  # A pull request's conversation comment is an issue comment, so both are needed.
+  issues: write
   pull-requests: write
 
 env:

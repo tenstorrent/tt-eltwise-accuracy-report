@@ -3,6 +3,10 @@
 
 name: accuracy-command
 
+# Names the run after the pull request it is measuring, so the Actions list is readable and
+# a caller can tell its own run from someone else's.
+run-name: accuracy-report for tt-metal#${{ inputs.pr || github.event.issue.number }}
+
 # Comment `/accuracy-report tt-metal#12345` on any issue or pull request here. The command
 # reads that tt-metal PR's changed files, works out which ops they can affect, and measures
 # only those against the published baseline. Selecting nothing is a valid, expected answer.
