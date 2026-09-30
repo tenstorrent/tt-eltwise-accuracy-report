@@ -65,28 +65,22 @@ jobs:
           BODY: ${{ github.event.comment.body }}
         run: |
           ops=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
-          since=$(date -u -d '1 minute ago' +%Y-%m-%dT%H:%M:%SZ)
-          id=""
           gh workflow run accuracy-command.yml --repo "$ORACLE" \
             -f pr="$PR" ${ops:+-f ops="$ops"}
 
-          # `gh workflow run` returns no id. Matched on creation time rather than on the
-          # run's title, which for a dispatch is just the workflow name, and on fields every
-          # `gh` carries — `displayTitle` is absent from older ones and errors the query.
+          # `gh workflow run` returns no id, and taking the newest run would hand this pull
+          # request someone else's. Match the one carrying this PR number instead.
           for _ in 1 2 3 4 5 6; do
             sleep 5
             id=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
-              --event workflow_dispatch --limit 20 --json databaseId,createdAt \
-              --jq "[.[] | select(.createdAt >= \"$since\")] | sort_by(.createdAt) | last | .databaseId // empty" \
+              --event workflow_dispatch --limit 20 --json databaseId,displayTitle \
+              --jq "[.[] | select(.displayTitle | contains(\"$PR\"))][0].databaseId" \
               2>/dev/null || true)
             [ -z "$id" ] || break
           done
-          # A run that cannot be pinpointed is still running; link the workflow rather than fail.
-          if [ -n "$id" ]
-          then echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/runs/$id" >> "$GITHUB_OUTPUT"
-          else echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml" \
-                 >> "$GITHUB_OUTPUT"
-          fi
+          [ -n "$id" ] || { echo "::error::dispatched, but could not find the run"; exit 1; }
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+          echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/runs/$id" >> "$GITHUB_OUTPUT"
 
       - name: Say it started
         env:
