@@ -1,9 +1,16 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
-# Belongs in tt-metal, as `.github/workflows/accuracy-report-command.yaml`. It lives here
-# because it only works paired with `accuracy-command.yml`, and the two drift apart if kept
-# in separate repositories. What it does and what it needs: docs/pr-command.md.
+# This file is not used by this repository. It is the half that belongs in tt-metal, kept
+# here so the two sides stay in step; copy it to tt-metal as
+# `.github/workflows/accuracy-report-command.yaml`. See docs/pr-command.md.
+#
+# `/accuracy-report` on a tt-metal pull request measures only the eltwise ops that change
+# can affect, on real Wormhole and Blackhole silicon, against a published baseline. It never
+# blocks a merge.
+#
+# This workflow only starts the run and links it. The accuracy repository posts the result
+# itself, with a token of its own, so nothing here waits twenty minutes for an answer.
 
 name: accuracy-report-command
 
@@ -12,7 +19,6 @@ on:
     types: [created]
 
 permissions:
-  contents: read
   # A pull request's conversation comment is an issue comment, so both are needed.
   issues: write
   pull-requests: write
@@ -52,54 +58,36 @@ jobs:
       - name: Start the run
         id: start
         env:
-          # Scoped to Actions on ORACLE alone. Nothing in this file can reach tt-metal with
-          # it, which is the point: the trust runs one way.
+          # Actions read and write on ORACLE, and nothing else. It cannot touch tt-metal.
           GH_TOKEN: ${{ secrets.ACCURACY_REPORT_DISPATCH_TOKEN }}
           PR: ${{ github.event.issue.number }}
-          # Anyone may comment, so this is attacker-controlled. Through the environment and
-          # matched against a fixed shape; `${{ }}` here would be a shell injection.
+          # Attacker-controlled text, matched against a fixed shape through the environment
+          # and never interpolated into this script.
           BODY: ${{ github.event.comment.body }}
         run: |
-          [[ $BODY =~ ops=([A-Za-z0-9_,]+) ]] && ops=${BASH_REMATCH[1]} || ops=
-          workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
+          ops=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
+          gh workflow run accuracy-command.yml --repo "$ORACLE" \
+            -f pr="$PR" ${ops:+-f ops="$ops"}
 
-          if ! gh workflow run accuracy-command.yml --repo "$ORACLE" \
-                 -f pr="$PR" ${ops:+-f ops="$ops"}
-          then
-            # A missing secret is the likeliest failure and the least visible one. Report it
-            # on the pull request rather than only in a log nobody opens.
-            { echo "started=false"; echo "url=$workflow"; } >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          echo "started=true" >> "$GITHUB_OUTPUT"
-
-          # `gh workflow run` returns no id, and the newest run may be someone else's. The
-          # called workflow's `run-name` carries this PR number, so the name identifies it.
-          # On `name`, not `displayTitle`: older `gh` lacks that field and errors the query.
+          # `gh workflow run` returns no id, and taking the newest run would hand this pull
+          # request someone else's. Match the one carrying this PR number instead.
           for _ in 1 2 3 4 5 6; do
             sleep 5
             id=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
-              --limit 20 --json databaseId,createdAt,name \
-              --jq "[.[] | select(.name == \"accuracy-report for tt-metal#$PR\")]
-                    | sort_by(.createdAt) | last | .databaseId // empty" 2>/dev/null || true)
+              --event workflow_dispatch --limit 20 --json databaseId,displayTitle \
+              --jq "[.[] | select(.displayTitle | contains(\"$PR\"))][0].databaseId" \
+              2>/dev/null || true)
             [ -z "$id" ] || break
           done
-          # Still running even if it cannot be pinpointed, so link the workflow. Failing here
-          # would report a problem that does not exist.
-          if [ -n "$id" ]
-          then echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/runs/$id" >> "$GITHUB_OUTPUT"
-          else echo "url=$workflow" >> "$GITHUB_OUTPUT"
-          fi
+          [ -n "$id" ] || { echo "::error::dispatched, but could not find the run"; exit 1; }
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+          echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/runs/$id" >> "$GITHUB_OUTPUT"
 
       - name: Say it started
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.issue.number }}
           URL: ${{ steps.start.outputs.url }}
-          STARTED: ${{ steps.start.outputs.started }}
         run: |
-          if [ "$STARTED" = true ]
-          then body="Measuring the eltwise ops this change can affect — [run]($URL). Informational: it does not gate this pull request."
-          else body="\`/accuracy-report\` could not start a run: \`ACCURACY_REPORT_DISPATCH_TOKEN\` is missing or cannot reach [$ORACLE]($URL)."
-          fi
-          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body \
+            "Measuring the eltwise ops this change can affect — [run]($URL). Informational: it does not gate this pull request."
