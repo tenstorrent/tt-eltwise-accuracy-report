@@ -14,7 +14,7 @@ flowchart LR
     T -->|"comments a link"| C
     O --> S["select: changed files → ops"]
     S --> V["validate-kernel<br/>one job per arch"]
-    V --> R["report: comments the result<br/>back on the tt-metal PR"]
+    V --> R["report: comments the result<br/>on the tt-metal PR"]
     R --> C
 ```
 
@@ -27,7 +27,7 @@ solely to check the commenter and dispatch. The work, the devices and the result
 |---|---|
 | tt-metal | `.github/workflows/accuracy-report-command.yaml` — the copy in [tt-metal-accuracy-report-command.yaml](tt-metal-accuracy-report-command.yaml) |
 | tt-metal | a secret `ACCURACY_REPORT_DISPATCH_TOKEN` that may dispatch workflows in this repository |
-| here | a secret `TT_METAL_COMMENT_TOKEN` — **Pull requests: write** on tt-metal, so the result lands on the pull request |
+| here | a secret `TT_METAL_COMMENT_TOKEN` — **Issues: write** on tt-metal, so the result lands on the pull request |
 
 Two tokens, each one-way and minimal. tt-metal may start a run here; this repository may
 comment there. Neither can do anything else. Without `TT_METAL_COMMENT_TOKEN` the run still
@@ -41,7 +41,10 @@ Fine-grained PATs, or one GitHub App installed on both repositories. A classic P
 | Secret | Lives in | Scope | Permission |
 |---|---|---|---|
 | `ACCURACY_REPORT_DISPATCH_TOKEN` | tt-metal | this repository | Actions: read and write |
-| `TT_METAL_COMMENT_TOKEN` | this repository | tt-metal | Pull requests: write |
+| `TT_METAL_COMMENT_TOKEN` | this repository | tt-metal | **Issues: read and write** |
+
+Issues, not Pull requests: a pull request's conversation comment is an issue comment, and a
+token holding only Pull requests write is refused with `Resource not accessible (addComment)`.
 
 ## Selection
 
