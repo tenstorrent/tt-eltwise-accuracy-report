@@ -205,11 +205,17 @@ jobs:
       # every run would diff against, and republish, whatever data main happens to still hold.
       - name: Start from the published report
         run: |
-          # Not shallow: Publish fetches this ref again, and analyze-report reads its parent.
+          # `checkout` marks the workspace safe in a global config it throws away when the
+          # action ends, so the first git of the job is refused unless this repeats it.
+          # Without it this whole step failed into the branch below, silently, every run.
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # Absence is asked about separately, so a fetch that fails for any other reason
+          # stops the job instead of quietly measuring against the checkout.
           # A non-publishing run skipped `baseline`, so the branch is not guaranteed here.
-          git fetch --no-tags origin \
-            "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH" 2>/dev/null || {
+          git ls-remote --exit-code --heads origin "$REPORT_BRANCH" >/dev/null || {
             echo "no $REPORT_BRANCH yet — measuring against the checkout"; exit 0; }
+          # Not shallow: Publish fetches this ref again, and analyze-report reads its parent.
+          git fetch --no-tags origin "+$REPORT_BRANCH:refs/remotes/origin/$REPORT_BRANCH"
           # Data paths only, and only the ones the branch holds. Never its whole tree: a
           # reseed from the default branch leaves `src` on `report`, and checking that out
           # would run this job against older code than the commit it was started at.
