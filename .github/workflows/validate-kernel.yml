@@ -132,8 +132,10 @@ jobs:
             echo "</details></details>"
           } > "result-$ARCH.md"
           cat "result-$ARCH.md" >> "$GITHUB_STEP_SUMMARY"
-          [ "$status" -eq 0 ] || echo "::error::$status finding(s) — see the summary"
-          exit "$status"
+          # Informational: a finding is the answer, not a failure, so it must not paint a
+          # pull request red. A run that produced no table did not answer at all, and does.
+          [ "$status" -eq 0 ] || echo "::notice::$status finding(s) — see the table"
+          [ -s "table-$ARCH.md" ] || { echo "::error::check produced no table"; exit 1; }
 
       - uses: actions/upload-artifact@v4
         if: always()

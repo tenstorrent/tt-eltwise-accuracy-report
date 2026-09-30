@@ -80,9 +80,14 @@ def _record_run(index: dict, arch: str, dtype: str, stamp: Path) -> None:
     if not stamp.exists():
         return
     run = json.loads(stamp.read_text())
-    index.setdefault(RUNS_KEY, {}).setdefault(arch, {})[dtype] = {
-        k: run[k] for k in ("run_id", "tt_metal_commit", "ttnn_version", "device_arch", "ops")
-    } | {"failed": run.get("failed", {})}
+    # `ci_run` is the whole sweep, where `run_id` is one shard of it. A sharded sweep writes
+    # a commit per shard, so this is the only field that says which commits belong together.
+    ci = os.environ.get("GITHUB_RUN_ID")
+    index.setdefault(RUNS_KEY, {}).setdefault(arch, {})[dtype] = (
+        {k: run[k] for k in ("run_id", "tt_metal_commit", "ttnn_version", "device_arch", "ops")}
+        | {"failed": run.get("failed", {})}
+        | ({"ci_run": ci} if ci else {})
+    )
 
 
 @dataclass(frozen=True, slots=True)

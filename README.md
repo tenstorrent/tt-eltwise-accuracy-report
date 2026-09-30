@@ -104,7 +104,7 @@ it onto a partial one.
 
 Runs on ubuntu-latest with no device: `compare` is pure JSON over two indexes. Buckets every
 change into regressed, improved, expected, new or removed, writes
-[findings.md](analyze-report/findings.md), and opens an issue when something regressed.
+[findings.md](../../blob/report/analyze-report/findings.md), and opens an issue when something regressed.
 
 The page is produced by rules, not by a model, because the buckets already are the
 classification. Set `ANTHROPIC_API_KEY` and a model adds one short note on top.

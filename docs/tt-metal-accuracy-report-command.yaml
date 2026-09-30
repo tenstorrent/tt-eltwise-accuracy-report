@@ -55,22 +55,38 @@ jobs:
           # any access to tt-metal: it reads this pull request through the public API and
           # reports on its own run page.
           GH_TOKEN: ${{ secrets.ACCURACY_REPORT_DISPATCH_TOKEN }}
+          # This repository's own token, for the reply. Kept out of the script body.
+          COMMENT_TOKEN: ${{ github.token }}
           PR: ${{ github.event.issue.number }}
           # Attacker-controlled text, read through the environment and matched against a
           # fixed shape, never interpolated into this script.
           BODY: ${{ github.event.comment.body }}
         run: |
           ops=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
-          gh workflow run accuracy-command.yml --repo "$ORACLE" \
-            -f pr="$PR" ${ops:+-f ops="$ops"}
+          workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
 
-          # `gh workflow run` returns no id, so the newest run for this workflow is the one
-          # just started. Worth one poll: a bare "started" with no link is not worth posting.
-          sleep 10
-          url=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
-            --limit 1 --json url --jq '.[0].url')
+          if gh workflow run accuracy-command.yml --repo "$ORACLE" \
+               -f pr="$PR" ${ops:+-f ops="$ops"}
+          then
+            # `gh workflow run` returns no id. Taking the newest run would hand this pull
+            # request someone else's link, so match the one carrying this PR number and fall
+            # back to the workflow itself rather than guess.
+            url="$workflow"
+            for _ in 1 2 3 4 5 6; do
+              sleep 5
+              found=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
+                --event workflow_dispatch --limit 20 \
+                --json url,displayTitle --jq \
+                "[.[] | select(.displayTitle | contains(\"$PR\"))][0].url" 2>/dev/null || true)
+              [ -z "$found" ] || { url="$found"; break; }
+            done
+            body="Measuring the eltwise ops this change can affect — [run]($url). Informational: it does not gate this pull request."
+          else
+            # Silence reads as "nobody is looking at it". Say so instead.
+            body="\`/accuracy-report\` could not start a run. The \`ACCURACY_REPORT_DISPATCH_TOKEN\` secret is missing or cannot reach [$ORACLE]($workflow)."
+          fi
 
           # `--repo` named, not inferred: this job never checks anything out, so `gh` has no
-          # git repository to read it from.
-          GH_TOKEN=${{ github.token }} gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body \
-            "Measuring the eltwise ops this change can affect — [run]($url). Informational: it does not gate this pull request."
+          # git repository to read it from. `github.token` comments here; the dispatch token
+          # above cannot, and must not be able to.
+          GH_TOKEN="$COMMENT_TOKEN" gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
