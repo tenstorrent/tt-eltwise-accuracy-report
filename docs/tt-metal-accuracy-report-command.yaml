@@ -7,7 +7,10 @@
 #
 # `/accuracy-report` on a tt-metal pull request measures only the eltwise ops that change
 # can affect, on real Wormhole and Blackhole silicon, against a published baseline. It never
-# blocks a merge: it dispatches one run and answers with a link.
+# blocks a merge.
+#
+# This workflow only starts the run and links it. The accuracy repository posts the result
+# itself, with a token of its own, so nothing here waits twenty minutes for an answer.
 
 name: accuracy-report-command
 
@@ -49,44 +52,39 @@ jobs:
             *) echo "::error::$ACTOR has $level access; /accuracy-report needs write"; exit 1 ;;
           esac
 
-      - name: Start the run and answer with a link
+      - name: Start the run
+        id: start
         env:
-          # A token that may dispatch workflows in ORACLE. Nothing here grants that repository
-          # any access to tt-metal: it reads this pull request through the public API and
-          # reports on its own run page.
+          # Actions read and write on ORACLE, and nothing else. It cannot touch tt-metal.
           GH_TOKEN: ${{ secrets.ACCURACY_REPORT_DISPATCH_TOKEN }}
-          # This repository's own token, for the reply. Kept out of the script body.
-          COMMENT_TOKEN: ${{ github.token }}
           PR: ${{ github.event.issue.number }}
           # Attacker-controlled text, read through the environment and matched against a
           # fixed shape, never interpolated into this script.
           BODY: ${{ github.event.comment.body }}
         run: |
           ops=$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)
-          workflow="$GITHUB_SERVER_URL/$ORACLE/actions/workflows/accuracy-command.yml"
+          gh workflow run accuracy-command.yml --repo "$ORACLE" \
+            -f pr="$PR" ${ops:+-f ops="$ops"}
 
-          if gh workflow run accuracy-command.yml --repo "$ORACLE" \
-               -f pr="$PR" ${ops:+-f ops="$ops"}
-          then
-            # `gh workflow run` returns no id. Taking the newest run would hand this pull
-            # request someone else's link, so match the one carrying this PR number and fall
-            # back to the workflow itself rather than guess.
-            url="$workflow"
-            for _ in 1 2 3 4 5 6; do
-              sleep 5
-              found=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
-                --event workflow_dispatch --limit 20 \
-                --json url,displayTitle --jq \
-                "[.[] | select(.displayTitle | contains(\"$PR\"))][0].url" 2>/dev/null || true)
-              [ -z "$found" ] || { url="$found"; break; }
-            done
-            body="Measuring the eltwise ops this change can affect — [run]($url). Informational: it does not gate this pull request."
-          else
-            # Silence reads as "nobody is looking at it". Say so instead.
-            body="\`/accuracy-report\` could not start a run. The \`ACCURACY_REPORT_DISPATCH_TOKEN\` secret is missing or cannot reach [$ORACLE]($workflow)."
-          fi
+          # `gh workflow run` returns no id, and taking the newest run would hand this pull
+          # request someone else's. Match the one carrying this PR number instead.
+          for _ in 1 2 3 4 5 6; do
+            sleep 5
+            id=$(gh run list --repo "$ORACLE" --workflow accuracy-command.yml \
+              --event workflow_dispatch --limit 20 --json databaseId,displayTitle \
+              --jq "[.[] | select(.displayTitle | contains(\"$PR\"))][0].databaseId" \
+              2>/dev/null || true)
+            [ -z "$id" ] || break
+          done
+          [ -n "$id" ] || { echo "::error::dispatched, but could not find the run"; exit 1; }
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+          echo "url=$GITHUB_SERVER_URL/$ORACLE/actions/runs/$id" >> "$GITHUB_OUTPUT"
 
-          # `--repo` named, not inferred: this job never checks anything out, so `gh` has no
-          # git repository to read it from. `github.token` comments here; the dispatch token
-          # above cannot, and must not be able to.
-          GH_TOKEN="$COMMENT_TOKEN" gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
+      - name: Say it started
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.issue.number }}
+          URL: ${{ steps.start.outputs.url }}
+        run: |
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body \
+            "Measuring the eltwise ops this change can affect — [run]($URL). Informational: it does not gate this pull request."

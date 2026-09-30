@@ -202,8 +202,8 @@ jobs:
           gh issue comment "${{ github.event.issue.number }}" \
             --repo "$GITHUB_REPOSITORY" --body-file body.md
 
-      # And on the tt-metal pull request itself, when a token allows it. Missing is not a
-      # failure: the answer is already in the thread above and on the run page.
+      # And on the tt-metal pull request itself. A conversation comment is an issue comment,
+      # so this token needs Issues write on tt-metal, not only Pull requests.
       - name: Answer the tt-metal pull request
         env:
           GH_TOKEN: ${{ secrets.TT_METAL_COMMENT_TOKEN }}
@@ -211,3 +211,11 @@ jobs:
         run: |
           [ -n "$GH_TOKEN" ] || { echo "no TT_METAL_COMMENT_TOKEN; answered here instead"; exit 0; }
           gh pr comment "$PR" --repo tenstorrent/tt-metal --body-file body.md
+
+      # Kept whichever way the comment went, so a caller can collect the answer itself.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accuracy-summary
+          path: body.md
+          retention-days: 14

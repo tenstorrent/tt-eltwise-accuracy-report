@@ -68,6 +68,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The baseline this run is measured against. It lives on `report`, not on the default
+      # branch, so a plain checkout has nothing for `check` to diff against.
+      - name: Fetch the published baseline
+        run: |
+          git fetch --no-tags origin "+report:refs/remotes/origin/report" 2>/dev/null &&
+            git show origin/report:report_index.json > report_index.json ||
+            { echo "::error::nothing published on the report branch to compare against"; exit 1; }
+
       - uses: ./.github/actions/tt-metal-env
         with:
           builds: 'true'
