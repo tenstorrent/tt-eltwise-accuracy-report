@@ -28,7 +28,7 @@ env:
 
 jobs:
   dispatch:
-    # Pull request comments only. On a plain issue there is no diff to select from.
+    # A plain issue has no diff to select ops from, and no head to measure.
     if: github.event.issue.pull_request != null
       && startsWith(github.event.comment.body, '/accuracy-report')
     runs-on: ubuntu-latest
@@ -40,8 +40,9 @@ jobs:
     concurrency:
       group: accuracy-report-command-${{ github.event.issue.number }}
     steps:
-      # The run occupies silicon the whole org shares, so this is the authorization control.
-      # It mirrors `/test`: anyone who can reach it could already dispatch it by hand.
+      # The authorization control, not a formality: a run occupies silicon the whole org
+      # shares. Write mirrors `/test`, and grants nothing a person could not already do by
+      # dispatching the workflow by hand.
       - name: Refuse anyone without write access
         env:
           GH_TOKEN: ${{ github.token }}
