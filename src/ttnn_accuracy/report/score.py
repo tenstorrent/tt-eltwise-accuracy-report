@@ -64,7 +64,6 @@ def _num(v) -> float | None:
 
 def verdict(
     max_ulp: str,
-    mean_ulp: str,
     usable_to: str,
     operands: int | None,
     defects: int,
@@ -73,16 +72,17 @@ def verdict(
     faithful: int,
     inexact: int,
 ) -> str:
-    """One of nine fixed phrases; analyze-report/contract.md is their twin and moves with them."""
+    """One of nine short phrases, each naming only what no other field already says;
+    analyze-report/contract.md is their twin and moves with them."""
     mx = _num(max_ulp)
     # Unscorable points lead, because every figure below excludes them — but they no longer
     # replace the rest: two defects once hid 9.02e+04 ULP on the other 64,512 points.
-    rest = "" if mx is None else f"; the rest reach {max_ulp} ULP"
+    rest = "" if mx is None else f"; rest {max_ulp} ULP"
     if defects:
-        return f"{defects} of {points} points returned inf or zero where a value exists{rest}"
+        return f"{defects}/{points} defects{rest}"
     # Also unscorable, and otherwise invisible: the ULP of these points would be bit-exact.
     if unflushed:
-        return f"{unflushed} of {points} points returned a value where the reference is zero{rest}"
+        return f"{unflushed}/{points} unflushed{rest}"
     if mx is None:
         return "no scorable points"
     # By outcome: against a wider reference the maximum is half a ULP even when every point
@@ -92,14 +92,15 @@ def verdict(
     # Both neighbours of a tie are within half a ULP, so this is a tie-breaking rule that
     # differs from the reference's, not an accuracy shortfall.
     if not inexact:
-        return f"faithfully rounded; {faithful} of {points} points took the other neighbour"
+        return f"faithful; {faithful}/{points} tie-breaks"
     if mx <= USABLE_ULP:
-        return f"within {USABLE_ULP:g} ULP everywhere"
+        return f"within {USABLE_ULP:g} ULP"
     if operands == 1:
         if _num(usable_to) is not None:
-            return f"accurate to |x| <= {usable_to}; up to {max_ulp} ULP beyond"
-        return f"never within {USABLE_ULP:g} ULP; mean {mean_ulp}, worst {max_ulp}"
-    return f"worst pairing {max_ulp} ULP; mean {mean_ulp}"
+            return f"accurate to |x| <= {usable_to}"
+        return f"never within {USABLE_ULP:g} ULP"
+    # The maximum is over sampled pairings, so it is a lower bound and says so.
+    return "worst sampled pairing"
 
 
 def _special_fmt(v: float) -> str:
@@ -298,7 +299,6 @@ def score_csv(path: Path, op: str, variant: str) -> tuple[dict, pd.DataFrame] | 
     stats = compute_stats(df) | {"specials": _specials_rows(special)}
     stats["verdict"] = verdict(
         stats["max_ulp"],
-        stats["mean_ulp"],
         stats["usable_to"],
         info.operands if info else None,
         stats["defects"],

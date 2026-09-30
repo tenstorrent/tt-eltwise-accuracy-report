@@ -55,65 +55,29 @@ def test_a_moved_metric_lands_in_the_right_bucket(change, bucket):
 
 
 @pytest.mark.parametrize(
-    ("max_ulp", "mean_ulp", "usable_to", "operands", "defects", "unflushed", "inexact", "expected"),
+    ("max_ulp", "usable_to", "operands", "defects", "unflushed", "inexact", "expected"),
     [
         # Half a ULP is what a correctly rounded answer costs against a wider reference, so
         # `bit-exact` is decided by the outcome counts and never by the maximum.
-        ("0.5", "—", "3.39e+38", 1, 0, 0, 0, "bit-exact"),
-        ("2", "1.1", "3.39e+38", 1, 0, 0, 1153, "within 2 ULP everywhere"),
-        (
-            "3.38e+38",
-            "2.5e+36",
-            "2.62e+05",
-            1,
-            0,
-            0,
-            9364,
-            "accurate to |x| <= 2.62e+05; up to 3.38e+38 ULP beyond",
-        ),
-        (
-            "1.14e+36",
-            "4.5e+34",
-            "—",
-            1,
-            0,
-            0,
-            33679,
-            "never within 2 ULP; mean 4.5e+34, worst 1.14e+36",
-        ),
-        ("254", "2.42", "—", 2, 0, 0, 65024, "worst pairing 254 ULP; mean 2.42"),
-        ("—", "—", "—", 1, 0, 0, 0, "no scorable points"),
+        ("0.5", "3.39e+38", 1, 0, 0, 0, "bit-exact"),
+        ("2", "3.39e+38", 1, 0, 0, 1153, "within 2 ULP"),
+        ("3.38e+38", "2.62e+05", 1, 0, 0, 9364, "accurate to |x| <= 2.62e+05"),
+        ("1.14e+36", "—", 1, 0, 0, 33679, "never within 2 ULP"),
+        ("254", "—", 2, 0, 0, 65024, "worst sampled pairing"),
+        ("—", "—", 1, 0, 0, 0, "no scorable points"),
         # rpow_bw at exponent 2.0: every scorable point exact, half of them infinite.
-        (
-            "0.5",
-            "—",
-            "3.39e+38",
-            1,
-            32384,
-            0,
-            0,
-            "32384 of 64777 points returned inf or zero where a value exists; the rest reach 0.5 ULP",
-        ),
+        ("0.5", "3.39e+38", 1, 32384, 0, 0, "32384/64777 defects; rest 0.5 ULP"),
         # The quasar exp case: bit-exact everywhere the reference is a number.
-        (
-            "0.5",
-            "—",
-            "3.39e+38",
-            1,
-            0,
-            396,
-            0,
-            "396 of 64777 points returned a value where the reference is zero; the rest reach 0.5 ULP",
-        ),
+        ("0.5", "3.39e+38", 1, 0, 396, 0, "396/64777 unflushed; rest 0.5 ULP"),
     ],
 )
 def test_verdicts_follow_the_contract(
-    max_ulp, mean_ulp, usable_to, operands, defects, unflushed, inexact, expected
+    max_ulp, usable_to, operands, defects, unflushed, inexact, expected
 ):
     from ttnn_accuracy.report.score import verdict
 
     assert (
-        verdict(max_ulp, mean_ulp, usable_to, operands, defects, 64777, unflushed, 0, inexact)
+        verdict(max_ulp, usable_to, operands, defects, 64777, unflushed, 0, inexact)
         == expected
     )
 
@@ -122,8 +86,8 @@ def test_a_tie_broken_the_other_way_is_not_reported_as_an_error():
     """WH breaks ties away from zero, torch to even, so bf16 add misses 4.2 billion pairings."""
     from ttnn_accuracy.report.score import verdict
 
-    assert verdict("0.621", "0.571", "—", 2, 0, 64777, 0, 64000, 0) == (
-        "faithfully rounded; 64000 of 64777 points took the other neighbour"
+    assert verdict("0.621", "—", 2, 0, 64777, 0, 64000, 0) == (
+        "faithful; 64000/64777 tie-breaks"
     )
 
 
@@ -235,6 +199,6 @@ def test_a_defect_does_not_hide_how_wrong_the_scorable_points_are():
     the other 64,512 were 9.02e+04 ULP out. The defect leads; it must not be the whole line."""
     from ttnn_accuracy.report.score import verdict
 
-    said = verdict("9.02e+04", "1.72e+03", "—", 1, 2, 64514, 0, 0, 64512)
-    assert said.startswith("2 of 64514 points returned inf or zero")
+    said = verdict("9.02e+04", "—", 1, 2, 64514, 0, 0, 64512)
+    assert said.startswith("2/64514 defects")
     assert "9.02e+04 ULP" in said
