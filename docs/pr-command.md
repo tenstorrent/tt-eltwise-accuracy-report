@@ -4,6 +4,9 @@ Comment `/accuracy-report` on a tt-metal PR. It measures only the eltwise ops th
 can affect, on real silicon, against the published baseline, and answers with a link. It is
 informational and never gates a merge.
 
+Write access is required, as for `/test`. A comment from anyone else starts no run at all,
+so it leaves no failed check behind.
+
 ## How it works
 
 ```mermaid
