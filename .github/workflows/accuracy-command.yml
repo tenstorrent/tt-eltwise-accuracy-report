@@ -206,15 +206,22 @@ jobs:
           gh issue comment "${{ github.event.issue.number }}" \
             --repo "$GITHUB_REPOSITORY" --body-file body.md
 
-      # And on the tt-metal pull request itself. A conversation comment is an issue comment,
-      # so this token needs Issues write on tt-metal, not only Pull requests.
+      # And on the tt-metal pull request itself. Delivery, not measurement: the answer is
+      # already written and uploaded, so a token problem is a warning on a green run rather
+      # than a red one that implies the ops were never measured.
       - name: Answer the tt-metal pull request
         env:
           GH_TOKEN: ${{ secrets.TT_METAL_COMMENT_TOKEN }}
           PR: ${{ needs.select.outputs.pr }}
         run: |
-          [ -n "$GH_TOKEN" ] || { echo "no TT_METAL_COMMENT_TOKEN; answered here instead"; exit 0; }
-          gh pr comment "$PR" --repo tenstorrent/tt-metal --body-file body.md
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::no TT_METAL_COMMENT_TOKEN — the answer is on this run page"; exit 0
+          fi
+          if gh pr comment "$PR" --repo tenstorrent/tt-metal --body-file body.md; then exit 0; fi
+          # A conversation comment is an issue comment, so `addComment` is refused for a
+          # token holding only Pull requests write. Naming the scope saves reading the log.
+          echo "::warning::TT_METAL_COMMENT_TOKEN cannot comment on tt-metal#$PR —" \
+               "it needs Issues: read and write, not Pull requests"
 
       # Kept whichever way the comment went, so a caller can collect the answer itself.
       - uses: actions/upload-artifact@v4
