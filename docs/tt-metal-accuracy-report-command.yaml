@@ -16,7 +16,6 @@ permissions:
   contents: read
   # Creating a PR conversation comment creates an issue comment; `pull-requests` alone is refused.
   issues: write
-  pull-requests: write
 
 env:
   ORACLE: tenstorrent/tt-eltwise-accuracy-report
@@ -52,7 +51,7 @@ jobs:
                  --jq .permission 2>"$RUNNER_TEMP/err")
           then
             # Only 404 means "not a collaborator"; any other failure is the token, not a verdict.
-            grep -q 404 "$RUNNER_TEMP/err" || {
+            grep -q "HTTP 404" "$RUNNER_TEMP/err" || {
               cat "$RUNNER_TEMP/err" >&2
               echo "::error::cannot read $ACTOR's access to $GITHUB_REPOSITORY"; exit 1; }
             level=none
@@ -117,5 +116,7 @@ jobs:
             body="$body missing \`ACCURACY_REPORT_DISPATCH_TOKEN\`."
             body="$body [Log]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)."
           fi
-          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
+          # The issues endpoint, not `gh pr comment`: that resolves the pull request first, which
+          # would need `pull-requests` read on top of the write this already has.
+          gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -f body="$body" --silent
           [ "$STARTED" = true ]
