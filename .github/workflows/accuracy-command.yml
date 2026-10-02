@@ -5,9 +5,9 @@ name: accuracy-command
 
 # Names the run after the pull request it is measuring, so the Actions list is readable and
 # a caller can tell its own run from someone else's.
-run-name: accuracy-report for tt-metal#${{ inputs.pr || github.event.issue.number }}
+run-name: eltwise-accuracy-report for tt-metal#${{ inputs.pr || github.event.issue.number }}
 
-# Comment `/accuracy-report tt-metal#12345` on any issue or pull request here. The command
+# Comment `/eltwise-accuracy-report tt-metal#12345` on any issue or pull request here. The command
 # reads that tt-metal PR's changed files, works out which ops they can affect, and measures
 # only those against the published baseline. Selecting nothing is a valid, expected answer.
 #
@@ -37,7 +37,8 @@ permissions:
 jobs:
   select:
     if: github.event_name == 'workflow_dispatch'
-      || startsWith(github.event.comment.body, '/accuracy-report')
+      || github.event.comment.body == '/eltwise-accuracy-report'
+      || startsWith(github.event.comment.body, '/eltwise-accuracy-report ')
     runs-on: ubuntu-latest
     outputs:
       ops: ${{ steps.pick.outputs.ops }}
@@ -66,7 +67,7 @@ jobs:
             --jq .permission 2>/dev/null || echo none)
           case "$level" in
             admin|maintain|write) echo "$ACTOR may run this" ;;
-            *) echo "::error::$ACTOR has $level access; /accuracy-report needs write"; exit 1 ;;
+            *) echo "::error::$ACTOR has $level access; /eltwise-accuracy-report needs write"; exit 1 ;;
           esac
 
       - uses: actions/checkout@v4
@@ -82,7 +83,7 @@ jobs:
         run: |
           number=${DISPATCHED:-$(grep -oE 'tt-metal#[0-9]+' <<<"$BODY" | head -1 | cut -d'#' -f2 || true)}
           [ -n "$number" ] || {
-            echo "::error::name the pull request, e.g. /accuracy-report tt-metal#12345"; exit 1; }
+            echo "::error::name the pull request, e.g. /eltwise-accuracy-report tt-metal#12345"; exit 1; }
           echo "number=$number" >> "$GITHUB_OUTPUT"
           gh pr view "$number" --repo tenstorrent/tt-metal --json headRefOid,title \
             --jq '"sha=\(.headRefOid)"' >> "$GITHUB_OUTPUT"
