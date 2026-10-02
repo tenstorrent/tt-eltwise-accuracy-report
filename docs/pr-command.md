@@ -28,7 +28,7 @@ solely to check the commenter and dispatch. The work, the devices and the result
 
 | Side | Needs |
 |---|---|
-| tt-metal | `.github/workflows/eltwise-eltwise-accuracy-report-command.yaml` — the copy in [tt-metal-eltwise-accuracy-report-command.yaml](tt-metal-eltwise-accuracy-report-command.yaml) |
+| tt-metal | `.github/workflows/eltwise-accuracy-report-command.yaml` — the copy in [tt-metal-eltwise-accuracy-report-command.yaml](tt-metal-eltwise-accuracy-report-command.yaml) |
 | tt-metal | a secret `ACCURACY_REPORT_DISPATCH_TOKEN` that may dispatch workflows in this repository |
 | here | a secret `TT_METAL_COMMENT_TOKEN` — **Issues: write** on tt-metal, so the result lands on the pull request |
 
