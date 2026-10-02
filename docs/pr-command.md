@@ -1,6 +1,6 @@
-# `/accuracy-report` on a tt-metal pull request
+# `/eltwise-accuracy-report` on a tt-metal pull request
 
-Comment `/accuracy-report` on a tt-metal PR. It measures only the eltwise ops that change
+Comment `/eltwise-accuracy-report` on a tt-metal PR. It measures only the eltwise ops that change
 can affect, on real silicon, against the published baseline, and answers with a link. It is
 informational and never gates a merge.
 
@@ -11,7 +11,7 @@ so it leaves no failed check behind.
 
 ```mermaid
 flowchart LR
-    C["/accuracy-report<br/>on a tt-metal PR"] --> T["tt-metal:<br/>accuracy-report-command"]
+    C["/eltwise-accuracy-report<br/>on a tt-metal PR"] --> T["tt-metal:<br/>eltwise-accuracy-report-command"]
     T -->|checks write access| T
     T -->|"workflow dispatch<br/>(pr number)"| O["this repo:<br/>accuracy-command"]
     T -->|"comments a link"| C
@@ -28,7 +28,7 @@ solely to check the commenter and dispatch. The work, the devices and the result
 
 | Side | Needs |
 |---|---|
-| tt-metal | `.github/workflows/accuracy-report-command.yaml` — the copy in [tt-metal-accuracy-report-command.yaml](tt-metal-accuracy-report-command.yaml) |
+| tt-metal | `.github/workflows/eltwise-accuracy-report-command.yaml` — the copy in [tt-metal-eltwise-accuracy-report-command.yaml](tt-metal-eltwise-accuracy-report-command.yaml) |
 | tt-metal | a secret `ACCURACY_REPORT_DISPATCH_TOKEN` that may dispatch workflows in this repository |
 | here | a secret `TT_METAL_COMMENT_TOKEN` — **Issues: write** on tt-metal, so the result lands on the pull request |
 
@@ -69,7 +69,7 @@ Selecting nothing is a valid answer, and what a docs-only change should produce.
 Override it with `ops=`:
 
 ```
-/accuracy-report ops=exp,gelu
+/eltwise-accuracy-report ops=exp,gelu
 ```
 
 Past `SELECT_CAP` named ops the run asks for their categories instead.
