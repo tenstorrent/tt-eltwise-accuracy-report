@@ -56,7 +56,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 0 | 0 | agree |
 | `default` | -1.1754944e-38 | -1 | -1 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261003T030251`_
 
 ![ULP error — floor default](../../../charts/wh/fp32/floor_default_ulp.svg)
 

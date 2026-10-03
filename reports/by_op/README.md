@@ -38,7 +38,7 @@ Total: 221 ops measured
 | [clamp_bw](clamp_bw/README.md) | ternary_bw | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) |
 | [clip](clip/README.md) | unary | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) |
 | [clip_bw](clip_bw/README.md) | ternary_bw | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) |
-| [cos](cos/README.md) | unary | [4.1e+03](cos/README.md) | [3.3e+12](cos/README.md) | [0.552](cos/README.md) | [1.34e+08](cos/README.md) |
+| [cos](cos/README.md) | unary | [0.552](cos/README.md) | [1.34e+08](cos/README.md) | [0.552](cos/README.md) | [1.34e+08](cos/README.md) |
 | [cos_bw](cos_bw/README.md) | unary_bw | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) |
 | [cosh](cosh/README.md) | unary | [0.5](cosh/README.md) | [1.35](cosh/README.md) | [0.501](cosh/README.md) | [1.35](cosh/README.md) |
 | [cosh_bw](cosh_bw/README.md) | unary_bw | [0.5](cosh_bw/README.md) | [2.21](cosh_bw/README.md) | [0.5](cosh_bw/README.md) | [2.2](cosh_bw/README.md) |
@@ -93,7 +93,7 @@ Total: 221 ops measured
 | [hypot_bw](hypot_bw/README.md) | binary_bw | [74.6](hypot_bw/README.md) | [4.86e+06](hypot_bw/README.md) | [74.6](hypot_bw/README.md) | [4.86e+06](hypot_bw/README.md) |
 | [i0](i0/README.md) | unary | [255](i0/README.md) | [1.68e+07](i0/README.md) | [255](i0/README.md) | [1.68e+07](i0/README.md) |
 | [i0_bw](i0_bw/README.md) | unary_bw | [218](i0_bw/README.md) | [1.56e+07](i0_bw/README.md) | [218](i0_bw/README.md) | [1.56e+07](i0_bw/README.md) |
-| [i1](i1/README.md) | unary | [218](i1/README.md) | [1.56e+07](i1/README.md) | [0.858](i1/README.md) | [8.02](i1/README.md) |
+| [i1](i1/README.md) | unary | [0.858](i1/README.md) | [8.02](i1/README.md) | [0.858](i1/README.md) | [8.02](i1/README.md) |
 | [identity](identity/README.md) | unary | [0](identity/README.md) | [0](identity/README.md) | [0](identity/README.md) | [0](identity/README.md) |
 | [isclose](isclose/README.md) | binary | [0](isclose/README.md) | [0](isclose/README.md) | [0](isclose/README.md) | [0](isclose/README.md) |
 | [isfinite](isfinite/README.md) | unary | [0](isfinite/README.md) | [0](isfinite/README.md) | [0](isfinite/README.md) | [0](isfinite/README.md) |
@@ -117,7 +117,7 @@ Total: 221 ops measured
 | [log](log/README.md) | unary | [0.78](log/README.md) | [0.961](log/README.md) | [0.78](log/README.md) | [0.961](log/README.md) |
 | [log10](log10/README.md) | unary | [0.785](log10/README.md) | [2.13](log10/README.md) | [0.785](log10/README.md) | [2.13](log10/README.md) |
 | [log10_bw](log10_bw/README.md) | unary_bw | [1.74](log10_bw/README.md) | [2.1](log10_bw/README.md) | [1.74](log10_bw/README.md) | [9.02e+04](log10_bw/README.md) |
-| [log1p](log1p/README.md) | unary | [0.931](log1p/README.md) | [0.984](log1p/README.md) | [0.931](log1p/README.md) | [0.967](log1p/README.md) |
+| [log1p](log1p/README.md) | unary | [0.931](log1p/README.md) | [0.967](log1p/README.md) | [0.931](log1p/README.md) | [0.967](log1p/README.md) |
 | [log1p_bw](log1p_bw/README.md) | unary_bw | [1.42](log1p_bw/README.md) | [1.89](log1p_bw/README.md) | [1.42](log1p_bw/README.md) | [9.02e+04](log1p_bw/README.md) |
 | [log2](log2/README.md) | unary | [0.766](log2/README.md) | [2.43](log2/README.md) | [0.766](log2/README.md) | [2.43](log2/README.md) |
 | [log2_bw](log2_bw/README.md) | unary_bw | [1.51](log2_bw/README.md) | [1.9](log2_bw/README.md) | [1.51](log2_bw/README.md) | [9.02e+04](log2_bw/README.md) |
@@ -193,7 +193,7 @@ Total: 221 ops measured
 | [signbit](signbit/README.md) | unary | [0](signbit/README.md) | [0](signbit/README.md) | [0](signbit/README.md) | [0](signbit/README.md) |
 | [silu](silu/README.md) | unary | [0.914](silu/README.md) | [2.94](silu/README.md) | [0.888](silu/README.md) | [3.61](silu/README.md) |
 | [silu_bw](silu_bw/README.md) | unary_bw | [285](silu_bw/README.md) | [5.72e+06](silu_bw/README.md) | [285](silu_bw/README.md) | [5.72e+06](silu_bw/README.md) |
-| [sin](sin/README.md) | unary | [4.1e+03](sin/README.md) | [2.2e+12](sin/README.md) | [0.552](sin/README.md) | [3.36e+07](sin/README.md) |
+| [sin](sin/README.md) | unary | [0.552](sin/README.md) | [3.36e+07](sin/README.md) | [0.552](sin/README.md) | [3.36e+07](sin/README.md) |
 | [sin_bw](sin_bw/README.md) | unary_bw | [2.98e+41](sin_bw/README.md) | [1.24e+52](sin_bw/README.md) | [2.98e+41](sin_bw/README.md) | [1.24e+52](sin_bw/README.md) |
 | [sinh](sinh/README.md) | unary | [0.5](sinh/README.md) | [2.21](sinh/README.md) | [0.5](sinh/README.md) | [2.2](sinh/README.md) |
 | [sinh_bw](sinh_bw/README.md) | unary_bw | [0.5](sinh_bw/README.md) | [1.35](sinh_bw/README.md) | [0.501](sinh_bw/README.md) | [1.35](sinh_bw/README.md) |
@@ -215,7 +215,7 @@ Total: 221 ops measured
 | [subtract](subtract/README.md) | binary | [0.621](subtract/README.md) | [0.5](subtract/README.md) | [0.621](subtract/README.md) | [0.5](subtract/README.md) |
 | [subtract_](subtract_/README.md) | binary | [0.621](subtract_/README.md) | [0.5](subtract_/README.md) | [0.621](subtract_/README.md) | [0.5](subtract_/README.md) |
 | [swish](swish/README.md) | unary | [0.914](swish/README.md) | [2.94](swish/README.md) | [0.888](swish/README.md) | [3.61](swish/README.md) |
-| [tan](tan/README.md) | unary | [4.1e+03](tan/README.md) | [2.2e+12](tan/README.md) | [0.551](tan/README.md) | [2.26e+08](tan/README.md) |
+| [tan](tan/README.md) | unary | [0.551](tan/README.md) | [2.26e+08](tan/README.md) | [0.551](tan/README.md) | [2.26e+08](tan/README.md) |
 | [tan_bw](tan_bw/README.md) | unary_bw | [3.57e+40](tan_bw/README.md) | [2.85e+45](tan_bw/README.md) | [3.57e+40](tan_bw/README.md) | [2.85e+45](tan_bw/README.md) |
 | [tanh](tanh/README.md) | unary | [0.811](tanh/README.md) | [2.79](tanh/README.md) | [0.811](tanh/README.md) | [2.6](tanh/README.md) |
 | [tanh_bw](tanh_bw/README.md) | unary_bw | [1.16](tanh_bw/README.md) | [6.59e+04](tanh_bw/README.md) | [1.16](tanh_bw/README.md) | [6.59e+04](tanh_bw/README.md) |

@@ -255,7 +255,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
-| `clamped_silu_glu` | ttnn.clamped_silu_glu(): incompatible function arguments. |
 
 
 ---

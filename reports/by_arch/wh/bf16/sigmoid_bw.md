@@ -81,7 +81,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 0.25 | 0.25 | agree |
 | `default` | -1.1754944e-38 | 0.25 | 0.25 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261003T030514`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — sigmoid_bw default](../../../charts/wh/bf16/sigmoid_bw_default_ulp.svg)
 

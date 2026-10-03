@@ -149,7 +149,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`gelu`](by_op/gelu/README.md) | `default` | wh bf16 | 86 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | bh fp32 | 83 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | wh fp32 | 83 of 65,024 | 0.1% |
-| [`softplus`](by_op/softplus/README.md) | `default` | wh fp32 | 30 of 65,024 | 0.0% |
 | [`silu`](by_op/silu/README.md) | `default` | bh bf16 | 13 of 65,024 | 0.0% |
 | [`silu`](by_op/silu/README.md) | `default` | wh bf16 | 13 of 65,024 | 0.0% |
 | [`swish`](by_op/swish/README.md) | `default` | bh bf16 | 13 of 65,024 | 0.0% |
@@ -170,13 +169,14 @@ Charts show ULP (units in last place) error across the full input range.
 | [`swish`](by_op/swish/README.md) | `default` | wh fp32 | 9 of 65,024 | 0.0% |
 | [`i0_bw`](by_op/i0_bw/README.md) | `default` | bh bf16 | 4 of 33,904 | 0.0% |
 | [`i0_bw`](by_op/i0_bw/README.md) | `default` | wh bf16 | 4 of 33,904 | 0.0% |
-| [`i1`](by_op/i1/README.md) | `default` | wh bf16 | 4 of 33,904 | 0.0% |
 | [`softplus`](by_op/softplus/README.md) | `default` | bh fp32 | 5 of 65,024 | 0.0% |
+| [`softplus`](by_op/softplus/README.md) | `default` | wh fp32 | 5 of 65,024 | 0.0% |
 | [`atanh`](by_op/atanh/README.md) | `default` | bh bf16 | 2 of 32,256 | 0.0% |
 | [`atanh`](by_op/atanh/README.md) | `default` | wh bf16 | 2 of 32,256 | 0.0% |
 | [`asin`](by_op/asin/README.md) | `default` | bh bf16 | 2 of 32,258 | 0.0% |
 | [`asin`](by_op/asin/README.md) | `default` | wh bf16 | 2 of 32,258 | 0.0% |
 | [`i1`](by_op/i1/README.md) | `default` | bh bf16 | 4 of 65,024 | 0.0% |
+| [`i1`](by_op/i1/README.md) | `default` | wh bf16 | 4 of 65,024 | 0.0% |
 | [`cosh_bw`](by_op/cosh_bw/README.md) | `default` | bh bf16 | 2 of 33,894 | 0.0% |
 | [`cosh_bw`](by_op/cosh_bw/README.md) | `default` | bh fp32 | 2 of 33,894 | 0.0% |
 | [`cosh_bw`](by_op/cosh_bw/README.md) | `default` | wh bf16 | 2 of 33,894 | 0.0% |
