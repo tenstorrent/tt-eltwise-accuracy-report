@@ -162,7 +162,7 @@ Total: 221 ops measured
 | [nez](nez/README.md) | unary | [0](nez/README.md) | [0](nez/README.md) | [0](nez/README.md) | [0](nez/README.md) |
 | [polygamma](polygamma/README.md) | unary | [1.02e+08](polygamma/README.md) | [7.91e+33](polygamma/README.md) | [1.02e+08](polygamma/README.md) | [7.91e+33](polygamma/README.md) |
 | [polygamma_bw](polygamma_bw/README.md) | unary_bw | [3.57e+08](polygamma_bw/README.md) | [4.45e+30](polygamma_bw/README.md) | [3.57e+08](polygamma_bw/README.md) | [4.45e+30](polygamma_bw/README.md) |
-| [pow](pow/README.md) | binary | [4.86e+18](pow/README.md) | [5.92e+03](pow/README.md) | [4.86e+18](pow/README.md) | [333](pow/README.md) |
+| [pow](pow/README.md) | binary | [4.86e+18](pow/README.md) | [324](pow/README.md) | [4.86e+18](pow/README.md) | [333](pow/README.md) |
 | [pow_bw](pow_bw/README.md) | unary_bw | [0](pow_bw/README.md) | [0](pow_bw/README.md) | [0](pow_bw/README.md) | [0](pow_bw/README.md) |
 | [prelu](prelu/README.md) | unary | [0](prelu/README.md) | [0](prelu/README.md) | [0](prelu/README.md) | [0.5](prelu/README.md) |
 | [rad2deg](rad2deg/README.md) | unary | [0.992](rad2deg/README.md) | [0.696](rad2deg/README.md) | [0.992](rad2deg/README.md) | [0.696](rad2deg/README.md) |
@@ -226,5 +226,5 @@ Total: 221 ops measured
 | [trunc](trunc/README.md) | unary | [0](trunc/README.md) | [0](trunc/README.md) | [0](trunc/README.md) | [0](trunc/README.md) |
 | [where](where/README.md) | ternary | [0](where/README.md) | [0](where/README.md) | [0](where/README.md) | [0](where/README.md) |
 | [xielu](xielu/README.md) | unary | [0.5](xielu/README.md) | [1.08e+07](xielu/README.md) | [0.5](xielu/README.md) | [1.08e+07](xielu/README.md) |
-| [xlogy](xlogy/README.md) | binary | [897](xlogy/README.md) | [8.84e+07](xlogy/README.md) | [23.5](xlogy/README.md) | [2.39e+06](xlogy/README.md) |
+| [xlogy](xlogy/README.md) | binary | [23.5](xlogy/README.md) | [2.39e+06](xlogy/README.md) | [23.5](xlogy/README.md) | [2.39e+06](xlogy/README.md) |
 | [xlogy_bw](xlogy_bw/README.md) | binary_bw | [0.78](xlogy_bw/README.md) | [0.766](xlogy_bw/README.md) | [0.78](xlogy_bw/README.md) | [0.766](xlogy_bw/README.md) |

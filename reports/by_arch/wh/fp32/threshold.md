@@ -66,7 +66,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `threshold=0.5,value=0.0` | 1.1754944e-38 | 0 | 0 | agree |
 | `threshold=0.5,value=0.0` | -1.1754944e-38 | 0 | 0 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261003T030251`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ### `threshold=0.0,value=1.0`
 

@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 0 | 5.877472e-39 | **differ** |
 | `default` | -1.1754944e-38 | 0 | -5.877472e-39 | **differ** |
 
-_Measured on WORMHOLE_B0 · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261003T030251`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — swish default](../../../charts/wh/fp32/swish_default_ulp.svg)
 
