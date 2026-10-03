@@ -2,132 +2,36 @@
   "_runs": {
     "bh": {
       "bf16": {
+        "ci_run": "37091626773",
         "device_arch": "BLACKHOLE",
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "add",
-          "add_",
-          "addalpha",
-          "atan2",
-          "bias_gelu",
-          "bias_gelu_",
-          "div",
-          "div_no_nan",
-          "divide",
-          "divide_",
-          "eq",
-          "eq_",
-          "floor_div",
-          "fmod",
-          "ge",
-          "ge_",
-          "gt",
-          "gt_",
-          "hypot",
-          "isclose",
-          "l1_loss",
-          "ldexp",
-          "ldexp_",
-          "le",
-          "le_",
-          "logaddexp",
-          "logaddexp2",
-          "logaddexp2_",
-          "logaddexp_",
-          "logical_and",
-          "logical_and_",
-          "logical_or",
-          "logical_or_",
-          "logical_xor_",
-          "lt",
-          "lt_",
-          "maximum",
-          "minimum",
-          "mse_loss",
-          "multiply",
-          "multiply_",
-          "ne",
-          "ne_",
-          "nextafter",
-          "pow",
-          "remainder",
-          "rsub",
-          "rsub_",
-          "squared_difference",
-          "squared_difference_",
-          "subalpha",
-          "subtract",
-          "subtract_",
-          "xlogy"
+          "addcdiv",
+          "addcmul",
+          "lerp",
+          "mac",
+          "where"
         ],
-        "run_id": "20260929T111443",
-        "tt_metal_commit": "a3a9fb4229a",
-        "ttnn_version": "0.78.0"
+        "run_id": "20261003T030215",
+        "tt_metal_commit": "de546d3b146",
+        "ttnn_version": "0.79.0"
       },
       "fp32": {
+        "ci_run": "37091626773",
         "device_arch": "BLACKHOLE",
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "add",
-          "add_",
-          "addalpha",
-          "atan2",
-          "bias_gelu",
-          "bias_gelu_",
-          "div",
-          "div_no_nan",
-          "divide",
-          "divide_",
-          "eq",
-          "eq_",
-          "floor_div",
-          "fmod",
-          "ge",
-          "ge_",
-          "gt",
-          "gt_",
-          "hypot",
-          "isclose",
-          "l1_loss",
-          "ldexp",
-          "ldexp_",
-          "le",
-          "le_",
-          "logaddexp",
-          "logaddexp2",
-          "logaddexp2_",
-          "logaddexp_",
-          "logical_and",
-          "logical_and_",
-          "logical_or",
-          "logical_or_",
-          "logical_xor_",
-          "lt",
-          "lt_",
-          "maximum",
-          "minimum",
-          "mse_loss",
-          "multiply",
-          "multiply_",
-          "ne",
-          "ne_",
-          "nextafter",
-          "pow",
-          "remainder",
-          "rsub",
-          "rsub_",
-          "squared_difference",
-          "squared_difference_",
-          "subalpha",
-          "subtract",
-          "subtract_",
-          "xlogy"
+          "addcdiv",
+          "addcmul",
+          "lerp",
+          "mac",
+          "where"
         ],
-        "run_id": "20260929T111443",
-        "tt_metal_commit": "a3a9fb4229a",
-        "ttnn_version": "0.78.0"
+        "run_id": "20261003T030215",
+        "tt_metal_commit": "de546d3b146",
+        "ttnn_version": "0.79.0"
       }
     },
     "wh": {
@@ -1874,7 +1778,7 @@
           "ulp_clipped": 5800,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 2.11e+06 ULP; mean 2.35e+03"
+          "verdict": "worst sampled pairing"
         }
       },
       "addcmul": {
@@ -2062,7 +1966,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 126 ULP; mean 19.4"
+          "verdict": "worst sampled pairing"
         }
       },
       "asin": {
@@ -15477,7 +15381,7 @@
           "ulp_clipped": 2,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 1.77e+03 ULP; mean 39.9"
+          "verdict": "worst sampled pairing"
         }
       },
       "lerp_bw": {
@@ -20372,7 +20276,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 63.5 ULP; mean 26.4"
+          "verdict": "worst sampled pairing"
         }
       },
       "max_bw": {
@@ -34885,7 +34789,7 @@
           "ulp_clipped": 35986,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 2.19e+12 ULP; mean 8.82e+07"
+          "verdict": "worst sampled pairing"
         }
       },
       "addcmul": {
@@ -35047,7 +34951,7 @@
           "ulp_clipped": 3170,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 2.13e+06 ULP; mean 1.59e+04"
+          "verdict": "worst sampled pairing"
         }
       },
       "asin": {
@@ -48073,7 +47977,7 @@
           "ulp_clipped": 3258,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 1.46e+08 ULP; mean 9.53e+04"
+          "verdict": "worst sampled pairing"
         }
       },
       "lerp_bw": {
@@ -52867,7 +52771,7 @@
           "ulp_clipped": 32158,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 4.22e+06 ULP; mean 7.31e+05"
+          "verdict": "worst sampled pairing"
         }
       },
       "max_bw": {
