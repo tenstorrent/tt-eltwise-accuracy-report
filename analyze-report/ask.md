@@ -16,8 +16,8 @@ is only comparable to another taken on the same host, which the "Measured agains
 |---|---|---|---|---|
 | bh | bf16 | `de546d3b146` | 0.79.0 | 66444ba711c0 |
 | bh | fp32 | `de546d3b146` | 0.79.0 | 66444ba711c0 |
-| wh | bf16 | `a3a9fb4229a` | 0.78.0 | 312b06a002e7 |
-| wh | fp32 | `a3a9fb4229a` | 0.78.0 | 312b06a002e7 |
+| wh | bf16 | `de546d3b146` | 0.79.0 | 312b06a002e7 |
+| wh | fp32 | `de546d3b146` | 0.79.0 | 312b06a002e7 |
 
 **Status: in force.** The committed `report_index.json` carries `max_ulp`, `mean_ulp`,
 `usable_to`, `max_abs`, `ulp_clipped`, `n_inputs`, `outcomes`, `specials`, `defects`,
@@ -596,8 +596,8 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `add` | `default` | faithfully rounded; 64970 of 65026 points took the other neighbour | 0.621 | 0.571 | 0.997 | — | 544 ±8% | 30851 |
 | wh | bf16 | `add_` | `default` | faithfully rounded; 64970 of 65026 points took the other neighbour | 0.621 | 0.571 | 0.997 | — | 541 ±49% | 31014 |
 | wh | bf16 | `addalpha` | `alpha=2.0` | worst pairing 254 ULP; mean 2 | 254 | 2 | 0.997 | — | 536 | 31298 |
-| wh | bf16 | `addcdiv` | `default` | worst pairing 2.11e+06 ULP; mean 2.35e+03 | 2.11e+06 | 2.35e+03 | 0.999 | — | 698 | 24040 |
-| wh | bf16 | `addcmul` | `default` | worst pairing 126 ULP; mean 19.4 | 126 | 19.4 | 1 | — | 688 | 24382 |
+| wh | bf16 | `addcdiv` | `default` | worst sampled pairing | 2.11e+06 | 2.35e+03 | 0.999 | — | 698 | 24040 |
+| wh | bf16 | `addcmul` | `default` | worst sampled pairing | 126 | 19.4 | 1 | — | 688 | 24382 |
 | wh | bf16 | `asin` | `default` | 2 of 32258 points returned inf or zero where a value exists; the rest reach 0.499 ULP | 0.499 | 0 | 1 | — | 673 | 24917 |
 | wh | bf16 | `asin_bw` | `default` | accurate to |x| <= 0.938; up to 2.76 ULP beyond | 2.76 | 0.787 | 0.992 | 0.938 | 7435 | 2256 |
 | wh | bf16 | `asinh` | `default` | within 2 ULP everywhere | 1.32 | 0.619 | 0.992 | 3.39e+38 | 1408 | 11916 |
@@ -699,7 +699,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `leaky_relu` | `negative_slope=0.01` | faithfully rounded; 15341 of 65024 points took the other neighbour | 0.96 | 0.741 | 0.761 | 3.39e+38 | 397 | 42287 |
 | wh | bf16 | `leaky_relu` | `negative_slope=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 396 ±6% | 42380 |
 | wh | bf16 | `leaky_relu_bw` | `default` | bit-exact | 0.16 | 0 | 1 | 3.39e+38 | 1834 | 9146 |
-| wh | bf16 | `lerp` | `default` | worst pairing 1.77e+03 ULP; mean 39.9 | 1.77e+03 | 39.9 | 1 | — | 692 ±8% | 24244 |
+| wh | bf16 | `lerp` | `default` | worst sampled pairing | 1.77e+03 | 39.9 | 1 | — | 692 ±8% | 24244 |
 | wh | bf16 | `lerp_bw` | `default` | faithfully rounded; 65026 of 65026 points took the other neighbour | 0.506 | 0.506 | 0.992 | — | 2807 | 5977 |
 | wh | bf16 | `lez` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 412 ±12% | 40766 |
 | wh | bf16 | `lgamma` | `default` | accurate to |x| <= 0.414; up to 324 ULP beyond | 324 | 0.846 | 0.76 | 0.414 | 2433 | 6895 |
@@ -733,7 +733,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `lt` | `default` | bit-exact | 0 | 0 | 1 | — | 531 | 31614 |
 | wh | bf16 | `lt_` | `default` | bit-exact | 0 | 0 | 1 | — | 544 | 30847 |
 | wh | bf16 | `ltz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 394 ±6% | 42571 |
-| wh | bf16 | `mac` | `default` | worst pairing 63.5 ULP; mean 26.4 | 63.5 | 26.4 | 1 | — | 685 ±6% | 24478 |
+| wh | bf16 | `mac` | `default` | worst sampled pairing | 63.5 | 26.4 | 1 | — | 685 ±6% | 24478 |
 | wh | bf16 | `max_bw` | `default` | worst pairing 64 ULP; mean 64 | 64 | 64 | 1 | — | 5479 ±66% | 3062 |
 | wh | bf16 | `maximum` | `default` | bit-exact | 0 | 0 | 1 | — | 541 ±8% | 30999 |
 | wh | bf16 | `min_bw` | `default` | worst pairing 64 ULP; mean 64 | 64 | 64 | 1 | — | 5486 | 3058 |
@@ -834,8 +834,8 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `add` | `default` | bit-exact | 0.5 | 0 | 1 | — | 977 | 17168 |
 | wh | fp32 | `add_` | `default` | bit-exact | 0.5 | 0 | 1 | — | 997 | 16828 |
 | wh | fp32 | `addalpha` | `alpha=2.0` | bit-exact | 0.5 | 0 | 1 | — | 988 | 16984 |
-| wh | fp32 | `addcdiv` | `default` | worst pairing 2.19e+12 ULP; mean 8.82e+07 | 2.19e+12 | 8.82e+07 | 0.901 | — | 1345 | 12473 |
-| wh | fp32 | `addcmul` | `default` | worst pairing 2.13e+06 ULP; mean 1.59e+04 | 2.13e+06 | 1.59e+04 | 0.985 | — | 1343 | 12494 |
+| wh | fp32 | `addcdiv` | `default` | worst sampled pairing | 2.19e+12 | 8.82e+07 | 0.901 | — | 1345 | 12473 |
+| wh | fp32 | `addcmul` | `default` | worst sampled pairing | 2.13e+06 | 1.59e+04 | 0.985 | — | 1343 | 12494 |
 | wh | fp32 | `asin` | `default` | within 2 ULP everywhere | 1.77 | 0.795 | 0.985 | 1 | 1047 | 16026 |
 | wh | fp32 | `asin_bw` | `default` | accurate to |x| <= 0.926; up to 609 ULP beyond | 609 | 1.34 | 0.988 | 0.926 | 14787 ±39% | 1135 |
 | wh | fp32 | `asinh` | `default` | within 2 ULP everywhere | 1.72 | 0.774 | 0.881 | 3.39e+38 | 1791 | 9367 |
@@ -937,7 +937,7 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `leaky_relu` | `negative_slope=0.01` | faithfully rounded; 31672 of 65024 points took the other neighbour | 0.84 | 0.747 | 0.868 | 3.39e+38 | 771 | 21753 |
 | wh | fp32 | `leaky_relu` | `negative_slope=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 775 | 21652 |
 | wh | fp32 | `leaky_relu_bw` | `default` | bit-exact | 0.24 | 0 | 1 | 3.39e+38 | 3598 | 4664 |
-| wh | fp32 | `lerp` | `default` | worst pairing 1.46e+08 ULP; mean 9.53e+04 | 1.46e+08 | 9.53e+04 | 0.962 | — | 1335 | 12563 |
+| wh | fp32 | `lerp` | `default` | worst sampled pairing | 1.46e+08 | 9.53e+04 | 0.962 | — | 1335 | 12563 |
 | wh | fp32 | `lerp_bw` | `default` | bit-exact | 0.5 | 0 | 1 | — | 5380 | 3119 |
 | wh | fp32 | `lez` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 776 ±11% | 21609 |
 | wh | fp32 | `lgamma` | `default` | accurate to |x| <= 0.0181; up to 3.27e+07 ULP beyond | 3.27e+07 | 2.98e+03 | 0.783 | 0.0181 | 3752 | 4471 |
@@ -971,7 +971,7 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `lt` | `default` | bit-exact | 0 | 0 | 1 | — | 987 | 17003 |
 | wh | fp32 | `lt_` | `default` | bit-exact | 0 | 0 | 1 | — | 1004 ±6% | 16706 |
 | wh | fp32 | `ltz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 769 | 21830 |
-| wh | fp32 | `mac` | `default` | worst pairing 4.22e+06 ULP; mean 7.31e+05 | 4.22e+06 | 7.31e+05 | 0.974 | — | 1342 | 12503 |
+| wh | fp32 | `mac` | `default` | worst sampled pairing | 4.22e+06 | 7.31e+05 | 0.974 | — | 1342 | 12503 |
 | wh | fp32 | `max_bw` | `default` | worst pairing 4.19e+06 ULP; mean 4.19e+06 | 4.19e+06 | 4.19e+06 | 1 | — | 10455 | 1605 |
 | wh | fp32 | `maximum` | `default` | bit-exact | 0 | 0 | 1 | — | 984 | 17057 |
 | wh | fp32 | `min_bw` | `default` | worst pairing 4.19e+06 ULP; mean 4.19e+06 | 4.19e+06 | 4.19e+06 | 1 | — | 10459 | 1604 |

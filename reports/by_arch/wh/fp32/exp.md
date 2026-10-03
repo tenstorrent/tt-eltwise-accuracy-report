@@ -91,7 +91,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `fast_approx` | 1.1754944e-38 | 0.9785156 | 1 | **differ** |
 | `fast_approx` | -1.1754944e-38 | 0.9785156 | 1 | **differ** |
 
-_Measured on WORMHOLE_B0 · tt-metal `a3a9fb4229a` · ttnn `0.78.0` · run `20260929T112230`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ### `default`
 
