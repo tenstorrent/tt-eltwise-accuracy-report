@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 4.611686e+18 | 4.611686e+18 | agree |
 | `default` | -1.1754944e-38 | inf | nan | **differ** |
 
-_Measured on BLACKHOLE · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261003T030219`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — sqrt_bw default](../../../charts/bh/bf16/sqrt_bw_default_ulp.svg)
 
