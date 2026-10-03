@@ -700,7 +700,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `leaky_relu` | `negative_slope=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 396 ±6% | 42380 |
 | wh | bf16 | `leaky_relu_bw` | `default` | bit-exact | 0.16 | 0 | 1 | 3.39e+38 | 1834 | 9146 |
 | wh | bf16 | `lerp` | `default` | worst sampled pairing | 1.77e+03 | 39.9 | 1 | — | 692 ±8% | 24244 |
-| wh | bf16 | `lerp_bw` | `default` | faithfully rounded; 65026 of 65026 points took the other neighbour | 0.506 | 0.506 | 0.992 | — | 2807 | 5977 |
+| wh | bf16 | `lerp_bw` | `default` | faithful; 65026/65026 tie-breaks | 0.506 | 0.506 | 0.992 | — | 2807 | 5977 |
 | wh | bf16 | `lez` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 412 ±12% | 40766 |
 | wh | bf16 | `lgamma` | `default` | accurate to |x| <= 0.414; up to 324 ULP beyond | 324 | 0.846 | 0.76 | 0.414 | 2433 | 6895 |
 | wh | bf16 | `lgamma_bw` | `default` | never within 2 ULP; mean 177, worst 5.57e+05 | 5.57e+05 | 177 | 0.173 | — | 2083 | 8055 |
