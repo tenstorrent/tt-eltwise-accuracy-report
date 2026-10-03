@@ -62,7 +62,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `weight=0.25` | 1.1754944e-38 | 1.1754944e-38 | 1.1754944e-38 | agree |
 | `weight=0.25` | -1.1754944e-38 | 0 | -2.938736e-39 | **differ** |
 
-_Measured on BLACKHOLE · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261003T030327`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — prelu weight=0.25](../../../charts/bh/fp32/prelu_weight0.25_ulp.svg)
 
