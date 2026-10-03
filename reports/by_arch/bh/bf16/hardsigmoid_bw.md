@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 0.16699219 | 0.16699219 | agree |
 | `default` | -1.1754944e-38 | 0.16699219 | 0.16699219 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261003T030219`_
 
 ![ULP error — hardsigmoid_bw default](../../../charts/bh/bf16/hardsigmoid_bw_default_ulp.svg)
 
