@@ -590,30 +590,30 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `abs` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 406 ±14% | 41366 |
 | wh | bf16 | `abs_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 1328 ±47% | 12634 |
 | wh | bf16 | `acos` | `default` | bit-exact | 0.5 | 0 | 1 | 1 | 675 | 24861 |
-| wh | bf16 | `acos_bw` | `default` | accurate to |x| <= 0.949; up to 2.7 ULP beyond | 2.7 | 0.744 | 0.996 | 0.949 | 7486 | 2241 |
+| wh | bf16 | `acos_bw` | `default` | accurate to |x| <= 0.949 | 2.7 | 0.744 | 0.996 | 0.949 | 7486 | 2241 |
 | wh | bf16 | `acosh` | `default` | within 2 ULP everywhere | 1.41 | 0.596 | 0.973 | 3.39e+38 | 924 | 18159 |
-| wh | bf16 | `acosh_bw` | `default` | 15874 of 64514 points returned inf or zero where a value exists; the rest reach 3.26 ULP | 3.26 | 0.688 | 0.781 | 1.03 | 8628 | 1945 |
+| wh | bf16 | `acosh_bw` | `default` | 15874/64514 defects; rest 3.26 ULP | 3.26 | 0.688 | 0.781 | 1.03 | 8628 | 1945 |
 | wh | bf16 | `add` | `default` | faithfully rounded; 64970 of 65026 points took the other neighbour | 0.621 | 0.571 | 0.997 | — | 544 ±8% | 30851 |
 | wh | bf16 | `add_` | `default` | faithfully rounded; 64970 of 65026 points took the other neighbour | 0.621 | 0.571 | 0.997 | — | 541 ±49% | 31014 |
 | wh | bf16 | `addalpha` | `alpha=2.0` | worst pairing 254 ULP; mean 2 | 254 | 2 | 0.997 | — | 536 | 31298 |
 | wh | bf16 | `addcdiv` | `default` | worst sampled pairing | 2.11e+06 | 2.35e+03 | 0.999 | — | 698 | 24040 |
 | wh | bf16 | `addcmul` | `default` | worst sampled pairing | 126 | 19.4 | 1 | — | 688 | 24382 |
 | wh | bf16 | `asin` | `default` | 2 of 32258 points returned inf or zero where a value exists; the rest reach 0.499 ULP | 0.499 | 0 | 1 | — | 673 | 24917 |
-| wh | bf16 | `asin_bw` | `default` | accurate to |x| <= 0.938; up to 2.76 ULP beyond | 2.76 | 0.787 | 0.992 | 0.938 | 7435 | 2256 |
+| wh | bf16 | `asin_bw` | `default` | accurate to |x| <= 0.938 | 2.76 | 0.787 | 0.992 | 0.938 | 7435 | 2256 |
 | wh | bf16 | `asinh` | `default` | within 2 ULP everywhere | 1.32 | 0.619 | 0.992 | 3.39e+38 | 1408 | 11916 |
-| wh | bf16 | `asinh_bw` | `default` | 15874 of 64514 points returned inf or zero where a value exists; the rest reach 1.33 ULP | 1.33 | 0.681 | 0.918 | 1.84e+19 | 1358 ±10% | 12353 |
+| wh | bf16 | `asinh_bw` | `default` | 15874/64514 defects; rest 1.33 ULP | 1.33 | 0.681 | 0.918 | 1.84e+19 | 1358 ±10% | 12353 |
 | wh | bf16 | `atan` | `default` | 2 of 65024 points returned inf or zero where a value exists; the rest reach 0.527 ULP | 0.527 | 0.513 | 1 | — | 591 ±11% | 28370 |
 | wh | bf16 | `atan2` | `default` | worst pairing 200 ULP; mean 2.51 | 200 | 2.51 | 0.998 | — | 547 | 30688 |
 | wh | bf16 | `atan2_bw` | `default` | worst sampled pairing | 248 | 4.88 | 0.522 | — | 5514 | 3043 |
-| wh | bf16 | `atan_bw` | `default` | 2 of 48386 points returned inf or zero where a value exists; the rest reach 2.23 ULP | 2.23 | 0.867 | 0.854 | 0.23 | 1329 ±6% | 12627 |
+| wh | bf16 | `atan_bw` | `default` | 2/48386 defects; rest 2.23 ULP | 2.23 | 0.867 | 0.854 | 0.23 | 1329 ±6% | 12627 |
 | wh | bf16 | `atanh` | `default` | 2 of 32256 points returned inf or zero where a value exists; the rest reach 2.08 ULP | 2.08 | 0.995 | 0.081 | — | 689 | 24356 |
-| wh | bf16 | `atanh_bw` | `default` | 2 of 48386 points returned inf or zero where a value exists; the rest reach 8.17 ULP | 8.17 | 1.02 | 0.84 | 0.82 | 8440 | 1988 |
+| wh | bf16 | `atanh_bw` | `default` | 2/48386 defects; rest 8.17 ULP | 8.17 | 1.02 | 0.84 | 0.82 | 8440 | 1988 |
 | wh | bf16 | `bias_gelu` | `default` | worst pairing 1.14e+36 ULP; mean 4.5e+34 | 1.14e+36 | 4.5e+34 | 0.749 | — | 533 | 31472 |
 | wh | bf16 | `bias_gelu_` | `default` | worst pairing 1.14e+36 ULP; mean 4.5e+34 | 1.14e+36 | 4.5e+34 | 0.749 | — | 543 | 30920 |
 | wh | bf16 | `cbrt` | `default` | faithfully rounded; 846 of 65024 points took the other neighbour | 0.507 | 0.502 | 0.987 | 3.39e+38 | 435 ±10% | 38607 |
 | wh | bf16 | `ceil` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 409 ±5% | 41048 |
 | wh | bf16 | `celu` | `default` | bit-exact | 0.5 | 0 | 1 | 3.39e+38 | 493 ±7% | 34054 |
-| wh | bf16 | `celu_bw` | `default` | faithfully rounded; 734 of 65024 points took the other neighbour | 0.892 | 0.52 | 0.994 | 3.39e+38 | 2705 | 6202 |
+| wh | bf16 | `celu_bw` | `default` | faithful; 734/65024 tie-breaks | 0.892 | 0.52 | 0.994 | 3.39e+38 | 2705 | 6202 |
 | wh | bf16 | `clamp` | `min=-1.0,max=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 406 ±5% | 41341 |
 | wh | bf16 | `clamp` | `min=0.0,max=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 411 ±7% | 40868 |
 | wh | bf16 | `clamp` | `min=1.0,max=-1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 404 ±7% | 41485 |
@@ -623,35 +623,35 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `clip` | `min=1.0,max=-1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 409 ±8% | 41042 |
 | wh | bf16 | `clip_bw` | `default` | bit-exact | 0 | 0 | 1 | — | 2445 | 6862 |
 | wh | bf16 | `cos` | `default` | accurate to |x| <= 1.31e+05; up to 4.1e+03 ULP beyond | 4.1e+03 | 26.5 | 0.983 | 1.31e+05 | 431 ±11% | 38921 |
-| wh | bf16 | `cos_bw` | `default` | 21275 of 65024 points returned inf or zero where a value exists; the rest reach 7.45e+42 ULP | 7.45e+42 | 3.63e+39 | 0.85 | 2.62e+05 | 1702 | 9859 |
+| wh | bf16 | `cos_bw` | `default` | 21281/65024 defects; rest 2.09e+42 ULP | 2.09e+42 | 2.59e+39 | 0.867 | 2.15e+06 | 1702 | 9859 |
 | wh | bf16 | `cosh` | `default` | bit-exact | 0.5 | 0 | 1 | 89 | 434 ±455% | 38660 |
-| wh | bf16 | `cosh_bw` | `default` | 2 of 33894 points returned inf or zero where a value exists; the rest reach 0.5 ULP | 0.5 | 0 | 1 | 88.5 | 6711 | 2500 |
+| wh | bf16 | `cosh_bw` | `default` | 2/33894 defects; rest 0.5 ULP | 0.5 | 0 | 1 | 88.5 | 6711 | 2500 |
 | wh | bf16 | `deg2rad` | `default` | 2 of 65024 points returned inf or zero where a value exists; the rest reach 0.998 ULP | 0.998 | 0.744 | 0.516 | 6.7e-37 | 395 ±8% | 42507 |
 | wh | bf16 | `digamma` | `default` | never within 2 ULP; mean 177, worst 5.57e+05 | 5.57e+05 | 177 | 0.173 | — | 1172 | 14313 |
-| wh | bf16 | `digamma_bw` | `default` | 263 of 64769 points returned inf or zero where a value exists; the rest reach 1.02e+08 ULP | 1.02e+08 | 1.32e+04 | 0.664 | 1 | 12083 | 1388 |
+| wh | bf16 | `digamma_bw` | `default` | 263/64769 defects; rest 1.02e+08 ULP | 1.02e+08 | 1.32e+04 | 0.664 | 1 | 12083 | 1388 |
 | wh | bf16 | `div` | `default` | bit-exact | 0.498 | 0 | 1 | — | 546 | 30737 |
 | wh | bf16 | `div_bw` | `default` | faithful; 65026/65026 tie-breaks | 0.512 | 0.512 | 0.984 | — | 10534 | 1593 |
 | wh | bf16 | `div_no_nan` | `default` | bit-exact | 0.498 | 0 | 1 | — | 1447 | 11595 |
 | wh | bf16 | `divide` | `default` | bit-exact | 0.498 | 0 | 1 | — | 548 | 30621 |
 | wh | bf16 | `divide_` | `default` | bit-exact | 0.498 | 0 | 1 | — | 573 | 29286 |
 | wh | bf16 | `elu` | `default` | bit-exact | 0.5 | 0 | 1 | 3.39e+38 | 479 ±7% | 35012 |
-| wh | bf16 | `elu_bw` | `default` | faithfully rounded; 734 of 65024 points took the other neighbour | 0.892 | 0.52 | 0.994 | 3.39e+38 | 2744 | 6114 |
+| wh | bf16 | `elu_bw` | `default` | faithful; 734/65024 tie-breaks | 0.892 | 0.52 | 0.994 | 3.39e+38 | 2744 | 6114 |
 | wh | bf16 | `eq` | `default` | bit-exact | 0 | 0 | 1 | — | 532 | 31541 |
 | wh | bf16 | `eq_` | `default` | bit-exact | 0 | 0 | 1 | — | 552 | 30375 |
 | wh | bf16 | `eqz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 406 | 41344 |
 | wh | bf16 | `erf` | `default` | within 2 ULP everywhere | 1.06 | 0.771 | 0.729 | 3.39e+38 | 563 ±8% | 29815 |
-| wh | bf16 | `erf_bw` | `default` | accurate to |x| <= 1.5; up to 112 ULP beyond | 112 | 4.97 | 0.976 | 1.5 | 2455 | 6833 |
+| wh | bf16 | `erf_bw` | `default` | accurate to |x| <= 1.5 | 112 | 4.97 | 0.976 | 1.5 | 2455 | 6833 |
 | wh | bf16 | `erfc` | `default` | 198 of 65024 points returned a value where the reference is zero; the rest reach 3.19e+28 ULP | 3.19e+28 | 3.23e+24 | 0.969 | 2.5 | 823 | 20396 |
-| wh | bf16 | `erfc_bw` | `default` | accurate to |x| <= 1.5; up to 112 ULP beyond | 112 | 4.97 | 0.976 | 1.5 | 2452 | 6843 |
+| wh | bf16 | `erfc_bw` | `default` | accurate to |x| <= 1.5 | 112 | 4.97 | 0.976 | 1.5 | 2452 | 6843 |
 | wh | bf16 | `erfinv` | `default` | 29424 of 32256 points returned inf or zero where a value exists; the rest reach 121 ULP | 121 | 6.4 | 0.394 | 1.31e-38 | 901 | 18631 |
-| wh | bf16 | `erfinv_bw` | `default` | accurate to |x| <= 0.777; up to 8.91 ULP beyond | 8.91 | 1.28 | 0.98 | 0.777 | 7854 | 2136 |
+| wh | bf16 | `erfinv_bw` | `default` | accurate to |x| <= 0.777 | 8.91 | 1.28 | 0.98 | 0.777 | 7854 | 2136 |
 | wh | bf16 | `exp` | `default` | faithfully rounded; 1153 of 49458 points took the other neighbour | 0.892 | 0.556 | 0.983 | 3.39e+38 | 416 ±7% | 40313 |
 | wh | bf16 | `exp` | `fast_approx` | never within 2 ULP; mean 3.05, worst 6.08 | 6.08 | 3.05 | 0.314 | — | 392 | 42840 |
 | wh | bf16 | `exp2` | `default` | faithfully rounded; 1239 of 49536 points took the other neighbour | 0.898 | 0.564 | 0.983 | 3.39e+38 | 432 ±16% | 38865 |
-| wh | bf16 | `exp2_bw` | `default` | 1 of 49537 points returned inf or zero where a value exists; the rest reach 1.89 ULP | 1.89 | 0.942 | 0.945 | 128 | 1704 | 9843 |
-| wh | bf16 | `exp_bw` | `default` | faithfully rounded; 1153 of 49458 points took the other neighbour | 0.892 | 0.556 | 0.983 | 3.39e+38 | 1317 | 12744 |
+| wh | bf16 | `exp2_bw` | `default` | 1/49537 defects; rest 1.89 ULP | 1.89 | 0.942 | 0.945 | 128 | 1704 | 9843 |
+| wh | bf16 | `exp_bw` | `default` | faithful; 1153/49458 tie-breaks | 0.892 | 0.556 | 0.983 | 3.39e+38 | 1317 | 12744 |
 | wh | bf16 | `expm1` | `default` | bit-exact | 0.5 | 0 | 1 | 3.39e+38 | 421 ±10% | 39830 |
-| wh | bf16 | `expm1_bw` | `default` | 331 of 49458 points returned inf or zero where a value exists; the rest reach 125 ULP | 125 | 5.58 | 0.987 | 2.09 | 1706 ±6% | 9834 |
+| wh | bf16 | `expm1_bw` | `default` | accurate to |x| <= 33.2 | 34 | 0.695 | 0.984 | 33.2 | 1706 ±6% | 9834 |
 | wh | bf16 | `floor` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 422 ±10% | 39725 |
 | wh | bf16 | `floor_div` | `default` | worst pairing 64 ULP; mean 42 | 64 | 42 | 0.996 | — | 2531 | 6630 |
 | wh | bf16 | `fmod` | `default` | worst pairing 6.65e+35 ULP; mean 7.8e+34 | 6.65e+35 | 7.8e+34 | 0.853 | — | 651 | 25774 |
@@ -660,7 +660,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `ge_` | `default` | bit-exact | 0 | 0 | 1 | — | 548 | 30642 |
 | wh | bf16 | `gelu` | `default` | 86 of 65024 points returned inf or zero where a value exists; the rest reach 165 ULP | 165 | 9.18 | 0.999 | 2.33e-38 | 799 | 21001 |
 | wh | bf16 | `gelu` | `fast_approx` | 198 of 65024 points returned inf or zero where a value exists; the rest reach 1.14e+36 ULP | 1.14e+36 | 1.82e+34 | 0.501 | 2.33e-38 | 397 ±6% | 42212 |
-| wh | bf16 | `gelu_bw` | `default` | accurate to |x| <= 8.44; up to 3.5 ULP beyond | 3.5 | 1.37 | 0.998 | 8.44 | 1759 | 9541 |
+| wh | bf16 | `gelu_bw` | `default` | faithful; 38/65024 tie-breaks | 0.939 | 0.681 | 0.999 | 3.39e+38 | 1759 | 9541 |
 | wh | bf16 | `gez` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 409 ±8% | 41050 |
 | wh | bf16 | `gt` | `default` | bit-exact | 0 | 0 | 1 | — | 536 | 31328 |
 | wh | bf16 | `gt_` | `default` | bit-exact | 0 | 0 | 1 | — | 550 ±19% | 30482 |
@@ -671,7 +671,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `hardsigmoid` | `default` | within 2 ULP everywhere | 1 | 0.557 | 0.986 | 3.39e+38 | 413 ±21% | 40648 |
 | wh | bf16 | `hardsigmoid_bw` | `default` | bit-exact | 0.333 | 0 | 1 | 3.39e+38 | 2542 | 6600 |
 | wh | bf16 | `hardswish` | `default` | 2 of 65024 points returned inf or zero where a value exists; the rest reach 2.14 ULP | 2.14 | 0.94 | 0.95 | 2.33e-38 | 427 | 39249 |
-| wh | bf16 | `hardswish_bw` | `default` | accurate to |x| <= 1.12; up to 85.3 ULP beyond | 85.3 | 2.1 | 0.993 | 1.12 | 3542 | 4736 |
+| wh | bf16 | `hardswish_bw` | `default` | accurate to |x| <= 1.12 | 85.3 | 2.1 | 0.993 | 1.12 | 3542 | 4736 |
 | wh | bf16 | `hardtanh` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 396 | 42324 |
 | wh | bf16 | `hardtanh_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 2154 | 7789 |
 | wh | bf16 | `heaviside` | `value=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 416 ±17% | 40300 |
@@ -680,7 +680,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `hypot` | `default` | 16384 of 65026 points returned inf or zero where a value exists; the rest reach 52.7 ULP | 52.7 | 1.58 | 0.947 | — | 551 | 30424 |
 | wh | bf16 | `hypot_bw` | `default` | worst sampled pairing | 74.6 | 2.42 | 0.833 | — | 3375 | 4971 |
 | wh | bf16 | `i0` | `default` | accurate to |x| <= 13.6; up to 255 ULP beyond | 255 | 56.3 | 0.952 | 13.6 | 459 ±6% | 36547 |
-| wh | bf16 | `i0_bw` | `default` | 4 of 33904 points returned inf or zero where a value exists; the rest reach 218 ULP | 218 | 8.58 | 0.993 | 2.33e-38 | 2090 | 8027 |
+| wh | bf16 | `i0_bw` | `default` | 4/33904 defects; rest 218 ULP | 218 | 8.58 | 0.993 | 2.33e-38 | 2090 | 8027 |
 | wh | bf16 | `i1` | `default` | 4 of 33904 points returned inf or zero where a value exists; the rest reach 218 ULP | 218 | 8.58 | 0.993 | 2.33e-38 | 1203 | 13948 |
 | wh | bf16 | `identity` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 392 ±6% | 42810 |
 | wh | bf16 | `isclose` | `default` | bit-exact | 0 | 0 | 1 | — | 559 | 30007 |
@@ -703,17 +703,17 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `lerp_bw` | `default` | faithful; 65026/65026 tie-breaks | 0.506 | 0.506 | 0.992 | — | 2807 | 5977 |
 | wh | bf16 | `lez` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 412 ±12% | 40766 |
 | wh | bf16 | `lgamma` | `default` | accurate to |x| <= 0.414; up to 324 ULP beyond | 324 | 0.846 | 0.76 | 0.414 | 2433 | 6895 |
-| wh | bf16 | `lgamma_bw` | `default` | never within 2 ULP; mean 177, worst 5.57e+05 | 5.57e+05 | 177 | 0.173 | — | 2083 | 8055 |
+| wh | bf16 | `lgamma_bw` | `default` | never within 2 ULP | 5.57e+05 | 177 | 0.173 | — | 2083 | 8055 |
 | wh | bf16 | `log` | `default` | faithfully rounded; 63 of 32512 points took the other neighbour | 0.78 | 0.534 | 0.998 | 3.39e+38 | 421 ±14% | 39866 |
 | wh | bf16 | `log10` | `default` | faithfully rounded; 58 of 32512 points took the other neighbour | 0.785 | 0.543 | 0.998 | 3.39e+38 | 426 ±10% | 39360 |
-| wh | bf16 | `log10_bw` | `default` | within 2 ULP everywhere | 1.74 | 0.796 | 0.524 | 3.69e+37 | 5284 | 3175 |
+| wh | bf16 | `log10_bw` | `default` | within 2 ULP | 1.74 | 0.796 | 0.524 | 3.69e+37 | 5284 | 3175 |
 | wh | bf16 | `log1p` | `default` | faithfully rounded; 109 of 48640 points took the other neighbour | 0.931 | 0.57 | 0.998 | 3.39e+38 | 430 ±6% | 39041 |
-| wh | bf16 | `log1p_bw` | `default` | 2 of 64514 points returned inf or zero where a value exists; the rest reach 1.42 ULP | 1.42 | 0.68 | 0.975 | 8.47e+37 | 5254 | 3193 |
+| wh | bf16 | `log1p_bw` | `default` | 2/64514 defects; rest 1.42 ULP | 1.42 | 0.68 | 0.975 | 8.47e+37 | 5254 | 3193 |
 | wh | bf16 | `log2` | `default` | faithfully rounded; 59 of 32512 points took the other neighbour | 0.766 | 0.542 | 0.998 | 3.39e+38 | 428 ±40% | 39158 |
-| wh | bf16 | `log2_bw` | `default` | 116 of 64626 points returned inf or zero where a value exists; the rest reach 1.51 ULP | 1.51 | 0.842 | 0.578 | — | 5280 | 3177 |
-| wh | bf16 | `log_bw` | `default` | 2 of 64514 points returned inf or zero where a value exists; the rest reach 0.512 ULP | 0.512 | 0.507 | 0.984 | 8.47e+37 | 3993 | 4202 |
+| wh | bf16 | `log2_bw` | `default` | 116/64626 defects; rest 1.51 ULP | 1.51 | 0.842 | 0.578 | — | 5280 | 3177 |
+| wh | bf16 | `log_bw` | `default` | 2/64514 defects; rest 0.512 ULP | 0.512 | 0.507 | 0.984 | 8.47e+37 | 3993 | 4202 |
 | wh | bf16 | `log_sigmoid` | `default` | accurate to |x| <= 0.426; up to 6.39 ULP beyond | 6.39 | 1.38 | 0.958 | 0.426 | 592 ±6% | 28318 |
-| wh | bf16 | `log_sigmoid_bw` | `default` | within 2 ULP everywhere | 1.91 | 0.785 | 0.972 | 3.39e+38 | 5922 | 2833 |
+| wh | bf16 | `log_sigmoid_bw` | `default` | within 2 ULP | 1.91 | 0.785 | 0.972 | 3.39e+38 | 5922 | 2833 |
 | wh | bf16 | `logaddexp` | `default` | 15566 of 65026 points returned inf or zero where a value exists; the rest reach 8.39e+06 ULP | 8.39e+06 | 4.85e+03 | 0.858 | — | 792 | 21197 |
 | wh | bf16 | `logaddexp2` | `default` | 15488 of 65026 points returned inf or zero where a value exists; the rest reach 3.03e+06 ULP | 3.03e+06 | 4.08e+03 | 0.871 | — | 904 ±13% | 18566 |
 | wh | bf16 | `logaddexp2_` | `default` | 15488 of 65026 points returned inf or zero where a value exists; the rest reach 3.03e+06 ULP | 3.03e+06 | 4.08e+03 | 0.871 | — | 901 | 18612 |
@@ -728,8 +728,8 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `logical_or_` | `default` | bit-exact | 0 | 0 | 1 | — | 563 ±6% | 29794 |
 | wh | bf16 | `logical_xor_` | `default` | bit-exact | 0 | 0 | 1 | — | 561 | 29885 |
 | wh | bf16 | `logit` | `default` | accurate to |x| <= 0.395; up to 64 ULP beyond | 64 | 1.67 | 0.985 | 0.395 | 895 | 18738 |
-| wh | bf16 | `logit_bw` | `default` | within 2 ULP everywhere | 1.65 | 0.649 | 0.961 | 0.996 | 6964 | 2409 |
-| wh | bf16 | `logiteps_bw` | `default` | within 2 ULP everywhere | 1.65 | 0.649 | 0.961 | 0.996 | 8230 | 2038 |
+| wh | bf16 | `logit_bw` | `default` | within 2 ULP | 1.65 | 0.649 | 0.961 | 0.996 | 6964 | 2409 |
+| wh | bf16 | `logiteps_bw` | `default` | within 2 ULP | 1.65 | 0.649 | 0.961 | 0.996 | 8230 | 2038 |
 | wh | bf16 | `lt` | `default` | bit-exact | 0 | 0 | 1 | — | 531 | 31614 |
 | wh | bf16 | `lt_` | `default` | bit-exact | 0 | 0 | 1 | — | 544 | 30847 |
 | wh | bf16 | `ltz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 394 ±6% | 42571 |
@@ -742,7 +742,7 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `mse_loss` | `default` | worst pairing 2.03 ULP; mean 1.65 | 2.03 | 1.65 | 0.571 | — | 538 ±5% | 31166 |
 | wh | bf16 | `mul_bw` | `default` | bit-exact | 0 | 0 | 1 | — | 1423 | 11789 |
 | wh | bf16 | `multigammaln` | `default` | 11536 of 48328 points returned inf or zero where a value exists; the rest reach 724 ULP | 724 | 1.67 | 0.717 | 5.55e-17 | 12650 | 1326 |
-| wh | bf16 | `multigammaln_bw` | `default` | accurate to |x| <= 5.55e-17; up to 2.38e+06 ULP beyond | 2.38e+06 | 293 | 0.249 | 5.55e-17 | 9659 | 1737 |
+| wh | bf16 | `multigammaln_bw` | `default` | accurate to |x| <= 5.55e-17 | 2.38e+06 | 293 | 0.249 | 5.55e-17 | 9659 | 1737 |
 | wh | bf16 | `multiply` | `default` | bit-exact | 0.5 | 0 | 1 | — | 537 | 31248 |
 | wh | bf16 | `multiply_` | `default` | bit-exact | 0.5 | 0 | 1 | — | 560 ±6% | 29942 |
 | wh | bf16 | `ne` | `default` | bit-exact | 0 | 0 | 1 | — | 533 | 31458 |
@@ -753,15 +753,15 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `polygamma` | `k=1` | 7 of 49922 points returned inf or zero where a value exists; the rest reach 1.02e+08 ULP | 1.02e+08 | 1.43e+05 | 0.956 | 0.996 | 5579 | 3007 |
 | wh | bf16 | `polygamma` | `k=2` | 75 of 49922 points returned inf or zero where a value exists; the rest reach 3.57e+08 ULP | 3.57e+08 | 6.81e+05 | 0.945 | 4.47 | 5683 ±7% | 2952 |
 | wh | bf16 | `polygamma` | `k=4` | 142 of 49922 points returned inf or zero where a value exists; the rest reach 3.22e+09 ULP | 3.22e+09 | 1.09e+07 | 0.936 | 3.48 | 5768 | 2908 |
-| wh | bf16 | `polygamma_bw` | `n=1` | 75 of 49922 points returned inf or zero where a value exists; the rest reach 3.57e+08 ULP | 3.57e+08 | 6.81e+05 | 0.945 | 4.47 | 12120 | 1384 |
+| wh | bf16 | `polygamma_bw` | `n=1` | 75/49922 defects; rest 3.57e+08 ULP | 3.57e+08 | 6.81e+05 | 0.945 | 4.47 | 12120 | 1384 |
 | wh | bf16 | `pow` | `default` | worst pairing 4.86e+18 ULP; mean 2.08e+14 | 4.86e+18 | 2.08e+14 | 0.982 | — | 987 ±12% | 17000 |
 | wh | bf16 | `pow_bw` | `exponent=2.0` | bit-exact | 0 | 0 | 1 | 1.69e+38 | 2549 | 6582 |
 | wh | bf16 | `prelu` | `weight=0.25` | 1 of 65024 points returned inf or zero where a value exists; the rest reach 0 ULP | 0 | 0 | 1 | 4.68e-38 | 396 ±49% | 42370 |
 | wh | bf16 | `rad2deg` | `default` | faithfully rounded; 31760 of 63518 points took the other neighbour | 0.992 | 0.75 | 0.5 | 5.9e+36 | 398 | 42196 |
 | wh | bf16 | `rdiv` | `value=2.0` | 258 of 64770 points returned inf or zero where a value exists; the rest reach 0.512 ULP | 0.512 | 0.507 | 0.984 | 8.47e+37 | 426 ±15% | 39386 |
-| wh | bf16 | `rdiv_bw` | `scalar=2.0` | 256 of 48492 points returned inf or zero where a value exists; the rest reach 1.51 ULP | 1.51 | 0.835 | 0.617 | 7.67e-20 | 6904 | 2430 |
+| wh | bf16 | `rdiv_bw` | `scalar=2.0` | 256/48492 defects; rest 1.51 ULP | 1.51 | 0.835 | 0.617 | 7.67e-20 | 6904 | 2430 |
 | wh | bf16 | `reciprocal` | `default` | 2 of 64514 points returned inf or zero where a value exists; the rest reach 0.512 ULP | 0.512 | 0.507 | 0.984 | 8.47e+37 | 420 ±11% | 39948 |
-| wh | bf16 | `reciprocal_bw` | `default` | 256 of 48386 points returned inf or zero where a value exists; the rest reach 1.51 ULP | 1.51 | 0.835 | 0.617 | 5.42e-20 | 5127 | 3272 |
+| wh | bf16 | `reciprocal_bw` | `default` | 256/48386 defects; rest 1.51 ULP | 1.51 | 0.835 | 0.617 | 5.42e-20 | 5127 | 3272 |
 | wh | bf16 | `relu` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 404 ±8% | 41522 |
 | wh | bf16 | `relu6` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 407 ±10% | 41187 |
 | wh | bf16 | `relu6_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 3956 | 4241 |
@@ -776,32 +776,32 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `rpow` | `exponent=0.5` | faithfully rounded; 1239 of 49536 points took the other neighbour | 0.898 | 0.564 | 0.975 | 3.39e+38 | 964 | 17406 |
 | wh | bf16 | `rpow` | `exponent=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 973 | 17247 |
 | wh | bf16 | `rpow` | `exponent=2.0` | faithfully rounded; 1239 of 49536 points took the other neighbour | 0.898 | 0.564 | 0.983 | 3.39e+38 | 964 | 17400 |
-| wh | bf16 | `rpow_bw` | `exponent=2.0` | 32384 of 64768 points returned inf or zero where a value exists; the rest reach 0 ULP | 0 | 0 | 1 | 1.18e-38 | 2914 | 5757 |
+| wh | bf16 | `rpow_bw` | `exponent=2.0` | 32384/64768 defects; rest 0 ULP | 0 | 0 | 1 | 1.18e-38 | 2914 | 5757 |
 | wh | bf16 | `rsqrt` | `default` | bit-exact | 0.499 | 0 | 1 | 3.39e+38 | 425 ±8% | 39483 |
-| wh | bf16 | `rsqrt_bw` | `default` | 75 of 21665 points returned inf or zero where a value exists; the rest reach 3.23 ULP | 3.23 | 1.19 | 0.332 | — | 6312 | 2658 |
+| wh | bf16 | `rsqrt_bw` | `default` | 75/21665 defects; rest 3.23 ULP | 3.23 | 1.19 | 0.332 | — | 6312 | 2658 |
 | wh | bf16 | `rsub` | `default` | faithfully rounded; 64970 of 65026 points took the other neighbour | 0.621 | 0.571 | 0.997 | — | 542 | 30966 |
 | wh | bf16 | `rsub_` | `default` | faithfully rounded; 64970 of 65026 points took the other neighbour | 0.621 | 0.571 | 0.997 | — | 548 | 30611 |
 | wh | bf16 | `selu` | `default` | bit-exact | 0.5 | 0 | 1 | 3.39e+38 | 514 ±17% | 32638 |
-| wh | bf16 | `selu_bw` | `default` | 1 of 65024 points returned inf or zero where a value exists; the rest reach 2.62 ULP | 2.62 | 1.06 | 0.745 | 0.00443 | 3104 | 5405 |
+| wh | bf16 | `selu_bw` | `default` | 1/65024 defects; rest 2.62 ULP | 2.62 | 1.06 | 0.745 | 0.00443 | 3104 | 5405 |
 | wh | bf16 | `sigmoid` | `default` | faithfully rounded; 505 of 65024 points took the other neighbour | 0.857 | 0.517 | 0.994 | 3.39e+38 | 472 ±12% | 35517 |
 | wh | bf16 | `sigmoid_accurate` | `default` | faithfully rounded; 505 of 65024 points took the other neighbour | 0.857 | 0.517 | 0.994 | 3.39e+38 | 468 ±7% | 35860 |
-| wh | bf16 | `sigmoid_bw` | `default` | 329 of 65024 points returned inf or zero where a value exists; the rest reach 266 ULP | 266 | 5.5 | 0.988 | 1.77 | 2255 ±19% | 7440 |
+| wh | bf16 | `sigmoid_bw` | `default` | 329/65024 defects; rest 266 ULP | 266 | 5.5 | 0.988 | 1.77 | 2255 ±19% | 7440 |
 | wh | bf16 | `sign` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 406 ±17% | 41312 |
 | wh | bf16 | `signbit` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 849 ±142% | 19770 |
 | wh | bf16 | `silu` | `default` | 13 of 65024 points returned inf or zero where a value exists; the rest reach 0.914 ULP | 0.914 | 0.585 | 0.993 | 2.33e-38 | 489 ±10% | 34280 |
-| wh | bf16 | `silu_bw` | `default` | 9 of 65024 points returned inf or zero where a value exists; the rest reach 285 ULP | 285 | 1.31 | 0.979 | 0.867 | 3125 | 5369 |
+| wh | bf16 | `silu_bw` | `default` | 9/65024 defects; rest 285 ULP | 285 | 1.31 | 0.979 | 0.867 | 3125 | 5369 |
 | wh | bf16 | `sin` | `default` | accurate to |x| <= 2.62e+05; up to 4.1e+03 ULP beyond | 4.1e+03 | 73.5 | 0.992 | 2.62e+05 | 434 ±12% | 38641 |
-| wh | bf16 | `sin_bw` | `default` | 21274 of 65024 points returned inf or zero where a value exists; the rest reach 1.94e+42 ULP | 1.94e+42 | 1.95e+39 | 0.84 | 1.31e+05 | 1320 | 12708 |
+| wh | bf16 | `sin_bw` | `default` | 21284/65024 defects; rest 2.98e+41 ULP | 2.98e+41 | 1.39e+39 | 0.857 | 1.07e+06 | 1320 | 12708 |
 | wh | bf16 | `sinh` | `default` | bit-exact | 0.5 | 0 | 1 | 89 | 541 ±9% | 31035 |
-| wh | bf16 | `sinh_bw` | `default` | 2 of 33894 points returned inf or zero where a value exists; the rest reach 0.5 ULP | 0.5 | 0 | 1 | 88.5 | 5844 | 2871 |
+| wh | bf16 | `sinh_bw` | `default` | 2/33894 defects; rest 0.5 ULP | 0.5 | 0 | 1 | 88.5 | 5844 | 2871 |
 | wh | bf16 | `softplus` | `default` | 526 of 65024 points returned inf or zero where a value exists; the rest reach 0.775 ULP | 0.775 | 0.556 | 0.532 | 5.03 | 473 ±7% | 35454 |
-| wh | bf16 | `softplus_bw` | `default` | within 2 ULP everywhere | 1.91 | 0.746 | 0.982 | 3.39e+38 | 4352 | 3855 |
+| wh | bf16 | `softplus_bw` | `default` | within 2 ULP | 1.91 | 0.746 | 0.982 | 3.39e+38 | 4352 | 3855 |
 | wh | bf16 | `softshrink` | `default` | faithfully rounded; 3968 of 65024 points took the other neighbour | 1 | 0.948 | 0.941 | 3.39e+38 | 399 ±10% | 42003 |
 | wh | bf16 | `softshrink_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 2158 | 7773 |
 | wh | bf16 | `softsign` | `default` | 510 of 65024 points returned inf or zero where a value exists; the rest reach 1 ULP | 1 | 0.641 | 0.907 | 8.51e+37 | 443 ±9% | 37862 |
-| wh | bf16 | `softsign_bw` | `default` | accurate to |x| <= 0.00391; up to 81 ULP beyond | 81 | 3.29 | 0.859 | 0.00391 | 1326 | 12656 |
+| wh | bf16 | `softsign_bw` | `default` | accurate to |x| <= 0.00391 | 81 | 3.29 | 0.859 | 0.00391 | 1326 | 12656 |
 | wh | bf16 | `sqrt` | `default` | bit-exact | 0.5 | 0 | 1 | 3.39e+38 | 423 ±12% | 39634 |
-| wh | bf16 | `sqrt_bw` | `default` | within 2 ULP everywhere | 1.14 | 0.695 | 0.719 | 3.39e+38 | 6567 | 2555 |
+| wh | bf16 | `sqrt_bw` | `default` | within 2 ULP | 1.14 | 0.695 | 0.719 | 3.39e+38 | 6567 | 2555 |
 | wh | bf16 | `square` | `default` | faithfully rounded; 13970 of 48640 points took the other neighbour | 0.973 | 0.688 | 0.578 | 1.84e+19 | 394 ±9% | 42574 |
 | wh | bf16 | `square_bw` | `default` | bit-exact | 0 | 0 | 1 | 1.69e+38 | 1295 | 12958 |
 | wh | bf16 | `squared_difference` | `default` | worst pairing 2.03 ULP; mean 1.65 | 2.03 | 1.65 | 0.571 | — | 535 | 31374 |
@@ -812,11 +812,11 @@ Computed, never inferred. First match wins.
 | wh | bf16 | `subtract_` | `default` | faithfully rounded; 64970 of 65026 points took the other neighbour | 0.621 | 0.571 | 0.997 | — | 546 ±6% | 30736 |
 | wh | bf16 | `swish` | `default` | 13 of 65024 points returned inf or zero where a value exists; the rest reach 0.914 ULP | 0.914 | 0.585 | 0.993 | 2.33e-38 | 496 ±11% | 33814 |
 | wh | bf16 | `tan` | `default` | accurate to |x| <= 1.31e+05; up to 4.1e+03 ULP beyond | 4.1e+03 | 47.6 | 0.985 | 1.31e+05 | 557 ±8% | 30133 |
-| wh | bf16 | `tan_bw` | `default` | 12178 of 65024 points returned inf or zero where a value exists; the rest reach 3.1e+40 ULP | 3.1e+40 | 1.95e+37 | 0.68 | 1.13 | 2185 | 7678 |
+| wh | bf16 | `tan_bw` | `default` | 12184/65024 defects; rest 3.57e+40 ULP | 3.57e+40 | 3.81e+37 | 0.691 | 1.13 | 2185 | 7678 |
 | wh | bf16 | `tanh` | `default` | 2 of 65024 points returned inf or zero where a value exists; the rest reach 0.811 ULP | 0.811 | 0.586 | 0.997 | — | 417 ±948% | 40269 |
-| wh | bf16 | `tanh_bw` | `default` | accurate to |x| <= 17.2; up to 55.5 ULP beyond | 55.5 | 1.93 | 0.996 | 17.2 | 1473 | 11386 |
+| wh | bf16 | `tanh_bw` | `default` | within 2 ULP | 1.16 | 0.525 | 0.997 | 3.39e+38 | 1473 | 11386 |
 | wh | bf16 | `tanhshrink` | `default` | accurate to |x| <= 1.35e-08; up to 63.5 ULP beyond | 63.5 | 9.38 | 0.981 | 1.35e-08 | 432 ±9% | 38848 |
-| wh | bf16 | `tanhshrink_bw` | `default` | accurate to |x| <= 7.45e-09; up to 63 ULP beyond | 63 | 3.52 | 0.937 | 7.45e-09 | 1683 | 9967 |
+| wh | bf16 | `tanhshrink_bw` | `default` | accurate to |x| <= 7.45e-09 | 63 | 3.52 | 0.937 | 7.45e-09 | 1683 | 9967 |
 | wh | bf16 | `threshold` | `threshold=0.0,value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 398 ±5% | 42164 |
 | wh | bf16 | `threshold` | `threshold=0.5,value=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 395 | 42482 |
 | wh | bf16 | `threshold_bw` | `min=0.5,max=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 1655 | 10136 |
@@ -828,30 +828,30 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `abs` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 766 | 21897 |
 | wh | fp32 | `abs_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 2489 | 6741 |
 | wh | fp32 | `acos` | `default` | within 2 ULP everywhere | 1.55 | 0.865 | 0.923 | 1 | 1095 | 15321 |
-| wh | fp32 | `acos_bw` | `default` | accurate to |x| <= 0.926; up to 609 ULP beyond | 609 | 1.34 | 0.988 | 0.926 | 14977 | 1120 |
+| wh | fp32 | `acos_bw` | `default` | accurate to |x| <= 0.926 | 609 | 1.34 | 0.988 | 0.926 | 14977 | 1120 |
 | wh | fp32 | `acosh` | `default` | never within 2 ULP; mean 0.764, worst 2.76 | 2.76 | 0.764 | 0.782 | — | 1433 ±7% | 11708 |
-| wh | fp32 | `acosh_bw` | `default` | 15874 of 64514 points returned inf or zero where a value exists; the rest reach 724 ULP | 724 | 1.13 | 0.825 | 0.996 | 17161 | 978 |
+| wh | fp32 | `acosh_bw` | `default` | 15874/64514 defects; rest 724 ULP | 724 | 1.13 | 0.825 | 0.996 | 17161 | 978 |
 | wh | fp32 | `add` | `default` | bit-exact | 0.5 | 0 | 1 | — | 977 | 17168 |
 | wh | fp32 | `add_` | `default` | bit-exact | 0.5 | 0 | 1 | — | 997 | 16828 |
 | wh | fp32 | `addalpha` | `alpha=2.0` | bit-exact | 0.5 | 0 | 1 | — | 988 | 16984 |
 | wh | fp32 | `addcdiv` | `default` | worst sampled pairing | 2.19e+12 | 8.82e+07 | 0.901 | — | 1345 | 12473 |
 | wh | fp32 | `addcmul` | `default` | worst sampled pairing | 2.13e+06 | 1.59e+04 | 0.985 | — | 1343 | 12494 |
 | wh | fp32 | `asin` | `default` | within 2 ULP everywhere | 1.77 | 0.795 | 0.985 | 1 | 1047 | 16026 |
-| wh | fp32 | `asin_bw` | `default` | accurate to |x| <= 0.926; up to 609 ULP beyond | 609 | 1.34 | 0.988 | 0.926 | 14787 ±39% | 1135 |
+| wh | fp32 | `asin_bw` | `default` | accurate to |x| <= 0.926 | 609 | 1.34 | 0.988 | 0.926 | 14787 ±39% | 1135 |
 | wh | fp32 | `asinh` | `default` | within 2 ULP everywhere | 1.72 | 0.774 | 0.881 | 3.39e+38 | 1791 | 9367 |
-| wh | fp32 | `asinh_bw` | `default` | 15874 of 64514 points returned inf or zero where a value exists; the rest reach 1.98 ULP | 1.98 | 1.06 | 0.927 | 1.84e+19 | 2598 | 6458 |
+| wh | fp32 | `asinh_bw` | `default` | 15874/64514 defects; rest 1.98 ULP | 1.98 | 1.06 | 0.927 | 1.84e+19 | 2598 | 6458 |
 | wh | fp32 | `atan` | `default` | accurate to |x| <= 0.902; up to 2.34 ULP beyond | 2.34 | 0.807 | 0.955 | 0.902 | 907 | 18498 |
 | wh | fp32 | `atan2` | `default` | worst pairing 1.32e+07 ULP; mean 1.26e+05 | 1.32e+07 | 1.26e+05 | 0.882 | — | 1009 | 16628 |
 | wh | fp32 | `atan2_bw` | `default` | worst sampled pairing | 1.64e+07 | 9.5e+04 | 0.61 | — | 10571 | 1587 |
-| wh | fp32 | `atan_bw` | `default` | accurate to |x| <= 1.01; up to 2.8 ULP beyond | 2.8 | 1.23 | 0.874 | 1.01 | 2569 | 6531 |
+| wh | fp32 | `atan_bw` | `default` | accurate to |x| <= 1.01 | 2.8 | 1.23 | 0.874 | 1.01 | 2569 | 6531 |
 | wh | fp32 | `atanh` | `default` | accurate to |x| <= 4.28e-07; up to 3.11 ULP beyond | 3.11 | 1.55 | 0.91 | 4.28e-07 | 1313 ±6% | 12778 |
-| wh | fp32 | `atanh_bw` | `default` | accurate to |x| <= 0.678; up to 2.05e+03 ULP beyond | 2.05e+03 | 1.55 | 0.891 | 0.678 | 16361 ±16% | 1025 |
+| wh | fp32 | `atanh_bw` | `default` | accurate to |x| <= 0.678 | 2.05e+03 | 1.55 | 0.891 | 0.678 | 16361 ±16% | 1025 |
 | wh | fp32 | `bias_gelu` | `default` | worst pairing 7.45e+40 ULP; mean 6.51e+39 | 7.45e+40 | 6.51e+39 | 0.746 | — | 978 | 17150 |
 | wh | fp32 | `bias_gelu_` | `default` | worst pairing 7.45e+40 ULP; mean 6.51e+39 | 7.45e+40 | 6.51e+39 | 0.746 | — | 1004 | 16704 |
 | wh | fp32 | `cbrt` | `default` | accurate to |x| <= 2.26e-38; up to 2.55 ULP beyond | 2.55 | 1.76 | 0.521 | 2.26e-38 | 840 | 19977 |
 | wh | fp32 | `ceil` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 777 | 21580 |
 | wh | fp32 | `celu` | `default` | within 2 ULP everywhere | 1.36 | 0.799 | 0.99 | 3.39e+38 | 949 | 17674 |
-| wh | fp32 | `celu_bw` | `default` | faithfully rounded; 2706 of 65024 points took the other neighbour | 0.866 | 0.578 | 0.999 | 3.39e+38 | 5473 | 3066 |
+| wh | fp32 | `celu_bw` | `default` | faithful; 2706/65024 tie-breaks | 0.866 | 0.578 | 0.999 | 3.39e+38 | 5473 | 3066 |
 | wh | fp32 | `clamp` | `min=-1.0,max=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 769 | 21820 |
 | wh | fp32 | `clamp` | `min=0.0,max=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 769 | 21811 |
 | wh | fp32 | `clamp` | `min=1.0,max=-1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 770 | 21788 |
@@ -861,35 +861,35 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `clip` | `min=1.0,max=-1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 767 | 21884 |
 | wh | fp32 | `clip_bw` | `default` | bit-exact | 0 | 0 | 1 | — | 4607 | 3642 |
 | wh | fp32 | `cos` | `default` | accurate to |x| <= 92.4; up to 3.3e+12 ULP beyond | 3.3e+12 | 3.33e+09 | 0.919 | 92.4 | 861 | 19478 |
-| wh | fp32 | `cos_bw` | `default` | 18190 of 65024 points returned inf or zero where a value exists; the rest reach 2.68e+51 ULP | 2.68e+51 | 2.8e+48 | 0.835 | 28 | 3300 | 5084 |
+| wh | fp32 | `cos_bw` | `default` | 18643/65024 defects; rest 8.59e+51 ULP | 8.59e+51 | 3.23e+48 | 0.841 | 28 | 3300 | 5084 |
 | wh | fp32 | `cosh` | `default` | within 2 ULP everywhere | 1.35 | 0.798 | 0.98 | 89.1 | 971 | 17283 |
-| wh | fp32 | `cosh_bw` | `default` | 2 of 33894 points returned inf or zero where a value exists; the rest reach 2.21 ULP | 2.21 | 1.17 | 0.943 | 0.0155 | 13572 | 1236 |
+| wh | fp32 | `cosh_bw` | `default` | 2/33894 defects; rest 2.21 ULP | 2.21 | 1.17 | 0.943 | 0.0155 | 13572 | 1236 |
 | wh | fp32 | `deg2rad` | `default` | faithfully rounded; 63542 of 65024 points took the other neighbour | 0.63 | 0.595 | 0.906 | 3.4e+38 | 770 | 21796 |
 | wh | fp32 | `digamma` | `default` | never within 2 ULP; mean 7.77e+12, worst 3.66e+17 | 3.66e+17 | 7.77e+12 | 0.00566 | — | 2633 | 6371 |
-| wh | fp32 | `digamma_bw` | `default` | 255 of 64769 points returned inf or zero where a value exists; the rest reach 7.91e+33 ULP | 7.91e+33 | 3.25e+29 | 0.429 | 5.4e-20 | 17876 | 938 |
+| wh | fp32 | `digamma_bw` | `default` | 255/64769 defects; rest 7.91e+33 ULP | 7.91e+33 | 3.25e+29 | 0.429 | 5.4e-20 | 17876 | 938 |
 | wh | fp32 | `div` | `default` | within 2 ULP everywhere | 1.78 | 1.22 | 0.862 | — | 989 | 16970 |
 | wh | fp32 | `div_bw` | `default` | faithful; 65024/65024 tie-breaks | 0.84 | 0.84 | 0.902 | — | 20707 | 810 |
 | wh | fp32 | `div_no_nan` | `default` | within 2 ULP everywhere | 1.79 | 1.52 | 0.714 | — | 3475 | 4828 |
 | wh | fp32 | `divide` | `default` | within 2 ULP everywhere | 1.78 | 1.22 | 0.862 | — | 997 | 16828 |
 | wh | fp32 | `divide_` | `default` | within 2 ULP everywhere | 1.78 | 1.22 | 0.862 | — | 1018 | 16479 |
 | wh | fp32 | `elu` | `default` | within 2 ULP everywhere | 1.36 | 0.799 | 0.99 | 3.39e+38 | 949 | 17687 |
-| wh | fp32 | `elu_bw` | `default` | faithfully rounded; 2706 of 65024 points took the other neighbour | 0.866 | 0.578 | 0.999 | 3.39e+38 | 5462 | 3071 |
+| wh | fp32 | `elu_bw` | `default` | faithful; 2706/65024 tie-breaks | 0.866 | 0.578 | 0.999 | 3.39e+38 | 5462 | 3071 |
 | wh | fp32 | `eq` | `default` | bit-exact | 0 | 0 | 1 | — | 987 | 17002 |
 | wh | fp32 | `eq_` | `default` | bit-exact | 0 | 0 | 1 | — | 1016 | 16511 |
 | wh | fp32 | `eqz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 770 | 21790 |
 | wh | fp32 | `erf` | `default` | accurate to |x| <= 0.000334; up to 6.48 ULP beyond | 6.48 | 1.35 | 0.671 | 0.000334 | 1233 | 13608 |
-| wh | fp32 | `erf_bw` | `default` | accurate to |x| <= 0.348; up to 65.5 ULP beyond | 65.5 | 3.73 | 0.956 | 0.348 | 4864 | 3449 |
+| wh | fp32 | `erf_bw` | `default` | accurate to |x| <= 0.348 | 65.5 | 3.73 | 0.956 | 0.348 | 4864 | 3449 |
 | wh | fp32 | `erfc` | `default` | 198 of 65024 points returned a value where the reference is zero; the rest reach 2.1e+33 ULP | 2.1e+33 | 1.71e+29 | 0.33 | — | 1330 ±8% | 12617 |
-| wh | fp32 | `erfc_bw` | `default` | accurate to |x| <= 0.348; up to 65.5 ULP beyond | 65.5 | 3.73 | 0.956 | 0.348 | 4859 | 3453 |
+| wh | fp32 | `erfc_bw` | `default` | accurate to |x| <= 0.348 | 65.5 | 3.73 | 0.956 | 0.348 | 4859 | 3453 |
 | wh | fp32 | `erfinv` | `default` | 29420 of 32256 points returned inf or zero where a value exists; the rest reach 7.96e+06 ULP | 7.96e+06 | 2.62e+05 | 0.0002 | 1.32e-38 | 1382 ±7% | 12136 |
-| wh | fp32 | `erfinv_bw` | `default` | accurate to |x| <= 0.000456; up to 4.98e+05 ULP beyond | 4.98e+05 | 1.32e+03 | 0.913 | 0.000456 | 15440 | 1087 |
+| wh | fp32 | `erfinv_bw` | `default` | accurate to |x| <= 0.000456 | 4.98e+05 | 1.32e+03 | 0.914 | 0.000456 | 15440 | 1087 |
 | wh | fp32 | `exp` | `default` | faithfully rounded; 5447 of 49458 points took the other neighbour | 0.866 | 0.578 | 0.997 | 3.39e+38 | 901 | 18618 |
 | wh | fp32 | `exp` | `fast_approx` | never within 2 ULP; mean 2e+05, worst 3.79e+05 | 3.79e+05 | 2e+05 | 0.309 | — | 765 | 21934 |
 | wh | fp32 | `exp2` | `default` | faithfully rounded; 6044 of 49536 points took the other neighbour | 0.965 | 0.626 | 0.992 | 3.39e+38 | 844 ±9% | 19876 |
-| wh | fp32 | `exp2_bw` | `default` | 1 of 49537 points returned inf or zero where a value exists; the rest reach 1.85 ULP | 1.85 | 1.09 | 0.955 | 128 | 3327 | 5043 |
-| wh | fp32 | `exp_bw` | `default` | faithfully rounded; 5447 of 49458 points took the other neighbour | 0.866 | 0.578 | 0.997 | 3.39e+38 | 2615 ±146% | 6416 |
+| wh | fp32 | `exp2_bw` | `default` | 1/49537 defects; rest 1.85 ULP | 1.85 | 1.09 | 0.955 | 128 | 3327 | 5043 |
+| wh | fp32 | `exp_bw` | `default` | faithful; 5447/49458 tie-breaks | 0.866 | 0.578 | 0.997 | 3.39e+38 | 2615 ±146% | 6416 |
 | wh | fp32 | `expm1` | `default` | faithfully rounded; 5257 of 49458 points took the other neighbour | 0.997 | 0.565 | 0.997 | 3.39e+38 | 1031 | 16280 |
-| wh | fp32 | `expm1_bw` | `default` | 138 of 49458 points returned inf or zero where a value exists; the rest reach 4.91e+06 ULP | 4.91e+06 | 1.14e+04 | 0.985 | 1.39 | 3512 | 4777 |
+| wh | fp32 | `expm1_bw` | `default` | accurate to |x| <= 22 | 4.19e+06 | 3.83e+03 | 0.995 | 22 | 3512 | 4777 |
 | wh | fp32 | `floor` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 782 | 21457 |
 | wh | fp32 | `floor_div` | `default` | worst pairing 4.19e+06 ULP; mean 1.77e+03 | 4.19e+06 | 1.77e+03 | 0.955 | — | 4806 | 3491 |
 | wh | fp32 | `fmod` | `default` | worst pairing 1.43e+45 ULP; mean 1.86e+41 | 1.43e+45 | 1.86e+41 | 0.762 | — | 1011 | 16594 |
@@ -898,7 +898,7 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `ge_` | `default` | bit-exact | 0 | 0 | 1 | — | 1026 ±5% | 16351 |
 | wh | fp32 | `gelu` | `default` | 83 of 65024 points returned inf or zero where a value exists; the rest reach 1.51e+08 ULP | 1.51e+08 | 1.55e+05 | 0.963 | 0.253 | 1381 ±8% | 12148 |
 | wh | fp32 | `gelu` | `fast_approx` | 197 of 65024 points returned inf or zero where a value exists; the rest reach 7.45e+40 ULP | 7.45e+40 | 1.18e+39 | 0.497 | 2.33e-38 | 774 | 21677 |
-| wh | fp32 | `gelu_bw` | `default` | accurate to |x| <= 0.0296; up to 6.59e+08 ULP beyond | 6.59e+08 | 1.24e+05 | 0.962 | 0.0296 | 2082 | 8059 |
+| wh | fp32 | `gelu_bw` | `default` | accurate to |x| <= 0.0298 | 1.47e+08 | 2.3e+04 | 0.929 | 0.0298 | 2082 | 8059 |
 | wh | fp32 | `gez` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 778 | 21558 |
 | wh | fp32 | `gt` | `default` | bit-exact | 0 | 0 | 1 | — | 991 | 16935 |
 | wh | fp32 | `gt_` | `default` | bit-exact | 0 | 0 | 1 | — | 1006 ±5% | 16681 |
@@ -909,7 +909,7 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `hardsigmoid` | `default` | accurate to |x| <= 2.25; up to 4.89e+06 ULP beyond | 4.89e+06 | 3e+03 | 0.998 | 2.25 | 768 | 21852 |
 | wh | fp32 | `hardsigmoid_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 5058 | 3317 |
 | wh | fp32 | `hardswish` | `default` | accurate to |x| <= 2.36; up to 7.34e+06 ULP beyond | 7.34e+06 | 1.41e+03 | 0.971 | 2.36 | 828 ±9% | 20250 |
-| wh | fp32 | `hardswish_bw` | `default` | accurate to |x| <= 0.00133; up to 1.41e+10 ULP beyond | 1.41e+10 | 6e+06 | 0.95 | 0.00133 | 7117 | 2357 |
+| wh | fp32 | `hardswish_bw` | `default` | accurate to |x| <= 0.00133 | 1.41e+10 | 6e+06 | 0.95 | 0.00133 | 7117 | 2357 |
 | wh | fp32 | `hardtanh` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 769 | 21828 |
 | wh | fp32 | `hardtanh_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 4273 | 3927 |
 | wh | fp32 | `heaviside` | `value=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 775 | 21638 |
@@ -918,7 +918,7 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `hypot` | `default` | 16384 of 65024 points returned inf or zero where a value exists; the rest reach 3.44e+06 ULP | 3.44e+06 | 3.28e+04 | 0.965 | — | 1011 | 16588 |
 | wh | fp32 | `hypot_bw` | `default` | 16384/65024 defects; rest 4.86e+06 ULP | 4.86e+06 | 4.48e+04 | 0.824 | — | 6348 | 2643 |
 | wh | fp32 | `i0` | `default` | accurate to |x| <= 2.43; up to 1.68e+07 ULP beyond | 1.68e+07 | 2.19e+06 | 0.959 | 2.43 | 890 ±8% | 18857 |
-| wh | fp32 | `i0_bw` | `default` | accurate to |x| <= 0.00626; up to 1.56e+07 ULP beyond | 1.56e+07 | 4.11e+04 | 0.929 | 0.00626 | 3448 | 4866 |
+| wh | fp32 | `i0_bw` | `default` | accurate to |x| <= 0.00626 | 1.56e+07 | 4.11e+04 | 0.929 | 0.00626 | 3448 | 4866 |
 | wh | fp32 | `i1` | `default` | accurate to |x| <= 0.00626; up to 1.56e+07 ULP beyond | 1.56e+07 | 4.11e+04 | 0.929 | 0.00626 | 1737 | 9657 |
 | wh | fp32 | `identity` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 774 | 21687 |
 | wh | fp32 | `isclose` | `default` | bit-exact | 0 | 0 | 1 | — | 996 | 16837 |
@@ -941,17 +941,17 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `lerp_bw` | `default` | bit-exact | 0.5 | 0 | 1 | — | 5380 | 3119 |
 | wh | fp32 | `lez` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 776 ±11% | 21609 |
 | wh | fp32 | `lgamma` | `default` | accurate to |x| <= 0.0181; up to 3.27e+07 ULP beyond | 3.27e+07 | 2.98e+03 | 0.783 | 0.0181 | 3752 | 4471 |
-| wh | fp32 | `lgamma_bw` | `default` | never within 2 ULP; mean 7.77e+12, worst 3.66e+17 | 3.66e+17 | 7.77e+12 | 0.00566 | — | 4337 | 3869 |
+| wh | fp32 | `lgamma_bw` | `default` | never within 2 ULP | 3.66e+17 | 7.77e+12 | 0.00566 | — | 4337 | 3869 |
 | wh | fp32 | `log` | `default` | faithfully rounded; 32512 of 32512 points took the other neighbour | 0.961 | 0.562 | 0.952 | 3.39e+38 | 864 | 19420 |
 | wh | fp32 | `log10` | `default` | accurate to |x| <= 0.336; up to 2.13 ULP beyond | 2.13 | 1.36 | 0.641 | 0.336 | 883 | 19000 |
-| wh | fp32 | `log10_bw` | `default` | accurate to |x| <= 2.04e-38; up to 2.1 ULP beyond | 2.1 | 1.41 | 0.674 | 2.04e-38 | 10249 | 1637 |
+| wh | fp32 | `log10_bw` | `default` | accurate to |x| <= 2.04e-38 | 2.1 | 1.41 | 0.674 | 2.04e-38 | 10249 | 1637 |
 | wh | fp32 | `log1p` | `default` | faithfully rounded; 20111 of 48640 points took the other neighbour | 0.984 | 0.558 | 0.982 | 3.39e+38 | 910 | 18436 |
-| wh | fp32 | `log1p_bw` | `default` | within 2 ULP everywhere | 1.89 | 0.769 | 0.913 | 8.51e+37 | 10272 | 1633 |
+| wh | fp32 | `log1p_bw` | `default` | within 2 ULP | 1.89 | 0.769 | 0.913 | 8.51e+37 | 10272 | 1633 |
 | wh | fp32 | `log2` | `default` | accurate to |x| <= 0.704; up to 2.43 ULP beyond | 2.43 | 0.511 | 0.995 | 0.704 | 889 | 18868 |
-| wh | fp32 | `log2_bw` | `default` | 112 of 64626 points returned inf or zero where a value exists; the rest reach 1.9 ULP | 1.9 | 1.3 | 0.701 | — | 10260 | 1635 |
-| wh | fp32 | `log_bw` | `default` | faithfully rounded; 64512 of 64514 points took the other neighbour | 0.892 | 0.714 | 0.902 | 8.51e+37 | 7820 | 2145 |
+| wh | fp32 | `log2_bw` | `default` | 112/64626 defects; rest 1.9 ULP | 1.9 | 1.3 | 0.701 | — | 10260 | 1635 |
+| wh | fp32 | `log_bw` | `default` | faithful; 64512/64514 tie-breaks | 0.892 | 0.714 | 0.902 | 8.51e+37 | 7820 | 2145 |
 | wh | fp32 | `log_sigmoid` | `default` | never within 2 ULP; mean 1.82e+04, worst 4.4e+05 | 4.4e+05 | 1.82e+04 | 0.481 | — | 1095 | 15326 |
-| wh | fp32 | `log_sigmoid_bw` | `default` | accurate to |x| <= 0.00164; up to 2.95 ULP beyond | 2.95 | 1.28 | 0.954 | 0.00164 | 11491 | 1460 |
+| wh | fp32 | `log_sigmoid_bw` | `default` | accurate to |x| <= 0.00164 | 2.95 | 1.28 | 0.954 | 0.00164 | 11491 | 1460 |
 | wh | fp32 | `logaddexp` | `default` | 15566 of 65024 points returned inf or zero where a value exists; the rest reach 5.23e+08 ULP | 5.23e+08 | 7.28e+06 | 0.726 | — | 1486 | 11292 |
 | wh | fp32 | `logaddexp2` | `default` | 15488 of 65024 points returned inf or zero where a value exists; the rest reach 1.54e+09 ULP | 1.54e+09 | 1.05e+07 | 0.716 | — | 1314 ±149% | 12768 |
 | wh | fp32 | `logaddexp2_` | `default` | 15488 of 65024 points returned inf or zero where a value exists; the rest reach 1.54e+09 ULP | 1.54e+09 | 1.05e+07 | 0.716 | — | 1305 ±6% | 12857 |
@@ -966,8 +966,8 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `logical_or_` | `default` | bit-exact | 0 | 0 | 1 | — | 1018 | 16482 |
 | wh | fp32 | `logical_xor_` | `default` | bit-exact | 0 | 0 | 1 | — | 1022 | 16412 |
 | wh | fp32 | `logit` | `default` | accurate to |x| <= 0.266; up to 4.19e+06 ULP beyond | 4.19e+06 | 261 | 0.94 | 0.266 | 1057 | 15872 |
-| wh | fp32 | `logit_bw` | `default` | accurate to |x| <= 2.98e-08; up to 2.36 ULP beyond | 2.36 | 0.839 | 0.857 | 2.98e-08 | 13834 | 1213 |
-| wh | fp32 | `logiteps_bw` | `default` | accurate to |x| <= 2.98e-08; up to 2.36 ULP beyond | 2.36 | 0.839 | 0.857 | 2.98e-08 | 16461 | 1019 |
+| wh | fp32 | `logit_bw` | `default` | accurate to |x| <= 2.98e-08 | 2.36 | 0.839 | 0.857 | 2.98e-08 | 13834 | 1213 |
+| wh | fp32 | `logiteps_bw` | `default` | accurate to |x| <= 2.98e-08 | 2.36 | 0.839 | 0.857 | 2.98e-08 | 16461 | 1019 |
 | wh | fp32 | `lt` | `default` | bit-exact | 0 | 0 | 1 | — | 987 | 17003 |
 | wh | fp32 | `lt_` | `default` | bit-exact | 0 | 0 | 1 | — | 1004 ±6% | 16706 |
 | wh | fp32 | `ltz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 769 | 21830 |
@@ -980,7 +980,7 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `mse_loss` | `default` | within 2 ULP everywhere | 1.91 | 1.78 | 0.896 | — | 997 ±8% | 16825 |
 | wh | fp32 | `mul_bw` | `default` | bit-exact | 0 | 0 | 1 | — | 2720 | 6168 |
 | wh | fp32 | `multigammaln` | `default` | 7422 of 50376 points returned inf or zero where a value exists; the rest reach 3.51e+07 ULP | 3.51e+07 | 9.16e+03 | 0.476 | 5.59e-17 | 20810 | 806 |
-| wh | fp32 | `multigammaln_bw` | `default` | accurate to |x| <= 5.55e-17; up to 1.36e+15 ULP beyond | 1.36e+15 | 2.04e+11 | 0.0104 | 5.55e-17 | 20183 | 831 |
+| wh | fp32 | `multigammaln_bw` | `default` | accurate to |x| <= 5.55e-17 | 1.36e+15 | 2.04e+11 | 0.0104 | 5.55e-17 | 20183 | 831 |
 | wh | fp32 | `multiply` | `default` | bit-exact | 0.5 | 0 | 1 | — | 989 | 16967 |
 | wh | fp32 | `multiply_` | `default` | bit-exact | 0.5 | 0 | 1 | — | 1001 | 16765 |
 | wh | fp32 | `ne` | `default` | bit-exact | 0 | 0 | 1 | — | 997 ±10% | 16820 |
@@ -991,15 +991,15 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `polygamma` | `k=1` | accurate to |x| <= 5.4e-20; up to 7.91e+33 ULP beyond | 7.91e+33 | 4.68e+29 | 0.617 | 5.4e-20 | 5750 | 2918 |
 | wh | fp32 | `polygamma` | `k=2` | 75 of 49922 points returned inf or zero where a value exists; the rest reach 4.45e+30 ULP | 4.45e+30 | 4.42e+26 | 0.199 | 1.79e-13 | 5924 | 2832 |
 | wh | fp32 | `polygamma` | `k=4` | 141 of 49922 points returned inf or zero where a value exists; the rest reach 3.77e+25 ULP | 3.77e+25 | 6.51e+21 | 0.191 | 3.68e-08 | 6330 ±14% | 2650 |
-| wh | fp32 | `polygamma_bw` | `n=1` | 75 of 49922 points returned inf or zero where a value exists; the rest reach 4.45e+30 ULP | 4.45e+30 | 4.42e+26 | 0.199 | 1.79e-13 | 18107 | 926 |
+| wh | fp32 | `polygamma_bw` | `n=1` | 75/49922 defects; rest 4.45e+30 ULP | 4.45e+30 | 4.42e+26 | 0.199 | 1.79e-13 | 18107 | 926 |
 | wh | fp32 | `pow` | `default` | worst pairing 5.92e+03 ULP; mean 3.17 | 5.92e+03 | 3.17 | 0.992 | — | 2174 | 7716 |
 | wh | fp32 | `pow_bw` | `exponent=2.0` | bit-exact | 0 | 0 | 1 | 1.69e+38 | 4951 | 3389 |
 | wh | fp32 | `prelu` | `weight=0.25` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 775 ±6% | 21658 |
 | wh | fp32 | `rad2deg` | `default` | faithfully rounded; 63518 of 63518 points took the other neighbour | 0.696 | 0.643 | 0.858 | 5.93e+36 | 770 | 21792 |
 | wh | fp32 | `rdiv` | `value=2.0` | 256 of 64770 points returned inf or zero where a value exists; the rest reach 0.892 ULP | 0.892 | 0.714 | 0.902 | 8.51e+37 | 799 ±7% | 20988 |
-| wh | fp32 | `rdiv_bw` | `scalar=2.0` | 252 of 48490 points returned inf or zero where a value exists; the rest reach 1.84 ULP | 1.84 | 1.22 | 0.726 | 7.67e-20 | 13361 ±11% | 1256 |
+| wh | fp32 | `rdiv_bw` | `scalar=2.0` | 252/48490 defects; rest 1.84 ULP | 1.84 | 1.22 | 0.726 | 7.67e-20 | 13361 ±11% | 1256 |
 | wh | fp32 | `reciprocal` | `default` | faithfully rounded; 64512 of 64514 points took the other neighbour | 0.892 | 0.714 | 0.902 | 8.51e+37 | 800 | 20970 |
-| wh | fp32 | `reciprocal_bw` | `default` | 254 of 48386 points returned inf or zero where a value exists; the rest reach 1.84 ULP | 1.84 | 1.22 | 0.726 | 5.42e-20 | 10052 | 1669 |
+| wh | fp32 | `reciprocal_bw` | `default` | 254/48386 defects; rest 1.84 ULP | 1.84 | 1.22 | 0.726 | 5.42e-20 | 10052 | 1669 |
 | wh | fp32 | `relu` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 772 ±6% | 21741 |
 | wh | fp32 | `relu6` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 776 | 21621 |
 | wh | fp32 | `relu6_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 7915 | 2120 |
@@ -1014,32 +1014,32 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `rpow` | `exponent=0.5` | faithfully rounded; 5624 of 49536 points took the other neighbour | 0.879 | 0.609 | 0.995 | 3.39e+38 | 1834 | 9148 |
 | wh | fp32 | `rpow` | `exponent=1.0` | 1536 of 49536 points returned inf or zero where a value exists; the rest reach 0 ULP | 0 | 0 | 1 | 8.28e+34 | 1831 | 9160 |
 | wh | fp32 | `rpow` | `exponent=2.0` | 1536 of 49536 points returned inf or zero where a value exists; the rest reach 0.879 ULP | 0.879 | 0.609 | 0.996 | 8.28e+34 | 1835 | 9141 |
-| wh | fp32 | `rpow_bw` | `exponent=2.0` | 32384 of 64768 points returned inf or zero where a value exists; the rest reach 0 ULP | 0 | 0 | 1 | 1.18e-38 | 5694 | 2946 |
+| wh | fp32 | `rpow_bw` | `exponent=2.0` | 32384/64768 defects; rest 0 ULP | 0 | 0 | 1 | 1.18e-38 | 5694 | 2946 |
 | wh | fp32 | `rsqrt` | `default` | within 2 ULP everywhere | 1.12 | 0.834 | 0.864 | 3.39e+38 | 844 | 19879 |
-| wh | fp32 | `rsqrt_bw` | `default` | 75 of 21666 points returned inf or zero where a value exists; the rest reach 7.19 ULP | 7.19 | 4.49 | 0.293 | — | 11899 | 1410 |
+| wh | fp32 | `rsqrt_bw` | `default` | 75/21666 defects; rest 6.76 ULP | 6.76 | 4.26 | 0.3 | — | 11899 | 1410 |
 | wh | fp32 | `rsub` | `default` | bit-exact | 0.5 | 0 | 1 | — | 987 | 17005 |
 | wh | fp32 | `rsub_` | `default` | bit-exact | 0.5 | 0 | 1 | — | 1003 | 16723 |
 | wh | fp32 | `selu` | `default` | never within 2 ULP; mean 26.3, worst 51.3 | 51.3 | 26.3 | 0 | — | 961 | 17462 |
-| wh | fp32 | `selu_bw` | `default` | 1 of 65024 points returned inf or zero where a value exists; the rest reach 50.7 ULP | 50.7 | 20.4 | 0.235 | — | 6208 | 2703 |
+| wh | fp32 | `selu_bw` | `default` | 1/65024 defects; rest 50.7 ULP | 50.7 | 20.4 | 0.235 | — | 6208 | 2703 |
 | wh | fp32 | `sigmoid` | `default` | accurate to |x| <= 0.000345; up to 2.64 ULP beyond | 2.64 | 1.31 | 0.96 | 0.000345 | 1077 | 15574 |
 | wh | fp32 | `sigmoid_accurate` | `default` | accurate to |x| <= 0.000345; up to 2.64 ULP beyond | 2.64 | 1.31 | 0.96 | 0.000345 | 1070 ±5% | 15675 |
-| wh | fp32 | `sigmoid_bw` | `default` | 140 of 65024 points returned inf or zero where a value exists; the rest reach 8.39e+06 ULP | 8.39e+06 | 2.71e+04 | 0.975 | 0.447 | 4519 | 3712 |
+| wh | fp32 | `sigmoid_bw` | `default` | 140/65024 defects; rest 8.39e+06 ULP | 8.39e+06 | 2.71e+04 | 0.975 | 0.447 | 4519 | 3712 |
 | wh | fp32 | `sign` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 782 ±6% | 21466 |
 | wh | fp32 | `signbit` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 766 | 21897 |
 | wh | fp32 | `silu` | `default` | 9 of 65024 points returned inf or zero where a value exists; the rest reach 2.94 ULP | 2.94 | 1.55 | 0.95 | 0.000121 | 1085 | 15467 |
-| wh | fp32 | `silu_bw` | `default` | 9 of 65024 points returned inf or zero where a value exists; the rest reach 5.72e+06 ULP | 5.72e+06 | 841 | 0.937 | 2.98e-07 | 6232 | 2692 |
+| wh | fp32 | `silu_bw` | `default` | 9/65024 defects; rest 5.72e+06 ULP | 5.72e+06 | 841 | 0.937 | 2.98e-07 | 6232 | 2692 |
 | wh | fp32 | `sin` | `default` | accurate to |x| <= 28; up to 2.2e+12 ULP beyond | 2.2e+12 | 2.68e+09 | 0.955 | 28 | 841 ±30% | 19943 |
-| wh | fp32 | `sin_bw` | `default` | 18190 of 65024 points returned inf or zero where a value exists; the rest reach 1.56e+53 ULP | 1.56e+53 | 2.03e+49 | 0.802 | 92.4 | 2573 | 6520 |
+| wh | fp32 | `sin_bw` | `default` | 18430/65024 defects; rest 1.24e+52 ULP | 1.24e+52 | 3.44e+48 | 0.808 | 92.4 | 2573 | 6520 |
 | wh | fp32 | `sinh` | `default` | accurate to |x| <= 0.0155; up to 2.21 ULP beyond | 2.21 | 1.17 | 0.943 | 0.0155 | 1094 | 15333 |
-| wh | fp32 | `sinh_bw` | `default` | 2 of 33894 points returned inf or zero where a value exists; the rest reach 1.35 ULP | 1.35 | 0.798 | 0.98 | 88.5 | 11919 | 1408 |
+| wh | fp32 | `sinh_bw` | `default` | 2/33894 defects; rest 1.35 ULP | 1.35 | 0.798 | 0.98 | 88.5 | 11919 | 1408 |
 | wh | fp32 | `softplus` | `default` | 30 of 65024 points returned inf or zero where a value exists; the rest reach 8.21e+03 ULP | 8.21e+03 | 656 | 0.49 | — | 1439 ±93% | 11656 |
-| wh | fp32 | `softplus_bw` | `default` | accurate to |x| <= 0.00163; up to 2.95 ULP beyond | 2.95 | 1.34 | 0.954 | 0.00163 | 8683 | 1932 |
+| wh | fp32 | `softplus_bw` | `default` | accurate to |x| <= 0.00163 | 2.95 | 1.34 | 0.954 | 0.00163 | 8683 | 1932 |
 | wh | fp32 | `softshrink` | `default` | bit-exact | 0.5 | 0 | 1 | 3.39e+38 | 774 | 21665 |
 | wh | fp32 | `softshrink_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 4269 | 3930 |
 | wh | fp32 | `softsign` | `default` | 510 of 65024 points returned inf or zero where a value exists; the rest reach 2.66 ULP | 2.66 | 0.897 | 0.92 | 0.000462 | 818 | 20499 |
-| wh | fp32 | `softsign_bw` | `default` | accurate to |x| <= 1.79e-07; up to 8.38e+06 ULP beyond | 8.38e+06 | 1.54e+05 | 0.791 | 1.79e-07 | 2568 | 6532 |
+| wh | fp32 | `softsign_bw` | `default` | accurate to |x| <= 1.79e-07 | 8.38e+06 | 1.54e+05 | 0.791 | 1.79e-07 | 2568 | 6532 |
 | wh | fp32 | `sqrt` | `default` | faithfully rounded; 32512 of 32512 points took the other neighbour | 0.867 | 0.827 | 0.869 | 3.39e+38 | 818 | 20519 |
-| wh | fp32 | `sqrt_bw` | `default` | never within 2 ULP; mean 1.44, worst 2.24 | 2.24 | 1.44 | 0.702 | — | 12640 | 1327 |
+| wh | fp32 | `sqrt_bw` | `default` | never within 2 ULP | 2.24 | 1.44 | 0.702 | — | 12640 | 1327 |
 | wh | fp32 | `square` | `default` | bit-exact | 0.5 | 0 | 1 | 1.84e+19 | 765 | 21929 |
 | wh | fp32 | `square_bw` | `default` | bit-exact | 0 | 0 | 1 | 1.69e+38 | 2481 | 6763 |
 | wh | fp32 | `squared_difference` | `default` | within 2 ULP everywhere | 1.91 | 1.78 | 0.896 | — | 986 | 17018 |
@@ -1050,11 +1050,11 @@ Computed, never inferred. First match wins.
 | wh | fp32 | `subtract_` | `default` | bit-exact | 0.5 | 0 | 1 | — | 996 | 16850 |
 | wh | fp32 | `swish` | `default` | 9 of 65024 points returned inf or zero where a value exists; the rest reach 2.94 ULP | 2.94 | 1.55 | 0.95 | 0.000121 | 1097 ±6% | 15289 |
 | wh | fp32 | `tan` | `default` | accurate to |x| <= 3.92; up to 2.2e+12 ULP beyond | 2.2e+12 | 5.61e+09 | 0.938 | 3.92 | 1190 | 14095 |
-| wh | fp32 | `tan_bw` | `default` | 20376 of 65024 points returned inf or zero where a value exists; the rest reach 2.85e+45 ULP | 2.85e+45 | 5.11e+44 | 0.864 | 0.882 | 4414 | 3801 |
+| wh | fp32 | `tan_bw` | `default` | 20623/65024 defects; rest 2.85e+45 ULP | 2.85e+45 | 4.74e+44 | 0.87 | 0.882 | 4414 | 3801 |
 | wh | fp32 | `tanh` | `default` | accurate to |x| <= 0.000439; up to 2.79 ULP beyond | 2.79 | 1.49 | 0.979 | 0.000439 | 940 ±17% | 17844 |
-| wh | fp32 | `tanh_bw` | `default` | never within 2 ULP; mean 9.01e+03, worst 4.19e+06 | 4.19e+06 | 9.01e+03 | 0.485 | — | 1772 ±59% | 9469 |
+| wh | fp32 | `tanh_bw` | `default` | never within 2 ULP | 6.59e+04 | 7.51e+03 | 0.482 | — | 1772 ±59% | 9469 |
 | wh | fp32 | `tanhshrink` | `default` | accurate to |x| <= 1.34e-08; up to 4.19e+06 ULP beyond | 4.19e+06 | 9.35e+04 | 0.866 | 1.34e-08 | 1388 ±8% | 12084 |
-| wh | fp32 | `tanhshrink_bw` | `default` | accurate to |x| <= 7.42e-09; up to 4.19e+06 ULP beyond | 4.19e+06 | 1.01e+05 | 0.901 | 7.42e-09 | 3409 | 4921 |
+| wh | fp32 | `tanhshrink_bw` | `default` | accurate to |x| <= 7.42e-09 | 4.19e+06 | 1.01e+05 | 0.901 | 7.42e-09 | 3409 | 4921 |
 | wh | fp32 | `threshold` | `threshold=0.0,value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 774 | 21678 |
 | wh | fp32 | `threshold` | `threshold=0.5,value=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 772 | 21728 |
 | wh | fp32 | `threshold_bw` | `min=0.5,max=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 3252 | 5160 |

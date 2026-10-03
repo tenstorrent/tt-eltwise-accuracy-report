@@ -39,7 +39,7 @@ Total: 221 ops measured
 | [clip](clip/README.md) | unary | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) |
 | [clip_bw](clip_bw/README.md) | ternary_bw | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) |
 | [cos](cos/README.md) | unary | [4.1e+03](cos/README.md) | [3.3e+12](cos/README.md) | [4.1e+03](cos/README.md) | [3.3e+12](cos/README.md) |
-| [cos_bw](cos_bw/README.md) | unary_bw | [7.45e+42](cos_bw/README.md) | [2.68e+51](cos_bw/README.md) | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) |
+| [cos_bw](cos_bw/README.md) | unary_bw | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) |
 | [cosh](cosh/README.md) | unary | [0.5](cosh/README.md) | [1.35](cosh/README.md) | [0.501](cosh/README.md) | [1.35](cosh/README.md) |
 | [cosh_bw](cosh_bw/README.md) | unary_bw | [0.5](cosh_bw/README.md) | [2.21](cosh_bw/README.md) | [0.5](cosh_bw/README.md) | [2.2](cosh_bw/README.md) |
 | [deg2rad](deg2rad/README.md) | unary | [0.998](deg2rad/README.md) | [0.63](deg2rad/README.md) | [0.998](deg2rad/README.md) | [0.63](deg2rad/README.md) |
@@ -66,7 +66,7 @@ Total: 221 ops measured
 | [exp2_bw](exp2_bw/README.md) | unary_bw | [1.89](exp2_bw/README.md) | [1.85](exp2_bw/README.md) | [1.89](exp2_bw/README.md) | [1.85](exp2_bw/README.md) |
 | [exp_bw](exp_bw/README.md) | unary_bw | [0.892](exp_bw/README.md) | [0.866](exp_bw/README.md) | [0.892](exp_bw/README.md) | [0.866](exp_bw/README.md) |
 | [expm1](expm1/README.md) | unary | [0.5](expm1/README.md) | [0.997](expm1/README.md) | [0.5](expm1/README.md) | [0.997](expm1/README.md) |
-| [expm1_bw](expm1_bw/README.md) | unary_bw | [125](expm1_bw/README.md) | [4.91e+06](expm1_bw/README.md) | [34](expm1_bw/README.md) | [4.19e+06](expm1_bw/README.md) |
+| [expm1_bw](expm1_bw/README.md) | unary_bw | [34](expm1_bw/README.md) | [4.19e+06](expm1_bw/README.md) | [34](expm1_bw/README.md) | [4.19e+06](expm1_bw/README.md) |
 | [floor](floor/README.md) | unary | [0](floor/README.md) | [0](floor/README.md) | [0](floor/README.md) | [0](floor/README.md) |
 | [floor_div](floor_div/README.md) | binary | [64](floor_div/README.md) | [4.19e+06](floor_div/README.md) | [64](floor_div/README.md) | [4.19e+06](floor_div/README.md) |
 | [fmod](fmod/README.md) | binary | [6.65e+35](fmod/README.md) | [1.43e+45](fmod/README.md) | [9.14e+35](fmod/README.md) | [1.61e+45](fmod/README.md) |
@@ -74,7 +74,7 @@ Total: 221 ops measured
 | [ge](ge/README.md) | binary | [0](ge/README.md) | [0](ge/README.md) | [0](ge/README.md) | [0](ge/README.md) |
 | [ge_](ge_/README.md) | binary | [0](ge_/README.md) | [0](ge_/README.md) | [0](ge_/README.md) | [0](ge_/README.md) |
 | [gelu](gelu/README.md) | unary | [165](gelu/README.md) | [1.51e+08](gelu/README.md) | [165](gelu/README.md) | [1.71e+08](gelu/README.md) |
-| [gelu_bw](gelu_bw/README.md) | unary_bw | [3.5](gelu_bw/README.md) | [6.59e+08](gelu_bw/README.md) | [0.939](gelu_bw/README.md) | [1.47e+08](gelu_bw/README.md) |
+| [gelu_bw](gelu_bw/README.md) | unary_bw | [0.939](gelu_bw/README.md) | [1.47e+08](gelu_bw/README.md) | [0.939](gelu_bw/README.md) | [1.47e+08](gelu_bw/README.md) |
 | [gez](gez/README.md) | unary | [0](gez/README.md) | [0](gez/README.md) | [0](gez/README.md) | [0](gez/README.md) |
 | [gt](gt/README.md) | binary | [0](gt/README.md) | [0](gt/README.md) | [0](gt/README.md) | [0](gt/README.md) |
 | [gt_](gt_/README.md) | binary | [0](gt_/README.md) | [0](gt_/README.md) | [0](gt_/README.md) | [0](gt_/README.md) |
@@ -181,7 +181,7 @@ Total: 221 ops measured
 | [rpow](rpow/README.md) | unary | [0.898](rpow/README.md) | [0.879](rpow/README.md) | [0.898](rpow/README.md) | [0.879](rpow/README.md) |
 | [rpow_bw](rpow_bw/README.md) | unary_bw | [0](rpow_bw/README.md) | [0](rpow_bw/README.md) | [0](rpow_bw/README.md) | [0](rpow_bw/README.md) |
 | [rsqrt](rsqrt/README.md) | unary | [0.499](rsqrt/README.md) | [1.12](rsqrt/README.md) | [0.499](rsqrt/README.md) | [1.12](rsqrt/README.md) |
-| [rsqrt_bw](rsqrt_bw/README.md) | unary_bw | [3.23](rsqrt_bw/README.md) | [7.19](rsqrt_bw/README.md) | [3.23](rsqrt_bw/README.md) | [6.21](rsqrt_bw/README.md) |
+| [rsqrt_bw](rsqrt_bw/README.md) | unary_bw | [3.23](rsqrt_bw/README.md) | [6.76](rsqrt_bw/README.md) | [3.23](rsqrt_bw/README.md) | [6.21](rsqrt_bw/README.md) |
 | [rsub](rsub/README.md) | binary | [0.621](rsub/README.md) | [0.5](rsub/README.md) | [0.621](rsub/README.md) | [0.5](rsub/README.md) |
 | [rsub_](rsub_/README.md) | binary | [0.621](rsub_/README.md) | [0.5](rsub_/README.md) | [0.621](rsub_/README.md) | [0.5](rsub_/README.md) |
 | [selu](selu/README.md) | unary | [0.5](selu/README.md) | [51.3](selu/README.md) | [0.5](selu/README.md) | [51.3](selu/README.md) |
@@ -194,7 +194,7 @@ Total: 221 ops measured
 | [silu](silu/README.md) | unary | [0.914](silu/README.md) | [2.94](silu/README.md) | [0.888](silu/README.md) | [3.61](silu/README.md) |
 | [silu_bw](silu_bw/README.md) | unary_bw | [285](silu_bw/README.md) | [5.72e+06](silu_bw/README.md) | [285](silu_bw/README.md) | [5.72e+06](silu_bw/README.md) |
 | [sin](sin/README.md) | unary | [4.1e+03](sin/README.md) | [2.2e+12](sin/README.md) | [4.1e+03](sin/README.md) | [2.2e+12](sin/README.md) |
-| [sin_bw](sin_bw/README.md) | unary_bw | [1.94e+42](sin_bw/README.md) | [1.56e+53](sin_bw/README.md) | [2.98e+41](sin_bw/README.md) | [1.24e+52](sin_bw/README.md) |
+| [sin_bw](sin_bw/README.md) | unary_bw | [2.98e+41](sin_bw/README.md) | [1.24e+52](sin_bw/README.md) | [2.98e+41](sin_bw/README.md) | [1.24e+52](sin_bw/README.md) |
 | [sinh](sinh/README.md) | unary | [0.5](sinh/README.md) | [2.21](sinh/README.md) | [0.5](sinh/README.md) | [2.2](sinh/README.md) |
 | [sinh_bw](sinh_bw/README.md) | unary_bw | [0.5](sinh_bw/README.md) | [1.35](sinh_bw/README.md) | [0.501](sinh_bw/README.md) | [1.35](sinh_bw/README.md) |
 | [softcap](softcap/README.md) | unary | — | — | [0.718](softcap/README.md) | — |
@@ -216,9 +216,9 @@ Total: 221 ops measured
 | [subtract_](subtract_/README.md) | binary | [0.621](subtract_/README.md) | [0.5](subtract_/README.md) | [0.621](subtract_/README.md) | [0.5](subtract_/README.md) |
 | [swish](swish/README.md) | unary | [0.914](swish/README.md) | [2.94](swish/README.md) | [0.888](swish/README.md) | [3.61](swish/README.md) |
 | [tan](tan/README.md) | unary | [4.1e+03](tan/README.md) | [2.2e+12](tan/README.md) | [4.1e+03](tan/README.md) | [2.2e+12](tan/README.md) |
-| [tan_bw](tan_bw/README.md) | unary_bw | [3.1e+40](tan_bw/README.md) | [2.85e+45](tan_bw/README.md) | [3.57e+40](tan_bw/README.md) | [2.85e+45](tan_bw/README.md) |
+| [tan_bw](tan_bw/README.md) | unary_bw | [3.57e+40](tan_bw/README.md) | [2.85e+45](tan_bw/README.md) | [3.57e+40](tan_bw/README.md) | [2.85e+45](tan_bw/README.md) |
 | [tanh](tanh/README.md) | unary | [0.811](tanh/README.md) | [2.79](tanh/README.md) | [0.811](tanh/README.md) | [2.6](tanh/README.md) |
-| [tanh_bw](tanh_bw/README.md) | unary_bw | [55.5](tanh_bw/README.md) | [4.19e+06](tanh_bw/README.md) | [1.16](tanh_bw/README.md) | [6.59e+04](tanh_bw/README.md) |
+| [tanh_bw](tanh_bw/README.md) | unary_bw | [1.16](tanh_bw/README.md) | [6.59e+04](tanh_bw/README.md) | [1.16](tanh_bw/README.md) | [6.59e+04](tanh_bw/README.md) |
 | [tanhshrink](tanhshrink/README.md) | unary | [63.5](tanhshrink/README.md) | [4.19e+06](tanhshrink/README.md) | [63.5](tanhshrink/README.md) | [4.19e+06](tanhshrink/README.md) |
 | [tanhshrink_bw](tanhshrink_bw/README.md) | unary_bw | [63](tanhshrink_bw/README.md) | [4.19e+06](tanhshrink_bw/README.md) | [63](tanhshrink_bw/README.md) | [4.19e+06](tanhshrink_bw/README.md) |
 | [threshold](threshold/README.md) | unary | [0](threshold/README.md) | [0](threshold/README.md) | [0](threshold/README.md) | [0](threshold/README.md) |

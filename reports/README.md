@@ -32,7 +32,7 @@ Charts show ULP (units in last place) error across the full input range.
 
 ## Returning inf or zero where a value exists
 
-187 variants across 52 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+185 variants across 51 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -46,15 +46,15 @@ Charts show ULP (units in last place) error across the full input range.
 | [`rpow_bw`](by_op/rpow_bw/README.md) | `exponent=2.0` | wh fp32 | 32,384 of 64,768 | 50.0% |
 | [`tan_bw`](by_op/tan_bw/README.md) | `default` | bh bf16 | 22,782 of 65,024 | 35.0% |
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | bh bf16 | 21,284 of 65,024 | 32.7% |
+| [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh bf16 | 21,284 of 65,024 | 32.7% |
 | [`cos_bw`](by_op/cos_bw/README.md) | `default` | bh bf16 | 21,281 of 65,024 | 32.7% |
-| [`cos_bw`](by_op/cos_bw/README.md) | `default` | wh bf16 | 21,275 of 65,024 | 32.7% |
-| [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh bf16 | 21,274 of 65,024 | 32.7% |
+| [`cos_bw`](by_op/cos_bw/README.md) | `default` | wh bf16 | 21,281 of 65,024 | 32.7% |
 | [`tan_bw`](by_op/tan_bw/README.md) | `default` | bh fp32 | 20,623 of 65,024 | 31.7% |
-| [`tan_bw`](by_op/tan_bw/README.md) | `default` | wh fp32 | 20,376 of 65,024 | 31.3% |
+| [`tan_bw`](by_op/tan_bw/README.md) | `default` | wh fp32 | 20,623 of 65,024 | 31.7% |
 | [`cos_bw`](by_op/cos_bw/README.md) | `default` | bh fp32 | 18,643 of 65,024 | 28.7% |
+| [`cos_bw`](by_op/cos_bw/README.md) | `default` | wh fp32 | 18,643 of 65,024 | 28.7% |
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | bh fp32 | 18,430 of 65,024 | 28.3% |
-| [`cos_bw`](by_op/cos_bw/README.md) | `default` | wh fp32 | 18,190 of 65,024 | 28.0% |
-| [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh fp32 | 18,190 of 65,024 | 28.0% |
+| [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh fp32 | 18,430 of 65,024 | 28.3% |
 | [`hypot`](by_op/hypot/README.md) | `default` | bh fp32 | 16,384 of 65,024 | 25.2% |
 | [`hypot`](by_op/hypot/README.md) | `default` | wh fp32 | 16,384 of 65,024 | 25.2% |
 | [`hypot_bw`](by_op/hypot_bw/README.md) | `default` | bh fp32 | 16,384 of 65,024 | 25.2% |
@@ -87,7 +87,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`logaddexp2`](by_op/logaddexp2/README.md) | `default` | wh bf16 | 15,488 of 65,026 | 23.8% |
 | [`logaddexp2_`](by_op/logaddexp2_/README.md) | `default` | bh bf16 | 15,488 of 65,026 | 23.8% |
 | [`logaddexp2_`](by_op/logaddexp2_/README.md) | `default` | wh bf16 | 15,488 of 65,026 | 23.8% |
-| [`tan_bw`](by_op/tan_bw/README.md) | `default` | wh bf16 | 12,178 of 65,024 | 18.7% |
+| [`tan_bw`](by_op/tan_bw/README.md) | `default` | wh bf16 | 12,184 of 65,024 | 18.7% |
 | [`multigammaln`](by_op/multigammaln/README.md) | `default` | bh fp32 | 7,422 of 50,376 | 14.7% |
 | [`multigammaln`](by_op/multigammaln/README.md) | `default` | wh fp32 | 7,422 of 50,376 | 14.7% |
 | [`rpow`](by_op/rpow/README.md) | `exponent=1.0` | bh fp32 | 1,536 of 49,536 | 3.1% |
@@ -101,7 +101,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`softsign`](by_op/softsign/README.md) | `default` | bh fp32 | 512 of 65,024 | 0.8% |
 | [`softsign`](by_op/softsign/README.md) | `default` | wh bf16 | 510 of 65,024 | 0.8% |
 | [`softsign`](by_op/softsign/README.md) | `default` | wh fp32 | 510 of 65,024 | 0.8% |
-| [`expm1_bw`](by_op/expm1_bw/README.md) | `default` | wh bf16 | 331 of 49,458 | 0.7% |
 | [`reciprocal_bw`](by_op/reciprocal_bw/README.md) | `default` | bh bf16 | 256 of 48,386 | 0.5% |
 | [`reciprocal_bw`](by_op/reciprocal_bw/README.md) | `default` | bh fp32 | 256 of 48,386 | 0.5% |
 | [`reciprocal_bw`](by_op/reciprocal_bw/README.md) | `default` | wh bf16 | 256 of 48,386 | 0.5% |
@@ -132,7 +131,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh bf16 | 142 of 49,922 | 0.3% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=4` | bh fp32 | 141 of 49,922 | 0.3% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh fp32 | 141 of 49,922 | 0.3% |
-| [`expm1_bw`](by_op/expm1_bw/README.md) | `default` | wh fp32 | 138 of 49,458 | 0.3% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | bh fp32 | 140 of 65,024 | 0.2% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | wh fp32 | 140 of 65,024 | 0.2% |
 | [`log2_bw`](by_op/log2_bw/README.md) | `default` | bh bf16 | 116 of 64,626 | 0.2% |

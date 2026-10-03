@@ -45,7 +45,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 |  | `min=1.0,max=-1.0` | 0 | 0 | 3.39e+38 | 0 | 767 |
 | [clip_bw](clip_bw.md) | `default` | 0 | 0 | n/a | 0 | 4607 |
 | [cos](cos.md) | `default` | 3.3e+12 ⚠ | 3.33e+09 | 92.4 | 0.0234 | 861 |
-| [cos_bw](cos_bw.md) | `default` | 2.68e+51 ⚠ | 2.8e+48 | 28 | 3.4e+38 | 3300 |
+| [cos_bw](cos_bw.md) | `default` | 8.59e+51 ⚠ | 3.23e+48 | 28 | 3.4e+38 | 3300 |
 | [cosh](cosh.md) | `default` | 1.35 | 0.798 | 89.1 | 1.57e+31 | 971 |
 | [cosh_bw](cosh_bw.md) | `default` | 2.21 | 1.17 | 0.0155 | 8.81e+30 | 13572 |
 | [deg2rad](deg2rad.md) | `default` | 0.63 | 0.595 | 3.4e+38 | 3.63e+29 | 770 |
@@ -73,7 +73,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [exp2_bw](exp2_bw.md) | `default` | 1.85 | 1.09 | 128 | 1.78e+31 | 3327 |
 | [exp_bw](exp_bw.md) | `default` | 0.866 | 0.578 | 3.39e+38 | 1.5e+31 | 2615 ±146% |
 | [expm1](expm1.md) | `default` | 0.997 | 0.565 | 3.39e+38 | 1.76e+31 | 1031 |
-| [expm1_bw](expm1_bw.md) | `default` | 4.91e+06 ⚠ | 1.14e+04 | 1.39 | 1.76e+31 | 3512 |
+| [expm1_bw](expm1_bw.md) | `default` | 4.19e+06 ⚠ | 3.83e+03 | 22 | 1.5e+31 | 3512 |
 | [floor](floor.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 782 |
 | [floor_div](floor_div.md) | `default` | 4.19e+06 ⚠ | 1.77e+03 | n/a | 1 | 4806 |
 | [fmod](fmod.md) | `default` | 1.43e+45 ⚠ | 1.86e+41 | n/a | 4.06e+31 | 1011 |
@@ -82,7 +82,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [ge_](ge_.md) | `default` | 0 | 0 | n/a | 0 | 1026 ±5% |
 | [gelu](gelu.md) | `default` | 1.51e+08 ⚠ | 1.55e+05 | 0.253 | 2.86e-06 | 1381 ±8% |
 |  | `fast_approx` | 7.45e+40 ⚠ | 1.18e+39 | 2.33e-38 | 0.0234 | 774 |
-| [gelu_bw](gelu_bw.md) | `default` | 6.59e+08 ⚠ | 1.24e+05 | 0.0296 | 0.00751 | 2082 |
+| [gelu_bw](gelu_bw.md) | `default` | 1.47e+08 ⚠ | 2.3e+04 | 0.0298 | 0.00751 | 2082 |
 | [gez](gez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 778 |
 | [gt](gt.md) | `default` | 0 | 0 | n/a | 0 | 991 |
 | [gt_](gt_.md) | `default` | 0 | 0 | n/a | 0 | 1006 ±5% |
@@ -200,7 +200,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 |  | `exponent=2.0` | 0.879 | 0.609 | 8.28e+34 | 1.69e+31 | 1835 |
 | [rpow_bw](rpow_bw.md) | `exponent=2.0` | 0 | 0 | 1.18e-38 | 0 | 5694 |
 | [rsqrt](rsqrt.md) | `default` | 1.12 | 0.834 | 3.39e+38 | 6.13e+11 | 844 |
-| [rsqrt_bw](rsqrt_bw.md) | `default` | 7.19 | 4.49 | nowhere | 7.04e+31 | 11899 |
+| [rsqrt_bw](rsqrt_bw.md) | `default` | 6.76 | 4.26 | nowhere | 6.86e+31 | 11899 |
 | [rsub](rsub.md) | `default` | 0.5 | 0 | n/a | 1.01e+31 | 987 |
 | [rsub_](rsub_.md) | `default` | 0.5 | 0 | n/a | 1.01e+31 | 1003 |
 | [selu](selu.md) | `default` | 51.3 | 26.3 | nowhere | 3.46e+32 | 961 |
@@ -213,7 +213,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [silu](silu.md) | `default` | 2.94 | 1.55 | 0.000121 | 1.3e-06 | 1085 |
 | [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 841 | 2.98e-07 | 9.75e-07 | 6232 |
 | [sin](sin.md) | `default` | 2.2e+12 ⚠ | 2.68e+09 | 28 | 0.0312 | 841 ±30% |
-| [sin_bw](sin_bw.md) | `default` | 1.56e+53 ⚠ | 2.03e+49 | 92.4 | 3.4e+38 | 2573 |
+| [sin_bw](sin_bw.md) | `default` | 1.24e+52 ⚠ | 3.44e+48 | 92.4 | 3.4e+38 | 2573 |
 | [sinh](sinh.md) | `default` | 2.21 | 1.17 | 0.0155 | 1.82e+31 | 1094 |
 | [sinh_bw](sinh_bw.md) | `default` | 1.35 | 0.798 | 88.5 | 7.52e+30 | 11919 |
 | [softplus](softplus.md) | `default` | 8.21e+03 ⚠ | 656 | nowhere | 6.93e+35 | 1439 ±93% |
@@ -234,9 +234,9 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [subtract_](subtract_.md) | `default` | 0.5 | 0 | n/a | 1.01e+31 | 996 |
 | [swish](swish.md) | `default` | 2.94 | 1.55 | 0.000121 | 1.3e-06 | 1097 ±6% |
 | [tan](tan.md) | `default` | 2.2e+12 ⚠ | 5.61e+09 | 3.92 | 1.5e+07 | 1190 |
-| [tan_bw](tan_bw.md) | `default` | 2.85e+45 ⚠ | 5.11e+44 | 0.882 | 3.4e+38 | 4414 |
+| [tan_bw](tan_bw.md) | `default` | 2.85e+45 ⚠ | 4.74e+44 | 0.882 | 3.4e+38 | 4414 |
 | [tanh](tanh.md) | `default` | 2.79 | 1.49 | 0.000439 | 1.19e-07 | 940 ±17% |
-| [tanh_bw](tanh_bw.md) | `default` | 4.19e+06 ⚠ | 9.01e+03 | nowhere | 0.000814 | 1772 ±59% |
+| [tanh_bw](tanh_bw.md) | `default` | 6.59e+04 ⚠ | 7.51e+03 | nowhere | 0.000814 | 1772 ±59% |
 | [tanhshrink](tanhshrink.md) | `default` | 4.19e+06 ⚠ | 9.35e+04 | 1.34e-08 | 1 | 1388 ±8% |
 | [tanhshrink_bw](tanhshrink_bw.md) | `default` | 4.19e+06 ⚠ | 1.01e+05 | 7.42e-09 | 2.47e-07 | 3409 |
 | [threshold](threshold.md) | `threshold=0.0,value=1.0` | 0 | 0 | 3.39e+38 | 0 | 774 |
