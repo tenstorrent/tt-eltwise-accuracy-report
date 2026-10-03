@@ -7,11 +7,19 @@
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "clamp_bw",
-          "clip_bw",
-          "lerp_bw"
+          "atan2_bw",
+          "div_bw",
+          "hypot_bw",
+          "ldexp_bw",
+          "logaddexp2_bw",
+          "logaddexp_bw",
+          "max_bw",
+          "min_bw",
+          "mul_bw",
+          "squared_difference_bw",
+          "xlogy_bw"
         ],
-        "run_id": "20261003T032317",
+        "run_id": "20261003T030221",
         "tt_metal_commit": "de546d3b146",
         "ttnn_version": "0.79.0"
       },
@@ -21,11 +29,19 @@
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "clamp_bw",
-          "clip_bw",
-          "lerp_bw"
+          "atan2_bw",
+          "div_bw",
+          "hypot_bw",
+          "ldexp_bw",
+          "logaddexp2_bw",
+          "logaddexp_bw",
+          "max_bw",
+          "min_bw",
+          "mul_bw",
+          "squared_difference_bw",
+          "xlogy_bw"
         ],
-        "run_id": "20261003T032317",
+        "run_id": "20261003T030221",
         "tt_metal_commit": "de546d3b146",
         "ttnn_version": "0.79.0"
       }
@@ -2833,7 +2849,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 248 ULP; mean 4.89"
+          "verdict": "worst sampled pairing"
         }
       },
       "atan_bw": {
@@ -12670,7 +12686,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 74.6 ULP; mean 2.43"
+          "verdict": "worst sampled pairing"
         }
       },
       "i0": {
@@ -14390,7 +14406,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "faithfully rounded; 65026 of 65026 points took the other neighbour"
+          "verdict": "faithful; 65026/65026 tie-breaks"
         }
       },
       "le": {
@@ -18284,7 +18300,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 41.4 ULP; mean 3.6"
+          "verdict": "worst sampled pairing"
         }
       },
       "logaddexp_": {
@@ -18662,7 +18678,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 62.5 ULP; mean 4.9"
+          "verdict": "worst sampled pairing"
         }
       },
       "logical_and": {
@@ -20249,7 +20265,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 64 ULP; mean 64"
+          "verdict": "worst sampled pairing"
         }
       },
       "maximum": {
@@ -20498,7 +20514,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 64 ULP; mean 64"
+          "verdict": "worst sampled pairing"
         }
       },
       "minimum": {
@@ -30658,7 +30674,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "faithfully rounded; 64842 of 65026 points took the other neighbour"
+          "verdict": "faithful; 64842/65026 tie-breaks"
         }
       },
       "subalpha": {
@@ -33170,7 +33186,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "faithfully rounded; 65026 of 65026 points took the other neighbour"
+          "verdict": "faithful; 65026/65026 tie-breaks"
         }
       }
     },
@@ -35816,7 +35832,7 @@
           "ulp_clipped": 48384,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 1.64e+07 ULP; mean 1.66e+05"
+          "verdict": "worst sampled pairing"
         }
       },
       "atan_bw": {
@@ -39301,7 +39317,7 @@
           "ulp_clipped": 65024,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 7.95e+04 ULP; mean 7.95e+04"
+          "verdict": "worst sampled pairing"
         }
       },
       "div_no_nan": {
@@ -45377,7 +45393,7 @@
           "ulp_clipped": 3288,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "16384 of 65024 points returned inf or zero where a value exists; the rest reach 4.86e+06 ULP"
+          "verdict": "16384/65024 defects; rest 4.86e+06 ULP"
         }
       },
       "i0": {
@@ -47014,7 +47030,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "faithfully rounded; 65024 of 65024 points took the other neighbour"
+          "verdict": "faithful; 65024/65024 tie-breaks"
         }
       },
       "le": {
@@ -50816,7 +50832,7 @@
           "ulp_clipped": 35301,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 9.02e+04 ULP; mean 5.6e+04"
+          "verdict": "worst sampled pairing"
         }
       },
       "logaddexp_": {
@@ -51192,7 +51208,7 @@
           "ulp_clipped": 35168,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 8.98e+04 ULP; mean 4.46e+04"
+          "verdict": "worst sampled pairing"
         }
       },
       "logical_and": {
@@ -52744,7 +52760,7 @@
           "ulp_clipped": 1967,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 4.19e+06 ULP; mean 4.19e+06"
+          "verdict": "worst sampled pairing"
         }
       },
       "maximum": {
@@ -52975,7 +52991,7 @@
           "ulp_clipped": 1967,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "worst pairing 4.19e+06 ULP; mean 4.19e+06"
+          "verdict": "worst sampled pairing"
         }
       },
       "minimum": {
@@ -65495,7 +65511,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "faithfully rounded; 65024 of 65024 points took the other neighbour"
+          "verdict": "faithful; 65024/65024 tie-breaks"
         }
       }
     }
