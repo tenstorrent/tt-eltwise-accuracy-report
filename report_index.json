@@ -7,13 +7,11 @@
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "addcdiv",
-          "addcmul",
-          "lerp",
-          "mac",
-          "where"
+          "clamp_bw",
+          "clip_bw",
+          "lerp_bw"
         ],
-        "run_id": "20261003T030215",
+        "run_id": "20261003T032317",
         "tt_metal_commit": "de546d3b146",
         "ttnn_version": "0.79.0"
       },
@@ -23,13 +21,11 @@
         "failed": {},
         "host": "66444ba711c0",
         "ops": [
-          "addcdiv",
-          "addcmul",
-          "lerp",
-          "mac",
-          "where"
+          "clamp_bw",
+          "clip_bw",
+          "lerp_bw"
         ],
-        "run_id": "20261003T030215",
+        "run_id": "20261003T032317",
         "tt_metal_commit": "de546d3b146",
         "ttnn_version": "0.79.0"
       }
@@ -15367,7 +15363,7 @@
           "ulp_clipped": 0,
           "unflushed": 0,
           "usable_to": "\u2014",
-          "verdict": "faithfully rounded; 65026 of 65026 points took the other neighbour"
+          "verdict": "faithful; 65026/65026 tie-breaks"
         }
       },
       "lez": {
