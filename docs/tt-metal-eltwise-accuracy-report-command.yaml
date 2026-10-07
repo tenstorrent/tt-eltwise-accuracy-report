@@ -15,7 +15,8 @@ on:
 
 permissions:
   contents: read
-  # What `GITHUB_TOKEN` is checked for on a PR comment; `issues: write` returns 403.
+  # What `GITHUB_TOKEN` is checked for when commenting on a pull request. `issues: write`
+  # instead returns `Resource not accessible by integration`, whatever the endpoint used.
   pull-requests: write
 
 env:
@@ -124,9 +125,7 @@ jobs:
             body="$body missing \`ACCURACY_REPORT_DISPATCH_TOKEN\`."
             body="$body [Log]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)."
           fi
-          # The printed URL ends in the comment id, which the answer edits rather than re-posting.
-          url=$(gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body")
-          echo "comment=${url##*issuecomment-}" >> "$GITHUB_OUTPUT"
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
           [ "$STARTED" = true ]
 
       # Posted with the automatic `GITHUB_TOKEN`, so it reads as `github-actions[bot]`.
