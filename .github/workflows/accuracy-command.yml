@@ -31,6 +31,9 @@ on:
 
 permissions:
   contents: read
+  # Only to answer a thread in this repository; nothing here writes to tt-metal. Both,
+  # because `GITHUB_TOKEN` is checked against `issues` for an issue and `pull-requests`
+  # for a pull request, and the command answers either.
   issues: write
   pull-requests: write
 
@@ -204,8 +207,8 @@ jobs:
           } > body.md
           cat body.md >> "$GITHUB_STEP_SUMMARY"
 
-      # Always back to whoever asked. A comment here needs no secret, so this is the whole
-      # answer until a tt-metal token exists.
+      # Back to whoever asked here. A dispatch has no thread of its own, so it is answered
+      # on the tt-metal pull request instead, by the workflow that started it.
       - name: Answer the thread that asked
         if: github.event_name == 'issue_comment'
         env:
@@ -214,24 +217,8 @@ jobs:
           gh issue comment "${{ github.event.issue.number }}" \
             --repo "$GITHUB_REPOSITORY" --body-file body.md
 
-      # And on the tt-metal pull request itself. Delivery, not measurement: the answer is
-      # already written and uploaded, so a token problem is a warning on a green run rather
-      # than a red one that implies the ops were never measured.
-      - name: Answer the tt-metal pull request
-        env:
-          GH_TOKEN: ${{ secrets.TT_METAL_COMMENT_TOKEN }}
-          PR: ${{ needs.select.outputs.pr }}
-        run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo "::warning::no TT_METAL_COMMENT_TOKEN — the answer is on this run page"; exit 0
-          fi
-          if gh pr comment "$PR" --repo tenstorrent/tt-metal --body-file body.md; then exit 0; fi
-          # A conversation comment is an issue comment, so `addComment` is refused for a
-          # token holding only Pull requests write. Naming the scope saves reading the log.
-          echo "::warning::TT_METAL_COMMENT_TOKEN cannot comment on tt-metal#$PR —" \
-               "it needs Issues: read and write, not Pull requests"
-
-      # Kept whichever way the comment went, so a caller can collect the answer itself.
+      # How the answer reaches tt-metal: the workflow that dispatched this run downloads it
+      # and posts it there with its own token, so nothing here needs write access to tt-metal.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
