@@ -220,8 +220,22 @@ jobs:
           gh issue comment "${{ github.event.issue.number }}" \
             --repo "$GITHUB_REPOSITORY" --body-file body.md
 
-      # How the answer reaches tt-metal: the workflow that dispatched this run downloads it
-      # and posts it there with its own token, so nothing here needs write access to tt-metal.
+      # And on the tt-metal pull request. A PAT, because `GITHUB_TOKEN` reaches only this
+      # repository. Issues, not Pull requests: a PAT holding only the latter is refused
+      # `addComment`, which is the opposite of the rule for `GITHUB_TOKEN`.
+      - name: Answer the tt-metal pull request
+        env:
+          GH_TOKEN: ${{ secrets.TT_METAL_COMMENT_TOKEN }}
+          PR: ${{ needs.select.outputs.pr }}
+        run: |
+          [ -n "$GH_TOKEN" ] || {
+            echo "::warning::no TT_METAL_COMMENT_TOKEN — the answer is on this run page"; exit 0; }
+          if gh pr comment "$PR" --repo tenstorrent/tt-metal --body-file body.md; then exit 0; fi
+          # Delivery, not measurement: a token problem must not read as a failed measurement.
+          echo "::warning::TT_METAL_COMMENT_TOKEN cannot comment on tt-metal#$PR;" \
+               "a PAT needs Issues: read and write"
+
+      # Kept either way, so a caller can collect the answer itself.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
