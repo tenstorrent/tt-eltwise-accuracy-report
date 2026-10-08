@@ -203,8 +203,8 @@ jobs:
               case "$OUTCOME" in
                 success|failure)
                   [ "$moved" -eq 0 ] \
-                    && echo "Nothing moved against the published baseline." \
-                    || echo "$moved variant(s) moved. The tables below are the diff per architecture." ;;
+                    && echo "No regression against the published baseline." \
+                    || echo "$moved variant(s) regressed. The tables below are the diff per architecture." ;;
                 *) echo "The run did not finish ($OUTCOME)." ;;
               esac
               echo
