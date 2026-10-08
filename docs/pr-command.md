@@ -35,24 +35,22 @@ acknowledgement is edited in place once the run finishes.
 |---|---|
 | tt-metal | `.github/workflows/eltwise-accuracy-report-command.yaml` — the copy in [tt-metal-eltwise-accuracy-report-command.yaml](tt-metal-eltwise-accuracy-report-command.yaml) |
 | tt-metal | a secret `ACCURACY_REPORT_DISPATCH_TOKEN` that may dispatch workflows in this repository |
+| here | a secret `TT_METAL_COMMENT_TOKEN` that may comment on tt-metal |
 
-One token, one way. tt-metal may start a run here and read its result; nothing here can reach
-tt-metal at all.
+Two tokens, each one way and minimal. tt-metal may start a run here; this repository may
+comment there. Without `TT_METAL_COMMENT_TOKEN` the run still measures and still reports on
+its own page — only the closing comment is skipped.
 
-## The token
-
-A fine-grained PAT, or a GitHub App installed on this repository.
+## The tokens
 
 | Secret | Lives in | Scope | Permission |
 |---|---|---|---|
 | `ACCURACY_REPORT_DISPATCH_TOKEN` | tt-metal | this repository | Actions: read and write |
+| `TT_METAL_COMMENT_TOKEN` | this repository | tt-metal | **Issues: read and write** |
 
-Write to dispatch the run, read to wait for it and download its answer.
-
-The comment itself is posted by tt-metal's `GITHUB_TOKEN` under `pull-requests: write`. That,
-not `issues: write`, is what a `GITHUB_TOKEN` is checked for when commenting on a pull
-request — `issues: write` returns `Resource not accessible by integration`. The rule differs
-for a fine-grained PAT, which is refused `addComment` without Issues.
+Issues, not Pull requests: a pull request's conversation comment is an issue comment, and a
+PAT holding only Pull requests write is refused with `Resource not accessible (addComment)`.
+The rule inverts for a `GITHUB_TOKEN`, which is checked against `pull-requests: write`.
 
 ## Selection
 
