@@ -81,25 +81,47 @@ def _sides(was: dict, now: dict) -> tuple[str, str, str]:
     )
 
 
+def _chart(labels: list[str], was: list[float], now: list[float]) -> str:
+    """Correctly-rounded rate on both sides. The one scored metric bounded to 0..1, so it is
+    the only one that charts without a log axis; GitHub renders mermaid in a comment."""
+    return (
+        "```mermaid\nxychart-beta\n"
+        '    title "Correctly rounded — main vs branch"\n'
+        f"    x-axis [{', '.join(labels)}]\n"
+        '    y-axis "fraction" 0 --> 1\n'
+        f"    bar [{', '.join(f'{v:.4g}' for v in was)}]\n"
+        f"    bar [{', '.join(f'{v:.4g}' for v in now)}]\n"
+        "```\n"
+    )
+
+
 def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -> str:
     """One row per variant, every metric that moved shown on both sides rather than as an
     arrow: a reader compares down a column, and `main` is the last sweep published for it."""
-    rows = []
+    from ttnn_accuracy.report.score import _num
+
+    rows, labels, before_frac, after_frac = [], [], [], []
     for dtype, ops in sorted(candidate.get(arch, {}).items()):
         for op, variants in sorted(ops.items()):
             for variant, now in sorted(variants.items()):
                 was = baseline.get(arch, {}).get(dtype, {}).get(op, {}).get(variant, {})
                 mark = _mark(now, (dtype, op, variant) in regressed)
-                metric, before, after = _sides(was, now)
+                metric, b, a = _sides(was, now)
                 rows.append(
                     f"| {mark} | `{op}` | `{variant}` | {arch} | {dtype} "
-                    f"| {metric} | {before} | {after} | {now.get('verdict', '—')} |"
+                    f"| {metric} | {b} | {a} | {now.get('verdict', '—')} |"
                 )
+                if "rounded_frac" in was and "rounded_frac" in now:
+                    labels.append(f'"{op} {dtype}"')
+                    before_frac.append(_num(was["rounded_frac"]))
+                    after_frac.append(_num(now["rounded_frac"]))
     head = (
         "| | Op | Variant | Arch | dtype | Metric | main | branch | Verdict |\n"
         "|---|---|---|---|---|---|---|---|---|\n"
     )
-    return head + "\n".join(rows) + "\n"
+    table = head + "\n".join(rows) + "\n"
+    # Only when both sides carry it; a chart of one bar says nothing.
+    return table + "\n" + _chart(labels, before_frac, after_frac) if labels else table
 
 
 def check(
