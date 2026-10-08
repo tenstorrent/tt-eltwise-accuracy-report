@@ -18,6 +18,10 @@ from ttnn_accuracy.paths import INDEX_FILE, REPO_ROOT, RUNS_KEY
 WORSE_UP = ("max_ulp", "mean_ulp", "ulp_clipped", "defects", "unflushed")
 BETTER_UP = ("rounded_frac",)
 SCORED = (*WORSE_UP, *BETTER_UP)
+# Averaged over the wrong part of the scorable set, so each rises as that part shrinks.
+CONDITIONAL = ("mean_ulp", "bias_ulp", "median_rel", "bits_median")
+# Divided by the whole scorable set, so each shifts as points cross its boundary.
+RATES = ("rounded_frac", "exact_frac")
 # Present from the sweep that introduced fractional ULP. Without it, max/mean ULP were
 # scored against a same-width golden and must not be subtracted from a wider-reference run.
 ULP = ("max_ulp", "mean_ulp")
@@ -83,6 +87,15 @@ def _bucket(a: dict, b: dict) -> str:
     if _num(a.get("n_inputs")) != _num(b.get("n_inputs")):
         return "changed"
     scored = _fields(a, b)
+    # `defects` changing moves points across the scorable boundary, so neither the rates nor
+    # the means divide by or average over the same thing twice.
+    if _num(a.get("defects")) != _num(b.get("defects")):
+        scored = [m for m in scored if m not in CONDITIONAL + RATES]
+    # A better rate shrinks the wrong part alone, so the means lift arithmetically while the
+    # rate itself stays comparable. softsign moved 11,000 bf16 inputs to exact and read as
+    # regressed on `mean_ulp`, while max_ulp held and defects fell 512 to 0.
+    elif "rounded_frac" in scored and _better(a, b, "rounded_frac"):
+        scored = [m for m in scored if m not in CONDITIONAL]
     if any(_worse(a, b, m) for m in scored):
         return "regressed"
     # Before `improved`: a first count of defects outranks a scored metric ticking down.

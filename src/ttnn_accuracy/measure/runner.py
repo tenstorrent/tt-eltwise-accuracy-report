@@ -111,10 +111,12 @@ def _summary_table(arch: str, baseline: dict, candidate: dict, regressed: set) -
                     f"| {mark} | `{op}` | `{variant}` | {arch} | {dtype} "
                     f"| {metric} | {b} | {a} | {now.get('verdict', '—')} |"
                 )
-                if "rounded_frac" in was and "rounded_frac" in now:
+                # Both sides must carry a number: a variant with nothing defined reads `—`.
+                b_frac, a_frac = _num(was.get("rounded_frac")), _num(now.get("rounded_frac"))
+                if b_frac is not None and a_frac is not None:
                     labels.append(f'"{op} {dtype}"')
-                    before_frac.append(_num(was["rounded_frac"]))
-                    after_frac.append(_num(now["rounded_frac"]))
+                    before_frac.append(b_frac)
+                    after_frac.append(a_frac)
     head = (
         "| | Op | Variant | Arch | dtype | Metric | main | branch | Verdict |\n"
         "|---|---|---|---|---|---|---|---|---|\n"
