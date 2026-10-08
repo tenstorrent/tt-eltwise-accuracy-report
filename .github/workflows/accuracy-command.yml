@@ -197,16 +197,21 @@ jobs:
             else
               echo "### Eltwise accuracy — \`$OPS\`"
               echo
+              # Counted from the tables, not from the job result: a finding is deliberately
+              # not a failure, so a green run says nothing about whether anything moved.
+              moved=$(cat result-*.md 2>/dev/null | grep -c '🔴' || true)
               case "$OUTCOME" in
-                success) echo "Nothing moved against the published baseline." ;;
-                failure) echo "Something moved. The blocks below are the diff per architecture." ;;
-                *)       echo "The run did not finish ($OUTCOME)." ;;
+                success|failure)
+                  [ "$moved" -eq 0 ] \
+                    && echo "Nothing moved against the published baseline." \
+                    || echo "$moved variant(s) moved. The tables below are the diff per architecture." ;;
+                *) echo "The run did not finish ($OUTCOME)." ;;
               esac
               echo
               cat result-*.md 2>/dev/null || true
             fi
             echo
-            echo "[Full log and charts]($RUN) · informational, this does not gate the pull request."
+            echo "[Full log]($RUN) · informational, this does not gate the pull request."
           } > body.md
           cat body.md >> "$GITHUB_STEP_SUMMARY"
 
