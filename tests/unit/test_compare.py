@@ -126,6 +126,38 @@ def test_the_absolute_bar_is_independent_of_the_baseline(stats, bar, failures):
     assert _over_bar({"bf16": {"exp": {"default": stats}}}, bar) == failures
 
 
+def test_a_conditional_mean_rising_with_a_better_rounding_rate_is_not_a_regression():
+    """softsign on bh: 11,000 bf16 inputs became exact, so the mean over what is left rose."""
+    old = _index(mean_ulp="0.605", defects=512, rounded_frac="0.907", max_ulp="1")
+    new = _index(mean_ulp="0.721", defects=0, rounded_frac="0.908", max_ulp="1")
+    buckets = diff(old, new)
+    assert not buckets["regressed"]
+    assert [k for k, *_ in buckets["improved"]] == [("wh", "bf16", "exp", "default")]
+
+
+def test_a_conditional_mean_still_counts_when_the_rounding_rate_holds():
+    """Without that excuse the same rise is a regression, which is the whole point of it."""
+    old = _index(mean_ulp="0.605", rounded_frac="0.907", defects=0)
+    new = _index(mean_ulp="0.721", rounded_frac="0.907", defects=0)
+    assert [k for k, *_ in diff(old, new)["regressed"]] == [("wh", "bf16", "exp", "default")]
+
+
+def test_a_rate_is_not_scored_across_a_changed_scorable_set():
+    """512 points left the defect bucket, so the rate no longer divides by the same thing."""
+    old = _index(defects=512, rounded_frac="0.95", max_ulp="1")
+    new = _index(defects=0, rounded_frac="0.90", max_ulp="1")
+    buckets = diff(old, new)
+    assert not buckets["regressed"]
+    assert [k for k, *_ in buckets["improved"]] == [("wh", "bf16", "exp", "default")]
+
+
+def test_the_worst_case_still_counts_whatever_the_set_did():
+    """The escape hatch must not become one: max_ulp is set-independent and always scored."""
+    old = _index(defects=512, max_ulp="1")
+    new = _index(defects=0, max_ulp="9")
+    assert [k for k, *_ in diff(old, new)["regressed"]] == [("wh", "bf16", "exp", "default")]
+
+
 def test_a_new_defect_count_outranks_a_metric_that_improved():
     """multigammaln gained 7,422 defects while ulp_clipped fell by two."""
     old = _index(ulp_clipped=2989)
