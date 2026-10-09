@@ -88,6 +88,31 @@ jobs:
         with:
           builds: 'true'
 
+      # The other half of every chart. The published index carries summaries, not rows, so
+      # main's curve cannot be read from it — only a build of main produces one.
+      - name: Build main and measure it
+        env:
+          OPS: ${{ inputs.ops }}
+          ARCH: ${{ inputs.arch }}
+          DTYPE: ${{ inputs.dtype }}
+          PARAMS: ${{ inputs.params }}
+          LOGURU_FORMAT: "{message}"
+          LOGURU_LEVEL: INFO
+          TT_LOGGER_LEVEL: error
+          TT_METAL_LOGGER_LEVEL: error
+        run: |
+          cd "$TT_METAL_HOME"
+          git fetch --depth=1 --recurse-submodules=no \
+            https://github.com/tenstorrent/tt-metal.git main
+          git checkout --force FETCH_HEAD
+          git submodule update --init --recursive --depth 1
+          ./build_metal.sh --enable-ccache --disable-profiler
+          uv pip install --quiet --python "$(command -v python3)" -e "$TT_METAL_HOME"
+          rm -rf "$TT_METAL_CACHE"
+          cd "$GITHUB_WORKSPACE"
+          python3 -m ttnn_accuracy.cli measure --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" \
+            --output-dir main-data ${PARAMS:+--params "$PARAMS"}
+
       - name: Build the candidate
         env:
           COMMIT: ${{ inputs.commit }}
@@ -119,6 +144,7 @@ jobs:
           LOGURU_LEVEL: INFO
           TT_LOGGER_LEVEL: error
           TT_METAL_LOGGER_LEVEL: error
+          CHART_HOST: ${{ github.server_url }}/${{ github.repository }}/releases/download/pr-charts
         run: |
           python3 -c "
           import pathlib, ttnn
@@ -129,7 +155,7 @@ jobs:
 
           status=0
           python3 -m ttnn_accuracy.cli check --arch "$ARCH" --ops "$OPS" --dtype "$DTYPE" --perf \
-            --summary "table-$ARCH.md" \
+            --summary "table-$ARCH.md" --against main-data --charts charts \
             ${MAX_ULP:+--max-ulp "$MAX_ULP"} ${PARAMS:+--params "$PARAMS"} \
             2>&1 | tee check.log || status=$?
 
@@ -140,6 +166,14 @@ jobs:
             echo
             cat "table-$ARCH.md" 2>/dev/null || echo "_no table; see the log_"
             echo
+            # Named for this run, because every pull request shares the one chart release.
+            for png in charts/*.png; do
+              [ -e "$png" ] || break
+              asset="$GITHUB_RUN_ID-$(basename "$png")"
+              mv "$png" "charts/$asset"
+              echo "![${asset%.png}]($CHART_HOST/$asset)"
+              echo
+            done
             echo "<details><summary>log</summary>"
             echo
             echo '```'
@@ -160,6 +194,7 @@ jobs:
           path: |
             check.log
             result-${{ inputs.arch }}.md
+            charts/
           retention-days: 14
 
       - name: Leave the checkout clean
