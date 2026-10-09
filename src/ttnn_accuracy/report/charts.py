@@ -358,3 +358,33 @@ def generate_charts(arch_filter=None, dtype_filter=None, op_filter=None) -> int:
     if stale:
         logger.error("{} CSV(s) skipped as stale", stale)
     return 1 if stale else 0
+
+
+def plot_ulp_comparison(
+    was: pd.DataFrame, now: pd.DataFrame, op: str, variant: str, arch: str, dtype: str, out: Path
+) -> None:
+    """Both kernels' ULP against x on one panel: the table says how much, this says where."""
+    chart = _chart(now, op, variant, arch, dtype)
+    fig, ax = plt.subplots(figsize=(10, 5))
+    for df, colour, label, width in (
+        (was, "#7f8c8d", "main", 1.0),
+        (now, "#e67e22", "branch", 1.5),
+    ):
+        x, ulp = _aggregate(df)
+        ax.plot(x, np.clip(ulp, 0, ULP_CLIP), color=colour, linewidth=width, label=label, zorder=3)
+    ax.set_xscale("symlog", linthresh=1e-3)
+    ax.set_yscale("asinh", linear_width=0.01)
+    ax.set_ylim(bottom=0, top=ULP_CLIP * 1.1)
+    _reference_lines(ax, min(chart.reach, ULP_CLIP), horizontal=True)
+    _domain_bands(ax, chart)
+    ax.set_xlabel("Input x", fontsize=11)
+    ax.set_ylabel("ULP Error", fontsize=11)
+    suffix = "" if variant == "default" else f" [{variant}]"
+    ax.set_title(f"ttnn.{op}{suffix} — ULP error  [{arch.upper()}, {dtype}]", fontsize=11)
+    ax.legend(fontsize=9, loc="upper left")
+    ax.grid(True, alpha=0.3, which="both")
+    fig.tight_layout()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # PNG, not SVG: GitHub's image proxy will not render an SVG inside a comment.
+    fig.savefig(out, format="png", bbox_inches="tight", metadata={"Date": None})
+    plt.close(fig)
