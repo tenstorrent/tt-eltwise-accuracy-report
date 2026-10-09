@@ -173,6 +173,9 @@ jobs:
     needs: [select, measure]
     if: always() && needs.select.outputs.pr != ''
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # the release the charts are hosted on
+      issues: write  # the answer on this repository's own thread
     defaults:
       run:
         shell: bash -euo pipefail {0}
@@ -181,6 +184,18 @@ jobs:
         with:
           pattern: validate-*-${{ github.run_id }}
           merge-multiple: true
+
+      # A comment cannot embed a local file, and GitHub will not render an SVG from `raw`.
+      # One release holds every run's PNGs, which the tables above already link by name.
+      - name: Host the charts
+        if: hashFiles('charts/*.png') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view pr-charts --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
+            || gh release create pr-charts --repo "$GITHUB_REPOSITORY" --latest=false \
+                 --title "Chart host" --notes "ULP comparisons posted on tt-metal pull requests."
+          gh release upload pr-charts charts/*.png --clobber --repo "$GITHUB_REPOSITORY"
 
       - name: Write the answer
         env:
