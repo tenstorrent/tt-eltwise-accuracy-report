@@ -81,7 +81,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 1.3264033e-38 | 1.3264034e-38 | **differ** |
 | `default` | -1.1754944e-38 | -1.3264033e-38 | -1.3264034e-38 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261010T030214`_
 
 ![ULP error — erf default](../../../charts/bh/fp32/erf_default_ulp.svg)
 

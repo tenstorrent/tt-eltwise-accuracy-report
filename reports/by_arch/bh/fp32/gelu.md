@@ -98,7 +98,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `fast_approx` | 1.1754944e-38 | -0.00010442734 | 5.877472e-39 | **differ** |
 | `fast_approx` | -1.1754944e-38 | -0.00010442734 | -5.877472e-39 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261010T030214`_
 
 ### `default`
 

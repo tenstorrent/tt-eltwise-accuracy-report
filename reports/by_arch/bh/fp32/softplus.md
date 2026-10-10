@@ -95,7 +95,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 0.6931056 | 0.6931472 | **differ** |
 | `default` | -1.1754944e-38 | 0.6931056 | 0.6931472 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261010T030214`_
 
 ![ULP error — softplus default](../../../charts/bh/fp32/softplus_default_ulp.svg)
 

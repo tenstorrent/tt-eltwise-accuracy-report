@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 8.507059e+37 | 8.507059e+37 | agree |
 | `default` | -1.1754944e-38 | -8.507059e+37 | -8.507059e+37 | agree |
 
-_Measured on BLACKHOLE · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261010T030105`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — log_bw default](../../../charts/bh/fp32/log_bw_default_ulp.svg)
 
