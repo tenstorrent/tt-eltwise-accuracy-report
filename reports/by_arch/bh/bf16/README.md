@@ -50,7 +50,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [cosh_bw](cosh_bw.md) | `default` | 0.5 | 0 | 88.5 | 1.63e+35 | 3080 ±8% |
 | [deg2rad](deg2rad.md) | `default` | 0.998 | 0.744 | 6.7e-37 | 3.95e+34 | 195 |
 | [digamma](digamma.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 399 ±12% |
-| [digamma_bw](digamma_bw.md) | `default` | 1.02e+08 ⚠ | 1.36e+04 | 0.996 | 6.44e+36 | 3179 |
+| [digamma_bw](digamma_bw.md) | `default` | 1.02e+08 ⚠ | 1.36e+04 | 1 | 6.44e+36 | 3179 |
 | [div](div.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 253 ±19% |
 | [div_bw](div_bw.md) | `default` | 0.498 | 0 | n/a | 1.65e+35 | 4894 |
 | [div_no_nan](div_no_nan.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 666 |
@@ -73,7 +73,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [exp2_bw](exp2_bw.md) | `default` | 1.89 | 0.942 | 128 | 6.29e+35 | 820 |
 | [exp_bw](exp_bw.md) | `default` | 0.892 | 0.556 | 3.39e+38 | 4.85e+35 | 600 ±6% |
 | [expm1](expm1.md) | `default` | 0.5 | 0 | 3.39e+38 | 3.25e+35 | 251 ±7% |
-| [expm1_bw](expm1_bw.md) | `default` | 34 | 0.695 | 33.5 | 4.85e+35 | 814 |
+| [expm1_bw](expm1_bw.md) | `default` | 34 | 0.695 | 33.2 | 4.85e+35 | 814 |
 | [floor](floor.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 195 ±21% |
 | [floor_div](floor_div.md) | `default` | 64 | 42 | n/a | 1 | 1178 |
 | [fmod](fmod.md) | `default` | 9.14e+35 ⚠ | 8.94e+34 | n/a | 4.31e+31 | 261 ±5% |
@@ -93,7 +93,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [hardsigmoid](hardsigmoid.md) | `default` | 1 | 0.557 | 3.39e+38 | 0.00389 | 191 ±13% |
 | [hardsigmoid_bw](hardsigmoid_bw.md) | `default` | 0.333 | 0 | 3.39e+38 | 0.000326 | 1183 |
 | [hardswish](hardswish.md) | `default` | 2.14 | 0.94 | 2.33e-38 | 0.0163 | 212 ±5% |
-| [hardswish_bw](hardswish_bw.md) | `default` | 85.3 | 2.1 | 1.13 | 0.5 | 1655 |
+| [hardswish_bw](hardswish_bw.md) | `default` | 85.3 | 2.1 | 1.12 | 0.5 | 1655 |
 | [hardtanh](hardtanh.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 200 ±6% |
 | [hardtanh_bw](hardtanh_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 988 |
 | [heaviside](heaviside.md) | `value=0.0` | 0 | 0 | 3.39e+38 | 0 | 203 ±646% |
@@ -164,7 +164,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [mse_loss](mse_loss.md) | `default` | 2.03 | 1.65 | n/a | 2.26e+36 | 254 ±12% |
 | [mul_bw](mul_bw.md) | `default` | 0 | 0 | n/a | 0 | 650 |
 | [multigammaln](multigammaln.md) | `default` | 724 | 1.67 | 5.59e-17 | 1.77e+36 | 4668 |
-| [multigammaln_bw](multigammaln_bw.md) | `default` | 2.38e+06 ⚠ | 293 | 5.59e-17 | 2.34e+16 | 3815 |
+| [multigammaln_bw](multigammaln_bw.md) | `default` | 2.38e+06 ⚠ | 293 | 5.55e-17 | 2.34e+16 | 3815 |
 | [multiply](multiply.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 248 ±7% |
 | [multiply_](multiply_.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 246 ±6% |
 | [ne](ne.md) | `default` | 0 | 0 | n/a | 0 | 246 |
@@ -207,11 +207,11 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [selu_bw](selu_bw.md) | `default` | 2.62 | 1.06 | 0.00443 | 0.0173 | 1470 |
 | [sigmoid](sigmoid.md) | `default` | 0.873 | 0.522 | 3.39e+38 | 0.00235 | 251 ±7% |
 | [sigmoid_accurate](sigmoid_accurate.md) | `default` | 0.873 | 0.522 | 3.39e+38 | 0.00235 | 253 ±5% |
-| [sigmoid_bw](sigmoid_bw.md) | `default` | 125 | 4.81 | 1.76 | 0.00192 | 1053 |
+| [sigmoid_bw](sigmoid_bw.md) | `default` | 125 | 4.81 | 1.77 | 0.00192 | 1053 |
 | [sign](sign.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 195 ±7% |
 | [signbit](signbit.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 194 ±5% |
 | [silu](silu.md) | `default` | 0.888 | 0.582 | 2.33e-38 | 0.0156 | 168 ±14% |
-| [silu_bw](silu_bw.md) | `default` | 285 | 1.3 | 0.863 | 0.0113 | 1449 |
+| [silu_bw](silu_bw.md) | `default` | 285 | 1.3 | 0.867 | 0.0113 | 1449 |
 | [sin](sin.md) | `default` | 0.552 | 0.526 | 9.99e+05 | 0.00195 | 235 ±5% |
 | [sin_bw](sin_bw.md) | `default` | 2.98e+41 ⚠ | 1.39e+39 | 1.07e+06 | 3.32e+38 | 678 |
 | [sinh](sinh.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 186 |

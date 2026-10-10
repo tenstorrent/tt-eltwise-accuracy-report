@@ -211,7 +211,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [sign](sign.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 349 ±6% |
 | [signbit](signbit.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 345 |
 | [silu](silu.md) | `default` | 3.61 | 1.78 | 2.01e-05 | 1.85e-06 | 426 ±9% |
-| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 2.98e-07 | 1.38e-06 | 2804 |
+| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 2.96e-07 | 1.38e-06 | 2804 |
 | [sin](sin.md) | `default` | 3.36e+07 ⚠ | 3.07e+04 | 28 | 1.91e-06 | 379 |
 | [sin_bw](sin_bw.md) | `default` | 1.24e+52 ⚠ | 3.44e+48 | 92.4 | 3.4e+38 | 1200 |
 | [sinh](sinh.md) | `default` | 2.2 | 1.16 | 0.0155 | 1.82e+31 | 459 |
