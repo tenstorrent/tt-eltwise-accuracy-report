@@ -179,23 +179,43 @@ jobs:
     defaults:
       run:
         shell: bash -euo pipefail {0}
+    env:
+      BRANCH: pr-charts
     steps:
+      # For the chart branch below; the answer itself is assembled from the artifacts alone.
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           pattern: validate-*-${{ github.run_id }}
           merge-multiple: true
 
-      # A comment cannot embed a local file, and GitHub will not render an SVG from `raw`.
-      # One release holds every run's PNGs, which the tables above already link by name.
+      # A comment cannot embed a local file, and GitHub will not render an SVG from `raw`, so
+      # the PNGs go on a branch of their own and the tables link them by name. A release cannot:
+      # this repository has immutable releases, which refuse every asset after the first publish.
+      # Never fatal — a chart that failed to upload must not cost the answer it illustrates.
       - name: Host the charts
         if: hashFiles('charts/*.png') != ''
-        env:
-          GH_TOKEN: ${{ github.token }}
+        continue-on-error: true
         run: |
-          gh release view pr-charts --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
-            || gh release create pr-charts --repo "$GITHUB_REPOSITORY" --latest=false \
-                 --title "Chart host" --notes "ULP comparisons posted on tt-metal pull requests."
-          gh release upload pr-charts charts/*.png --clobber --repo "$GITHUB_REPOSITORY"
+          git config user.name accuracy-report
+          git config user.email accuracy-report@users.noreply.github.com
+          # A commit built with a temporary index and pushed by SHA, as the sweep publishes:
+          # this checkout keeps its own HEAD, and the branch carries charts alone.
+          for attempt in 1 2 3; do
+            git fetch --no-tags --depth=1 origin "+$BRANCH:refs/remotes/origin/$BRANCH" || true
+            parent=$(git rev-parse --verify --quiet "origin/$BRANCH" || true)
+            export GIT_INDEX_FILE="$RUNNER_TEMP/charts.index"
+            rm -f "$GIT_INDEX_FILE"
+            [ -z "$parent" ] || git read-tree "$parent"
+            git add -A -- charts
+            commit=$(git commit-tree "$(git write-tree)" ${parent:+-p "$parent"} \
+              -m "charts: run $GITHUB_RUN_ID")
+            unset GIT_INDEX_FILE
+            git push origin "$commit:refs/heads/$BRANCH" && exit 0
+            echo "another run published first, retrying ($attempt)"; sleep $((attempt * 5))
+          done
+          echo "::warning::could not publish the charts; the tables will show broken images"
 
       - name: Write the answer
         env:

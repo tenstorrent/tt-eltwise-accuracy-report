@@ -366,9 +366,11 @@ def plot_ulp_comparison(
     """Both kernels' ULP against x on one panel: the table says how much, this says where."""
     chart = _chart(now, op, variant, arch, dtype)
     fig, ax = plt.subplots(figsize=(10, 5))
+    # main drawn wide and under, so a branch that changed nothing still shows it as a halo
+    # rather than hiding it completely.
     for df, colour, label, width in (
-        (was, "#7f8c8d", "main", 1.0),
-        (now, "#e67e22", "branch", 1.5),
+        (was, "#95a5a6", "main", 3.0),
+        (now, "#e67e22", "branch", 1.2),
     ):
         x, ulp = _aggregate(df)
         ax.plot(x, np.clip(ulp, 0, ULP_CLIP), color=colour, linewidth=width, label=label, zorder=3)

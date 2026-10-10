@@ -144,7 +144,7 @@ jobs:
           LOGURU_LEVEL: INFO
           TT_LOGGER_LEVEL: error
           TT_METAL_LOGGER_LEVEL: error
-          CHART_HOST: ${{ github.server_url }}/${{ github.repository }}/releases/download/pr-charts
+          CHART_HOST: https://raw.githubusercontent.com/${{ github.repository }}/pr-charts/charts
         run: |
           python3 -c "
           import pathlib, ttnn
