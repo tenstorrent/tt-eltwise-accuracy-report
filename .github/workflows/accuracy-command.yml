@@ -203,17 +203,22 @@ jobs:
           # A commit built with a temporary index and pushed by SHA, as the sweep publishes:
           # this checkout keeps its own HEAD, and the branch carries charts alone.
           for attempt in 1 2 3; do
-            git fetch --no-tags --depth=1 origin "+$BRANCH:refs/remotes/origin/$BRANCH" || true
-            parent=$(git rev-parse --verify --quiet "origin/$BRANCH" || true)
+            # Fully qualified both ways: a tag of the same name resolves ahead of the branch,
+            # and reading its tree would put the whole repository on this branch.
+            git fetch --no-tags --depth=1 origin \
+              "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH" || true
+            parent=$(git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" || true)
             export GIT_INDEX_FILE="$RUNNER_TEMP/charts.index"
             rm -f "$GIT_INDEX_FILE"
             [ -z "$parent" ] || git read-tree "$parent"
-            git add -A -- charts
+            # `--ignore-removal`: this run downloaded only its own charts, and `-A` would
+            # read every earlier run's as deleted, breaking the comments that link them.
+            git add --ignore-removal -- charts
             commit=$(git commit-tree "$(git write-tree)" ${parent:+-p "$parent"} \
               -m "charts: run $GITHUB_RUN_ID")
             unset GIT_INDEX_FILE
             git push origin "$commit:refs/heads/$BRANCH" && exit 0
-            echo "another run published first, retrying ($attempt)"; sleep $((attempt * 5))
+            echo "push rejected, retrying ($attempt)"; sleep $((attempt * 5))
           done
           echo "::warning::could not publish the charts; the tables will show broken images"
 
