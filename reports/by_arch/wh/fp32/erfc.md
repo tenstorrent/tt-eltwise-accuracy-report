@@ -81,7 +81,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 0.9999213 | 1 | **differ** |
 | `default` | -1.1754944e-38 | 1.0000787 | 1 | **differ** |
 
-_Measured on WORMHOLE_B0 · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261010T030007`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — erfc default](../../../charts/wh/fp32/erfc_default_ulp.svg)
 
