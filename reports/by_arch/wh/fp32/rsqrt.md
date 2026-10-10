@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 9.223372e+18 | 9.223372e+18 | agree |
 | `default` | -1.1754944e-38 | nan | nan | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261010T030007`_
 
 ![ULP error — rsqrt default](../../../charts/wh/fp32/rsqrt_default_ulp.svg)
 

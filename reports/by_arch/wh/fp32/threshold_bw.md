@@ -56,7 +56,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `min=0.5,max=0.0` | 1.1754944e-38 | 0 | 0 | agree |
 | `min=0.5,max=0.0` | -1.1754944e-38 | 0 | 0 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `de546d3b146` · ttnn `0.79.0` · run `20261010T025807`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — threshold_bw min=0.5,max=0.0](../../../charts/wh/fp32/threshold_bw_min0.5_max0.0_ulp.svg)
 
