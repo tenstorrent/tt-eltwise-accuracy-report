@@ -49,7 +49,7 @@ FAMILY_CATEGORY = {
 ALIASES = {
     "isinf_isnan": ("isinf", "isnan", "isfinite", "isneginf", "isposinf"),
     "trigonometry": ("sin", "cos", "tan", "asin", "acos", "atan"),
-    "activations": ("celu", "elu", "hardsigmoid", "hardswish", "selu", "silu", "swish"),
+    "activations": ("celu", "hardshrink", "hardsigmoid", "softshrink", "softsign"),
     "comp": ("eq", "ne", "gt", "ge", "lt", "le"),
     "binary_bitwise": ("bitwise_and", "bitwise_or", "bitwise_xor", "bitwise_not"),
 }
@@ -86,6 +86,19 @@ def _from_stem(stem: str, known: dict[str, dict]) -> tuple[str, ...]:
     return tuple(n for n in (base, f"{base}_bw") if n in known) if base != stem else ()
 
 
+def _named_in(patch: str, names: tuple[str, ...]) -> tuple[str, ...]:
+    """The ops a diff's own changed lines name. Underscores are part of a name here, so
+    `calculate_softsign` names softsign while `celu` does not name `elu`."""
+    changed = "\n".join(
+        line
+        for line in patch.splitlines()
+        if line[:1] in "+-" and not line.startswith(("+++", "---"))
+    )
+    return tuple(
+        n for n in names if re.search(rf"(?<![A-Za-z0-9]){re.escape(n)}(?![A-Za-z0-9])", changed)
+    )
+
+
 def _includers(tree: Path, header: str) -> set[str]:
     """Stems of SFPU kernels that include this header — a helper names no op of its own."""
     name = Path(header).name
@@ -97,7 +110,12 @@ def _includers(tree: Path, header: str) -> set[str]:
     return found
 
 
-def select(paths: list[str], manifest: dict | None = None, tree: Path | None = None) -> Selection:
+def select(
+    paths: list[str],
+    manifest: dict | None = None,
+    tree: Path | None = None,
+    hunks: dict[str, str] | None = None,
+) -> Selection:
     """Ops and arches worth measuring for these changed paths. Empty is a valid answer."""
     manifest = manifest if manifest is not None else load()
     known = _known(manifest)
@@ -107,6 +125,12 @@ def select(paths: list[str], manifest: dict | None = None, tree: Path | None = N
 
     def take(stem: str, path: str) -> bool:
         names = _from_stem(stem, known)
+        # An alias header declares several ops and a diff usually touches one, so take the
+        # ops its own lines name — drawn from every op, since a header may declare one the
+        # alias predates. Naming none is not evidence of none: a shared macro moves them all
+        # and mentions no op, and that case keeps the whole set.
+        if stem in ALIASES and (named := _named_in((hunks or {}).get(path, ""), tuple(known))):
+            names = named
         for name in names:
             picked.reasons.setdefault(name, path)
         return bool(names)
@@ -158,8 +182,11 @@ def select(paths: list[str], manifest: dict | None = None, tree: Path | None = N
     return picked
 
 
-def select_paths(paths: list[str], tree: Path | None = None) -> int:
+def select_paths(
+    paths: list[str], tree: Path | None = None, hunks: dict[str, str] | None = None
+) -> int:
     """The selection as JSON on stdout — data a workflow pipes into `jq`, not a log line, so
     it goes to the stream and not to the logger. Nothing matched is still success."""
-    sys.stdout.write(json.dumps(asdict(select(paths, tree=tree)), indent=2, sort_keys=True) + "\n")
+    selection = select(paths, tree=tree, hunks=hunks)
+    sys.stdout.write(json.dumps(asdict(selection), indent=2, sort_keys=True) + "\n")
     return 0
