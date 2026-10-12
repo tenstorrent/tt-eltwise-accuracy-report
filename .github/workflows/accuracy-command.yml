@@ -95,8 +95,11 @@ jobs:
             --jq '"sha=\(.headRefOid)"' >> "$GITHUB_OUTPUT"
           # REST, not `gh pr view --json files`: that returns only the first 100 with no
           # error, and the paths it drops are invisible to the selector.
+          # The diffs too, so a header declaring many ops is narrowed to the ones it touched.
+          # `.patch` is absent for a binary or an over-large file, which then narrows nothing.
           gh api --paginate "repos/tenstorrent/tt-metal/pulls/$number/files" \
-            --jq '.[].filename' > changed.txt
+            --jq '.[] | {path: .filename, patch: (.patch // "")}' | jq -s '.' > files.json
+          jq -r '.[].path' files.json > changed.txt
           echo "$(wc -l < changed.txt) changed files in tt-metal#$number"
 
       - name: Work out which ops it can affect
@@ -108,7 +111,8 @@ jobs:
           # The only dependency the selector has left: reading the manifest reaches neither
           # torch nor ttnn, so this job stays a minute on a stock runner.
           python3 -m pip install --quiet loguru
-          PYTHONPATH=src python3 -m ttnn_accuracy.cli select changed.txt > selection.json
+          PYTHONPATH=src python3 -m ttnn_accuracy.cli select changed.txt \
+            --patches files.json > selection.json
           cat selection.json
           # An explicit `ops=` overrides the selector, for the cases it misses.
           override=${DISPATCHED_OPS:-$(grep -oE 'ops=[A-Za-z0-9_,]+' <<<"$BODY" | head -1 | cut -d= -f2 || true)}

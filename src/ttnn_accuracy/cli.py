@@ -29,6 +29,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     select = sub.add_parser("select", help="changed tt-metal paths to the ops worth measuring")
     select.add_argument("paths", type=Path, help="file of changed paths, one per line, or `-`")
+    select.add_argument(
+        "--patches", type=Path, help="the same files as JSON `[{path, patch}]`, to read their diffs"
+    )
 
     measure = sub.add_parser("measure", help="run accuracy sweeps on a device")
     measure.add_argument("--arch", required=True, choices=["wh", "bh"])
@@ -185,12 +188,20 @@ def main(argv: list[str] | None = None) -> int:
             return derive_domains()
 
         case "select":
+            import json
             import sys
 
             from ttnn_accuracy.ops.select import select_paths
 
             text = sys.stdin.read() if str(args.paths) == "-" else args.paths.read_text()
-            return select_paths([line.strip() for line in text.splitlines() if line.strip()])
+            hunks = (
+                {f["path"]: f["patch"] for f in json.loads(args.patches.read_text())}
+                if args.patches
+                else None
+            )
+            return select_paths(
+                [line.strip() for line in text.splitlines() if line.strip()], hunks=hunks
+            )
 
         case "probe":
             from ttnn_accuracy.ops.manifest import probe_layouts

@@ -103,6 +103,40 @@ def test_an_alias_header_selects_every_op_it_implements():
     assert picked.ops == ["isinf", "isnan"]
 
 
+def _patch(*lines: str) -> str:
+    return "--- a/x\n+++ b/x\n@@ -1 +1 @@\n" + "\n".join(lines)
+
+
+def test_an_alias_header_narrows_to_the_ops_its_diff_names():
+    """tt-metal#59238 touched only softsign_tile in activations.h and measured nine ops."""
+    path = f"{WH_SFPU}/ckernel_sfpu_isinf_isnan.h"
+    hunks = {path: _patch("-    isinf_old(x);", "+    isinf_new(x);")}
+    assert select([path], MANIFEST, hunks=hunks).ops == ["isinf"]
+
+
+def test_an_alias_header_keeps_every_op_when_its_diff_names_none():
+    """A shared macro moves them all and mentions no op, so naming none narrows nothing."""
+    path = f"{WH_SFPU}/ckernel_sfpu_isinf_isnan.h"
+    hunks = {path: _patch("-#define CALL(a) old(a)", "+#define CALL(a) new(a)")}
+    assert select([path], MANIFEST, hunks=hunks).ops == ["isinf", "isnan"]
+
+
+def test_a_diff_naming_an_op_the_alias_predates_still_narrows():
+    """activations.h declares softsign, which its alias listed for years without it."""
+    path = f"{WH_SFPU}/ckernel_sfpu_isinf_isnan.h"
+    hunks = {path: _patch("+    calculate_exp(x);")}
+    assert select([path], MANIFEST, hunks=hunks).ops == ["exp"]
+
+
+def test_a_longer_op_name_does_not_name_the_one_inside_it():
+    """`celu` must not read as `elu`; only `_` may sit against a name, never a letter."""
+    from ttnn_accuracy.ops.select import _named_in
+
+    assert _named_in(_patch("+    celu_tile(x);"), ("celu", "elu")) == ("celu",)
+    assert _named_in(_patch("+    calculate_softsign(x);"), ("softsign",)) == ("softsign",)
+    assert _named_in(_patch(" context mentions exp"), ("exp",)) == ()
+
+
 def test_an_op_the_architecture_does_not_support_is_dropped():
     """softcap asserts BLACKHOLE, so a Wormhole kernel change must not dispatch it."""
     picked = select([f"{WH_SFPU}/ckernel_sfpu_softcap.h"], MANIFEST)
