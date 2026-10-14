@@ -137,6 +137,30 @@ def test_a_longer_op_name_does_not_name_the_one_inside_it():
     assert _named_in(_patch(" context mentions exp"), ("exp",)) == ()
 
 
+def test_a_ttnn_kernel_names_the_op_it_computes():
+    """tt-metal#60511 changed eltwise_bw_gelu_tanh.cpp and nothing was measured. Its diff
+    names sigmoid, tanh and where — the primitives, never the derivative they build."""
+    picked = select(
+        [
+            "ttnn/cpp/ttnn/operations/eltwise/unary_backward/device/kernels/compute/"
+            "eltwise_bw_erfinv_tanh.cpp"
+        ],
+        MANIFEST,
+    )
+    assert picked.ops == ["erfinv_bw"]
+    assert picked.categories == []
+
+
+def test_a_ttnn_path_naming_no_op_still_asks_for_its_category():
+    """The fallback: a family file that names no op is the scope, not a measurement."""
+    picked = select(
+        ["ttnn/cpp/ttnn/operations/eltwise/unary_backward/device/unary_backward_op.cpp"],
+        MANIFEST,
+    )
+    assert picked.ops == []
+    assert picked.categories == ["unary_bw"]
+
+
 def test_an_op_the_architecture_does_not_support_is_dropped():
     """softcap asserts BLACKHOLE, so a Wormhole kernel change must not dispatch it."""
     picked = select([f"{WH_SFPU}/ckernel_sfpu_softcap.h"], MANIFEST)
