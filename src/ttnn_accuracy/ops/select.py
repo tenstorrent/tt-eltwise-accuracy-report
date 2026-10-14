@@ -99,6 +99,21 @@ def _named_in(patch: str, names: tuple[str, ...]) -> tuple[str, ...]:
     )
 
 
+def _from_ttnn_kernel(path: str, category: str, known: dict[str, dict]) -> tuple[str, ...]:
+    """The op a ttnn kernel computes, named between its family prefix and any algorithm
+    suffix: `eltwise_bw_gelu_tanh.cpp` is gelu_bw written with tanh, not tanh_bw. The diff
+    cannot say this — it is full of the primitives the derivative is built from."""
+    stem = re.sub(r"^eltwise_(?:bw_)?", "", Path(path).stem)
+    while stem:
+        for name in (stem, f"{stem}_bw"):
+            if known.get(name, {}).get("category") == category:
+                return (name,)
+        if "_" not in stem:
+            return ()
+        stem = stem.rsplit("_", 1)[0]
+    return ()
+
+
 def _includers(tree: Path, header: str) -> set[str]:
     """Stems of SFPU kernels that include this header — a helper names no op of its own."""
     name = Path(header).name
@@ -160,7 +175,12 @@ def select(
         elif found := FAMILY.search(path):
             if category := FAMILY_CATEGORY.get(found["family"]):
                 arches.update(("wh", "bh"))
-                categories.add(category)
+                # A kernel names its op; anything else in the family names only its scope.
+                named = _from_ttnn_kernel(path, category, known)
+                for name in named:
+                    picked.reasons.setdefault(name, path)
+                if not named:
+                    categories.add(category)
 
     # An op no selected architecture supports is not worth a dispatch.
     picked.ops = sorted(
