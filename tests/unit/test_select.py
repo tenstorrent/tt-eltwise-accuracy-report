@@ -151,6 +151,30 @@ def test_a_ttnn_kernel_names_the_op_it_computes():
     assert picked.categories == []
 
 
+def test_a_composite_file_names_its_op_in_the_definition():
+    """tt-metal#57664 rewrote multigammaln and nothing was measured. One file holds every
+    composite op, so its path names none, and its changed lines name only the primitives —
+    the signature that says which op this is sits on a context line."""
+    path = "ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_composite_op.cpp"
+    patch = (
+        "@@ -112,25 +112,31 @@ namespace ttnn {\n"
+        " Tensor erfinv(const Tensor& x, const std::optional<MemoryConfig>& cfg) {\n"
+        "-    Tensor result = ttnn::exp(x, cfg);\n"
+        "+    Tensor result = ttnn::sqrt(x, cfg);\n"
+    )
+    picked = select([path], MANIFEST, hunks={path: patch})
+    assert picked.ops == ["erfinv"]
+    assert picked.categories == []
+
+
+def test_a_composite_file_without_its_diff_falls_back_to_the_category():
+    """No patch means no signature to read, so the scope is all that is honestly known."""
+    path = "ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_composite_op.cpp"
+    picked = select([path], MANIFEST)
+    assert picked.ops == []
+    assert picked.categories == ["unary"]
+
+
 def test_a_ttnn_path_naming_no_op_still_asks_for_its_category():
     """The fallback: a family file that names no op is the scope, not a measurement."""
     picked = select(
