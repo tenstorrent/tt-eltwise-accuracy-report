@@ -46,12 +46,34 @@ FAMILY_CATEGORY = {
 }
 
 # One header, several ops, where the stem names none of them.
+# The ops each header declares, forward only: the `_bw` of each would put `trigonometry`
+# and `comp` past SELECT_CAP, which empties the selection entirely — six measured ops beat
+# none, and a backward op is reached through its own kernel. Checked against the
+# `ALWI void <op>_tile(` lines of the header itself; a list written from memory drifts.
 ALIASES = {
     "isinf_isnan": ("isinf", "isnan", "isfinite", "isneginf", "isposinf"),
-    "trigonometry": ("sin", "cos", "tan", "asin", "acos", "atan"),
+    "trigonometry": (
+        "sin",
+        "cos",
+        "tan",
+        "asin",
+        "acos",
+        "atan",
+        "sinh",
+        "cosh",
+        "asinh",
+        "acosh",
+        "atanh",
+    ),
     "activations": ("celu", "hardshrink", "hardsigmoid", "softshrink", "softsign"),
-    "comp": ("eq", "ne", "gt", "ge", "lt", "le"),
+    # Both forms: the header declares `unary_eq`..`unary_le` and `gtz`..`lez`, and one
+    # `calculate_comp` kernel serves them, so a stem cannot pick a side.
+    "comp": ("eq", "ne", "gt", "ge", "lt", "le", "eqz", "nez", "gtz", "gez", "ltz", "lez"),
     "binary_bitwise": ("bitwise_and", "bitwise_or", "bitwise_xor", "bitwise_not"),
+    "erf_erfc": ("erf", "erfc"),
+    "rounding": ("ceil", "floor", "frac", "round", "trunc"),
+    "reverseops": ("rsub",),
+    "relu": ("relu", "leaky_relu", "relu_max", "relu_min"),
 }
 
 
@@ -114,6 +136,19 @@ def _from_ttnn_kernel(path: str, category: str, known: dict[str, dict]) -> tuple
     return ()
 
 
+def _defined_in(patch: str, category: str, known: dict[str, dict]) -> tuple[str, ...]:
+    """The ops a diff defines, for a ttnn file that holds many and names none. A composite
+    op is a C++ function named for it, and the signature saying which op a hunk belongs to
+    is context, not a changed line — those name only the primitives it is built from."""
+    found = set()
+    for name in re.findall(r"\bTensor\s+(\w+)\s*\(", patch):
+        base = name.lstrip("_")
+        for candidate in (base, f"{base}_bw"):
+            if known.get(candidate, {}).get("category") == category:
+                found.add(candidate)
+    return tuple(sorted(found))
+
+
 def _includers(tree: Path, header: str) -> set[str]:
     """Stems of SFPU kernels that include this header — a helper names no op of its own."""
     name = Path(header).name
@@ -171,12 +206,17 @@ def select(
                 categories.update(FAMILY_CATEGORY.values())
         elif found := COMPUTE_API.search(path):
             arches.update(("wh", "bh"))
-            take(found["stem"], path)
+            if not take(found["stem"], path):
+                picked.unresolved.append(path)
+                categories.update(FAMILY_CATEGORY.values())
         elif found := FAMILY.search(path):
             if category := FAMILY_CATEGORY.get(found["family"]):
                 arches.update(("wh", "bh"))
-                # A kernel names its op; anything else in the family names only its scope.
-                named = _from_ttnn_kernel(path, category, known)
+                # A kernel names its op in its path; a file of many names them in its
+                # definitions; anything else names only the scope it belongs to.
+                named = _from_ttnn_kernel(path, category, known) or _defined_in(
+                    (hunks or {}).get(path, ""), category, known
+                )
                 for name in named:
                     picked.reasons.setdefault(name, path)
                 if not named:

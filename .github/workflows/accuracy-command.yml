@@ -49,6 +49,9 @@ jobs:
     outputs:
       ops: ${{ steps.pick.outputs.ops }}
       arches: ${{ steps.pick.outputs.arches }}
+      # What the change reached but no rule could name, so "nothing measured" is never
+      # reported as "nothing affected".
+      scope: ${{ steps.pick.outputs.scope }}
       sha: ${{ steps.pr.outputs.sha }}
       pr: ${{ steps.pr.outputs.number }}
     defaults:
@@ -122,6 +125,7 @@ jobs:
           {
             echo "ops=$ops"
             echo "arches=$arches"
+            echo "scope=$(jq -r '(.categories + (.unresolved | map("`" + . + "`"))) | join(", ")' selection.json)"
           } >> "$GITHUB_OUTPUT"
 
       - name: Say what was selected
@@ -230,6 +234,7 @@ jobs:
         env:
           PR: ${{ needs.select.outputs.pr }}
           OPS: ${{ needs.select.outputs.ops }}
+          SCOPE: ${{ needs.select.outputs.scope }}
           RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           OUTCOME: ${{ needs.measure.result }}
         run: |
@@ -237,7 +242,14 @@ jobs:
             if [ -z "$OPS" ]; then
               echo "### Eltwise accuracy"
               echo
-              echo "No eltwise op is affected by this change. Nothing measured."
+              # Reaching an op's neighbourhood without naming the op is a gap in the
+              # selector, not an answer: say so rather than report nothing affected.
+              if [ -n "$SCOPE" ]; then
+                echo "This change reaches $SCOPE, but no rule here names the op it touches,"
+                echo "so nothing was measured. Re-run with \`ops=<name>\` to measure it."
+              else
+                echo "No eltwise op is affected by this change. Nothing measured."
+              fi
             else
               echo "### Eltwise accuracy — \`$OPS\`"
               echo
