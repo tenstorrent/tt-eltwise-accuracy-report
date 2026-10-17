@@ -82,7 +82,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 
 | Variant | x | device | golden |  |
 |---|---|---|---|---|
-| `default` | 0 | inf | -inf | **differ** |
+| `default` | 0 | -inf | -inf | agree |
 | `default` | -0 | inf | inf | agree |
 | `default` | inf | 0 | -0 | **differ** |
 | `default` | -inf | nan | nan | agree |
@@ -90,7 +90,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | -inf | -inf | agree |
 | `default` | -1.1754944e-38 | nan | nan | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261017T025102`_
 
 ![ULP error — rsqrt_bw default](../../../charts/bh/fp32/rsqrt_bw_default_ulp.svg)
 

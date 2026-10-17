@@ -47,7 +47,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [cos](cos.md) | `default` | 1.34e+08 ⚠ | 1.33e+05 | 92.4 | 2.86e-06 | 405 ±7% |
 | [cos_bw](cos_bw.md) | `default` | 8.59e+51 ⚠ | 3.23e+48 | 28 | 3.4e+38 | 1496 |
 | [cosh](cosh.md) | `default` | 1.35 | 0.791 | 89.1 | 1.57e+31 | 390 |
-| [cosh_bw](cosh_bw.md) | `default` | 2.2 | 1.16 | 0.0155 | 8.81e+30 | 6128 |
+| [cosh_bw](cosh_bw.md) | `default` | 2.2 | 1.16 | 0.0155 | 1.82e+31 | 6128 |
 | [deg2rad](deg2rad.md) | `default` | 0.63 | 0.595 | 3.4e+38 | 3.63e+29 | 354 ±12% |
 | [digamma](digamma.md) | `default` | 3.66e+17 ⚠ | 7.77e+12 | nowhere | 8.51e+37 | 737 |
 | [digamma_bw](digamma_bw.md) | `default` | 7.91e+33 ⚠ | 3.25e+29 | 5.4e-20 | 2.59e+38 | 6580 |
@@ -211,13 +211,13 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [sign](sign.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 349 ±6% |
 | [signbit](signbit.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 345 |
 | [silu](silu.md) | `default` | 3.61 | 1.78 | 2.01e-05 | 1.85e-06 | 426 ±9% |
-| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 2.96e-07 | 1.38e-06 | 2804 |
+| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 2.98e-07 | 1.38e-06 | 2804 |
 | [sin](sin.md) | `default` | 3.36e+07 ⚠ | 3.07e+04 | 28 | 1.91e-06 | 379 |
 | [sin_bw](sin_bw.md) | `default` | 1.24e+52 ⚠ | 3.44e+48 | 92.4 | 3.4e+38 | 1200 |
 | [sinh](sinh.md) | `default` | 2.2 | 1.16 | 0.0155 | 1.82e+31 | 459 |
-| [sinh_bw](sinh_bw.md) | `default` | 1.35 | 0.791 | 88.5 | 7.52e+30 | 5392 |
+| [sinh_bw](sinh_bw.md) | `default` | 1.35 | 0.791 | 89.1 | 1.57e+31 | 5392 |
 | [softplus](softplus.md) | `default` | 8.21e+03 ⚠ | 656 | nowhere | 0.47 | 414 |
-| [softplus_bw](softplus_bw.md) | `default` | 2.93 | 1.33 | 0.164 | 1.58e-07 | 3947 ±13% |
+| [softplus_bw](softplus_bw.md) | `default` | 3.31 | 1.59 | 1.59e-05 | 1.46e-07 | 3947 ±13% |
 | [softshrink](softshrink.md) | `default` | 0.5 | 0 | 3.39e+38 | 0.5 | 367 ±104% |
 | [softshrink_bw](softshrink_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 1962 |
 | [softsign](softsign.md) | `default` | 3 | 1.28 | 1.21e-05 | 1 | 350 ±9% |
@@ -236,7 +236,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [tan](tan.md) | `default` | 2.26e+08 ⚠ | 2.32e+05 | 3.92 | 1.41e+07 | 469 |
 | [tan_bw](tan_bw.md) | `default` | 2.85e+45 ⚠ | 4.74e+44 | 0.852 | 3.4e+38 | 1932 |
 | [tanh](tanh.md) | `default` | 2.6 | 1.45 | 0.000946 | 9.62e-08 | 395 |
-| [tanh_bw](tanh_bw.md) | `default` | 6.59e+04 ⚠ | 7.51e+03 | nowhere | 0.000814 | 860 ±44% |
+| [tanh_bw](tanh_bw.md) | `default` | 5 | 1.67 | 0.199 | 1.79e-07 | 860 ±44% |
 | [tanhshrink](tanhshrink.md) | `default` | 4.19e+06 ⚠ | 1.23e+05 | 1.34e-08 | 1 | 360 |
 | [tanhshrink_bw](tanhshrink_bw.md) | `default` | 4.19e+06 ⚠ | 1.02e+05 | 7.42e-09 | 2.18e-07 | 1514 |
 | [threshold](threshold.md) | `threshold=0.0,value=1.0` | 0 | 0 | 3.39e+38 | 0 | 358 |
@@ -255,6 +255,8 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
+| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
+| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
 
 
 ---
