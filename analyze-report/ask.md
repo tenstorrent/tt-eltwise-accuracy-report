@@ -127,7 +127,7 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `asinh_bw` | `default` | 15874/64514 defects; rest 1.33 ULP | 1.33 | 0.681 | 0.918 | 1.84e+19 | 583 ±37% | 28774 |
 | bh | bf16 | `atan` | `default` | 2/65024 defects; rest 0.527 ULP | 0.527 | 0.513 | 1 | — | 209 | 80165 |
 | bh | bf16 | `atan2` | `default` | worst sampled pairing | 200 | 3.56 | 0.901 | — | 261 | 64357 |
-| bh | bf16 | `atan2_bw` | `default` | worst sampled pairing | 248 | 4.89 | 0.508 | — | 2515 ±11% | 6671 |
+| bh | bf16 | `atan2_bw` | `default` | worst sampled pairing | 248 | 3.94 | 0.674 | — | 2515 ±11% | 6671 |
 | bh | bf16 | `atan_bw` | `default` | 2/48386 defects; rest 2.23 ULP | 2.23 | 0.867 | 0.849 | 0.23 | 639 ±16% | 26242 |
 | bh | bf16 | `atanh` | `default` | 2/32256 defects; rest 2.08 ULP | 2.08 | 0.995 | 0.175 | — | 276 ±9% | 60751 |
 | bh | bf16 | `atanh_bw` | `default` | 2/48386 defects; rest 8.17 ULP | 8.17 | 1 | 0.79 | 0.82 | 3846 | 4362 |
@@ -201,7 +201,7 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `heaviside` | `value=0.5` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 196 | 85792 |
 | bh | bf16 | `heaviside` | `value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 199 ±5% | 84237 |
 | bh | bf16 | `hypot` | `default` | 16384/65026 defects; rest 52.7 ULP | 52.7 | 1.58 | 0.947 | — | 271 ±10% | 61844 |
-| bh | bf16 | `hypot_bw` | `default` | worst sampled pairing | 74.6 | 2.43 | 0.835 | — | 1515 | 11074 |
+| bh | bf16 | `hypot_bw` | `default` | worst sampled pairing | 74.6 | 2.27 | 0.869 | — | 1515 | 11074 |
 | bh | bf16 | `i0` | `default` | accurate to |x| <= 13.6 | 255 | 56.3 | 0.952 | 13.6 | 173 ±6% | 96712 |
 | bh | bf16 | `i0_bw` | `default` | 4/33904 defects; rest 218 ULP | 218 | 8.58 | 0.993 | 2.33e-38 | 849 | 19764 |
 | bh | bf16 | `i1` | `default` | 4/65024 defects; rest 0.858 ULP | 0.858 | 0.589 | 0.516 | 2.33e-38 | 442 ±6% | 37985 |

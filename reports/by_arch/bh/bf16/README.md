@@ -26,7 +26,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [asinh_bw](asinh_bw.md) | `default` | 1.33 | 0.681 | 1.84e+19 | 0.00518 | 583 ±37% |
 | [atan](atan.md) | `default` | 0.527 | 0.513 | nowhere | 0.00395 | 209 |
 | [atan2](atan2.md) | `default` | 200 | 3.56 | n/a | 0.783 | 261 |
-| [atan2_bw](atan2_bw.md) | `default` | 248 | 4.89 | n/a | 4.47e+18 | 2515 ±11% |
+| [atan2_bw](atan2_bw.md) | `default` | 248 | 3.94 | n/a | 4.47e+18 | 2515 ±11% |
 | [atan_bw](atan_bw.md) | `default` | 2.23 | 0.867 | 0.23 | 0.00869 | 639 ±16% |
 | [atanh](atanh.md) | `default` | 2.08 | 0.995 | nowhere | 0.00907 | 276 ±9% |
 | [atanh_bw](atanh_bw.md) | `default` | 8.17 | 1 | 0.82 | 0.289 | 3846 |
@@ -100,7 +100,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 |  | `value=0.5` | 0 | 0 | 3.39e+38 | 0 | 196 |
 |  | `value=1.0` | 0 | 0 | 3.39e+38 | 0 | 199 ±5% |
 | [hypot](hypot.md) | `default` | 52.7 | 1.58 | n/a | 9.4e+16 | 271 ±10% |
-| [hypot_bw](hypot_bw.md) | `default` | 74.6 | 2.43 | n/a | 0.292 | 1515 |
+| [hypot_bw](hypot_bw.md) | `default` | 74.6 | 2.27 | n/a | 0.292 | 1515 |
 | [i0](i0.md) | `default` | 255 | 56.3 | 13.6 | 2.28e+38 | 173 ±6% |
 | [i0_bw](i0_bw.md) | `default` | 218 | 8.58 | 2.33e-38 | 2.16e+38 | 849 |
 | [i1](i1.md) | `default` | 0.858 | 0.589 | 2.33e-38 | 4.9e+34 | 442 ±6% |
