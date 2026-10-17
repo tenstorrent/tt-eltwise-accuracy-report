@@ -29,7 +29,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [atan_bw](atan_bw.md) | `default` | 2.23 | 0.767 | 0.23 | 0.00869 | 639 ±16% |
 | [atanh](atanh.md) | `default` | 2.08 | 0.995 | nowhere | 0.00907 | 276 ±9% |
 | [atanh_bw](atanh_bw.md) | `default` | 7.76 | 0.885 | 0.918 | 0.289 | 3846 |
-| [bias_gelu](bias_gelu.md) | `default` | 179 | 86.3 | n/a | 7.48e+35 | 247 |
 | [bias_gelu_](bias_gelu_.md) | `default` | 179 | 86.3 | n/a | 7.48e+35 | 248 |
 | [cbrt](cbrt.md) | `default` | 0.507 | 0.502 | 3.39e+38 | 1.74e+10 | 221 ±8% |
 | [ceil](ceil.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 197 ±10% |
@@ -57,7 +56,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [divide_](divide_.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 255 ±9% |
 | [elu](elu.md) | `default` | 0.5 | 0 | 3.39e+38 | 0.00195 | 192 |
 | [elu_bw](elu_bw.md) | `default` | 0.892 | 0.52 | 3.39e+38 | 0.00355 | 1285 |
-| [eq](eq.md) | `default` | 0 | 0 | n/a | 0 | 253 ±6% |
 | [eq_](eq_.md) | `default` | 0 | 0 | n/a | 0 | 246 |
 | [eqz](eqz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 196 ±16% |
 | [erf](erf.md) | `default` | 1.06 | 0.771 | 3.39e+38 | 0.00362 | 193 ±12% |
@@ -77,13 +75,11 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [floor_div](floor_div.md) | `default` | 64 | 42 | n/a | 1 | 1178 |
 | [fmod](fmod.md) | `default` | 9.14e+35 ⚠ | 8.94e+34 | n/a | 4.31e+31 | 261 ±5% |
 | [frac](frac.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 199 |
-| [ge](ge.md) | `default` | 0 | 0 | n/a | 0 | 246 |
 | [ge_](ge_.md) | `default` | 0 | 0 | n/a | 0 | 246 ±18% |
 | [gelu](gelu.md) | `default` | 165 | 9.18 | 2.33e-38 | 0.00777 | 351 ±116% |
 |  | `fast_approx` | 1.14e+36 ⚠ | 1.82e+34 | 2.33e-38 | 0.0239 | 186 ±8% |
 | [gelu_bw](gelu_bw.md) | `default` | 0.939 | 0.681 | 3.39e+38 | 0.00719 | 706 |
 | [gez](gez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 190 |
-| [gt](gt.md) | `default` | 0 | 0 | n/a | 0 | 254 |
 | [gt_](gt_.md) | `default` | 0 | 0 | n/a | 0 | 243 |
 | [gtz](gtz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 198 ±9% |
 | [hardmish](hardmish.md) | `default` | 1 | 0.913 | 3.39e+38 | 0.00195 | 194 ±11% |
@@ -110,9 +106,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [isneginf](isneginf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 198 |
 | [isposinf](isposinf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 192 ±7% |
 | [l1_loss](l1_loss.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 245 |
-| [ldexp](ldexp.md) | `default` | 255 | 94.4 | n/a | 3.39e+38 | 261 |
 | [ldexp_](ldexp_.md) | `default` | 255 | 94.4 | n/a | 3.39e+38 | 251 ±6% |
-| [le](le.md) | `default` | 0 | 0 | n/a | 0 | 258 ±32% |
 | [le_](le_.md) | `default` | 0 | 0 | n/a | 0 | 244 ±15% |
 | [leaky_relu](leaky_relu.md) | `negative_slope=0.0` | 0 | 0 | 3.39e+38 | 0 | 195 |
 |  | `negative_slope=0.01` | 0.96 | 0.741 | 3.39e+38 | 1.99e+34 | 193 ±1010% |
@@ -132,33 +126,25 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [log_bw](log_bw.md) | `default` | 0.498 | 0 | 8.47e+37 | 1.65e+35 | 1849 |
 | [log_sigmoid](log_sigmoid.md) | `default` | 6.39 | 1.38 | 0.428 | 0.0215 | 235 |
 | [log_sigmoid_bw](log_sigmoid_bw.md) | `default` | 1.71 | 0.722 | 3.39e+38 | 0.00528 | 2708 |
-| [logaddexp](logaddexp.md) | `default` | 2.22e+05 ⚠ | 44.7 | n/a | 1 | 326 ±10% |
-| [logaddexp2](logaddexp2.md) | `default` | 6.87e+10 ⚠ | 2.05e+06 | n/a | 1 | 385 |
 | [logaddexp2_](logaddexp2_.md) | `default` | 6.87e+10 ⚠ | 2.05e+06 | n/a | 1 | 385 ±9% |
 | [logaddexp_](logaddexp_.md) | `default` | 2.22e+05 ⚠ | 44.7 | n/a | 1 | 307 |
-| [logical_and](logical_and.md) | `default` | 0 | 0 | n/a | 0 | 266 ±91% |
 | [logical_and_](logical_and_.md) | `default` | 0 | 0 | n/a | 0 | 258 ±30% |
 | [logical_not](logical_not.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 194 ±5% |
 | [logical_not_](logical_not_.md) | `default` | 0 | 0 | 1 | 0 | 194 ±11% |
-| [logical_or](logical_or.md) | `default` | 0 | 0 | n/a | 0 | 261 ±19% |
 | [logical_or_](logical_or_.md) | `default` | 0 | 0 | n/a | 0 | 264 ±17% |
 | [logical_xor_](logical_xor_.md) | `default` | 0 | 0 | n/a | 0 | 254 ±7% |
 | [logit](logit.md) | `default` | 64 | 1.67 | 0.395 | 0.25 | 337 |
 | [logit_bw](logit_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 3204 |
 | [logiteps_bw](logiteps_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 3822 |
-| [lt](lt.md) | `default` | 0 | 0 | n/a | 0 | 249 ±5% |
 | [lt_](lt_.md) | `default` | 0 | 0 | n/a | 0 | 253 |
 | [ltz](ltz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 195 |
 | [mac](mac.md) | `default` | 63.5 | 26.4 | n/a | 31.9 | 331 |
-| [maximum](maximum.md) | `default` | 0 | 0 | n/a | 0 | 254 ±21% |
-| [minimum](minimum.md) | `default` | 0 | 0 | n/a | 0 | 256 ±34% |
 | [mish](mish.md) | `default` | 1.49 | 0.666 | 1.95e-38 | 0.00801 | 268 ±7% |
 | [mse_loss](mse_loss.md) | `default` | 2.03 | 1.79 | n/a | 1.85e+36 | 254 ±12% |
 | [multigammaln](multigammaln.md) | `default` | 724 | 1.67 | 5.59e-17 | 1.77e+36 | 4668 |
 | [multigammaln_bw](multigammaln_bw.md) | `default` | 2.38e+06 ⚠ | 293 | 5.59e-17 | 2.34e+16 | 3815 |
 | [multiply](multiply.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 248 ±7% |
 | [multiply_](multiply_.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 246 ±6% |
-| [ne](ne.md) | `default` | 0 | 0 | n/a | 0 | 246 |
 | [ne_](ne_.md) | `default` | 0 | 0 | n/a | 0 | 259 ±45% |
 | [neg](neg.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 193 ±8% |
 | [nextafter](nextafter.md) | `default` | 1 | 1 | n/a | 1.33e+36 | 1457 |
@@ -183,7 +169,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 |  | `upper_limit=6.0` | 0 | 0 | 3.39e+38 | 0 | 197 ±12% |
 | [relu_min](relu_min.md) | `lower_limit=0.0` | 0 | 0 | 3.39e+38 | 0 | 198 |
 |  | `lower_limit=1.0` | 0 | 0 | 3.39e+38 | 0 | 191 |
-| [remainder](remainder.md) | `default` | 1.08e+36 ⚠ | 1.22e+35 | n/a | 4.31e+31 | 268 |
 | [round](round.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 196 ±9% |
 | [rpow](rpow.md) | `exponent=0.5` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 384 ±20% |
 |  | `exponent=1.0` | 0 | 0 | 3.39e+38 | 0 | 387 ±14% |
@@ -234,7 +219,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [trunc](trunc.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 201 ±14% |
 | [where](where.md) | `default` | 0 | 0 | n/a | 0 | 325 |
 | [xielu](xielu.md) | `default` | 0.5 | 0.5 | 2.33e-38 | 6.6e+35 | 436 |
-| [xlogy](xlogy.md) | `default` | 23.5 | 17.6 | n/a | 1.22e+35 | 257 ±7% |
 
 ## Not measurable on Blackhole (BH), bfloat16
 
@@ -328,10 +312,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [atanh_bw](atanh_bw.md)
 
 ![atanh_bw default](../../../charts/bh/bf16/atanh_bw_default_ulp.svg)
-
-### [bias_gelu](bias_gelu.md)
-
-![bias_gelu default](../../../charts/bh/bf16/bias_gelu_default_ulp.svg)
 
 ### [bias_gelu_](bias_gelu_.md)
 
@@ -433,10 +413,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![elu_bw default](../../../charts/bh/bf16/elu_bw_default_ulp.svg)
 
-### [eq](eq.md)
-
-![eq default](../../../charts/bh/bf16/eq_default_ulp.svg)
-
 ### [eq_](eq_.md)
 
 ![eq_ default](../../../charts/bh/bf16/eq__default_ulp.svg)
@@ -511,10 +487,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![frac default](../../../charts/bh/bf16/frac_default_ulp.svg)
 
-### [ge](ge.md)
-
-![ge default](../../../charts/bh/bf16/ge_default_ulp.svg)
-
 ### [ge_](ge_.md)
 
 ![ge_ default](../../../charts/bh/bf16/ge__default_ulp.svg)
@@ -532,10 +504,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [gez](gez.md)
 
 ![gez default](../../../charts/bh/bf16/gez_default_ulp.svg)
-
-### [gt](gt.md)
-
-![gt default](../../../charts/bh/bf16/gt_default_ulp.svg)
 
 ### [gt_](gt_.md)
 
@@ -637,17 +605,9 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![l1_loss default](../../../charts/bh/bf16/l1_loss_default_ulp.svg)
 
-### [ldexp](ldexp.md)
-
-![ldexp default](../../../charts/bh/bf16/ldexp_default_ulp.svg)
-
 ### [ldexp_](ldexp_.md)
 
 ![ldexp_ default](../../../charts/bh/bf16/ldexp__default_ulp.svg)
-
-### [le](le.md)
-
-![le default](../../../charts/bh/bf16/le_default_ulp.svg)
 
 ### [le_](le_.md)
 
@@ -721,14 +681,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![log_sigmoid_bw default](../../../charts/bh/bf16/log_sigmoid_bw_default_ulp.svg)
 
-### [logaddexp](logaddexp.md)
-
-![logaddexp default](../../../charts/bh/bf16/logaddexp_default_ulp.svg)
-
-### [logaddexp2](logaddexp2.md)
-
-![logaddexp2 default](../../../charts/bh/bf16/logaddexp2_default_ulp.svg)
-
 ### [logaddexp2_](logaddexp2_.md)
 
 ![logaddexp2_ default](../../../charts/bh/bf16/logaddexp2__default_ulp.svg)
@@ -736,10 +688,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [logaddexp_](logaddexp_.md)
 
 ![logaddexp_ default](../../../charts/bh/bf16/logaddexp__default_ulp.svg)
-
-### [logical_and](logical_and.md)
-
-![logical_and default](../../../charts/bh/bf16/logical_and_default_ulp.svg)
 
 ### [logical_and_](logical_and_.md)
 
@@ -752,10 +700,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [logical_not_](logical_not_.md)
 
 ![logical_not_ default](../../../charts/bh/bf16/logical_not__default_ulp.svg)
-
-### [logical_or](logical_or.md)
-
-![logical_or default](../../../charts/bh/bf16/logical_or_default_ulp.svg)
 
 ### [logical_or_](logical_or_.md)
 
@@ -777,10 +721,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![logiteps_bw default](../../../charts/bh/bf16/logiteps_bw_default_ulp.svg)
 
-### [lt](lt.md)
-
-![lt default](../../../charts/bh/bf16/lt_default_ulp.svg)
-
 ### [lt_](lt_.md)
 
 ![lt_ default](../../../charts/bh/bf16/lt__default_ulp.svg)
@@ -792,14 +732,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [mac](mac.md)
 
 ![mac default](../../../charts/bh/bf16/mac_default_ulp.svg)
-
-### [maximum](maximum.md)
-
-![maximum default](../../../charts/bh/bf16/maximum_default_ulp.svg)
-
-### [minimum](minimum.md)
-
-![minimum default](../../../charts/bh/bf16/minimum_default_ulp.svg)
 
 ### [mish](mish.md)
 
@@ -824,10 +756,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [multiply_](multiply_.md)
 
 ![multiply_ default](../../../charts/bh/bf16/multiply__default_ulp.svg)
-
-### [ne](ne.md)
-
-![ne default](../../../charts/bh/bf16/ne_default_ulp.svg)
 
 ### [ne_](ne_.md)
 
@@ -914,10 +842,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ![relu_min lower_limit=0.0](../../../charts/bh/bf16/relu_min_lower_limit0.0_ulp.svg)
 
 ![relu_min lower_limit=1.0](../../../charts/bh/bf16/relu_min_lower_limit1.0_ulp.svg)
-
-### [remainder](remainder.md)
-
-![remainder default](../../../charts/bh/bf16/remainder_default_ulp.svg)
 
 ### [round](round.md)
 
@@ -1112,8 +1036,4 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [xielu](xielu.md)
 
 ![xielu default](../../../charts/bh/bf16/xielu_default_ulp.svg)
-
-### [xlogy](xlogy.md)
-
-![xlogy default](../../../charts/bh/bf16/xlogy_default_ulp.svg)
 

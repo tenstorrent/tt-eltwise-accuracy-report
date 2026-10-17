@@ -64,14 +64,14 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | Variant | x | device | golden |  |
 |---|---|---|---|---|
 | `default` | 0 | 0 | 0 | agree |
-| `default` | -0 | nan | -0 | **differ** |
+| `default` | -0 | -0 | -0 | agree |
 | `default` | inf | inf | inf | agree |
 | `default` | -inf | nan | nan | agree |
 | `default` | nan | nan | nan | agree |
 | `default` | 1.1754944e-38 | 1.0842022e-19 | 1.0842022e-19 | agree |
 | `default` | -1.1754944e-38 | nan | nan | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261017T025314`_
 
 ![ULP error — sqrt default](../../../charts/wh/fp32/sqrt_default_ulp.svg)
 

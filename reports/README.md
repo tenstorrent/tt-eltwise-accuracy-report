@@ -22,9 +22,9 @@ Charts show ULP (units in last place) error across the full input range.
 | Metric | Count |
 |--------|-------|
 | Architectures measured | 2 |
-| Unique ops measured | 209 |
-| Blackhole (BH) bfloat16 ops | 208 |
-| Blackhole (BH) float32 ops | 207 |
+| Unique ops measured | 193 |
+| Blackhole (BH) bfloat16 ops | 192 |
+| Blackhole (BH) float32 ops | 191 |
 | Wormhole (WH) bfloat16 ops | 192 |
 | Wormhole (WH) float32 ops | 192 |
 
@@ -32,7 +32,7 @@ Charts show ULP (units in last place) error across the full input range.
 
 ## Returning inf or zero where a value exists
 
-153 variants across 45 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+150 variants across 44 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -85,10 +85,8 @@ Charts show ULP (units in last place) error across the full input range.
 | [`softsign`](by_op/softsign/README.md) | `default` | wh fp32 | 510 of 65,024 | 0.8% |
 | [`reciprocal_bw`](by_op/reciprocal_bw/README.md) | `default` | bh bf16 | 256 of 48,386 | 0.5% |
 | [`reciprocal_bw`](by_op/reciprocal_bw/README.md) | `default` | bh fp32 | 256 of 48,386 | 0.5% |
-| [`rdiv_bw`](by_op/rdiv_bw/README.md) | `scalar=2.0` | wh bf16 | 256 of 48,492 | 0.5% |
 | [`reciprocal_bw`](by_op/reciprocal_bw/README.md) | `default` | wh bf16 | 254 of 48,386 | 0.5% |
 | [`reciprocal_bw`](by_op/reciprocal_bw/README.md) | `default` | wh fp32 | 254 of 48,386 | 0.5% |
-| [`rdiv_bw`](by_op/rdiv_bw/README.md) | `scalar=2.0` | wh fp32 | 252 of 48,490 | 0.5% |
 | [`digamma_bw`](by_op/digamma_bw/README.md) | `default` | bh bf16 | 263 of 64,769 | 0.4% |
 | [`digamma_bw`](by_op/digamma_bw/README.md) | `default` | wh bf16 | 263 of 64,769 | 0.4% |
 | [`rdiv`](by_op/rdiv/README.md) | `value=2.0` | bh bf16 | 258 of 64,770 | 0.4% |
@@ -167,7 +165,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`log_bw`](by_op/log_bw/README.md) | `default` | bh fp32 | 2 of 64,514 | 0.0% |
 | [`reciprocal`](by_op/reciprocal/README.md) | `default` | bh bf16 | 2 of 64,514 | 0.0% |
 | [`reciprocal`](by_op/reciprocal/README.md) | `default` | bh fp32 | 2 of 64,514 | 0.0% |
-| [`reciprocal`](by_op/reciprocal/README.md) | `default` | wh bf16 | 2 of 64,514 | 0.0% |
 | [`atan`](by_op/atan/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
 | [`atan`](by_op/atan/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`deg2rad`](by_op/deg2rad/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
