@@ -26,7 +26,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [asinh_bw](asinh_bw.md) | `default` | 1.33 | 0.681 | 1.84e+19 | 0.00518 | 1358 ±10% |
 | [atan](atan.md) | `default` | 0.527 | 0.513 | nowhere | 0.00395 | 591 ±11% |
 | [atan2](atan2.md) | `default` | 200 | 2.51 | n/a | 0.783 | 547 |
-| [atan2_bw](atan2_bw.md) | `default` | 248 | 4.88 | n/a | 4.47e+18 | 5514 |
+| [atan2_bw](atan2_bw.md) | `default` | 248 | 3.94 | n/a | 4.47e+18 | 5514 |
 | [atan_bw](atan_bw.md) | `default` | 2.23 | 0.867 | 0.23 | 0.00869 | 1329 ±6% |
 | [atanh](atanh.md) | `default` | 2.08 | 0.995 | nowhere | 0.00907 | 689 |
 | [atanh_bw](atanh_bw.md) | `default` | 8.17 | 1.02 | 0.82 | 0.289 | 8440 |
@@ -52,7 +52,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [digamma](digamma.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 1172 |
 | [digamma_bw](digamma_bw.md) | `default` | 1.02e+08 ⚠ | 1.32e+04 | 1 | 6.44e+36 | 12083 |
 | [div](div.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 546 |
-| [div_bw](div_bw.md) | `default` | 0.512 | 0.512 | n/a | 1.7e+35 | 10534 |
+| [div_bw](div_bw.md) | `default` | 0.498 | 0 | n/a | 1.65e+35 | 10534 |
 | [div_no_nan](div_no_nan.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 1447 |
 | [divide](divide.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 548 |
 | [divide_](divide_.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 573 |
@@ -100,7 +100,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 |  | `value=0.5` | 0 | 0 | 3.39e+38 | 0 | 402 |
 |  | `value=1.0` | 0 | 0 | 3.39e+38 | 0 | 413 ±11% |
 | [hypot](hypot.md) | `default` | 52.7 | 1.58 | n/a | 9.4e+16 | 551 |
-| [hypot_bw](hypot_bw.md) | `default` | 74.6 | 2.42 | n/a | 0.292 | 3375 |
+| [hypot_bw](hypot_bw.md) | `default` | 74.6 | 2.27 | n/a | 0.292 | 3375 |
 | [i0](i0.md) | `default` | 255 | 56.3 | 13.6 | 2.28e+38 | 459 ±6% |
 | [i0_bw](i0_bw.md) | `default` | 218 | 8.58 | 2.33e-38 | 2.16e+38 | 2090 |
 | [i1](i1.md) | `default` | 0.858 | 0.589 | 2.33e-38 | 4.9e+34 | 1203 |

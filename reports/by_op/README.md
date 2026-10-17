@@ -46,7 +46,7 @@ Total: 221 ops measured
 | [digamma](digamma/README.md) | unary | [5.57e+05](digamma/README.md) | [3.66e+17](digamma/README.md) | [5.57e+05](digamma/README.md) | [3.66e+17](digamma/README.md) |
 | [digamma_bw](digamma_bw/README.md) | unary_bw | [1.02e+08](digamma_bw/README.md) | [7.91e+33](digamma_bw/README.md) | [1.02e+08](digamma_bw/README.md) | [7.91e+33](digamma_bw/README.md) |
 | [div](div/README.md) | binary | [0.498](div/README.md) | [1.78](div/README.md) | [0.498](div/README.md) | [2.44](div/README.md) |
-| [div_bw](div_bw/README.md) | binary_bw | [0.512](div_bw/README.md) | [0.84](div_bw/README.md) | [0.498](div_bw/README.md) | [7.95e+04](div_bw/README.md) |
+| [div_bw](div_bw/README.md) | binary_bw | [0.498](div_bw/README.md) | [0.84](div_bw/README.md) | [0.498](div_bw/README.md) | [7.95e+04](div_bw/README.md) |
 | [div_no_nan](div_no_nan/README.md) | binary | [0.498](div_no_nan/README.md) | [1.79](div_no_nan/README.md) | [0.498](div_no_nan/README.md) | [9.24e+04](div_no_nan/README.md) |
 | [divide](divide/README.md) | binary | [0.498](divide/README.md) | [1.78](divide/README.md) | [0.498](divide/README.md) | [2.44](divide/README.md) |
 | [divide_](divide_/README.md) | binary | [0.498](divide_/README.md) | [1.78](divide_/README.md) | [0.498](divide_/README.md) | [2.44](divide_/README.md) |
