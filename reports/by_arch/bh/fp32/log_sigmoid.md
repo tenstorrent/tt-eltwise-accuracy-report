@@ -78,7 +78,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | -0.69243544 | -0.6931472 | **differ** |
 | `default` | -1.1754944e-38 | -0.69243544 | -0.6931472 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261017T025230`_
 
 ![ULP error — log_sigmoid default](../../../charts/bh/fp32/log_sigmoid_default_ulp.svg)
 

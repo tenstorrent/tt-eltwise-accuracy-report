@@ -62,21 +62,21 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `value=0.0` | 1.1754944e-38 | 1 | 1 | agree |
 | `value=0.0` | -1.1754944e-38 | 0 | 0 | agree |
 | `value=0.5` | 0 | 0.5 | 0.5 | agree |
-| `value=0.5` | -0 | 0 | 0.5 | **differ** |
+| `value=0.5` | -0 | 0.5 | 0.5 | agree |
 | `value=0.5` | inf | 1 | 1 | agree |
 | `value=0.5` | -inf | 0 | 0 | agree |
 | `value=0.5` | nan | 1 | 0 | **differ** |
 | `value=0.5` | 1.1754944e-38 | 1 | 1 | agree |
 | `value=0.5` | -1.1754944e-38 | 0 | 0 | agree |
 | `value=1.0` | 0 | 1 | 1 | agree |
-| `value=1.0` | -0 | 0 | 1 | **differ** |
+| `value=1.0` | -0 | 1 | 1 | agree |
 | `value=1.0` | inf | 1 | 1 | agree |
 | `value=1.0` | -inf | 0 | 0 | agree |
 | `value=1.0` | nan | 1 | 0 | **differ** |
 | `value=1.0` | 1.1754944e-38 | 1 | 1 | agree |
 | `value=1.0` | -1.1754944e-38 | 0 | 0 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261017T025230`_
 
 ### `value=0.0`
 

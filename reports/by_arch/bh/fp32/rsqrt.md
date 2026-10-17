@@ -64,14 +64,14 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | Variant | x | device | golden |  |
 |---|---|---|---|---|
 | `default` | 0 | inf | inf | agree |
-| `default` | -0 | nan | -inf | **differ** |
+| `default` | -0 | -inf | -inf | agree |
 | `default` | inf | 0 | 0 | agree |
 | `default` | -inf | nan | nan | agree |
 | `default` | nan | nan | nan | agree |
 | `default` | 1.1754944e-38 | 9.223372e+18 | 9.223372e+18 | agree |
 | `default` | -1.1754944e-38 | nan | nan | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261017T025230`_
 
 ![ULP error — rsqrt default](../../../charts/bh/fp32/rsqrt_default_ulp.svg)
 
