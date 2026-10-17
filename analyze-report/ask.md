@@ -14,8 +14,8 @@ is only comparable to another taken on the same host, which the "Measured agains
 
 | Arch | Dtype | tt-metal | ttnn | Timed on |
 |---|---|---|---|---|
-| bh | bf16 | `de546d3b146` | 0.79.0 | 66444ba711c0 |
-| bh | fp32 | `de546d3b146` | 0.79.0 | 66444ba711c0 |
+| bh | bf16 | `978f93b56e3` | 0.80.0 | 66444ba711c0 |
+| bh | fp32 | `978f93b56e3` | 0.80.0 | 66444ba711c0 |
 | wh | bf16 | `de546d3b146` | 0.79.0 | 312b06a002e7 |
 | wh | fp32 | `de546d3b146` | 0.79.0 | 312b06a002e7 |
 
