@@ -158,7 +158,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [prelu](prelu.md) | `weight=0.25` | 0 | 0 | 3.39e+38 | 1.17e-38 | 775 ±6% |
 | [rad2deg](rad2deg.md) | `default` | 0.696 | 0.643 | 5.93e+36 | 1.41e+31 | 770 |
 | [rdiv](rdiv.md) | `value=2.0` | 0.892 | 0.714 | 8.51e+37 | 9.04e+30 | 799 ±7% |
-| [rdiv_bw](rdiv_bw.md) | `scalar=2.0` | 1.84 | 1.22 | n/a | 1.83e+31 | 13361 ±11% |
+| [rdiv_bw](rdiv_bw.md) | `scalar=2.0` | 1.84 | 1.22 | 7.67e-20 | 1.83e+31 | 13361 ±11% |
 | [reciprocal](reciprocal.md) | `default` | 0.892 | 0.714 | 8.51e+37 | 4.52e+30 | 800 |
 | [reciprocal_bw](reciprocal_bw.md) | `default` | 1.84 | 1.22 | 5.42e-20 | 9.15e+30 | 10052 |
 | [relu](relu.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 772 ±6% |

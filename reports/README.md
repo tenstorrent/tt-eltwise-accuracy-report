@@ -22,9 +22,9 @@ Charts show ULP (units in last place) error across the full input range.
 | Metric | Count |
 |--------|-------|
 | Architectures measured | 2 |
-| Unique ops measured | 194 |
-| Blackhole (BH) bfloat16 ops | 193 |
-| Blackhole (BH) float32 ops | 192 |
+| Unique ops measured | 209 |
+| Blackhole (BH) bfloat16 ops | 208 |
+| Blackhole (BH) float32 ops | 207 |
 | Wormhole (WH) bfloat16 ops | 192 |
 | Wormhole (WH) float32 ops | 192 |
 
@@ -32,7 +32,7 @@ Charts show ULP (units in last place) error across the full input range.
 
 ## Returning inf or zero where a value exists
 
-157 variants across 45 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+153 variants across 45 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -63,15 +63,11 @@ Charts show ULP (units in last place) error across the full input range.
 | [`asinh_bw`](by_op/asinh_bw/README.md) | `default` | bh fp32 | 15,874 of 64,514 | 24.6% |
 | [`asinh_bw`](by_op/asinh_bw/README.md) | `default` | wh bf16 | 15,874 of 64,514 | 24.6% |
 | [`asinh_bw`](by_op/asinh_bw/README.md) | `default` | wh fp32 | 15,874 of 64,514 | 24.6% |
-| [`logaddexp_`](by_op/logaddexp_/README.md) | `default` | bh fp32 | 15,566 of 65,024 | 23.9% |
 | [`logaddexp_`](by_op/logaddexp_/README.md) | `default` | wh fp32 | 15,566 of 65,024 | 23.9% |
-| [`logaddexp_`](by_op/logaddexp_/README.md) | `default` | bh bf16 | 15,566 of 65,026 | 23.9% |
 | [`logaddexp_`](by_op/logaddexp_/README.md) | `default` | wh bf16 | 15,566 of 65,026 | 23.9% |
 | [`multigammaln`](by_op/multigammaln/README.md) | `default` | bh bf16 | 11,536 of 48,328 | 23.9% |
 | [`multigammaln`](by_op/multigammaln/README.md) | `default` | wh bf16 | 11,536 of 48,328 | 23.9% |
-| [`logaddexp2_`](by_op/logaddexp2_/README.md) | `default` | bh fp32 | 15,488 of 65,024 | 23.8% |
 | [`logaddexp2_`](by_op/logaddexp2_/README.md) | `default` | wh fp32 | 15,488 of 65,024 | 23.8% |
-| [`logaddexp2_`](by_op/logaddexp2_/README.md) | `default` | bh bf16 | 15,488 of 65,026 | 23.8% |
 | [`logaddexp2_`](by_op/logaddexp2_/README.md) | `default` | wh bf16 | 15,488 of 65,026 | 23.8% |
 | [`tan_bw`](by_op/tan_bw/README.md) | `default` | wh bf16 | 12,184 of 65,024 | 18.7% |
 | [`multigammaln`](by_op/multigammaln/README.md) | `default` | bh fp32 | 7,422 of 50,376 | 14.7% |
