@@ -47,7 +47,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [cos](cos.md) | `default` | 1.34e+08 ⚠ | 1.33e+05 | 92.4 | 2.86e-06 | 861 |
 | [cos_bw](cos_bw.md) | `default` | 8.59e+51 ⚠ | 3.23e+48 | 28 | 3.4e+38 | 3300 |
 | [cosh](cosh.md) | `default` | 1.35 | 0.798 | 89.1 | 1.57e+31 | 971 |
-| [cosh_bw](cosh_bw.md) | `default` | 2.21 | 1.17 | 0.0155 | 8.81e+30 | 13572 |
+| [cosh_bw](cosh_bw.md) | `default` | 2.21 | 1.17 | 0.0155 | 1.82e+31 | 13572 |
 | [deg2rad](deg2rad.md) | `default` | 0.63 | 0.595 | 3.4e+38 | 3.63e+29 | 770 |
 | [digamma](digamma.md) | `default` | 3.66e+17 ⚠ | 7.77e+12 | nowhere | 8.51e+37 | 2633 |
 | [digamma_bw](digamma_bw.md) | `default` | 7.91e+33 ⚠ | 3.25e+29 | 5.4e-20 | 2.59e+38 | 17876 |
@@ -215,9 +215,9 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [sin](sin.md) | `default` | 3.36e+07 ⚠ | 3.07e+04 | 28 | 1.91e-06 | 841 ±30% |
 | [sin_bw](sin_bw.md) | `default` | 1.24e+52 ⚠ | 3.44e+48 | 92.4 | 3.4e+38 | 2573 |
 | [sinh](sinh.md) | `default` | 2.21 | 1.17 | 0.0155 | 1.82e+31 | 1094 |
-| [sinh_bw](sinh_bw.md) | `default` | 1.35 | 0.798 | 88.5 | 7.52e+30 | 11919 |
+| [sinh_bw](sinh_bw.md) | `default` | 1.35 | 0.798 | 89.1 | 1.57e+31 | 11919 |
 | [softplus](softplus.md) | `default` | 8.21e+03 ⚠ | 656 | nowhere | 0.47 | 1439 ±93% |
-| [softplus_bw](softplus_bw.md) | `default` | 2.95 | 1.34 | 0.00163 | 1.58e-07 | 8683 |
+| [softplus_bw](softplus_bw.md) | `default` | 2.64 | 1.31 | 0.000345 | 1.12e-07 | 8683 |
 | [softshrink](softshrink.md) | `default` | 0.5 | 0 | 3.39e+38 | 0.5 | 774 |
 | [softshrink_bw](softshrink_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 4269 |
 | [softsign](softsign.md) | `default` | 2.66 | 0.897 | 0.000462 | 1 | 818 |
@@ -255,6 +255,8 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
+| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
+| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
 | `softcap` | TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE |
 
 

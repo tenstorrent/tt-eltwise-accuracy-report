@@ -14,22 +14,22 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [acos](acos.md) | `default` | 0.5 | 0 | 1 | 0.0078 | 675 |
 | [acos_bw](acos_bw.md) | `default` | 2.7 | 0.744 | 0.949 | 0.0422 | 7486 |
 | [acosh](acosh.md) | `default` | 1.41 | 0.596 | 3.39e+38 | 0.25 | 924 |
-| [acosh_bw](acosh_bw.md) | `default` | 3.26 | 0.688 | 1.03 | 0.0509 | 8628 |
+| [acosh_bw](acosh_bw.md) | `default` | 3.07 | 0.64 | 1.03 | 0.048 | 8628 |
 | [add](add.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 544 ±8% |
 | [add_](add_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 541 ±49% |
 | [addalpha](addalpha.md) | `alpha=2.0` | 254 | 2 | n/a | 3.38e+38 | 536 |
 | [addcdiv](addcdiv.md) | `default` | 2.11e+06 ⚠ | 2.35e+03 | n/a | 6.65e+35 | 698 |
 | [addcmul](addcmul.md) | `default` | 126 | 19.4 | n/a | 6.65e+35 | 688 |
 | [asin](asin.md) | `default` | 0.499 | 0 | nowhere | 0.00374 | 673 |
-| [asin_bw](asin_bw.md) | `default` | 2.76 | 0.787 | 0.938 | 0.0431 | 7435 |
+| [asin_bw](asin_bw.md) | `default` | 2.7 | 0.702 | 0.949 | 0.0422 | 7435 |
 | [asinh](asinh.md) | `default` | 1.32 | 0.619 | 3.39e+38 | 0.25 | 1408 |
-| [asinh_bw](asinh_bw.md) | `default` | 1.33 | 0.681 | 1.84e+19 | 0.00518 | 1358 ±10% |
+| [asinh_bw](asinh_bw.md) | `default` | 1.2 | 0.638 | 1.84e+19 | 0.00468 | 1358 ±10% |
 | [atan](atan.md) | `default` | 0.527 | 0.513 | nowhere | 0.00395 | 591 ±11% |
 | [atan2](atan2.md) | `default` | 200 | 2.51 | n/a | 0.783 | 547 |
 | [atan2_bw](atan2_bw.md) | `default` | 248 | 3.94 | n/a | 4.47e+18 | 5514 |
-| [atan_bw](atan_bw.md) | `default` | 2.23 | 0.867 | 0.23 | 0.00869 | 1329 ±6% |
+| [atan_bw](atan_bw.md) | `default` | 2.23 | 0.767 | 0.23 | 0.00869 | 1329 ±6% |
 | [atanh](atanh.md) | `default` | 2.08 | 0.995 | nowhere | 0.00907 | 689 |
-| [atanh_bw](atanh_bw.md) | `default` | 8.17 | 1.02 | 0.82 | 0.289 | 8440 |
+| [atanh_bw](atanh_bw.md) | `default` | 7.76 | 0.885 | 0.918 | 0.289 | 8440 |
 | [bias_gelu](bias_gelu.md) | `default` | 1.14e+36 ⚠ | 4.5e+34 | n/a | 7.48e+35 | 533 |
 | [bias_gelu_](bias_gelu_.md) | `default` | 1.14e+36 ⚠ | 4.5e+34 | n/a | 7.48e+35 | 543 |
 | [cbrt](cbrt.md) | `default` | 0.507 | 0.502 | 3.39e+38 | 1.74e+10 | 435 ±10% |
@@ -47,7 +47,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [cos](cos.md) | `default` | 0.552 | 0.552 | 9.99e+05 | 0.00195 | 431 ±11% |
 | [cos_bw](cos_bw.md) | `default` | 2.09e+42 ⚠ | 2.59e+39 | 2.15e+06 | 3.32e+38 | 1702 |
 | [cosh](cosh.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 434 ±455% |
-| [cosh_bw](cosh_bw.md) | `default` | 0.5 | 0 | 88.5 | 1.63e+35 | 6711 |
+| [cosh_bw](cosh_bw.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 6711 |
 | [deg2rad](deg2rad.md) | `default` | 0.998 | 0.744 | 6.7e-37 | 3.95e+34 | 395 ±8% |
 | [digamma](digamma.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 1172 |
 | [digamma_bw](digamma_bw.md) | `default` | 1.02e+08 ⚠ | 1.32e+04 | 1 | 6.44e+36 | 12083 |
@@ -62,11 +62,11 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [eq_](eq_.md) | `default` | 0 | 0 | n/a | 0 | 552 |
 | [eqz](eqz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 406 |
 | [erf](erf.md) | `default` | 1.06 | 0.771 | 3.39e+38 | 0.00362 | 563 ±8% |
-| [erf_bw](erf_bw.md) | `default` | 112 | 4.97 | 1.5 | 0.0108 | 2455 |
+| [erf_bw](erf_bw.md) | `default` | 70.5 | 3.04 | 1.38 | 0.0108 | 2455 |
 | [erfc](erfc.md) | `default` | 3.19e+28 ⚠ | 3.23e+24 | 2.5 | 0.00781 | 823 |
-| [erfc_bw](erfc_bw.md) | `default` | 112 | 4.97 | 1.5 | 0.0108 | 2452 |
+| [erfc_bw](erfc_bw.md) | `default` | 70.5 | 3.04 | 1.38 | 0.0108 | 2452 |
 | [erfinv](erfinv.md) | `default` | 121 | 6.34 | 1.31e-38 | 0.0092 | 901 |
-| [erfinv_bw](erfinv_bw.md) | `default` | 8.91 | 1.28 | 0.777 | 2.23 | 7854 |
+| [erfinv_bw](erfinv_bw.md) | `default` | 8.91 | 1.2 | 0.859 | 2.23 | 7854 |
 | [exp](exp.md) | `default` | 0.892 | 0.556 | 3.39e+38 | 4.85e+35 | 416 ±7% |
 |  | `fast_approx` | 6.08 | 3.05 | nowhere | 5.5e+36 | 392 |
 | [exp2](exp2.md) | `default` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 432 ±16% |
@@ -128,14 +128,14 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [lgamma_bw](lgamma_bw.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 2083 |
 | [log](log.md) | `default` | 0.78 | 0.534 | 3.39e+38 | 0.25 | 421 ±14% |
 | [log10](log10.md) | `default` | 0.785 | 0.543 | 3.39e+38 | 0.125 | 426 ±10% |
-| [log10_bw](log10_bw.md) | `default` | 1.74 | 0.796 | 3.69e+37 | 2.24e+35 | 5284 |
+| [log10_bw](log10_bw.md) | `default` | 1.74 | 0.803 | 3.69e+37 | 2.24e+35 | 5284 |
 | [log1p](log1p.md) | `default` | 0.931 | 0.57 | 3.39e+38 | 0.25 | 430 ±6% |
-| [log1p_bw](log1p_bw.md) | `default` | 1.42 | 0.68 | 8.47e+37 | 0.167 | 5254 |
+| [log1p_bw](log1p_bw.md) | `default` | 1.42 | 0.744 | 8.51e+37 | 0.167 | 5254 |
 | [log2](log2.md) | `default` | 0.766 | 0.542 | 3.39e+38 | 0.248 | 428 ±40% |
-| [log2_bw](log2_bw.md) | `default` | 1.51 | 0.842 | nowhere | 5.03e+35 | 5280 |
-| [log_bw](log_bw.md) | `default` | 0.512 | 0.507 | 8.47e+37 | 1.7e+35 | 3993 |
+| [log2_bw](log2_bw.md) | `default` | 1.51 | 0.847 | nowhere | 5.03e+35 | 5280 |
+| [log_bw](log_bw.md) | `default` | 0.498 | 0 | 8.51e+37 | 1.65e+35 | 3993 |
 | [log_sigmoid](log_sigmoid.md) | `default` | 6.39 | 1.38 | 0.426 | 0.0215 | 592 ±6% |
-| [log_sigmoid_bw](log_sigmoid_bw.md) | `default` | 1.91 | 0.785 | 3.39e+38 | 0.00568 | 5922 |
+| [log_sigmoid_bw](log_sigmoid_bw.md) | `default` | 1.71 | 0.722 | 3.39e+38 | 0.00528 | 5922 |
 | [logaddexp](logaddexp.md) | `default` | 8.39e+06 ⚠ | 4.85e+03 | n/a | 0.248 | 792 |
 | [logaddexp2](logaddexp2.md) | `default` | 3.03e+06 ⚠ | 4.08e+03 | n/a | 0.235 | 904 ±13% |
 | [logaddexp2_](logaddexp2_.md) | `default` | 3.03e+06 ⚠ | 4.08e+03 | n/a | 0.235 | 901 |
@@ -150,8 +150,8 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [logical_or_](logical_or_.md) | `default` | 0 | 0 | n/a | 0 | 563 ±6% |
 | [logical_xor_](logical_xor_.md) | `default` | 0 | 0 | n/a | 0 | 561 |
 | [logit](logit.md) | `default` | 64 | 1.67 | 0.395 | 0.25 | 895 |
-| [logit_bw](logit_bw.md) | `default` | 1.65 | 0.649 | 0.996 | 1.7e+35 | 6964 |
-| [logiteps_bw](logiteps_bw.md) | `default` | 1.65 | 0.649 | 0.996 | 1.7e+35 | 8230 |
+| [logit_bw](logit_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 6964 |
+| [logiteps_bw](logiteps_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 8230 |
 | [lt](lt.md) | `default` | 0 | 0 | n/a | 0 | 531 |
 | [lt_](lt_.md) | `default` | 0 | 0 | n/a | 0 | 544 |
 | [ltz](ltz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 394 ±6% |
@@ -183,7 +183,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [rdiv](rdiv.md) | `value=2.0` | 0.512 | 0.507 | 8.47e+37 | 3.4e+35 | 426 ±15% |
 | [rdiv_bw](rdiv_bw.md) | `scalar=2.0` | 1.51 | 0.835 | 7.67e-20 | 8.19e+35 | 6904 |
 | [reciprocal](reciprocal.md) | `default` | 0.512 | 0.507 | 8.47e+37 | 1.7e+35 | 420 ±11% |
-| [reciprocal_bw](reciprocal_bw.md) | `default` | 1.51 | 0.835 | 5.42e-20 | 4.09e+35 | 5127 |
+| [reciprocal_bw](reciprocal_bw.md) | `default` | 1.23 | 0.714 | 5.42e-20 | 4.09e+35 | 5127 |
 | [relu](relu.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 404 ±8% |
 | [relu6](relu6.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 407 ±10% |
 | [relu6_bw](relu6_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 3956 |
@@ -207,7 +207,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [selu_bw](selu_bw.md) | `default` | 2.62 | 1.06 | 0.00443 | 0.0173 | 3104 |
 | [sigmoid](sigmoid.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 472 ±12% |
 | [sigmoid_accurate](sigmoid_accurate.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 468 ±7% |
-| [sigmoid_bw](sigmoid_bw.md) | `default` | 266 | 5.5 | 1.77 | 0.00203 | 2255 ±19% |
+| [sigmoid_bw](sigmoid_bw.md) | `default` | 127 | 14.2 | 12.4 | 0.000488 | 2255 ±19% |
 | [sign](sign.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 406 ±17% |
 | [signbit](signbit.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 849 ±142% |
 | [silu](silu.md) | `default` | 0.914 | 0.585 | 2.33e-38 | 0.016 | 489 ±10% |
@@ -215,15 +215,15 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [sin](sin.md) | `default` | 0.552 | 0.526 | 9.99e+05 | 0.00195 | 434 ±12% |
 | [sin_bw](sin_bw.md) | `default` | 2.98e+41 ⚠ | 1.39e+39 | 1.07e+06 | 3.32e+38 | 1320 |
 | [sinh](sinh.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 541 ±9% |
-| [sinh_bw](sinh_bw.md) | `default` | 0.5 | 0 | 88.5 | 1.63e+35 | 5844 |
+| [sinh_bw](sinh_bw.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 5844 |
 | [softplus](softplus.md) | `default` | 0.775 | 0.556 | 5.03 | 0.0155 | 473 ±7% |
-| [softplus_bw](softplus_bw.md) | `default` | 1.91 | 0.746 | 3.39e+38 | 0.00576 | 4352 |
+| [softplus_bw](softplus_bw.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 4352 |
 | [softshrink](softshrink.md) | `default` | 1 | 0.948 | 3.39e+38 | 3.28e+04 | 399 ±10% |
 | [softshrink_bw](softshrink_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 2158 |
 | [softsign](softsign.md) | `default` | 1 | 0.641 | 8.51e+37 | 1 | 443 ±9% |
-| [softsign_bw](softsign_bw.md) | `default` | 81 | 3.29 | 0.00391 | 0.0169 | 1326 |
+| [softsign_bw](softsign_bw.md) | `default` | 79 | 3.74 | 0.00391 | 0.0169 | 1326 |
 | [sqrt](sqrt.md) | `default` | 0.5 | 0 | 3.39e+38 | 3.6e+16 | 423 ±12% |
-| [sqrt_bw](sqrt_bw.md) | `default` | 1.14 | 0.695 | 3.39e+38 | 2.06e+16 | 6567 |
+| [sqrt_bw](sqrt_bw.md) | `default` | 1.14 | 0.699 | 3.39e+38 | 2.06e+16 | 6567 |
 | [square](square.md) | `default` | 0.973 | 0.688 | 1.84e+19 | 1.29e+36 | 394 ±9% |
 | [square_bw](square_bw.md) | `default` | 0 | 0 | 1.69e+38 | 0 | 1295 |
 | [squared_difference](squared_difference.md) | `default` | 2.03 | 1.65 | n/a | 2.26e+36 | 535 |
@@ -234,11 +234,11 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [subtract_](subtract_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 546 ±6% |
 | [swish](swish.md) | `default` | 0.914 | 0.585 | 2.33e-38 | 0.016 | 496 ±11% |
 | [tan](tan.md) | `default` | 0.551 | 0.5 | 9.99e+05 | 2.86 | 557 ±8% |
-| [tan_bw](tan_bw.md) | `default` | 3.57e+40 ⚠ | 3.81e+37 | 1.13 | 3.32e+38 | 2185 |
+| [tan_bw](tan_bw.md) | `default` | 3.57e+40 ⚠ | 3.8e+37 | 940 | 3.32e+38 | 2185 |
 | [tanh](tanh.md) | `default` | 0.811 | 0.586 | nowhere | 0.00317 | 417 ±948% |
 | [tanh_bw](tanh_bw.md) | `default` | 1.16 | 0.525 | 3.39e+38 | 0.00276 | 1473 |
 | [tanhshrink](tanhshrink.md) | `default` | 63.5 | 9.38 | 1.35e-08 | 1 | 432 ±9% |
-| [tanhshrink_bw](tanhshrink_bw.md) | `default` | 63 | 3.52 | 7.45e-09 | 0.0083 | 1683 |
+| [tanhshrink_bw](tanhshrink_bw.md) | `default` | 63 | 6.1 | 7.45e-09 | 0.0064 | 1683 |
 | [threshold](threshold.md) | `threshold=0.0,value=1.0` | 0 | 0 | 3.39e+38 | 0 | 398 ±5% |
 |  | `threshold=0.5,value=0.0` | 0 | 0 | 3.39e+38 | 0 | 395 |
 | [threshold_bw](threshold_bw.md) | `min=0.5,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 1655 |
@@ -255,6 +255,8 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
+| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
+| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
 | `softcap` | TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE |
 
 

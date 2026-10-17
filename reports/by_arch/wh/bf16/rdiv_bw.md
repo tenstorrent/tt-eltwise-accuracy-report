@@ -90,7 +90,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `scalar=2.0` | 1.1754944e-38 | -inf | -inf | agree |
 | `scalar=2.0` | -1.1754944e-38 | -inf | -inf | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261017T025120`_
 
 ![ULP error — rdiv_bw scalar=2.0](../../../charts/wh/bf16/rdiv_bw_scalar2.0_ulp.svg)
 
