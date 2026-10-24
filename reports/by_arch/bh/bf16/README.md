@@ -113,6 +113,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 |  | `negative_slope=1.0` | 0 | 0 | 3.39e+38 | 0 | 192 |
 | [leaky_relu_bw](leaky_relu_bw.md) | `default` | 0.16 | 0 | 3.39e+38 | 9.77e-06 | 883 |
 | [lerp](lerp.md) | `default` | 1.77e+03 ⚠ | 39.9 | n/a | 6.65e+35 | 328 ±58% |
+| [lerp_bw](lerp_bw.md) | `default` | 0.506 | 0.506 | n/a | 0.00395 | 1267 |
 | [lez](lez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 194 |
 | [lgamma](lgamma.md) | `default` | 324 | 0.846 | 0.412 | 7.5e+35 | 837 |
 | [lgamma_bw](lgamma_bw.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 800 |
@@ -628,6 +629,10 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [lerp](lerp.md)
 
 ![lerp default](../../../charts/bh/bf16/lerp_default_ulp.svg)
+
+### [lerp_bw](lerp_bw.md)
+
+![lerp_bw default](../../../charts/bh/bf16/lerp_bw_default_ulp.svg)
 
 ### [lez](lez.md)
 
