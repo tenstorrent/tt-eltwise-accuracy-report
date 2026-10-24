@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 1 | 1 | agree |
 | `default` | -1.1754944e-38 | 1 | 1 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261024T025259`_
 
 ![ULP error — exp_bw default](../../../charts/bh/bf16/exp_bw_default_ulp.svg)
 

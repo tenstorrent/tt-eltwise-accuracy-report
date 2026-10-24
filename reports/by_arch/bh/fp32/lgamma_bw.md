@@ -96,7 +96,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 6680418 | -8.507059e+37 | **differ** |
 | `default` | -1.1754944e-38 | 6680418 | 8.507059e+37 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261024T025259`_
 
 ![ULP error — lgamma_bw default](../../../charts/bh/fp32/lgamma_bw_default_ulp.svg)
 
