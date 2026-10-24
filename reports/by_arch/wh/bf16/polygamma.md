@@ -152,7 +152,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `k=4` | 1.1754944e-38 | -inf | -inf | agree |
 | `k=4` | -1.1754944e-38 | inf | inf | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261024T025446`_
 
 ### `k=1`
 

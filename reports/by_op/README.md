@@ -36,7 +36,7 @@ Total: 193 ops measured
 | [clamp_bw](clamp_bw/README.md) | ternary_bw | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) |
 | [clip](clip/README.md) | unary | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) |
 | [clip_bw](clip_bw/README.md) | ternary_bw | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) |
-| [composite_example](composite_example/README.md) | unary | — | — | [0](composite_example/README.md) | [6.55e+04](composite_example/README.md) |
+| [composite_example](composite_example/README.md) | unary | [0](composite_example/README.md) | [6.55e+04](composite_example/README.md) | — | — |
 | [cos](cos/README.md) | unary | [0.552](cos/README.md) | [1.34e+08](cos/README.md) | [0.552](cos/README.md) | [1.34e+08](cos/README.md) |
 | [cos_bw](cos_bw/README.md) | unary_bw | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) |
 | [cosh](cosh/README.md) | unary | [0.5](cosh/README.md) | [1.35](cosh/README.md) | [0.501](cosh/README.md) | [1.35](cosh/README.md) |
