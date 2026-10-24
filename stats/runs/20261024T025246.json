@@ -1,19 +1,17 @@
 {
-  "arch": "bh",
-  "device_arch": "BLACKHOLE",
+  "arch": "wh",
+  "device_arch": "WORMHOLE_B0",
   "device_id": 1,
   "dtypes": [
     "bf16",
     "fp32"
   ],
   "ops": [
-    "addcdiv",
-    "addcmul",
-    "lerp",
-    "mac",
-    "where"
+    "clamp_bw",
+    "clip_bw",
+    "lerp_bw"
   ],
-  "run_id": "20261024T025259",
+  "run_id": "20261024T025246",
   "torch_version": "2.11.0+cpu",
   "tt_metal_commit": "978f93b56e3",
   "ttnn_version": "0.80.0"
