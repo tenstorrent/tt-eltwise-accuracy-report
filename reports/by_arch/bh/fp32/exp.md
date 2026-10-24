@@ -91,7 +91,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `fast_approx` | 1.1754944e-38 | 0.9785156 | 1 | **differ** |
 | `fast_approx` | -1.1754944e-38 | 0.9785156 | 1 | **differ** |
 
-_Measured on BLACKHOLE · tt-metal `978f93b56e3` · ttnn `0.80.0` · run `20261024T025420`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ### `default`
 
