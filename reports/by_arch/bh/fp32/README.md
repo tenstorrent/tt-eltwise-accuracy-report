@@ -175,7 +175,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [polygamma](polygamma.md) | `k=1` | 7.91e+33 ⚠ | 4.68e+29 | 5.4e-20 | 2.59e+38 | 1032 |
 |  | `k=2` | 4.45e+30 ⚠ | 4.42e+26 | 1.79e-13 | 2.99e+38 | 1079 |
 |  | `k=4` | 3.77e+25 ⚠ | 6.51e+21 | 3.68e-08 | 3.32e+38 | 1092 |
-| [polygamma_bw](polygamma_bw.md) | `n=1` | 4.45e+30 ⚠ | 4.42e+26 | 1.79e-13 | 2.99e+38 | 6621 |
+| [polygamma_bw](polygamma_bw.md) | `n=1` | 4.45e+30 ⚠ | 4.4e+26 | 1.79e-13 | 2.99e+38 | 6621 |
 | [pow](pow.md) | `default` | 333 | 2.35 | n/a | 6.76e+33 | 662 ±9% |
 | [pow_bw](pow_bw.md) | `exponent=2.0` | 0 | 0 | 1.69e+38 | 0 | 2279 ±26% |
 | [prelu](prelu.md) | `weight=0.25` | 0.5 | 0 | 3.39e+38 | 1.17e-38 | 364 ±39% |
@@ -209,7 +209,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [sign](sign.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 349 ±6% |
 | [signbit](signbit.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 345 |
 | [silu](silu.md) | `default` | 3.61 | 1.78 | 2.01e-05 | 1.85e-06 | 426 ±9% |
-| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 2.98e-07 | 1.38e-06 | 2804 |
+| [silu_bw](silu_bw.md) | `default` | 5.72e+06 ⚠ | 842 | 2.96e-07 | 1.38e-06 | 2804 |
 | [sin](sin.md) | `default` | 3.36e+07 ⚠ | 3.07e+04 | 28 | 1.91e-06 | 379 |
 | [sin_bw](sin_bw.md) | `default` | 1.24e+52 ⚠ | 3.44e+48 | 92.4 | 3.4e+38 | 1200 |
 | [sinh](sinh.md) | `default` | 2.2 | 1.16 | 0.0155 | 1.82e+31 | 459 |
@@ -253,6 +253,8 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
+| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
+| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
 
 
 ---

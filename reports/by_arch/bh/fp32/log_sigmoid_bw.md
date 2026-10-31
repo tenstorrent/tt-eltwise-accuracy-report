@@ -81,7 +81,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 0.5 | 0.5 | agree |
 | `default` | -1.1754944e-38 | 0.5 | 0.5 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261031T024244`_
 
 ![ULP error — log_sigmoid_bw default](../../../charts/bh/fp32/log_sigmoid_bw_default_ulp.svg)
 

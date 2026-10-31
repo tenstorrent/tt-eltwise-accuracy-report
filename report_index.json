@@ -4,44 +4,140 @@
       "bf16": {
         "ci_run": "41160988105",
         "device_arch": "BLACKHOLE",
-        "failed": {},
+        "failed": {
+          "rdiv_bw/scalar2.0": "TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar'",
+          "rpow_bw/exponent2.0": "TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent'"
+        },
         "host": "66444ba711c0",
         "ops": [
-          "atan2_bw",
-          "div_bw",
-          "hypot_bw",
-          "ldexp_bw",
-          "logaddexp2_bw",
-          "logaddexp_bw",
-          "max_bw",
-          "min_bw",
-          "mul_bw",
-          "squared_difference_bw",
-          "xlogy_bw"
+          "abs_bw",
+          "acos_bw",
+          "acosh_bw",
+          "asin_bw",
+          "asinh_bw",
+          "atan_bw",
+          "atanh_bw",
+          "celu_bw",
+          "cos_bw",
+          "cosh_bw",
+          "digamma_bw",
+          "elu_bw",
+          "erf_bw",
+          "erfc_bw",
+          "erfinv_bw",
+          "exp2_bw",
+          "exp_bw",
+          "expm1_bw",
+          "gelu_bw",
+          "hardshrink_bw",
+          "hardsigmoid_bw",
+          "hardswish_bw",
+          "hardtanh_bw",
+          "i0_bw",
+          "leaky_relu_bw",
+          "lgamma_bw",
+          "log10_bw",
+          "log1p_bw",
+          "log2_bw",
+          "log_bw",
+          "log_sigmoid_bw",
+          "logit_bw",
+          "logiteps_bw",
+          "multigammaln_bw",
+          "polygamma_bw",
+          "pow_bw",
+          "rdiv_bw",
+          "reciprocal_bw",
+          "relu6_bw",
+          "relu_bw",
+          "rpow_bw",
+          "rsqrt_bw",
+          "selu_bw",
+          "sigmoid_bw",
+          "silu_bw",
+          "sin_bw",
+          "sinh_bw",
+          "softplus_bw",
+          "softshrink_bw",
+          "softsign_bw",
+          "sqrt_bw",
+          "square_bw",
+          "tan_bw",
+          "tanh_bw",
+          "tanhshrink_bw",
+          "threshold_bw"
         ],
-        "run_id": "20261031T031648",
+        "run_id": "20261031T024244",
         "tt_metal_commit": "d80d9482a41",
         "ttnn_version": "0.81.1"
       },
       "fp32": {
         "ci_run": "41160988105",
         "device_arch": "BLACKHOLE",
-        "failed": {},
+        "failed": {
+          "rdiv_bw/scalar2.0": "TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar'",
+          "rpow_bw/exponent2.0": "TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent'"
+        },
         "host": "66444ba711c0",
         "ops": [
-          "atan2_bw",
-          "div_bw",
-          "hypot_bw",
-          "ldexp_bw",
-          "logaddexp2_bw",
-          "logaddexp_bw",
-          "max_bw",
-          "min_bw",
-          "mul_bw",
-          "squared_difference_bw",
-          "xlogy_bw"
+          "abs_bw",
+          "acos_bw",
+          "acosh_bw",
+          "asin_bw",
+          "asinh_bw",
+          "atan_bw",
+          "atanh_bw",
+          "celu_bw",
+          "cos_bw",
+          "cosh_bw",
+          "digamma_bw",
+          "elu_bw",
+          "erf_bw",
+          "erfc_bw",
+          "erfinv_bw",
+          "exp2_bw",
+          "exp_bw",
+          "expm1_bw",
+          "gelu_bw",
+          "hardshrink_bw",
+          "hardsigmoid_bw",
+          "hardswish_bw",
+          "hardtanh_bw",
+          "i0_bw",
+          "leaky_relu_bw",
+          "lgamma_bw",
+          "log10_bw",
+          "log1p_bw",
+          "log2_bw",
+          "log_bw",
+          "log_sigmoid_bw",
+          "logit_bw",
+          "logiteps_bw",
+          "multigammaln_bw",
+          "polygamma_bw",
+          "pow_bw",
+          "rdiv_bw",
+          "reciprocal_bw",
+          "relu6_bw",
+          "relu_bw",
+          "rpow_bw",
+          "rsqrt_bw",
+          "selu_bw",
+          "sigmoid_bw",
+          "silu_bw",
+          "sin_bw",
+          "sinh_bw",
+          "softplus_bw",
+          "softshrink_bw",
+          "softsign_bw",
+          "sqrt_bw",
+          "square_bw",
+          "tan_bw",
+          "tanh_bw",
+          "tanhshrink_bw",
+          "threshold_bw"
         ],
-        "run_id": "20261031T031648",
+        "run_id": "20261031T024244",
         "tt_metal_commit": "d80d9482a41",
         "ttnn_version": "0.81.1"
       }
@@ -6192,7 +6288,7 @@
           ],
           "ulp_clipped": 20,
           "unflushed": 0,
-          "usable_to": "0.996",
+          "usable_to": "1",
           "verdict": "263/64769 defects; rest 1.02e+08 ULP"
         }
       },
@@ -9580,8 +9676,8 @@
           ],
           "ulp_clipped": 0,
           "unflushed": 0,
-          "usable_to": "33.5",
-          "verdict": "accurate to |x| <= 33.5"
+          "usable_to": "33.2",
+          "verdict": "accurate to |x| <= 33.2"
         }
       },
       "floor": {
@@ -11943,8 +12039,8 @@
           ],
           "ulp_clipped": 0,
           "unflushed": 0,
-          "usable_to": "1.13",
-          "verdict": "accurate to |x| <= 1.13"
+          "usable_to": "1.12",
+          "verdict": "accurate to |x| <= 1.12"
         }
       },
       "hardtanh": {
@@ -21294,8 +21390,8 @@
           ],
           "ulp_clipped": 318,
           "unflushed": 0,
-          "usable_to": "5.59e-17",
-          "verdict": "accurate to |x| <= 5.59e-17"
+          "usable_to": "5.55e-17",
+          "verdict": "accurate to |x| <= 5.55e-17"
         }
       },
       "multiply": {
@@ -22796,7 +22892,7 @@
           "bias_ulp": "1.21e+06",
           "bits_median": "0.000125",
           "bits_worst": "-21.4",
-          "defects": 75,
+          "defects": 1,
           "exact_frac": "0.969",
           "max_abs": "6.75e+35",
           "max_rel": "2.79e+06",
@@ -22805,7 +22901,7 @@
           "median_rel": "1",
           "min_ulp": "0",
           "monotonic": {
-            "pairs": 13417,
+            "pairs": 13491,
             "rate": "0",
             "top": [],
             "violations": 0,
@@ -22937,13 +23033,13 @@
             }
           ],
           "outcomes": {
-            "exact": 19003,
+            "exact": 19077,
             "faithful": 252,
             "flushed": 8319,
             "inexact": 360,
             "mismatch": 507,
             "overflow": 21406,
-            "zeroed": 75
+            "zeroed": 1
           },
           "p50_ulp": "0.238",
           "p95_ulp": "0.487",
@@ -23002,7 +23098,7 @@
           "ulp_clipped": 32,
           "unflushed": 0,
           "usable_to": "4.47",
-          "verdict": "75/49922 defects; rest 3.57e+08 ULP"
+          "verdict": "1/49922 defects; rest 3.57e+08 ULP"
         }
       },
       "pow": {
@@ -26912,7 +27008,7 @@
           ],
           "ulp_clipped": 0,
           "unflushed": 0,
-          "usable_to": "12.5",
+          "usable_to": "12.4",
           "verdict": "141/65024 defects; rest 127 ULP"
         }
       },
@@ -27378,7 +27474,7 @@
           ],
           "ulp_clipped": 0,
           "unflushed": 0,
-          "usable_to": "0.863",
+          "usable_to": "0.867",
           "verdict": "9/65024 defects; rest 285 ULP"
         }
       },
@@ -42843,9 +42939,9 @@
               "y_ref": "0"
             },
             {
-              "agree": false,
+              "agree": true,
               "x": "nan",
-              "y": "1",
+              "y": "nan",
               "y_ref": "nan"
             },
             {
@@ -54372,19 +54468,19 @@
       },
       "polygamma_bw": {
         "n1": {
-          "bias_ulp": "4.42e+26",
+          "bias_ulp": "4.4e+26",
           "bits_median": "21",
           "bits_worst": "-77.9",
-          "defects": 75,
+          "defects": 0,
           "exact_frac": "0",
           "max_abs": "2.99e+38",
           "max_rel": "2.85e+23",
           "max_ulp": "4.45e+30",
-          "mean_ulp": "4.42e+26",
-          "median_rel": "4.69e-07",
-          "min_ulp": "2.09",
+          "mean_ulp": "4.4e+26",
+          "median_rel": "4.63e-07",
+          "min_ulp": "1",
           "monotonic": {
-            "pairs": 13418,
+            "pairs": 13493,
             "rate": "0",
             "top": [],
             "violations": 0,
@@ -54457,19 +54553,19 @@
             {
               "ulp": "4.45e+30",
               "x": "-5.9999876",
-              "y": "-2.9860802e+38",
+              "y": "-2.9860804e+38",
               "y_ref": "-1.0495416e+15"
             },
             {
               "ulp": "4.45e+30",
               "x": "-6.0000124",
-              "y": "-2.9860802e+38",
+              "y": "-2.9860804e+38",
               "y_ref": "1.0495416e+15"
             },
             {
               "ulp": "3.09e+14",
               "x": "-5.4998584",
-              "y": "-35.088436",
+              "y": "-35.08844",
               "y_ref": "1.0778606e-06"
             },
             {
@@ -54487,7 +54583,7 @@
             {
               "ulp": "9.69e+12",
               "x": "-6.4998956",
-              "y": "-35.252666",
+              "y": "-35.25267",
               "y_ref": "3.849165e-05"
             },
             {
@@ -54517,13 +54613,12 @@
           ],
           "outcomes": {
             "flushed": 8319,
-            "inexact": 20128,
+            "inexact": 20203,
             "mismatch": 2,
-            "overflow": 21398,
-            "zeroed": 75
+            "overflow": 21398
           },
-          "p50_ulp": "5.23",
-          "p95_ulp": "1.44e+03",
+          "p50_ulp": "5.39",
+          "p95_ulp": "771",
           "p99_ulp": "1.68e+07",
           "perf": {
             "host": "66444ba711c0",
@@ -54531,7 +54626,7 @@
             "us_median": 6620.773
           },
           "rationale": "trigamma; swept above -1024, where torch can still compute the reference",
-          "rounded_frac": "0.183",
+          "rounded_frac": "0.18",
           "specials": [
             {
               "agree": true,
@@ -54579,7 +54674,7 @@
           "ulp_clipped": 1008,
           "unflushed": 0,
           "usable_to": "1.79e-13",
-          "verdict": "75/49922 defects; rest 4.45e+30 ULP"
+          "verdict": "accurate to |x| <= 1.79e-13"
         }
       },
       "pow": {
@@ -59109,7 +59204,7 @@
           ],
           "ulp_clipped": 1,
           "unflushed": 0,
-          "usable_to": "2.98e-07",
+          "usable_to": "2.96e-07",
           "verdict": "9/65024 defects; rest 5.72e+06 ULP"
         }
       },
