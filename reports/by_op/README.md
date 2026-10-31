@@ -45,11 +45,11 @@ Total: 219 ops measured
 | [deg2rad](deg2rad/README.md) | unary | [0.998](deg2rad/README.md) | [0.63](deg2rad/README.md) | [0.998](deg2rad/README.md) | [0.63](deg2rad/README.md) |
 | [digamma](digamma/README.md) | unary | [5.57e+05](digamma/README.md) | [3.66e+17](digamma/README.md) | [5.57e+05](digamma/README.md) | [3.66e+17](digamma/README.md) |
 | [digamma_bw](digamma_bw/README.md) | unary_bw | [1.02e+08](digamma_bw/README.md) | [7.91e+33](digamma_bw/README.md) | [1.02e+08](digamma_bw/README.md) | [7.91e+33](digamma_bw/README.md) |
-| [div](div/README.md) | binary | [0.498](div/README.md) | [1.78](div/README.md) | [0.498](div/README.md) | [2.44](div/README.md) |
+| [div](div/README.md) | binary | [0.498](div/README.md) | [1.78](div/README.md) | [0.498](div/README.md) | [0.751](div/README.md) |
 | [div_bw](div_bw/README.md) | binary_bw | [0.498](div_bw/README.md) | [0.84](div_bw/README.md) | [0.498](div_bw/README.md) | [7.95e+04](div_bw/README.md) |
-| [div_no_nan](div_no_nan/README.md) | binary | [0.498](div_no_nan/README.md) | [1.79](div_no_nan/README.md) | [0.498](div_no_nan/README.md) | [9.24e+04](div_no_nan/README.md) |
-| [divide](divide/README.md) | binary | [0.498](divide/README.md) | [1.78](divide/README.md) | [0.498](divide/README.md) | [2.44](divide/README.md) |
-| [divide_](divide_/README.md) | binary | [0.498](divide_/README.md) | [1.78](divide_/README.md) | [0.498](divide_/README.md) | [2.44](divide_/README.md) |
+| [div_no_nan](div_no_nan/README.md) | binary | [0.498](div_no_nan/README.md) | [1.79](div_no_nan/README.md) | [0.498](div_no_nan/README.md) | [0.751](div_no_nan/README.md) |
+| [divide](divide/README.md) | binary | [0.498](divide/README.md) | [1.78](divide/README.md) | [0.498](divide/README.md) | [0.751](divide/README.md) |
+| [divide_](divide_/README.md) | binary | [0.498](divide_/README.md) | [1.78](divide_/README.md) | [0.498](divide_/README.md) | [0.751](divide_/README.md) |
 | [elu](elu/README.md) | unary | [0.5](elu/README.md) | [1.36](elu/README.md) | [0.5](elu/README.md) | [1.36](elu/README.md) |
 | [elu_bw](elu_bw/README.md) | unary_bw | [0.892](elu_bw/README.md) | [0.866](elu_bw/README.md) | [0.892](elu_bw/README.md) | [0.866](elu_bw/README.md) |
 | [eq](eq/README.md) | binary | [0](eq/README.md) | [0](eq/README.md) | [0](eq/README.md) | [0](eq/README.md) |

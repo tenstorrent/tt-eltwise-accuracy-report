@@ -81,7 +81,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 0 | 0 | agree |
 | `default` | -1.1754944e-38 | 0 | 0 | agree |
 
-_Measured on BLACKHOLE · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261031T024244`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — tanhshrink_bw default](../../../charts/bh/fp32/tanhshrink_bw_default_ulp.svg)
 

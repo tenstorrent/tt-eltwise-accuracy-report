@@ -254,8 +254,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
-| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
-| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
 
 
 ---

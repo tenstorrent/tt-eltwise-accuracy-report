@@ -51,11 +51,11 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [deg2rad](deg2rad.md) | `default` | 0.63 | 0.595 | 3.4e+38 | 3.63e+29 | 354 ±12% |
 | [digamma](digamma.md) | `default` | 3.66e+17 ⚠ | 7.77e+12 | nowhere | 8.51e+37 | 737 |
 | [digamma_bw](digamma_bw.md) | `default` | 7.91e+33 ⚠ | 3.25e+29 | 5.4e-20 | 2.59e+38 | 6580 |
-| [div](div.md) | `default` | 2.44 | 1.44 | n/a | 1.45e+31 | 490 ±6% |
+| [div](div.md) | `default` | 0.751 | 0.662 | n/a | 1.49e+31 | 490 ±6% |
 | [div_bw](div_bw.md) | `default` | 7.95e+04 ⚠ | 7.95e+04 | n/a | 4.46e-40 | 9437 |
-| [div_no_nan](div_no_nan.md) | `default` | 9.24e+04 ⚠ | 4.51e+04 | n/a | 1.36e+25 | 1603 |
-| [divide](divide.md) | `default` | 2.44 | 1.44 | n/a | 1.45e+31 | 492 |
-| [divide_](divide_.md) | `default` | 2.44 | 1.44 | n/a | 1.45e+31 | 489 |
+| [div_no_nan](div_no_nan.md) | `default` | 0.751 | 0.662 | n/a | 1.49e+31 | 1603 |
+| [divide](divide.md) | `default` | 0.751 | 0.662 | n/a | 1.49e+31 | 492 |
+| [divide_](divide_.md) | `default` | 0.751 | 0.662 | n/a | 1.49e+31 | 489 |
 | [elu](elu.md) | `default` | 1.36 | 0.799 | 3.39e+38 | 4.68e-08 | 410 |
 | [elu_bw](elu_bw.md) | `default` | 0.866 | 0.578 | 3.39e+38 | 4.31e-08 | 2486 |
 | [eq](eq.md) | `default` | 0 | 0 | n/a | 0 | 482 ±8% |
@@ -75,7 +75,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [expm1](expm1.md) | `default` | 0.997 | 0.565 | 3.39e+38 | 1.76e+31 | 458 |
 | [expm1_bw](expm1_bw.md) | `default` | 4.19e+06 ⚠ | 3.83e+03 | 22 | 1.5e+31 | 1578 |
 | [floor](floor.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 349 |
-| [floor_div](floor_div.md) | `default` | 4.19e+06 ⚠ | 1.56e+03 | n/a | 1 | 2266 |
+| [floor_div](floor_div.md) | `default` | 4.19e+06 ⚠ | 1.62e+03 | n/a | 1 | 2266 |
 | [fmod](fmod.md) | `default` | 1.61e+45 ⚠ | 2.55e+41 | n/a | 3.8e+31 | 497 |
 | [frac](frac.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 359 ±12% |
 | [ge](ge.md) | `default` | 0 | 0 | n/a | 0 | 479 |
@@ -253,8 +253,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
-| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
-| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
 
 
 ---

@@ -389,11 +389,11 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `deg2rad` | `default` | faithful; 63542/65024 tie-breaks | 0.63 | 0.595 | 0.906 | 3.4e+38 | 354 ±12% | 47338 |
 | bh | fp32 | `digamma` | `default` | never within 2 ULP | 3.66e+17 | 7.77e+12 | 0.00543 | — | 737 | 22772 |
 | bh | fp32 | `digamma_bw` | `default` | 257/64769 defects; rest 7.91e+33 ULP | 7.91e+33 | 3.25e+29 | 0.324 | 5.4e-20 | 6580 | 2550 |
-| bh | fp32 | `div` | `default` | worst sampled pairing | 2.44 | 1.44 | 0.894 | — | 490 ±6% | 34229 |
+| bh | fp32 | `div` | `default` | faithful; 65024/65024 tie-breaks | 0.751 | 0.662 | 0.937 | — | 490 ±6% | 34229 |
 | bh | fp32 | `div_bw` | `default` | worst sampled pairing | 7.95e+04 | 7.95e+04 | 0.89 | — | 9437 | 1778 |
-| bh | fp32 | `div_no_nan` | `default` | worst sampled pairing | 9.24e+04 | 4.51e+04 | 0.702 | — | 1603 | 10467 |
-| bh | fp32 | `divide` | `default` | worst sampled pairing | 2.44 | 1.44 | 0.894 | — | 492 | 34109 |
-| bh | fp32 | `divide_` | `default` | worst sampled pairing | 2.44 | 1.44 | 0.894 | — | 489 | 34282 |
+| bh | fp32 | `div_no_nan` | `default` | faithful; 65024/65024 tie-breaks | 0.751 | 0.662 | 0.937 | — | 1603 | 10467 |
+| bh | fp32 | `divide` | `default` | faithful; 65024/65024 tie-breaks | 0.751 | 0.662 | 0.937 | — | 492 | 34109 |
+| bh | fp32 | `divide_` | `default` | faithful; 65024/65024 tie-breaks | 0.751 | 0.662 | 0.937 | — | 489 | 34282 |
 | bh | fp32 | `elu` | `default` | within 2 ULP | 1.36 | 0.799 | 0.99 | 3.39e+38 | 410 | 40918 |
 | bh | fp32 | `elu_bw` | `default` | faithful; 2706/65024 tie-breaks | 0.866 | 0.578 | 0.999 | 3.39e+38 | 2486 | 6749 |
 | bh | fp32 | `eq` | `default` | bit-exact | 0 | 0 | 1 | — | 482 ±8% | 34824 |
@@ -413,7 +413,7 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `expm1` | `default` | faithful; 5257/49458 tie-breaks | 0.997 | 0.565 | 0.997 | 3.39e+38 | 458 | 36594 |
 | bh | fp32 | `expm1_bw` | `default` | accurate to |x| <= 22 | 4.19e+06 | 3.83e+03 | 0.995 | 22 | 1578 | 10629 |
 | bh | fp32 | `floor` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 349 | 48070 |
-| bh | fp32 | `floor_div` | `default` | worst sampled pairing | 4.19e+06 | 1.56e+03 | 0.974 | — | 2266 | 7404 |
+| bh | fp32 | `floor_div` | `default` | worst sampled pairing | 4.19e+06 | 1.62e+03 | 0.974 | — | 2266 | 7404 |
 | bh | fp32 | `fmod` | `default` | worst sampled pairing | 1.61e+45 | 2.55e+41 | 0.596 | — | 497 | 33756 |
 | bh | fp32 | `frac` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 359 ±12% | 46776 |
 | bh | fp32 | `ge` | `default` | bit-exact | 0 | 0 | 1 | — | 479 | 35010 |
