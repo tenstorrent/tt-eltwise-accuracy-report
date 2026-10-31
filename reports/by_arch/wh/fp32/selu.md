@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 1.2350919e-38 | 1.2350931e-38 | **differ** |
 | `default` | -1.1754944e-38 | -2.0666298e-38 | -2.0666358e-38 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261031T024432`_
 
 ![ULP error — selu default](../../../charts/wh/fp32/selu_default_ulp.svg)
 

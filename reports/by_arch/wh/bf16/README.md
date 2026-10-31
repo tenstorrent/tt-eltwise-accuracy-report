@@ -9,242 +9,216 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 
 | Op | Parameters | Max ULP | Mean ULP | Accurate to \|x\| | Max abs error | µs |
 |----|------------|---------|----------|-----------------|---------------|----|
-| [abs](abs.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 406 ±14% |
-| [abs_bw](abs_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 1328 ±47% |
-| [acos](acos.md) | `default` | 0.5 | 0 | 1 | 0.0078 | 675 |
-| [acos_bw](acos_bw.md) | `default` | 2.7 | 0.744 | 0.949 | 0.0422 | 7486 |
-| [acosh](acosh.md) | `default` | 1.41 | 0.596 | 3.39e+38 | 0.25 | 924 |
-| [acosh_bw](acosh_bw.md) | `default` | 3.07 | 0.64 | 1.03 | 0.048 | 8628 |
-| [add](add.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 544 ±8% |
-| [add_](add_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 541 ±49% |
-| [addalpha](addalpha.md) | `alpha=2.0` | 254 | 2 | n/a | 3.38e+38 | 536 |
-| [addcdiv](addcdiv.md) | `default` | 2.11e+06 ⚠ | 2.35e+03 | n/a | 6.65e+35 | 698 |
-| [addcmul](addcmul.md) | `default` | 126 | 19.4 | n/a | 6.65e+35 | 688 |
-| [asin](asin.md) | `default` | 0.499 | 0 | nowhere | 0.00374 | 673 |
-| [asin_bw](asin_bw.md) | `default` | 2.7 | 0.702 | 0.949 | 0.0422 | 7435 |
-| [asinh](asinh.md) | `default` | 1.32 | 0.619 | 3.39e+38 | 0.25 | 1408 |
-| [asinh_bw](asinh_bw.md) | `default` | 1.2 | 0.638 | 1.84e+19 | 0.00468 | 1358 ±10% |
-| [atan](atan.md) | `default` | 0.527 | 0.513 | nowhere | 0.00395 | 591 ±11% |
-| [atan2](atan2.md) | `default` | 200 | 2.51 | n/a | 0.783 | 547 |
-| [atan2_bw](atan2_bw.md) | `default` | 248 | 3.94 | n/a | 4.47e+18 | 5514 |
-| [atan_bw](atan_bw.md) | `default` | 2.23 | 0.767 | 0.23 | 0.00869 | 1329 ±6% |
-| [atanh](atanh.md) | `default` | 2.08 | 0.995 | nowhere | 0.00907 | 689 |
-| [atanh_bw](atanh_bw.md) | `default` | 7.76 | 0.885 | 0.918 | 0.289 | 8440 |
-| [bias_gelu](bias_gelu.md) | `default` | 179 | 86.3 | n/a | 7.48e+35 | 533 |
-| [bias_gelu_](bias_gelu_.md) | `default` | 179 | 86.3 | n/a | 7.48e+35 | 543 |
-| [cbrt](cbrt.md) | `default` | 0.507 | 0.502 | 3.39e+38 | 1.74e+10 | 435 ±10% |
-| [ceil](ceil.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 409 ±5% |
-| [celu](celu.md) | `default` | 0.5 | 0 | 3.39e+38 | 0.00195 | 493 ±7% |
-| [celu_bw](celu_bw.md) | `default` | 0.892 | 0.52 | 3.39e+38 | 0.00355 | 2705 |
-| [clamp](clamp.md) | `min=-1.0,max=1.0` | 0 | 0 | 3.39e+38 | 0 | 406 ±5% |
-|  | `min=0.0,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 411 ±7% |
-|  | `min=1.0,max=-1.0` | 0 | 0 | 3.39e+38 | 0 | 404 ±7% |
-| [clamp_bw](clamp_bw.md) | `default` | 0 | 0 | n/a | 0 | 2451 |
-| [clip](clip.md) | `min=-1.0,max=1.0` | 0 | 0 | 3.39e+38 | 0 | 412 ±12% |
-|  | `min=0.0,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 396 ±8% |
-|  | `min=1.0,max=-1.0` | 0 | 0 | 3.39e+38 | 0 | 409 ±8% |
-| [clip_bw](clip_bw.md) | `default` | 0 | 0 | n/a | 0 | 2445 |
-| [cos](cos.md) | `default` | 0.552 | 0.552 | 9.99e+05 | 0.00195 | 431 ±11% |
-| [cos_bw](cos_bw.md) | `default` | 2.09e+42 ⚠ | 2.59e+39 | 2.15e+06 | 3.32e+38 | 1702 |
-| [cosh](cosh.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 434 ±455% |
-| [cosh_bw](cosh_bw.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 6711 |
-| [deg2rad](deg2rad.md) | `default` | 0.998 | 0.744 | 6.7e-37 | 3.95e+34 | 395 ±8% |
-| [digamma](digamma.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 1172 |
-| [digamma_bw](digamma_bw.md) | `default` | 1.02e+08 ⚠ | 1.32e+04 | 1 | 6.44e+36 | 12083 |
-| [div](div.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 546 |
-| [div_bw](div_bw.md) | `default` | 0.498 | 0 | n/a | 1.65e+35 | 10534 |
-| [div_no_nan](div_no_nan.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 1447 |
-| [divide](divide.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 548 |
-| [divide_](divide_.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 573 |
-| [elu](elu.md) | `default` | 0.5 | 0 | 3.39e+38 | 0.00195 | 479 ±7% |
-| [elu_bw](elu_bw.md) | `default` | 0.892 | 0.52 | 3.39e+38 | 0.00355 | 2744 |
-| [eq](eq.md) | `default` | 0 | 0 | n/a | 0 | 532 |
-| [eq_](eq_.md) | `default` | 0 | 0 | n/a | 0 | 552 |
-| [eqz](eqz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 406 |
-| [erf](erf.md) | `default` | 1.06 | 0.771 | 3.39e+38 | 0.00362 | 563 ±8% |
-| [erf_bw](erf_bw.md) | `default` | 70.5 | 3.04 | 1.38 | 0.0108 | 2455 |
-| [erfc](erfc.md) | `default` | 3.19e+28 ⚠ | 3.23e+24 | 2.5 | 0.00781 | 823 |
-| [erfc_bw](erfc_bw.md) | `default` | 70.5 | 3.04 | 1.38 | 0.0108 | 2452 |
-| [erfinv](erfinv.md) | `default` | 121 | 6.34 | 1.31e-38 | 0.0092 | 901 |
-| [erfinv_bw](erfinv_bw.md) | `default` | 8.91 | 1.2 | 0.859 | 2.23 | 7854 |
-| [exp](exp.md) | `default` | 0.892 | 0.556 | 3.39e+38 | 4.85e+35 | 416 ±7% |
-|  | `fast_approx` | 6.08 | 3.05 | nowhere | 5.5e+36 | 392 |
-| [exp2](exp2.md) | `default` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 432 ±16% |
-| [exp2_bw](exp2_bw.md) | `default` | 1.89 | 0.942 | 128 | 6.29e+35 | 1704 |
-| [exp_bw](exp_bw.md) | `default` | 0.892 | 0.556 | 3.39e+38 | 4.85e+35 | 1317 |
-| [expm1](expm1.md) | `default` | 0.5 | 0 | 3.39e+38 | 3.25e+35 | 421 ±10% |
-| [expm1_bw](expm1_bw.md) | `default` | 34 | 0.695 | 33.2 | 4.85e+35 | 1706 ±6% |
-| [floor](floor.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 422 ±10% |
-| [floor_div](floor_div.md) | `default` | 64 | 42 | n/a | 1 | 2531 |
-| [fmod](fmod.md) | `default` | 6.65e+35 ⚠ | 7.8e+34 | n/a | 4.06e+31 | 651 |
-| [frac](frac.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 399 ±5% |
-| [ge](ge.md) | `default` | 0 | 0 | n/a | 0 | 535 ±9% |
-| [ge_](ge_.md) | `default` | 0 | 0 | n/a | 0 | 548 |
-| [gelu](gelu.md) | `default` | 165 | 9.18 | 2.33e-38 | 0.00777 | 799 |
-|  | `fast_approx` | 1.14e+36 ⚠ | 1.82e+34 | 2.33e-38 | 0.0239 | 397 ±6% |
-| [gelu_bw](gelu_bw.md) | `default` | 0.939 | 0.681 | 3.39e+38 | 0.00719 | 1759 |
-| [gez](gez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 409 ±8% |
-| [gt](gt.md) | `default` | 0 | 0 | n/a | 0 | 536 |
-| [gt_](gt_.md) | `default` | 0 | 0 | n/a | 0 | 550 ±19% |
-| [gtz](gtz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 409 ±9% |
-| [hardmish](hardmish.md) | `default` | 1 | 0.913 | 3.39e+38 | 0.00195 | 407 ±6% |
-| [hardshrink](hardshrink.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 398 ±6% |
-| [hardshrink_bw](hardshrink_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 1682 |
-| [hardsigmoid](hardsigmoid.md) | `default` | 1 | 0.557 | 3.39e+38 | 0.00389 | 413 ±21% |
-| [hardsigmoid_bw](hardsigmoid_bw.md) | `default` | 0.333 | 0 | 3.39e+38 | 0.000326 | 2542 |
-| [hardswish](hardswish.md) | `default` | 2.14 | 0.94 | 2.33e-38 | 0.0163 | 427 |
-| [hardswish_bw](hardswish_bw.md) | `default` | 85.3 | 2.1 | 1.12 | 0.5 | 3542 |
-| [hardtanh](hardtanh.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 396 |
-| [hardtanh_bw](hardtanh_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 2154 |
-| [heaviside](heaviside.md) | `value=0.0` | 0 | 0 | 3.39e+38 | 0 | 416 ±17% |
-|  | `value=0.5` | 0 | 0 | 3.39e+38 | 0 | 402 |
-|  | `value=1.0` | 0 | 0 | 3.39e+38 | 0 | 413 ±11% |
-| [hypot](hypot.md) | `default` | 52.7 | 1.64 | n/a | 8.02e+16 | 551 |
-| [hypot_bw](hypot_bw.md) | `default` | 74.6 | 2.27 | n/a | 0.292 | 3375 |
-| [i0](i0.md) | `default` | 255 | 56.3 | 13.6 | 2.28e+38 | 459 ±6% |
-| [i0_bw](i0_bw.md) | `default` | 218 | 8.58 | 2.33e-38 | 2.16e+38 | 2090 |
-| [i1](i1.md) | `default` | 0.858 | 0.589 | 2.33e-38 | 4.9e+34 | 1203 |
-| [identity](identity.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 392 ±6% |
-| [isclose](isclose.md) | `default` | 0 | 0 | n/a | 0 | 559 |
-| [isfinite](isfinite.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 394 ±9% |
-| [isinf](isinf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 398 ±8% |
-| [isnan](isnan.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 398 ±7% |
-| [isneginf](isneginf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 401 ±7% |
-| [isposinf](isposinf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 395 ±6% |
-| [l1_loss](l1_loss.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 538 ±9% |
-| [ldexp](ldexp.md) | `default` | 255 | 94.4 | n/a | 3.39e+38 | 553 ±5% |
-| [ldexp_](ldexp_.md) | `default` | 255 | 94.4 | n/a | 3.39e+38 | 556 ±8% |
-| [ldexp_bw](ldexp_bw.md) | `default` | 0.898 | 0.898 | n/a | 0.00351 | 2725 |
-| [le](le.md) | `default` | 0 | 0 | n/a | 0 | 537 |
-| [le_](le_.md) | `default` | 0 | 0 | n/a | 0 | 546 ±6% |
-| [leaky_relu](leaky_relu.md) | `negative_slope=0.0` | 0 | 0 | 3.39e+38 | 0 | 404 ±7% |
-|  | `negative_slope=0.01` | 0.96 | 0.741 | 3.39e+38 | 1.99e+34 | 397 |
-|  | `negative_slope=1.0` | 0 | 0 | 3.39e+38 | 0 | 396 ±6% |
-| [leaky_relu_bw](leaky_relu_bw.md) | `default` | 0.16 | 0 | 3.39e+38 | 9.77e-06 | 1834 |
-| [lerp](lerp.md) | `default` | 1.77e+03 ⚠ | 39.9 | n/a | 6.65e+35 | 692 ±8% |
-| [lerp_bw](lerp_bw.md) | `default` | 0.506 | 0.506 | n/a | 0.00395 | 2807 |
-| [lez](lez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 412 ±12% |
-| [lgamma](lgamma.md) | `default` | 324 | 0.846 | 0.414 | 7.5e+35 | 2433 |
-| [lgamma_bw](lgamma_bw.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 2083 |
-| [log](log.md) | `default` | 0.78 | 0.534 | 3.39e+38 | 0.25 | 421 ±14% |
-| [log10](log10.md) | `default` | 0.785 | 0.543 | 3.39e+38 | 0.125 | 426 ±10% |
-| [log10_bw](log10_bw.md) | `default` | 1.74 | 0.803 | 3.69e+37 | 2.24e+35 | 5284 |
-| [log1p](log1p.md) | `default` | 0.931 | 0.57 | 3.39e+38 | 0.25 | 430 ±6% |
-| [log1p_bw](log1p_bw.md) | `default` | 1.42 | 0.744 | 8.51e+37 | 0.167 | 5254 |
-| [log2](log2.md) | `default` | 0.766 | 0.542 | 3.39e+38 | 0.248 | 428 ±40% |
-| [log2_bw](log2_bw.md) | `default` | 1.51 | 0.847 | nowhere | 5.03e+35 | 5280 |
-| [log_bw](log_bw.md) | `default` | 0.498 | 0 | 8.51e+37 | 1.65e+35 | 3993 |
-| [log_sigmoid](log_sigmoid.md) | `default` | 6.39 | 1.38 | 0.426 | 0.0215 | 592 ±6% |
-| [log_sigmoid_bw](log_sigmoid_bw.md) | `default` | 1.71 | 0.722 | 3.39e+38 | 0.00528 | 5922 |
-| [logaddexp](logaddexp.md) | `default` | 2.22e+05 ⚠ | 44.7 | n/a | 1 | 792 |
-| [logaddexp2](logaddexp2.md) | `default` | 6.87e+10 ⚠ | 2.05e+06 | n/a | 1 | 904 ±13% |
-| [logaddexp2_](logaddexp2_.md) | `default` | 6.87e+10 ⚠ | 2.05e+06 | n/a | 1 | 901 |
-| [logaddexp2_bw](logaddexp2_bw.md) | `default` | 41.4 | 3.6 | n/a | 0.00504 | 5833 |
-| [logaddexp_](logaddexp_.md) | `default` | 2.22e+05 ⚠ | 44.7 | n/a | 1 | 815 ±5% |
-| [logaddexp_bw](logaddexp_bw.md) | `default` | 62.5 | 4.9 | n/a | 0.00278 | 4795 |
-| [logical_and](logical_and.md) | `default` | 0 | 0 | n/a | 0 | 551 ±20% |
-| [logical_and_](logical_and_.md) | `default` | 0 | 0 | n/a | 0 | 560 |
-| [logical_not](logical_not.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 398 ±6% |
-| [logical_not_](logical_not_.md) | `default` | 0 | 0 | 1 | 0 | 396 |
-| [logical_or](logical_or.md) | `default` | 0 | 0 | n/a | 0 | 546 |
-| [logical_or_](logical_or_.md) | `default` | 0 | 0 | n/a | 0 | 563 ±6% |
-| [logical_xor_](logical_xor_.md) | `default` | 0 | 0 | n/a | 0 | 561 |
-| [logit](logit.md) | `default` | 64 | 1.67 | 0.395 | 0.25 | 895 |
-| [logit_bw](logit_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 6964 |
-| [logiteps_bw](logiteps_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 8230 |
-| [lt](lt.md) | `default` | 0 | 0 | n/a | 0 | 531 |
-| [lt_](lt_.md) | `default` | 0 | 0 | n/a | 0 | 544 |
-| [ltz](ltz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 394 ±6% |
-| [mac](mac.md) | `default` | 63.5 | 26.4 | n/a | 31.9 | 685 ±6% |
-| [max_bw](max_bw.md) | `default` | 64 | 64 | n/a | 0.5 | 5479 ±66% |
-| [maximum](maximum.md) | `default` | 0 | 0 | n/a | 0 | 541 ±8% |
-| [min_bw](min_bw.md) | `default` | 64 | 64 | n/a | 0.5 | 5486 |
-| [minimum](minimum.md) | `default` | 0 | 0 | n/a | 0 | 533 |
-| [mish](mish.md) | `default` | 1.49 | 0.667 | 1.95e-38 | 0.00805 | 594 ±5% |
-| [mse_loss](mse_loss.md) | `default` | 2.03 | 1.79 | n/a | 1.85e+36 | 538 ±5% |
-| [mul_bw](mul_bw.md) | `default` | 0 | 0 | n/a | 0 | 1423 |
-| [multigammaln](multigammaln.md) | `default` | 724 | 1.67 | 5.55e-17 | 1.77e+36 | 12650 |
-| [multigammaln_bw](multigammaln_bw.md) | `default` | 2.38e+06 ⚠ | 293 | 5.55e-17 | 2.34e+16 | 9659 |
-| [multiply](multiply.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 537 |
-| [multiply_](multiply_.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 560 ±6% |
-| [ne](ne.md) | `default` | 0 | 0 | n/a | 0 | 533 |
-| [ne_](ne_.md) | `default` | 0 | 0 | n/a | 0 | 547 |
-| [neg](neg.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 394 ±5% |
-| [nextafter](nextafter.md) | `default` | 1 | 1 | n/a | 1.33e+36 | 3114 |
-| [nez](nez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 391 ±6% |
-| [polygamma](polygamma.md) | `k=1` | 1.02e+08 ⚠ | 1.43e+05 | 0.996 | 6.44e+36 | 5579 |
-|  | `k=2` | 3.57e+08 ⚠ | 6.81e+05 | 4.47 | 7.06e+35 | 5683 ±7% |
-|  | `k=4` | 3.22e+09 ⚠ | 1.09e+07 | 3.48 | 6.68e+35 | 5768 |
-| [polygamma_bw](polygamma_bw.md) | `n=1` | 3.57e+08 ⚠ | 6.79e+05 | 4.47 | 7.06e+35 | 12120 |
-| [pow](pow.md) | `default` | 4.86e+18 ⚠ | 2.08e+14 | n/a | 2.31e+38 | 987 ±12% |
-| [pow_bw](pow_bw.md) | `exponent=2.0` | 0 | 0 | 1.69e+38 | 0 | 2549 |
-| [prelu](prelu.md) | `weight=0.25` | 0 | 0 | 4.68e-38 | 1.17e-38 | 396 ±49% |
-| [rad2deg](rad2deg.md) | `default` | 0.992 | 0.75 | 5.9e+36 | 1.32e+36 | 398 |
-| [rdiv](rdiv.md) | `value=2.0` | 0.512 | 0.507 | 8.47e+37 | 3.4e+35 | 426 ±15% |
-| [reciprocal](reciprocal.md) | `default` | 0.498 | 0 | 8.51e+37 | 1.65e+35 | 420 ±11% |
-| [reciprocal_bw](reciprocal_bw.md) | `default` | 1.23 | 0.714 | 5.42e-20 | 4.09e+35 | 5127 |
-| [relu](relu.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 404 ±8% |
-| [relu6](relu6.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 407 ±10% |
-| [relu6_bw](relu6_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 3956 |
-| [relu_bw](relu_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 1311 ±13% |
-| [relu_max](relu_max.md) | `upper_limit=0.0` | 0 | 0 | 3.39e+38 | 0 | 401 ±6% |
-|  | `upper_limit=1.0` | 0 | 0 | 3.39e+38 | 0 | 402 |
-|  | `upper_limit=6.0` | 0 | 0 | 3.39e+38 | 0 | 402 ±6% |
-| [relu_min](relu_min.md) | `lower_limit=0.0` | 0 | 0 | 3.39e+38 | 0 | 396 |
-|  | `lower_limit=1.0` | 0 | 0 | 3.39e+38 | 0 | 398 ±6% |
-| [remainder](remainder.md) | `default` | 6.65e+35 ⚠ | 1.06e+35 | n/a | 4.06e+31 | 675 |
-| [round](round.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 409 ±140% |
-| [rpow](rpow.md) | `exponent=0.5` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 964 |
-|  | `exponent=1.0` | 0 | 0 | 3.39e+38 | 0 | 973 |
-|  | `exponent=2.0` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 964 |
-| [rsqrt](rsqrt.md) | `default` | 0.499 | 0 | 3.39e+38 | 1.8e+16 | 425 ±8% |
-| [rsqrt_bw](rsqrt_bw.md) | `default` | 3.23 | 1.19 | nowhere | 1.56e+36 | 6312 |
-| [rsub](rsub.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 542 |
-| [rsub_](rsub_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 548 |
-| [selu](selu.md) | `default` | 0.5 | 0 | 3.39e+38 | 6.6e+35 | 514 ±17% |
-| [selu_bw](selu_bw.md) | `default` | 2.62 | 1.06 | 0.00443 | 0.0173 | 3104 |
-| [sigmoid](sigmoid.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 472 ±12% |
-| [sigmoid_accurate](sigmoid_accurate.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 468 ±7% |
-| [sigmoid_bw](sigmoid_bw.md) | `default` | 127 | 14.2 | 12.4 | 0.000488 | 2255 ±19% |
-| [sign](sign.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 406 ±17% |
-| [signbit](signbit.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 849 ±142% |
-| [silu](silu.md) | `default` | 0.914 | 0.585 | 2.33e-38 | 0.016 | 489 ±10% |
-| [silu_bw](silu_bw.md) | `default` | 285 | 1.31 | 0.867 | 0.0113 | 3125 |
-| [sin](sin.md) | `default` | 0.552 | 0.526 | 9.99e+05 | 0.00195 | 434 ±12% |
-| [sin_bw](sin_bw.md) | `default` | 2.98e+41 ⚠ | 1.39e+39 | 1.07e+06 | 3.32e+38 | 1320 |
-| [sinh](sinh.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 541 ±9% |
-| [sinh_bw](sinh_bw.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 5844 |
-| [softplus](softplus.md) | `default` | 0.775 | 0.556 | 5.03 | 0.0155 | 473 ±7% |
-| [softplus_bw](softplus_bw.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 4352 |
-| [softshrink](softshrink.md) | `default` | 1 | 0.948 | 3.39e+38 | 3.28e+04 | 399 ±10% |
-| [softshrink_bw](softshrink_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 2158 |
-| [softsign](softsign.md) | `default` | 1 | 0.641 | 8.51e+37 | 1 | 443 ±9% |
-| [softsign_bw](softsign_bw.md) | `default` | 79 | 3.74 | 0.00391 | 0.0169 | 1326 |
-| [sqrt](sqrt.md) | `default` | 0.5 | 0 | 3.39e+38 | 3.6e+16 | 423 ±12% |
-| [sqrt_bw](sqrt_bw.md) | `default` | 1.14 | 0.699 | 3.39e+38 | 2.06e+16 | 6567 |
-| [square](square.md) | `default` | 0.5 | 0 | 1.84e+19 | 6.59e+35 | 394 ±9% |
-| [square_bw](square_bw.md) | `default` | 0 | 0 | 1.69e+38 | 0 | 1295 |
-| [squared_difference](squared_difference.md) | `default` | 2.03 | 1.79 | n/a | 1.85e+36 | 535 |
-| [squared_difference_](squared_difference_.md) | `default` | 2.03 | 1.79 | n/a | 1.85e+36 | 548 ±12% |
-| [squared_difference_bw](squared_difference_bw.md) | `default` | 0.621 | 0.571 | n/a | 8.2e+35 | 2175 |
-| [subalpha](subalpha.md) | `alpha=2.0` | 254 | 2 | n/a | 3.38e+38 | 549 ±10% |
-| [subtract](subtract.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 533 |
-| [subtract_](subtract_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 546 ±6% |
-| [swish](swish.md) | `default` | 0.914 | 0.585 | 2.33e-38 | 0.016 | 496 ±11% |
-| [tan](tan.md) | `default` | 0.551 | 0.5 | 9.99e+05 | 2.86 | 557 ±8% |
-| [tan_bw](tan_bw.md) | `default` | 3.57e+40 ⚠ | 3.8e+37 | 940 | 3.32e+38 | 2185 |
-| [tanh](tanh.md) | `default` | 0.811 | 0.586 | nowhere | 0.00317 | 417 ±948% |
-| [tanh_bw](tanh_bw.md) | `default` | 1.16 | 0.525 | 3.39e+38 | 0.00276 | 1473 |
-| [tanhshrink](tanhshrink.md) | `default` | 63.5 | 9.38 | 1.35e-08 | 1 | 432 ±9% |
-| [tanhshrink_bw](tanhshrink_bw.md) | `default` | 63 | 6.1 | 7.45e-09 | 0.0064 | 1683 |
-| [threshold](threshold.md) | `threshold=0.0,value=1.0` | 0 | 0 | 3.39e+38 | 0 | 398 ±5% |
-|  | `threshold=0.5,value=0.0` | 0 | 0 | 3.39e+38 | 0 | 395 |
-| [threshold_bw](threshold_bw.md) | `min=0.5,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 1655 |
-| [trunc](trunc.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 401 |
-| [where](where.md) | `default` | 0 | 0 | n/a | 0 | 689 ±8% |
-| [xielu](xielu.md) | `default` | 0.5 | 0.5 | 2.33e-38 | 6.6e+35 | 1008 |
-| [xlogy](xlogy.md) | `default` | 23.5 | 17.6 | n/a | 1.22e+35 | 553 ±26% |
-| [xlogy_bw](xlogy_bw.md) | `default` | 0.78 | 0.78 | n/a | 0.000762 | 8884 |
+| [abs](abs.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 421 ±9% |
+| [abs_bw](abs_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 1355 |
+| [acos](acos.md) | `default` | 0.5 | 0 | 1 | 0.0078 | 712 |
+| [acos_bw](acos_bw.md) | `default` | 2.7 | 0.744 | 0.949 | 0.0422 | 7567 |
+| [acosh](acosh.md) | `default` | 1.41 | 0.596 | 3.39e+38 | 0.25 | 944 |
+| [acosh_bw](acosh_bw.md) | `default` | 3.07 | 0.64 | 1.03 | 0.048 | 8718 |
+| [add](add.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 529 |
+| [add_](add_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 545 |
+| [addalpha](addalpha.md) | `alpha=2.0` | 254 | 2 | n/a | 3.38e+38 | 553 |
+| [addcdiv](addcdiv.md) | `default` | 2.11e+06 ⚠ | 2.35e+03 | n/a | 6.65e+35 | 713 |
+| [addcmul](addcmul.md) | `default` | 126 | 19.4 | n/a | 6.65e+35 | 699 |
+| [asin](asin.md) | `default` | 0.499 | 0 | nowhere | 0.00374 | 695 |
+| [asin_bw](asin_bw.md) | `default` | 2.7 | 0.702 | 0.949 | 0.0422 | 7549 |
+| [asinh](asinh.md) | `default` | 1.32 | 0.619 | 3.39e+38 | 0.25 | 1430 |
+| [asinh_bw](asinh_bw.md) | `default` | 1.2 | 0.638 | 1.84e+19 | 0.00468 | 1448 |
+| [atan](atan.md) | `default` | 0.527 | 0.513 | nowhere | 0.00395 | 646 ±7% |
+| [atan2](atan2.md) | `default` | 200 | 2.51 | n/a | 0.783 | 560 |
+| [atan_bw](atan_bw.md) | `default` | 2.23 | 0.767 | 0.23 | 0.00869 | 1396 |
+| [atanh](atanh.md) | `default` | 2.08 | 0.995 | nowhere | 0.00907 | 669 |
+| [atanh_bw](atanh_bw.md) | `default` | 7.76 | 0.885 | 0.918 | 0.289 | 7228 |
+| [bias_gelu_](bias_gelu_.md) | `default` | 179 | 86.3 | n/a | 7.48e+35 | 788 |
+| [cbrt](cbrt.md) | `default` | 0.507 | 0.502 | 3.39e+38 | 1.74e+10 | 450 ±11% |
+| [ceil](ceil.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 421 ±5% |
+| [celu](celu.md) | `default` | 0.5 | 0 | 3.39e+38 | 0.00195 | 484 ±8% |
+| [celu_bw](celu_bw.md) | `default` | 0.892 | 0.52 | 3.39e+38 | 0.00355 | 2736 |
+| [clamp](clamp.md) | `min=-1.0,max=1.0` | 0 | 0 | 3.39e+38 | 0 | 439 ±7% |
+|  | `min=0.0,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 417 |
+|  | `min=1.0,max=-1.0` | 0 | 0 | 3.39e+38 | 0 | 425 |
+| [clamp_bw](clamp_bw.md) | `default` | 0 | 0 | n/a | 0 | 2515 |
+| [clip](clip.md) | `min=-1.0,max=1.0` | 0 | 0 | 3.39e+38 | 0 | 423 |
+|  | `min=0.0,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 424 ±11% |
+|  | `min=1.0,max=-1.0` | 0 | 0 | 3.39e+38 | 0 | 418 ±5% |
+| [clip_bw](clip_bw.md) | `default` | 0 | 0 | n/a | 0 | 2465 |
+| [composite_example](composite_example.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 780 |
+| [cos](cos.md) | `default` | 0.552 | 0.552 | 9.99e+05 | 0.00195 | 447 ±8% |
+| [cos_bw](cos_bw.md) | `default` | 2.09e+42 ⚠ | 2.59e+39 | 2.15e+06 | 3.32e+38 | 1730 |
+| [cosh](cosh.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 458 ±13% |
+| [cosh_bw](cosh_bw.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 3195 |
+| [deg2rad](deg2rad.md) | `default` | 0.998 | 0.744 | 6.7e-37 | 3.95e+34 | 424 |
+| [digamma](digamma.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 1157 |
+| [digamma_bw](digamma_bw.md) | `default` | 1.02e+08 ⚠ | 1.32e+04 | 1 | 6.44e+36 | 7517 |
+| [div](div.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 574 |
+| [div_bw](div_bw.md) | `default` | 0.498 | 0 | n/a | 1.65e+35 | 3629 |
+| [div_no_nan](div_no_nan.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 1451 |
+| [divide](divide.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 540 |
+| [divide_](divide_.md) | `default` | 0.498 | 0 | n/a | 6.62e+35 | 556 |
+| [elu](elu.md) | `default` | 0.5 | 0 | 3.39e+38 | 0.00195 | 482 ±6% |
+| [elu_bw](elu_bw.md) | `default` | 0.892 | 0.52 | 3.39e+38 | 0.00355 | 2742 |
+| [eq_](eq_.md) | `default` | 0 | 0 | n/a | 0 | 562 |
+| [eqz](eqz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 418 |
+| [erf](erf.md) | `default` | 1.06 | 0.771 | 3.39e+38 | 0.00362 | 589 ±8% |
+| [erf_bw](erf_bw.md) | `default` | 70.5 | 3.04 | 1.38 | 0.0108 | 1446 |
+| [erfc](erfc.md) | `default` | 3.19e+28 ⚠ | 3.23e+24 | 2.5 | 0.00781 | 878 |
+| [erfc_bw](erfc_bw.md) | `default` | 70.5 | 3.04 | 1.38 | 0.0108 | 2482 |
+| [erfinv](erfinv.md) | `default` | 121 | 6.34 | 1.31e-38 | 0.0092 | 865 ±5% |
+| [erfinv_bw](erfinv_bw.md) | `default` | 8.91 | 1.2 | 0.859 | 2.23 | 4695 |
+| [exp](exp.md) | `default` | 0.892 | 0.556 | 3.39e+38 | 4.85e+35 | 453 ±11% |
+|  | `fast_approx` | 6.08 | 3.05 | nowhere | 5.5e+36 | 416 |
+| [exp2](exp2.md) | `default` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 449 ±8% |
+| [exp2_bw](exp2_bw.md) | `default` | 1.89 | 0.942 | 128 | 6.29e+35 | 1709 |
+| [exp_bw](exp_bw.md) | `default` | 0.892 | 0.556 | 3.39e+38 | 4.85e+35 | 1322 |
+| [expm1](expm1.md) | `default` | 0.5 | 0 | 3.39e+38 | 3.25e+35 | 462 ±7% |
+| [expm1_bw](expm1_bw.md) | `default` | 34 | 0.695 | 33.2 | 4.85e+35 | 1344 |
+| [floor](floor.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 428 ±6% |
+| [floor_div](floor_div.md) | `default` | 64 | 42 | n/a | 1 | 2509 |
+| [fmod](fmod.md) | `default` | 6.65e+35 ⚠ | 7.8e+34 | n/a | 4.06e+31 | 672 |
+| [frac](frac.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 419 |
+| [ge_](ge_.md) | `default` | 0 | 0 | n/a | 0 | 549 ±8% |
+| [gelu](gelu.md) | `default` | 165 | 9.18 | 2.33e-38 | 0.00777 | 764 |
+|  | `fast_approx` | 1.14e+36 ⚠ | 1.82e+34 | 2.33e-38 | 0.0239 | 425 ±6% |
+| [gelu_bw](gelu_bw.md) | `default` | 0.939 | 0.681 | 3.39e+38 | 0.00719 | 1775 |
+| [gez](gez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 429 ±9% |
+| [gt_](gt_.md) | `default` | 0 | 0 | n/a | 0 | 567 |
+| [gtz](gtz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 422 ±8% |
+| [hardmish](hardmish.md) | `default` | 1 | 0.913 | 3.39e+38 | 0.00195 | 419 ±5% |
+| [hardshrink](hardshrink.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 423 ±8% |
+| [hardshrink_bw](hardshrink_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 1699 |
+| [hardsigmoid](hardsigmoid.md) | `default` | 1 | 0.557 | 3.39e+38 | 0.00389 | 441 ±7% |
+| [hardsigmoid_bw](hardsigmoid_bw.md) | `default` | 0.333 | 0 | 3.39e+38 | 0.000326 | 2580 |
+| [hardswish](hardswish.md) | `default` | 2.14 | 0.94 | 2.33e-38 | 0.0163 | 437 ±9% |
+| [hardswish_bw](hardswish_bw.md) | `default` | 85.3 | 2.1 | 1.12 | 0.5 | 3583 |
+| [hardtanh](hardtanh.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 442 ±10% |
+| [hardtanh_bw](hardtanh_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 2175 |
+| [heaviside](heaviside.md) | `value=0.0` | 0 | 0 | 3.39e+38 | 0 | 423 ±7% |
+|  | `value=0.5` | 0 | 0 | 3.39e+38 | 0 | 433 |
+|  | `value=1.0` | 0 | 0 | 3.39e+38 | 0 | 421 ±8% |
+| [hypot](hypot.md) | `default` | 52.7 | 1.64 | n/a | 8.02e+16 | 654 |
+| [i0](i0.md) | `default` | 255 | 56.3 | 13.6 | 2.28e+38 | 441 ±9% |
+| [i0_bw](i0_bw.md) | `default` | 218 | 8.58 | 2.33e-38 | 2.16e+38 | 2088 |
+| [i1](i1.md) | `default` | 0.858 | 0.589 | 2.33e-38 | 4.9e+34 | 1213 |
+| [identity](identity.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 426 ±5% |
+| [isclose](isclose.md) | `default` | 0 | 0 | n/a | 0 | 557 |
+| [isfinite](isfinite.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 420 ±7% |
+| [isinf](isinf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 421 ±6% |
+| [isnan](isnan.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 423 |
+| [isneginf](isneginf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 426 ±6% |
+| [isposinf](isposinf.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 420 |
+| [l1_loss](l1_loss.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 550 |
+| [ldexp_](ldexp_.md) | `default` | 255 | 94.4 | n/a | 3.39e+38 | 576 |
+| [le_](le_.md) | `default` | 0 | 0 | n/a | 0 | 551 |
+| [leaky_relu](leaky_relu.md) | `negative_slope=0.0` | 0 | 0 | 3.39e+38 | 0 | 419 |
+|  | `negative_slope=0.01` | 0.96 | 0.741 | 3.39e+38 | 1.99e+34 | 420 ±5% |
+|  | `negative_slope=1.0` | 0 | 0 | 3.39e+38 | 0 | 413 |
+| [leaky_relu_bw](leaky_relu_bw.md) | `default` | 0.16 | 0 | 3.39e+38 | 9.77e-06 | 1845 |
+| [lerp](lerp.md) | `default` | 1.77e+03 ⚠ | 39.9 | n/a | 6.65e+35 | 698 |
+| [lez](lez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 436 ±9% |
+| [lgamma](lgamma.md) | `default` | 324 | 0.846 | 0.414 | 7.5e+35 | 2468 |
+| [lgamma_bw](lgamma_bw.md) | `default` | 5.57e+05 ⚠ | 177 | nowhere | 8.51e+37 | 2060 |
+| [log](log.md) | `default` | 0.78 | 0.534 | 3.39e+38 | 0.25 | 453 ±13% |
+| [log10](log10.md) | `default` | 0.785 | 0.543 | 3.39e+38 | 0.125 | 453 ±11% |
+| [log10_bw](log10_bw.md) | `default` | 1.74 | 0.803 | 3.69e+37 | 2.24e+35 | 5351 |
+| [log1p](log1p.md) | `default` | 0.931 | 0.57 | 3.39e+38 | 0.25 | 459 ±9% |
+| [log1p_bw](log1p_bw.md) | `default` | 1.42 | 0.744 | 8.51e+37 | 0.167 | 5292 |
+| [log2](log2.md) | `default` | 0.766 | 0.542 | 3.39e+38 | 0.248 | 448 ±8% |
+| [log2_bw](log2_bw.md) | `default` | 1.51 | 0.847 | nowhere | 5.03e+35 | 5293 |
+| [log_bw](log_bw.md) | `default` | 0.498 | 0 | 8.51e+37 | 1.65e+35 | 4028 |
+| [log_sigmoid](log_sigmoid.md) | `default` | 6.39 | 1.38 | 0.426 | 0.0215 | 627 ±13% |
+| [log_sigmoid_bw](log_sigmoid_bw.md) | `default` | 1.71 | 0.722 | 3.39e+38 | 0.00528 | 5952 |
+| [logaddexp2_](logaddexp2_.md) | `default` | 6.87e+10 ⚠ | 2.05e+06 | n/a | 1 | 575 |
+| [logaddexp_](logaddexp_.md) | `default` | 2.22e+05 ⚠ | 44.7 | n/a | 1 | 583 |
+| [logical_and_](logical_and_.md) | `default` | 0 | 0 | n/a | 0 | 564 |
+| [logical_not](logical_not.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 422 ±17% |
+| [logical_not_](logical_not_.md) | `default` | 0 | 0 | 1 | 0 | 434 ±7% |
+| [logical_or_](logical_or_.md) | `default` | 0 | 0 | n/a | 0 | 554 ±6% |
+| [logical_xor_](logical_xor_.md) | `default` | 0 | 0 | n/a | 0 | 578 |
+| [logit](logit.md) | `default` | 64 | 1.67 | 0.395 | 0.25 | 937 |
+| [logit_bw](logit_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 6672 |
+| [logiteps_bw](logiteps_bw.md) | `default` | 1.65 | 0.729 | 0.996 | 1.65e+35 | 8303 |
+| [lt_](lt_.md) | `default` | 0 | 0 | n/a | 0 | 569 |
+| [ltz](ltz.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 428 ±10% |
+| [mac](mac.md) | `default` | 63.5 | 26.4 | n/a | 31.9 | 697 |
+| [mish](mish.md) | `default` | 1.49 | 0.667 | 1.95e-38 | 0.00805 | 615 ±9% |
+| [mse_loss](mse_loss.md) | `default` | 2.03 | 1.79 | n/a | 1.85e+36 | 556 |
+| [multigammaln](multigammaln.md) | `default` | 724 | 1.67 | 5.55e-17 | 1.77e+36 | 12731 |
+| [multigammaln_bw](multigammaln_bw.md) | `default` | 2.38e+06 ⚠ | 293 | 5.55e-17 | 2.34e+16 | 9581 |
+| [multiply](multiply.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 534 ±44% |
+| [multiply_](multiply_.md) | `default` | 0.5 | 0 | n/a | 0.0156 | 546 |
+| [ne_](ne_.md) | `default` | 0 | 0 | n/a | 0 | 563 |
+| [neg](neg.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 415 ±7% |
+| [nextafter](nextafter.md) | `default` | 1 | 1 | n/a | 1.33e+36 | 658 |
+| [nez](nez.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 425 ±7% |
+| [polygamma](polygamma.md) | `k=1` | 1.02e+08 ⚠ | 1.43e+05 | 0.996 | 6.44e+36 | 1192 |
+|  | `k=2` | 3.57e+08 ⚠ | 6.79e+05 | 4.47 | 7.06e+35 | 1540 |
+|  | `k=4` | 3.22e+09 ⚠ | 1.08e+07 | 3.48 | 6.68e+35 | 1701 |
+| [polygamma_bw](polygamma_bw.md) | `n=1` | 3.57e+08 ⚠ | 6.79e+05 | 4.47 | 7.06e+35 | 7814 |
+| [pow](pow.md) | `default` | 4.86e+18 ⚠ | 2.08e+14 | n/a | 2.31e+38 | 995 |
+| [pow_bw](pow_bw.md) | `exponent=2.0` | 0 | 0 | 1.69e+38 | 0 | 2586 |
+| [prelu](prelu.md) | `weight=0.25` | 0 | 0 | 4.68e-38 | 1.17e-38 | 420 ±6% |
+| [rad2deg](rad2deg.md) | `default` | 0.992 | 0.75 | 5.9e+36 | 1.32e+36 | 416 |
+| [rdiv](rdiv.md) | `value=2.0` | 0.512 | 0.507 | 8.47e+37 | 3.4e+35 | 427 ±7% |
+| [reciprocal](reciprocal.md) | `default` | 0.498 | 0 | 8.51e+37 | 1.65e+35 | 434 ±6% |
+| [reciprocal_bw](reciprocal_bw.md) | `default` | 1.23 | 0.714 | 5.42e-20 | 4.09e+35 | 3495 |
+| [relu](relu.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 435 ±8% |
+| [relu6](relu6.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 426 ±6% |
+| [relu6_bw](relu6_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 2199 |
+| [relu_bw](relu_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 1326 |
+| [relu_max](relu_max.md) | `upper_limit=0.0` | 0 | 0 | 3.39e+38 | 0 | 417 ±8% |
+|  | `upper_limit=1.0` | 0 | 0 | 3.39e+38 | 0 | 426 ±6% |
+|  | `upper_limit=6.0` | 0 | 0 | 3.39e+38 | 0 | 416 ±9% |
+| [relu_min](relu_min.md) | `lower_limit=0.0` | 0 | 0 | 3.39e+38 | 0 | 418 |
+|  | `lower_limit=1.0` | 0 | 0 | 3.39e+38 | 0 | 416 |
+| [round](round.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 425 ±5% |
+| [rpow](rpow.md) | `exponent=0.5` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 979 |
+|  | `exponent=1.0` | 0 | 0 | 3.39e+38 | 0 | 1010 |
+|  | `exponent=2.0` | 0.898 | 0.564 | 3.39e+38 | 2.57e+34 | 971 |
+| [rsqrt](rsqrt.md) | `default` | 0.499 | 0 | 3.39e+38 | 1.8e+16 | 462 ±9% |
+| [rsqrt_bw](rsqrt_bw.md) | `default` | 3.23 | 1.19 | nowhere | 1.56e+36 | 5476 |
+| [rsub](rsub.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 558 ±41% |
+| [rsub_](rsub_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 546 |
+| [selu](selu.md) | `default` | 0.5 | 0 | 3.39e+38 | 6.6e+35 | 505 ±33% |
+| [selu_bw](selu_bw.md) | `default` | 2.62 | 1.06 | 0.00443 | 0.0173 | 3129 ±15% |
+| [sigmoid](sigmoid.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 472 ±8% |
+| [sigmoid_accurate](sigmoid_accurate.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 478 ±8% |
+| [sigmoid_bw](sigmoid_bw.md) | `default` | 127 | 14.2 | 12.4 | 0.000488 | 1190 |
+| [sign](sign.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 426 ±7% |
+| [signbit](signbit.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 413 ±11% |
+| [silu](silu.md) | `default` | 0.914 | 0.585 | 2.33e-38 | 0.016 | 491 ±12% |
+| [silu_bw](silu_bw.md) | `default` | 285 | 1.31 | 0.867 | 0.0113 | 3120 |
+| [sin](sin.md) | `default` | 0.552 | 0.526 | 9.99e+05 | 0.00195 | 441 ±10% |
+| [sin_bw](sin_bw.md) | `default` | 2.98e+41 ⚠ | 1.39e+39 | 1.07e+06 | 3.32e+38 | 1356 |
+| [sinh](sinh.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 511 ±8% |
+| [sinh_bw](sinh_bw.md) | `default` | 0.5 | 0 | 89 | 1.63e+35 | 3171 |
+| [softplus](softplus.md) | `default` | 0.775 | 0.556 | 5.03 | 0.0155 | 484 ±12% |
+| [softplus_bw](softplus_bw.md) | `default` | 0.857 | 0.517 | 3.39e+38 | 0.00238 | 2797 |
+| [softshrink](softshrink.md) | `default` | 1 | 0.948 | 3.39e+38 | 3.28e+04 | 436 ±7% |
+| [softshrink_bw](softshrink_bw.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 2192 |
+| [softsign](softsign.md) | `default` | 1 | 0.641 | 8.51e+37 | 1 | 460 ±8% |
+| [softsign_bw](softsign_bw.md) | `default` | 79 | 3.74 | 0.00391 | 0.0169 | 1395 |
+| [sqrt](sqrt.md) | `default` | 0.5 | 0 | 3.39e+38 | 3.6e+16 | 479 |
+| [sqrt_bw](sqrt_bw.md) | `default` | 1.14 | 0.699 | 3.39e+38 | 2.06e+16 | 6626 |
+| [square](square.md) | `default` | 0.5 | 0 | 1.84e+19 | 6.59e+35 | 432 ±7% |
+| [square_bw](square_bw.md) | `default` | 0 | 0 | 1.69e+38 | 0 | 1298 |
+| [squared_difference](squared_difference.md) | `default` | 2.03 | 1.79 | n/a | 1.85e+36 | 533 |
+| [squared_difference_](squared_difference_.md) | `default` | 2.03 | 1.79 | n/a | 1.85e+36 | 543 |
+| [subalpha](subalpha.md) | `alpha=2.0` | 254 | 2 | n/a | 3.38e+38 | 538 |
+| [subtract](subtract.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 527 |
+| [subtract_](subtract_.md) | `default` | 0.621 | 0.571 | n/a | 7.48e+35 | 544 |
+| [swish](swish.md) | `default` | 0.914 | 0.585 | 2.33e-38 | 0.016 | 486 ±13% |
+| [tan](tan.md) | `default` | 0.551 | 0.5 | 9.99e+05 | 2.86 | 575 ±13% |
+| [tan_bw](tan_bw.md) | `default` | 3.57e+40 ⚠ | 3.8e+37 | 940 | 3.32e+38 | 2202 |
+| [tanh](tanh.md) | `default` | 0.811 | 0.586 | nowhere | 0.00317 | 435 ±6% |
+| [tanh_bw](tanh_bw.md) | `default` | 1.16 | 0.525 | 3.39e+38 | 0.00276 | 1536 |
+| [tanhshrink](tanhshrink.md) | `default` | 63.5 | 9.38 | 1.35e-08 | 1 | 459 ±6% |
+| [tanhshrink_bw](tanhshrink_bw.md) | `default` | 63 | 6.1 | 7.45e-09 | 0.0064 | 1702 |
+| [threshold](threshold.md) | `threshold=0.0,value=1.0` | 0 | 0 | 3.39e+38 | 0 | 417 ±6% |
+|  | `threshold=0.5,value=0.0` | 0 | 0 | 3.39e+38 | 0 | 432 ±5% |
+| [threshold_bw](threshold_bw.md) | `min=0.5,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 1678 |
+| [trunc](trunc.md) | `default` | 0 | 0 | 3.39e+38 | 0 | 429 ±5% |
+| [where](where.md) | `default` | 0 | 0 | n/a | 0 | 679 |
+| [xielu](xielu.md) | `default` | 0.5 | 0.5 | 2.33e-38 | 6.6e+35 | 1042 |
 
 ## Not measurable on Wormhole (WH), bfloat16
 
@@ -252,9 +226,17 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 | Op | Why |
 |----|-----|
+| `as_tensor` | ttnn.from_torch(): incompatible function arguments. |
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
-| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
-| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
+| `clamped_silu_glu` | ttnn.clamped_silu_glu(): incompatible function arguments. |
+| `composite_example_multiple_return` | 'list' object has no attribute 'dtype' |
+| `dequantize` | TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/quantization/quantization.cpp:539: is_supported_quantized_dtype(a_dtype) |
+| `is_imag` | ttnn.is_imag(): incompatible function arguments. |
+| `moreh_abs_pow` | ttnn.moreh_abs_pow(): incompatible function arguments. |
+| `moreh_mean_backward` | bad optional access |
+| `moreh_sgd` | ttnn.moreh_sgd(): incompatible function arguments. |
+| `moreh_sum_backward` | TT_FATAL @ ttnn/cpp/ttnn/operations/moreh/moreh_sum_backward/moreh_sum_backward.cpp:20: (input.has_value() || input_grad.has_value()) |
+| `rdiv_bw` | ttnn.rdiv_bw(): incompatible function arguments. |
 | `softcap` | TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE |
 
 
@@ -330,10 +312,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![atan2 default](../../../charts/wh/bf16/atan2_default_ulp.svg)
 
-### [atan2_bw](atan2_bw.md)
-
-![atan2_bw default](../../../charts/wh/bf16/atan2_bw_default_ulp.svg)
-
 ### [atan_bw](atan_bw.md)
 
 ![atan_bw default](../../../charts/wh/bf16/atan_bw_default_ulp.svg)
@@ -345,10 +323,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [atanh_bw](atanh_bw.md)
 
 ![atanh_bw default](../../../charts/wh/bf16/atanh_bw_default_ulp.svg)
-
-### [bias_gelu](bias_gelu.md)
-
-![bias_gelu default](../../../charts/wh/bf16/bias_gelu_default_ulp.svg)
 
 ### [bias_gelu_](bias_gelu_.md)
 
@@ -393,6 +367,10 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [clip_bw](clip_bw.md)
 
 ![clip_bw default](../../../charts/wh/bf16/clip_bw_default_ulp.svg)
+
+### [composite_example](composite_example.md)
+
+![composite_example default](../../../charts/wh/bf16/composite_example_default_ulp.svg)
 
 ### [cos](cos.md)
 
@@ -449,10 +427,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [elu_bw](elu_bw.md)
 
 ![elu_bw default](../../../charts/wh/bf16/elu_bw_default_ulp.svg)
-
-### [eq](eq.md)
-
-![eq default](../../../charts/wh/bf16/eq_default_ulp.svg)
 
 ### [eq_](eq_.md)
 
@@ -528,10 +502,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![frac default](../../../charts/wh/bf16/frac_default_ulp.svg)
 
-### [ge](ge.md)
-
-![ge default](../../../charts/wh/bf16/ge_default_ulp.svg)
-
 ### [ge_](ge_.md)
 
 ![ge_ default](../../../charts/wh/bf16/ge__default_ulp.svg)
@@ -549,10 +519,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [gez](gez.md)
 
 ![gez default](../../../charts/wh/bf16/gez_default_ulp.svg)
-
-### [gt](gt.md)
-
-![gt default](../../../charts/wh/bf16/gt_default_ulp.svg)
 
 ### [gt_](gt_.md)
 
@@ -610,10 +576,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![hypot default](../../../charts/wh/bf16/hypot_default_ulp.svg)
 
-### [hypot_bw](hypot_bw.md)
-
-![hypot_bw default](../../../charts/wh/bf16/hypot_bw_default_ulp.svg)
-
 ### [i0](i0.md)
 
 ![i0 default](../../../charts/wh/bf16/i0_default_ulp.svg)
@@ -658,21 +620,9 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![l1_loss default](../../../charts/wh/bf16/l1_loss_default_ulp.svg)
 
-### [ldexp](ldexp.md)
-
-![ldexp default](../../../charts/wh/bf16/ldexp_default_ulp.svg)
-
 ### [ldexp_](ldexp_.md)
 
 ![ldexp_ default](../../../charts/wh/bf16/ldexp__default_ulp.svg)
-
-### [ldexp_bw](ldexp_bw.md)
-
-![ldexp_bw default](../../../charts/wh/bf16/ldexp_bw_default_ulp.svg)
-
-### [le](le.md)
-
-![le default](../../../charts/wh/bf16/le_default_ulp.svg)
 
 ### [le_](le_.md)
 
@@ -693,10 +643,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [lerp](lerp.md)
 
 ![lerp default](../../../charts/wh/bf16/lerp_default_ulp.svg)
-
-### [lerp_bw](lerp_bw.md)
-
-![lerp_bw default](../../../charts/wh/bf16/lerp_bw_default_ulp.svg)
 
 ### [lez](lez.md)
 
@@ -750,33 +696,13 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![log_sigmoid_bw default](../../../charts/wh/bf16/log_sigmoid_bw_default_ulp.svg)
 
-### [logaddexp](logaddexp.md)
-
-![logaddexp default](../../../charts/wh/bf16/logaddexp_default_ulp.svg)
-
-### [logaddexp2](logaddexp2.md)
-
-![logaddexp2 default](../../../charts/wh/bf16/logaddexp2_default_ulp.svg)
-
 ### [logaddexp2_](logaddexp2_.md)
 
 ![logaddexp2_ default](../../../charts/wh/bf16/logaddexp2__default_ulp.svg)
 
-### [logaddexp2_bw](logaddexp2_bw.md)
-
-![logaddexp2_bw default](../../../charts/wh/bf16/logaddexp2_bw_default_ulp.svg)
-
 ### [logaddexp_](logaddexp_.md)
 
 ![logaddexp_ default](../../../charts/wh/bf16/logaddexp__default_ulp.svg)
-
-### [logaddexp_bw](logaddexp_bw.md)
-
-![logaddexp_bw default](../../../charts/wh/bf16/logaddexp_bw_default_ulp.svg)
-
-### [logical_and](logical_and.md)
-
-![logical_and default](../../../charts/wh/bf16/logical_and_default_ulp.svg)
 
 ### [logical_and_](logical_and_.md)
 
@@ -789,10 +715,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [logical_not_](logical_not_.md)
 
 ![logical_not_ default](../../../charts/wh/bf16/logical_not__default_ulp.svg)
-
-### [logical_or](logical_or.md)
-
-![logical_or default](../../../charts/wh/bf16/logical_or_default_ulp.svg)
 
 ### [logical_or_](logical_or_.md)
 
@@ -814,10 +736,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![logiteps_bw default](../../../charts/wh/bf16/logiteps_bw_default_ulp.svg)
 
-### [lt](lt.md)
-
-![lt default](../../../charts/wh/bf16/lt_default_ulp.svg)
-
 ### [lt_](lt_.md)
 
 ![lt_ default](../../../charts/wh/bf16/lt__default_ulp.svg)
@@ -830,22 +748,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![mac default](../../../charts/wh/bf16/mac_default_ulp.svg)
 
-### [max_bw](max_bw.md)
-
-![max_bw default](../../../charts/wh/bf16/max_bw_default_ulp.svg)
-
-### [maximum](maximum.md)
-
-![maximum default](../../../charts/wh/bf16/maximum_default_ulp.svg)
-
-### [min_bw](min_bw.md)
-
-![min_bw default](../../../charts/wh/bf16/min_bw_default_ulp.svg)
-
-### [minimum](minimum.md)
-
-![minimum default](../../../charts/wh/bf16/minimum_default_ulp.svg)
-
 ### [mish](mish.md)
 
 ![mish default](../../../charts/wh/bf16/mish_default_ulp.svg)
@@ -853,10 +755,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [mse_loss](mse_loss.md)
 
 ![mse_loss default](../../../charts/wh/bf16/mse_loss_default_ulp.svg)
-
-### [mul_bw](mul_bw.md)
-
-![mul_bw default](../../../charts/wh/bf16/mul_bw_default_ulp.svg)
 
 ### [multigammaln](multigammaln.md)
 
@@ -873,10 +771,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [multiply_](multiply_.md)
 
 ![multiply_ default](../../../charts/wh/bf16/multiply__default_ulp.svg)
-
-### [ne](ne.md)
-
-![ne default](../../../charts/wh/bf16/ne_default_ulp.svg)
 
 ### [ne_](ne_.md)
 
@@ -963,10 +857,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ![relu_min lower_limit=0.0](../../../charts/wh/bf16/relu_min_lower_limit0.0_ulp.svg)
 
 ![relu_min lower_limit=1.0](../../../charts/wh/bf16/relu_min_lower_limit1.0_ulp.svg)
-
-### [remainder](remainder.md)
-
-![remainder default](../../../charts/wh/bf16/remainder_default_ulp.svg)
 
 ### [round](round.md)
 
@@ -1096,10 +986,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 ![squared_difference_ default](../../../charts/wh/bf16/squared_difference__default_ulp.svg)
 
-### [squared_difference_bw](squared_difference_bw.md)
-
-![squared_difference_bw default](../../../charts/wh/bf16/squared_difference_bw_default_ulp.svg)
-
 ### [subalpha](subalpha.md)
 
 ![subalpha alpha=2.0](../../../charts/wh/bf16/subalpha_alpha2.0_ulp.svg)
@@ -1161,12 +1047,4 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [xielu](xielu.md)
 
 ![xielu default](../../../charts/wh/bf16/xielu_default_ulp.svg)
-
-### [xlogy](xlogy.md)
-
-![xlogy default](../../../charts/wh/bf16/xlogy_default_ulp.svg)
-
-### [xlogy_bw](xlogy_bw.md)
-
-![xlogy_bw default](../../../charts/wh/bf16/xlogy_bw_default_ulp.svg)
 

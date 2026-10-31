@@ -22,17 +22,17 @@ Charts show ULP (units in last place) error across the full input range.
 | Metric | Count |
 |--------|-------|
 | Architectures measured | 2 |
-| Unique ops measured | 219 |
-| Blackhole (BH) bfloat16 ops | 219 |
-| Blackhole (BH) float32 ops | 218 |
-| Wormhole (WH) bfloat16 ops | 218 |
-| Wormhole (WH) float32 ops | 218 |
+| Unique ops measured | 193 |
+| Blackhole (BH) bfloat16 ops | 192 |
+| Blackhole (BH) float32 ops | 191 |
+| Wormhole (WH) bfloat16 ops | 192 |
+| Wormhole (WH) float32 ops | 192 |
 
 ---
 
 ## Returning inf or zero where a value exists
 
-146 variants across 43 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+141 variants across 42 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -53,8 +53,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh fp32 | 18,430 of 65,024 | 28.3% |
 | [`hypot`](by_op/hypot/README.md) | `default` | bh fp32 | 16,384 of 65,024 | 25.2% |
 | [`hypot`](by_op/hypot/README.md) | `default` | wh fp32 | 16,384 of 65,024 | 25.2% |
-| [`hypot_bw`](by_op/hypot_bw/README.md) | `default` | bh fp32 | 16,384 of 65,024 | 25.2% |
-| [`hypot_bw`](by_op/hypot_bw/README.md) | `default` | wh fp32 | 16,384 of 65,024 | 25.2% |
 | [`hypot`](by_op/hypot/README.md) | `default` | bh bf16 | 16,384 of 65,026 | 25.2% |
 | [`hypot`](by_op/hypot/README.md) | `default` | wh bf16 | 16,384 of 65,026 | 25.2% |
 | [`acosh_bw`](by_op/acosh_bw/README.md) | `default` | bh bf16 | 15,874 of 64,514 | 24.6% |
@@ -102,9 +100,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`gelu`](by_op/gelu/README.md) | `fast_approx` | bh fp32 | 197 of 65,024 | 0.3% |
 | [`gelu`](by_op/gelu/README.md) | `fast_approx` | wh fp32 | 197 of 65,024 | 0.3% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=4` | bh bf16 | 142 of 49,922 | 0.3% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh bf16 | 142 of 49,922 | 0.3% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=4` | bh fp32 | 141 of 49,922 | 0.3% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=4` | wh fp32 | 141 of 49,922 | 0.3% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | bh bf16 | 141 of 65,024 | 0.2% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | wh bf16 | 141 of 65,024 | 0.2% |
 | [`sigmoid_bw`](by_op/sigmoid_bw/README.md) | `default` | bh fp32 | 140 of 65,024 | 0.2% |
@@ -115,8 +111,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`log2_bw`](by_op/log2_bw/README.md) | `default` | wh fp32 | 112 of 64,626 | 0.2% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=2` | bh bf16 | 75 of 49,922 | 0.2% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=2` | bh fp32 | 75 of 49,922 | 0.2% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh bf16 | 75 of 49,922 | 0.2% |
-| [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh fp32 | 75 of 49,922 | 0.2% |
 | [`gelu`](by_op/gelu/README.md) | `default` | bh bf16 | 86 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | wh bf16 | 86 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | bh fp32 | 83 of 65,024 | 0.1% |
@@ -172,6 +166,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh bf16 | 1 of 49,537 | 0.0% |
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh fp32 | 1 of 49,537 | 0.0% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=1` | bh fp32 | 1 of 49,922 | 0.0% |
+| [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh bf16 | 1 of 49,922 | 0.0% |
 | [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | bh bf16 | 1 of 49,922 | 0.0% |
 | [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | wh bf16 | 1 of 49,922 | 0.0% |
 | [`xielu`](by_op/xielu/README.md) | `default` | bh bf16 | 1 of 56,847 | 0.0% |

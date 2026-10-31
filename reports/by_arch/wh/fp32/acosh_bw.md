@@ -90,7 +90,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 7.004e+19 | nan | **differ** |
 | `default` | -1.1754944e-38 | 7.004e+19 | nan | **differ** |
 
-_Measured on WORMHOLE_B0 · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261031T024224`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — acosh_bw default](../../../charts/wh/fp32/acosh_bw_default_ulp.svg)
 

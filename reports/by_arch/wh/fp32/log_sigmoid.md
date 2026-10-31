@@ -78,7 +78,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | -0.69243544 | -0.6931472 | **differ** |
 | `default` | -1.1754944e-38 | -0.69243544 | -0.6931472 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261031T024432`_
 
 ![ULP error — log_sigmoid default](../../../charts/wh/fp32/log_sigmoid_default_ulp.svg)
 

@@ -56,7 +56,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `weight=0.25` | 1.1754944e-38 | 1.1754944e-38 | 1.1754944e-38 | agree |
 | `weight=0.25` | -1.1754944e-38 | 0 | -2.938736e-39 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261031T024432`_
 
 ![ULP error — prelu weight=0.25](../../../charts/wh/bf16/prelu_weight0.25_ulp.svg)
 
