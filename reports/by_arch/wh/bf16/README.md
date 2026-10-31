@@ -175,7 +175,7 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 | [polygamma](polygamma.md) | `k=1` | 1.02e+08 ⚠ | 1.43e+05 | 0.996 | 6.44e+36 | 5579 |
 |  | `k=2` | 3.57e+08 ⚠ | 6.81e+05 | 4.47 | 7.06e+35 | 5683 ±7% |
 |  | `k=4` | 3.22e+09 ⚠ | 1.09e+07 | 3.48 | 6.68e+35 | 5768 |
-| [polygamma_bw](polygamma_bw.md) | `n=1` | 3.57e+08 ⚠ | 6.81e+05 | 4.47 | 7.06e+35 | 12120 |
+| [polygamma_bw](polygamma_bw.md) | `n=1` | 3.57e+08 ⚠ | 6.79e+05 | 4.47 | 7.06e+35 | 12120 |
 | [pow](pow.md) | `default` | 4.86e+18 ⚠ | 2.08e+14 | n/a | 2.31e+38 | 987 ±12% |
 | [pow_bw](pow_bw.md) | `exponent=2.0` | 0 | 0 | 1.69e+38 | 0 | 2549 |
 | [prelu](prelu.md) | `weight=0.25` | 0 | 0 | 4.68e-38 | 1.17e-38 | 396 ±49% |
@@ -253,6 +253,8 @@ In scope, but produced no data — each with the reason recorded when it was pro
 | Op | Why |
 |----|-----|
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
+| `rdiv_bw/scalar2.0` | TypeError: _golden_function_rdiv_bw() missing 1 required positional argument: 'scalar' |
+| `rpow_bw/exponent2.0` | TypeError: _golden_function_rpow_bw() missing 1 required positional argument: 'exponent' |
 | `softcap` | TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE |
 
 

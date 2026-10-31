@@ -32,7 +32,7 @@ Charts show ULP (units in last place) error across the full input range.
 
 ## Returning inf or zero where a value exists
 
-148 variants across 43 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+147 variants across 43 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -119,8 +119,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`polygamma`](by_op/polygamma/README.md) | `k=2` | wh fp32 | 75 of 49,922 | 0.2% |
 | [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | bh bf16 | 75 of 49,922 | 0.2% |
 | [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | bh fp32 | 75 of 49,922 | 0.2% |
-| [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | wh bf16 | 75 of 49,922 | 0.2% |
-| [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | wh fp32 | 75 of 49,922 | 0.2% |
 | [`gelu`](by_op/gelu/README.md) | `default` | bh bf16 | 86 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | wh bf16 | 86 of 65,024 | 0.1% |
 | [`gelu`](by_op/gelu/README.md) | `default` | bh fp32 | 83 of 65,024 | 0.1% |
@@ -176,6 +174,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh bf16 | 1 of 49,537 | 0.0% |
 | [`exp2_bw`](by_op/exp2_bw/README.md) | `default` | wh fp32 | 1 of 49,537 | 0.0% |
 | [`polygamma`](by_op/polygamma/README.md) | `k=1` | bh fp32 | 1 of 49,922 | 0.0% |
+| [`polygamma_bw`](by_op/polygamma_bw/README.md) | `n=1` | wh bf16 | 1 of 49,922 | 0.0% |
 | [`xielu`](by_op/xielu/README.md) | `default` | bh bf16 | 1 of 56,847 | 0.0% |
 | [`xielu`](by_op/xielu/README.md) | `default` | wh bf16 | 1 of 56,847 | 0.0% |
 | [`prelu`](by_op/prelu/README.md) | `weight=0.25` | bh bf16 | 1 of 65,024 | 0.0% |
