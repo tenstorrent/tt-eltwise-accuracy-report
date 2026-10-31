@@ -106,7 +106,7 @@ Computed, never inferred. First match wins.
    one that has it. Those ULP figures are different quantities. `ttnn-accuracy compare`
    already refuses that; a nightly of two pre-`rounded_frac` indexes still scores ULP.
 
-## Results — 925 variants
+## Results — 945 variants
 
 | Arch | Dtype | Op | Parameters | Verdict | Max ULP | Mean ULP | Rounded | Usable to | µs | Melem/s |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -127,6 +127,7 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `asinh_bw` | `default` | 15874/64514 defects; rest 1.2 ULP | 1.2 | 0.638 | 0.954 | 1.84e+19 | 583 ±37% | 28774 |
 | bh | bf16 | `atan` | `default` | 2/65024 defects; rest 0.527 ULP | 0.527 | 0.513 | 1 | — | 209 | 80165 |
 | bh | bf16 | `atan2` | `default` | worst sampled pairing | 200 | 3.56 | 0.901 | — | 261 | 64357 |
+| bh | bf16 | `atan2_bw` | `default` | worst sampled pairing | 248 | 3.94 | 0.674 | — | 2515 ±11% | 6671 |
 | bh | bf16 | `atan_bw` | `default` | 2/48386 defects; rest 2.23 ULP | 2.23 | 0.767 | 0.896 | 0.23 | 639 ±16% | 26242 |
 | bh | bf16 | `atanh` | `default` | 2/32256 defects; rest 2.08 ULP | 2.08 | 0.995 | 0.175 | — | 276 ±9% | 60751 |
 | bh | bf16 | `atanh_bw` | `default` | 2/48386 defects; rest 7.76 ULP | 7.76 | 0.885 | 0.835 | 0.918 | 3846 | 4362 |
@@ -200,6 +201,7 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `heaviside` | `value=0.5` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 196 | 85792 |
 | bh | bf16 | `heaviside` | `value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 199 ±5% | 84237 |
 | bh | bf16 | `hypot` | `default` | 16384/65026 defects; rest 52.7 ULP | 52.7 | 1.64 | 0.992 | — | 271 ±10% | 61844 |
+| bh | bf16 | `hypot_bw` | `default` | worst sampled pairing | 74.6 | 2.27 | 0.869 | — | 1515 | 11074 |
 | bh | bf16 | `i0` | `default` | accurate to |x| <= 13.6 | 255 | 56.3 | 0.952 | 13.6 | 173 ±6% | 96712 |
 | bh | bf16 | `i0_bw` | `default` | 4/33904 defects; rest 218 ULP | 218 | 8.58 | 0.993 | 2.33e-38 | 849 | 19764 |
 | bh | bf16 | `i1` | `default` | 4/65024 defects; rest 0.858 ULP | 0.858 | 0.589 | 0.516 | 2.33e-38 | 442 ±6% | 37985 |
@@ -213,6 +215,7 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `l1_loss` | `default` | faithful; 64970/65026 tie-breaks | 0.621 | 0.571 | 0.997 | — | 245 | 68466 |
 | bh | bf16 | `ldexp` | `default` | worst sampled pairing | 255 | 94.4 | 0.955 | — | 261 | 64170 |
 | bh | bf16 | `ldexp_` | `default` | worst sampled pairing | 255 | 94.4 | 0.955 | — | 251 ±6% | 66914 |
+| bh | bf16 | `ldexp_bw` | `default` | faithful; 65026/65026 tie-breaks | 0.898 | 0.898 | 0.983 | — | 1203 | 13942 |
 | bh | bf16 | `le` | `default` | bit-exact | 0 | 0 | 1 | — | 258 ±32% | 64978 |
 | bh | bf16 | `le_` | `default` | bit-exact | 0 | 0 | 1 | — | 244 ±15% | 68641 |
 | bh | bf16 | `leaky_relu` | `negative_slope=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 195 | 86042 |
@@ -237,7 +240,9 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `logaddexp` | `default` | worst sampled pairing | 2.22e+05 | 44.7 | 0.986 | — | 326 ±10% | 51470 |
 | bh | bf16 | `logaddexp2` | `default` | worst sampled pairing | 6.87e+10 | 2.05e+06 | 0.988 | — | 385 | 43581 |
 | bh | bf16 | `logaddexp2_` | `default` | worst sampled pairing | 6.87e+10 | 2.05e+06 | 0.988 | — | 385 ±9% | 43559 |
+| bh | bf16 | `logaddexp2_bw` | `default` | worst sampled pairing | 41.4 | 3.6 | 0.978 | — | 2510 | 6685 |
 | bh | bf16 | `logaddexp_` | `default` | worst sampled pairing | 2.22e+05 | 44.7 | 0.986 | — | 307 | 54690 |
+| bh | bf16 | `logaddexp_bw` | `default` | worst sampled pairing | 62.5 | 4.9 | 0.979 | — | 2168 ±89% | 7740 |
 | bh | bf16 | `logical_and` | `default` | bit-exact | 0 | 0 | 1 | — | 266 ±91% | 63007 |
 | bh | bf16 | `logical_and_` | `default` | bit-exact | 0 | 0 | 1 | — | 258 ±30% | 65009 |
 | bh | bf16 | `logical_not` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 194 ±5% | 86403 |
@@ -252,10 +257,13 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `lt_` | `default` | bit-exact | 0 | 0 | 1 | — | 253 | 66195 |
 | bh | bf16 | `ltz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 195 | 86051 |
 | bh | bf16 | `mac` | `default` | worst sampled pairing | 63.5 | 26.4 | 1 | — | 331 | 50713 |
+| bh | bf16 | `max_bw` | `default` | worst sampled pairing | 64 | 64 | 1 | — | 2501 | 6707 |
 | bh | bf16 | `maximum` | `default` | bit-exact | 0 | 0 | 1 | — | 254 ±21% | 65976 |
+| bh | bf16 | `min_bw` | `default` | worst sampled pairing | 64 | 64 | 1 | — | 2538 | 6612 |
 | bh | bf16 | `minimum` | `default` | bit-exact | 0 | 0 | 1 | — | 256 ±34% | 65470 |
 | bh | bf16 | `mish` | `default` | 11/65024 defects; rest 1.49 ULP | 1.49 | 0.666 | 0.988 | 1.95e-38 | 268 ±7% | 62685 |
 | bh | bf16 | `mse_loss` | `default` | worst sampled pairing | 2.03 | 1.79 | 0.956 | — | 254 ±12% | 65975 |
+| bh | bf16 | `mul_bw` | `default` | bit-exact | 0 | 0 | 1 | — | 650 | 25819 |
 | bh | bf16 | `multigammaln` | `default` | 11536/48328 defects; rest 724 ULP | 724 | 1.67 | 0.717 | 5.59e-17 | 4668 | 3594 |
 | bh | bf16 | `multigammaln_bw` | `default` | accurate to |x| <= 5.59e-17 | 2.38e+06 | 293 | 0.249 | 5.59e-17 | 3815 | 4398 |
 | bh | bf16 | `multiply` | `default` | bit-exact | 0.5 | 0 | 1 | — | 248 ±7% | 67666 |
@@ -320,6 +328,7 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `square_bw` | `default` | bit-exact | 0 | 0 | 1 | 1.69e+38 | 613 ±25% | 27381 |
 | bh | bf16 | `squared_difference` | `default` | worst sampled pairing | 2.03 | 1.79 | 0.956 | — | 248 ±7% | 67751 |
 | bh | bf16 | `squared_difference_` | `default` | worst sampled pairing | 2.03 | 1.79 | 0.956 | — | 245 | 68584 |
+| bh | bf16 | `squared_difference_bw` | `default` | faithful; 64842/65026 tie-breaks | 0.621 | 0.571 | 0.997 | — | 1024 | 16381 |
 | bh | bf16 | `subalpha` | `alpha=2.0` | worst sampled pairing | 254 | 2 | 0.997 | — | 249 | 67352 |
 | bh | bf16 | `subtract` | `default` | faithful; 64970/65026 tie-breaks | 0.621 | 0.571 | 0.997 | — | 249 ±5% | 67366 |
 | bh | bf16 | `subtract_` | `default` | faithful; 64970/65026 tie-breaks | 0.621 | 0.571 | 0.997 | — | 245 ±15% | 68454 |
@@ -337,6 +346,7 @@ Computed, never inferred. First match wins.
 | bh | bf16 | `where` | `default` | bit-exact | 0 | 0 | 1 | — | 325 | 51656 |
 | bh | bf16 | `xielu` | `default` | 1/56847 defects; rest 0.5 ULP | 0.5 | 0.5 | 1 | 2.33e-38 | 436 | 38480 |
 | bh | bf16 | `xlogy` | `default` | worst sampled pairing | 23.5 | 17.6 | 0.139 | — | 257 ±7% | 65373 |
+| bh | bf16 | `xlogy_bw` | `default` | faithful; 65026/65026 tie-breaks | 0.78 | 0.78 | 0.998 | — | 4112 | 4080 |
 | bh | fp32 | `abs` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 351 | 47732 |
 | bh | fp32 | `abs_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 1134 | 14790 |
 | bh | fp32 | `acos` | `default` | within 2 ULP | 1.55 | 0.865 | 0.923 | 1 | 473 ±5% | 35483 |
@@ -354,6 +364,7 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `asinh_bw` | `default` | 15874/64514 defects; rest 1.98 ULP | 1.98 | 1.06 | 0.927 | 1.84e+19 | 1187 | 14140 |
 | bh | fp32 | `atan` | `default` | accurate to |x| <= 0.902 | 2.34 | 0.806 | 0.955 | 0.902 | 400 | 41949 |
 | bh | fp32 | `atan2` | `default` | worst sampled pairing | 1.32e+07 | 1.26e+05 | 0.857 | — | 505 | 33237 |
+| bh | fp32 | `atan2_bw` | `default` | worst sampled pairing | 1.64e+07 | 1.66e+05 | 0.587 | — | 4896 | 3426 |
 | bh | fp32 | `atan_bw` | `default` | 2/48386 defects; rest 9.02e+04 ULP | 9.02e+04 | 3.25e+03 | 0.859 | 1.02 | 1146 | 14636 |
 | bh | fp32 | `atanh` | `default` | accurate to |x| <= 0.000229 | 2.97 | 1.51 | 0.912 | 0.000229 | 343 | 48876 |
 | bh | fp32 | `atanh_bw` | `default` | 2/48386 defects; rest 9.02e+04 ULP | 9.02e+04 | 3.31e+03 | 0.876 | 0.681 | 7523 | 2230 |
@@ -427,6 +438,7 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `heaviside` | `value=0.5` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 356 ±19% | 47081 |
 | bh | fp32 | `heaviside` | `value=1.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 350 | 47867 |
 | bh | fp32 | `hypot` | `default` | 16384/65024 defects; rest 3.44e+06 ULP | 3.44e+06 | 3.28e+04 | 0.965 | — | 512 | 32773 |
+| bh | fp32 | `hypot_bw` | `default` | 16384/65024 defects; rest 4.86e+06 ULP | 4.86e+06 | 4.48e+04 | 0.826 | — | 2985 | 5620 |
 | bh | fp32 | `i0` | `default` | accurate to |x| <= 2.45 | 1.68e+07 | 2.19e+06 | 0.959 | 2.45 | 403 | 41623 |
 | bh | fp32 | `i0_bw` | `default` | accurate to |x| <= 0.00362 | 1.56e+07 | 4.1e+04 | 0.928 | 0.00362 | 1357 | 12367 |
 | bh | fp32 | `i1` | `default` | accurate to |x| <= 0.00362 | 8.02 | 0.731 | 0.482 | 0.00362 | 568 ±7% | 29552 |
@@ -440,6 +452,7 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `l1_loss` | `default` | bit-exact | 0.5 | 0 | 1 | — | 478 | 35120 |
 | bh | fp32 | `ldexp` | `default` | within 2 ULP | 1.92 | 1.52 | 0.953 | — | 498 | 33682 |
 | bh | fp32 | `ldexp_` | `default` | within 2 ULP | 1.92 | 1.52 | 0.953 | — | 491 | 34175 |
+| bh | fp32 | `ldexp_bw` | `default` | faithful; 65024/65024 tie-breaks | 0.742 | 0.742 | 0.996 | — | 2214 | 7578 |
 | bh | fp32 | `le` | `default` | bit-exact | 0 | 0 | 1 | — | 482 ±6% | 34771 |
 | bh | fp32 | `le_` | `default` | bit-exact | 0 | 0 | 1 | — | 482 ±9% | 34810 |
 | bh | fp32 | `leaky_relu` | `negative_slope=0.0` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 354 | 47376 |
@@ -464,7 +477,9 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `logaddexp` | `default` | worst sampled pairing | 8e+06 | 9.77e+04 | 0.975 | — | 592 ±7% | 28356 |
 | bh | fp32 | `logaddexp2` | `default` | worst sampled pairing | 1.06e+07 | 1.23e+05 | 0.959 | — | 511 | 32843 |
 | bh | fp32 | `logaddexp2_` | `default` | worst sampled pairing | 1.06e+07 | 1.23e+05 | 0.959 | — | 510 | 32869 |
+| bh | fp32 | `logaddexp2_bw` | `default` | worst sampled pairing | 9.02e+04 | 5.6e+04 | 0.959 | — | 4729 | 3548 |
 | bh | fp32 | `logaddexp_` | `default` | worst sampled pairing | 8e+06 | 9.77e+04 | 0.975 | — | 592 | 28344 |
+| bh | fp32 | `logaddexp_bw` | `default` | worst sampled pairing | 8.98e+04 | 4.46e+04 | 0.962 | — | 4281 | 3919 |
 | bh | fp32 | `logical_and` | `default` | bit-exact | 0 | 0 | 1 | — | 514 ±6% | 32620 |
 | bh | fp32 | `logical_and_` | `default` | bit-exact | 0 | 0 | 1 | — | 500 ±6% | 33530 |
 | bh | fp32 | `logical_not` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 352 | 47680 |
@@ -479,10 +494,13 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `lt_` | `default` | bit-exact | 0 | 0 | 1 | — | 472 | 35529 |
 | bh | fp32 | `ltz` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 356 | 47106 |
 | bh | fp32 | `mac` | `default` | worst sampled pairing | 4.22e+06 | 7.31e+05 | 0.974 | — | 654 | 25672 |
+| bh | fp32 | `max_bw` | `default` | worst sampled pairing | 4.19e+06 | 4.19e+06 | 1 | — | 4874 | 3442 |
 | bh | fp32 | `maximum` | `default` | bit-exact | 0 | 0 | 1 | — | 491 ±6% | 34199 |
+| bh | fp32 | `min_bw` | `default` | worst sampled pairing | 4.19e+06 | 4.19e+06 | 1 | — | 4881 | 3437 |
 | bh | fp32 | `minimum` | `default` | bit-exact | 0 | 0 | 1 | — | 489 ±5% | 34341 |
 | bh | fp32 | `mish` | `default` | 9/65024 defects; rest 7 ULP | 7 | 2.58 | 0.953 | 1.49e-07 | 460 ±8% | 36511 |
 | bh | fp32 | `mse_loss` | `default` | within 2 ULP | 1.91 | 1.78 | 0.896 | — | 484 ±8% | 34690 |
+| bh | fp32 | `mul_bw` | `default` | bit-exact | 0 | 0 | 1 | — | 1262 | 13290 |
 | bh | fp32 | `multigammaln` | `default` | 7422/50376 defects; rest 3.51e+07 ULP | 3.51e+07 | 9.16e+03 | 0.476 | 5.55e-17 | 7980 | 2102 |
 | bh | fp32 | `multigammaln_bw` | `default` | accurate to |x| <= 5.55e-17 | 1.36e+15 | 2.04e+11 | 0.0102 | 5.55e-17 | 7375 | 2275 |
 | bh | fp32 | `multiply` | `default` | bit-exact | 0.5 | 0 | 1 | — | 482 | 34783 |
@@ -546,6 +564,7 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `square_bw` | `default` | bit-exact | 0 | 0 | 1 | 1.69e+38 | 1145 | 14649 |
 | bh | fp32 | `squared_difference` | `default` | within 2 ULP | 1.91 | 1.78 | 0.896 | — | 486 ±20% | 34489 |
 | bh | fp32 | `squared_difference_` | `default` | within 2 ULP | 1.91 | 1.78 | 0.896 | — | 479 | 35054 |
+| bh | fp32 | `squared_difference_bw` | `default` | bit-exact | 0.5 | 0 | 1 | — | 1943 | 8635 |
 | bh | fp32 | `subalpha` | `alpha=2.0` | bit-exact | 0.5 | 0 | 1 | — | 486 | 34537 |
 | bh | fp32 | `subtract` | `default` | bit-exact | 0.5 | 0 | 1 | — | 478 | 35106 |
 | bh | fp32 | `subtract_` | `default` | bit-exact | 0.5 | 0 | 1 | — | 477 ±8% | 35177 |
@@ -563,6 +582,7 @@ Computed, never inferred. First match wins.
 | bh | fp32 | `where` | `default` | bit-exact | 0 | 0 | 1 | — | 650 | 25798 |
 | bh | fp32 | `xielu` | `default` | accurate to |x| <= 1.71e-13 | 1.08e+07 | 256 | 0.577 | 1.71e-13 | 433 | 38753 |
 | bh | fp32 | `xlogy` | `default` | worst sampled pairing | 2.39e+06 | 1.68e+06 | 0.00256 | — | 495 ±8% | 33889 |
+| bh | fp32 | `xlogy_bw` | `default` | faithful; 65024/65024 tie-breaks | 0.766 | 0.766 | 0.951 | — | 8029 | 2090 |
 | wh | bf16 | `abs` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 406 ±14% | 41366 |
 | wh | bf16 | `abs_bw` | `default` | bit-exact | 0 | 0 | 1 | 3.39e+38 | 1328 ±47% | 12634 |
 | wh | bf16 | `acos` | `default` | bit-exact | 0.5 | 0 | 1 | 1 | 675 | 24861 |
