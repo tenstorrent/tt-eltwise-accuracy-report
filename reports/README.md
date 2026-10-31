@@ -22,17 +22,17 @@ Charts show ULP (units in last place) error across the full input range.
 | Metric | Count |
 |--------|-------|
 | Architectures measured | 2 |
-| Unique ops measured | 209 |
+| Unique ops measured | 219 |
 | Blackhole (BH) bfloat16 ops | 209 |
 | Blackhole (BH) float32 ops | 208 |
-| Wormhole (WH) bfloat16 ops | 208 |
-| Wormhole (WH) float32 ops | 208 |
+| Wormhole (WH) bfloat16 ops | 218 |
+| Wormhole (WH) float32 ops | 218 |
 
 ---
 
 ## Returning inf or zero where a value exists
 
-146 variants across 42 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+147 variants across 43 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -53,6 +53,7 @@ Charts show ULP (units in last place) error across the full input range.
 | [`sin_bw`](by_op/sin_bw/README.md) | `default` | wh fp32 | 18,430 of 65,024 | 28.3% |
 | [`hypot`](by_op/hypot/README.md) | `default` | bh fp32 | 16,384 of 65,024 | 25.2% |
 | [`hypot`](by_op/hypot/README.md) | `default` | wh fp32 | 16,384 of 65,024 | 25.2% |
+| [`hypot_bw`](by_op/hypot_bw/README.md) | `default` | wh fp32 | 16,384 of 65,024 | 25.2% |
 | [`hypot`](by_op/hypot/README.md) | `default` | bh bf16 | 16,384 of 65,026 | 25.2% |
 | [`hypot`](by_op/hypot/README.md) | `default` | wh bf16 | 16,384 of 65,026 | 25.2% |
 | [`acosh_bw`](by_op/acosh_bw/README.md) | `default` | bh bf16 | 15,874 of 64,514 | 24.6% |
