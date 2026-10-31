@@ -2923,6 +2923,26 @@
         "bf16": "tile",
         "fp32": "tile"
       },
+      "ttnn.composite_example": {
+        "bf16": [
+          "tile",
+          "row_major"
+        ],
+        "fp32": [
+          "tile",
+          "row_major"
+        ]
+      },
+      "ttnn.copy": {
+        "bf16": [
+          "tile",
+          "row_major"
+        ],
+        "fp32": [
+          "tile",
+          "row_major"
+        ]
+      },
       "ttnn.cos": {
         "bf16": [
           "tile",
@@ -3867,6 +3887,14 @@
         "bf16": "tile",
         "fp32": "tile"
       },
+      "ttnn.snake_beta": {
+        "bf16": [
+          "tile"
+        ],
+        "fp32": [
+          "tile"
+        ]
+      },
       "ttnn.softcap": {
         "bf16": "tile"
       },
@@ -4041,6 +4069,16 @@
       "ttnn.where": {
         "bf16": "tile",
         "fp32": "tile"
+      },
+      "ttnn.where_bw": {
+        "bf16": [
+          "tile",
+          "row_major"
+        ],
+        "fp32": [
+          "tile",
+          "row_major"
+        ]
       },
       "ttnn.xielu": {
         "bf16": "tile",
@@ -4322,26 +4360,6 @@
           "row_major"
         ]
       },
-      "ttnn.composite_example": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
-      },
-      "ttnn.copy": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
-        ]
-      },
       "ttnn.cos": {
         "bf16": [
           "tile",
@@ -5614,14 +5632,6 @@
           "tile"
         ]
       },
-      "ttnn.snake_beta": {
-        "bf16": [
-          "tile"
-        ],
-        "fp32": [
-          "tile"
-        ]
-      },
       "ttnn.softplus": {
         "bf16": [
           "tile",
@@ -5868,16 +5878,6 @@
         ],
         "fp32": [
           "tile"
-        ]
-      },
-      "ttnn.where_bw": {
-        "bf16": [
-          "tile",
-          "row_major"
-        ],
-        "fp32": [
-          "tile",
-          "row_major"
         ]
       },
       "ttnn.xielu": {
@@ -7554,9 +7554,6 @@
   "refused": {},
   "rejected": {
     "bh": {
-      "ttnn.bias_gelu_bw": "crashed the process while probing \u2014 see the run log"
-    },
-    "wh": {
       "ttnn.as_tensor": "ttnn.from_torch(): incompatible function arguments.",
       "ttnn.bias_gelu_bw": "crashed the process while probing \u2014 see the run log",
       "ttnn.clamped_silu_glu": "ttnn.clamped_silu_glu(): incompatible function arguments.",
@@ -7567,7 +7564,10 @@
       "ttnn.moreh_mean_backward": "bad optional access",
       "ttnn.moreh_sgd": "ttnn.moreh_sgd(): incompatible function arguments.",
       "ttnn.moreh_sum_backward": "TT_FATAL @ ttnn/cpp/ttnn/operations/moreh/moreh_sum_backward/moreh_sum_backward.cpp:20: (input.has_value() || input_grad.has_value())",
-      "ttnn.rdiv_bw": "ttnn.rdiv_bw(): incompatible function arguments.",
+      "ttnn.rdiv_bw": "ttnn.rdiv_bw(): incompatible function arguments."
+    },
+    "wh": {
+      "ttnn.bias_gelu_bw": "crashed the process while probing \u2014 see the run log",
       "ttnn.softcap": "TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE"
     }
   },

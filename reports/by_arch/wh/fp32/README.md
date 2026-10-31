@@ -42,7 +42,6 @@ _Accurate to \|x\|: the largest \|x\| within 2 ULP. `n/a` for ops of more than o
 |  | `min=0.0,max=0.0` | 0 | 0 | 3.39e+38 | 0 | 790 |
 |  | `min=1.0,max=-1.0` | 0 | 0 | 3.39e+38 | 0 | 792 |
 | [clip_bw](clip_bw.md) | `default` | 0 | 0 | n/a | 0 | 4676 |
-| [composite_example](composite_example.md) | `default` | 6.55e+04 ⚠ | 6.55e+04 | nowhere | 1.33e+36 | 1529 |
 | [cos](cos.md) | `default` | 1.34e+08 ⚠ | 1.33e+05 | 92.4 | 2.86e-06 | 870 |
 | [cos_bw](cos_bw.md) | `default` | 8.59e+51 ⚠ | 3.23e+48 | 28 | 3.4e+38 | 3344 |
 | [cosh](cosh.md) | `default` | 1.35 | 0.798 | 89.1 | 1.57e+31 | 1004 ±37% |
@@ -226,17 +225,7 @@ In scope, but produced no data — each with the reason recorded when it was pro
 
 | Op | Why |
 |----|-----|
-| `as_tensor` | ttnn.from_torch(): incompatible function arguments. |
 | `bias_gelu_bw` | crashed the process while probing — see the run log |
-| `clamped_silu_glu` | ttnn.clamped_silu_glu(): incompatible function arguments. |
-| `composite_example_multiple_return` | 'list' object has no attribute 'dtype' |
-| `dequantize` | TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/quantization/quantization.cpp:539: is_supported_quantized_dtype(a_dtype) |
-| `is_imag` | ttnn.is_imag(): incompatible function arguments. |
-| `moreh_abs_pow` | ttnn.moreh_abs_pow(): incompatible function arguments. |
-| `moreh_mean_backward` | bad optional access |
-| `moreh_sgd` | ttnn.moreh_sgd(): incompatible function arguments. |
-| `moreh_sum_backward` | TT_FATAL @ ttnn/cpp/ttnn/operations/moreh/moreh_sum_backward/moreh_sum_backward.cpp:20: (input.has_value() || input_grad.has_value()) |
-| `rdiv_bw` | ttnn.rdiv_bw(): incompatible function arguments. |
 | `softcap` | TT_FATAL @ ttnn/cpp/ttnn/operations/eltwise/unary/device/unary_device_operation.cpp:71: input_tensor.device()->arch() == tt::ARCH::BLACKHOLE |
 
 
@@ -367,10 +356,6 @@ In scope, but produced no data — each with the reason recorded when it was pro
 ### [clip_bw](clip_bw.md)
 
 ![clip_bw default](../../../charts/wh/fp32/clip_bw_default_ulp.svg)
-
-### [composite_example](composite_example.md)
-
-![composite_example default](../../../charts/wh/fp32/composite_example_default_ulp.svg)
 
 ### [cos](cos.md)
 

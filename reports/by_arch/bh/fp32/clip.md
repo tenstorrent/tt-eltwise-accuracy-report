@@ -76,7 +76,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `min=1.0,max=-1.0` | 1.1754944e-38 | -1 | -1 | agree |
 | `min=1.0,max=-1.0` | -1.1754944e-38 | -1 | -1 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261031T031810`_
 
 ### `min=-1.0,max=1.0`
 
