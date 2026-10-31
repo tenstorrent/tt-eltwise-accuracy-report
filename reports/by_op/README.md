@@ -107,7 +107,7 @@ Total: 209 ops measured
 | [leaky_relu](leaky_relu/README.md) | unary | [0](leaky_relu/README.md) | [0](leaky_relu/README.md) | [0](leaky_relu/README.md) | [0](leaky_relu/README.md) |
 | [leaky_relu_bw](leaky_relu_bw/README.md) | unary_bw | [0.16](leaky_relu_bw/README.md) | [0.24](leaky_relu_bw/README.md) | [0.16](leaky_relu_bw/README.md) | [0.24](leaky_relu_bw/README.md) |
 | [lerp](lerp/README.md) | ternary | [1.77e+03](lerp/README.md) | [1.46e+08](lerp/README.md) | [1.77e+03](lerp/README.md) | [1.46e+08](lerp/README.md) |
-| [lerp_bw](lerp_bw/README.md) | ternary_bw | — | — | [0.506](lerp_bw/README.md) | [0.5](lerp_bw/README.md) |
+| [lerp_bw](lerp_bw/README.md) | ternary_bw | [0.506](lerp_bw/README.md) | [0.5](lerp_bw/README.md) | [0.506](lerp_bw/README.md) | [0.5](lerp_bw/README.md) |
 | [lez](lez/README.md) | unary | [0](lez/README.md) | [0](lez/README.md) | [0](lez/README.md) | [0](lez/README.md) |
 | [lgamma](lgamma/README.md) | unary | [324](lgamma/README.md) | [3.27e+07](lgamma/README.md) | [324](lgamma/README.md) | [3.27e+07](lgamma/README.md) |
 | [lgamma_bw](lgamma_bw/README.md) | unary_bw | [5.57e+05](lgamma_bw/README.md) | [3.66e+17](lgamma_bw/README.md) | [5.57e+05](lgamma_bw/README.md) | [3.66e+17](lgamma_bw/README.md) |
