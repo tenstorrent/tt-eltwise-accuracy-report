@@ -90,7 +90,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `n=1` | 1.1754944e-38 | -inf | -inf | agree |
 | `n=1` | -1.1754944e-38 | inf | inf | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `d80d9482a41` · ttnn `0.81.1` · run `20261107T024235`_
 
 ![ULP error — polygamma_bw n=1](../../../charts/wh/bf16/polygamma_bw_n1_ulp.svg)
 
