@@ -49,14 +49,14 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | Variant | x | device | golden |  |
 |---|---|---|---|---|
 | `default` | 0 | 1 | 1 | agree |
-| `default` | -0 | 0 | 1 | **differ** |
+| `default` | -0 | 1 | 1 | agree |
 | `default` | inf | 0 | 0 | agree |
 | `default` | -inf | 0 | 0 | agree |
 | `default` | nan | 0 | 0 | agree |
 | `default` | 1.1754944e-38 | 0 | 0 | agree |
 | `default` | -1.1754944e-38 | 0 | 0 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261121T024407`_
 
 ![ULP error — logical_not_ default](../../../charts/bh/bf16/logical_not__default_ulp.svg)
 
