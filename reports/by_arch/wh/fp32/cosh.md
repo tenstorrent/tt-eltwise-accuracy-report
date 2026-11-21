@@ -80,7 +80,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 1 | 1 | agree |
 | `default` | -1.1754944e-38 | 1 | 1 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261121T024358`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — cosh default](../../../charts/wh/fp32/cosh_default_ulp.svg)
 

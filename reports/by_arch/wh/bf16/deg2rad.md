@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 0 | 1.83671e-40 | **differ** |
 | `default` | -1.1754944e-38 | 0 | -1.83671e-40 | **differ** |
 
-_Measured on WORMHOLE_B0 · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261121T024358`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — deg2rad default](../../../charts/wh/bf16/deg2rad_default_ulp.svg)
 
