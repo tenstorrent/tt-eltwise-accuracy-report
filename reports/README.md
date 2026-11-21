@@ -23,16 +23,16 @@ Charts show ULP (units in last place) error across the full input range.
 |--------|-------|
 | Architectures measured | 2 |
 | Unique ops measured | 193 |
-| Blackhole (BH) bfloat16 ops | 193 |
-| Blackhole (BH) float32 ops | 192 |
-| Wormhole (WH) bfloat16 ops | 191 |
-| Wormhole (WH) float32 ops | 191 |
+| Blackhole (BH) bfloat16 ops | 192 |
+| Blackhole (BH) float32 ops | 191 |
+| Wormhole (WH) bfloat16 ops | 192 |
+| Wormhole (WH) float32 ops | 192 |
 
 ---
 
 ## Returning inf or zero where a value exists
 
-138 variants across 42 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
+136 variants across 42 ops. These carry no ULP — the reference is a number the dtype can hold and the device returned `inf` or `0`, so every accuracy figure beside them excludes the point. Worst share first.
 
 | Op | Parameters | Where | Points | Share |
 |---|---|---|---|---|
@@ -136,7 +136,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`atanh`](by_op/atanh/README.md) | `default` | bh bf16 | 2 of 32,256 | 0.0% |
 | [`atanh`](by_op/atanh/README.md) | `default` | wh bf16 | 2 of 32,256 | 0.0% |
 | [`asin`](by_op/asin/README.md) | `default` | bh bf16 | 2 of 32,258 | 0.0% |
-| [`asin`](by_op/asin/README.md) | `default` | wh bf16 | 2 of 32,258 | 0.0% |
 | [`i1`](by_op/i1/README.md) | `default` | bh bf16 | 4 of 65,024 | 0.0% |
 | [`i1`](by_op/i1/README.md) | `default` | wh bf16 | 4 of 65,024 | 0.0% |
 | [`atan_bw`](by_op/atan_bw/README.md) | `default` | bh bf16 | 2 of 48,386 | 0.0% |
@@ -150,7 +149,6 @@ Charts show ULP (units in last place) error across the full input range.
 | [`reciprocal`](by_op/reciprocal/README.md) | `default` | bh bf16 | 2 of 64,514 | 0.0% |
 | [`reciprocal`](by_op/reciprocal/README.md) | `default` | bh fp32 | 2 of 64,514 | 0.0% |
 | [`atan`](by_op/atan/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
-| [`atan`](by_op/atan/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`deg2rad`](by_op/deg2rad/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |
 | [`deg2rad`](by_op/deg2rad/README.md) | `default` | wh bf16 | 2 of 65,024 | 0.0% |
 | [`hardswish`](by_op/hardswish/README.md) | `default` | bh bf16 | 2 of 65,024 | 0.0% |

@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `value=2.0` | 1.1754944e-38 | 1.7014118e+38 | 1.7014118e+38 | agree |
 | `value=2.0` | -1.1754944e-38 | -1.7014118e+38 | -1.7014118e+38 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261121T024358`_
 
 ![ULP error — rdiv value=2.0](../../../charts/wh/fp32/rdiv_value2.0_ulp.svg)
 

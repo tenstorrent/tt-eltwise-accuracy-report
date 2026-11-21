@@ -22,7 +22,7 @@ Total: 193 ops measured
 | [asin_bw](asin_bw/README.md) | unary_bw | [2.7](asin_bw/README.md) | [609](asin_bw/README.md) | [2.7](asin_bw/README.md) | [609](asin_bw/README.md) |
 | [asinh](asinh/README.md) | unary | [1.32](asinh/README.md) | [1.72](asinh/README.md) | [1.32](asinh/README.md) | [1.64](asinh/README.md) |
 | [asinh_bw](asinh_bw/README.md) | unary_bw | [1.2](asinh_bw/README.md) | [1.98](asinh_bw/README.md) | [1.2](asinh_bw/README.md) | [1.98](asinh_bw/README.md) |
-| [atan](atan/README.md) | unary | [0.527](atan/README.md) | [2.34](atan/README.md) | [0.527](atan/README.md) | [2.34](atan/README.md) |
+| [atan](atan/README.md) | unary | [0.5](atan/README.md) | [2.34](atan/README.md) | [0.527](atan/README.md) | [2.34](atan/README.md) |
 | [atan2](atan2/README.md) | binary | [200](atan2/README.md) | [1.32e+07](atan2/README.md) | [200](atan2/README.md) | [1.32e+07](atan2/README.md) |
 | [atan_bw](atan_bw/README.md) | unary_bw | [2.23](atan_bw/README.md) | [2.8](atan_bw/README.md) | [2.23](atan_bw/README.md) | [9.02e+04](atan_bw/README.md) |
 | [atanh](atanh/README.md) | unary | [2.08](atanh/README.md) | [3.11](atanh/README.md) | [2.08](atanh/README.md) | [2.97](atanh/README.md) |
@@ -36,7 +36,7 @@ Total: 193 ops measured
 | [clamp_bw](clamp_bw/README.md) | ternary_bw | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) | [0](clamp_bw/README.md) |
 | [clip](clip/README.md) | unary | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) | [0](clip/README.md) |
 | [clip_bw](clip_bw/README.md) | ternary_bw | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) | [0](clip_bw/README.md) |
-| [composite_example](composite_example/README.md) | unary | — | — | [0](composite_example/README.md) | [6.55e+04](composite_example/README.md) |
+| [composite_example](composite_example/README.md) | unary | [0](composite_example/README.md) | [6.55e+04](composite_example/README.md) | — | — |
 | [cos](cos/README.md) | unary | [0.552](cos/README.md) | [1.34e+08](cos/README.md) | [0.552](cos/README.md) | [1.34e+08](cos/README.md) |
 | [cos_bw](cos_bw/README.md) | unary_bw | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) | [2.09e+42](cos_bw/README.md) | [8.59e+51](cos_bw/README.md) |
 | [cosh](cosh/README.md) | unary | [0.5](cosh/README.md) | [1.35](cosh/README.md) | [0.501](cosh/README.md) | [1.35](cosh/README.md) |
