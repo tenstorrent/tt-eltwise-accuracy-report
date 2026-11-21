@@ -48,15 +48,15 @@ _Checked only where the reference is itself ordered, and never across a disconti
 
 | Variant | x | device | golden |  |
 |---|---|---|---|---|
-| `exponent=2.0` | 0 | inf | 0 | **differ** |
-| `exponent=2.0` | -0 | inf | -0 | **differ** |
+| `exponent=2.0` | 0 | 0 | 0 | agree |
+| `exponent=2.0` | -0 | 0 | -0 | **differ** |
 | `exponent=2.0` | inf | inf | inf | agree |
-| `exponent=2.0` | -inf | inf | inf | agree |
+| `exponent=2.0` | -inf | -inf | -inf | agree |
 | `exponent=2.0` | nan | inf | nan | **differ** |
 | `exponent=2.0` | 1.1754944e-38 | 2.3509887e-38 | 2.3509887e-38 | agree |
-| `exponent=2.0` | -1.1754944e-38 | inf | inf | agree |
+| `exponent=2.0` | -1.1754944e-38 | -2.3509887e-38 | -2.3509887e-38 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261121T024232`_
 
 ![ULP error — pow_bw exponent=2.0](../../../charts/bh/bf16/pow_bw_exponent2.0_ulp.svg)
 
