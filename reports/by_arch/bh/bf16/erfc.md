@@ -81,7 +81,7 @@ _Worst violations — the device output moved against the reference's own direct
 | `default` | 1.1754944e-38 | 0.99609375 | 1 | **differ** |
 | `default` | -1.1754944e-38 | 1 | 1 | agree |
 
-_Measured on BLACKHOLE · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261128T024431`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ![ULP error — erfc default](../../../charts/bh/bf16/erfc_default_ulp.svg)
 
