@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `beta=50.0` | 1.1754944e-38 | 0 | 1.1754944e-38 | **differ** |
 | `beta=50.0` | -1.1754944e-38 | 0 | -1.1754944e-38 | **differ** |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261128T024431`_
 
 ![ULP error — softcap beta=50.0](../../../charts/bh/bf16/softcap_beta50.0_ulp.svg)
 

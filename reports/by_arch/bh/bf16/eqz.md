@@ -56,7 +56,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 0 | 0 | agree |
 | `default` | -1.1754944e-38 | 0 | 0 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on BLACKHOLE · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261128T024431`_
 
 ![ULP error — eqz default](../../../charts/bh/bf16/eqz_default_ulp.svg)
 
