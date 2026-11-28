@@ -91,7 +91,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `negative_slope=1.0` | 1.1754944e-38 | 1.1754944e-38 | 1.1754944e-38 | agree |
 | `negative_slope=1.0` | -1.1754944e-38 | -1.1754944e-38 | -1.1754944e-38 | agree |
 
-_Measured on WORMHOLE_B0 · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261128T024433`_
+> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
 
 ### `negative_slope=0.0`
 
