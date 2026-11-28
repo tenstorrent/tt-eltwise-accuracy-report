@@ -71,7 +71,7 @@ _Checked only where the reference is itself ordered, and never across a disconti
 | `default` | 1.1754944e-38 | 0.5 | 0.5 | agree |
 | `default` | -1.1754944e-38 | 0.5 | 0.5 | agree |
 
-> **Provenance unknown.** These figures predate run tracking. Re-measure to attribute them.
+_Measured on WORMHOLE_B0 · tt-metal `bfc3f70fd49` · ttnn `0.82.0` · run `20261128T024229`_
 
 ![ULP error — softplus_bw default](../../../charts/wh/bf16/softplus_bw_default_ulp.svg)
 
